@@ -1,0 +1,362 @@
+     1→// Ichidoki seed catalog — rebuilt with all anime
+     2→
+     3→export interface SeedAnime {
+     4→  malId: number; title: string; titleEnglish?: string; titleJapanese?: string;
+     5→  synopsis: string; poster: string; banner: string; trailer?: string;
+     6→  type: "TV" | "Movie" | "Special" | "OVA" | "ONA";
+     7→  status: "Finished Airing" | "Currently Airing" | "Not yet aired";
+     8→  score: number; scoredBy: number; rank: number; popularity: number; members: number;
+     9→  year: number; season: "winter" | "spring" | "summer" | "fall" | null;
+    10→  genres: string[]; studios: string[]; episodeCount: number; duration: string;
+    11→  rating: string; source: string; isFeatured?: boolean;
+    12→  episodeSources?: EpisodeSource[]; hasDub?: boolean;
+    13→  subtitlePattern?: string; localSubtitlePattern?: string;
+    14→}
+    15→
+    16→export interface EpisodeSource {
+    17→  startEp: number; endEp: number; collection: string;
+    18→  fileTemplate?: string; fileName?: string;
+    19→  needsProxy?: boolean; dualAudio?: boolean; audio?: "sub" | "dub" | "both";
+    20→  seasonMap?: { startEp: number; endEp: number; season: number }[];
+    21→}
+    22→
+    23→export const SEED_ANIME: SeedAnime[] = [
+    24→  // Frieren
+    25→  { malId: 52991, title: "Frieren: Beyond Journey's End", titleEnglish: "Frieren: Beyond Journey's End", titleJapanese: "葬送のフリーレン",
+    26→    synopsis: "During their decade-long quest to defeat the Demon King, the members of the hero's party forge bonds through adventures and battles. However, the time that Frieren spends with her comrades is equivalent to merely a fraction of her life. As the years pass, Frieren gradually realizes how her days in the hero's party truly impacted her.",
+    27→    poster: "https://cdn.myanimelist.net/images/anime/1015/138006l.webp", banner: "https://img.youtube.com/vi/ZEkwCGJ3o7M/maxresdefault.jpg",
+    28→    trailer: "ZEkwCGJ3o7M", type: "TV", status: "Finished Airing", score: 9.26, scoredBy: 906724, rank: 1, popularity: 103, members: 1470685,
+    29→    year: 2023, season: "fall", genres: ["Adventure", "Award Winning", "Drama", "Fantasy"], studios: ["Madhouse"],
+    30→    episodeCount: 28, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    31→    episodeSources: [{ startEp: 1, endEp: 28, collection: "frieren-beyond-journeys-end_1080p_2024", fileTemplate: "Frieren-Beyond-Journey's-End_S01E{ep:02}.mp4", audio: "sub" }],
+    32→  },
+    33→  // Steins;Gate
+    34→  { malId: 9253, title: "Steins;Gate", titleEnglish: "Steins;Gate", titleJapanese: "STEINS;GATE",
+    35→    synopsis: "Eccentric scientist Rintarou Okabe has a never-ending thirst for scientific exploration. Together with his ditzy but well-meaning friend Mayuri Shiina and his roommate Itaru Hashida, Okabe founds the Future Gadget Laboratory.",
+    36→    poster: "https://cdn.myanimelist.net/images/anime/1935/127974l.webp", banner: "https://img.youtube.com/vi/27OZc-ku6is/maxresdefault.jpg",
+    37→    trailer: "27OZc-ku6is", type: "TV", status: "Finished Airing", score: 9.07, scoredBy: 1528717, rank: 5, popularity: 14, members: 2829293,
+    38→    year: 2011, season: "spring", genres: ["Drama", "Sci-Fi", "Suspense"], studios: ["White Fox"],
+    39→    episodeCount: 24, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Visual novel", isFeatured: true,
+    40→    episodeSources: [
+    41→      { startEp: 1, endEp: 21, collection: "steinsgate_1.130209", fileTemplate: "Steins;Gate_-_{ep:02}_-Blu-Ray.mp4", audio: "sub" },
+    42→      { startEp: 22, endEp: 24, collection: "steins-gte", fileTemplate: "{ep}.mp4", audio: "sub" },
+    43→    ],
+    44→  },
+    45→  // Bleach TYBW
+    46→  { malId: 41467, title: "Bleach: Thousand-Year Blood War", titleEnglish: "Bleach: Thousand-Year Blood War", titleJapanese: "BLEACH 千年血戦篇",
+    47→    synopsis: "Substitute Soul Reaper Ichigo Kurosaki faces the return of Yhwach, an ancient Quincy king who seeks to reignite the historic blood feud between Soul Reaper and Quincy.",
+    48→    poster: "https://cdn.myanimelist.net/images/anime/1908/135431l.webp", banner: "https://img.youtube.com/vi/e8YBesRKq_U/maxresdefault.jpg",
+    49→    trailer: "e8YBesRKq_U", type: "TV", status: "Finished Airing", score: 8.98, scoredBy: 387868, rank: 15, popularity: 332, members: 715955,
+    50→    year: 2022, season: "fall", genres: ["Action", "Adventure", "Supernatural"], studios: ["Studio Pierrot"],
+    51→    episodeCount: 13, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    52→    episodeSources: [
+    53→      { startEp: 1, endEp: 13, collection: "BleachTYBW1-28", fileTemplate: "Bleach TYBW Episode 00{ep:02}.mp4", audio: "dub" },
+    54→    ], hasDub: true,
+    55→  },
+    56→  // Bleach TYBW Separation
+    57→  { malId: 53998, title: "Bleach: Thousand-Year Blood War - The Separation", titleEnglish: "Bleach: Thousand-Year Blood War - The Separation", titleJapanese: "BLEACH 千年血戦篇-訣別譚-",
+    58→    synopsis: "After a brutal surprise attack by the forces of Quincy King Yhwach, the resident Reapers of the Soul Society lick their wounds and mourn their losses.",
+    59→    poster: "https://cdn.myanimelist.net/images/anime/1164/138058l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1164/138058l.jpg",
+    60→    type: "TV", status: "Finished Airing", score: 8.7, scoredBy: 234567, rank: 115, popularity: 250, members: 456789,
+    61→    year: 2023, season: "summer", genres: ["Action", "Adventure", "Supernatural"], studios: ["Studio Pierrot"],
+    62→    episodeCount: 13, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga",
+    63→    episodeSources: [
+    64→      { startEp: 1, endEp: 13, collection: "BleachTYBW1-28", fileTemplate: "Bleach TYBW Episode 00{ep:02}.mp4", audio: "dub" },
+    65→    ], hasDub: true,
+    66→  },
+    67→  // Bleach TYBW Conflict (Cour 3)
+    68→  { malId: 56784, title: "Bleach: Thousand-Year Blood War - The Conflict", titleEnglish: "Bleach: Thousand-Year Blood War - The Conflict", titleJapanese: "BLEACH 千年血戦篇-相剋譚-",
+    69→    synopsis: "After an awe-inspiring battle with Ichibei Hyousube, the powerful Yhwach moves into the final stage of his master plan to slay the Soul King.",
+    70→    poster: "https://cdn.myanimelist.net/images/anime/1595/144074l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1595/144074l.jpg",
+    71→    type: "TV", status: "Finished Airing", score: 8.68, scoredBy: 163936, rank: 74, popularity: 923, members: 306368,
+    72→    year: 2024, season: "fall", genres: ["Action", "Adventure", "Supernatural"], studios: ["Pierrot Films"],
+    73→    episodeCount: 14, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga",
+    74→    episodeSources: [
+    75→      { startEp: 1, endEp: 9, collection: "BleachTYBW1-28", fileTemplate: "Bleach TYBW Episode 00{ep:02}.mp4", audio: "dub" },
+    76→      { startEp: 1, endEp: 14, collection: "bleach-sennen-kessen-hen-part-3-japanese-tv-2024", fileName: "BLEACH Sennen Kessen-hen Soukoku-tan - 01 (TVA 1280x720 x264 AAC).mp4", audio: "sub" },
+    77→    ], hasDub: true,
+    78→  },
+    79→  // Bleach TYBW Calamity (upcoming)
+    80→  { malId: 60636, title: "Bleach: Thousand-Year Blood War - The Calamity", titleEnglish: "Bleach: Thousand-Year Blood War - The Calamity", titleJapanese: "BLEACH 千年血戦篇-禍相譚-",
+    81→    synopsis: "Final part of Bleach: Sennen Kessen-hen.", poster: "https://cdn.myanimelist.net/images/anime/1275/158595l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1275/158595l.jpg",
+    82→    type: "TV", status: "Not yet aired", score: 0, scoredBy: 0, rank: 0, popularity: 380, members: 23456,
+    83→    year: 2026, season: "summer", genres: ["Action", "Adventure", "Supernatural"], studios: ["Pierrot Films"],
+    84→    episodeCount: 12, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", episodeSources: [],
+    85→  },
+    86→  // Bleach 2004
+    87→  { malId: 269, title: "Bleach", titleEnglish: "Bleach", titleJapanese: "BLEACH - ブリーチ -",
+    88→    synopsis: "Ichigo Kurosaki is an ordinary high schooler—until his family is attacked by a Hollow. He meets a Soul Reaper named Rukia Kuchiki, and becomes a Soul Reaper himself.",
+    89→    poster: "https://cdn.myanimelist.net/images/anime/1541/147774l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1541/147774l.jpg",
+    90→    type: "TV", status: "Finished Airing", score: 8.0, scoredBy: 1270540, rank: 738, popularity: 33, members: 2224150,
+    91→    year: 2004, season: "fall", genres: ["Action", "Adventure", "Supernatural"], studios: ["Studio Pierrot"],
+    92→    episodeCount: 366, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    93→    episodeSources: [{
+    94→      startEp: 1, endEp: 366, collection: "bl35ch-s35s0ns-{season}",
+    95→      fileTemplate: "Bleach Temporada {season}/Bleach (Dub) Episode {seasonEp}.mp4", audio: "dub",
+    96→      seasonMap: [
+    97→        { startEp: 1, endEp: 20, season: 1 }, { startEp: 21, endEp: 41, season: 2 }, { startEp: 42, endEp: 63, season: 3 },
+    98→        { startEp: 64, endEp: 91, season: 4 }, { startEp: 92, endEp: 109, season: 5 }, { startEp: 110, endEp: 131, season: 6 },
+    99→        { startEp: 132, endEp: 151, season: 7 }, { startEp: 152, endEp: 167, season: 8 }, { startEp: 168, endEp: 189, season: 9 },
+   100→        { startEp: 190, endEp: 205, season: 10 }, { startEp: 206, endEp: 212, season: 11 }, { startEp: 213, endEp: 229, season: 12 },
+   101→        { startEp: 230, endEp: 265, season: 13 }, { startEp: 266, endEp: 316, season: 14 }, { startEp: 317, endEp: 342, season: 15 },
+   102→        { startEp: 343, endEp: 366, season: 16 },
+   103→      ],
+   104→    }], hasDub: true,
+   105→  },
+   106→  // Frieren S2
+   107→  { malId: 59978, title: "Frieren: Beyond Journey's End Season 2", titleEnglish: "Frieren: Beyond Journey's End Season 2", titleJapanese: "葬送のフリーレン 第2クール",
+   108→    synopsis: "Following the First-Class Mage Exam, the trio gains access to the dangerous Northern Plateau.", poster: "https://cdn.myanimelist.net/images/anime/1921/154528l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1921/154528l.jpg",
+   109→    type: "TV", status: "Finished Airing", score: 8.86, scoredBy: 87432, rank: 28, popularity: 121, members: 234567,
+   110→    year: 2026, season: "winter", genres: ["Adventure", "Drama", "Fantasy"], studios: ["Madhouse"],
+   111→    episodeCount: 24, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+   112→    episodeSources: [{ startEp: 1, endEp: 24, collection: "frieren-beyond-journeys-end_1080p_2024", fileTemplate: "Frieren-Beyond-Journey's-End_S01E{ep:02}.mp4", audio: "sub" }],
+   113→  },
+   114→  // Frieren Golden Land Arc (upcoming)
+   115→  { malId: 63816, title: "Frieren: Beyond Journey's End - Golden Land Arc", titleEnglish: "Frieren: Beyond Journey's End - Golden Land Arc", titleJapanese: "葬送のフリーレン 黄金郵編",
+   116→    synopsis: "Third season of Sousou no Frieren.", poster: "https://cdn.myanimelist.net/images/anime/1619/156313l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1619/156313l.jpg",
+   117→    type: "TV", status: "Not yet aired", score: 0, scoredBy: 0, rank: 0, popularity: 400, members: 12345,
+   118→    year: 2027, season: "fall", genres: ["Adventure", "Drama", "Fantasy"], studios: ["Madhouse"],
+   119→    episodeCount: 12, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", episodeSources: [],
+   120→  },
+   121→  // JJK S1
+   122→  { malId: 40748, title: "Jujutsu Kaisen", titleEnglish: "Jujutsu Kaisen", titleJapanese: "呪術廻戦",
+   123→    synopsis: "Idly indulging in baseless paranormal activities with the Occult Club, high schooler Yuuji Itadori spends his days at his grandfather's bedside.",
+   124→    poster: "https://cdn.myanimelist.net/images/anime/1171/109222l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1171/109222l.jpg",
+   125→    type: "TV", status: "Finished Airing", score: 8.5, scoredBy: 2022419, rank: 166, popularity: 11, members: 3068158,
+   126→    year: 2020, season: "fall", genres: ["Action", "Award Winning", "Supernatural"], studios: ["MAPPA"],
+   127→    episodeCount: 24, duration: "23 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+   128→    episodeSources: [{ startEp: 1, endEp: 24, collection: "jujutsu-kaisen-season-1-episode-17-eng.dub", fileTemplate: "JUJUTSU KAISEN Season 1 Episode {ep} eng.dub.mp4", audio: "dub" }],
+   129→    hasDub: true,
+   130→  },
+   131→  // JJK S2
+   132→  { malId: 51009, title: "Jujutsu Kaisen Season 2", titleEnglish: "Jujutsu Kaisen Season 2", titleJapanese: "呪術廻戦 第2期",
+   133→    synopsis: "The second season of Jujutsu Kaisen covering the Hidden Inventory and Shibuya Incident arcs.",
+   134→    poster: "https://cdn.myanimelist.net/images/anime/1792/138022l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1792/138022l.jpg",
+   135→    type: "TV", status: "Finished Airing", score: 8.7, scoredBy: 765432, rank: 110, popularity: 18, members: 1987654,
+   136→    year: 2023, season: "summer", genres: ["Action", "Supernatural"], studios: ["MAPPA"],
+   137→    episodeCount: 23, duration: "23 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+   138→    episodeSources: [
+   139→      { startEp: 1, endEp: 3, collection: "gofaku.com-jjk-s-2-03-720p", fileTemplate: "Gofaku.com_JJK-s2_{ep:02}_720p.mp4", audio: "sub" },
+   140→      { startEp: 1, endEp: 23, collection: "jujutsu-kaisen-s-02-e-21-1080p-bd-av-1-dual-audio.mkv", fileTemplate: "Jujutsu Kaisen - S02E{ep:02} [1080p BD AV1][Dual Audio].mkv.mp4", needsProxy: true, audio: "both", dualAudio: true },
+   141→    ], hasDub: true,
+   142→  },
+   143→  // JJK Culling Game (upcoming)
+   144→  { malId: 57658, title: "Jujutsu Kaisen: The Culling Game Part 1", titleEnglish: "Jujutsu Kaisen: The Culling Game Part 1", titleJapanese: "呪術廻戦 死滅回遊 前編",
+   145→    synopsis: "Kenjaku has initiated the next step in his plan, releasing curses across Japan.", poster: "https://cdn.myanimelist.net/images/anime/1659/154920l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1659/154920l.jpg",
+   146→    type: "TV", status: "Finished Airing", score: 8.61, scoredBy: 12345, rank: 200, popularity: 350, members: 56789,
+   147→    year: 2026, season: "winter", genres: ["Action", "Supernatural"], studios: ["MAPPA"],
+   148→    episodeCount: 12, duration: "23 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", episodeSources: [],
+   149→  },
+   150→  // Chainsaw Man
+   151→  { malId: 44511, title: "Chainsaw Man", titleEnglish: "Chainsaw Man", titleJapanese: "チェンソーマン",
+   152→    synopsis: "Denji has a simple dream—to live a happy and peaceful life. As a Devil Hunter, Denji works alongside Pochita to pay off his dead father's yakuza debts.",
+   153→    poster: "https://cdn.myanimelist.net/images/anime/1806/126216l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1806/126216l.jpg",
+   154→    type: "TV", status: "Finished Airing", score: 8.42, scoredBy: 1162472, rank: 206, popularity: 47, members: 1992701,
+   155→    year: 2022, season: "fall", genres: ["Action", "Fantasy"], studios: ["MAPPA"],
+   156→    episodeCount: 12, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+   157→    localSubtitlePattern: "/subtitles/chainsaw_e{ep}.vtt",
+   158→    episodeSources: [
+   159→      { startEp: 1, endEp: 12, collection: "hi-10-chainsaw-man-s-1-1080p", fileTemplate: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_{ep:02}_(1080p)_(GJM)_(62A0D357).mp4", audio: "sub" },
+   160→      { startEp: 1, endEp: 12, collection: "10.-bruised-battered", fileTemplate: "Chainsaw Man Season 1/{ep:02}. Dog & Chainsaw.mp4", audio: "dub" },
+   161→    ], hasDub: true,
+   162→  },
+   163→  // Chainsaw Man Movie: Reze Arc
+   164→  { malId: 57555, title: "Chainsaw Man – The Movie: Reze Arc", titleEnglish: "Chainsaw Man – The Movie: Reze Arc", titleJapanese: "劇場版 チェンソーマン レゼ篇",
+   165→    synopsis: "Denji yearns for a normal life. When a mysterious girl named Reze appears, Denji is captivated by her charm.",
+   166→    poster: "https://cdn.myanimelist.net/images/anime/1763/150638l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1763/150638l.jpg",
+   167→    type: "Movie", status: "Finished Airing", score: 9.06, scoredBy: 328807, rank: 6, popularity: 519, members: 509373,
+   168→    year: 2025, season: null, genres: ["Action", "Fantasy"], studios: ["MAPPA"],
+   169→    episodeCount: 1, duration: "1 hr 39 min", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+   170→    episodeSources: [
+   171→      { startEp: 1, endEp: 1, collection: "rezearc", fileName: "csmrezearc.mp4", audio: "sub" },
+   172→      { startEp: 1, endEp: 1, collection: "sam-chainsaw-man-the-movie-reze-arc-2025-web-1080p-eac-3-c-24-c-4-dd-1.-1080", fileName: "[sam] Chainsaw Man - The Movie Reze Arc (2025) [WEB 1080p EAC-3] [C24C4DD1].1080.mp4", audio: "dub" },
+   173→    ], hasDub: true,
+   174→  },
+   175→  // Gachiakuta
+   176→  { malId: 59062, title: "Gachiakuta", titleEnglish: "Gachiakuta", titleJapanese: "ガチアクタ",
+   177→    synopsis: "Rudo lives in the slums. When his adoptive father is murdered, Rudo is thrown into the Pit where he joins the Cleaners.",
+   178→    poster: "https://cdn.myanimelist.net/images/anime/1682/150432l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1682/150432l.jpg",
+   179→    type: "TV", status: "Finished Airing", score: 8.21, scoredBy: 232927, rank: 428, popularity: 497, members: 521210,
+   180→    year: 2025, season: "summer", genres: ["Action", "Fantasy"], studios: ["Bones Film"],
+   181→    episodeCount: 24, duration: "23 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+   182→    episodeSources: [
+   183→      { startEp: 1, endEp: 1, collection: "gachiakuta.-s-01-e-01.-the.-sphere.-1080p.-cr.-web-dl.-dual.-aac-2.0.-h.-264-varyg.-720", fileName: "Gachiakuta.S01E01.The.Sphere.1080p.CR.WEB-DL.DUAL.AAC2.0.H.264-VARYG.720.mp4", audio: "both", dualAudio: true },
+   184→      { startEp: 2, endEp: 12, collection: "gachiakuta-02-720p-x-265-samehadaku.-care", fileTemplate: "Gachiakuta-{ep:02}-720p-[x265]-SAMEHADAKU.CARE.mp4", audio: "sub" },
+   185→      { startEp: 2, endEp: 24, collection: "gachiakuta_202601", fileTemplate: "Gachiakuta Dubbed/ep {ep:02}.mp4", audio: "sub" },
+   186→    ],
+   187→  },
+   188→  // Gachiakuta S2 (upcoming)
+   189→  { malId: 63147, title: "Gachiakuta Season 2", titleEnglish: "Gachiakuta Season 2", titleJapanese: "ガチアクタ 2期",
+   190→    synopsis: "Second season of Gachiakuta.", poster: "https://cdn.myanimelist.net/images/anime/1224/154534l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1224/154534l.jpg",
+   191→    type: "TV", status: "Not yet aired", score: 0, scoredBy: 0, rank: 0, popularity: 3050, members: 68316,
+   192→    year: 2027, season: null, genres: ["Action", "Fantasy"], studios: ["Bones Film"],
+   193→    episodeCount: 12, duration: "23 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", episodeSources: [],
+   194→  },
+   195→  // Smoking Behind the Supermarket
+   196→  { malId: 62076, title: "Smoking Behind the Supermarket with You", titleEnglish: "Smoking Behind the Supermarket with You", titleJapanese: "スーパーの裏でヤニ吸うふたり",
+   197→    synopsis: "The sole thing that gets Sasaki through his soul-sucking job is a cheerful smile from Yamada. After a grueling day, he meets Tayama behind the store.",
+   198→    poster: "https://cdn.myanimelist.net/images/anime/1768/156339l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1768/156339l.jpg",
+   199→    type: "TV", status: "Currently Airing", score: 8.51, scoredBy: 26973, rank: 162, popularity: 1951, members: 135442,
+   200→    year: 2026, season: "summer", genres: ["Romance"], studios: ["Asahi Production"],
+   201→    episodeCount: 12, duration: "23 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+   202→    localSubtitlePattern: "/subtitles/smoking_e{ep}.vtt",
+   203→    episodeSources: [
+   204→      { startEp: 1, endEp: 1, collection: "smoking-behind-the-supermarket-with-you-e1-ae27fe", fileName: "smoking behind the supermarket with you E1.mp4", audio: "sub" },
+   205→      { startEp: 2, endEp: 2, collection: "smoking-behind-the-supermarket-with-you-e2-0b8faa", fileName: "smoking behind the supermarket with you E2.mp4", audio: "sub" },
+   206→      { startEp: 3, endEp: 3, collection: "smoking-behind-the-supermarket-with-you-e3-53f07a", fileName: "smoking behind the supermarket with you E3.mp4", audio: "sub" },
+   207→      { startEp: 4, endEp: 4, collection: "smoking-behind-the-supermarket-with-you-e4-9cbc99", fileName: "smoking behind the supermarket with you E4.mp4", audio: "sub" },
+   208→      { startEp: 5, endEp: 5, collection: "smoking-behind-the-supermarket-with-you-e5-8f67e4", fileName: "smoking behind the supermarket with you E5.mp4", audio: "sub" },
+   209→      { startEp: 6, endEp: 6, collection: "smoking-behind-the-supermarket-with-you-e6-7488be", fileName: "smoking behind the supermarket with you E6.mp4", audio: "sub" },
+   210→      { startEp: 7, endEp: 7, collection: "smoking-behind-the-supermarket-with-you-e7-7dd743", fileName: "smoking behind the supermarket with you E7.mp4", audio: "sub" },
+   211→      { startEp: 8, endEp: 8, collection: "smoking-behind-the-supermarket-with-you-e8-79ae59", fileName: "smoking behind the supermarket with you E8.mp4", audio: "sub" },
+   212→      { startEp: 9, endEp: 9, collection: "smoking-behind-the-supermarket-with-you-e9-6c187a", fileName: "smoking behind the supermarket with you E9.mp4", audio: "sub" },
+   213→      { startEp: 10, endEp: 10, collection: "smoking-behind-the-supermarket-with-you-e10-50fe59", fileName: "smoking behind the supermarket with you E10.mp4", audio: "sub" },
+   214→      { startEp: 11, endEp: 11, collection: "smoking-behind-the-supermarket-with-you-e11-ff90a6", fileName: "smoking behind the supermarket with you E11.mp4", audio: "sub" },
+   215→      { startEp: 12, endEp: 12, collection: "smoking-behind-the-supermarket-with-you-e12-3874fb", fileName: "smoking behind the supermarket with you E12.mp4", audio: "sub" },
+   216→    ],
+   217→  },
+   218→  // Cowboy Bebop
+   219→  { malId: 1, title: "Cowboy Bebop", titleEnglish: "Cowboy Bebop", titleJapanese: "カウボーイビバップ",
+   220→    synopsis: "Crime is timeless. By the year 2071, humanity has expanded across the galaxy. Bounty hunters known as Cowboys chase criminals across the stars.",
+   221→    poster: "https://cdn.myanimelist.net/images/anime/4/19644l.jpg", banner: "https://cdn.myanimelist.net/images/anime/4/19644l.jpg",
+   222→    type: "TV", status: "Finished Airing", score: 8.75, scoredBy: 980000, rank: 55, popularity: 16, members: 2000000,
+   223→    year: 1998, season: "spring", genres: ["Action", "Award Winning", "Sci-Fi"], studios: ["Sunrise"],
+   224→    episodeCount: 26, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Original", isFeatured: true,
+   225→    episodeSources: [{ startEp: 1, endEp: 26, collection: "db-bebop-of-the-cowboys-1080p", fileTemplate: "[DB]Cowboy Bebop_-_{ep:02}_(Dual Audio_10bit_BD1080p_x265).mp4", audio: "dub" }],
+   226→    hasDub: true,
+   227→  },
+   228→  // Cyberpunk Edgerunners
+   229→  { malId: 42310, title: "Cyberpunk: Edgerunners", titleEnglish: "Cyberpunk: Edgerunners", titleJapanese: "サイバーパンク エッジランナーズ",
+   230→    synopsis: "Dreams are doomed to die in Night City. David Martinez enters the dangerous world of edgerunners.",
+   231→    poster: "https://cdn.myanimelist.net/images/anime/1818/126435l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1818/126435l.jpg",
+   232→    type: "TV", status: "Finished Airing", score: 8.62, scoredBy: 500000, rank: 60, popularity: 100, members: 800000,
+   233→    year: 2022, season: "fall", genres: ["Action", "Sci-Fi"], studios: ["Trigger"],
+   234→    episodeCount: 10, duration: "25 min per ep", rating: "R+ - Mild Nudity", source: "Game", isFeatured: true,
+   235→    episodeSources: [
+   236→      { startEp: 1, endEp: 10, collection: "1-cybpnk", fileTemplate: "Cyberpunk.Edgerunners.S01E{ep:02}.mp4", audio: "sub" },
+   237→      { startEp: 1, endEp: 1, collection: "CyberpunkEdge", fileName: "S01-E01 - Let You Down.mp4", audio: "dub" },
+   238→      { startEp: 2, endEp: 2, collection: "CyberpunkEdge", fileName: "S01-E02 - Like A Boy.mp4", audio: "dub" },
+   239→      { startEp: 3, endEp: 3, collection: "CyberpunkEdge", fileName: "S01-E03 - Smooth Criminal.mp4", audio: "dub" },
+   240→      { startEp: 4, endEp: 4, collection: "CyberpunkEdge", fileName: "S01-E04 - Lucky You.mp4", audio: "dub" },
+   241→      { startEp: 5, endEp: 5, collection: "CyberpunkEdge", fileName: "S01-E05 - All Eyez On Me.mp4", audio: "dub" },
+   242→      { startEp: 6, endEp: 6, collection: "CyberpunkEdge", fileName: "S01-E06 - Girl On Fire.mp4", audio: "dub" },
+   243→      { startEp: 7, endEp: 7, collection: "CyberpunkEdge", fileName: "S01-E07 - Stronger.mp4", audio: "dub" },
+   244→      { startEp: 8, endEp: 8, collection: "CyberpunkEdge", fileName: "S01-E08 - Stay.mp4", audio: "dub" },
+   245→      { startEp: 9, endEp: 9, collection: "CyberpunkEdge", fileName: "S01-E09 - Humanity.mp4", audio: "dub" },
+   246→      { startEp: 10, endEp: 10, collection: "CyberpunkEdge", fileName: "S01-E10 - My Moon My Man.mp4", audio: "dub" },
+   247→    ], hasDub: true,
+   248→  },
+   249→  // NGE
+   250→  { malId: 30, title: "Neon Genesis Evangelion", titleEnglish: "Neon Genesis Evangelion", titleJapanese: "新世紀エヴァンゲリオン",
+   251→    synopsis: "In the year 2015, Shinji Ikari is summoned to pilot Evangelion Unit-01 against the Angels.",
+   252→    poster: "https://cdn.myanimelist.net/images/anime/1314/108941l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1314/108941l.jpg",
+   253→    type: "TV", status: "Finished Airing", score: 8.48, scoredBy: 1500000, rank: 180, popularity: 8, members: 2200000,
+   254→    year: 1995, season: "fall", genres: ["Award Winning", "Action", "Drama", "Suspense"], studios: ["Gainax"],
+   255→    episodeCount: 26, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Original", isFeatured: true,
+   256→    episodeSources: [{ startEp: 1, endEp: 26, collection: "neon-genesis-evangelion-dual-audio", fileTemplate: "Neon Genesis Evangelion - {ep:02} - Angel Attacks.mp4", audio: "both", dualAudio: true }],
+   257→    hasDub: true,
+   258→  },
+   259→  // End of Evangelion
+   260→  { malId: 32, title: "The End of Evangelion", titleEnglish: "Neon Genesis Evangelion: The End of Evangelion", titleJapanese: "新世紀エヴァンゲリオン劇場版 Air/まごころを、君に",
+   261→    synopsis: "SEELE orders an all-out attack on Nerv headquarters as Shinji spirals into despair.",
+   262→    poster: "https://cdn.myanimelist.net/images/anime/1404/98182l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1404/98182l.jpg",
+   263→    type: "Movie", status: "Finished Airing", score: 8.57, scoredBy: 400000, rank: 50, popularity: 200, members: 600000,
+   264→    year: 1997, season: null, genres: ["Award Winning", "Action", "Drama", "Suspense"], studios: ["Gainax"],
+   265→    episodeCount: 1, duration: "1 hr 26 min", rating: "R - 17+ (violence & profanity)", source: "Original", isFeatured: true,
+   266→    episodeSources: [{ startEp: 1, endEp: 1, collection: "eva-complete-series-movies-bd-1080p", fileName: "Neon Genesis Evangelion - The End of Evangelion (1995) [1080p x265 HEVC 10bit BluRay Dual Audio AAC 5.1] [Prof].mp4", audio: "both", dualAudio: true }],
+   267→    hasDub: true,
+   268→  },
+   269→  // Eva 1.0
+   270→  { malId: 2759, title: "Evangelion: 1.0 You Are (Not) Alone", titleEnglish: "Evangelion: 1.0 You Are (Not) Alone", titleJapanese: "ヱヴァンゲリヲン新劇場版:序",
+   271→    synopsis: "The first Rebuild of Evangelion film retelling the beginning of the series.",
+   272→    poster: "https://cdn.myanimelist.net/images/anime/7/74975l.jpg", banner: "https://cdn.myanimelist.net/images/anime/7/74975l.jpg",
+   273→    type: "Movie", status: "Finished Airing", score: 8.0, scoredBy: 350000, rank: 350, popularity: 300, members: 500000,
+   274→    year: 2007, season: null, genres: ["Action", "Award Winning", "Drama", "Sci-Fi"], studios: ["Gainax"],
+   275→    episodeCount: 1, duration: "1 hr 41 min", rating: "R - 17+ (violence & profanity)", source: "Original", isFeatured: true,
+   276→    episodeSources: [{ startEp: 1, endEp: 1, collection: "eva-complete-series-movies-bd-1080p", fileName: "Evangelion_1.11_You_Are_(Not)_Alone_(2009)_[1080p,BluRay,x264,DTS-ES]_-_THORA/Evangelion_1.11_You_Are_(Not)_Alone_(2009)_[1080p,BluRay,x264,DTS-ES]_-_THORA.mp4", audio: "sub" }],
+   277→  },
+   278→  // Eva 3.0+1.0
+   279→  { malId: 3786, title: "Evangelion: 3.0+1.0 Thrice Upon a Time", titleEnglish: "Evangelion: 3.0+1.0 Thrice Upon a Time", titleJapanese: "シン・エヴァンゲリオン劇場版:||",
+   280→    synopsis: "The final installment of the Rebuild of Evangelion tetralogy.",
+   281→    poster: "https://cdn.myanimelist.net/images/anime/1422/113533l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1422/113533l.jpg",
+   282→    type: "Movie", status: "Finished Airing", score: 8.58, scoredBy: 300000, rank: 45, popularity: 400, members: 400000,
+   283→    year: 2021, season: null, genres: ["Action", "Award Winning", "Drama", "Sci-Fi"], studios: ["Studio Khara"],
+   284→    episodeCount: 1, duration: "2 hr 35 min", rating: "R - 17+ (violence & profanity)", source: "Original", isFeatured: true,
+   285→    episodeSources: [{ startEp: 1, endEp: 1, collection: "eva-complete-series-movies-bd-1080p", fileName: "Evangelion.3.0+1.01.Thrice.Upon.a.Time.2021.1080p.AMZN.WEB-DL.DD+.5.1.H.264-RMB.mp4", audio: "sub" }],
+   286→  },
+   287→  // A Silent Voice
+   288→  { malId: 28851, title: "A Silent Voice", titleEnglish: "A Silent Voice", titleJapanese: "聲の形",
+   289→    synopsis: "As a wild youth, Shouya Ishida bullied the deaf Shouko Nishimiya. Years later, he tracks her down to make amends.",
+   290→    poster: "https://cdn.myanimelist.net/images/anime/1122/96435l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1122/96435l.jpg",
+   291→    type: "Movie", status: "Finished Airing", score: 8.93, scoredBy: 600000, rank: 10, popularity: 40, members: 900000,
+   292→    year: 2016, season: null, genres: ["Award Winning", "Drama", "Romance"], studios: ["Kyoto Animation"],
+   293→    episodeCount: 1, duration: "2 hr 10 min", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+   294→    episodeSources: [{ startEp: 1, endEp: 1, collection: "db-a-silent-voice-dual-audio-10bit-bd-1080p-x-265", fileName: "[DB]A Silent Voice_-_(Dual Audio_10bit_BD1080p_x265).mp4", audio: "sub" }],
+   295→  },
+   296→  // Your Name
+   297→  { malId: 32281, title: "Your Name", titleEnglish: "Your Name.", titleJapanese: "君の名は。",
+   298→    synopsis: "Mitsuha and Taki mysteriously swap bodies and must navigate each other's lives.",
+   299→    poster: "https://cdn.myanimelist.net/images/anime/5/87048l.jpg", banner: "https://cdn.myanimelist.net/images/anime/5/87048l.jpg",
+   300→    type: "Movie", status: "Finished Airing", score: 8.82, scoredBy: 1000000, rank: 14, popularity: 7, members: 2000000,
+   301→    year: 2016, season: null, genres: ["Award Winning", "Drama", "Supernatural"], studios: ["CoMix Wave Films"],
+   302→    episodeCount: 1, duration: "1 hr 46 min", rating: "PG-13 - Teens 13 or older", source: "Original", isFeatured: true,
+   303→    episodeSources: [{ startEp: 1, endEp: 1, collection: "your.-name.-2016.-1.8-gb.-1080p.-dual.-audio.-hin-eng.-vegamovies.-nl", fileName: "Your.Name.(2016).1.8GB.1080p.Dual.Audio.(Hin-Eng).Vegamovies.NL.mp4", audio: "both", dualAudio: true }],
+   304→    hasDub: true,
+   305→  },
+   306→];
+   307→
+   308→export function resolveEpisodeUrl(seed: SeedAnime, episode: number, audioMode: "sub" | "dub" = "sub"): { url: string; source: string; needsProxy: boolean; dualAudio: boolean; audio: "sub" | "dub" | "both" } | null {
+   309→  if (!seed.episodeSources || seed.episodeSources.length === 0) return null;
+   310→  const matchingSources = seed.episodeSources.filter((src) => episode >= src.startEp && episode <= src.endEp);
+   311→  if (matchingSources.length === 0) return null;
+   312→  const wantedAudio = audioMode === "dub" ? "dub" : "sub";
+   313→  const preferred = matchingSources.find((src) => { const a = src.audio ?? "sub"; return a === wantedAudio || a === "both"; });
+   314→  const src = preferred ?? matchingSources[0];
+   315→
+   316→  let file: string;
+   317→  if (src.fileName) { file = src.fileName; }
+   318→  else if (src.fileTemplate) {
+   319→    file = src.fileTemplate;
+   320→    file = file.replace(/\{ep(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(episode); return pad ? s.padStart(Number(pad), "0") : s; });
+   321→    if (src.seasonMap) {
+   322→      const entry = src.seasonMap.find((m) => episode >= m.startEp && episode <= m.endEp);
+   323→      if (entry) {
+   324→        const seasonEp = episode - entry.startEp + 1;
+   325→        file = file.replace(/\{season(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(entry.season); return pad ? s.padStart(Number(pad), "0") : s; });
+   326→        file = file.replace(/\{seasonEp(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(seasonEp); return pad ? s.padStart(Number(pad), "0") : s; });
+   327→      }
+   328→    }
+   329→  } else { return null; }
+   330→
+   331→  let collectionName = src.collection;
+   332→  if (src.seasonMap) {
+   333→    const entry = src.seasonMap.find((m) => episode >= m.startEp && episode <= m.endEp);
+   334→    if (entry) { collectionName = collectionName.replace(/\{season(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(entry.season); return pad ? s.padStart(Number(pad), "0") : s; }); }
+   335→  }
+   336→  if (collectionName === "youtube") { return { url: `https://www.youtube.com/embed/${file}`, source: "youtube", needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" }; }
+   337→  const encodedFile = encodeURIComponent(file).replace(/%2F/g, "/");
+   338→  return { url: `https://archive.org/download/${collectionName}/${encodedFile}`, source: src.needsProxy ? "archive-mkv" : "archive", needsProxy: src.needsProxy ?? false, dualAudio: src.dualAudio ?? false, audio: src.audio ?? "sub" };
+   339→}
+   340→
+   341→export function episodeHasSub(seed: SeedAnime, episode: number): boolean {
+   342→  if (!seed.episodeSources) return false;
+   343→  return seed.episodeSources.some((src) => episode >= src.startEp && episode <= src.endEp && (src.audio === "sub" || src.audio === "both"));
+   344→}
+   345→export function episodeHasDub(seed: SeedAnime, episode: number): boolean {
+   346→  if (!seed.episodeSources) return false;
+   347→  return seed.episodeSources.some((src) => episode >= src.startEp && episode <= src.endEp && (src.audio === "dub" || src.audio === "both"));
+   348→}
+   349→
+   350→export function resolveSubtitleUrl(seed: SeedAnime, episode: number): string | null {
+   351→  if (seed.localSubtitlePattern) {
+   352→    let url = seed.localSubtitlePattern;
+   353→    url = url.replace(/\{ep(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(episode); return pad ? s.padStart(Number(pad), "0") : s; });
+   354→    return url;
+   355→  }
+   356→  if (!seed.subtitlePattern) return null;
+   357→  let file = seed.subtitlePattern;
+   358→  file = file.replace(/\{ep(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(episode); return pad ? s.padStart(Number(pad), "0") : s; });
+   359→  const collection = seed.episodeSources?.[0]?.collection ?? "";
+   360→  return `https://archive.org/download/${collection}/${file}`;
+   361→}
+   362→

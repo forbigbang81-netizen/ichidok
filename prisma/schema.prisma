@@ -1,8 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// Ichidoki — Prisma schema
 
 generator client {
   provider = "prisma-client-js"
@@ -13,20 +9,97 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Anime {
+  id           String    @id @default(cuid())
+  malId        Int       @unique
+  title        String
+  titleEnglish String?
+  titleJapanese String?
+  synopsis     String?
+  poster       String?
+  banner       String?
+  trailer      String?
+  type         String    @default("TV")
+  status       String?
+  score        Float     @default(0)
+  scoredBy     Int       @default(0)
+  rank         Int       @default(0)
+  popularity   Int       @default(0)
+  members      Int       @default(0)
+  year         Int?
+  season       String?
+  genres       String    @default("")
+  studios      String    @default("")
+  episodeCount Int       @default(0)
+  duration     String?
+  rating       String?
+  source       String?
+  isFeatured   Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  episodes     Episode[]
+  imports      Import[]
 }
 
-model Post {
+model Episode {
+  id        String   @id @default(cuid())
+  animeId   String
+  anime     Anime    @relation(fields: [animeId], references: [id], onDelete: Cascade)
+  number    Int
+  title     String?
+  aired     String?
+  filler    Boolean  @default(false)
+  recap     Boolean  @default(false)
+  createdAt DateTime @default(now())
+  @@unique([animeId, number])
+}
+
+model Import {
+  id         String   @id @default(cuid())
+  animeId    String
+  anime      Anime    @relation(fields: [animeId], references: [id], onDelete: Cascade)
+  malId      Int
+  episode    Int
+  audio      String   @default("sub")
+  url        String
+  source     String   @default("archive")
+  quality    String   @default("1080p")
+  hasSub     Boolean  @default(true)
+  hasDub     Boolean  @default(false)
+  subtitleUrl String?
+  isTrailer  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  @@unique([malId, episode, audio])
+}
+
+model Bookmark {
+  id        String   @id @default(cuid())
+  malId     Int      @unique
+  title     String
+  poster    String?
+  type      String   @default("TV")
+  createdAt DateTime @default(now())
+}
+
+model History {
+  id        String   @id @default(cuid())
+  malId     Int
+  title     String
+  poster    String?
+  type      String   @default("TV")
+  episode   Int
+  progress  Float    @default(0)
+  position  Float    @default(0)
+  duration  Float    @default(0)
+  watchedAt DateTime @default(now())
+  @@unique([malId, episode])
+}
+
+model Notification {
   id        String   @id @default(cuid())
   title     String
-  content   String?
-  published Boolean  @default(false)
-  authorId  String
+  body      String
+  type      String   @default("info")
+  read      Boolean  @default(false)
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }

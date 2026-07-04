@@ -1,0 +1,13 @@
+{
+  "name": "Ichidoki",
+  "short_name": "Ichidoki",
+  "description": "Stream your favorite anime in HD with SUB/DUB options.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0b0f",
+  "theme_color": "#0b0b0f",
+  "icons": [
+    { "src": "/app-icon.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/app-icon.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
