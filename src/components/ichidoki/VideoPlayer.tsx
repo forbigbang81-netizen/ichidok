@@ -561,6 +561,18 @@ export function VideoPlayer({
         </div>
       )}
 
+      {/* Subtitle "unavailable" hint — shows briefly when CC is on but no cues */}
+      {showSubtitles && !activeCue && cues.length === 0 && !loading && videoUrl && (
+        <div className="pointer-events-none absolute inset-x-0 bottom-16 z-20 flex justify-center px-4 sm:bottom-20">
+          <span
+            className="rounded bg-black/60 px-3 py-1 text-center text-xs font-medium text-white/80"
+            style={{ textShadow: "0 1px 2px rgba(0,0,0,0.7)" }}
+          >
+            字幕なし · No subtitles available for this episode
+          </span>
+        </div>
+      )}
+
       {/* Top bar */}
       <div
         className={cn(
@@ -627,9 +639,14 @@ export function VideoPlayer({
         )}
       </div>
 
-      {/* Center controls — only when controls visible */}
+      {/* Center controls — only when controls visible.
+          The wrapper also acts as a click-catcher: clicks on empty area
+          (not on the buttons, which call e.stopPropagation()) toggle the UI. */}
       {controlsVisible && !loading && !error && videoUrl && (
-        <div className="absolute inset-0 z-20 grid place-items-center">
+        <div
+          className="absolute inset-0 z-20 grid place-items-center"
+          onClick={handleVideoTap}
+        >
           <div className="flex items-center gap-6">
             <button
               type="button"
@@ -739,8 +756,9 @@ export function VideoPlayer({
           </span>
 
           <div className="ml-auto flex items-center gap-1">
-            {/* CC toggle */}
-            {cues.length > 0 && (
+            {/* CC toggle — show whenever the source claims subtitles, even
+                before cues finish loading, so users can toggle it on/off. */}
+            {(cues.length > 0 || importInfo?.hasSub || importInfo?.subtitleUrl) && (
               <button
                 type="button"
                 onClick={() => {
@@ -752,6 +770,11 @@ export function VideoPlayer({
                   showSubtitles ? "text-yellow-400" : "text-white/70",
                 )}
                 aria-label="Toggle subtitles"
+                title={
+                  cues.length === 0
+                    ? "Subtitles unavailable for this episode"
+                    : "Toggle subtitles"
+                }
               >
                 <Captions className="h-4 w-4" />
               </button>

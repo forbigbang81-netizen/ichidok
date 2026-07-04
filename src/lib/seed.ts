@@ -28,6 +28,7 @@ export const SEED_ANIME: SeedAnime[] = [
     trailer: "ZEkwCGJ3o7M", type: "TV", status: "Finished Airing", score: 9.26, scoredBy: 906724, rank: 1, popularity: 103, members: 1470685,
     year: 2023, season: "fall", genres: ["Adventure", "Award Winning", "Drama", "Fantasy"], studios: ["Madhouse"],
     episodeCount: 28, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    localSubtitlePattern: "/subtitles/52991_e{ep}.vtt",
     episodeSources: [{ startEp: 1, endEp: 28, collection: "frieren-beyond-journeys-end_1080p_2024", fileTemplate: "Frieren-Beyond-Journey's-End_S01E{ep:02}.mp4", audio: "sub" }],
   },
   // Steins;Gate
@@ -37,6 +38,7 @@ export const SEED_ANIME: SeedAnime[] = [
     trailer: "27OZc-ku6is", type: "TV", status: "Finished Airing", score: 9.07, scoredBy: 1528717, rank: 5, popularity: 14, members: 2829293,
     year: 2011, season: "spring", genres: ["Drama", "Sci-Fi", "Suspense"], studios: ["White Fox"],
     episodeCount: 24, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Visual novel", isFeatured: true,
+    localSubtitlePattern: "/subtitles/9253_e{ep}.vtt",
     episodeSources: [
       { startEp: 1, endEp: 21, collection: "steinsgate_1.130209", fileTemplate: "Steins;Gate_-_{ep:02}_-Blu-Ray.mp4", audio: "sub" },
       { startEp: 22, endEp: 24, collection: "steins-gte", fileTemplate: "{ep}.mp4", audio: "sub" },
@@ -49,6 +51,7 @@ export const SEED_ANIME: SeedAnime[] = [
     trailer: "e8YBesRKq_U", type: "TV", status: "Finished Airing", score: 8.98, scoredBy: 387868, rank: 15, popularity: 332, members: 715955,
     year: 2022, season: "fall", genres: ["Action", "Adventure", "Supernatural"], studios: ["Studio Pierrot"],
     episodeCount: 13, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    localSubtitlePattern: "/subtitles/41467_e{ep}.vtt",
     episodeSources: [
       { startEp: 1, endEp: 13, collection: "BleachTYBW1-28", fileTemplate: "Bleach TYBW Episode 00{ep:02}.mp4", audio: "dub" },
     ], hasDub: true,
@@ -60,6 +63,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.7, scoredBy: 234567, rank: 115, popularity: 250, members: 456789,
     year: 2023, season: "summer", genres: ["Action", "Adventure", "Supernatural"], studios: ["Studio Pierrot"],
     episodeCount: 13, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga",
+    localSubtitlePattern: "/subtitles/53998_e{ep}.vtt",
     episodeSources: [
       { startEp: 1, endEp: 13, collection: "BleachTYBW1-28", fileTemplate: "Bleach TYBW Episode 00{ep:02}.mp4", audio: "dub" },
     ], hasDub: true,
@@ -71,6 +75,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.68, scoredBy: 163936, rank: 74, popularity: 923, members: 306368,
     year: 2024, season: "fall", genres: ["Action", "Adventure", "Supernatural"], studios: ["Pierrot Films"],
     episodeCount: 14, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga",
+    localSubtitlePattern: "/subtitles/56784_e{ep}.vtt",
     episodeSources: [
       { startEp: 1, endEp: 9, collection: "BleachTYBW1-28", fileTemplate: "Bleach TYBW Episode 00{ep:02}.mp4", audio: "dub" },
       { startEp: 1, endEp: 14, collection: "bleach-sennen-kessen-hen-part-3-japanese-tv-2024", fileName: "BLEACH Sennen Kessen-hen Soukoku-tan - 01 (TVA 1280x720 x264 AAC).mp4", audio: "sub" },
@@ -90,6 +95,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.0, scoredBy: 1270540, rank: 738, popularity: 33, members: 2224150,
     year: 2004, season: "fall", genres: ["Action", "Adventure", "Supernatural"], studios: ["Studio Pierrot"],
     episodeCount: 366, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    localSubtitlePattern: "/subtitles/269_e{ep}.vtt",
     episodeSources: [{
       startEp: 1, endEp: 366, collection: "bl35ch-s35s0ns-{season}",
       fileTemplate: "Bleach Temporada {season}/Bleach (Dub) Episode {seasonEp}.mp4", audio: "dub",
@@ -109,6 +115,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.86, scoredBy: 87432, rank: 28, popularity: 121, members: 234567,
     year: 2026, season: "winter", genres: ["Adventure", "Drama", "Fantasy"], studios: ["Madhouse"],
     episodeCount: 24, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    localSubtitlePattern: "/subtitles/59978_e{ep}.vtt",
     episodeSources: [{ startEp: 1, endEp: 24, collection: "frieren-beyond-journeys-end_1080p_2024", fileTemplate: "Frieren-Beyond-Journey's-End_S01E{ep:02}.mp4", audio: "sub" }],
   },
   // Frieren Golden Land Arc (upcoming)
@@ -125,6 +132,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.5, scoredBy: 2022419, rank: 166, popularity: 11, members: 3068158,
     year: 2020, season: "fall", genres: ["Action", "Award Winning", "Supernatural"], studios: ["MAPPA"],
     episodeCount: 24, duration: "23 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    localSubtitlePattern: "/subtitles/40748_e{ep}.vtt",
     episodeSources: [{ startEp: 1, endEp: 24, collection: "jujutsu-kaisen-season-1-episode-17-eng.dub", fileTemplate: "JUJUTSU KAISEN Season 1 Episode {ep} eng.dub.mp4", audio: "dub" }],
     hasDub: true,
   },
@@ -135,6 +143,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.7, scoredBy: 765432, rank: 110, popularity: 18, members: 1987654,
     year: 2023, season: "summer", genres: ["Action", "Supernatural"], studios: ["MAPPA"],
     episodeCount: 23, duration: "23 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    localSubtitlePattern: "/subtitles/51009_e{ep}.vtt",
     episodeSources: [
       { startEp: 1, endEp: 3, collection: "gofaku.com-jjk-s-2-03-720p", fileTemplate: "Gofaku.com_JJK-s2_{ep:02}_720p.mp4", audio: "sub" },
       { startEp: 1, endEp: 23, collection: "jujutsu-kaisen-s-02-e-21-1080p-bd-av-1-dual-audio.mkv", fileTemplate: "Jujutsu Kaisen - S02E{ep:02} [1080p BD AV1][Dual Audio].mkv.mp4", needsProxy: true, audio: "both", dualAudio: true },
@@ -154,7 +163,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.42, scoredBy: 1162472, rank: 206, popularity: 47, members: 1992701,
     year: 2022, season: "fall", genres: ["Action", "Fantasy"], studios: ["MAPPA"],
     episodeCount: 12, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
-    localSubtitlePattern: "/subtitles/chainsaw_e{ep}.vtt",
+    localSubtitlePattern: "/subtitles/44511_e{ep}.vtt",
     episodeSources: [
       { startEp: 1, endEp: 12, collection: "hi-10-chainsaw-man-s-1-1080p", fileTemplate: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_{ep:02}_(1080p)_(GJM)_(62A0D357).mp4", audio: "sub" },
       { startEp: 1, endEp: 12, collection: "10.-bruised-battered", fileTemplate: "Chainsaw Man Season 1/{ep:02}. Dog & Chainsaw.mp4", audio: "dub" },
@@ -167,6 +176,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "Movie", status: "Finished Airing", score: 9.06, scoredBy: 328807, rank: 6, popularity: 519, members: 509373,
     year: 2025, season: null, genres: ["Action", "Fantasy"], studios: ["MAPPA"],
     episodeCount: 1, duration: "1 hr 39 min", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    localSubtitlePattern: "/subtitles/57555_e{ep}.vtt",
     episodeSources: [
       { startEp: 1, endEp: 1, collection: "rezearc", fileName: "csmrezearc.mp4", audio: "sub" },
       { startEp: 1, endEp: 1, collection: "sam-chainsaw-man-the-movie-reze-arc-2025-web-1080p-eac-3-c-24-c-4-dd-1.-1080", fileName: "[sam] Chainsaw Man - The Movie Reze Arc (2025) [WEB 1080p EAC-3] [C24C4DD1].1080.mp4", audio: "dub" },
@@ -179,6 +189,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.21, scoredBy: 232927, rank: 428, popularity: 497, members: 521210,
     year: 2025, season: "summer", genres: ["Action", "Fantasy"], studios: ["Bones Film"],
     episodeCount: 24, duration: "23 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    localSubtitlePattern: "/subtitles/59062_e{ep}.vtt",
     episodeSources: [
       { startEp: 1, endEp: 1, collection: "gachiakuta.-s-01-e-01.-the.-sphere.-1080p.-cr.-web-dl.-dual.-aac-2.0.-h.-264-varyg.-720", fileName: "Gachiakuta.S01E01.The.Sphere.1080p.CR.WEB-DL.DUAL.AAC2.0.H.264-VARYG.720.mp4", audio: "both", dualAudio: true },
       { startEp: 2, endEp: 12, collection: "gachiakuta-02-720p-x-265-samehadaku.-care", fileTemplate: "Gachiakuta-{ep:02}-720p-[x265]-SAMEHADAKU.CARE.mp4", audio: "sub" },
@@ -199,7 +210,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Currently Airing", score: 8.51, scoredBy: 26973, rank: 162, popularity: 1951, members: 135442,
     year: 2026, season: "summer", genres: ["Romance"], studios: ["Asahi Production"],
     episodeCount: 12, duration: "23 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
-    localSubtitlePattern: "/subtitles/smoking_e{ep}.vtt",
+    localSubtitlePattern: "/subtitles/62076_e{ep}.vtt",
     episodeSources: [
       { startEp: 1, endEp: 1, collection: "smoking-behind-the-supermarket-with-you-e1-ae27fe", fileName: "smoking behind the supermarket with you E1.mp4", audio: "sub" },
       { startEp: 2, endEp: 2, collection: "smoking-behind-the-supermarket-with-you-e2-0b8faa", fileName: "smoking behind the supermarket with you E2.mp4", audio: "sub" },
@@ -222,6 +233,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.75, scoredBy: 980000, rank: 55, popularity: 16, members: 2000000,
     year: 1998, season: "spring", genres: ["Action", "Award Winning", "Sci-Fi"], studios: ["Sunrise"],
     episodeCount: 26, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Original", isFeatured: true,
+    localSubtitlePattern: "/subtitles/1_e{ep}.vtt",
     episodeSources: [{ startEp: 1, endEp: 26, collection: "db-bebop-of-the-cowboys-1080p", fileTemplate: "[DB]Cowboy Bebop_-_{ep:02}_(Dual Audio_10bit_BD1080p_x265).mp4", audio: "dub" }],
     hasDub: true,
   },
@@ -232,6 +244,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.62, scoredBy: 500000, rank: 60, popularity: 100, members: 800000,
     year: 2022, season: "fall", genres: ["Action", "Sci-Fi"], studios: ["Trigger"],
     episodeCount: 10, duration: "25 min per ep", rating: "R+ - Mild Nudity", source: "Game", isFeatured: true,
+    localSubtitlePattern: "/subtitles/42310_e{ep}.vtt",
     episodeSources: [
       { startEp: 1, endEp: 10, collection: "1-cybpnk", fileTemplate: "Cyberpunk.Edgerunners.S01E{ep:02}.mp4", audio: "sub" },
       { startEp: 1, endEp: 1, collection: "CyberpunkEdge", fileName: "S01-E01 - Let You Down.mp4", audio: "dub" },
@@ -253,6 +266,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.48, scoredBy: 1500000, rank: 180, popularity: 8, members: 2200000,
     year: 1995, season: "fall", genres: ["Award Winning", "Action", "Drama", "Suspense"], studios: ["Gainax"],
     episodeCount: 26, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Original", isFeatured: true,
+    localSubtitlePattern: "/subtitles/30_e{ep}.vtt",
     episodeSources: [{ startEp: 1, endEp: 26, collection: "neon-genesis-evangelion-dual-audio", fileTemplate: "Neon Genesis Evangelion - {ep:02} - Angel Attacks.mp4", audio: "both", dualAudio: true }],
     hasDub: true,
   },
@@ -263,6 +277,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "Movie", status: "Finished Airing", score: 8.57, scoredBy: 400000, rank: 50, popularity: 200, members: 600000,
     year: 1997, season: null, genres: ["Award Winning", "Action", "Drama", "Suspense"], studios: ["Gainax"],
     episodeCount: 1, duration: "1 hr 26 min", rating: "R - 17+ (violence & profanity)", source: "Original", isFeatured: true,
+    localSubtitlePattern: "/subtitles/32_e{ep}.vtt",
     episodeSources: [{ startEp: 1, endEp: 1, collection: "eva-complete-series-movies-bd-1080p", fileName: "Neon Genesis Evangelion - The End of Evangelion (1995) [1080p x265 HEVC 10bit BluRay Dual Audio AAC 5.1] [Prof].mp4", audio: "both", dualAudio: true }],
     hasDub: true,
   },
@@ -273,6 +288,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "Movie", status: "Finished Airing", score: 8.0, scoredBy: 350000, rank: 350, popularity: 300, members: 500000,
     year: 2007, season: null, genres: ["Action", "Award Winning", "Drama", "Sci-Fi"], studios: ["Gainax"],
     episodeCount: 1, duration: "1 hr 41 min", rating: "R - 17+ (violence & profanity)", source: "Original", isFeatured: true,
+    localSubtitlePattern: "/subtitles/2759_e{ep}.vtt",
     episodeSources: [{ startEp: 1, endEp: 1, collection: "eva-complete-series-movies-bd-1080p", fileName: "Evangelion_1.11_You_Are_(Not)_Alone_(2009)_[1080p,BluRay,x264,DTS-ES]_-_THORA/Evangelion_1.11_You_Are_(Not)_Alone_(2009)_[1080p,BluRay,x264,DTS-ES]_-_THORA.mp4", audio: "sub" }],
   },
   // Eva 3.0+1.0
@@ -282,6 +298,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "Movie", status: "Finished Airing", score: 8.58, scoredBy: 300000, rank: 45, popularity: 400, members: 400000,
     year: 2021, season: null, genres: ["Action", "Award Winning", "Drama", "Sci-Fi"], studios: ["Studio Khara"],
     episodeCount: 1, duration: "2 hr 35 min", rating: "R - 17+ (violence & profanity)", source: "Original", isFeatured: true,
+    localSubtitlePattern: "/subtitles/3786_e{ep}.vtt",
     episodeSources: [{ startEp: 1, endEp: 1, collection: "eva-complete-series-movies-bd-1080p", fileName: "Evangelion.3.0+1.01.Thrice.Upon.a.Time.2021.1080p.AMZN.WEB-DL.DD+.5.1.H.264-RMB.mp4", audio: "sub" }],
   },
   // A Silent Voice
@@ -291,6 +308,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "Movie", status: "Finished Airing", score: 8.93, scoredBy: 600000, rank: 10, popularity: 40, members: 900000,
     year: 2016, season: null, genres: ["Award Winning", "Drama", "Romance"], studios: ["Kyoto Animation"],
     episodeCount: 1, duration: "2 hr 10 min", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    localSubtitlePattern: "/subtitles/28851_e{ep}.vtt",
     episodeSources: [{ startEp: 1, endEp: 1, collection: "db-a-silent-voice-dual-audio-10bit-bd-1080p-x-265", fileName: "[DB]A Silent Voice_-_(Dual Audio_10bit_BD1080p_x265).mp4", audio: "sub" }],
   },
   // Your Name
@@ -300,6 +318,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "Movie", status: "Finished Airing", score: 8.82, scoredBy: 1000000, rank: 14, popularity: 7, members: 2000000,
     year: 2016, season: null, genres: ["Award Winning", "Drama", "Supernatural"], studios: ["CoMix Wave Films"],
     episodeCount: 1, duration: "1 hr 46 min", rating: "PG-13 - Teens 13 or older", source: "Original", isFeatured: true,
+    localSubtitlePattern: "/subtitles/32281_e{ep}.vtt",
     episodeSources: [{ startEp: 1, endEp: 1, collection: "your.-name.-2016.-1.8-gb.-1080p.-dual.-audio.-hin-eng.-vegamovies.-nl", fileName: "Your.Name.(2016).1.8GB.1080p.Dual.Audio.(Hin-Eng).Vegamovies.NL.mp4", audio: "both", dualAudio: true }],
     hasDub: true,
   },
