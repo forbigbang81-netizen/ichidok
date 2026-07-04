@@ -2,13 +2,14 @@
 
 import { useEffect } from "react";
 import {
-  Bell,
-  Bookmark,
-  Compass,
-  Home as HomeIcon,
+  House,
+  Calendar,
   Search,
+  LayoutGrid,
+  FolderOpen,
+  Bell,
 } from "lucide-react";
-import { useApp, type View } from "@/store/app";
+import { useApp } from "@/store/app";
 import { fetchNotifications } from "@/lib/api/client";
 import { cn } from "@/lib/utils";
 import { HomeView } from "@/components/ichidoki/HomeView";
@@ -18,123 +19,66 @@ import { CatalogView } from "@/components/ichidoki/CatalogView";
 import { LibraryView } from "@/components/ichidoki/LibraryView";
 import { AnimeDetailView } from "@/components/ichidoki/AnimeDetailView";
 
-export default function Home() {
-  const {
-    currentView,
-    navigate,
-    notifications,
-    setNotifications,
-    selectedMalId,
-  } = useApp();
+export default function Page() {
+  const currentView = useApp((s) => s.currentView);
+  const navigate = useApp((s) => s.navigate);
+  const selectedMalId = useApp((s) => s.selectedMalId);
+  const selectedEpisode = useApp((s) => s.selectedEpisode);
+  const notifications = useApp((s) => s.notifications);
+  const setNotifications = useApp((s) => s.setNotifications);
 
-  // Load notification count for the badge.
   useEffect(() => {
-    fetchNotifications()
-      .then((n) => setNotifications(n as any))
-      .catch(() => {});
+    fetchNotifications().then((n) => setNotifications(n as any)).catch(() => {});
   }, [setNotifications]);
 
-  const unreadCount = notifications.filter((n) => !n.read).length;
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [currentView, selectedMalId, selectedEpisode]);
 
-  const navItems: {
-    view: View;
-    label: string;
-    icon: React.ReactNode;
-  }[] = [
-    { view: "home", label: "Home", icon: <HomeIcon className="h-5 w-5" /> },
-    { view: "schedule", label: "Schedule", icon: <Compass className="h-5 w-5" /> },
-    { view: "search", label: "Search", icon: <Search className="h-6 w-6" /> },
-    { view: "catalog", label: "Catalog", icon: <Bookmark className="h-5 w-5" /> },
-    { view: "library", label: "Library", icon: <Bell className="h-5 w-5" /> },
-  ];
+  const isDetail = currentView === "detail";
 
   return (
-    <div className="mobile-shell flex min-h-screen flex-col">
-      {/* Top header */}
-      <header className="sticky top-0 z-30 flex items-center gap-2 glass-header px-4 py-3">
-        <button
-          type="button"
-          onClick={() => navigate("home")}
-          className="flex items-center gap-2"
-        >
-          <span className="grid h-7 w-7 place-items-center rounded-md bg-yellow-400 text-black">
-            <span className="text-sm font-black">一</span>
-          </span>
-          <span className="text-sm font-black tracking-tight text-white">
-            ICHIDOKI
-          </span>
-        </button>
-        <button
-          type="button"
-          onClick={() => navigate("library")}
-          className="relative ml-auto grid h-9 w-9 place-items-center rounded-full bg-white/5 text-white/80 hover:bg-white/10"
-          aria-label="Notifications"
-        >
-          <Bell className="h-4 w-4" />
-          {unreadCount > 0 && (
-            <span className="absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-yellow-400 px-1 text-[9px] font-bold text-black">
-              {unreadCount > 9 ? "9+" : unreadCount}
-            </span>
-          )}
-        </button>
-      </header>
-
-      {/* Active view */}
-      <main className="flex-1 pt-3">
-        {currentView === "home" && <HomeView />}
-        {currentView === "schedule" && <ScheduleView />}
+    <div className="mobile-shell min-h-screen flex flex-col bg-[#0b0b0f]">
+      <main className="flex-1 pb-20">
+        {currentView === "home" && <HomeView onOpenSearch={() => navigate("search")} />}
         {currentView === "search" && <SearchView />}
         {currentView === "catalog" && <CatalogView />}
         {currentView === "library" && <LibraryView />}
-        {currentView === "detail" && selectedMalId && <AnimeDetailView />}
+        {currentView === "schedule" && <ScheduleView />}
+        {currentView === "detail" && <AnimeDetailView />}
       </main>
 
-      {/* Bottom nav with center FAB */}
-      <nav
-        className="sticky bottom-0 z-30 glass-header"
-        style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
-      >
-        <div className="relative grid grid-cols-5 items-end px-2 pt-2 pb-2">
-          {navItems.map((item) => {
-            const active = currentView === item.view;
-            const isFab = item.view === "search";
-            if (isFab) {
-              return (
-                <button
-                  key={item.view}
-                  type="button"
-                  onClick={() => navigate(item.view)}
-                  className="flex flex-col items-center"
-                  aria-label={item.label}
-                >
-                  <span className="grid h-12 w-12 -translate-y-3 place-items-center rounded-full bg-yellow-400 text-black shadow-lg shadow-yellow-500/30 transition hover:scale-105 hover:bg-yellow-300 pulse-yellow">
-                    {item.icon}
-                  </span>
-                  <span className="-mt-2 text-[10px] font-semibold text-yellow-400">
-                    {item.label}
-                  </span>
-                </button>
-              );
-            }
-            return (
-              <button
-                key={item.view}
-                type="button"
-                onClick={() => navigate(item.view)}
-                className={cn(
-                  "flex flex-col items-center gap-0.5 rounded-lg py-1 transition",
-                  active ? "text-yellow-400" : "text-white/60 hover:text-white",
-                )}
-                aria-label={item.label}
-                aria-current={active ? "page" : undefined}
-              >
-                {item.icon}
-                <span className="text-[10px] font-semibold">{item.label}</span>
-              </button>
-            );
-          })}
-        </div>
-      </nav>
+      {!isDetail && (
+        <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 z-40 w-full max-w-[480px] bg-[#0b0b0f]/95 backdrop-blur-lg border-t border-[#2a2a35]">
+          <div className="grid grid-cols-5 h-16 px-2">
+            <NavBtn active={currentView === "home"} onClick={() => navigate("home")} icon={<House className="w-[18px] h-[18px]" />} label="Home" />
+            <NavBtn active={currentView === "schedule"} onClick={() => navigate("schedule")} icon={<Calendar className="w-[18px] h-[18px]" />} label="Schedule" />
+            <SearchFab onClick={() => navigate("search")} />
+            <NavBtn active={currentView === "catalog"} onClick={() => navigate("catalog")} icon={<LayoutGrid className="w-[18px] h-[18px]" />} label="Catalog" />
+            <NavBtn active={currentView === "library"} onClick={() => navigate("library")} icon={<FolderOpen className="w-[18px] h-[18px]" />} label="Library" />
+          </div>
+        </nav>
+      )}
     </div>
+  );
+}
+
+function NavBtn({ active, onClick, icon, label }: { active: boolean; onClick: () => void; icon: React.ReactNode; label: string }) {
+  return (
+    <button onClick={onClick} className={`flex flex-col items-center justify-center gap-0.5 transition-colors py-1 ${active ? "text-[#f5c518]" : "text-[#6b6b7b] hover:text-[#9a9aa8]"}`}>
+      <div className={`w-9 h-7 rounded-lg flex items-center justify-center transition-all ${active ? "bg-[#f5c518]/15" : ""}`}>{icon}</div>
+      <span className="text-[10px] tracking-tight font-semibold">{label}</span>
+    </button>
+  );
+}
+
+function SearchFab({ onClick }: { onClick: () => void }) {
+  return (
+    <button onClick={onClick} className="flex flex-col items-center justify-center gap-0.5 relative" aria-label="Search">
+      <div className="absolute -top-4 w-12 h-12 rounded-full h-yellow-gradient flex items-center justify-center shadow-lg shadow-[#f5c518]/30 ring-4 ring-[#0b0b0f] hover:scale-105 transition-transform pulse-yellow">
+        <Search className="w-5 h-5 text-black" />
+      </div>
+      <span className="text-[9px] text-[#6b6b7b] font-medium mt-7">Search</span>
+    </button>
   );
 }
