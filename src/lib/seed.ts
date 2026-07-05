@@ -28,7 +28,11 @@ export const SEED_ANIME: SeedAnime[] = [
     trailer: "ZEkwCGJ3o7M", type: "TV", status: "Finished Airing", score: 9.26, scoredBy: 906724, rank: 1, popularity: 103, members: 1470685,
     year: 2023, season: "fall", genres: ["Adventure", "Award Winning", "Drama", "Fantasy"], studios: ["Madhouse"],
     episodeCount: 28, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
-    episodeSources: [{ startEp: 1, endEp: 28, collection: "frieren-beyond-journeys-end_1080p_2024", fileTemplate: "Frieren-Beyond-Journey's-End_S01E{ep:02}.mp4", audio: "sub" }],
+    // Archive.org MP4 derivatives only contain the English dub audio track (the JP audio
+    // from the original dual-audio MKV was dropped during derivative creation). So these
+    // files are DUB-only. hasDub=true so the player shows the DUB toggle.
+    // For SUB mode, no JP-audio MP4 source is currently available.
+    episodeSources: [{ startEp: 1, endEp: 28, collection: "frieren-beyond-journeys-end_1080p_2024", fileTemplate: "Frieren-Beyond-Journey's-End_S01E{ep:02}.mp4", audio: "dub" }], hasDub: true,
   },
   // Steins;Gate
   { malId: 9253, title: "Steins;Gate", titleEnglish: "Steins;Gate", titleJapanese: "STEINS;GATE",
@@ -103,13 +107,15 @@ export const SEED_ANIME: SeedAnime[] = [
       ],
     }], hasDub: true,
   },
-  // Frieren S2
+  // Frieren S2 (Season 2, aired Jan-Mar 2026 — 10 episodes)
   { malId: 59978, title: "Frieren: Beyond Journey's End Season 2", titleEnglish: "Frieren: Beyond Journey's End Season 2", titleJapanese: "葬送のフリーレン 第2クール",
     synopsis: "Following the First-Class Mage Exam, the trio gains access to the dangerous Northern Plateau.", poster: "https://cdn.myanimelist.net/images/anime/1921/154528l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1921/154528l.jpg",
     type: "TV", status: "Finished Airing", score: 8.86, scoredBy: 87432, rank: 28, popularity: 121, members: 234567,
     year: 2026, season: "winter", genres: ["Adventure", "Drama", "Fantasy"], studios: ["Madhouse"],
-    episodeCount: 24, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
-    episodeSources: [{ startEp: 1, endEp: 24, collection: "frieren-beyond-journeys-end_1080p_2024", fileTemplate: "Frieren-Beyond-Journey's-End_S01E{ep:02}.mp4", audio: "sub" }],
+    episodeCount: 10, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    // S2 (2026) episodes are not yet available on archive.org. Episode sources
+    // will be added once a streamable dual-audio or JP-audio MP4 collection is uploaded.
+    episodeSources: [],
   },
   // Frieren Golden Land Arc (upcoming)
   { malId: 63816, title: "Frieren: Beyond Journey's End - Golden Land Arc", titleEnglish: "Frieren: Beyond Journey's End - Golden Land Arc", titleJapanese: "葬送のフリーレン 黄金郵編",
@@ -308,8 +314,13 @@ export function resolveEpisodeUrl(seed: SeedAnime, episode: number, audioMode: "
   const matchingSources = seed.episodeSources.filter((src) => episode >= src.startEp && episode <= src.endEp);
   if (matchingSources.length === 0) return null;
   const wantedAudio = audioMode === "dub" ? "dub" : "sub";
+  // Find a source that matches the wanted audio mode (exact match or "both").
+  // Do NOT fall back to a different audio mode — if the user asked for SUB and
+  // we only have DUB sources, return null so the player shows "no stream"
+  // instead of silently playing the wrong audio.
   const preferred = matchingSources.find((src) => { const a = src.audio ?? "sub"; return a === wantedAudio || a === "both"; });
-  const src = preferred ?? matchingSources[0];
+  const src = preferred ?? null;
+  if (!src) return null;
 
   let file: string;
   if (src.fileName) { file = src.fileName; }
