@@ -32,6 +32,7 @@ export const SEED_ANIME: SeedAnime[] = [
     // from the original dual-audio MKV was dropped during derivative creation). So these
     // files are DUB-only. hasDub=true so the player shows the DUB toggle.
     // For SUB mode, no JP-audio MP4 source is currently available.
+    // The MKV has a "Signs & Songs" ASS track but no English dialogue subs.
     episodeSources: [{ startEp: 1, endEp: 28, collection: "frieren-beyond-journeys-end_1080p_2024", fileTemplate: "Frieren-Beyond-Journey's-End_S01E{ep:02}.mp4", audio: "dub" }], hasDub: true,
   },
   // Steins;Gate

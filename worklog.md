@@ -287,3 +287,34 @@ Stage Summary:
 - Frieren S2 (59978) no longer incorrectly points to S1 files.
 - Fixed a systemic bug in `resolveEpisodeUrl()` that was affecting ALL anime with dub-only sources — SUB mode was silently falling back to dub audio. Now it correctly returns null.
 - For real JP-audio Frieren streaming, would need to either: (a) find a JP-audio MP4 collection on archive.org (none exists currently), (b) host our own JP-audio derivatives, or (c) implement server-side transcoding of the MKV files (slow for 679MB files).
+
+---
+Task ID: 13
+Agent: Subtitle Extraction for All Anime
+Task: User requested adding VTT subtitles to all available anime.
+
+Work Log:
+- Probed all anime in seed.ts for embedded subtitle streams in their archive.org MP4/MKV files:
+  - Smoking (62076): MP4 has 9 ASS subtitle streams (Crunchyroll English) — already extracted in Task 12.
+  - Frieren (52991): MKV has ASS tracks but only "Signs & Songs" (no English dialogue) — not useful.
+  - NGE (30): MKV has English Subtitles ASS (stream 5) — file is 1.1GB, extraction times out.
+  - Eva 1.0 (2759): MKV has ASS (stream 0) — file is 8GB, extraction times out.
+  - A Silent Voice (28851): MKV has English Full Subtitles ASS (stream 6) — file is 1.6GB, extraction times out.
+  - Your Name (32281): MKV has Hinglish ASS (not pure English) — skipped.
+  - Steins;Gate, Bleach, JJK, Chainsaw Man, Cyberpunk, Gachiakuta, Cowboy Bebop: no subtitles in MP4 or MKV.
+- Attempted extraction from large MKV files using ffmpeg with:
+  - Default settings (timed out)
+  - -reconnect flags (timed out)
+  - HTTP range requests (archive.org returned 0 bytes)
+  - Background nohup with 10-min timeout per episode (still running but slow)
+- Result: Only Smoking anime has practically extractable subtitles. The other MKV files are too large (1-8GB) to extract subtitles from over the network within reasonable timeouts.
+- Removed localSubtitlePattern entries from NGE, Eva 1.0, and A Silent Voice since we couldn't extract their subtitles. These anime fall back to the Jikan episode-title cues (real MAL episode titles, OP/ED markers).
+- Kept localSubtitlePattern for Smoking (12 VTT files with real English dialogue subs).
+- Cleared DB Import cache.
+- Verified: Smoking ep1 returns /subtitles/62076_e1.vtt (real dialogue), NGE ep1 returns /api/subtitles (Jikan fallback).
+- Background extraction scripts left running for NGE/ASV/Eva1 but unlikely to complete due to file sizes.
+
+Stage Summary:
+- Smoking Behind the Supermarket: 12/12 episodes with real English Crunchyroll dialogue subtitles.
+- All other anime: fall back to Jikan episode-title cues (real MAL episode titles + OP/ED markers).
+- For real dialogue subtitles on other anime, would need: (a) smaller MKV files, (b) pre-extracted subtitle files hosted separately, or (c) OpenSubtitles.com API integration (already built, needs user credentials).
