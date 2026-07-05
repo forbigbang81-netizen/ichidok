@@ -199,6 +199,9 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "Movie", status: "Finished Airing", score: 9.06, scoredBy: 328807, rank: 6, popularity: 519, members: 509373,
     year: 2025, season: null, genres: ["Action", "Fantasy"], studios: ["MAPPA"],
     episodeCount: 1, duration: "1 hr 39 min", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    // Real English dialogue subtitles for the sub (JP audio) version.
+    // SRT sourced from user-provided Dropbox link, converted to VTT.
+    localSubtitlePattern: "/subtitles/57555_e{ep}.vtt",
     episodeSources: [
       { startEp: 1, endEp: 1, collection: "rezearc", fileName: "csmrezearc.mp4", audio: "sub" },
       { startEp: 1, endEp: 1, collection: "sam-chainsaw-man-the-movie-reze-arc-2025-web-1080p-eac-3-c-24-c-4-dd-1.-1080", fileName: "[sam] Chainsaw Man - The Movie Reze Arc (2025) [WEB 1080p EAC-3] [C24C4DD1].1080.mp4", audio: "dub" },
@@ -342,6 +345,77 @@ export const SEED_ANIME: SeedAnime[] = [
     hasDub: true,
   },
 ];
+
+/**
+ * Season groupings — maps a franchise name to an ordered list of MAL IDs
+ * that represent the seasons/parts/cours of that anime.
+ * Used by the "Seasons" tab in AnimeDetailView to show related seasons.
+ */
+export const SEASON_GROUPS: { franchise: string; seasons: { malId: number; label: string }[] }[] = [
+  {
+    franchise: "Bleach: Thousand-Year Blood War",
+    seasons: [
+      { malId: 41467, label: "Cour 1 — Thousand-Year Blood War" },
+      { malId: 53998, label: "Cour 2 — The Separation" },
+      { malId: 56784, label: "Cour 3 — The Conflict" },
+      { malId: 60636, label: "Cour 4 — The Calamity" },
+    ],
+  },
+  {
+    franchise: "Frieren: Beyond Journey's End",
+    seasons: [
+      { malId: 52991, label: "Season 1" },
+      { malId: 59978, label: "Season 2" },
+      { malId: 63816, label: "Golden Land Arc" },
+    ],
+  },
+  {
+    franchise: "Jujutsu Kaisen",
+    seasons: [
+      { malId: 40748, label: "Season 1" },
+      { malId: 51009, label: "Season 2" },
+      { malId: 57658, label: "The Culling Game Part 1" },
+    ],
+  },
+  {
+    franchise: "Chainsaw Man",
+    seasons: [
+      { malId: 44511, label: "Season 1" },
+      { malId: 57555, label: "Movie: Reze Arc" },
+    ],
+  },
+  {
+    franchise: "Evangelion",
+    seasons: [
+      { malId: 30, label: "Neon Genesis Evangelion" },
+      { malId: 32, label: "The End of Evangelion" },
+      { malId: 2759, label: "1.0 You Are (Not) Alone" },
+      { malId: 3786, label: "3.0+1.0 Thrice Upon a Time" },
+    ],
+  },
+  {
+    franchise: "Gachiakuta",
+    seasons: [
+      { malId: 59062, label: "Season 1" },
+      { malId: 63147, label: "Season 2" },
+    ],
+  },
+  {
+    franchise: "Bleach",
+    seasons: [
+      { malId: 269, label: "Bleach (2004)" },
+      { malId: 41467, label: "TYBW — Cour 1" },
+      { malId: 53998, label: "TYBW — Cour 2 (Separation)" },
+      { malId: 56784, label: "TYBW — Cour 3 (Conflict)" },
+      { malId: 60636, label: "TYBW — Cour 4 (Calamity)" },
+    ],
+  },
+];
+
+/** Find the season group that contains the given malId. */
+export function findSeasonGroup(malId: number) {
+  return SEASON_GROUPS.find((g) => g.seasons.some((s) => s.malId === malId));
+}
 
 export function resolveEpisodeUrl(seed: SeedAnime, episode: number, audioMode: "sub" | "dub" = "sub"): { url: string; source: string; needsProxy: boolean; dualAudio: boolean; audio: "sub" | "dub" | "both" } | null {
   if (!seed.episodeSources || seed.episodeSources.length === 0) return null;

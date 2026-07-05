@@ -10,6 +10,8 @@ import {
   PlayCircle,
   Star,
   Users,
+  History,
+  Layers,
 } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -34,11 +36,14 @@ export function AnimeDetailView() {
     bookmarks,
     toggleBookmark,
     updateHistoryPosition,
+    history,
+    openAnime,
   } = useApp();
 
   const [anime, setAnime] = useState<Anime | null>(null);
   const [episodes, setEpisodes] = useState<Episode[]>([]);
   const [loading, setLoading] = useState(true);
+  const [seasons, setSeasons] = useState<{ malId: number; label: string; anime: Anime | null }[]>([]);
 
   const isBookmarked = selectedMalId
     ? bookmarks.includes(selectedMalId)
@@ -64,6 +69,49 @@ export function AnimeDetailView() {
       cancelled = true;
     };
   }, [selectedMalId]);
+
+  // Fetch related seasons for this anime
+  useEffect(() => {
+    if (!selectedMalId) {
+      setSeasons([]);
+      return;
+    }
+    let cancelled = false;
+    fetch(`/api/seasons?malId=${selectedMalId}`)
+      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+      .then((data: { seasons: { malId: number; label: string }[] }) => {
+        if (cancelled) return;
+        const seasonList = data.seasons ?? [];
+        // Fetch anime details for each season in parallel
+        Promise.all(
+          seasonList.map(async (s) => {
+            try {
+              const r = await fetchAnimeDetail(s.malId, false);
+              return { malId: s.malId, label: s.label, anime: r.anime };
+            } catch {
+              return { malId: s.malId, label: s.label, anime: null };
+            }
+          }),
+        ).then((results) => {
+          if (!cancelled) setSeasons(results);
+        });
+      })
+      .catch(() => {
+        if (!cancelled) setSeasons([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedMalId]);
+
+  // History items for this anime only (Continue Watching)
+  const continueWatching = selectedMalId
+    ? history.filter((h) => h.malId === selectedMalId).sort((a, b) => {
+        const da = a.watchedAt ? new Date(a.watchedAt).getTime() : 0;
+        const db = b.watchedAt ? new Date(b.watchedAt).getTime() : 0;
+        return db - da;
+      })
+    : [];
 
   const handleProgress = (position: number, duration: number) => {
     if (!anime) return;
@@ -265,6 +313,18 @@ export function AnimeDetailView() {
           <TabsTrigger value="episodes" className="data-[state=active]:bg-yellow-400 data-[state=active]:text-black">
             Episodes
           </TabsTrigger>
+          {continueWatching.length > 0 && (
+            <TabsTrigger value="continue" className="data-[state=active]:bg-yellow-400 data-[state=active]:text-black">
+              <History className="mr-1 h-3 w-3" />
+              Continue
+            </TabsTrigger>
+          )}
+          {seasons.length > 1 && (
+            <TabsTrigger value="seasons" className="data-[state=active]:bg-yellow-400 data-[state=active]:text-black">
+              <Layers className="mr-1 h-3 w-3" />
+              Seasons
+            </TabsTrigger>
+          )}
           <TabsTrigger value="synopsis" className="data-[state=active]:bg-yellow-400 data-[state=active]:text-black">
             Synopsis
           </TabsTrigger>
@@ -310,6 +370,120 @@ export function AnimeDetailView() {
             })}
           </div>
         </TabsContent>
+
+        {continueWatching.length > 0 && (
+          <TabsContent value="continue" className="mt-3">
+            <div className="flex flex-col gap-2">
+              {continueWatching.map((h) => {
+                const isActive = h.episode === selectedEpisode;
+                return (
+                  <button
+                    key={`${h.malId}-${h.episode}`}
+                    type="button"
+                    onClick={() => {
+                      if (anime) {
+                        openAnime(h.malId, h.episode, h.position);
+                      }
+                    }}
+                    className={cn(
+                      "flex items-center gap-3 rounded-lg border p-2 text-left transition",
+                      isActive
+                        ? "border-yellow-400 bg-yellow-400/10"
+                        : "border-white/5 bg-white/5 hover:bg-white/10",
+                    )}
+                  >
+                    <div className="relative h-14 w-24 shrink-0 overflow-hidden rounded-md bg-black">
+                      {h.poster && (
+                        <img
+                          src={h.poster}
+                          alt={h.title}
+                          className="h-full w-full object-cover"
+                        />
+                      )}
+                      <div className="absolute inset-0 grid place-items-center bg-black/30">
+                        <PlayCircle className="h-6 w-6 text-white/90" />
+                      </div>
+                      {/* Progress bar */}
+                      {h.duration > 0 && (
+                        <div className="absolute bottom-0 left-0 h-1 bg-yellow-400" style={{ width: `${Math.min(100, h.progress)}%` }} />
+                      )}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className={cn("text-xs font-bold", isActive ? "text-yellow-400" : "text-white")}>
+                        Episode {h.episode}
+                      </p>
+                      <p className="text-[10px] text-white/50">
+                        {h.progress > 0 ? `${Math.round(h.progress)}% watched` : "Not started"}
+                      </p>
+                      {h.watchedAt && (
+                        <p className="text-[9px] text-white/40">
+                          {new Date(h.watchedAt).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+                        </p>
+                      )}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </TabsContent>
+        )}
+
+        {seasons.length > 1 && (
+          <TabsContent value="seasons" className="mt-3">
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {seasons.map((s, idx) => {
+                const isCurrent = s.malId === selectedMalId;
+                return (
+                  <button
+                    key={s.malId}
+                    type="button"
+                    onClick={() => {
+                      if (!isCurrent) openAnime(s.malId, 1);
+                    }}
+                    disabled={isCurrent}
+                    className={cn(
+                      "flex items-center gap-3 rounded-lg border p-2 text-left transition",
+                      isCurrent
+                        ? "border-yellow-400 bg-yellow-400/10"
+                        : "border-white/5 bg-white/5 hover:bg-white/10",
+                    )}
+                  >
+                    <div className="grid h-12 w-8 shrink-0 place-items-center rounded-md bg-yellow-400/10 text-xs font-bold text-yellow-400">
+                      {idx + 1}
+                    </div>
+                    <div className="h-14 w-10 shrink-0 overflow-hidden rounded-md bg-black">
+                      {s.anime?.poster && (
+                        <img
+                          src={s.anime.poster}
+                          alt={s.label}
+                          className="h-full w-full object-cover"
+                        />
+                      )}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className={cn("text-xs font-bold leading-tight", isCurrent ? "text-yellow-400" : "text-white")}>
+                        {s.label}
+                      </p>
+                      {s.anime && (
+                        <p className="text-[10px] text-white/50">
+                          {s.anime.episodeCount > 0 ? `${s.anime.episodeCount} eps` : s.anime.type}
+                          {s.anime.score > 0 && ` · ⭐ ${s.anime.score.toFixed(2)}`}
+                          {s.anime.year && ` · ${s.anime.year}`}
+                        </p>
+                      )}
+                      {s.anime?.status && (
+                        <p className="text-[9px] text-white/40">{s.anime.status}</p>
+                      )}
+                    </div>
+                    {isCurrent && (
+                      <span className="text-[9px] font-bold text-yellow-400">CURRENT</span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </TabsContent>
+        )}
 
         <TabsContent value="synopsis" className="mt-3">
           <p className="text-xs leading-relaxed text-white/75">
