@@ -199,13 +199,11 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "Movie", status: "Finished Airing", score: 9.06, scoredBy: 328807, rank: 6, popularity: 519, members: 509373,
     year: 2025, season: null, genres: ["Action", "Fantasy"], studios: ["MAPPA"],
     episodeCount: 1, duration: "1 hr 39 min", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
-    // Sub source = Japanese audio, no subtitles (watch raw).
-    // Dub source = English audio.
-    // To enable English subtitles on the sub version, set noSubtitles:false and
-    // add localSubtitlePattern: "/subtitles/57555_e{ep}.vtt"
-    noSubtitles: true,
+    // Sub source = 1080p Japanese audio (no embedded subtitles).
+    // English subtitles from user-provided Dropbox SRT, converted to VTT.
+    localSubtitlePattern: "/subtitles/57555_e{ep}.vtt",
     episodeSources: [
-      { startEp: 1, endEp: 1, collection: "rezearc", fileName: "csmrezearc.mp4", audio: "sub" },
+      { startEp: 1, endEp: 1, collection: "chainsaw-man-the-movie-reze-arc_202601", fileName: "Chainsaw Man The Movie - Reze Arc.mp4", audio: "sub" },
       { startEp: 1, endEp: 1, collection: "sam-chainsaw-man-the-movie-reze-arc-2025-web-1080p-eac-3-c-24-c-4-dd-1.-1080", fileName: "[sam] Chainsaw Man - The Movie Reze Arc (2025) [WEB 1080p EAC-3] [C24C4DD1].1080.mp4", audio: "dub" },
     ], hasDub: true,
   },
