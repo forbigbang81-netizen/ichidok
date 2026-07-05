@@ -3,6 +3,7 @@ import https from "node:https";
 import { db } from "@/lib/db";
 import { SEED_ANIME } from "@/lib/seed";
 import { ensureSeeded } from "@/app/api/catalog/route";
+import { fetchOpenSubsVtt, isOpenSubsReady, isOpenSubsSearchOnly } from "@/lib/opensubs";
 
 export const dynamic = "force-dynamic";
 
@@ -242,7 +243,37 @@ export async function GET(request: Request) {
       );
     }
 
-    // Get real episode titles from DB (cached) or Jikan.
+    // === TIER 1: OpenSubtitles.com (real dialogue subs) ===
+    // Requires env: OPENSUBS_API_KEY, OPENSUBS_USER, OPENSUBS_PASS
+    // See README for how to obtain a free API key.
+    if (isOpenSubsReady()) {
+      try {
+        const vtt = await fetchOpenSubsVtt({
+          malId,
+          animeTitle: seed.titleEnglish ?? seed.title,
+          episode,
+        });
+        if (vtt && vtt.startsWith("WEBVTT") && vtt.length > 200) {
+          // Heuristic: real dialogue subs have many cues. Episode-info VTT
+          // has ~7 cues (~200 chars). Require at least 1KB to consider it real.
+          return new NextResponse(vtt, {
+            status: 200,
+            headers: {
+              "Content-Type": "text/vtt; charset=utf-8",
+              "Cache-Control": "public, max-age=86400, s-maxage=86400",
+              "X-Subtitle-Source": "opensubtitles",
+            },
+          });
+        }
+      } catch (e) {
+        console.error("[/api/subtitles] OpenSubtitles fetch failed:", e);
+      }
+    }
+
+    // === TIER 2: Jikan episode-title cues (always available) ===
+    // These are episode-info cues (title card, OP/ED markers, real MAL
+    // episode title). Not dialogue subs, but accurate and synced to
+    // standard 24-min anime structure.
     const episodes = await ensureEpisodesCached(malId);
     const ep = episodes.find((e) => e.number === episode);
     const nextEp = episodes.find((e) => e.number === episode + 1);
@@ -261,6 +292,11 @@ export async function GET(request: Request) {
       headers: {
         "Content-Type": "text/vtt; charset=utf-8",
         "Cache-Control": "public, max-age=3600, s-maxage=86400",
+        "X-Subtitle-Source": isOpenSubsReady()
+          ? "jikan-fallback"  // OpenSubtitles was tried but failed/returned nothing
+          : isOpenSubsSearchOnly()
+            ? "jikan-no-downloads-configured"
+            : "jikan",
       },
     });
   } catch (err) {

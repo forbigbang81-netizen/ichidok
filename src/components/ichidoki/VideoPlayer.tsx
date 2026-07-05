@@ -150,6 +150,7 @@ export function VideoPlayer({
   const [audioTracks, setAudioTracks] = useState<AudioTrackInfo[]>([]);
   const [activeAudioTrack, setActiveAudioTrack] = useState<number>(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [subtitleSource, setSubtitleSource] = useState<string>("");
 
   // ----- Auto-hide controls -----
   const keepControlsAlive = useCallback(() => {
@@ -207,7 +208,13 @@ export function VideoPlayer({
     }
     let cancelled = false;
     fetch(subUrl)
-      .then((r) => (r.ok ? r.text() : Promise.reject(r.status)))
+      .then((r) => {
+        if (!r.ok) return Promise.reject(r.status);
+        // Track subtitle source for UI feedback (e.g. "OpenSubtitles" vs "Episode Info")
+        const src = r.headers.get("x-subtitle-source");
+        if (src) setSubtitleSource(src);
+        return r.text();
+      })
       .then((text) => {
         if (cancelled) return;
         try {
@@ -782,7 +789,11 @@ export function VideoPlayer({
                 title={
                   cues.length === 0
                     ? "Subtitles unavailable for this episode"
-                    : "Toggle subtitles"
+                    : subtitleSource === "opensubtitles"
+                      ? "Subtitles from OpenSubtitles (real dialogue)"
+                      : subtitleSource.startsWith("jikan")
+                        ? "Episode info (configure OpenSubtitles for dialogue subs)"
+                        : "Toggle subtitles"
                 }
               >
                 <Captions className="h-4 w-4" />

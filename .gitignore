@@ -52,3 +52,6 @@ prompt
 server.log
 # Skills directory
 /skills/
+
+# OpenSubtitles disk cache (real subtitle files cached after first download)
+.opensubs-cache/
