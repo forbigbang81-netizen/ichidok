@@ -202,10 +202,10 @@ export const SEED_ANIME: SeedAnime[] = [
     // Real English dialogue subtitles for the sub (JP audio) version.
     // SRT sourced from user-provided Dropbox link, converted to VTT.
     localSubtitlePattern: "/subtitles/57555_e{ep}.vtt",
+    // Sub-only: Japanese audio with English subtitles. No dub source available.
     episodeSources: [
       { startEp: 1, endEp: 1, collection: "rezearc", fileName: "csmrezearc.mp4", audio: "sub" },
-      { startEp: 1, endEp: 1, collection: "sam-chainsaw-man-the-movie-reze-arc-2025-web-1080p-eac-3-c-24-c-4-dd-1.-1080", fileName: "[sam] Chainsaw Man - The Movie Reze Arc (2025) [WEB 1080p EAC-3] [C24C4DD1].1080.mp4", audio: "dub" },
-    ], hasDub: true,
+    ],
   },
   // Gachiakuta
   { malId: 59062, title: "Gachiakuta", titleEnglish: "Gachiakuta", titleJapanese: "ガチアクタ",
