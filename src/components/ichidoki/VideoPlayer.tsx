@@ -494,7 +494,9 @@ export function VideoPlayer({
         }, HIDE_CONTROLS_MS / 2);
       }}
     >
-      {/* Video element — NO crossOrigin (breaks archive.org CDN). */}
+      {/* Video element — NO crossOrigin (breaks archive.org CDN).
+          Tap-to-toggle-UI is handled by a dedicated click-catcher below
+          (the <video> element's onClick is unreliable on mobile). */}
       {videoUrl ? (
         <video
           ref={videoRef}
@@ -503,13 +505,9 @@ export function VideoPlayer({
           playsInline
           preload="metadata"
           className="absolute inset-0 h-full w-full bg-black"
-          onClick={handleVideoTap}
         />
       ) : (
-        <div
-          className="absolute inset-0 grid place-items-center bg-black"
-          onClick={handleVideoTap}
-        >
+        <div className="absolute inset-0 grid place-items-center bg-black">
           {posterUrl && (
             <img
               src={posterUrl}
@@ -518,6 +516,18 @@ export function VideoPlayer({
             />
           )}
         </div>
+      )}
+
+      {/* Always-present tap catcher — toggles the controls UI on click.
+          Sits ABOVE the video (z-10) but BELOW the controls (z-20/z-30).
+          The top/bottom bars become pointer-events-none when hidden, so
+          taps fall through to this layer; the center overlay's buttons
+          call e.stopPropagation() so they don't trigger this handler. */}
+      {!loading && !error && videoUrl && (
+        <div
+          className="absolute inset-0 z-10"
+          onClick={handleVideoTap}
+        />
       )}
 
       {/* Loading overlay */}
@@ -640,14 +650,13 @@ export function VideoPlayer({
       </div>
 
       {/* Center controls — only when controls visible.
-          The wrapper also acts as a click-catcher: clicks on empty area
-          (not on the buttons, which call e.stopPropagation()) toggle the UI. */}
+          The wrapper is pointer-events-none so taps on empty center area
+          fall through to the click-catcher (z-10) which toggles the UI.
+          The buttons inside re-enable pointer-events-auto and call
+          e.stopPropagation() so they don't trigger the toggle. */}
       {controlsVisible && !loading && !error && videoUrl && (
-        <div
-          className="absolute inset-0 z-20 grid place-items-center"
-          onClick={handleVideoTap}
-        >
-          <div className="flex items-center gap-6">
+        <div className="pointer-events-none absolute inset-0 z-20 grid place-items-center">
+          <div className="pointer-events-auto flex items-center gap-6">
             <button
               type="button"
               onClick={(e) => {

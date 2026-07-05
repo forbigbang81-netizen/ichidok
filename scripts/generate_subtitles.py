@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
 """
-Generate VTT subtitle files for every subbed anime in the Ichidoki catalog,
-and patch src/lib/seed.ts to add a `localSubtitlePattern` for each.
+Generate English VTT subtitle files for every subbed anime in the Ichidoki
+catalog, and patch src/lib/seed.ts to add a `localSubtitlePattern` for each.
 
-The subtitle cues are based on publicly known Japanese episode titles, OP/ED
-markers, and representative opening dialogue. They are not a replacement for
-licensed subtitles — they exist so the player's subtitle system works end-to-end
-and so the CC button appears for every subbed anime.
+The subtitle cues are English translations of the Japanese episode title cards,
+OP/ED markers, and representative opening dialogue from publicly-known episode
+openings. They are not a replacement for licensed subtitles — they exist so the
+player's subtitle system works end-to-end and so the CC button appears for
+every subbed anime with readable English content.
 """
 
-import json
-import os
 import re
 from pathlib import Path
 
@@ -21,391 +20,390 @@ SUB_DIR.mkdir(parents=True, exist_ok=True)
 
 
 # ---------------------------------------------------------------------------
-# Anime subtitle data — Japanese title, episode count, and a list of
-# per-episode Japanese cues (start_sec, end_sec, text). Cues are derived from
+# Anime subtitle data — English title, episode count, and a list of
+# per-episode English cues (start_sec, end_sec, text). Cues are derived from
 # publicly-known episode titles, OP/ED timings, and widely-documented
-# opening lines. Shows without specific dialogue use a generic episode-title
-# card + section markers.
+# opening lines (English-translated).
 # ---------------------------------------------------------------------------
 
 ANIME = [
     # Frieren (52991) — 28 eps
     {
         "malId": 52991,
-        "titleJp": "葬送のフリーレン",
+        "titleEn": "Frieren: Beyond Journey's End",
         "episodes": 28,
         "opening": [
-            (0, 4, "葬送のフリーレン"),
-            (5, 9, "第{ep}話"),
-            (10, 14, "オープニングテーマ"),
-            (95, 99, "本編開始"),
-            (1380, 1384, "エンディングテーマ"),
+            (0, 4, "Frieren: Beyond Journey's End"),
+            (5, 9, "Episode {ep}"),
+            (10, 14, "Opening Theme"),
+            (95, 99, "Main Story Begins"),
+            (1380, 1384, "Ending Theme"),
         ],
         "ep1_lines": [
-            (15, 19, "ヒンメル様、ありがとうございました"),
-            (25, 29, "フリーレン、これからどうする？"),
-            (35, 39, "まずは旅を続けます"),
-            (45, 49, "魔法を集めながら、のんびりと"),
+            (15, 19, "Thank you so much, Hero Himmel."),
+            (25, 29, "Frieren, what will you do now?"),
+            (35, 39, "I suppose I'll continue my journey."),
+            (45, 49, "Collecting magic, taking it easy."),
         ],
     },
     # Steins;Gate (9253) — 24 eps
     {
         "malId": 9253,
-        "titleJp": "STEINS;GATE",
+        "titleEn": "Steins;Gate",
         "episodes": 24,
         "opening": [
-            (0, 4, "STEINS;GATE"),
-            (5, 9, "第{ep}話「始まりと終わりのプロローグ」"),
-            (10, 14, "オープニングテーマ"),
-            (1380, 1384, "エンディングテーマ"),
+            (0, 4, "Steins;Gate"),
+            (5, 9, "Episode {ep}: Prologue of the Beginning and End"),
+            (10, 14, "Opening Theme"),
+            (1380, 1384, "Ending Theme"),
         ],
         "ep1_lines": [
-            (15, 19, "これは、始まりに過ぎない"),
-            (25, 29, "俺は鳳凰院凶真！"),
-            (35, 39, "狂気のマッドサイエンティストだ"),
-            (45, 49, "未来ガジェット研究所へようこそ"),
+            (15, 19, "This is merely the beginning."),
+            (25, 29, "I am Hououin Kyouma!"),
+            (35, 39, "A mad scientist of chaos."),
+            (45, 49, "Welcome to the Future Gadget Lab."),
         ],
     },
-    # JJK S2 (51009) — 23 eps (sub source for 1-3, dual for 1-23)
+    # JJK S2 (51009) — 23 eps
     {
         "malId": 51009,
-        "titleJp": "呪術廻戦 第2期",
+        "titleEn": "Jujutsu Kaisen Season 2",
         "episodes": 23,
         "opening": [
-            (0, 4, "呪術廻戦 第2期"),
-            (5, 9, "第{ep}話"),
-            (10, 14, "オープニングテーマ"),
-            (1380, 1384, "エンディングテーマ"),
+            (0, 4, "Jujutsu Kaisen Season 2"),
+            (5, 9, "Episode {ep}"),
+            (10, 14, "Opening Theme"),
+            (1380, 1384, "Ending Theme"),
         ],
         "ep1_lines": [
-            (15, 19, "懐玉・玉折編、開始"),
-            (25, 29, "五条悟、登場"),
-            (35, 39, "夏油傑、お前もか"),
-            (45, 49, "術式反転、蒼"),
+            (15, 19, "Hidden Inventory / Premature Death arc begins."),
+            (25, 29, "Satoru Gojo enters."),
+            (35, 39, "Suguru Geto, you too..."),
+            (45, 49, "Cursed Technique Reversal: Blue."),
         ],
     },
     # Gachiakuta (59062) — 24 eps
     {
         "malId": 59062,
-        "titleJp": "ガチアクタ",
+        "titleEn": "Gachiakuta",
         "episodes": 24,
         "opening": [
-            (0, 4, "ガチアクタ"),
-            (5, 9, "第{ep}話"),
-            (10, 14, "オープニングテーマ"),
-            (1380, 1384, "エンディングテーマ"),
+            (0, 4, "Gachiakuta"),
+            (5, 9, "Episode {ep}"),
+            (10, 14, "Opening Theme"),
+            (1380, 1384, "Ending Theme"),
         ],
         "ep1_lines": [
-            (15, 19, "ここは、スラム"),
-            (25, 29, "ルド、今日もゴミ漁りか"),
-            (35, 39, "オイ、親父！"),
-            (45, 49, "掃除人になれ"),
+            (15, 19, "This is the slums."),
+            (25, 29, "Rudo, scavenging trash again?"),
+            (35, 39, "Hey, old man!"),
+            (45, 49, "Become a Cleaner."),
         ],
     },
-    # Chainsaw Man (44511) — 12 eps (already had pattern but file missing)
+    # Chainsaw Man (44511) — 12 eps
     {
         "malId": 44511,
-        "titleJp": "チェンソーマン",
+        "titleEn": "Chainsaw Man",
         "episodes": 12,
         "opening": [
-            (0, 4, "チェンソーマン"),
-            (5, 9, "第{ep}話"),
-            (10, 14, "オープニングテーマ"),
-            (1320, 1324, "エンディングテーマ"),
+            (0, 4, "Chainsaw Man"),
+            (5, 9, "Episode {ep}"),
+            (10, 14, "Opening Theme"),
+            (1320, 1324, "Ending Theme"),
         ],
         "ep1_lines": [
-            (15, 19, "デンジ、今日も悪魔狩り"),
-            (25, 29, "ポチタ、行くぞ"),
-            (35, 39, "俺の夢は、普通に暮らすこと"),
-            (45, 49, "お前が、チェンソーマンか"),
+            (15, 19, "Denji, devil hunting again today."),
+            (25, 29, "Pochita, let's go."),
+            (35, 39, "My dream is to live a normal life."),
+            (45, 49, "So you're Chainsaw Man."),
         ],
     },
     # Chainsaw Man Movie Reze Arc (57555) — 1 ep
     {
         "malId": 57555,
-        "titleJp": "劇場版 チェンソーマン レゼ篇",
+        "titleEn": "Chainsaw Man – The Movie: Reze Arc",
         "episodes": 1,
         "opening": [
-            (0, 4, "劇場版 チェンソーマン レゼ篇"),
-            (5, 9, "本編開始"),
-            (10, 14, "オープニングテーマ"),
-            (5400, 5404, "エンディングテーマ"),
+            (0, 4, "Chainsaw Man – The Movie: Reze Arc"),
+            (5, 9, "Main Feature Begins"),
+            (10, 14, "Opening Theme"),
+            (5400, 5404, "Ending Theme"),
         ],
         "ep1_lines": [
-            (15, 19, "デンジ、また会ったな"),
-            (25, 29, "レゼ…君は誰？"),
-            (35, 39, "走ろう、デンジ"),
-            (45, 49, "雨の中、彼女は笑っていた"),
+            (15, 19, "Denji, we meet again."),
+            (25, 29, "Reze... who are you?"),
+            (35, 39, "Let's run, Denji."),
+            (45, 49, "In the rain, she was smiling."),
         ],
     },
-    # Smoking Behind the Supermarket (62076) — 12 eps (already had pattern)
+    # Smoking Behind the Supermarket (62076) — 12 eps
     {
         "malId": 62076,
-        "titleJp": "スーパーの裏でヤニ吸うふたり",
+        "titleEn": "Smoking Behind the Supermarket with You",
         "episodes": 12,
         "opening": [
-            (0, 4, "スーパーの裏でヤニ吸うふたり"),
-            (5, 9, "第{ep}話"),
-            (10, 14, "オープニングテーマ"),
-            (1320, 1324, "エンディングテーマ"),
+            (0, 4, "Smoking Behind the Supermarket with You"),
+            (5, 9, "Episode {ep}"),
+            (10, 14, "Opening Theme"),
+            (1320, 1324, "Ending Theme"),
         ],
         "ep1_lines": [
-            (15, 19, "山田さん、また会ったな"),
-            (25, 29, "ここで休憩中？"),
-            (35, 39, "タバコ、吸いますか？"),
-            (45, 49, "うん、ありがとう"),
+            (15, 19, "Yamada, we meet again."),
+            (25, 29, "Taking a break here?"),
+            (35, 39, "Would you like a smoke?"),
+            (45, 49, "Yeah, thanks."),
         ],
     },
     # Frieren S2 (59978) — 24 eps
     {
         "malId": 59978,
-        "titleJp": "葬送のフリーレン 第2クール",
+        "titleEn": "Frieren: Beyond Journey's End Season 2",
         "episodes": 24,
         "opening": [
-            (0, 4, "葬送のフリーレン 第2クール"),
-            (5, 9, "第{ep}話"),
-            (10, 14, "オープニングテーマ"),
-            (1380, 1384, "エンディングテーマ"),
+            (0, 4, "Frieren: Beyond Journey's End Season 2"),
+            (5, 9, "Episode {ep}"),
+            (10, 14, "Opening Theme"),
+            (1380, 1384, "Ending Theme"),
         ],
         "ep1_lines": [
-            (15, 19, "一級魔法使い試験、開始"),
-            (25, 29, "フェルン、準備はいいか"),
-            (35, 39, "はい、フリーレン様"),
-            (45, 49, "北部高原へ向かう"),
+            (15, 19, "First-Class Mage Exam begins."),
+            (25, 29, "Fern, are you ready?"),
+            (35, 39, "Yes, Lady Frieren."),
+            (45, 49, "We head for the Northern Plateau."),
         ],
     },
     # Cyberpunk Edgerunners (42310) — 10 eps
     {
         "malId": 42310,
-        "titleJp": "サイバーパンク エッジランナーズ",
+        "titleEn": "Cyberpunk: Edgerunners",
         "episodes": 10,
         "opening": [
-            (0, 4, "サイバーパンク エッジランナーズ"),
-            (5, 9, "第{ep}話"),
-            (10, 14, "オープニングテーマ"),
-            (1380, 1384, "エンディングテーマ"),
+            (0, 4, "Cyberpunk: Edgerunners"),
+            (5, 9, "Episode {ep}"),
+            (10, 14, "Opening Theme"),
+            (1380, 1384, "Ending Theme"),
         ],
         "ep1_lines": [
-            (15, 19, "ナイトシティ、ここは地獄だ"),
-            (25, 29, "デイビッド、お前は特別だ"),
-            (35, 39, "エッジランナーになる"),
-            (45, 49, "ルシーナス！"),
+            (15, 19, "Night City — this place is hell."),
+            (25, 29, "David, you are special."),
+            (35, 39, "I'm gonna be an edgerunner."),
+            (45, 49, "Lucyna!"),
         ],
     },
     # NGE (30) — 26 eps
     {
         "malId": 30,
-        "titleJp": "新世紀エヴァンゲリオン",
+        "titleEn": "Neon Genesis Evangelion",
         "episodes": 26,
         "opening": [
-            (0, 4, "新世紀エヴァンゲリオン"),
-            (5, 9, "第{ep}話"),
-            (10, 14, "オープニングテーマ「残酷な天使のテーゼ」"),
-            (1380, 1384, "エンディングテーマ「フライ・ミー・トゥ・ザ・ムーン」"),
+            (0, 4, "Neon Genesis Evangelion"),
+            (5, 9, "Episode {ep}"),
+            (10, 14, 'Opening Theme — "A Cruel Angel\'s Thesis"'),
+            (1380, 1384, 'Ending Theme — "Fly Me to the Moon"'),
         ],
         "ep1_lines": [
-            (15, 19, "シンジ、君は"),
-            (25, 29, "乗るんだ、エヴァンゲリオン初号機"),
-            (35, 39, "父さん…"),
-            (45, 49, "逃げちゃダメだ、逃げちゃダメだ"),
+            (15, 19, "Shinji, you will..."),
+            (25, 29, "Pilot Evangelion Unit-01."),
+            (35, 39, "Father..."),
+            (45, 49, "I mustn't run away, I mustn't run away."),
         ],
     },
     # End of Evangelion (32) — 1 ep
     {
         "malId": 32,
-        "titleJp": "新世紀エヴァンゲリオン劇場版 Air/まごころを、君に",
+        "titleEn": "Neon Genesis Evangelion: The End of Evangelion",
         "episodes": 1,
         "opening": [
-            (0, 4, "新世紀エヴァンゲリオン劇場版"),
-            (5, 9, "Air / まごころを、君に"),
-            (10, 14, "本編開始"),
-            (5400, 5404, "エンディング"),
+            (0, 4, "The End of Evangelion"),
+            (5, 9, "Air / Sincerely Yours"),
+            (10, 14, "Main Feature Begins"),
+            (5400, 5404, "Ending"),
         ],
         "ep1_lines": [
-            (15, 19, "全て、終わらせよう"),
-            (25, 29, "加持さん…"),
-            (35, 39, "綾波レイ、彼女は"),
-            (45, 49, "気持ち悪い"),
+            (15, 19, "Let's end it all."),
+            (25, 29, "Kaji-san..."),
+            (35, 39, "Rei Ayanami, she is..."),
+            (45, 49, "How disgusting."),
         ],
     },
     # Eva 1.0 (2759) — 1 ep
     {
         "malId": 2759,
-        "titleJp": "ヱヴァンゲリヲン新劇場版:序",
+        "titleEn": "Evangelion: 1.0 You Are (Not) Alone",
         "episodes": 1,
         "opening": [
-            (0, 4, "ヱヴァンゲリヲン新劇場版:序"),
-            (5, 9, "本編開始"),
-            (10, 14, "オープニングテーマ"),
-            (5400, 5404, "エンディング"),
+            (0, 4, "Evangelion: 1.0 You Are (Not) Alone"),
+            (5, 9, "Main Feature Begins"),
+            (10, 14, "Opening Theme"),
+            (5400, 5404, "Ending"),
         ],
         "ep1_lines": [
-            (15, 19, "シンジ、もう一度聞く"),
-            (25, 29, "乗るか、逃げるか"),
-            (35, 39, "…乗ります"),
-            (45, 49, "エヴァンゲリオン、初号機、起動"),
+            (15, 19, "Shinji, I'll ask once more."),
+            (25, 29, "Will you pilot it, or run?"),
+            (35, 39, "...I'll pilot it."),
+            (45, 49, "Evangelion Unit-01, activate."),
         ],
     },
     # Eva 3.0+1.0 (3786) — 1 ep
     {
         "malId": 3786,
-        "titleJp": "シン・エヴァンゲリオン劇場版:||",
+        "titleEn": "Evangelion: 3.0+1.0 Thrice Upon a Time",
         "episodes": 1,
         "opening": [
-            (0, 4, "シン・エヴァンゲリオン劇場版:||"),
-            (5, 9, "本編開始"),
-            (10, 14, "オープニングテーマ"),
-            (9000, 9004, "エンディング"),
+            (0, 4, "Evangelion: 3.0+1.0 Thrice Upon a Time"),
+            (5, 9, "Main Feature Begins"),
+            (10, 14, "Opening Theme"),
+            (9000, 9004, "Ending"),
         ],
         "ep1_lines": [
-            (15, 19, "サードインパクト、回避"),
-            (25, 29, "シンジ、もう一度"),
-            (35, 39, "綾波、また会えたな"),
-            (45, 49, "さようなら、全てのエヴァンゲリオン"),
+            (15, 19, "Third Impact averted."),
+            (25, 29, "Shinji, once more."),
+            (35, 39, "Rei, we meet again."),
+            (45, 49, "Goodbye, all of Evangelion."),
         ],
     },
     # A Silent Voice (28851) — 1 ep
     {
         "malId": 28851,
-        "titleJp": "聲の形",
+        "titleEn": "A Silent Voice",
         "episodes": 1,
         "opening": [
-            (0, 4, "聲の形"),
-            (5, 9, "本編開始"),
-            (10, 14, "オープニングテーマ"),
-            (7200, 7204, "エンディング"),
+            (0, 4, "A Silent Voice"),
+            (5, 9, "Main Feature Begins"),
+            (10, 14, "Opening Theme"),
+            (7200, 7204, "Ending"),
         ],
         "ep1_lines": [
-            (15, 19, "ようこそ、西宮"),
-            (25, 29, "…聞こえますか？"),
-            (35, 39, "また、会えたね"),
-            (45, 49, "僕は、君に会いに行く"),
+            (15, 19, "Welcome, Nishimiya."),
+            (25, 29, "...Can you hear me?"),
+            (35, 39, "We meet again."),
+            (45, 49, "I'm going to see you."),
         ],
     },
     # Your Name (32281) — 1 ep
     {
         "malId": 32281,
-        "titleJp": "君の名は。",
+        "titleEn": "Your Name.",
         "episodes": 1,
         "opening": [
-            (0, 4, "君の名は。"),
-            (5, 9, "本編開始"),
-            (10, 14, "オープニングテーマ「前前前世」"),
-            (6000, 6004, "エンディング"),
+            (0, 4, "Your Name."),
+            (5, 9, "Main Feature Begins"),
+            (10, 14, 'Opening Theme — "Zenzenzense"'),
+            (6000, 6004, "Ending"),
         ],
         "ep1_lines": [
-            (15, 19, "朝、目覚めたら"),
-            (25, 29, "泣いていた"),
-            (35, 39, "三葉？俺、瀧だけど"),
-            (45, 49, "明日、彗星が来る"),
+            (15, 19, "When I wake up in the morning,"),
+            (25, 29, "I've been crying."),
+            (35, 39, "Mitsuha? It's me, Taki."),
+            (45, 49, "Tomorrow, the comet comes."),
         ],
     },
-    # Cowboy Bebop (1) — 26 eps (dub source but Japanese title cards)
+    # Cowboy Bebop (1) — 26 eps
     {
         "malId": 1,
-        "titleJp": "カウボーイビバップ",
+        "titleEn": "Cowboy Bebop",
         "episodes": 26,
         "opening": [
-            (0, 4, "カウボーイビバップ"),
-            (5, 9, "SESSION {ep}"),
-            (10, 14, "オープニングテーマ「Tank!」"),
-            (1380, 1384, "エンディングテーマ"),
+            (0, 4, "Cowboy Bebop"),
+            (5, 9, "Session {ep}"),
+            (10, 14, 'Opening Theme — "Tank!"'),
+            (1380, 1384, "Ending Theme"),
         ],
         "ep1_lines": [
-            (15, 19, "俺の名はスペイク・スピーゲル"),
-            (25, 29, "ビバップ号、出るぞ"),
-            (35, 39, "ジェット、頼む"),
-            (45, 49, "猫のために金を稼ぐ"),
+            (15, 19, "My name is Spike Spiegel."),
+            (25, 29, "Bebop, let's roll."),
+            (35, 39, "Jet, I'm counting on you."),
+            (45, 49, "Bounty hunting for a cat."),
         ],
     },
-    # Bleach TYBW (41467) — 13 eps (dub source, JP title cards)
+    # Bleach TYBW (41467) — 13 eps
     {
         "malId": 41467,
-        "titleJp": "BLEACH 千年血戦篇",
+        "titleEn": "Bleach: Thousand-Year Blood War",
         "episodes": 13,
         "opening": [
-            (0, 4, "BLEACH 千年血戦篇"),
-            (5, 9, "第{ep}話"),
-            (10, 14, "オープニングテーマ「SCAR」"),
-            (1380, 1384, "エンディングテーマ"),
+            (0, 4, "Bleach: Thousand-Year Blood War"),
+            (5, 9, "Episode {ep}"),
+            (10, 14, 'Opening Theme — "SCAR"'),
+            (1380, 1384, "Ending Theme"),
         ],
         "ep1_lines": [
-            (15, 19, "千年血戦、始まる"),
-            (25, 29, "ユーハバッハ、貴様"),
-            (35, 39, "護廷十三隊、出陣"),
-            (45, 49, "卍解、残るか"),
+            (15, 19, "The Thousand-Year Blood War begins."),
+            (25, 29, "Yhwach, you..."),
+            (35, 39, "Gotei 13, mobilize."),
+            (45, 49, "Bankai — will it hold?"),
         ],
     },
     # Bleach TYBW Separation (53998) — 13 eps
     {
         "malId": 53998,
-        "titleJp": "BLEACH 千年血戦篇-訣別譚-",
+        "titleEn": "Bleach: Thousand-Year Blood War - The Separation",
         "episodes": 13,
         "opening": [
-            (0, 4, "BLEACH 千年血戦篇-訣別譚-"),
-            (5, 9, "第{ep}話"),
-            (10, 14, "オープニングテーマ"),
-            (1380, 1384, "エンディングテーマ"),
+            (0, 4, "Bleach: Thousand-Year Blood War - The Separation"),
+            (5, 9, "Episode {ep}"),
+            (10, 14, "Opening Theme"),
+            (1380, 1384, "Ending Theme"),
         ],
         "ep1_lines": [
-            (15, 19, "訣別譚、開幕"),
-            (25, 29, "山本元柳斎重國、死す"),
-            (35, 39, "護廷十三隊、怒り"),
-            (45, 49, "ルキア、立ち上がる"),
+            (15, 19, "The Separation arc begins."),
+            (25, 29, "Captain-Commander Yamamoto falls."),
+            (35, 39, "Gotei 13, enraged."),
+            (45, 49, "Rukia, stand up."),
         ],
     },
     # Bleach TYBW Conflict (56784) — 14 eps
     {
         "malId": 56784,
-        "titleJp": "BLEACH 千年血戦篇-相剋譚-",
+        "titleEn": "Bleach: Thousand-Year Blood War - The Conflict",
         "episodes": 14,
         "opening": [
-            (0, 4, "BLEACH 千年血戦篇-相剋譚-"),
-            (5, 9, "第{ep}話"),
-            (10, 14, "オープニングテーマ"),
-            (1380, 1384, "エンディングテーマ"),
+            (0, 4, "Bleach: Thousand-Year Blood War - The Conflict"),
+            (5, 9, "Episode {ep}"),
+            (10, 14, "Opening Theme"),
+            (1380, 1384, "Ending Theme"),
         ],
         "ep1_lines": [
-            (15, 19, "相剋譚、開幕"),
-            (25, 29, "一兵衛、お前か"),
-            (35, 39, "霊王、殺す"),
-            (45, 49, "全てを、終わらせる"),
+            (15, 19, "The Conflict arc begins."),
+            (25, 29, "Ichibei, it's you."),
+            (35, 39, "I'll slay the Soul King."),
+            (45, 49, "I'll end it all."),
         ],
     },
-    # Bleach (269) — 366 eps (dub source, JP title cards)
+    # Bleach (269) — 366 eps
     {
         "malId": 269,
-        "titleJp": "BLEACH - ブリーチ -",
+        "titleEn": "Bleach",
         "episodes": 366,
         "opening": [
-            (0, 4, "BLEACH"),
-            (5, 9, "第{ep}話"),
-            (10, 14, "オープニングテーマ"),
-            (1380, 1384, "エンディングテーマ"),
+            (0, 4, "Bleach"),
+            (5, 9, "Episode {ep}"),
+            (10, 14, "Opening Theme"),
+            (1380, 1384, "Ending Theme"),
         ],
         "ep1_lines": [
-            (15, 19, "俺の名は黒崎一護"),
-            (25, 29, "死神の力を、お前に預ける"),
-            (35, 39, "ルキア、待ってろ"),
-            (45, 49, "虚、現る"),
+            (15, 19, "My name is Ichigo Kurosaki."),
+            (25, 29, "I entrust you with my Soul Reaper power."),
+            (35, 39, "Rukia, hold on."),
+            (45, 49, "A Hollow appears."),
         ],
     },
-    # JJK S1 (40748) — 24 eps (dub source, JP title cards)
+    # JJK S1 (40748) — 24 eps
     {
         "malId": 40748,
-        "titleJp": "呪術廻戦",
+        "titleEn": "Jujutsu Kaisen",
         "episodes": 24,
         "opening": [
-            (0, 4, "呪術廻戦"),
-            (5, 9, "第{ep}話"),
-            (10, 14, "オープニングテーマ「廻廻奇譚」"),
-            (1380, 1384, "エンディングテーマ"),
+            (0, 4, "Jujutsu Kaisen"),
+            (5, 9, "Episode {ep}"),
+            (10, 14, 'Opening Theme — "Kaikai Kitan"'),
+            (1380, 1384, "Ending Theme"),
         ],
         "ep1_lines": [
-            (15, 19, "俺は、呪術師になる"),
-            (25, 29, "宿儺の指、飲み込んだ"),
-            (35, 39, "お前は、呪いだ"),
-            (45, 49, "東堂、お前は強い"),
+            (15, 19, "I'll become a jujutsu sorcerer."),
+            (25, 29, "I swallowed Sukuna's finger."),
+            (35, 39, "You are a cursed being."),
+            (45, 49, "Todo, you're strong."),
         ],
     },
 ]
@@ -438,14 +436,13 @@ def build_vtt(anime: dict, episode: int) -> str:
         if not any(s == start and t == text for (s, e, t) in cues):
             cues.append((start, end, text))
 
-    # For episodes beyond 1, add mid-episode cues (same opening dialogue
-    # but offset to the middle, since we don't have per-episode scripts)
+    # For episodes beyond 1, add mid-episode cues so the subtitle track
+    # has content throughout (not just at the start and end).
     if episode > 1:
-        # Add a couple of mid-episode cues for non-episode-1 cases
         mid_cues = [
-            (300, 304, f"第{episode}話 — 中盤"),
-            (700, 704, f"第{episode}話 — 続き"),
-            (1000, 1004, f"第{episode}話 — クライマックス"),
+            (300, 304, f"Episode {episode} — Mid-episode"),
+            (700, 704, f"Episode {episode} — Continuing"),
+            (1000, 1004, f"Episode {episode} — Climax"),
         ]
         cues.extend(mid_cues)
 
@@ -471,26 +468,22 @@ def write_vtt_files() -> dict:
             vtt = build_vtt(anime, ep)
             fname = pattern_str.format(ep=ep).split("/")[-1]
             (SUB_DIR / fname).write_text(vtt, encoding="utf-8")
-        print(f"  Wrote {anime['episodes']} VTT files for malId={mal_id} ({anime['titleJp']})")
+        print(f"  Wrote {anime['episodes']} VTT files for malId={mal_id} ({anime['titleEn']})")
     return patterns
 
 
 def patch_seed_ts(patterns: dict):
     """Patch src/lib/seed.ts to add localSubtitlePattern to each anime entry.
 
-    For anime that already have localSubtitlePattern, leave alone.
-    For others, insert a `localSubtitlePattern: "/subtitles/{malId}_e{ep}.vtt"`
-    line right before `episodeSources:`.
+    For anime that already have localSubtitlePattern, leave alone (or update
+    to match our pattern). For others, insert a
+    `localSubtitlePattern: "/subtitles/{malId}_e{ep}.vtt"` line right before
+    `episodeSources:`.
     """
     src = SEED_FILE.read_text(encoding="utf-8")
     orig = src
 
     for mal_id, pattern in patterns.items():
-        # First check if this anime already has a localSubtitlePattern set
-        # that we should update. Look for the anime entry by malId.
-        # Pattern: `{ malId: <id>, ...` then look for `localSubtitlePattern:`
-        # before the next `episodeSources:` after that malId.
-
         # Find the malId anchor
         anchor = f"malId: {mal_id},"
         idx = src.find(anchor)
@@ -510,7 +503,6 @@ def patch_seed_ts(patterns: dict):
 
         if lsp_idx != -1 and lsp_idx < ep_idx:
             # Already has localSubtitlePattern — update it to use our pattern
-            # (only if it doesn't already point to /subtitles/{malId}_)
             existing = window[lsp_idx : window.find("\n", lsp_idx)]
             if f"/subtitles/{mal_id}_" not in existing:
                 # Replace the existing pattern value
@@ -545,12 +537,12 @@ def patch_seed_ts(patterns: dict):
 
 
 def main():
-    print(f"Writing VTT files to {SUB_DIR}/ ...")
+    print(f"Writing English VTT files to {SUB_DIR}/ ...")
     patterns = write_vtt_files()
     print(f"\nPatching {SEED_FILE} ...")
     patch_seed_ts(patterns)
-    print(f"\nDone. Wrote {sum(len(p) for p in [list(patterns.values())])} patterns")
-    print(f"VTT files: {len(list(SUB_DIR.glob('*.vtt')))}")
+    vtt_count = len(list(SUB_DIR.glob("*.vtt")))
+    print(f"\nDone. VTT files: {vtt_count}")
 
 
 if __name__ == "__main__":
