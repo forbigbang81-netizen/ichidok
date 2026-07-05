@@ -139,3 +139,52 @@ Stage Summary:
 - VTT subtitles now render in English (title cards + episode 1 dialogue + mid-episode markers + ED marker).
 - Tap-to-toggle-UI now works reliably in both directions on mobile and desktop, thanks to the always-present z-10 click-catcher.
 - 645 VTT files regenerated. No seed.ts changes needed. VideoPlayer.tsx updated with cleaner z-index/pointer-events layering.
+
+---
+Task ID: 10
+Agent: Real Episode Titles via Dynamic Subtitle Endpoint
+Task: Replace placeholder/inaccurate subtitles with real, properly-timed subtitle cues using actual MAL episode titles.
+
+Work Log:
+- Diagnosis: The archive.org MP4 collections don't include subtitle files (probed Frieren, Steins;Gate, NGE, Eva, Gachiakuta, Bleach collections — all are video+audio only, no .srt/.vtt/.ass). ffprobe confirms no embedded text streams. So real synced dialogue subs would require an external subtitle database (OpenSubtitles API key, etc.) which isn't available key-less.
+- Solution: Built a dynamic server-side subtitle endpoint that fetches REAL episode titles from Jikan v4 (the official MAL API mirror) and generates VTT cues timed to standard anime episode structure.
+- Created `/api/subtitles/route.ts`:
+  - Query params: `?malId=X&episode=Y`
+  - Looks up the anime in DB; if found, calls `ensureEpisodesCached(malId)` which:
+    - Checks the DB `Episode` table first.
+    - If empty, fetches `https://api.jikan.moe/v4/anime/{malId}/episodes`, caches every episode (number, title, aired, filler, recap) into the DB via `db.episode.upsert`.
+    - Returns the cached episode rows.
+  - Generates VTT with cues based on the real episode title and standard 24-min anime episode timing:
+    - 0:00–0:04 — Anime title (e.g. "Frieren: Beyond Journey's End")
+    - 0:05–0:09 — "Episode N: <real MAL title>" (e.g. "Episode 1: The Journey's End")
+    - 0:10–0:14 — "Opening Theme"
+    - 1:30–1:34 — "Main Story Begins" (after OP)
+    - 10:00–10:04 — "Episode N - Continuing" (mid-episode)
+    - 21:30–21:34 — "Ending Theme"
+    - 23:30–23:34 — "Next: Episode N+1 - <real next-episode title>"
+  - For movies (>1hr), cues are scaled proportionally to the actual duration.
+  - Returns with `Content-Type: text/vtt; charset=utf-8` and `Cache-Control: public, max-age=3600, s-maxage=86400`.
+- IPv6 fix: Node's built-in `fetch` and the default `https` module both prefer IPv6 when DNS returns both A and AAAA records. api.jikan.moe has both, but its IPv6 endpoint times out in this environment. Added `fetchJsonIpv4()` helper that uses `https.request({ family: 4 })` to force IPv4. This was the root cause of the initial "Jikan fetch error: fetch failed ETIMEDOUT" in the dev log.
+- Updated `src/lib/seed.ts`:
+  - `resolveSubtitleUrl()` now has 3-tier fallback:
+    1. `localSubtitlePattern` (user-provided static VTT in /public/subtitles/) — override path for real dialogue subs.
+    2. `subtitlePattern` (archive.org subtitle file) — only used if the collection actually includes subs.
+    3. Default: `/api/subtitles?malId={malId}&episode={episode}` — the new dynamic endpoint.
+  - Removed all 20 `localSubtitlePattern: "/subtitles/{malId}_e{ep}.vtt"` assignments that pointed at the placeholder files (kept the interface field for the override path).
+- Deleted all 645 placeholder VTT files from `/public/subtitles/`.
+- Cleared DB Import cache via `DELETE FROM "Import";` so the auto-import route re-resolves from the patched seed and returns the new `/api/subtitles?...` URL.
+- Verified end-to-end:
+  - `GET /api/subtitles?malId=52991&episode=1` returns VTT with "Episode 1: The Journey's End" (real MAL title).
+  - `GET /api/subtitles?malId=9253&episode=1` returns "Episode 1: Turning Point" (Steins;Gate real title).
+  - `GET /api/subtitles?malId=40748&episode=1` returns "Episode 1: Ryomen Sukuna" (JJK real title).
+  - `GET /api/subtitles?malId=269&episode=1` returns "Episode 1: The Day I Became a Shinigami" (Bleach real title).
+  - `GET /api/subtitles?malId=30&episode=1` returns "Episode 1: Angel Attack" (NGE real title).
+  - `GET /api/auto-import?malId=52991&episode=1&audio=sub` returns `subtitleUrl: "/api/subtitles?malId=52991&episode=1"`.
+  - `bun run lint` exits clean.
+  - `GET /` returns 200.
+
+Stage Summary:
+- Subtitles now use REAL MAL episode titles (sourced via Jikan v4, cached in DB) instead of invented placeholder dialogue.
+- Cues are timed to standard anime episode structure (OP at 0:00, main story at 1:30, mid-episode at 10:00, ED at 21:30, next-episode preview at 23:30) — synced to typical 24-minute anime pacing.
+- For genuine dialogue subtitles (word-by-word translation synced to actual audio), the system supports an override path: drop a real .vtt file at `/public/subtitles/{malId}_e{ep}.vtt` and set `localSubtitlePattern: "/subtitles/{malId}_e{ep}.vtt"` on the anime entry in seed.ts. The player will use that file instead of the dynamic endpoint.
+- Future enhancement opportunity: wire up OpenSubtitles API (requires user-provided API key in env) to fetch real dialogue .srt files automatically.
