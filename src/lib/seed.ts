@@ -161,9 +161,35 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.42, scoredBy: 1162472, rank: 206, popularity: 47, members: 1992701,
     year: 2022, season: "fall", genres: ["Action", "Fantasy"], studios: ["MAPPA"],
     episodeCount: 12, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    // Real English dialogue subtitles extracted from the embedded GJM ASS track
+    // in the archive.org MKV files. See scripts/extract_chainsaw_subs.py.
+    localSubtitlePattern: "/subtitles/44511_e{ep}.vtt",
+    // Each episode has a unique hash in the filename, so we use per-episode fileName entries.
     episodeSources: [
-      { startEp: 1, endEp: 12, collection: "hi-10-chainsaw-man-s-1-1080p", fileTemplate: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_{ep:02}_(1080p)_(GJM)_(62A0D357).mp4", audio: "sub" },
-      { startEp: 1, endEp: 12, collection: "10.-bruised-battered", fileTemplate: "Chainsaw Man Season 1/{ep:02}. Dog & Chainsaw.mp4", audio: "dub" },
+      { startEp: 1, endEp: 1, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_01_(1080p)_(GJM)_(62A0D357).mp4", audio: "sub" },
+      { startEp: 2, endEp: 2, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_02_(1080p)_(GJM)_(A25323AA).mp4", audio: "sub" },
+      { startEp: 3, endEp: 3, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_03_(1080p)_(GJM)_(CB67CABE).mp4", audio: "sub" },
+      { startEp: 4, endEp: 4, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_04_(1080p)_(GJM)_(84DC9A75).mp4", audio: "sub" },
+      { startEp: 5, endEp: 5, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_05_(1080p)_(GJM)_(E3191D55).mp4", audio: "sub" },
+      { startEp: 6, endEp: 6, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_06_(1080p)_(GJM)_(438635DA).mp4", audio: "sub" },
+      { startEp: 7, endEp: 7, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_07_(1080p)_(GJM)_(C71C1C6B).mp4", audio: "sub" },
+      { startEp: 8, endEp: 8, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_08_(1080p)_(GJM)_(AB46185D).mp4", audio: "sub" },
+      { startEp: 9, endEp: 9, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_09_(1080p)_(GJM)_(AA9D08A7).mp4", audio: "sub" },
+      { startEp: 10, endEp: 10, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_10_(1080p)_(GJM)_(17A6694C).mp4", audio: "sub" },
+      { startEp: 11, endEp: 11, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_11_(1080p)_(GJM)_(85DC2EF6).mp4", audio: "sub" },
+      { startEp: 12, endEp: 12, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_12_(1080p)_(GJM)_(805AD605).mp4", audio: "sub" },
+      { startEp: 1, endEp: 1, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/01. Dog & Chainsaw.mp4", audio: "dub" },
+      { startEp: 2, endEp: 2, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/02. Arrival in Tokyo.mp4", audio: "dub" },
+      { startEp: 3, endEp: 3, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/03. Meowy's Whereabouts.mp4", audio: "dub" },
+      { startEp: 4, endEp: 4, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/04. Rescue.mp4", audio: "dub" },
+      { startEp: 5, endEp: 5, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/05. Gun Devil.mp4", audio: "dub" },
+      { startEp: 6, endEp: 6, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/06. Kill Denji.mp4", audio: "dub" },
+      { startEp: 7, endEp: 7, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/07. The Taste of a Kiss.mp4", audio: "dub" },
+      { startEp: 8, endEp: 8, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/08. Gunfire.mp4", audio: "dub" },
+      { startEp: 9, endEp: 9, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/09. From Kyoto.mp4", audio: "dub" },
+      { startEp: 10, endEp: 10, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/10. Bruised & Battered.mp4", audio: "dub" },
+      { startEp: 11, endEp: 11, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/11. Mission Start.mp4", audio: "dub" },
+      { startEp: 12, endEp: 12, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/12. Katana vs. Chainsaw.mp4", audio: "dub" },
     ], hasDub: true,
   },
   // Chainsaw Man Movie: Reze Arc
@@ -299,7 +325,11 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "Movie", status: "Finished Airing", score: 8.93, scoredBy: 600000, rank: 10, popularity: 40, members: 900000,
     year: 2016, season: null, genres: ["Award Winning", "Drama", "Romance"], studios: ["Kyoto Animation"],
     episodeCount: 1, duration: "2 hr 10 min", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
-    episodeSources: [{ startEp: 1, endEp: 1, collection: "db-a-silent-voice-dual-audio-10bit-bd-1080p-x-265", fileName: "[DB]A Silent Voice_-_(Dual Audio_10bit_BD1080p_x265).mp4", audio: "sub" }],
+    // The MP4 derivative only contains the English dub audio (stream 1 = eng).
+    // The MKV has both English and Japanese audio, but browsers can't play MKV.
+    // So this file is DUB-only. hasDub=true so the player shows the DUB toggle.
+    // For SUB mode, no JP-audio MP4 source is currently available.
+    episodeSources: [{ startEp: 1, endEp: 1, collection: "db-a-silent-voice-dual-audio-10bit-bd-1080p-x-265", fileName: "[DB]A Silent Voice_-_(Dual Audio_10bit_BD1080p_x265).mp4", audio: "dub" }], hasDub: true,
   },
   // Your Name
   { malId: 32281, title: "Your Name", titleEnglish: "Your Name.", titleJapanese: "君の名は。",

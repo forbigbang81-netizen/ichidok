@@ -1,13 +1,33 @@
 #!/usr/bin/env python3
-"""Extract real dialogue from an ASS subtitle file, skipping OP/ED/signs."""
+"""Extract real dialogue from an ASS subtitle file, skipping OP/ED/signs.
+
+Strategy: instead of whitelisting dialogue style names (which vary across
+fansub releases), we blacklist known non-dialogue styles (OP, ED, Signs,
+Credits, FX, etc.). Everything else is treated as dialogue.
+"""
 import re
 import sys
 
-DIALOGUE_STYLES = {
-    "Default", "DefaultItalics", "DefaultOverlap", "Top-Alt", "Btm-Alt", "Italics",
-    # Common dialogue style names from Crunchyroll/Funimation/HorribleSubs releases
-    "Subtitles", "Subtitle", "Dialogue", "Main",
+# Styles that are NOT dialogue — signs, songs, OP/ED lyrics, credits, effects
+NON_DIALOGUE_STYLES = {
+    "OP", "OP-R", "OP-E", "OP-R-S", "OP-E-furigana", "OP-R-furigana", "OP-R-S-furigana",
+    "ED", "ED-R", "ED-E", "ED-R-S",
+    "Signs", "Signs-furigana", "Signs_jtb",
+    "Credits", "Credit", "Translation",
+    "FX", "fx", "Effects",
+    "Title", "Episode Title",
+    "Shenanigans",  # GJM extras
 }
+
+def is_dialogue_style(style: str) -> bool:
+    """Return True if this style is likely a dialogue style."""
+    if style in NON_DIALOGUE_STYLES:
+        return False
+    # Check if the style name starts with a known non-dialogue prefix
+    for prefix in ("OP-", "ED-", "Signs-", "OP_", "ED_"):
+        if style.startswith(prefix):
+            return False
+    return True
 
 def ass_time_to_vtt(t: str) -> str:
     """Convert ASS time '0:01:23.45' to VTT time '00:01:23.450'"""
@@ -23,6 +43,16 @@ def ass_to_vtt(ass_path: str) -> str:
     with open(ass_path, encoding='utf-8-sig') as f:
         lines = f.readlines()
     
+    # First pass: collect all style names used in Dialogue lines
+    used_styles = set()
+    for line in lines:
+        if not line.startswith("Dialogue:"):
+            continue
+        parts = line.split(",", 9)
+        if len(parts) < 10:
+            continue
+        used_styles.add(parts[3])
+    
     cues = []
     for line in lines:
         if not line.startswith("Dialogue:"):
@@ -31,7 +61,7 @@ def ass_to_vtt(ass_path: str) -> str:
         if len(parts) < 10:
             continue
         start, end, style, text = parts[1], parts[2], parts[3], parts[9]
-        if style not in DIALOGUE_STYLES:
+        if not is_dialogue_style(style):
             continue
         # Strip ASS override tags
         text = re.sub(r"\{[^}]*\}", "", text)
