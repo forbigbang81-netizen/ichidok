@@ -620,7 +620,7 @@ export function VideoPlayer({
             </p>
           )}
         </div>
-        {importInfo?.hasSub && importInfo?.hasDub && (
+        {(importInfo?.hasSub || importInfo?.hasDub) && (
           <div className="flex overflow-hidden rounded-md border border-white/20 text-xs font-bold">
             <button
               type="button"
