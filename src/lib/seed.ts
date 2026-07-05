@@ -204,6 +204,9 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Currently Airing", score: 8.51, scoredBy: 26973, rank: 162, popularity: 1951, members: 135442,
     year: 2026, season: "summer", genres: ["Romance"], studios: ["Asahi Production"],
     episodeCount: 12, duration: "23 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    // Real English dialogue subtitles extracted from the embedded Crunchyroll ASS
+    // subtitle tracks in the archive.org MP4 files. See scripts/extract_smoking_subs.py.
+    localSubtitlePattern: "/subtitles/62076_e{ep}.vtt",
     episodeSources: [
       { startEp: 1, endEp: 1, collection: "smoking-behind-the-supermarket-with-you-e1-ae27fe", fileName: "smoking behind the supermarket with you E1.mp4", audio: "sub" },
       { startEp: 2, endEp: 2, collection: "smoking-behind-the-supermarket-with-you-e2-0b8faa", fileName: "smoking behind the supermarket with you E2.mp4", audio: "sub" },

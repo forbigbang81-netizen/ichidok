@@ -3,7 +3,11 @@
 import re
 import sys
 
-DIALOGUE_STYLES = {"Default", "Italics", "Top-Alt", "Btm-Alt"}
+DIALOGUE_STYLES = {
+    "Default", "DefaultItalics", "DefaultOverlap", "Top-Alt", "Btm-Alt", "Italics",
+    # Common dialogue style names from Crunchyroll/Funimation/HorribleSubs releases
+    "Subtitles", "Subtitle", "Dialogue", "Main",
+}
 
 def ass_time_to_vtt(t: str) -> str:
     """Convert ASS time '0:01:23.45' to VTT time '00:01:23.450'"""
