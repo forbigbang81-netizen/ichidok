@@ -10,7 +10,7 @@ export interface SeedAnime {
   genres: string[]; studios: string[]; episodeCount: number; duration: string;
   rating: string; source: string; isFeatured?: boolean;
   episodeSources?: EpisodeSource[]; hasDub?: boolean;
-  subtitlePattern?: string; localSubtitlePattern?: string;
+  subtitlePattern?: string; localSubtitlePattern?: string; noSubtitles?: boolean;
 }
 
 export interface EpisodeSource {
@@ -199,13 +199,15 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "Movie", status: "Finished Airing", score: 9.06, scoredBy: 328807, rank: 6, popularity: 519, members: 509373,
     year: 2025, season: null, genres: ["Action", "Fantasy"], studios: ["MAPPA"],
     episodeCount: 1, duration: "1 hr 39 min", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
-    // Real English dialogue subtitles for the sub (JP audio) version.
-    // SRT sourced from user-provided Dropbox link, converted to VTT.
-    localSubtitlePattern: "/subtitles/57555_e{ep}.vtt",
-    // Sub-only: Japanese audio with English subtitles. No dub source available.
+    // Sub source = Japanese audio, no subtitles (watch raw).
+    // Dub source = English audio.
+    // To enable English subtitles on the sub version, set noSubtitles:false and
+    // add localSubtitlePattern: "/subtitles/57555_e{ep}.vtt"
+    noSubtitles: true,
     episodeSources: [
       { startEp: 1, endEp: 1, collection: "rezearc", fileName: "csmrezearc.mp4", audio: "sub" },
-    ],
+      { startEp: 1, endEp: 1, collection: "sam-chainsaw-man-the-movie-reze-arc-2025-web-1080p-eac-3-c-24-c-4-dd-1.-1080", fileName: "[sam] Chainsaw Man - The Movie Reze Arc (2025) [WEB 1080p EAC-3] [C24C4DD1].1080.mp4", audio: "dub" },
+    ], hasDub: true,
   },
   // Gachiakuta
   { malId: 59062, title: "Gachiakuta", titleEnglish: "Gachiakuta", titleJapanese: "ガチアクタ",
@@ -465,6 +467,9 @@ export function episodeHasDub(seed: SeedAnime, episode: number): boolean {
 }
 
 export function resolveSubtitleUrl(seed: SeedAnime, episode: number): string | null {
+  // If the anime is explicitly marked as no-subtitles (e.g. sub player = JP audio raw),
+  // return null so no subtitle track is loaded at all.
+  if (seed.noSubtitles) return null;
   // Prefer a user-provided static VTT file (real dialogue subs dropped into
   // /public/subtitles/{malId}_e{ep}.vtt). This is the override path.
   if (seed.localSubtitlePattern) {
