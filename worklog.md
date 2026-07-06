@@ -344,3 +344,26 @@ Stage Summary:
 - Cyberpunk Edgerunners: type=ONA (was TV)
 - Genre chips on homepage now scroll to inline genre sections (Netflix-style) instead of navigating away
 - Haikyuu S3 and Apothecary S1 video URLs verified working; the "slow loading" symptom was the catalog/cards API being blocked, not the video file
+
+---
+Task ID: cdn-buffering-overlay
+Agent: main
+Task: Add buffering overlay for slow CDN throughput (archive.org speeds)
+
+Work Log:
+- Identified gap: existing `loading` overlay only covers initial URL resolution. When the video element stalls mid-playback because archive.org CDN throughput (0.4-0.7 MB/s) dips below the video bitrate, the user sees a frozen frame with no UI feedback.
+- Added new `isBuffering` state that fires on the video element's `waiting` and `stalled` events, and clears on `playing` / `canplay`.
+- Added `isSlowNetwork` state with a 3.5s timer; if a single buffering stall lasts longer than that, the spinner label changes from "Buffering..." to "Slow network - buffering..." with a sublabel "CDN throughput is below the video bitrate".
+- Added `loadstart` listener to mark buffering as soon as a new src begins loading, so the overlay is visible immediately on source switches.
+- Wired cleanup: timers cleared on unmount and on source switches.
+- Added a distinct overlay div (z-30, pointer-events-none) that sits on top of the last decoded frame so the user can see where playback paused, with a smaller spinner (h-9 w-9) than the initial loading overlay (h-10 w-10) to differentiate.
+- Reset buffering state in the fetch-video-import effect so switching episodes doesn't carry over a stale buffering flag.
+- Built and pushed commit 5f3cc01 to GitHub; Vercel auto-deployed.
+- Verified deployed JS bundle contains "Buffering", "Slow network", and "CDN throughput" strings.
+
+Stage Summary:
+- Buffering overlay now fires on any CDN throughput stall (waiting/stalled events)
+- After 3.5s, label changes to indicate slow network
+- Sits on top of last decoded frame (non-blocking, pointer-events-none)
+- Resets cleanly on source switches
+- Build passes, deployed to ichidok.vercel.app
