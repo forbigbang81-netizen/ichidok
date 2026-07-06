@@ -199,11 +199,11 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "Movie", status: "Finished Airing", score: 9.06, scoredBy: 328807, rank: 6, popularity: 519, members: 509373,
     year: 2025, season: null, genres: ["Action", "Fantasy"], studios: ["MAPPA"],
     episodeCount: 1, duration: "1 hr 39 min", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
-    // Sub source = 1080p Japanese audio (no embedded subtitles).
-    // English subtitles from user-provided Dropbox SRT, converted to VTT.
-    localSubtitlePattern: "/subtitles/57555_e{ep}.vtt",
+    // Sub = Japanese audio (FLE release), Dub = English audio (sam release)
+    // No subtitles (user requested raw JP audio).
+    noSubtitles: true,
     episodeSources: [
-      { startEp: 1, endEp: 1, collection: "chainsaw-man-the-movie-reze-arc_202601", fileName: "Chainsaw Man The Movie - Reze Arc.mp4", audio: "sub" },
+      { startEp: 1, endEp: 1, collection: "dropbox", fileName: "https://www.dropbox.com/scl/fi/gxa0w7njajt3a91nobcis/AnimePahe_Chainsaw_Man_Movie_-_Reze-hen_-_01_804p_FLE.mp4?rlkey=3dklwl2fb3vro231z1h8tytma&st=tmzmq2vw&dl=1", audio: "sub" },
       { startEp: 1, endEp: 1, collection: "sam-chainsaw-man-the-movie-reze-arc-2025-web-1080p-eac-3-c-24-c-4-dd-1.-1080", fileName: "[sam] Chainsaw Man - The Movie Reze Arc (2025) [WEB 1080p EAC-3] [C24C4DD1].1080.mp4", audio: "dub" },
     ], hasDub: true,
   },
@@ -344,6 +344,68 @@ export const SEED_ANIME: SeedAnime[] = [
     episodeSources: [{ startEp: 1, endEp: 1, collection: "your.-name.-2016.-1.8-gb.-1080p.-dual.-audio.-hin-eng.-vegamovies.-nl", fileName: "Your.Name.(2016).1.8GB.1080p.Dual.Audio.(Hin-Eng).Vegamovies.NL.mp4", audio: "both", dualAudio: true }],
     hasDub: true,
   },
+  // 100 Girlfriends S1
+  { malId: 54714, title: "The 100 Girlfriends Who Really, Really, Really, Really, Really Love You", titleEnglish: "The 100 Girlfriends Who Really, Really, Really, Really, Really Love You", titleJapanese: "君のことが大大大大大好きな100人の彼女",
+    synopsis: "Rentarou Aijou has it all: looks, intelligence, athletic skill, and popularity with peers and mentors alike. Unfortunately, none of these qualities help Rentarou with his love life. On the day of his middle school graduation, he ends up confessing his love to the girl he likes and gets rejected. This marks his 100th rejection in a row.",
+    poster: "https://cdn.myanimelist.net/images/anime/1812/136764l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1812/136764l.jpg",
+    type: "TV", status: "Finished Airing", score: 7.67, scoredBy: 500000, rank: 0, popularity: 500, members: 800000,
+    year: 2023, season: "fall", genres: ["Comedy", "Romance"], studios: ["Bibury Animation Studios"],
+    episodeCount: 12, duration: "23 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 1, collection: "dropbox", fileName: "https://www.dropbox.com/scl/fi/a25ireq1khtgx7moggxu8/AnimePahe_Kimi_no_Koto_ga_Daidaidaidaidaisuki_na_100-nin_no_Kanojo_-_01_BD_1080p_YURASUKA.mp4?rlkey=ebxvj9r1hj1xzcgpu22s2a6ea&st=ertiqkyn&dl=1", audio: "sub" },
+      { startEp: 2, endEp: 2, collection: "dropbox", fileName: "https://www.dropbox.com/scl/fi/phdlkmwb07v7stmzffrt9/AnimePahe_Kimi_no_Koto_ga_Daidaidaidaidaisuki_na_100-nin_no_Kanojo_-_02_BD_1080p_YURASUKA.mp4?rlkey=m8aqfh9kczydutkdp2kamk2z4&st=ozari3vm&dl=1", audio: "sub" },
+      { startEp: 3, endEp: 3, collection: "dropbox", fileName: "https://www.dropbox.com/scl/fi/igqxmc7uogzplma6pxqq6/AnimePahe_Kimi_no_Koto_ga_Daidaidaidaidaisuki_na_100-nin_no_Kanojo_-_03_BD_1080p_YURASUKA.mp4?rlkey=7v53cv1j2km3iiflp6t7vx8zt&st=3v26cmm8&dl=1", audio: "sub" },
+      { startEp: 4, endEp: 4, collection: "dropbox", fileName: "https://www.dropbox.com/scl/fi/k08zvy7xmk1wqxhm8rhbl/AnimePahe_Kimi_no_Koto_ga_Daidaidaidaidaisuki_na_100-nin_no_Kanojo_-_04_BD_1080p_YURASUKA.mp4?rlkey=5a9gk38z2dbcx3u3j322tme7k&st=op2zj9fn&dl=1", audio: "sub" },
+      { startEp: 5, endEp: 5, collection: "dropbox", fileName: "https://www.dropbox.com/scl/fi/mrtxis3n90vp908viqmit/AnimePahe_Kimi_no_Koto_ga_Daidaidaidaidaisuki_na_100-nin_no_Kanojo_-_05_BD_1080p_YURASUKA.mp4?rlkey=71augiyidvqu01d8nata6j8jp&st=492gb3j1&dl=1", audio: "sub" },
+      { startEp: 6, endEp: 6, collection: "dropbox", fileName: "https://www.dropbox.com/scl/fi/l2kx63gt1e24zez1g82ma/AnimePahe_Kimi_no_Koto_ga_Daidaidaidaidaisuki_na_100-nin_no_Kanojo_-_06_BD_1080p_YURASUKA.mp4?rlkey=8cfczn60ksctdhu35vvjdv5as&st=a6tsow5s&dl=1", audio: "sub" },
+      { startEp: 7, endEp: 7, collection: "dropbox", fileName: "https://www.dropbox.com/scl/fi/xtvqo8mwg4rwp6zx9lctg/AnimePahe_Kimi_no_Koto_ga_Daidaidaidaidaisuki_na_100-nin_no_Kanojo_-_07_BD_1080p_YURASUKA.mp4?rlkey=3m6ubi5ef76zre94mwuqib798&st=uhb944vk&dl=1", audio: "sub" },
+      { startEp: 8, endEp: 8, collection: "dropbox", fileName: "https://www.dropbox.com/scl/fi/yxzk902zd0cbdzfgvdya9/AnimePahe_Kimi_no_Koto_ga_Daidaidaidaidaisuki_na_100-nin_no_Kanojo_-_08_BD_1080p_YURASUKA.mp4?rlkey=tbrwgtfceety5o523i27dmva6&st=7qb7pd3i&dl=1", audio: "sub" },
+      { startEp: 9, endEp: 9, collection: "dropbox", fileName: "https://www.dropbox.com/scl/fi/zjfaz2icrvtqbro958n72/AnimePahe_Kimi_no_Koto_ga_Daidaidaidaidaisuki_na_100-nin_no_Kanojo_-_09_BD_1080p_YURASUKA.mp4?rlkey=xd5wp0ptijprp6vkzizg1qf4a&st=zumnm87p&dl=1", audio: "sub" },
+      { startEp: 10, endEp: 10, collection: "dropbox", fileName: "https://www.dropbox.com/scl/fi/s3gakgodzynzy8hw2k8mt/AnimePahe_Kimi_no_Koto_ga_Daidaidaidaidaisuki_na_100-nin_no_Kanojo_-_10_BD_1080p_YURASUKA.mp4?rlkey=ietjqhqdfakylcx3jrya1yuef&st=6jigwevm&dl=1", audio: "sub" },
+      { startEp: 11, endEp: 11, collection: "dropbox", fileName: "https://www.dropbox.com/scl/fi/ldia1xo5gdnq0uss0pw10/AnimePahe_Kimi_no_Koto_ga_Daidaidaidaidaisuki_na_100-nin_no_Kanojo_-_11_BD_1080p_YURASUKA.mp4?rlkey=k04m1ubizxi9j3o0l8jn26v2n&st=asbjey99&dl=1", audio: "sub" },
+      { startEp: 12, endEp: 12, collection: "dropbox", fileName: "https://www.dropbox.com/scl/fi/wwgv7agou1a3bioa09nfl/AnimePahe_Kimi_no_Koto_ga_Daidaidaidaidaisuki_na_100-nin_no_Kanojo_-_12_BD_1080p_YURASUKA.mp4?rlkey=ce8xwm70qzy2r41j2id7w9z9p&st=gt2zfgas&dl=1", audio: "sub" },
+    ],
+  },
+  // 100 Girlfriends S2
+  { malId: 57616, title: "The 100 Girlfriends Who Really, Really, Really, Really, Really Love You Season 2", titleEnglish: "The 100 Girlfriends Who Really, Really, Really, Really, Really Love You Season 2", titleJapanese: "君のことが大大大大大好きな100人の彼女 2期",
+    synopsis: "Second season of The 100 Girlfriends Who Really, Really, Really, Really, Really Love You. Rentarou continues to meet more of his 100 soulmates.",
+    poster: "https://cdn.myanimelist.net/images/anime/1093/145470l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1093/145470l.jpg",
+    type: "TV", status: "Finished Airing", score: 7.87, scoredBy: 300000, rank: 0, popularity: 700, members: 500000,
+    year: 2025, season: "winter", genres: ["Comedy", "Romance"], studios: ["Bibury Animation Studios"],
+    episodeCount: 12, duration: "23 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga",
+    episodeSources: [],
+  },
+  // 100 Girlfriends S3
+  { malId: 62811, title: "The 100 Girlfriends Who Really, Really, Really, Really, Really Love You Season 3", titleEnglish: "The 100 Girlfriends Who Really, Really, Really, Really, Really Love You Season 3", titleJapanese: "君のことが大大大大大好きな100人の彼女 3期",
+    synopsis: "Third season of The 100 Girlfriends Who Really, Really, Really, Really, Really Love You.",
+    poster: "https://cdn.myanimelist.net/images/anime/1106/157174l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1106/157174l.jpg",
+    type: "TV", status: "Currently Airing", score: 0, scoredBy: 0, rank: 0, popularity: 1000, members: 100000,
+    year: 2026, season: "summer", genres: ["Comedy", "Romance"], studios: ["Bibury Animation Studios"],
+    episodeCount: 12, duration: "23 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga",
+    episodeSources: [
+      { startEp: 1, endEp: 1, collection: "dropbox", fileName: "https://www.dropbox.com/scl/fi/4ikt9w93moutar909dq2r/AnimePahe_Kimi_no_Koto_ga_Daidaidaidaidaisuki_na_100-nin_no_Kanojo_-_25_1080p_SubsPlease.mp4?rlkey=pu7b995o3l529vicp42d8uitp&st=md10iehv&dl=1", audio: "sub" },
+    ],
+  },
+  // Me and You Are Polar Opposites S1
+  { malId: 60371, title: "Me and You Are Polar Opposites", titleEnglish: "Me and You Are Polar Opposites", titleJapanese: "正反対な君と僕",
+    synopsis: "Miyu Suzuki is a high school girl whose cheerful outlook on life is tempered by her need to fit in. Beside her sits Yusuke Tani, her polar opposite. Despite their differences, the two find themselves drawn to each other.",
+    poster: "https://cdn.myanimelist.net/images/anime/1140/154457l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1140/154457l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.28, scoredBy: 50000, rank: 0, popularity: 600, members: 200000,
+    year: 2026, season: "winter", genres: ["Comedy", "Romance"], studios: ["Lapin Track"],
+    episodeCount: 12, duration: "23 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    episodeSources: [],
+  },
+  // Me and You Are Polar Opposites S2
+  { malId: 63832, title: "Me and You Are Polar Opposites Season 2", titleEnglish: "Me and You Are Polar Opposites Season 2", titleJapanese: "正反対な君と僕 第2期",
+    synopsis: "Second season of Me and You Are Polar Opposites.",
+    poster: "https://cdn.myanimelist.net/images/anime/1143/158409l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1143/158409l.jpg",
+    type: "TV", status: "Currently Airing", score: 8.03, scoredBy: 30000, rank: 0, popularity: 800, members: 100000,
+    year: 2026, season: "summer", genres: ["Comedy", "Romance"], studios: ["Lapin Track"],
+    episodeCount: 13, duration: "23 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga",
+    episodeSources: [
+      { startEp: 1, endEp: 1, collection: "dropbox", fileName: "https://www.dropbox.com/scl/fi/6yxbhkr3tt6e2q7ix7umw/AnimePahe_Seihantai_na_Kimi_to_Boku_-_13_1080p_SubsPlease.mp4?rlkey=k15xut763opcnqgaad6vs2r7j&st=cw2pcp6j&dl=1", audio: "sub" },
+    ],
+  },
 ];
 
 /**
@@ -408,6 +470,21 @@ export const SEASON_GROUPS: { franchise: string; seasons: { malId: number; label
       { malId: 53998, label: "TYBW — Cour 2 (Separation)" },
       { malId: 56784, label: "TYBW — Cour 3 (Conflict)" },
       { malId: 60636, label: "TYBW — Cour 4 (Calamity)" },
+    ],
+  },
+  {
+    franchise: "The 100 Girlfriends",
+    seasons: [
+      { malId: 54714, label: "Season 1" },
+      { malId: 57616, label: "Season 2" },
+      { malId: 62811, label: "Season 3" },
+    ],
+  },
+  {
+    franchise: "Me and You Are Polar Opposites",
+    seasons: [
+      { malId: 60371, label: "Season 1" },
+      { malId: 63832, label: "Season 2" },
     ],
   },
 ];
