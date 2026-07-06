@@ -256,6 +256,14 @@ const notificationTable = {
   },
 }
 
+export function getDb() { return getClient() }
+export function generateId(): string {
+  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789'
+  let id = 'c'
+  for (let i = 0; i < 24; i++) id += chars[Math.floor(Math.random() * chars.length)]
+  return id
+}
+
 export const db = {
   anime: animeTable,
   episode: episodeTable,

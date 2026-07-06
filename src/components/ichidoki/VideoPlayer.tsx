@@ -544,7 +544,7 @@ export function VideoPlayer({
           playsInline
           preload="metadata"
           className="absolute inset-0 h-full w-full bg-black"
-          style={{ transform: mirrored ? "scaleX(-1)" : undefined }}
+          style={{ transform: isFullscreen ? "scaleX(-1)" : undefined }}
         />
       ) : (
         <div className="absolute inset-0 grid place-items-center bg-black">
@@ -602,7 +602,7 @@ export function VideoPlayer({
 
       {/* Custom subtitle overlay — orange glow for readability */}
       {showSubtitles && activeCue && (
-        <div className="pointer-events-none absolute inset-x-0 bottom-16 z-20 flex justify-center px-4 sm:bottom-20">
+        <div className="pointer-events-none absolute inset-x-0 bottom-16 z-20 flex justify-center px-4 sm:bottom-20" style={{ transform: isFullscreen ? "scaleX(-1)" : undefined }}>
           <span
             className="max-w-[90%] text-center text-base font-bold leading-snug text-white"
             style={{
@@ -621,7 +621,7 @@ export function VideoPlayer({
 
       {/* Subtitle "unavailable" hint — shows briefly when CC is on but no cues */}
       {showSubtitles && !activeCue && cues.length === 0 && !loading && videoUrl && (
-        <div className="pointer-events-none absolute inset-x-0 bottom-16 z-20 flex justify-center px-4 sm:bottom-20">
+        <div className="pointer-events-none absolute inset-x-0 bottom-16 z-20 flex justify-center px-4 sm:bottom-20" style={{ transform: isFullscreen ? "scaleX(-1)" : undefined }}>
           <span
             className="rounded-md bg-black/70 px-3 py-1 text-center text-xs font-bold text-white"
             style={{ textShadow: "0 0 4px #000, 0 0 8px rgba(255,138,0,0.5)" }}
@@ -631,13 +631,14 @@ export function VideoPlayer({
         </div>
       )}
 
-      {/* Top bar — glass with stronger blur */}
+      {/* Top bar — flip in fullscreen to match mirrored video */}
       <div
         className={cn(
           "absolute inset-x-0 top-0 z-30 flex items-center gap-2 p-3 transition-opacity duration-300",
           "glass-header",
           controlsVisible ? "opacity-100" : "pointer-events-none opacity-0",
         )}
+        style={{ transform: isFullscreen ? "scaleX(-1)" : undefined }}
       >
         {onBack && (
           <button
@@ -679,7 +680,7 @@ export function VideoPlayer({
           The buttons inside re-enable pointer-events-auto and call
           e.stopPropagation() so they don't trigger the toggle. */}
       {controlsVisible && !loading && !error && videoUrl && (
-        <div className="pointer-events-none absolute inset-0 z-20 grid place-items-center">
+        <div className="pointer-events-none absolute inset-0 z-20 grid place-items-center" style={{ transform: isFullscreen ? "scaleX(-1)" : undefined }}>
           <div className="pointer-events-auto flex items-center gap-6">
             <button
               type="button"
@@ -722,13 +723,15 @@ export function VideoPlayer({
         </div>
       )}
 
-      {/* Bottom controls — progress bar at bottom, controls above */}
+      {/* Bottom controls — progress bar at bottom, controls above.
+          Flip controls in fullscreen to match the mirrored video. */}
       <div
         className={cn(
           "absolute inset-x-0 bottom-0 z-30 px-3 pb-2 pt-6 transition-opacity duration-300",
           "glass-nav",
           controlsVisible ? "opacity-100" : "pointer-events-none opacity-0",
         )}
+        style={{ transform: isFullscreen ? "scaleX(-1)" : undefined }}
         onMouseMove={keepControlsAlive}
         onClick={(e) => e.stopPropagation()}
       >

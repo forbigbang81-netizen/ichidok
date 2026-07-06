@@ -103,3 +103,19 @@ model Notification {
   read      Boolean  @default(false)
   createdAt DateTime @default(now())
 }
+
+model Rating {
+  id        String   @id @default(cuid())
+  malId     Int
+  rating    Float
+  createdAt DateTime @default(now())
+  @@unique([malId])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  malId     Int
+  name      String   @default("Anonymous")
+  text      String
+  createdAt DateTime @default(now())
+}
