@@ -415,6 +415,28 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 12, endEp: 12, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 12 - Good Morning, Prison.mp4", audio: "dub" },
     ], hasDub: true,
   },
+  // The Apothecary Diaries S2 (Top 10 #10)
+  { malId: 58514, title: "The Apothecary Diaries Season 2", titleEnglish: "The Apothecary Diaries Season 2", titleJapanese: "薬屋のひとりごと 第2期",
+    synopsis: "Maomao, a pharmacist in the imperial court, continues to solve mysteries and navigate palace politics in ancient China.",
+    poster: "https://cdn.myanimelist.net/images/anime/1025/147458l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1025/147458l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.91, scoredBy: 300000, rank: 0, popularity: 200, members: 600000,
+    year: 2025, season: "winter", genres: ["Drama", "Mystery", "Romance"], studios: ["OLM"],
+    episodeCount: 24, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Light novel", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 24, collection: "the-apothecary-diaries-s-2", fileTemplate: "The Apothecary Diaries S2Ep{ep}.mp4", audio: "dub" },
+    ], hasDub: true,
+  },
+  // Haikyuu!! S3 (Top 10 #7)
+  { malId: 32935, title: "Haikyuu!! Karasuno vs Shiratorizawa", titleEnglish: "Haikyuu!! Third Season", titleJapanese: "ハイキュー!! 烏野高校 VS 白鳥沢学園高校",
+    synopsis: "Karasuno High School's volleyball team faces Shiratorizawa Academy in the Miyagi Prefecture finals for a spot in the national tournament.",
+    poster: "https://cdn.myanimelist.net/images/anime/7/81992l.jpg", banner: "https://cdn.myanimelist.net/images/anime/7/81992l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.77, scoredBy: 400000, rank: 0, popularity: 400, members: 800000,
+    year: 2016, season: "fall", genres: ["Award Winning", "Sports"], studios: ["Production I.G"],
+    episodeCount: 10, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 10, collection: "haikyuu-karasuno-koukou-vs.-shiratorizawa-gakuen-koukou-dub-episode-4", fileTemplate: "Season 3/Haikyuu!! Karasuno Koukou vs. Shiratorizawa Gakuen Koukou (Dub) Episode {ep}.mp4", audio: "dub" },
+    ], hasDub: true,
+  },
 ];
 
 /**

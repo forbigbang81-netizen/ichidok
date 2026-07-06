@@ -247,6 +247,15 @@ export function VideoPlayer({
         setImportInfo(info);
         setLoading(false);
         if (!info || !info.url) {
+          // Auto-switch to the available audio mode
+          if (info && !info.url && info.hasDub && !info.hasSub && audioMode === "SUB") {
+            setAudioMode("DUB");
+            return; // The audioMode change will re-trigger this effect
+          }
+          if (info && !info.url && info.hasSub && !info.hasDub && audioMode === "DUB") {
+            setAudioMode("SUB");
+            return;
+          }
           setError(
             "No stream available for this episode yet. Try another episode or audio mode.",
           );
