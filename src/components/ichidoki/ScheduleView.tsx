@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { CalendarDays } from "lucide-react";
+import { CalendarDays, Clock } from "lucide-react";
 import { fetchSchedule } from "@/lib/api/client";
 import type { Anime } from "@/store/app";
-import { useApp } from "@/store/app";
 import { cn } from "@/lib/utils";
-import { AnimeCard, AnimeCardSkeleton } from "./AnimeCard";
+import { AnimeCard, AnimeCardSkeleton, CardGrid } from "./AnimeCard";
 
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] as const;
 const DAY_LABELS: Record<string, string> = {
@@ -20,7 +19,6 @@ const DAY_LABELS: Record<string, string> = {
 };
 
 export function ScheduleView() {
-  const openAnime = useApp((s) => s.openAnime);
   const [schedule, setSchedule] = useState<Record<string, Anime[]>>({});
   const [loading, setLoading] = useState(true);
   const [activeDay, setActiveDay] = useState<string>(() => {
@@ -51,21 +49,30 @@ export function ScheduleView() {
 
   const today = DAYS[new Date().getDay()];
   const activeList = schedule[activeDay] ?? [];
+  const totalThisWeek = DAYS.reduce(
+    (acc, d) => acc + (schedule[d]?.length ?? 0),
+    0,
+  );
 
   return (
-    <div className="flex flex-col gap-4 p-4 pb-6 fade-in">
+    <div className="fade-in flex flex-col gap-4 p-4 pb-6">
+      {/* Section header — gradient text */}
       <div>
-        <h1 className="flex items-center gap-2 text-lg font-bold text-white">
-          <CalendarDays className="h-5 w-5 text-yellow-400" />
-          Schedule
+        <h1 className="flex items-center gap-2 text-lg font-black tracking-editorial">
+          <span className="gradient-text">
+            <CalendarDays className="h-5 w-5" />
+          </span>
+          <span className="gradient-text">Schedule</span>
         </h1>
-        <p className="text-xs text-white/50">
-          Airing this season — tap a day to browse.
+        <p className="mt-0.5 text-xs text-white/50">
+          {totalThisWeek > 0
+            ? `${totalThisWeek} anime airing this week — tap a day.`
+            : "Airing this season — tap a day to browse."}
         </p>
       </div>
 
-      {/* Day selector */}
-      <div className="flex gap-1 overflow-x-auto no-scrollbar">
+      {/* Day selector — glass pills with gradient active state */}
+      <div className="no-scrollbar flex gap-1.5 overflow-x-auto">
         {DAYS.map((d) => {
           const count = schedule[d]?.length ?? 0;
           const active = d === activeDay;
@@ -76,30 +83,28 @@ export function ScheduleView() {
               type="button"
               onClick={() => setActiveDay(d)}
               className={cn(
-                "relative flex min-w-[3.25rem] flex-col items-center rounded-lg px-2 py-2 text-center transition",
+                "btn-press relative flex min-w-[3.5rem] flex-col items-center rounded-xl px-2.5 py-2 text-center transition-all duration-300",
                 active
-                  ? "bg-yellow-400 text-black"
-                  : "bg-white/5 text-white/70 hover:bg-white/10",
+                  ? "brand-gradient-bg text-black glow"
+                  : "glass-card text-white/70 hover:text-white",
               )}
             >
-              <span className="text-[10px] font-bold uppercase tracking-wide">
+              <span className="text-[10px] font-black uppercase tracking-wider">
                 {d}
               </span>
               <span
                 className={cn(
-                  "text-[10px] font-semibold",
+                  "mt-0.5 text-[11px] font-bold",
                   active ? "text-black/70" : "text-white/40",
                 )}
               >
                 {count}
               </span>
-              {isToday && (
-                <span
-                  className={cn(
-                    "absolute -top-1 h-1.5 w-1.5 rounded-full",
-                    active ? "bg-black" : "bg-yellow-400",
-                  )}
-                />
+              {isToday && !active && (
+                <span className="absolute -top-1 h-1.5 w-1.5 rounded-full brand-gradient-bg" />
+              )}
+              {isToday && active && (
+                <span className="absolute -top-1 h-1.5 w-1.5 rounded-full bg-black" />
               )}
             </button>
           );
@@ -107,61 +112,82 @@ export function ScheduleView() {
       </div>
 
       <div className="flex items-center justify-between">
-        <h2 className="text-sm font-bold text-white">
+        <h2 className="text-sm font-bold tracking-editorial text-white">
           {DAY_LABELS[activeDay]}
         </h2>
-        <span className="text-[11px] text-white/40">
+        <span className="glass-card rounded-full px-2.5 py-0.5 text-[11px] font-bold text-white/70">
           {activeList.length} title{activeList.length === 1 ? "" : "s"}
         </span>
       </div>
 
       {loading ? (
-        <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
+        <CardGrid>
           {Array.from({ length: 6 }).map((_, i) => (
             <AnimeCardSkeleton key={i} />
           ))}
-        </div>
+        </CardGrid>
       ) : activeList.length === 0 ? (
-        <div className="grid place-items-center py-12 text-center text-white/40">
+        <div className="glass-card grid place-items-center rounded-2xl py-12 text-center">
           <CalendarDays className="mb-2 h-10 w-10 opacity-30" />
-          <p className="text-sm">Nothing airing on this day.</p>
-          <p className="mt-1 text-xs">Try another day of the week.</p>
+          <p className="gradient-text text-sm font-bold">Nothing airing today</p>
+          <p className="mt-1 text-xs text-white/40">Try another day of the week.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-3 gap-x-3 gap-y-4 sm:grid-cols-4">
+        <CardGrid>
           {activeList.map((a) => (
             <AnimeCard key={a.malId} anime={a} />
           ))}
-        </div>
+        </CardGrid>
       )}
 
-      {/* Day-of-week preview list (compact) */}
+      {/* Week at a glance — glass overview cards */}
       {!loading && Object.keys(schedule).length > 0 && (
-        <div className="mt-4 rounded-lg border border-white/5 bg-white/[0.02] p-3">
-          <p className="mb-2 text-[11px] font-bold uppercase tracking-wide text-white/40">
+        <div className="glass-card mt-4 rounded-2xl p-3">
+          <p className="mb-2.5 flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-white/50">
+            <Clock className="h-3 w-3" />
             Week at a glance
           </p>
-          <div className="grid grid-cols-7 gap-1">
+          <div className="grid grid-cols-7 gap-1.5">
             {DAYS.map((d) => {
               const list = schedule[d] ?? [];
+              const isActive = d === activeDay;
+              const isToday = d === today;
               return (
                 <button
                   key={d}
                   type="button"
                   onClick={() => setActiveDay(d)}
                   className={cn(
-                    "flex flex-col items-center rounded-md p-1.5 transition",
-                    d === activeDay
-                      ? "bg-yellow-400/20"
-                      : "hover:bg-white/5",
+                    "btn-press relative flex flex-col items-center rounded-lg p-2 transition-all duration-300",
+                    isActive
+                      ? "brand-gradient-bg text-black"
+                      : "brand-gradient-soft hover:bg-white/8",
                   )}
                 >
-                  <span className="text-[9px] font-bold uppercase text-white/60">
+                  <span
+                    className={cn(
+                      "text-[9px] font-black uppercase tracking-wider",
+                      isActive ? "text-black/80" : "text-white/60",
+                    )}
+                  >
                     {d[0]}
                   </span>
-                  <span className="text-[10px] font-semibold text-white/80">
+                  <span
+                    className={cn(
+                      "mt-0.5 text-[11px] font-black",
+                      isActive ? "text-black" : "gradient-text",
+                    )}
+                  >
                     {list.length}
                   </span>
+                  {isToday && (
+                    <span
+                      className={cn(
+                        "absolute -top-0.5 -right-0.5 h-1.5 w-1.5 rounded-full",
+                        isActive ? "bg-black" : "brand-gradient-bg",
+                      )}
+                    />
+                  )}
                 </button>
               );
             })}

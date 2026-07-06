@@ -1,19 +1,26 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Search, X } from "lucide-react";
+import { Search, X, Sparkles, TrendingUp } from "lucide-react";
 import { searchAnime } from "@/lib/api/client";
 import type { Anime } from "@/store/app";
 import { cn } from "@/lib/utils";
 import { AnimeCard, AnimeCardSkeleton, CardGrid } from "./AnimeCard";
 
-const TRENDING_QUERIES = ["Frieren", "Bleach", "Jujutsu", "Evangelion", "Cyberpunk"];
+const TRENDING_QUERIES = [
+  "Frieren",
+  "Bleach",
+  "Jujutsu",
+  "Evangelion",
+  "Cyberpunk",
+];
 
 export function SearchView() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Anime[]>([]);
   const [loading, setLoading] = useState(false);
   const [touched, setTouched] = useState(false);
+  const [focused, setFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -46,43 +53,79 @@ export function SearchView() {
   }, [query]);
 
   return (
-    <div className="flex flex-col gap-4 p-4 pb-6 fade-in">
+    <div className="fade-in flex flex-col gap-4 p-4 pb-6">
+      {/* Section header */}
       <div>
-        <h1 className="text-lg font-bold text-white">Search</h1>
-        <p className="text-xs text-white/50">
+        <h1 className="flex items-center gap-2 text-lg font-black tracking-editorial">
+          <span className="gradient-text">
+            <Search className="h-5 w-5" />
+          </span>
+          <span className="gradient-text">Search</span>
+        </h1>
+        <p className="mt-0.5 text-xs text-white/50">
           Find anime by title, English name, or Japanese name.
         </p>
       </div>
 
+      {/* Search bar — glass with gradient focus ring */}
       <div className="relative">
-        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/40" />
-        <input
-          ref={inputRef}
-          type="text"
-          value={query}
-          onChange={(e) => {
-            setQuery(e.target.value);
-            setTouched(true);
-          }}
-          placeholder="Search anime…"
-          className="w-full rounded-full border border-white/10 bg-white/5 py-2.5 pl-9 pr-9 text-sm text-white placeholder:text-white/40 focus:border-yellow-400/60 focus:outline-none"
-        />
-        {query && (
-          <button
-            type="button"
-            onClick={() => setQuery("")}
-            className="absolute right-3 top-1/2 grid h-5 w-5 -translate-y-1/2 place-items-center rounded-full bg-white/10 text-white/70 hover:bg-white/20"
-            aria-label="Clear"
-          >
-            <X className="h-3 w-3" />
-          </button>
+        <div
+          className={cn(
+            "glass-card flex items-center gap-2 rounded-full px-4 py-2.5 transition-all duration-300",
+            focused && "glow",
+          )}
+        >
+          <Search
+            className={cn(
+              "h-4 w-4 shrink-0 transition-colors duration-300",
+              focused ? "text-[#f5c518]" : "text-white/40",
+            )}
+          />
+          <input
+            ref={inputRef}
+            type="text"
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setTouched(true);
+            }}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+            placeholder="Search anime…"
+            className="flex-1 bg-transparent text-sm text-white placeholder:text-white/40 focus:outline-none"
+          />
+          {query && (
+            <button
+              type="button"
+              onClick={() => setQuery("")}
+              className="btn-press glass-card grid h-6 w-6 shrink-0 place-items-center rounded-full text-white/70 hover:text-[#f5c518]"
+              aria-label="Clear"
+            >
+              <X className="h-3 w-3" />
+            </button>
+          )}
+        </div>
+        {focused && (
+          <div
+            className="pointer-events-none absolute inset-0 rounded-full opacity-50"
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(245,197,24,0.15), rgba(255,138,0,0.15))",
+              filter: "blur(12px)",
+              zIndex: -1,
+            }}
+          />
         )}
       </div>
 
+      {/* Trending chips — glass pills with hover glow */}
       {!touched && (
-        <div className="flex flex-wrap gap-1.5">
-          <span className="text-[11px] text-white/40">Trending:</span>
-          {TRENDING_QUERIES.map((q) => (
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="flex items-center gap-1 text-[11px] font-bold text-white/50">
+            <TrendingUp className="h-3 w-3" />
+            Trending
+          </span>
+          {TRENDING_QUERIES.map((q, i) => (
             <button
               key={q}
               type="button"
@@ -90,7 +133,8 @@ export function SearchView() {
                 setQuery(q);
                 setTouched(true);
               }}
-              className="rounded-full bg-white/5 px-2.5 py-0.5 text-[11px] text-white/70 hover:bg-yellow-400/20 hover:text-yellow-400"
+              className="glass-card fade-in-stagger btn-press rounded-full px-2.5 py-1 text-[11px] font-semibold text-white/80 transition-all duration-300 hover:text-[#f5c518] hover:glow"
+              style={{ ["--i"]: i } as React.CSSProperties}
             >
               {q}
             </button>
@@ -106,18 +150,25 @@ export function SearchView() {
         </CardGrid>
       )}
 
+      {/* Empty state — creative illustration with gradient text */}
       {!loading && query.trim() && results.length === 0 && (
-        <div className="grid place-items-center py-12 text-center">
-          <p className="text-sm text-white/60">No results for “{query}”.</p>
-          <p className="mt-1 text-xs text-white/40">
-            Try a different spelling or browse the catalog.
+        <div className="glass-card grid place-items-center rounded-2xl py-16 text-center">
+          <div className="float-y mb-3 grid h-16 w-16 place-items-center rounded-full brand-gradient-soft">
+            <Sparkles className="h-7 w-7 text-[#f5c518]" />
+          </div>
+          <p className="gradient-text text-base font-black tracking-editorial">
+            No results for &ldquo;{query}&rdquo;
+          </p>
+          <p className="mt-1.5 max-w-[16rem] text-xs leading-relaxed text-white/45">
+            Try a different spelling, a shorter query, or browse the catalog
+            instead.
           </p>
         </div>
       )}
 
       {!loading && results.length > 0 && (
         <>
-          <p className="text-xs text-white/50">
+          <p className="glass-card w-fit rounded-full px-2.5 py-0.5 text-[11px] font-bold text-white/70">
             {results.length} result{results.length === 1 ? "" : "s"}
           </p>
           <CardGrid>
@@ -128,10 +179,19 @@ export function SearchView() {
         </>
       )}
 
+      {/* Idle empty state — creative illustration */}
       {!loading && !query.trim() && (
-        <div className="grid place-items-center py-12 text-center text-white/40">
-          <Search className="mb-2 h-10 w-10 opacity-30" />
-          <p className="text-xs">Start typing to search</p>
+        <div className="glass-card grid place-items-center rounded-2xl py-16 text-center">
+          <div className="float-y mb-3 grid h-16 w-16 place-items-center rounded-full brand-gradient-soft pulse-glow">
+            <Search className="h-7 w-7 text-[#f5c518]" />
+          </div>
+          <p className="gradient-text text-base font-black tracking-editorial">
+            Find your next obsession
+          </p>
+          <p className="mt-1.5 max-w-[16rem] text-xs leading-relaxed text-white/45">
+            Search across thousands of titles — by English name, Japanese name,
+            or any keyword.
+          </p>
         </div>
       )}
     </div>

@@ -1,0 +1,985 @@
+     1→"use client";
+     2→
+     3→import { useCallback, useEffect, useRef, useState } from "react";
+     4→import {
+     5→  ArrowLeft,
+     6→  Captions,
+     7→  Loader2,
+     8→  Maximize,
+     9→  Minimize,
+    10→  Pause,
+    11→  Play,
+    12→  RotateCcw,
+    13→  RotateCw,
+    14→  Settings,
+    15→  Volume2,
+    16→  VolumeX,
+    17→} from "lucide-react";
+    18→import { fetchVideoImport, type VideoImport } from "@/lib/api/client";
+    19→import { useApp } from "@/store/app";
+    20→import { cn } from "@/lib/utils";
+    21→
+    22→interface SubtitleCue {
+    23→  start: number;
+    24→  end: number;
+    25→  text: string;
+    26→}
+    27→
+    28→interface VideoPlayerProps {
+    29→  malId: number;
+    30→  episode: number;
+    31→  audioMode: "SUB" | "DUB";
+    32→  poster?: string;
+    33→  title?: string;
+    34→  subtitle?: string;
+    35→  resumePosition?: number | null;
+    36→  onProgress?: (position: number, duration: number) => void;
+    37→  onEnded?: () => void;
+    38→  onBack?: () => void;
+    39→}
+    40→
+    41→const HIDE_CONTROLS_MS = 10000;
+    42→const SPEEDS = [0.5, 0.75, 1, 1.25, 1.5, 2];
+    43→const QUALITIES = ["Auto", "1080p", "720p", "480p", "360p"];
+    44→
+    45→function timeToSeconds(t: string): number {
+    46→  const m = t.match(/(\d{1,2}):(\d{2}):(\d{2})[.,](\d{1,3})/);
+    47→  if (!m) {
+    48→    const m2 = t.match(/(\d{1,2}):(\d{2})[.,](\d{1,3})/);
+    49→    if (!m2) return 0;
+    50→    return +m2[1] * 60 + +m2[2] + Number(m2[3]) / 1000;
+    51→  }
+    52→  return (
+    53→    +m[1] * 3600 + +m[2] * 60 + +m[3] + Number(m[4]) / Math.pow(10, m[4].length)
+    54→  );
+    55→}
+    56→
+    57→function parseVtt(text: string): SubtitleCue[] {
+    58→  const normalized = text.replace(/\r/g, "");
+    59→  const blocks = normalized.split(/\n\s*\n/);
+    60→  const cues: SubtitleCue[] = [];
+    61→  for (const block of blocks) {
+    62→    const lines = block.split("\n").filter((l) => l.trim() !== "");
+    63→    if (lines.length === 0) continue;
+    64→    if (lines[0].startsWith("WEBVTT")) continue;
+    65→    let timingLine = lines[0];
+    66→    let textStart = 1;
+    67→    if (!timingLine.includes("-->")) {
+    68→      if (lines.length < 2) continue;
+    69→      timingLine = lines[1];
+    70→      textStart = 2;
+    71→    }
+    72→    const m = timingLine.match(
+    73→      /([\d:.,]+)\s*-->\s*([\d:.,]+)/,
+    74→    );
+    75→    if (!m) continue;
+    76→    const start = timeToSeconds(m[1]);
+    77→    const end = timeToSeconds(m[2]);
+    78→    const cueText = lines.slice(textStart).join("\n").replace(/<[^>]+>/g, "");
+    79→    if (cueText.trim()) cues.push({ start, end, text: cueText });
+    80→  }
+    81→  return cues.sort((a, b) => a.start - b.start);
+    82→}
+    83→
+    84→function fmtTime(s: number): string {
+    85→  if (!Number.isFinite(s) || s < 0) s = 0;
+    86→  const h = Math.floor(s / 3600);
+    87→  const m = Math.floor((s % 3600) / 60);
+    88→  const sec = Math.floor(s % 60);
+    89→  if (h > 0)
+    90→    return `${h}:${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
+    91→  return `${m}:${String(sec).padStart(2, "0")}`;
+    92→}
+    93→
+    94→interface AudioTrackInfo {
+    95→  id: number;
+    96→  label: string;
+    97→  language?: string;
+    98→  enabled: boolean;
+    99→}
+   100→
+   101→// Minimal types for the non-standard HTMLMediaElement.audioTracks API.
+   102→interface AudioTrackLike {
+   103→  label: string;
+   104→  language: string;
+   105→  enabled: boolean;
+   106→}
+   107→interface AudioTrackListLike {
+   108→  length: number;
+   109→  [index: number]: AudioTrackLike;
+   110→}
+   111→interface VideoElementWithAudioTracks extends HTMLVideoElement {
+   112→  audioTracks?: AudioTrackListLike;
+   113→}
+   114→
+   115→export function VideoPlayer({
+   116→  malId,
+   117→  episode,
+   118→  audioMode,
+   119→  poster,
+   120→  title,
+   121→  subtitle,
+   122→  resumePosition,
+   123→  onProgress,
+   124→  onEnded,
+   125→  onBack,
+   126→}: VideoPlayerProps) {
+   127→  const videoRef = useRef<HTMLVideoElement>(null);
+   128→  const containerRef = useRef<HTMLDivElement>(null);
+   129→  const hideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+   130→  const seekingRef = useRef(false);
+   131→  const lastProgressEmitRef = useRef(0);
+   132→  const resumeAppliedRef = useRef(false);
+   133→
+   134→  const { setAudioMode, setQuality, setSpeed, selectedQuality, selectedSpeed, toggleFullscreen, fullscreenPlayer } = useApp();
+   135→
+   136→  const [importInfo, setImportInfo] = useState<VideoImport | null>(null);
+   137→  const [loading, setLoading] = useState(true);
+   138→  const [error, setError] = useState<string | null>(null);
+   139→
+   140→  const [isPlaying, setIsPlaying] = useState(false);
+   141→  const [currentTime, setCurrentTime] = useState(0);
+   142→  const [duration, setDuration] = useState(0);
+   143→  const [buffered, setBuffered] = useState(0);
+   144→  const [controlsVisible, setControlsVisible] = useState(true);
+   145→  const [showSettings, setShowSettings] = useState(false);
+   146→  const [showSubtitles, setShowSubtitles] = useState(true);
+   147→  const [cues, setCues] = useState<SubtitleCue[]>([]);
+   148→  const [activeCue, setActiveCue] = useState("");
+   149→  const [muted, setMuted] = useState(false);
+   150→  const [audioTracks, setAudioTracks] = useState<AudioTrackInfo[]>([]);
+   151→  const [activeAudioTrack, setActiveAudioTrack] = useState<number>(0);
+   152→  const [isFullscreen, setIsFullscreen] = useState(false);
+   153→  const [subtitleSource, setSubtitleSource] = useState<string>("");
+   154→
+   155→  // ----- Auto-hide controls -----
+   156→  const keepControlsAlive = useCallback(() => {
+   157→    setControlsVisible(true);
+   158→    if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+   159→    hideTimerRef.current = setTimeout(() => {
+   160→      setControlsVisible(false);
+   161→      setShowSettings(false);
+   162→    }, HIDE_CONTROLS_MS);
+   163→  }, []);
+   164→
+   165→  useEffect(() => {
+   166→    keepControlsAlive();
+   167→    return () => {
+   168→      if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+   169→    };
+   170→  }, [keepControlsAlive]);
+   171→
+   172→  // ----- Fetch video import -----
+   173→  useEffect(() => {
+   174→    let cancelled = false;
+   175→    setLoading(true);
+   176→    setError(null);
+   177→    setImportInfo(null);
+   178→    setCues([]);
+   179→    setActiveCue("");
+   180→    resumeAppliedRef.current = false;
+   181→    fetchVideoImport(malId, episode, audioMode.toLowerCase() as "sub" | "dub")
+   182→      .then((info) => {
+   183→        if (cancelled) return;
+   184→        setImportInfo(info);
+   185→        setLoading(false);
+   186→        if (!info || !info.url) {
+   187→          setError(
+   188→            "No stream available for this episode yet. Try another episode or audio mode.",
+   189→          );
+   190→        }
+   191→      })
+   192→      .catch((e) => {
+   193→        if (cancelled) return;
+   194→        setError(String(e?.message ?? e));
+   195→        setLoading(false);
+   196→      });
+   197→    return () => {
+   198→      cancelled = true;
+   199→    };
+   200→  }, [malId, episode, audioMode]);
+   201→
+   202→  // ----- Load subtitles (VTT) -----
+   203→  useEffect(() => {
+   204→    const subUrl = importInfo?.subtitleUrl ?? subtitle ?? null;
+   205→    if (!subUrl) {
+   206→      setCues([]);
+   207→      return;
+   208→    }
+   209→    let cancelled = false;
+   210→    fetch(subUrl)
+   211→      .then((r) => {
+   212→        if (!r.ok) return Promise.reject(r.status);
+   213→        // Track subtitle source for UI feedback (e.g. "OpenSubtitles" vs "Episode Info")
+   214→        const src = r.headers.get("x-subtitle-source");
+   215→        if (src) setSubtitleSource(src);
+   216→        return r.text();
+   217→      })
+   218→      .then((text) => {
+   219→        if (cancelled) return;
+   220→        try {
+   221→          setCues(parseVtt(text));
+   222→        } catch {
+   223→          setCues([]);
+   224→        }
+   225→      })
+   226→      .catch(() => {
+   227→        if (!cancelled) setCues([]);
+   228→      });
+   229→    return () => {
+   230→      cancelled = true;
+   231→    };
+   232→  }, [importInfo?.subtitleUrl, subtitle]);
+   233→
+   234→  // ----- Wire up video element events -----
+   235→  useEffect(() => {
+   236→    const v = videoRef.current;
+   237→    if (!v) return;
+   238→
+   239→    const onPlay = () => setIsPlaying(true);
+   240→    const onPause = () => setIsPlaying(false);
+   241→    const onTime = () => {
+   242→      if (seekingRef.current) return;
+   243→      setCurrentTime(v.currentTime);
+   244→      // Update active cue
+   245→      const cue = cues.find((c) => v.currentTime >= c.start && v.currentTime <= c.end);
+   246→      setActiveCue(cue ? cue.text : "");
+   247→      // Throttled progress callback (every 5s)
+   248→      const now = Date.now();
+   249→      if (onProgress && now - lastProgressEmitRef.current > 5000) {
+   250→        lastProgressEmitRef.current = now;
+   251→        onProgress(v.currentTime, v.duration || 0);
+   252→      }
+   253→    };
+   254→    const onLoadedMeta = () => {
+   255→      setDuration(v.duration || 0);
+   256→      // Resume position
+   257→      if (!resumeAppliedRef.current && resumePosition && resumePosition > 5) {
+   258→        try {
+   259→          v.currentTime = Math.min(resumePosition, (v.duration || resumePosition) - 5);
+   260→        } catch {}
+   261→      }
+   262→      resumeAppliedRef.current = true;
+   263→      // Audio tracks
+   264→      const at = (v as VideoElementWithAudioTracks).audioTracks;
+   265→      if (at && at.length > 1) {
+   266→        const tracks: AudioTrackInfo[] = [];
+   267→        for (let i = 0; i < at.length; i++) {
+   268→          const t = at[i];
+   269→          tracks.push({
+   270→            id: i,
+   271→            label: t.label || t.language || `Audio ${i + 1}`,
+   272→            language: t.language || undefined,
+   273→            enabled: t.enabled,
+   274→          });
+   275→        }
+   276→        setAudioTracks(tracks);
+   277→        const enabledIdx = tracks.findIndex((t) => t.enabled);
+   278→        setActiveAudioTrack(enabledIdx >= 0 ? enabledIdx : 0);
+   279→      } else {
+   280→        setAudioTracks([]);
+   281→      }
+   282→    };
+   283→    const onProgressBuf = () => {
+   284→      try {
+   285→        if (v.buffered.length > 0) {
+   286→          setBuffered(v.buffered.end(v.buffered.length - 1));
+   287→        }
+   288→      } catch {}
+   289→    };
+   290→    const onEndedEv = () => {
+   291→      if (onProgress && v.duration) onProgress(v.duration, v.duration);
+   292→      onEnded?.();
+   293→    };
+   294→    const onErr = () => {
+   295→      // Don't override the initial "no stream" error.
+   296→      setError((prev) => prev ?? "Video failed to load. The source may be unavailable.");
+   297→    };
+   298→
+   299→    v.addEventListener("play", onPlay);
+   300→    v.addEventListener("pause", onPause);
+   301→    v.addEventListener("timeupdate", onTime);
+   302→    v.addEventListener("loadedmetadata", onLoadedMeta);
+   303→    v.addEventListener("progress", onProgressBuf);
+   304→    v.addEventListener("ended", onEndedEv);
+   305→    v.addEventListener("error", onErr);
+   306→    return () => {
+   307→      v.removeEventListener("play", onPlay);
+   308→      v.removeEventListener("pause", onPause);
+   309→      v.removeEventListener("timeupdate", onTime);
+   310→      v.removeEventListener("loadedmetadata", onLoadedMeta);
+   311→      v.removeEventListener("progress", onProgressBuf);
+   312→      v.removeEventListener("ended", onEndedEv);
+   313→      v.removeEventListener("error", onErr);
+   314→    };
+   315→  }, [cues, onProgress, onEnded, resumePosition]);
+   316→
+   317→  // ----- Apply playback rate -----
+   318→  useEffect(() => {
+   319→    const v = videoRef.current;
+   320→    if (!v) return;
+   321→    v.playbackRate = selectedSpeed;
+   322→  }, [selectedSpeed]);
+   323→
+   324→  // ----- Fullscreen change listener -----
+   325→  useEffect(() => {
+   326→    const onFs = () => {
+   327→      const fs = !!document.fullscreenElement;
+   328→      setIsFullscreen(fs);
+   329→      if (fullscreenPlayer !== fs) toggleFullscreen();
+   330→    };
+   331→    document.addEventListener("fullscreenchange", onFs);
+   332→    return () => document.removeEventListener("fullscreenchange", onFs);
+   333→  }, [fullscreenPlayer, toggleFullscreen]);
+   334→
+   335→  // ----- Controls -----
+   336→  const togglePlay = useCallback(() => {
+   337→    const v = videoRef.current;
+   338→    if (!v) return;
+   339→    keepControlsAlive();
+   340→    if (v.paused) v.play().catch(() => {});
+   341→    else v.pause();
+   342→  }, [keepControlsAlive]);
+   343→
+   344→  const skip = useCallback(
+   345→    (delta: number) => {
+   346→      const v = videoRef.current;
+   347→      if (!v) return;
+   348→      v.currentTime = Math.max(0, Math.min((v.duration || 0), v.currentTime + delta));
+   349→      keepControlsAlive();
+   350→    },
+   351→    [keepControlsAlive],
+   352→  );
+   353→
+   354→  const seekTo = useCallback(
+   355→    (t: number) => {
+   356→      const v = videoRef.current;
+   357→      if (!v) return;
+   358→      v.currentTime = Math.max(0, Math.min((v.duration || 0), t));
+   359→      setCurrentTime(v.currentTime);
+   360→      keepControlsAlive();
+   361→    },
+   362→    [keepControlsAlive],
+   363→  );
+   364→
+   365→  const toggleMute = useCallback(() => {
+   366→    const v = videoRef.current;
+   367→    if (!v) return;
+   368→    v.muted = !v.muted;
+   369→    setMuted(v.muted);
+   370→    keepControlsAlive();
+   371→  }, [keepControlsAlive]);
+   372→
+   373→  const toggleFullscreenFn = useCallback(() => {
+   374→    const el = containerRef.current;
+   375→    if (!el) return;
+   376→    if (document.fullscreenElement) {
+   377→      document.exitFullscreen().catch(() => {});
+   378→    } else {
+   379→      el.requestFullscreen().catch(() => {});
+   380→    }
+   381→    keepControlsAlive();
+   382→  }, [keepControlsAlive]);
+   383→
+   384→  const handleVideoTap = useCallback(() => {
+   385→    // Tap video toggles UI (does NOT pause).
+   386→    setControlsVisible((prev) => {
+   387→      const next = !prev;
+   388→      if (next) {
+   389→        if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+   390→        hideTimerRef.current = setTimeout(() => {
+   391→          setControlsVisible(false);
+   392→          setShowSettings(false);
+   393→        }, HIDE_CONTROLS_MS);
+   394→      } else {
+   395→        if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+   396→      }
+   397→      return next;
+   398→    });
+   399→  }, []);
+   400→
+   401→  const switchAudioTrack = useCallback(
+   402→    (id: number) => {
+   403→      const v = videoRef.current as VideoElementWithAudioTracks | null;
+   404→      if (!v || !v.audioTracks) return;
+   405→      for (let i = 0; i < v.audioTracks.length; i++) {
+   406→        v.audioTracks[i].enabled = i === id;
+   407→      }
+   408→      setActiveAudioTrack(id);
+   409→      keepControlsAlive();
+   410→    },
+   411→    [keepControlsAlive],
+   412→  );
+   413→
+   414→  const switchAudioMode = useCallback(
+   415→    (mode: "SUB" | "DUB") => {
+   416→      setAudioMode(mode);
+   417→      keepControlsAlive();
+   418→    },
+   419→    [setAudioMode, keepControlsAlive],
+   420→  );
+   421→
+   422→  const onSeekScrub = (val: number[]) => {
+   423→    seekingRef.current = true;
+   424→    setCurrentTime(val[0]);
+   425→  };
+   426→  const onSeekCommit = (val: number[]) => {
+   427→    seekingRef.current = false;
+   428→    seekTo(val[0]);
+   429→  };
+   430→
+   431→  // ----- Render -----
+   432→  const isYoutube = !!importInfo?.isYoutube && !!importInfo?.url;
+   433→  const videoUrl = importInfo?.url ?? null;
+   434→  const posterUrl = poster ?? "";
+   435→
+   436→  // YouTube iframe branch
+   437→  if (isYoutube && videoUrl) {
+   438→    const ytId = (() => {
+   439→      try {
+   440→        const u = new URL(videoUrl);
+   441→        if (u.hostname.includes("youtube.com")) {
+   442→          return u.pathname.startsWith("/embed/")
+   443→            ? u.pathname.slice("/embed/".length)
+   444→            : u.searchParams.get("v") ?? "";
+   445→        }
+   446→        if (u.hostname.includes("youtu.be")) return u.pathname.slice(1);
+   447→      } catch {}
+   448→      return "";
+   449→    })();
+   450→    const embedSrc = ytId
+   451→      ? `https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1`
+   452→      : videoUrl;
+   453→
+   454→    return (
+   455→      <div
+   456→        ref={containerRef}
+   457→        className="relative w-full overflow-hidden bg-black aspect-video"
+   458→      >
+   459→        <iframe
+   460→          src={embedSrc}
+   461→          title={title ?? "Video player"}
+   462→          className="absolute inset-0 h-full w-full"
+   463→          allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+   464→          allowFullScreen
+   465→        />
+   466→        {onBack && (
+   467→          <button
+   468→            type="button"
+   469→            onClick={onBack}
+   470→            className="absolute top-3 left-3 z-10 grid h-9 w-9 place-items-center rounded-full bg-black/60 text-white hover:bg-black/80"
+   471→            aria-label="Back"
+   472→          >
+   473→            <ArrowLeft className="h-5 w-5" />
+   474→          </button>
+   475→        )}
+   476→        <div className="pointer-events-none absolute bottom-3 left-3 z-10 rounded-md bg-black/60 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-white">
+   477→          Trailer · YouTube
+   478→        </div>
+   479→      </div>
+   480→    );
+   481→  }
+   482→
+   483→  const progressPct =
+   484→    duration > 0 ? Math.min(100, (currentTime / duration) * 100) : 0;
+   485→  const bufferedPct =
+   486→    duration > 0 ? Math.min(100, (buffered / duration) * 100) : 0;
+   487→
+   488→  return (
+   489→    <div
+   490→      ref={containerRef}
+   491→      className={cn(
+   492→        "relative w-full overflow-hidden bg-black aspect-video select-none",
+   493→        isFullscreen && "rounded-none",
+   494→      )}
+   495→      onMouseMove={keepControlsAlive}
+   496→      onMouseLeave={() => {
+   497→        if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+   498→        hideTimerRef.current = setTimeout(() => {
+   499→          setControlsVisible(false);
+   500→          setShowSettings(false);
+   501→        }, HIDE_CONTROLS_MS / 2);
+   502→      }}
+   503→    >
+   504→      {/* Video element — NO crossOrigin (breaks archive.org CDN).
+   505→          Tap-to-toggle-UI is handled by a dedicated click-catcher below
+   506→          (the <video> element's onClick is unreliable on mobile). */}
+   507→      {videoUrl ? (
+   508→        <video
+   509→          ref={videoRef}
+   510→          src={videoUrl}
+   511→          poster={posterUrl}
+   512→          playsInline
+   513→          preload="metadata"
+   514→          className="absolute inset-0 h-full w-full bg-black"
+   515→        />
+   516→      ) : (
+   517→        <div className="absolute inset-0 grid place-items-center bg-black">
+   518→          {posterUrl && (
+   519→            <img
+   520→              src={posterUrl}
+   521→              alt={title ?? "poster"}
+   522→              className="absolute inset-0 h-full w-full object-cover opacity-40"
+   523→            />
+   524→          )}
+   525→        </div>
+   526→      )}
+   527→
+   528→      {/* Always-present tap catcher — toggles the controls UI on click.
+   529→          Sits ABOVE the video (z-10) but BELOW the controls (z-20/z-30).
+   530→          The top/bottom bars become pointer-events-none when hidden, so
+   531→          taps fall through to this layer; the center overlay's buttons
+   532→          call e.stopPropagation() so they don't trigger this handler. */}
+   533→      {!loading && !error && videoUrl && (
+   534→        <div
+   535→          className="absolute inset-0 z-10"
+   536→          onClick={handleVideoTap}
+   537→        />
+   538→      )}
+   539→
+   540→      {/* Loading overlay */}
+   541→      {loading && (
+   542→        <div className="absolute inset-0 grid place-items-center bg-black/70">
+   543→          <div className="flex flex-col items-center gap-3 text-white">
+   544→            <Loader2 className="h-10 w-10 animate-spin text-yellow-400" />
+   545→            <p className="text-xs tracking-wide text-white/70">
+   546→              Resolving stream…
+   547→            </p>
+   548→          </div>
+   549→        </div>
+   550→      )}
+   551→
+   552→      {/* Error overlay */}
+   553→      {!loading && error && (
+   554→        <div className="absolute inset-0 grid place-items-center bg-black/80 p-6">
+   555→          <div className="flex max-w-xs flex-col items-center gap-3 text-center text-white">
+   556→            <p className="text-sm">{error}</p>
+   557→          </div>
+   558→        </div>
+   559→      )}
+   560→
+   561→      {/* Custom subtitle overlay — no black box, text-base, bottom-4, WebkitTextStroke outline */}
+   562→      {showSubtitles && activeCue && (
+   563→        <div className="pointer-events-none absolute inset-x-0 bottom-16 z-20 flex justify-center px-4 sm:bottom-20">
+   564→          <span
+   565→            className="max-w-[90%] text-center text-base font-semibold leading-snug text-white"
+   566→            style={{
+   567→              WebkitTextStroke: "1.5px rgba(0,0,0,0.85)",
+   568→              paintOrder: "stroke fill",
+   569→              textShadow: "0 2px 4px rgba(0,0,0,0.7)",
+   570→            }}
+   571→          >
+   572→            {activeCue.split("\n").map((line, i) => (
+   573→              <span key={i} className="block">
+   574→                {line}
+   575→              </span>
+   576→            ))}
+   577→          </span>
+   578→        </div>
+   579→      )}
+   580→
+   581→      {/* Subtitle "unavailable" hint — shows briefly when CC is on but no cues */}
+   582→      {showSubtitles && !activeCue && cues.length === 0 && !loading && videoUrl && (
+   583→        <div className="pointer-events-none absolute inset-x-0 bottom-16 z-20 flex justify-center px-4 sm:bottom-20">
+   584→          <span
+   585→            className="rounded bg-black/60 px-3 py-1 text-center text-xs font-medium text-white/80"
+   586→            style={{ textShadow: "0 1px 2px rgba(0,0,0,0.7)" }}
+   587→          >
+   588→            字幕なし · No subtitles available for this episode
+   589→          </span>
+   590→        </div>
+   591→      )}
+   592→
+   593→      {/* Top bar */}
+   594→      <div
+   595→        className={cn(
+   596→          "absolute inset-x-0 top-0 z-30 flex items-center gap-2 bg-gradient-to-b from-black/80 to-transparent p-3 transition-opacity duration-300",
+   597→          controlsVisible ? "opacity-100" : "opacity-0 pointer-events-none",
+   598→        )}
+   599→      >
+   600→        {onBack && (
+   601→          <button
+   602→            type="button"
+   603→            onClick={(e) => {
+   604→              e.stopPropagation();
+   605→              onBack();
+   606→            }}
+   607→            className="grid h-9 w-9 place-items-center rounded-full bg-black/50 text-white hover:bg-black/70"
+   608→            aria-label="Back"
+   609→          >
+   610→            <ArrowLeft className="h-5 w-5" />
+   611→          </button>
+   612→        )}
+   613→        <div className="min-w-0 flex-1">
+   614→          <p className="truncate text-sm font-semibold text-white">
+   615→            {title ?? "Now Playing"}
+   616→          </p>
+   617→          {importInfo && (
+   618→            <p className="text-[11px] text-white/60">
+   619→              Episode {episode} · {audioMode} · {importInfo.quality}
+   620→            </p>
+   621→          )}
+   622→        </div>
+   623→        {(importInfo?.hasSub || importInfo?.hasDub) && (
+   624→          <div className="flex overflow-hidden rounded-md border border-white/20 text-xs font-bold">
+   625→            <button
+   626→              type="button"
+   627→              onClick={(e) => {
+   628→                e.stopPropagation();
+   629→                switchAudioMode("SUB");
+   630→              }}
+   631→              className={cn(
+   632→                "px-2 py-1 transition-colors",
+   633→                audioMode === "SUB"
+   634→                  ? "bg-yellow-400 text-black"
+   635→                  : "bg-black/40 text-white hover:bg-black/60",
+   636→              )}
+   637→            >
+   638→              SUB
+   639→            </button>
+   640→            <button
+   641→              type="button"
+   642→              onClick={(e) => {
+   643→                e.stopPropagation();
+   644→                switchAudioMode("DUB");
+   645→              }}
+   646→              className={cn(
+   647→                "px-2 py-1 transition-colors",
+   648→                audioMode === "DUB"
+   649→                  ? "bg-yellow-400 text-black"
+   650→                  : "bg-black/40 text-white hover:bg-black/60",
+   651→              )}
+   652→            >
+   653→              DUB
+   654→            </button>
+   655→          </div>
+   656→        )}
+   657→      </div>
+   658→
+   659→      {/* Center controls — only when controls visible.
+   660→          The wrapper is pointer-events-none so taps on empty center area
+   661→          fall through to the click-catcher (z-10) which toggles the UI.
+   662→          The buttons inside re-enable pointer-events-auto and call
+   663→          e.stopPropagation() so they don't trigger the toggle. */}
+   664→      {controlsVisible && !loading && !error && videoUrl && (
+   665→        <div className="pointer-events-none absolute inset-0 z-20 grid place-items-center">
+   666→          <div className="pointer-events-auto flex items-center gap-6">
+   667→            <button
+   668→              type="button"
+   669→              onClick={(e) => {
+   670→                e.stopPropagation();
+   671→                skip(-10);
+   672→              }}
+   673→              className="grid h-11 w-11 place-items-center rounded-full bg-black/50 text-white backdrop-blur hover:bg-black/70"
+   674→              aria-label="Back 10 seconds"
+   675→            >
+   676→              <RotateCcw className="h-5 w-5" />
+   677→            </button>
+   678→            <button
+   679→              type="button"
+   680→              onClick={(e) => {
+   681→                e.stopPropagation();
+   682→                togglePlay();
+   683→              }}
+   684→              className="grid h-16 w-16 place-items-center rounded-full bg-yellow-400 text-black shadow-lg shadow-yellow-500/30 transition hover:scale-105 hover:bg-yellow-300"
+   685→              aria-label={isPlaying ? "Pause" : "Play"}
+   686→            >
+   687→              {isPlaying ? (
+   688→                <Pause className="h-7 w-7" />
+   689→              ) : (
+   690→                <Play className="h-7 w-7 translate-x-0.5" />
+   691→              )}
+   692→            </button>
+   693→            <button
+   694→              type="button"
+   695→              onClick={(e) => {
+   696→                e.stopPropagation();
+   697→                skip(10);
+   698→              }}
+   699→              className="grid h-11 w-11 place-items-center rounded-full bg-black/50 text-white backdrop-blur hover:bg-black/70"
+   700→              aria-label="Forward 10 seconds"
+   701→            >
+   702→              <RotateCw className="h-5 w-5" />
+   703→            </button>
+   704→          </div>
+   705→        </div>
+   706→      )}
+   707→
+   708→      {/* Bottom controls */}
+   709→      <div
+   710→        className={cn(
+   711→          "absolute inset-x-0 bottom-0 z-30 bg-gradient-to-t from-black/85 to-transparent px-3 pb-3 pt-8 transition-opacity duration-300",
+   712→          controlsVisible ? "opacity-100" : "opacity-0 pointer-events-none",
+   713→        )}
+   714→        onMouseMove={keepControlsAlive}
+   715→        onClick={(e) => e.stopPropagation()}
+   716→      >
+   717→        {/* Progress bar (seekable) */}
+   718→        <div className="group relative mb-2 h-1.5 w-full cursor-pointer rounded-full bg-white/20">
+   719→          <div
+   720→            className="absolute left-0 top-0 h-full rounded-full bg-white/30"
+   721→            style={{ width: `${bufferedPct}%` }}
+   722→          />
+   723→          <div
+   724→            className="absolute left-0 top-0 h-full rounded-full bg-yellow-400"
+   725→            style={{ width: `${progressPct}%` }}
+   726→          />
+   727→          <input
+   728→            type="range"
+   729→            min={0}
+   730→            max={duration || 0}
+   731→            step={0.1}
+   732→            value={currentTime}
+   733→            onChange={(e) => onSeekScrub([Number(e.target.value)])}
+   734→            onPointerUp={(e) => onSeekCommit([Number((e.target as HTMLInputElement).value)])}
+   735→            onTouchEnd={(e) => onSeekCommit([Number((e.target as HTMLInputElement).value)])}
+   736→            className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+   737→            aria-label="Seek"
+   738→          />
+   739→          <div
+   740→            className="pointer-events-none absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-yellow-400 shadow"
+   741→            style={{ left: `${progressPct}%` }}
+   742→          />
+   743→        </div>
+   744→
+   745→        <div className="flex items-center gap-2 text-white">
+   746→          <button
+   747→            type="button"
+   748→            onClick={togglePlay}
+   749→            className="grid h-8 w-8 place-items-center rounded-full hover:bg-white/10"
+   750→            aria-label={isPlaying ? "Pause" : "Play"}
+   751→          >
+   752→            {isPlaying ? (
+   753→              <Pause className="h-4 w-4" />
+   754→            ) : (
+   755→              <Play className="h-4 w-4" />
+   756→            )}
+   757→          </button>
+   758→          <button
+   759→            type="button"
+   760→            onClick={toggleMute}
+   761→            className="grid h-8 w-8 place-items-center rounded-full hover:bg-white/10"
+   762→            aria-label="Mute"
+   763→          >
+   764→            {muted ? (
+   765→              <VolumeX className="h-4 w-4" />
+   766→            ) : (
+   767→              <Volume2 className="h-4 w-4" />
+   768→            )}
+   769→          </button>
+   770→          <span className="text-[11px] tabular-nums text-white/80">
+   771→            {fmtTime(currentTime)} / {fmtTime(duration)}
+   772→          </span>
+   773→
+   774→          <div className="ml-auto flex items-center gap-1">
+   775→            {/* CC toggle — show whenever the source claims subtitles, even
+   776→                before cues finish loading, so users can toggle it on/off. */}
+   777→            {(cues.length > 0 || importInfo?.hasSub || importInfo?.subtitleUrl) && (
+   778→              <button
+   779→                type="button"
+   780→                onClick={() => {
+   781→                  setShowSubtitles((s) => !s);
+   782→                  keepControlsAlive();
+   783→                }}
+   784→                className={cn(
+   785→                  "grid h-8 w-8 place-items-center rounded-full hover:bg-white/10",
+   786→                  showSubtitles ? "text-yellow-400" : "text-white/70",
+   787→                )}
+   788→                aria-label="Toggle subtitles"
+   789→                title={
+   790→                  cues.length === 0
+   791→                    ? "Subtitles unavailable for this episode"
+   792→                    : subtitleSource === "opensubtitles"
+   793→                      ? "Subtitles from OpenSubtitles (real dialogue)"
+   794→                      : subtitleSource.startsWith("jikan")
+   795→                        ? "Episode info (configure OpenSubtitles for dialogue subs)"
+   796→                        : "Toggle subtitles"
+   797→                }
+   798→              >
+   799→                <Captions className="h-4 w-4" />
+   800→              </button>
+   801→            )}
+   802→
+   803→            {/* Audio tracks (only when dual-audio detected) */}
+   804→            {audioTracks.length > 0 && (
+   805→              <AudioTracksMenu
+   806→                tracks={audioTracks}
+   807→                active={activeAudioTrack}
+   808→                onSelect={switchAudioTrack}
+   809→                onHover={keepControlsAlive}
+   810→              />
+   811→            )}
+   812→
+   813→            {/* Settings: speed + quality */}
+   814→            <SettingsMenu
+   815→              speed={selectedSpeed}
+   816→              quality={selectedQuality}
+   817→              onSpeed={(s) => {
+   818→                setSpeed(s);
+   819→                keepControlsAlive();
+   820→              }}
+   821→              onQuality={(q) => {
+   822→                setQuality(q);
+   823→                keepControlsAlive();
+   824→              }}
+   825→              onHover={keepControlsAlive}
+   826→              open={showSettings}
+   827→              onOpenChange={(o) => {
+   828→                setShowSettings(o);
+   829→                if (o) keepControlsAlive();
+   830→              }}
+   831→            />
+   832→
+   833→            <button
+   834→              type="button"
+   835→              onClick={toggleFullscreenFn}
+   836→              className="grid h-8 w-8 place-items-center rounded-full hover:bg-white/10"
+   837→              aria-label="Fullscreen"
+   838→            >
+   839→              {isFullscreen ? (
+   840→                <Minimize className="h-4 w-4" />
+   841→              ) : (
+   842→                <Maximize className="h-4 w-4" />
+   843→              )}
+   844→            </button>
+   845→          </div>
+   846→        </div>
+   847→      </div>
+   848→    </div>
+   849→  );
+   850→}
+   851→
+   852→interface AudioTracksMenuProps {
+   853→  tracks: AudioTrackInfo[];
+   854→  active: number;
+   855→  onSelect: (id: number) => void;
+   856→  onHover: () => void;
+   857→}
+   858→
+   859→function AudioTracksMenu({ tracks, active, onSelect, onHover }: AudioTracksMenuProps) {
+   860→  const [open, setOpen] = useState(false);
+   861→  return (
+   862→    <div
+   863→      className="relative"
+   864→      onMouseEnter={onHover}
+   865→    >
+   866→      <button
+   867→        type="button"
+   868→        onClick={() => setOpen((o) => !o)}
+   869→        className="grid h-8 w-8 place-items-center rounded-full text-[10px] font-bold hover:bg-white/10"
+   870→        aria-label="Audio tracks"
+   871→      >
+   872→        AUD
+   873→      </button>
+   874→      {open && (
+   875→        <div className="absolute bottom-10 right-0 w-40 overflow-hidden rounded-md border border-white/10 bg-[#1a1a1f] shadow-xl">
+   876→          <p className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wide text-white/50">
+   877→            Audio Track
+   878→          </p>
+   879→          {tracks.map((t) => (
+   880→            <button
+   881→              key={t.id}
+   882→              type="button"
+   883→              onClick={() => {
+   884→                onSelect(t.id);
+   885→                setOpen(false);
+   886→              }}
+   887→              className={cn(
+   888→                "block w-full px-3 py-2 text-left text-xs hover:bg-white/5",
+   889→                t.id === active ? "text-yellow-400" : "text-white",
+   890→              )}
+   891→            >
+   892→              {t.label}
+   893→              {t.id === active && " ✓"}
+   894→            </button>
+   895→          ))}
+   896→        </div>
+   897→      )}
+   898→    </div>
+   899→  );
+   900→}
+   901→
+   902→interface SettingsMenuProps {
+   903→  speed: number;
+   904→  quality: string;
+   905→  onSpeed: (s: number) => void;
+   906→  onQuality: (q: string) => void;
+   907→  onHover: () => void;
+   908→  open: boolean;
+   909→  onOpenChange: (o: boolean) => void;
+   910→}
+   911→
+   912→function SettingsMenu({
+   913→  speed,
+   914→  quality,
+   915→  onSpeed,
+   916→  onQuality,
+   917→  onHover,
+   918→  open,
+   919→  onOpenChange,
+   920→}: SettingsMenuProps) {
+   921→  return (
+   922→    <div
+   923→      className="relative"
+   924→      onMouseEnter={onHover}
+   925→    >
+   926→      <button
+   927→        type="button"
+   928→        onClick={() => onOpenChange(!open)}
+   929→        className="grid h-8 w-8 place-items-center rounded-full hover:bg-white/10"
+   930→        aria-label="Settings"
+   931→      >
+   932→        <Settings className="h-4 w-4" />
+   933→      </button>
+   934→      {open && (
+   935→        <div className="absolute bottom-10 right-0 w-44 overflow-hidden rounded-md border border-white/10 bg-[#1a1a1f] shadow-xl">
+   936→          <div className="px-3 py-2">
+   937→            <p className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-white/50">
+   938→              Speed
+   939→            </p>
+   940→            <div className="flex flex-wrap gap-1">
+   941→              {SPEEDS.map((s) => (
+   942→                <button
+   943→                  key={s}
+   944→                  type="button"
+   945→                  onClick={() => onSpeed(s)}
+   946→                  className={cn(
+   947→                    "rounded px-2 py-1 text-[11px] hover:bg-white/10",
+   948→                    s === speed
+   949→                      ? "bg-yellow-400 text-black"
+   950→                      : "text-white",
+   951→                  )}
+   952→                >
+   953→                  {s}×
+   954→                </button>
+   955→              ))}
+   956→            </div>
+   957→          </div>
+   958→          <div className="border-t border-white/10 px-3 py-2">
+   959→            <p className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-white/50">
+   960→              Quality
+   961→            </p>
+   962→            <div className="flex flex-wrap gap-1">
+   963→              {QUALITIES.map((q) => (
+   964→                <button
+   965→                  key={q}
+   966→                  type="button"
+   967→                  onClick={() => onQuality(q)}
+   968→                  className={cn(
+   969→                    "rounded px-2 py-1 text-[11px] hover:bg-white/10",
+   970→                    q === quality
+   971→                      ? "bg-yellow-400 text-black"
+   972→                      : "text-white",
+   973→                  )}
+   974→                >
+   975→                  {q}
+   976→                </button>
+   977→              ))}
+   978→            </div>
+   979→          </div>
+   980→        </div>
+   981→      )}
+   982→    </div>
+   983→  );
+   984→}
+   985→

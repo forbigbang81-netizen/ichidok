@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Filter, X } from "lucide-react";
+import { Filter, LayoutGrid, X } from "lucide-react";
 import { apiCatalog } from "@/lib/api/client";
 import type { Anime } from "@/store/app";
 import { cn } from "@/lib/utils";
@@ -82,11 +82,17 @@ export function CatalogView() {
     type !== "All" || status !== "All" || genre !== "All" || sort !== "popularity";
 
   return (
-    <div className="flex flex-col gap-4 p-4 pb-6 fade-in">
+    <div className="fade-in flex flex-col gap-4 p-4 pb-6">
+      {/* Section header */}
       <div className="flex items-center gap-2">
         <div className="min-w-0 flex-1">
-          <h1 className="text-lg font-bold text-white">Catalog</h1>
-          <p className="text-xs text-white/50">
+          <h1 className="flex items-center gap-2 text-lg font-black tracking-editorial">
+            <span className="gradient-text">
+              <LayoutGrid className="h-5 w-5" />
+            </span>
+            <span className="gradient-text">Catalog</span>
+          </h1>
+          <p className="mt-0.5 text-xs text-white/50">
             {loading ? "Loading…" : `${items.length} titles`}
           </p>
         </div>
@@ -94,10 +100,10 @@ export function CatalogView() {
           type="button"
           onClick={() => setShowFilters((s) => !s)}
           className={cn(
-            "flex items-center gap-1 rounded-full border px-3 py-1.5 text-xs font-medium transition",
+            "btn-press flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold transition-all duration-300",
             showFilters || hasActiveFilters
-              ? "border-yellow-400 bg-yellow-400/10 text-yellow-400"
-              : "border-white/10 bg-white/5 text-white/70",
+              ? "brand-gradient-bg text-black glow"
+              : "glass-card text-white/70 hover:text-[#f5c518]",
           )}
         >
           <Filter className="h-3 w-3" />
@@ -105,27 +111,38 @@ export function CatalogView() {
         </button>
       </div>
 
-      {/* Sort chips */}
-      <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
-        {SORTS.map((s) => (
-          <button
-            key={s.key}
-            type="button"
-            onClick={() => setSort(s.key)}
-            className={cn(
-              "shrink-0 rounded-full px-3 py-1 text-[11px] font-semibold transition",
-              sort === s.key
-                ? "bg-yellow-400 text-black"
-                : "bg-white/5 text-white/70 hover:bg-white/10",
-            )}
-          >
-            {s.label}
-          </button>
-        ))}
+      {/* Sort chips — glass pills with gradient active */}
+      <div className="no-scrollbar flex gap-1.5 overflow-x-auto">
+        {SORTS.map((s) => {
+          const active = sort === s.key;
+          return (
+            <button
+              key={s.key}
+              type="button"
+              onClick={() => setSort(s.key)}
+              className={cn(
+                "btn-press shrink-0 rounded-full px-3.5 py-1 text-[11px] font-bold tracking-editorial transition-all duration-300",
+                active
+                  ? "brand-gradient-bg text-black"
+                  : "glass-card text-white/70 hover:text-[#f5c518]",
+              )}
+            >
+              {s.label}
+            </button>
+          );
+        })}
       </div>
 
-      {showFilters && (
-        <div className="flex flex-col gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-3 fade-in">
+      {/* Filter panel — glass collapsible with smooth height animation */}
+      <div
+        className={cn(
+          "glass-card overflow-hidden rounded-2xl transition-[max-height,opacity,margin] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+          showFilters
+            ? "max-h-[640px] opacity-100"
+            : "max-h-0 opacity-0 pointer-events-none",
+        )}
+      >
+        <div className="flex flex-col gap-3 p-3">
           <FilterRow label="Type">
             {TYPES.map((t) => (
               <Chip
@@ -168,13 +185,13 @@ export function CatalogView() {
                 setGenre("All");
                 setSort("popularity");
               }}
-              className="flex w-fit items-center gap-1 text-[11px] font-medium text-white/60 hover:text-yellow-400"
+              className="btn-press flex w-fit items-center gap-1 text-[11px] font-bold text-white/60 hover:text-[#f5c518]"
             >
               <X className="h-3 w-3" /> Reset filters
             </button>
           )}
         </div>
-      )}
+      </div>
 
       {loading ? (
         <CardGrid>
@@ -183,8 +200,14 @@ export function CatalogView() {
           ))}
         </CardGrid>
       ) : visible.length === 0 ? (
-        <div className="grid place-items-center py-12 text-center text-white/40">
-          <p className="text-sm">No titles match these filters.</p>
+        <div className="glass-card grid place-items-center rounded-2xl py-16 text-center">
+          <Filter className="mb-2 h-10 w-10 opacity-30" />
+          <p className="gradient-text text-sm font-black">
+            No titles match these filters
+          </p>
+          <p className="mt-1 text-xs text-white/40">
+            Try resetting or choosing a different combination.
+          </p>
         </div>
       ) : (
         <>
@@ -197,9 +220,12 @@ export function CatalogView() {
             <button
               type="button"
               onClick={() => setLimit((l) => l + 24)}
-              className="mx-auto rounded-full border border-white/10 bg-white/5 px-5 py-2 text-xs font-semibold text-white hover:bg-white/10"
+              className="btn-press brand-gradient-bg mx-auto flex items-center gap-2 rounded-full px-6 py-2.5 text-xs font-black tracking-editorial text-black shadow-lg shadow-[#ff8a00]/20 transition-transform duration-300 hover:scale-105"
             >
-              Load More ({items.length - limit} left)
+              Load More
+              <span className="rounded-full bg-black/20 px-2 py-0.5 text-[10px] font-bold">
+                {items.length - limit} left
+              </span>
             </button>
           )}
         </>
@@ -217,7 +243,7 @@ function FilterRow({
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <p className="text-[10px] font-bold uppercase tracking-wide text-white/40">
+      <p className="text-[10px] font-black uppercase tracking-wider text-white/40">
         {label}
       </p>
       <div className="flex flex-wrap gap-1.5">{children}</div>
@@ -239,10 +265,10 @@ function Chip({
       type="button"
       onClick={onClick}
       className={cn(
-        "rounded-full px-2.5 py-1 text-[11px] font-medium transition",
+        "btn-press rounded-full px-2.5 py-1 text-[11px] font-semibold transition-all duration-300",
         active
-          ? "bg-yellow-400 text-black"
-          : "bg-white/5 text-white/70 hover:bg-white/10",
+          ? "brand-gradient-bg text-black"
+          : "bg-white/5 text-white/70 hover:text-[#f5c518] hover:bg-white/10",
       )}
     >
       {children}

@@ -4,7 +4,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ArrowLeft,
   Captions,
-  Loader2,
   Maximize,
   Minimize,
   Pause,
@@ -14,6 +13,7 @@ import {
   Settings,
   Volume2,
   VolumeX,
+  FlipHorizontal,
 } from "lucide-react";
 import { fetchVideoImport, type VideoImport } from "@/lib/api/client";
 import { useApp } from "@/store/app";
@@ -69,9 +69,7 @@ function parseVtt(text: string): SubtitleCue[] {
       timingLine = lines[1];
       textStart = 2;
     }
-    const m = timingLine.match(
-      /([\d:.,]+)\s*-->\s*([\d:.,]+)/,
-    );
+    const m = timingLine.match(/([\d:.,]+)\s*-->\s*([\d:.,]+)/);
     if (!m) continue;
     const start = timeToSeconds(m[1]);
     const end = timeToSeconds(m[2]);
@@ -130,6 +128,9 @@ export function VideoPlayer({
   const seekingRef = useRef(false);
   const lastProgressEmitRef = useRef(0);
   const resumeAppliedRef = useRef(false);
+  // Position captured before audio-mode switch — preserved across the
+  // reload so the user resumes from the same timestamp in the new track.
+  const audioSwitchPositionRef = useRef<number | null>(null);
 
   const { setAudioMode, setQuality, setSpeed, selectedQuality, selectedSpeed, toggleFullscreen, fullscreenPlayer } = useApp();
 
@@ -151,6 +152,7 @@ export function VideoPlayer({
   const [activeAudioTrack, setActiveAudioTrack] = useState<number>(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [subtitleSource, setSubtitleSource] = useState<string>("");
+  const [mirrored, setMirrored] = useState(false);
 
   // ----- Auto-hide controls -----
   const keepControlsAlive = useCallback(() => {
@@ -189,7 +191,7 @@ export function VideoPlayer({
           );
         }
       })
-      .catch((e) => {
+      .catch((e: Error) => {
         if (cancelled) return;
         setError(String(e?.message ?? e));
         setLoading(false);
@@ -253,11 +255,22 @@ export function VideoPlayer({
     };
     const onLoadedMeta = () => {
       setDuration(v.duration || 0);
-      // Resume position
-      if (!resumeAppliedRef.current && resumePosition && resumePosition > 5) {
-        try {
-          v.currentTime = Math.min(resumePosition, (v.duration || resumePosition) - 5);
-        } catch {}
+      // Resume position — prefer audio-switch captured position, fall back
+      // to the resumePosition prop supplied by the parent (history-based).
+      if (!resumeAppliedRef.current) {
+        const resumeTarget =
+          audioSwitchPositionRef.current ?? resumePosition ?? 0;
+        if (resumeTarget > 5) {
+          try {
+            v.currentTime = Math.min(
+              resumeTarget,
+              (v.duration || resumeTarget) - 5,
+            );
+          } catch {
+            /* noop */
+          }
+        }
+        audioSwitchPositionRef.current = null;
       }
       resumeAppliedRef.current = true;
       // Audio tracks
@@ -285,7 +298,9 @@ export function VideoPlayer({
         if (v.buffered.length > 0) {
           setBuffered(v.buffered.end(v.buffered.length - 1));
         }
-      } catch {}
+      } catch {
+        /* noop */
+      }
     };
     const onEndedEv = () => {
       if (onProgress && v.duration) onProgress(v.duration, v.duration);
@@ -411,8 +426,15 @@ export function VideoPlayer({
     [keepControlsAlive],
   );
 
+  // switchAudioMode with position preservation — capture the current
+  // playback time before swapping audioMode so the new stream resumes
+  // from the same timestamp.
   const switchAudioMode = useCallback(
     (mode: "SUB" | "DUB") => {
+      const v = videoRef.current;
+      if (v && v.currentTime > 5) {
+        audioSwitchPositionRef.current = v.currentTime;
+      }
       setAudioMode(mode);
       keepControlsAlive();
     },
@@ -444,7 +466,9 @@ export function VideoPlayer({
             : u.searchParams.get("v") ?? "";
         }
         if (u.hostname.includes("youtu.be")) return u.pathname.slice(1);
-      } catch {}
+      } catch {
+        /* noop */
+      }
       return "";
     })();
     const embedSrc = ytId
@@ -454,7 +478,7 @@ export function VideoPlayer({
     return (
       <div
         ref={containerRef}
-        className="relative w-full overflow-hidden bg-black aspect-video"
+        className="relative aspect-video w-full overflow-hidden bg-black"
       >
         <iframe
           src={embedSrc}
@@ -467,13 +491,13 @@ export function VideoPlayer({
           <button
             type="button"
             onClick={onBack}
-            className="absolute top-3 left-3 z-10 grid h-9 w-9 place-items-center rounded-full bg-black/60 text-white hover:bg-black/80"
+            className="glass-card absolute left-3 top-3 z-10 grid h-9 w-9 place-items-center rounded-full text-white hover:text-[#f5c518]"
             aria-label="Back"
           >
             <ArrowLeft className="h-5 w-5" />
           </button>
         )}
-        <div className="pointer-events-none absolute bottom-3 left-3 z-10 rounded-md bg-black/60 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-white">
+        <div className="glass-card pointer-events-none absolute bottom-3 left-3 z-10 rounded-md px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
           Trailer · YouTube
         </div>
       </div>
@@ -489,8 +513,8 @@ export function VideoPlayer({
     <div
       ref={containerRef}
       className={cn(
-        "relative w-full overflow-hidden bg-black aspect-video select-none",
-        isFullscreen && "rounded-none",
+        "relative aspect-video w-full select-none overflow-hidden bg-black",
+        isFullscreen ? "rounded-none" : "rounded-2xl",
       )}
       onMouseMove={keepControlsAlive}
       onMouseLeave={() => {
@@ -512,6 +536,7 @@ export function VideoPlayer({
           playsInline
           preload="metadata"
           className="absolute inset-0 h-full w-full bg-black"
+          style={{ transform: mirrored ? "scaleX(-1)" : undefined }}
         />
       ) : (
         <div className="absolute inset-0 grid place-items-center bg-black">
@@ -537,11 +562,20 @@ export function VideoPlayer({
         />
       )}
 
-      {/* Loading overlay */}
+      {/* Loading overlay — gradient ring animation */}
       {loading && (
         <div className="absolute inset-0 grid place-items-center bg-black/70">
           <div className="flex flex-col items-center gap-3 text-white">
-            <Loader2 className="h-10 w-10 animate-spin text-yellow-400" />
+            <div className="relative h-12 w-12">
+              <div className="absolute inset-0 rounded-full border-2 border-white/10" />
+              <div
+                className="absolute inset-0 animate-spin rounded-full border-2 border-transparent"
+                style={{
+                  borderTopColor: "#f5c518",
+                  borderRightColor: "#ff8a00",
+                }}
+              />
+            </div>
             <p className="text-xs tracking-wide text-white/70">
               Resolving stream…
             </p>
@@ -552,13 +586,13 @@ export function VideoPlayer({
       {/* Error overlay */}
       {!loading && error && (
         <div className="absolute inset-0 grid place-items-center bg-black/80 p-6">
-          <div className="flex max-w-xs flex-col items-center gap-3 text-center text-white">
-            <p className="text-sm">{error}</p>
+          <div className="glass-card flex max-w-xs flex-col items-center gap-3 rounded-xl p-5 text-center text-white">
+            <p className="text-sm leading-relaxed">{error}</p>
           </div>
         </div>
       )}
 
-      {/* Custom subtitle overlay — no black box, text-base, bottom-4, WebkitTextStroke outline */}
+      {/* Custom subtitle overlay — gradient text shadow, no black box */}
       {showSubtitles && activeCue && (
         <div className="pointer-events-none absolute inset-x-0 bottom-16 z-20 flex justify-center px-4 sm:bottom-20">
           <span
@@ -566,7 +600,8 @@ export function VideoPlayer({
             style={{
               WebkitTextStroke: "1.5px rgba(0,0,0,0.85)",
               paintOrder: "stroke fill",
-              textShadow: "0 2px 4px rgba(0,0,0,0.7)",
+              textShadow:
+                "0 2px 6px rgba(0,0,0,0.85), 0 0 18px rgba(245,197,24,0.25)",
             }}
           >
             {activeCue.split("\n").map((line, i) => (
@@ -581,20 +616,18 @@ export function VideoPlayer({
       {/* Subtitle "unavailable" hint — shows briefly when CC is on but no cues */}
       {showSubtitles && !activeCue && cues.length === 0 && !loading && videoUrl && (
         <div className="pointer-events-none absolute inset-x-0 bottom-16 z-20 flex justify-center px-4 sm:bottom-20">
-          <span
-            className="rounded bg-black/60 px-3 py-1 text-center text-xs font-medium text-white/80"
-            style={{ textShadow: "0 1px 2px rgba(0,0,0,0.7)" }}
-          >
+          <span className="glass-card rounded-md px-3 py-1 text-center text-xs font-medium text-white/80">
             字幕なし · No subtitles available for this episode
           </span>
         </div>
       )}
 
-      {/* Top bar */}
+      {/* Top bar — glass with stronger blur */}
       <div
         className={cn(
-          "absolute inset-x-0 top-0 z-30 flex items-center gap-2 bg-gradient-to-b from-black/80 to-transparent p-3 transition-opacity duration-300",
-          controlsVisible ? "opacity-100" : "opacity-0 pointer-events-none",
+          "absolute inset-x-0 top-0 z-30 flex items-center gap-2 p-3 transition-opacity duration-300",
+          "glass-header",
+          controlsVisible ? "opacity-100" : "pointer-events-none opacity-0",
         )}
       >
         {onBack && (
@@ -604,14 +637,14 @@ export function VideoPlayer({
               e.stopPropagation();
               onBack();
             }}
-            className="grid h-9 w-9 place-items-center rounded-full bg-black/50 text-white hover:bg-black/70"
+            className="btn-press glass-card grid h-9 w-9 place-items-center rounded-full text-white hover:text-[#f5c518]"
             aria-label="Back"
           >
             <ArrowLeft className="h-5 w-5" />
           </button>
         )}
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-semibold text-white">
+          <p className="truncate text-sm font-bold tracking-editorial text-white text-glow">
             {title ?? "Now Playing"}
           </p>
           {importInfo && (
@@ -621,38 +654,13 @@ export function VideoPlayer({
           )}
         </div>
         {(importInfo?.hasSub || importInfo?.hasDub) && (
-          <div className="flex overflow-hidden rounded-md border border-white/20 text-xs font-bold">
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                switchAudioMode("SUB");
-              }}
-              className={cn(
-                "px-2 py-1 transition-colors",
-                audioMode === "SUB"
-                  ? "bg-yellow-400 text-black"
-                  : "bg-black/40 text-white hover:bg-black/60",
-              )}
-            >
-              SUB
-            </button>
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                switchAudioMode("DUB");
-              }}
-              className={cn(
-                "px-2 py-1 transition-colors",
-                audioMode === "DUB"
-                  ? "bg-yellow-400 text-black"
-                  : "bg-black/40 text-white hover:bg-black/60",
-              )}
-            >
-              DUB
-            </button>
-          </div>
+          <SubDubPill
+            audioMode={audioMode}
+            onChange={(e) => {
+              e.stopPropagation();
+              switchAudioMode(audioMode === "SUB" ? "DUB" : "SUB");
+            }}
+          />
         )}
       </div>
 
@@ -670,7 +678,7 @@ export function VideoPlayer({
                 e.stopPropagation();
                 skip(-10);
               }}
-              className="grid h-11 w-11 place-items-center rounded-full bg-black/50 text-white backdrop-blur hover:bg-black/70"
+              className="btn-press glass-card grid h-11 w-11 place-items-center rounded-full text-white transition hover:text-[#f5c518] hover:glow"
               aria-label="Back 10 seconds"
             >
               <RotateCcw className="h-5 w-5" />
@@ -681,13 +689,13 @@ export function VideoPlayer({
                 e.stopPropagation();
                 togglePlay();
               }}
-              className="grid h-16 w-16 place-items-center rounded-full bg-yellow-400 text-black shadow-lg shadow-yellow-500/30 transition hover:scale-105 hover:bg-yellow-300"
+              className="btn-press brand-gradient-bg pulse-glow grid h-16 w-16 place-items-center rounded-full text-black shadow-2xl shadow-[#ff8a00]/40 transition-transform duration-300 hover:scale-105"
               aria-label={isPlaying ? "Pause" : "Play"}
             >
               {isPlaying ? (
                 <Pause className="h-7 w-7" />
               ) : (
-                <Play className="h-7 w-7 translate-x-0.5" />
+                <Play className="ml-0.5 h-7 w-7 fill-black" />
               )}
             </button>
             <button
@@ -696,7 +704,7 @@ export function VideoPlayer({
                 e.stopPropagation();
                 skip(10);
               }}
-              className="grid h-11 w-11 place-items-center rounded-full bg-black/50 text-white backdrop-blur hover:bg-black/70"
+              className="btn-press glass-card grid h-11 w-11 place-items-center rounded-full text-white transition hover:text-[#f5c518] hover:glow"
               aria-label="Forward 10 seconds"
             >
               <RotateCw className="h-5 w-5" />
@@ -705,23 +713,24 @@ export function VideoPlayer({
         </div>
       )}
 
-      {/* Bottom controls */}
+      {/* Bottom controls — glass bar */}
       <div
         className={cn(
-          "absolute inset-x-0 bottom-0 z-30 bg-gradient-to-t from-black/85 to-transparent px-3 pb-3 pt-8 transition-opacity duration-300",
-          controlsVisible ? "opacity-100" : "opacity-0 pointer-events-none",
+          "absolute inset-x-0 bottom-0 z-30 px-3 pb-3 pt-8 transition-opacity duration-300",
+          "glass-nav",
+          controlsVisible ? "opacity-100" : "pointer-events-none opacity-0",
         )}
         onMouseMove={keepControlsAlive}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Progress bar (seekable) */}
+        {/* Progress bar — gradient gold→orange */}
         <div className="group relative mb-2 h-1.5 w-full cursor-pointer rounded-full bg-white/20">
           <div
             className="absolute left-0 top-0 h-full rounded-full bg-white/30"
             style={{ width: `${bufferedPct}%` }}
           />
           <div
-            className="absolute left-0 top-0 h-full rounded-full bg-yellow-400"
+            className="brand-gradient-bg absolute left-0 top-0 h-full rounded-full transition-[width] duration-150 ease-out"
             style={{ width: `${progressPct}%` }}
           />
           <input
@@ -737,12 +746,12 @@ export function VideoPlayer({
             aria-label="Seek"
           />
           <div
-            className="pointer-events-none absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-yellow-400 shadow"
+            className="brand-gradient-bg glow pointer-events-none absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full"
             style={{ left: `${progressPct}%` }}
           />
         </div>
 
-        <div className="flex items-center gap-2 text-white">
+        <div className="flex items-center gap-1.5 text-white">
           <button
             type="button"
             onClick={togglePlay}
@@ -772,8 +781,7 @@ export function VideoPlayer({
           </span>
 
           <div className="ml-auto flex items-center gap-1">
-            {/* CC toggle — show whenever the source claims subtitles, even
-                before cues finish loading, so users can toggle it on/off. */}
+            {/* CC toggle — glow when active */}
             {(cues.length > 0 || importInfo?.hasSub || importInfo?.subtitleUrl) && (
               <button
                 type="button"
@@ -782,8 +790,8 @@ export function VideoPlayer({
                   keepControlsAlive();
                 }}
                 className={cn(
-                  "grid h-8 w-8 place-items-center rounded-full hover:bg-white/10",
-                  showSubtitles ? "text-yellow-400" : "text-white/70",
+                  "grid h-8 w-8 place-items-center rounded-full transition-all duration-300 hover:bg-white/10",
+                  showSubtitles ? "text-[#f5c518] glow" : "text-white/70",
                 )}
                 aria-label="Toggle subtitles"
                 title={
@@ -810,10 +818,15 @@ export function VideoPlayer({
               />
             )}
 
-            {/* Settings: speed + quality */}
+            {/* Settings: speed + quality + mirror */}
             <SettingsMenu
               speed={selectedSpeed}
               quality={selectedQuality}
+              mirrored={mirrored}
+              onMirror={(m) => {
+                setMirrored(m);
+                keepControlsAlive();
+              }}
               onSpeed={(s) => {
                 setSpeed(s);
                 keepControlsAlive();
@@ -830,10 +843,14 @@ export function VideoPlayer({
               }}
             />
 
+            {/* Fullscreen button — rotation animation on toggle */}
             <button
               type="button"
               onClick={toggleFullscreenFn}
-              className="grid h-8 w-8 place-items-center rounded-full hover:bg-white/10"
+              className="grid h-8 w-8 place-items-center rounded-full transition-transform duration-500 hover:bg-white/10 hover:rotate-12"
+              style={{
+                transform: isFullscreen ? "rotate(180deg)" : "rotate(0deg)",
+              }}
               aria-label="Fullscreen"
             >
               {isFullscreen ? (
@@ -845,6 +862,48 @@ export function VideoPlayer({
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+// SUB/DUB toggle — glass pill with sliding gradient indicator
+function SubDubPill({
+  audioMode,
+  onChange,
+}: {
+  audioMode: "SUB" | "DUB";
+  onChange: (e: React.MouseEvent) => void;
+}) {
+  const isSub = audioMode === "SUB";
+  return (
+    <div className="glass-card relative flex items-center rounded-full p-0.5 text-[11px] font-black tracking-wider">
+      <span
+        className="brand-gradient-bg tab-pill-indicator absolute top-0.5 bottom-0.5 rounded-full"
+        style={{
+          left: isSub ? "0.125rem" : "50%",
+          width: "calc(50% - 0.125rem)",
+        }}
+      />
+      <button
+        type="button"
+        onClick={onChange}
+        className={cn(
+          "relative z-10 px-2.5 py-1 transition-colors duration-300",
+          isSub ? "text-black" : "text-white/70",
+        )}
+      >
+        SUB
+      </button>
+      <button
+        type="button"
+        onClick={onChange}
+        className={cn(
+          "relative z-10 px-2.5 py-1 transition-colors duration-300",
+          !isSub ? "text-black" : "text-white/70",
+        )}
+      >
+        DUB
+      </button>
     </div>
   );
 }
@@ -866,14 +925,14 @@ function AudioTracksMenu({ tracks, active, onSelect, onHover }: AudioTracksMenuP
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="grid h-8 w-8 place-items-center rounded-full text-[10px] font-bold hover:bg-white/10"
+        className="grid h-8 w-8 place-items-center rounded-full text-[10px] font-black hover:bg-white/10"
         aria-label="Audio tracks"
       >
         AUD
       </button>
       {open && (
-        <div className="absolute bottom-10 right-0 w-40 overflow-hidden rounded-md border border-white/10 bg-[#1a1a1f] shadow-xl">
-          <p className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wide text-white/50">
+        <div className="glass-card scale-in absolute bottom-10 right-0 w-40 overflow-hidden rounded-xl shadow-2xl">
+          <p className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-white/50">
             Audio Track
           </p>
           {tracks.map((t) => (
@@ -885,8 +944,8 @@ function AudioTracksMenu({ tracks, active, onSelect, onHover }: AudioTracksMenuP
                 setOpen(false);
               }}
               className={cn(
-                "block w-full px-3 py-2 text-left text-xs hover:bg-white/5",
-                t.id === active ? "text-yellow-400" : "text-white",
+                "block w-full px-3 py-2 text-left text-xs transition-colors hover:bg-white/5",
+                t.id === active ? "gradient-text font-bold" : "text-white",
               )}
             >
               {t.label}
@@ -902,6 +961,8 @@ function AudioTracksMenu({ tracks, active, onSelect, onHover }: AudioTracksMenuP
 interface SettingsMenuProps {
   speed: number;
   quality: string;
+  mirrored: boolean;
+  onMirror: (m: boolean) => void;
   onSpeed: (s: number) => void;
   onQuality: (q: string) => void;
   onHover: () => void;
@@ -912,6 +973,8 @@ interface SettingsMenuProps {
 function SettingsMenu({
   speed,
   quality,
+  mirrored,
+  onMirror,
   onSpeed,
   onQuality,
   onHover,
@@ -926,15 +989,18 @@ function SettingsMenu({
       <button
         type="button"
         onClick={() => onOpenChange(!open)}
-        className="grid h-8 w-8 place-items-center rounded-full hover:bg-white/10"
+        className={cn(
+          "grid h-8 w-8 place-items-center rounded-full transition-all duration-300 hover:bg-white/10",
+          open && "text-[#f5c518] glow",
+        )}
         aria-label="Settings"
       >
         <Settings className="h-4 w-4" />
       </button>
       {open && (
-        <div className="absolute bottom-10 right-0 w-44 overflow-hidden rounded-md border border-white/10 bg-[#1a1a1f] shadow-xl">
+        <div className="glass-card scale-in absolute bottom-10 right-0 w-48 overflow-hidden rounded-xl shadow-2xl">
           <div className="px-3 py-2">
-            <p className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-white/50">
+            <p className="mb-1.5 text-[10px] font-bold uppercase tracking-wider text-white/50">
               Speed
             </p>
             <div className="flex flex-wrap gap-1">
@@ -944,9 +1010,9 @@ function SettingsMenu({
                   type="button"
                   onClick={() => onSpeed(s)}
                   className={cn(
-                    "rounded px-2 py-1 text-[11px] hover:bg-white/10",
+                    "rounded-md px-2 py-1 text-[11px] font-semibold transition-all duration-300 hover:bg-white/10",
                     s === speed
-                      ? "bg-yellow-400 text-black"
+                      ? "brand-gradient-bg text-black"
                       : "text-white",
                   )}
                 >
@@ -956,7 +1022,7 @@ function SettingsMenu({
             </div>
           </div>
           <div className="border-t border-white/10 px-3 py-2">
-            <p className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-white/50">
+            <p className="mb-1.5 text-[10px] font-bold uppercase tracking-wider text-white/50">
               Quality
             </p>
             <div className="flex flex-wrap gap-1">
@@ -966,9 +1032,9 @@ function SettingsMenu({
                   type="button"
                   onClick={() => onQuality(q)}
                   className={cn(
-                    "rounded px-2 py-1 text-[11px] hover:bg-white/10",
+                    "rounded-md px-2 py-1 text-[11px] font-semibold transition-all duration-300 hover:bg-white/10",
                     q === quality
-                      ? "bg-yellow-400 text-black"
+                      ? "brand-gradient-bg text-black"
                       : "text-white",
                   )}
                 >
@@ -976,6 +1042,32 @@ function SettingsMenu({
                 </button>
               ))}
             </div>
+          </div>
+          <div className="border-t border-white/10 px-3 py-2">
+            <p className="mb-1.5 text-[10px] font-bold uppercase tracking-wider text-white/50">
+              Display
+            </p>
+            <button
+              type="button"
+              onClick={() => onMirror(!mirrored)}
+              className={cn(
+                "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-[11px] font-semibold transition-all duration-300 hover:bg-white/10",
+                mirrored ? "gradient-text" : "text-white",
+              )}
+            >
+              <FlipHorizontal className="h-3.5 w-3.5" />
+              Mirror video
+              <span
+                className={cn(
+                  "ml-auto rounded-full px-1.5 py-0.5 text-[9px] font-black",
+                  mirrored
+                    ? "brand-gradient-bg text-black"
+                    : "bg-white/10 text-white/60",
+                )}
+              >
+                {mirrored ? "ON" : "OFF"}
+              </span>
+            </button>
           </div>
         </div>
       )}
