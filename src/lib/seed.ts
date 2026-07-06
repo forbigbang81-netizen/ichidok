@@ -478,7 +478,8 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2023, season: "fall", genres: ["Award Winning", "Drama", "Mystery", "Romance"], studios: ["OLM"],
     episodeCount: 24, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Light novel", isFeatured: true,
     episodeSources: [
-      { startEp: 1, endEp: 24, collection: "anime-pahe-kusuriya-no-hitorigoto-eng-dub-01-bd-720p-sam.mp-4-kw", fileTemplate: "AnimePahe_Kusuriya_no_Hitorigoto_Eng_Dub_-_{ep:02}_BD_720p_sam.mp4", audio: "dub" },
+      { startEp: 1, endEp: 1, collection: "anime-pahe-kusuriya-no-hitorigoto-eng-dub-01-bd-720p-sam.mp-4-kw", fileName: "AnimePahe_Kusuriya_no_Hitorigoto_Eng_Dub_-_01_BD_720p_sam.mp4 Kw.mp4", audio: "dub" },
+      { startEp: 2, endEp: 24, collection: "anime-pahe-kusuriya-no-hitorigoto-eng-dub-01-bd-720p-sam.mp-4-kw", fileTemplate: "AnimePahe_Kusuriya_no_Hitorigoto_Eng_Dub_-_{ep:02}_BD_720p_sam.mp4", audio: "dub" },
     ], hasDub: true,
   },
   // Fushigi Yuugi
