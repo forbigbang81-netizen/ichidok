@@ -23,14 +23,8 @@ export async function GET(
     const includeEpisodes =
       searchParams.get("includeEpisodes") !== "false";
 
-    const anime = await db.anime.findUnique({
+    const anime = await db.anime.findFirst({
       where: { malId: malIdNum },
-      include: {
-        episodes: includeEpisodes
-          ? { orderBy: { number: "asc" } }
-          : false,
-        imports: { orderBy: { episode: "asc" } },
-      },
     });
 
     if (!anime) {

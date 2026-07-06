@@ -109,10 +109,8 @@ export async function DELETE(request: Request) {
       await db.history
         .delete({
           where: {
-            malId: Number(malId), episode: Number(episode),
-              malId: Number(malId),
-              episode: Number(episode),
-            },
+            malId: Number(malId),
+            episode: Number(episode),
           },
         })
         .catch(() => null);

@@ -76,7 +76,7 @@ export async function GET(request: Request) {
         subtitleUrl,
         isTrailer: cached.isTrailer,
         isYoutube,
-        title: cached?.title ?? null,
+        title: null,
       });
     }
 
