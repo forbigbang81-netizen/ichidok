@@ -437,6 +437,50 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 10, collection: "haikyuu-karasuno-koukou-vs.-shiratorizawa-gakuen-koukou-dub-episode-4", fileTemplate: "Season 3/Haikyuu!! Karasuno Koukou vs. Shiratorizawa Gakuen Koukou (Dub) Episode {ep}.mp4", audio: "dub" },
     ], hasDub: true,
   },
+  // Haikyuu!! S1
+  { malId: 20583, title: "Haikyuu!!", titleEnglish: "Haikyuu!!", titleJapanese: "ハイキュー!!",
+    synopsis: "Shoyo Hinata, a short but passionate volleyball player, joins Karasuno High School's volleyball team and aims to compete at the national level.",
+    poster: "https://cdn.myanimelist.net/images/anime/7/76043l.jpg", banner: "https://cdn.myanimelist.net/images/anime/7/76043l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.47, scoredBy: 900000, rank: 0, popularity: 50, members: 1800000,
+    year: 2014, season: "spring", genres: ["Award Winning", "Sports"], studios: ["Production I.G"],
+    episodeCount: 25, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 25, collection: "haikyuu-dub-episode-23_20250823", fileTemplate: "Season 1/Haikyuu!! (Dub) Episode {ep}.mp4", audio: "dub" },
+    ], hasDub: true,
+  },
+  // Haikyuu!! S2
+  { malId: 20584, title: "Haikyuu!! Second Season", titleEnglish: "Haikyuu!! Second Season", titleJapanese: "ハイキュー!! セカンドシーズン",
+    synopsis: "Karasuno continues their training and competes in the summer tournament, facing new rivals and growing stronger.",
+    poster: "https://cdn.myanimelist.net/images/anime/8/77028l.jpg", banner: "https://cdn.myanimelist.net/images/anime/8/77028l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.54, scoredBy: 700000, rank: 0, popularity: 80, members: 1400000,
+    year: 2015, season: "fall", genres: ["Award Winning", "Sports"], studios: ["Production I.G"],
+    episodeCount: 25, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga",
+    episodeSources: [
+      { startEp: 1, endEp: 25, collection: "haikyuu-second-season-dub-episode-21", fileTemplate: "Season 2/Haikyuu!! Second Season (Dub) Episode {ep}.mp4", audio: "dub" },
+    ], hasDub: true,
+  },
+  // Haikyuu!! S4 — To the Top
+  { malId: 38500, title: "Haikyuu!! To the Top", titleEnglish: "Haikyuu!! To the Top", titleJapanese: "ハイキュー!! TO THE TOP",
+    synopsis: "After their victory over Shiratorizawa, Karasuno heads to the national tournament in Tokyo.",
+    poster: "https://cdn.myanimelist.net/images/anime/1837/107229l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1837/107229l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.24, scoredBy: 500000, rank: 0, popularity: 120, members: 1000000,
+    year: 2020, season: "winter", genres: ["Award Winning", "Sports"], studios: ["Production I.G"],
+    episodeCount: 13, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga",
+    episodeSources: [
+      { startEp: 1, endEp: 13, collection: "haikyuu-to-the-top-dub-episode-11", fileTemplate: "Season 4 - Part 1/Haikyuu!! To the Top (Dub) Episode {ep}.mp4", audio: "dub" },
+    ], hasDub: true,
+  },
+  // The Apothecary Diaries S1
+  { malId: 52412, title: "The Apothecary Diaries", titleEnglish: "The Apothecary Diaries", titleJapanese: "薬屋のひとりごと",
+    synopsis: "Maomao, a young pharmacist kidnapped and sold to the imperial palace, uses her knowledge of medicine and poisons to solve mysteries.",
+    poster: "https://cdn.myanimelist.net/images/anime/1384/138006l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1384/138006l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.83, scoredBy: 800000, rank: 0, popularity: 15, members: 1500000,
+    year: 2023, season: "fall", genres: ["Award Winning", "Drama", "Mystery", "Romance"], studios: ["OLM"],
+    episodeCount: 24, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Light novel", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 24, collection: "anime-pahe-kusuriya-no-hitorigoto-eng-dub-01-bd-720p-sam.mp-4-kw", fileTemplate: "AnimePahe_Kusuriya_no_Hitorigoto_Eng_Dub_-_{ep:02}_BD_720p_sam.mp4", audio: "dub" },
+    ], hasDub: true,
+  },
 ];
 
 /**
@@ -516,6 +560,22 @@ export const SEASON_GROUPS: { franchise: string; seasons: { malId: number; label
     seasons: [
       { malId: 60371, label: "Season 1" },
       { malId: 63832, label: "Season 2" },
+    ],
+  },
+  {
+    franchise: "Haikyuu!!",
+    seasons: [
+      { malId: 20583, label: "Season 1" },
+      { malId: 20584, label: "Season 2" },
+      { malId: 32935, label: "Season 3 — Karasuno vs Shiratorizawa" },
+      { malId: 38500, label: "Season 4 — To the Top" },
+    ],
+  },
+  {
+    franchise: "The Apothecary Diaries",
+    seasons: [
+      { malId: 52412, label: "Season 1" },
+      { malId: 58514, label: "Season 2" },
     ],
   },
 ];
