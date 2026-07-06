@@ -367,3 +367,42 @@ Stage Summary:
 - Sits on top of last decoded frame (non-blocking, pointer-events-none)
 - Resets cleanly on source switches
 - Build passes, deployed to ichidok.vercel.app
+
+---
+Task ID: posters-megas-slayers-dub
+Agent: main
+Task: Fix broken poster images, Megas XLR not loading, Slayers Japanese audio, default DUB mode
+
+Work Log:
+- Verified all 47 poster URLs in seed.ts against MAL CDN: found 5 returning HTTP 404
+  (Haikyuu S1/S2/S4, Apothecary Diaries S1, Slayers) + 1 empty (Megas XLR).
+- Fetched correct poster URLs from Jikan API for all broken entries.
+- Discovered Haikyuu S2 malId was wrong: 20584 is a different anime, correct is 28891.
+- Discovered Haikyuu S4 malId was wrong: 38500 is a music video, correct is 38883.
+- Updated SEASON_GROUPS to use the corrected malIds.
+- Megas XLR: changed malId from 0 to -1 (sentinel for non-MAL titles). Added
+  archive.org thumbnail as poster (no official MAL/Wikipedia art exists).
+- Relaxed /api/auto-import malId validation: was rejecting malId <= 0, now
+  only rejects non-finite values. This allows Megas XLR (malId=-1) to resolve.
+- Slayers: replaced Cartoons-and-Anime source (Western TV rip, English dub only)
+  with The-Slayers-Season-1 collection (Japanese DVD rip with hardcoded English
+  subs). Added episodeFiles map to EpisodeSource type for per-episode literal
+  filenames (each Slayers episode has its title baked into the filename).
+- Updated resolveEpisodeUrl to check episodeFiles[episode] first.
+- Changed default audioMode from "SUB" to "DUB" in the store since most of the
+  catalog is dub-only. This makes dub-only anime play immediately without the
+  auto-switch delay. Sub-only anime still auto-switch via existing fallback.
+- Enhanced /api/clear-cache to also delete stale Anime rows whose malId is no
+  longer in SEED_ANIME. This fixes the duplicate-entry issue when malIds are
+  corrected (old rows lingered because upsert only updates matching malIds).
+- Built and pushed 2 commits (cbd895e + df435d8). Vercel auto-deployed both.
+- Forced re-seed + clear-cache on production to sync DB with new seed data.
+
+Stage Summary:
+- All 44 catalog anime now have working posters (HTTP 200)
+- Megas XLR (malId=-1) loads and plays correctly
+- Slayers now plays Japanese audio with hardcoded English subs
+- Haikyuu S2 and S4 have correct malIds and posters
+- Apothecary Diaries S1 poster fixed
+- Default audio mode is DUB (most catalog is dub-only)
+- Stale DB rows from old malIds deleted (catalog went from 47 -> 44 entries)
