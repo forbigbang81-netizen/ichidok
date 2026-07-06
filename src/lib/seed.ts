@@ -253,7 +253,7 @@ export const SEED_ANIME: SeedAnime[] = [
   { malId: 42310, title: "Cyberpunk: Edgerunners", titleEnglish: "Cyberpunk: Edgerunners", titleJapanese: "サイバーパンク エッジランナーズ",
     synopsis: "Dreams are doomed to die in Night City. David Martinez enters the dangerous world of edgerunners.",
     poster: "https://cdn.myanimelist.net/images/anime/1818/126435l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1818/126435l.jpg",
-    type: "TV", status: "Finished Airing", score: 8.62, scoredBy: 500000, rank: 60, popularity: 100, members: 800000,
+    type: "ONA", status: "Finished Airing", score: 8.62, scoredBy: 500000, rank: 60, popularity: 100, members: 800000,
     year: 2022, season: "fall", genres: ["Action", "Sci-Fi"], studios: ["Trigger"],
     episodeCount: 10, duration: "25 min per ep", rating: "R+ - Mild Nudity", source: "Game", isFeatured: true,
     episodeSources: [

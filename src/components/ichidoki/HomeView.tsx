@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ChevronRight,
   Play,
@@ -74,6 +74,8 @@ export function HomeView({ activeType }: { activeType: string }) {
   const [loading, setLoading] = useState(true);
   const [paused, setPaused] = useState(false);
   const [surprising, setSurprising] = useState(false);
+  const [activeGenre, setActiveGenre] = useState<string | null>(null);
+  const genreSectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   useEffect(() => {
     let cancelled = false;
@@ -111,6 +113,16 @@ export function HomeView({ activeType }: { activeType: string }) {
 
   const surprisePool = all.length > 0 ? all : top.length > 0 ? top : season;
 
+  // Pre-compute genre sections from the in-memory `all` list so the
+  // chips can scroll to them without any extra network calls.
+  const genreSections = useMemo(() => {
+    const map: Record<string, Anime[]> = {};
+    for (const g of QUICK_GENRES) {
+      map[g] = all.filter((a) => a.genres.includes(g));
+    }
+    return map;
+  }, [all]);
+
   // Auto-rotate the featured banner.
   useEffect(() => {
     if (featured.length <= 1 || paused) return;
@@ -140,9 +152,14 @@ export function HomeView({ activeType }: { activeType: string }) {
     }, 500);
   };
 
+  // Netflix-style: clicking a genre chip smooth-scrolls the homepage down to
+  // that genre's row (and highlights the active chip). No navigation away.
   const handleGenreClick = (g: string) => {
-    setCatalogGenre(g);
-    navigate("catalog");
+    setActiveGenre(g);
+    const node = genreSectionRefs.current[g];
+    if (node) {
+      node.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   const filteredTop = top.filter(
@@ -182,7 +199,12 @@ export function HomeView({ activeType }: { activeType: string }) {
               key={g}
               type="button"
               onClick={() => handleGenreClick(g)}
-              className="shrink-0 rounded-full bg-[#111111] px-3.5 py-1.5 text-[11px] font-medium text-white/80 transition-colors active:bg-white/10"
+              className={cn(
+                "shrink-0 rounded-full px-3.5 py-1.5 text-[11px] font-medium transition-colors active:bg-white/10",
+                activeGenre === g
+                  ? "bg-[#f5c518] text-black"
+                  : "bg-[#111111] text-white/80",
+              )}
             >
               {g}
             </button>
@@ -447,6 +469,43 @@ export function HomeView({ activeType }: { activeType: string }) {
           </div>
         </section>
       )}
+
+      {/* ===== Browse by genre — Netflix-style inline sections =====
+          Each chip in the top chip row smooth-scrolls to its matching
+          section below. Sections only render if the in-memory catalog
+          has at least one title for that genre, keeping the page tidy. */}
+      {QUICK_GENRES.map((g) => {
+        const items = genreSections[g] ?? [];
+        if (items.length === 0) return null;
+        return (
+          <section
+            key={g}
+            ref={(el) => {
+              genreSectionRefs.current[g] = el;
+            }}
+            className="mb-7 scroll-mt-16"
+          >
+            <SectionHeader
+              title={g}
+              onMore={() => {
+                setCatalogGenre(g);
+                navigate("catalog");
+              }}
+            />
+            <div className="px-4">
+              <CardGrid>
+                {items.slice(0, 18).map((a) => (
+                  <AnimeCard
+                    key={a.malId}
+                    anime={a}
+                    badge={a.isNew ? "NEW" : null}
+                  />
+                ))}
+              </CardGrid>
+            </div>
+          </section>
+        );
+      })}
     </div>
   );
 }

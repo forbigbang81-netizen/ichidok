@@ -2,10 +2,17 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { SEED_ANIME, type SeedAnime } from "@/lib/seed";
 
+// Allow Vercel to cache GET responses at the edge for 5 minutes, with
+// stale-while-revalidate of 10 minutes. This makes the homepage cards load
+// near-instantly after the first hit.
 export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 // Module-level promise lock so concurrent callers share a single in-flight seed.
 let seedPromise: Promise<void> | null = null;
+// Module-level flag that records whether the seed has been verified in this
+// warm Lambda. Avoids re-running ~40 sequential upserts on every request.
+let seedVerified = false;
 
 function serializeGenres(s: SeedAnime) {
   return {
@@ -15,71 +22,102 @@ function serializeGenres(s: SeedAnime) {
 }
 
 /**
- * Ensures the DB has all seed anime records, using upsert to avoid race
- * conditions. Idempotent — safe to call from any route. Concurrent calls share
- * a single in-flight promise.
+ * Ensures the DB has all seed anime records.
+ *
+ * Strategy:
+ *   1. If we already verified the seed in this warm process, return immediately.
+ *   2. Otherwise, count the Anime table — if the count matches SEED_ANIME.length,
+ *      mark verified and return (the DB is already populated).
+ *   3. Otherwise, run the upserts in parallel chunks of 8 to keep latency low.
+ *
+ * Concurrent calls share a single in-flight promise.
  */
 export async function ensureSeeded(): Promise<void> {
+  if (seedVerified) return;
   if (seedPromise) return seedPromise;
   seedPromise = (async () => {
     try {
-      for (const s of SEED_ANIME) {
-        const { genres, studios } = serializeGenres(s);
-        await db.anime.upsert({
-          where: { malId: s.malId },
-          create: {
-            malId: s.malId,
-            title: s.title,
-            titleEnglish: s.titleEnglish ?? null,
-            titleJapanese: s.titleJapanese ?? null,
-            synopsis: s.synopsis,
-            poster: s.poster,
-            banner: s.banner,
-            trailer: s.trailer ?? null,
-            type: s.type,
-            status: s.status,
-            score: s.score,
-            scoredBy: s.scoredBy,
-            rank: s.rank,
-            popularity: s.popularity,
-            members: s.members,
-            year: s.year,
-            season: s.season ?? null,
-            genres,
-            studios,
-            episodeCount: s.episodeCount,
-            duration: s.duration,
-            rating: s.rating,
-            source: s.source,
-            isFeatured: s.isFeatured ?? false,
-          },
-          update: {
-            title: s.title,
-            titleEnglish: s.titleEnglish ?? null,
-            titleJapanese: s.titleJapanese ?? null,
-            synopsis: s.synopsis,
-            poster: s.poster,
-            banner: s.banner,
-            trailer: s.trailer ?? null,
-            type: s.type,
-            status: s.status,
-            score: s.score,
-            scoredBy: s.scoredBy,
-            rank: s.rank,
-            popularity: s.popularity,
-            members: s.members,
-            year: s.year,
-            season: s.season ?? null,
-            genres,
-            studios,
-            episodeCount: s.episodeCount,
-            duration: s.duration,
-            rating: s.rating,
-            source: s.source,
-            isFeatured: s.isFeatured ?? false,
-          },
-        });
+      // Fast path — count check. If the DB already has every seed entry,
+      // skip the expensive upsert loop entirely.
+      try {
+        const existing = await db.anime.count();
+        if (existing >= SEED_ANIME.length) {
+          seedVerified = true;
+          return;
+        }
+      } catch {
+        // Count failed (table might not exist yet on first deploy) — fall
+        // through to the upsert loop, which will create rows.
       }
+
+      // Parallel upserts in chunks of 8 to avoid overwhelming the DB.
+      const CHUNK = 8;
+      for (let i = 0; i < SEED_ANIME.length; i += CHUNK) {
+        const chunk = SEED_ANIME.slice(i, i + CHUNK);
+        await Promise.all(
+          chunk.map((s) => {
+            const { genres, studios } = serializeGenres(s);
+            return db.anime.upsert({
+              where: { malId: s.malId },
+              create: {
+                malId: s.malId,
+                title: s.title,
+                titleEnglish: s.titleEnglish ?? null,
+                titleJapanese: s.titleJapanese ?? null,
+                synopsis: s.synopsis,
+                poster: s.poster,
+                banner: s.banner,
+                trailer: s.trailer ?? null,
+                type: s.type,
+                status: s.status,
+                score: s.score,
+                scoredBy: s.scoredBy,
+                rank: s.rank,
+                popularity: s.popularity,
+                members: s.members,
+                year: s.year,
+                season: s.season ?? null,
+                genres,
+                studios,
+                episodeCount: s.episodeCount,
+                duration: s.duration,
+                rating: s.rating,
+                source: s.source,
+                isFeatured: s.isFeatured ?? false,
+              },
+              update: {
+                title: s.title,
+                titleEnglish: s.titleEnglish ?? null,
+                titleJapanese: s.titleJapanese ?? null,
+                synopsis: s.synopsis,
+                poster: s.poster,
+                banner: s.banner,
+                trailer: s.trailer ?? null,
+                type: s.type,
+                status: s.status,
+                score: s.score,
+                scoredBy: s.scoredBy,
+                rank: s.rank,
+                popularity: s.popularity,
+                members: s.members,
+                year: s.year,
+                season: s.season ?? null,
+                genres,
+                studios,
+                episodeCount: s.episodeCount,
+                duration: s.duration,
+                rating: s.rating,
+                source: s.source,
+                isFeatured: s.isFeatured ?? false,
+              },
+            }).catch((e) => {
+              // Don't let a single row failure abort the whole seed.
+              console.error(`[ensureSeeded] upsert failed for malId=${s.malId}:`, e);
+            });
+          }),
+        );
+      }
+      seedVerified = true;
     } finally {
       seedPromise = null;
     }
@@ -215,12 +253,22 @@ export async function GET(request: Request) {
       }),
     );
 
-    return NextResponse.json({
-      total: filtered.length,
-      results,
-      // Keep `anime` as a back-compat alias.
-      anime: results,
-    });
+    return NextResponse.json(
+      {
+        total: filtered.length,
+        results,
+        // Keep `anime` as a back-compat alias.
+        anime: results,
+      },
+      {
+        headers: {
+          // Cache at the edge for 5 min, serve stale while revalidating for 10 min.
+          // Browser caches also get a short TTL so back-button navigations
+          // and repeated catalog mounts don't re-hit the DB.
+          "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
+        },
+      },
+    );
   } catch (err) {
     console.error("[/api/catalog] error:", err);
     return NextResponse.json(

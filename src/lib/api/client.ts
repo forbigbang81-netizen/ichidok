@@ -36,26 +36,29 @@ export interface VideoImport {
 export const apiCatalog = {
   top: (limit = 25) =>
     api<{ results: Anime[]; total: number }>(
-      `/api/catalog?type=top&limit=${limit}&_ts=${Date.now()}`,
+      `/api/catalog?type=top&limit=${limit}`,
     ),
   season: (limit = 25) =>
     api<{ results: Anime[]; total: number }>(
-      `/api/catalog?type=season&limit=${limit}&_ts=${Date.now()}`,
+      `/api/catalog?type=season&limit=${limit}`,
     ),
   all: (limit = 25) =>
     api<{ results: Anime[]; total: number }>(
-      `/api/catalog?type=all&limit=${limit}&_ts=${Date.now()}`,
+      `/api/catalog?type=all&limit=${limit}`,
     ),
   upcoming: (limit = 25) =>
     api<{ results: Anime[]; total: number }>(
-      `/api/catalog?status=Not%20yet%20aired&sort=popularity&limit=${limit}&_ts=${Date.now()}`,
+      `/api/catalog?status=Not%20yet%20aired&sort=popularity&limit=${limit}`,
     ),
   custom: (params: Record<string, string | number>) => {
     const qs = new URLSearchParams();
     for (const [k, v] of Object.entries(params)) qs.set(k, String(v));
-    qs.set("_ts", String(Date.now()));
     return api<{ results: Anime[]; total: number }>(`/api/catalog?${qs.toString()}`);
   },
+  genre: (genre: string, limit = 25) =>
+    api<{ results: Anime[]; total: number }>(
+      `/api/catalog?genre=${encodeURIComponent(genre)}&limit=${limit}&sort=popularity`,
+    ),
 };
 
 export async function searchAnime(q: string, limit = 12): Promise<Anime[]> {

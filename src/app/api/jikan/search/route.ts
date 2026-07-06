@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { ensureSeeded, serializeAnime } from "@/app/api/catalog/route";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export async function GET(request: Request) {
   try {
@@ -70,11 +71,20 @@ export async function GET(request: Request) {
         }),
       );
 
-    return NextResponse.json({
-      q,
-      total: matches.length,
-      results: matches,
-    });
+    return NextResponse.json(
+      {
+        q,
+        total: matches.length,
+        results: matches,
+      },
+      {
+        headers: {
+          // Short edge cache for repeated identical searches; the client-side
+          // debounce already keeps request volume low.
+          "Cache-Control": "public, s-maxage=120, stale-while-revalidate=300",
+        },
+      },
+    );
   } catch (err) {
     console.error("[/api/jikan/search] error:", err);
     return NextResponse.json(
