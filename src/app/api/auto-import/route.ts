@@ -50,7 +50,7 @@ export async function GET(request: Request) {
 
     // 1) DB cache lookup first
     const cached = await db.import.findUnique({
-      where: { malId_episode_audio: { malId, episode, audio } },
+      where: { malId, episode, audio },
       include: { anime: true },
     });
 
@@ -76,7 +76,7 @@ export async function GET(request: Request) {
         subtitleUrl,
         isTrailer: cached.isTrailer,
         isYoutube,
-        title: cached.anime?.title ?? null,
+        title: cached?.title ?? null,
       });
     }
 
@@ -142,7 +142,7 @@ export async function GET(request: Request) {
       try {
         await db.import.upsert({
           where: {
-            malId_episode_audio: { malId, episode, audio },
+            malId, episode, audio,
           },
           create: {
             animeId: anime.id,

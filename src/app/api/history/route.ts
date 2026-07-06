@@ -59,7 +59,7 @@ export async function POST(request: Request) {
 
     const record = await db.history.upsert({
       where: {
-        malId_episode: { malId: Number(malId), episode: Number(episode) },
+        malId: Number(malId), episode: Number(episode),
       },
       create: {
         malId: Number(malId),
@@ -109,7 +109,7 @@ export async function DELETE(request: Request) {
       await db.history
         .delete({
           where: {
-            malId_episode: {
+            malId: Number(malId), episode: Number(episode),
               malId: Number(malId),
               episode: Number(episode),
             },

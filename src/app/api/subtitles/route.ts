@@ -92,7 +92,7 @@ async function ensureEpisodesCached(malId: number) {
       if (!Number.isFinite(num) || num < 1) continue;
       try {
         await db.episode.upsert({
-          where: { animeId_number: { animeId: anime.id, number: num } },
+          where: { animeId: anime.id, number: num },
           create: {
             animeId: anime.id,
             number: num,
