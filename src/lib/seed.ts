@@ -426,7 +426,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 10, endEp: 10, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 10 - It's a Bum-derful Life.mp4", audio: "dub" },
       { startEp: 11, endEp: 11, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 11 - Eryngii Brockovich.mp4", audio: "dub" },
       { startEp: 12, endEp: 12, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 12 - Good Morning, Prison.mp4", audio: "dub" },
-      { startEp: 1, endEp: 12, collection: "reaktor-prison-school-ova-uncensored-v2-1080pbdx26510-bitdual-audio_202302", fileTemplate: "[Reaktor] Prison School - E{ep:02} Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4", audio: "sub" },
     ], hasDub: true,
   },
 ];
@@ -589,3 +588,20 @@ export function resolveSubtitleUrl(seed: SeedAnime, episode: number): string | n
   // main story at 1:30, ED at 21:30, next-episode preview at 23:30).
   return `/api/subtitles?malId=${seed.malId}&episode=${episode}`;
 }
+
+/**
+ * Top 10 Anime of the Decade (2016-2026)
+ * The #1 highest-scored TV anime from each year, ranked by score.
+ */
+export const TOP_10_DECADE: { malId: number; title: string; year: number; score: number; poster: string; rank: number }[] = [
+  { malId: 38524, title: "Attack on Titan Season 3 Part 2", year: 2019, score: 9.05, poster: "https://cdn.myanimelist.net/images/anime/1517/100633l.jpg", rank: 1 },
+  { malId: 34096, title: "Gintama.", year: 2017, score: 8.98, poster: "https://cdn.myanimelist.net/images/anime/3/83528l.jpg", rank: 2 },
+  { malId: 41467, title: "Bleach: Thousand-Year Blood War", year: 2022, score: 8.98, poster: "https://cdn.myanimelist.net/images/anime/1908/135431l.jpg", rank: 3 },
+  { malId: 37491, title: "Gintama.: Silver Soul Arc Part 2", year: 2018, score: 8.88, poster: "https://cdn.myanimelist.net/images/anime/1776/96566l.jpg", rank: 4 },
+  { malId: 59978, title: "Frieren: Beyond Journey's End Season 2", year: 2026, score: 8.86, poster: "https://cdn.myanimelist.net/images/anime/1921/154528l.jpg", rank: 5 },
+  { malId: 49387, title: "Vinland Saga Season 2", year: 2023, score: 8.83, poster: "https://cdn.myanimelist.net/images/anime/1170/124312l.jpg", rank: 6 },
+  { malId: 32935, title: "Haikyuu!! Karasuno vs Shiratorizawa", year: 2016, score: 8.77, poster: "https://cdn.myanimelist.net/images/anime/7/81992l.jpg", rank: 7 },
+  { malId: 39894, title: "Sound! Euphonium 3", year: 2024, score: 8.73, poster: "https://cdn.myanimelist.net/images/anime/1216/142086l.jpg", rank: 8 },
+  { malId: 42938, title: "Fruits Basket: The Final", year: 2021, score: 8.93, poster: "https://cdn.myanimelist.net/images/anime/1085/114792l.jpg", rank: 9 },
+  { malId: 58514, title: "The Apothecary Diaries Season 2", year: 2025, score: 8.91, poster: "https://cdn.myanimelist.net/images/anime/1025/147458l.jpg", rank: 10 },
+];

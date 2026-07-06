@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { useApp, type Anime } from "@/store/app";
 import { apiCatalog, seedCatalog } from "@/lib/api/client";
+import { TOP_10_DECADE } from "@/lib/seed";
 import { AnimeCard, CardGrid } from "./AnimeCard";
 
 function SectionHeader({
@@ -318,6 +319,55 @@ export function HomeView({ activeType }: { activeType: string }) {
           </div>
         </section>
       )}
+
+      {/* Top 10 of the Decade */}
+      <section className="mb-7">
+        <SectionHeader
+          title="Top 10 of the Decade"
+          icon={<Flame className="h-3.5 w-3.5" />}
+        />
+        <div className="no-scrollbar flex gap-3 overflow-x-auto px-4 pb-2">
+          {TOP_10_DECADE.map((item, i) => (
+            <button
+              key={item.malId}
+              onClick={() => openAnime(item.malId)}
+              className="group relative flex h-44 w-32 shrink-0 flex-col overflow-hidden rounded-xl border border-white/8 bg-[#11111a] transition-all duration-200 hover:border-[#f5c518]/40 hover:scale-[1.03]"
+              style={{ animationDelay: `${i * 60}ms` }}
+            >
+              {/* Rank number */}
+              <div
+                className="absolute left-1 top-1 z-10 grid h-7 w-7 place-items-center rounded-lg text-sm font-black text-black"
+                style={{
+                  background: item.rank <= 3
+                    ? "linear-gradient(135deg, #f5c518, #ff8a00)"
+                    : "rgba(255,255,255,0.15)",
+                  boxShadow: item.rank <= 3 ? "0 0 12px rgba(245,197,24,0.5)" : "none",
+                }}
+              >
+                {item.rank}
+              </div>
+              {/* Poster */}
+              <div className="relative aspect-[2/3] w-full overflow-hidden">
+                <img
+                  src={item.poster}
+                  alt={item.title}
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+              </div>
+              {/* Info */}
+              <div className="absolute bottom-0 left-0 right-0 p-2">
+                <p className="truncate text-[11px] font-bold text-white">{item.title}</p>
+                <div className="mt-0.5 flex items-center gap-1.5">
+                  <span className="text-[9px] font-bold text-[#f5c518]">★ {item.score}</span>
+                  <span className="text-[9px] text-white/50">{item.year}</span>
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
+      </section>
 
       {/* This Season */}
       {filteredSeason.length > 0 && (
