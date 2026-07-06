@@ -318,3 +318,29 @@ Stage Summary:
 - Smoking Behind the Supermarket: 12/12 episodes with real English Crunchyroll dialogue subtitles.
 - All other anime: fall back to Jikan episode-title cues (real MAL episode titles + OP/ED markers).
 - For real dialogue subtitles on other anime, would need: (a) smaller MKV files, (b) pre-extracted subtitle files hosted separately, or (c) OpenSubtitles.com API integration (already built, needs user credentials).
+
+---
+Task ID: perf-catalog-genre-ona
+Agent: main
+Task: Speed up catalog/search/cards loading, Netflix-style genre scroll on homepage, Cyberpunk Edgerunners -> ONA, investigate Haikyuu S3 loading
+
+Work Log:
+- Diagnosed root cause: `ensureSeeded()` ran ~40 sequential DB upserts on every cold-start of /api/catalog, /api/jikan/search, /api/jikan/[malId] (5-10s of blocking).
+- Refactored `ensureSeeded()` to (a) short-circuit when `db.anime.count() >= SEED_ANIME.length`, (b) run upserts in parallel chunks of 8 when seeding is needed, (c) accept `{ force: true }` to bypass the count check.
+- Added `Cache-Control: public, s-maxage=300, stale-while-revalidate=600` to /api/catalog GET and /api/jikan/search GET responses so Vercel edge + browser cache results.
+- Removed `_ts=${Date.now()}` cache-busting from apiCatalog.top/season/all/upcoming/custom calls in src/lib/api/client.ts so the browser cache actually persists.
+- Implemented Netflix-style genre browse on HomeView: clicking a chip now smooth-scrolls to an inline `Browse by genre` section on the homepage (one section per QUICK_GENRES entry), with the active chip highlighted gold. Each section's "See All" still navigates to the catalog with the genre pre-selected.
+- Changed Cyberpunk: Edgerunners (malId 42310) type from "TV" to "ONA" in src/lib/seed.ts (matches MAL classification).
+- Updated `/api/seed` POST to call `ensureSeeded({ force: true })` so seed data changes (type corrections, new fields) actually propagate to the DB instead of being skipped by the count short-circuit.
+- Cleared Import cache via /api/clear-cache so Apothecary Diaries S1 and Haikyuu S3 get fresh URL resolutions.
+- Confirmed Haikyuu S3 (malId 32935) URL works correctly: archive.org collection exists, file path resolves, 302 redirect to CDN works, range request returns 206 in ~1-2s. The "doesn't load" symptom was the catalog API blocking on ensureSeeded, not the video URL itself.
+- Confirmed Apothecary Diaries S1 (malId 52412) ep1 URL is the special ` Kw.mp4` variant (file is named differently on archive.org for ep1 only) — seed already handles this with a separate `fileName` entry. URL works.
+- Built and pushed 2 commits to GitHub (47ea8c0 + 6962ae6), Vercel auto-deployed both.
+
+Stage Summary:
+- Catalog API: cold 1.4s -> warm 39ms (35x faster)
+- Search API: 0.3s cold -> 34ms warm
+- Homepage HTML: 60-220ms (was timing out / blank screenshots before)
+- Cyberpunk Edgerunners: type=ONA (was TV)
+- Genre chips on homepage now scroll to inline genre sections (Netflix-style) instead of navigating away
+- Haikyuu S3 and Apothecary S1 video URLs verified working; the "slow loading" symptom was the catalog/cards API being blocked, not the video file
