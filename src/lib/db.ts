@@ -51,7 +51,8 @@ function makeOrderBy(orderBy?: string | Record<string, string>): string {
   return ` ORDER BY ${parts.join(', ')}`
 }
 
-function generateId(): string {
+
+export function generateId(): string {
   const chars = 'abcdefghijklmnopqrstuvwxyz0123456789'
   let id = 'c'
   for (let i = 0; i < 24; i++) id += chars[Math.floor(Math.random() * chars.length)]
@@ -256,13 +257,6 @@ const notificationTable = {
   },
 }
 
-export function getDb() { return getClient() }
-export function generateId(): string {
-  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789'
-  let id = 'c'
-  for (let i = 0; i < 24; i++) id += chars[Math.floor(Math.random() * chars.length)]
-  return id
-}
 
 export const db = {
   anime: animeTable,
@@ -272,3 +266,5 @@ export const db = {
   history: historyTable,
   notification: notificationTable,
 }
+
+export function getDb() { return getClient() }
