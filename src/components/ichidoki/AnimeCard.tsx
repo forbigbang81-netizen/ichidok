@@ -83,11 +83,11 @@ export function AnimeCard({ anime, className, badge, progress }: AnimeCardProps)
         </div>
       </div>
 
-      <div className="min-w-0 rounded-md bg-black/40 px-1.5 py-1">
-        <p className="truncate text-xs font-semibold tracking-editorial text-white transition-colors duration-200 group-hover:text-[#f5c518]">
+      <div className="min-w-0 rounded-md bg-black/60 px-1.5 py-1">
+        <p className="truncate text-xs font-bold tracking-editorial text-white" style={{ textShadow: "0 0 6px rgba(255,138,0,0.3)" }}>
           {main}
         </p>
-        {sub && <p className="truncate text-[10px] font-medium text-white/60">{sub}</p>}
+        {sub && <p className="truncate text-[10px] font-medium text-[#f5c518]/80">{sub}</p>}
       </div>
     </button>
   );

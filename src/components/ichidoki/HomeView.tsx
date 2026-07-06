@@ -26,8 +26,8 @@ function SectionHeader({
   return (
     <div className="mb-3 flex items-center justify-between px-4">
       <h3 className="flex items-center gap-1.5 text-[15px] font-bold tracking-editorial">
-        <span className="gradient-text">{icon}</span>
-        <span className="text-white">{title}</span>
+        <span className="text-[#ff8a00]">{icon}</span>
+        <span className="text-[#f5c518]" style={{ textShadow: "0 0 8px rgba(245,197,24,0.4)" }}>{title}</span>
       </h3>
       {onMore && (
         <button
@@ -233,7 +233,7 @@ export function HomeView({ activeType }: { activeType: string }) {
                   </span>
                 )}
               </div>
-              <h2 className="line-clamp-1 text-lg font-bold tracking-editorial text-white text-glow">
+              <h2 className="line-clamp-1 text-lg font-bold tracking-editorial text-white" style={{ textShadow: "0 0 10px rgba(255,138,0,0.5), 0 2px 4px rgba(0,0,0,0.8)" }}>
                 {currentFeatured.title}
               </h2>
               <p className="mt-1 line-clamp-2 text-[11px] leading-relaxed text-white/70">

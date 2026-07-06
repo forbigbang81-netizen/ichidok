@@ -390,8 +390,16 @@ export function VideoPlayer({
     if (!el) return;
     if (document.fullscreenElement) {
       document.exitFullscreen().catch(() => {});
+      // Try to unlock orientation
+      if (screen.orientation && screen.orientation.unlock) {
+        screen.orientation.unlock().catch(() => {});
+      }
     } else {
       el.requestFullscreen().catch(() => {});
+      // Try to lock to landscape
+      if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock('landscape').catch(() => {});
+      }
     }
     keepControlsAlive();
   }, [keepControlsAlive]);
@@ -714,45 +722,18 @@ export function VideoPlayer({
         </div>
       )}
 
-      {/* Bottom controls — glass bar */}
+      {/* Bottom controls — progress bar at bottom, controls above */}
       <div
         className={cn(
-          "absolute inset-x-0 bottom-0 z-30 px-3 pb-3 pt-8 transition-opacity duration-300",
+          "absolute inset-x-0 bottom-0 z-30 px-3 pb-2 pt-6 transition-opacity duration-300",
           "glass-nav",
           controlsVisible ? "opacity-100" : "pointer-events-none opacity-0",
         )}
         onMouseMove={keepControlsAlive}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Progress bar — gradient gold→orange */}
-        <div className="group relative mb-2 h-1.5 w-full cursor-pointer rounded-full bg-white/20">
-          <div
-            className="absolute left-0 top-0 h-full rounded-full bg-white/30"
-            style={{ width: `${bufferedPct}%` }}
-          />
-          <div
-            className="brand-gradient-bg absolute left-0 top-0 h-full rounded-full transition-[width] duration-150 ease-out"
-            style={{ width: `${progressPct}%` }}
-          />
-          <input
-            type="range"
-            min={0}
-            max={duration || 0}
-            step={0.1}
-            value={currentTime}
-            onChange={(e) => onSeekScrub([Number(e.target.value)])}
-            onPointerUp={(e) => onSeekCommit([Number((e.target as HTMLInputElement).value)])}
-            onTouchEnd={(e) => onSeekCommit([Number((e.target as HTMLInputElement).value)])}
-            className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
-            aria-label="Seek"
-          />
-          <div
-            className="brand-gradient-bg glow pointer-events-none absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full"
-            style={{ left: `${progressPct}%` }}
-          />
-        </div>
-
-        <div className="flex items-center gap-1.5 text-white">
+        {/* Control buttons row */}
+        <div className="flex items-center gap-1.5 text-white mb-2">
           <button
             type="button"
             onClick={togglePlay}
@@ -861,6 +842,38 @@ export function VideoPlayer({
               )}
             </button>
           </div>
+        </div>
+
+        {/* Progress bar + timestamp — at the very bottom */}
+        <div className="group relative h-1.5 w-full cursor-pointer rounded-full bg-white/20">
+          <div
+            className="absolute left-0 top-0 h-full rounded-full bg-white/30"
+            style={{ width: `${bufferedPct}%` }}
+          />
+          <div
+            className="brand-gradient-bg absolute left-0 top-0 h-full rounded-full transition-[width] duration-150 ease-out"
+            style={{ width: `${progressPct}%` }}
+          />
+          <input
+            type="range"
+            min={0}
+            max={duration || 0}
+            step={0.1}
+            value={currentTime}
+            onChange={(e) => onSeekScrub([Number(e.target.value)])}
+            onPointerUp={(e) => onSeekCommit([Number((e.target as HTMLInputElement).value)])}
+            onTouchEnd={(e) => onSeekCommit([Number((e.target as HTMLInputElement).value)])}
+            className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+            aria-label="Seek"
+          />
+          <div
+            className="brand-gradient-bg pointer-events-none absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full"
+            style={{ left: `${progressPct}%` }}
+          />
+        </div>
+        <div className="mt-1 flex justify-between text-[10px] tabular-nums text-white/70">
+          <span>{fmtTime(currentTime)}</span>
+          <span>{fmtTime(duration)}</span>
         </div>
       </div>
     </div>
