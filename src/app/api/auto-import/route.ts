@@ -29,12 +29,15 @@ export async function GET(request: Request) {
     const episode = Number(searchParams.get("episode") ?? 1);
     const audio = (searchParams.get("audio") ?? "sub") as "sub" | "dub";
 
-    if (!Number.isFinite(malId) || malId <= 0) {
+    if (!Number.isFinite(malId)) {
       return NextResponse.json(
-        { error: "malId is required" },
+        { error: "malId is required and must be a number" },
         { status: 400 },
       );
     }
+    // Allow malId < 1 (e.g. -1 for non-MAL titles like Megas XLR) so seed
+    // entries with sentinel malIds can still resolve episode URLs. We only
+    // reject non-finite / NaN values now.
     if (!Number.isFinite(episode) || episode < 1) {
       return NextResponse.json(
         { error: "episode is required and must be >= 1" },

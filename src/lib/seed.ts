@@ -9,7 +9,7 @@ export interface SeedAnime {
   year: number; season: "winter" | "spring" | "summer" | "fall" | null;
   genres: string[]; studios: string[]; episodeCount: number; duration: string;
   rating: string; source: string; isFeatured?: boolean;
-  episodeSources?: EpisodeSource[]; hasDub?: boolean;
+  episodeSources?: EpisodeSource[]; hasDub?: boolean; hasSub?: boolean;
   subtitlePattern?: string; localSubtitlePattern?: string; noSubtitles?: boolean;
 }
 
@@ -18,6 +18,11 @@ export interface EpisodeSource {
   fileTemplate?: string; fileName?: string;
   needsProxy?: boolean; dualAudio?: boolean; audio?: "sub" | "dub" | "both";
   seasonMap?: { startEp: number; endEp: number; season: number }[];
+  // Optional map from episode number to a literal filename fragment.
+  // Used when each episode has a unique filename pattern that can't be
+  // expressed with a single {ep}-template (e.g. DVD rips where each
+  // episode file includes the episode title in the name).
+  episodeFiles?: Record<number, string>;
 }
 
 export const SEED_ANIME: SeedAnime[] = [
@@ -440,7 +445,7 @@ export const SEED_ANIME: SeedAnime[] = [
   // Haikyuu!! S1
   { malId: 20583, title: "Haikyuu!!", titleEnglish: "Haikyuu!!", titleJapanese: "ハイキュー!!",
     synopsis: "Shoyo Hinata, a short but passionate volleyball player, joins Karasuno High School's volleyball team and aims to compete at the national level.",
-    poster: "https://cdn.myanimelist.net/images/anime/7/76043l.jpg", banner: "https://cdn.myanimelist.net/images/anime/7/76043l.jpg",
+    poster: "https://cdn.myanimelist.net/images/anime/7/76014l.jpg", banner: "https://cdn.myanimelist.net/images/anime/7/76014l.jpg",
     type: "TV", status: "Finished Airing", score: 8.47, scoredBy: 900000, rank: 0, popularity: 50, members: 1800000,
     year: 2014, season: "spring", genres: ["Award Winning", "Sports"], studios: ["Production I.G"],
     episodeCount: 25, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
@@ -448,10 +453,10 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 25, collection: "haikyuu-dub-episode-23_20250823", fileTemplate: "Season 1/Haikyuu!! (Dub) Episode {ep}.mp4", audio: "dub" },
     ], hasDub: true,
   },
-  // Haikyuu!! S2
-  { malId: 20584, title: "Haikyuu!! Second Season", titleEnglish: "Haikyuu!! Second Season", titleJapanese: "ハイキュー!! セカンドシーズン",
+  // Haikyuu!! S2 — correct malId is 28891 (20584 is a different anime)
+  { malId: 28891, title: "Haikyuu!! Second Season", titleEnglish: "Haikyuu!! Second Season", titleJapanese: "ハイキュー!! セカンドシーズン",
     synopsis: "Karasuno continues their training and competes in the summer tournament, facing new rivals and growing stronger.",
-    poster: "https://cdn.myanimelist.net/images/anime/8/77028l.jpg", banner: "https://cdn.myanimelist.net/images/anime/8/77028l.jpg",
+    poster: "https://cdn.myanimelist.net/images/anime/9/76662l.jpg", banner: "https://cdn.myanimelist.net/images/anime/9/76662l.jpg",
     type: "TV", status: "Finished Airing", score: 8.54, scoredBy: 700000, rank: 0, popularity: 80, members: 1400000,
     year: 2015, season: "fall", genres: ["Award Winning", "Sports"], studios: ["Production I.G"],
     episodeCount: 25, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga",
@@ -459,10 +464,10 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 25, collection: "haikyuu-second-season-dub-episode-21", fileTemplate: "Season 2/Haikyuu!! Second Season (Dub) Episode {ep}.mp4", audio: "dub" },
     ], hasDub: true,
   },
-  // Haikyuu!! S4 — To the Top
-  { malId: 38500, title: "Haikyuu!! To the Top", titleEnglish: "Haikyuu!! To the Top", titleJapanese: "ハイキュー!! TO THE TOP",
+  // Haikyuu!! S4 — To the Top (correct malId 38883; 38500 was a music video)
+  { malId: 38883, title: "Haikyuu!! To the Top", titleEnglish: "Haikyuu!! To the Top", titleJapanese: "ハイキュー!! TO THE TOP",
     synopsis: "After their victory over Shiratorizawa, Karasuno heads to the national tournament in Tokyo.",
-    poster: "https://cdn.myanimelist.net/images/anime/1837/107229l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1837/107229l.jpg",
+    poster: "https://cdn.myanimelist.net/images/anime/1813/105367l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1813/105367l.jpg",
     type: "TV", status: "Finished Airing", score: 8.24, scoredBy: 500000, rank: 0, popularity: 120, members: 1000000,
     year: 2020, season: "winter", genres: ["Award Winning", "Sports"], studios: ["Production I.G"],
     episodeCount: 13, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga",
@@ -473,7 +478,7 @@ export const SEED_ANIME: SeedAnime[] = [
   // The Apothecary Diaries S1
   { malId: 52412, title: "The Apothecary Diaries", titleEnglish: "The Apothecary Diaries", titleJapanese: "薬屋のひとりごと",
     synopsis: "Maomao, a young pharmacist kidnapped and sold to the imperial palace, uses her knowledge of medicine and poisons to solve mysteries.",
-    poster: "https://cdn.myanimelist.net/images/anime/1384/138006l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1384/138006l.jpg",
+    poster: "https://cdn.myanimelist.net/images/anime/1708/138033l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1708/138033l.jpg",
     type: "TV", status: "Finished Airing", score: 8.83, scoredBy: 800000, rank: 0, popularity: 15, members: 1500000,
     year: 2023, season: "fall", genres: ["Award Winning", "Drama", "Mystery", "Romance"], studios: ["OLM"],
     episodeCount: 24, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Light novel", isFeatured: true,
@@ -563,16 +568,53 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 32, collection: "Cartoons-and-Anime", fileTemplate: "Shinzo (2000)/Shinzo - S01E{ep:02} - 4x3.mp4", audio: "dub" },
     ], hasDub: true,
   },
-  // Slayers
+  // Slayers — switched to The-Slayers-Season-1 archive.org collection which is a
+  // Japanese DVD rip with hardcoded English subs (NSSB = Napa Supersaiyanblue
+  // Subbed). The previous Cartoons-and-Anime source was a Western TV rip with
+  // English dub audio only — didn't sound Japanese. Audio marked as "sub"
+  // because these files are Japanese audio + English hardcoded subs.
   { malId: 534, title: "Slayers", titleEnglish: "Slayers", titleJapanese: "スレイヤーズ",
     synopsis: "The teenage sorceress Lina Inverse travels the world fighting bandits and monsters, accompanied by the swordsman Gourry.",
-    poster: "https://cdn.myanimelist.net/images/anime/1437/103801l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1437/103801l.jpg",
+    poster: "https://cdn.myanimelist.net/images/anime/6/19870l.jpg", banner: "https://cdn.myanimelist.net/images/anime/6/19870l.jpg",
     type: "TV", status: "Finished Airing", score: 7.72, scoredBy: 150000, rank: 0, popularity: 700, members: 300000,
     year: 1995, season: "spring", genres: ["Action", "Adventure", "Comedy", "Fantasy"], studios: ["E&G Films"],
     episodeCount: 26, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Light novel",
     episodeSources: [
-      { startEp: 1, endEp: 26, collection: "Cartoons-and-Anime", fileTemplate: "Slayers/Slayers - S01E{ep:02} - 4x3.mp4", audio: "dub" },
-    ], hasDub: true,
+      // Per-episode MP4 files from the Japanese DVD release. Each episode
+      // file has the episode title baked into the filename, so we use the
+      // episodeFiles map instead of a template.
+      {
+        startEp: 1, endEp: 26, collection: "The-Slayers-Season-1", audio: "sub",
+        episodeFiles: {
+          1: "(1) (NSSB) Slayers Episode 1 Angry Lina's Furious Dragon Slave!.mp4",
+          2: "(2) (NSSB) Slayers Episode 2 Bad! Mummy Men Aren't My Type!.mp4",
+          3: "(NSSB) Slayers Episode 3 Crash! Red and White and Suspicious All Over!.mp4",
+          4: "(NSSB) Slayers Episode 4 Dash! Run for It! My Magic Doesn't Work!.mp4",
+          5: "(NSSB) Slayers Episode 5 Escape! Noonsa, the Flaming Fish Man!.mp4",
+          6: "(NSSB) Slayers Episode 6  Focus! Rezo's the Real Enemy!.mp4",
+          7: "(NSSB) Slayers Episode 7 Give Up! But Just Before We Do, the Sure Kill Sword Appears!.mp4",
+          8: "(NSSB) Slayers Episode 8 Help! Shabranigdu is Reborn!.mp4",
+          9: "(NSSB) Slayers Episode 9 Impact! The Eve of the Great Life or Death Struggle!.mp4",
+          10: "(NSSB) Slayers Episode 10 Jackpot! The Great Life or Death Gamble!.mp4",
+          11: "(NSSB) Slayers Episode 11 Knockout! The Seyruun Family Feud!.mp4",
+          12: "(NSSB) Slayers Episode 12 Lovely! Amelia's Magic Training!.mp4",
+          13: "(NSSB) Slayers Episode 13 Money! Knock Out Those Bounty Hunters!.mp4",
+          14: "(NSSB) Slayers Episode 14 Navigation! An Invitation to Sairaag!.mp4",
+          15: "(NSSB) Slayers Episode 15 Oh No! Lina's Wedding Rhapsody.mp4",
+          16: "(NSSB) Slayers Episode 16 Passion! Shall We Give Our Lives for the Stage.mp4",
+          17: "(NSSB) Slayers Episode 17 Question He's Proposing to THAT Girl.mp4",
+          18: "(NSSB) Slayers Episode 18 Return! The Red Priest is Back!.mp4",
+          19: "(NSSB) Slayers Episode 19 Shock! Sairaag Falls!.mp4",
+          20: "(NSSB) Slayers Episode 20 Trouble! Rahanimu, the Furious Fish Man!.mp4",
+          21: "(NSSB) Slayers Episode 21 Upset! Gourry vs. Zangulus!.mp4",
+          22: "(NSSB) Slayers Episode 22 Vice! The One Who Was Left Behind!.mp4",
+          23: "(NSSB) Slayers Episode 23 Warning! Eris' Wrath!.mp4",
+          24: "(NSSB) Slayers Episode 24 X-DAY! The Demon Beast Is Reborn!.mp4",
+          25: "(NSSB) Slayers Episode 25 Yes A Final Hope The Blessed Blade.mp4",
+          26: "(NSSB) Slayers Episode 26 Zap! Victory is Always Mine!.mp4",
+        },
+      },
+    ], hasSub: true, noSubtitles: true,
   },
   // Berserk (1997)
   { malId: 33, title: "Berserk", titleEnglish: "Berserk", titleJapanese: "ベルセルク",
@@ -585,10 +627,16 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 25, collection: "Cartoons-and-Anime", fileTemplate: "Berserk (1997)/Berserk - S01E{ep:02} - 4x3.mp4", audio: "dub" },
     ], hasDub: true,
   },
-  // Megas XLR
-  { malId: 0, title: "Megas XLR", titleEnglish: "Megas XLR", titleJapanese: "Megas XLR",
+  // Megas XLR — not on MAL (Cartoon Network show). Use a sentinel
+  // malId of -1 so it doesn't clash with real MAL entries, and so the
+  // /api/auto-import and /api/jikan/[malId] routes can still resolve it
+  // (we relaxed the malId>0 check in auto-import to allow malId<1 for
+  // non-MAL titles like this). Poster is the archive.org item thumbnail
+  // since no official MAL/Wikipedia art exists.
+  { malId: -1, title: "Megas XLR", titleEnglish: "Megas XLR", titleJapanese: "Megas XLR",
     synopsis: "Two Jersey guys find a giant robot and customize it with car parts, using it to fight alien threats.",
-    poster: "", banner: "",
+    poster: "https://archive.org/download/Cartoons-and-Anime/Cartoons-and-Anime.thumbs/Megas%20XLR%20(2004)/Megas%20XLR%20-%20S01E01%20-%204x3_000001.jpg",
+    banner: "https://archive.org/download/Cartoons-and-Anime/Cartoons-and-Anime.thumbs/Megas%20XLR%20(2004)/Megas%20XLR%20-%20S01E01%20-%204x3_000001.jpg",
     type: "TV", status: "Finished Airing", score: 7.80, scoredBy: 30000, rank: 0, popularity: 3000, members: 60000,
     year: 2004, season: "spring", genres: ["Action", "Comedy", "Sci-Fi"], studios: ["Cartoon Network Studios"],
     episodeCount: 26, duration: "22 min per ep", rating: "PG - Children", source: "Original",
@@ -681,9 +729,9 @@ export const SEASON_GROUPS: { franchise: string; seasons: { malId: number; label
     franchise: "Haikyuu!!",
     seasons: [
       { malId: 20583, label: "Season 1" },
-      { malId: 20584, label: "Season 2" },
+      { malId: 28891, label: "Season 2" },
       { malId: 32935, label: "Season 3 — Karasuno vs Shiratorizawa" },
-      { malId: 38500, label: "Season 4 — To the Top" },
+      { malId: 38883, label: "Season 4 — To the Top" },
     ],
   },
   {
@@ -714,7 +762,10 @@ export function resolveEpisodeUrl(seed: SeedAnime, episode: number, audioMode: "
   if (!src) return null;
 
   let file: string;
-  if (src.fileName) { file = src.fileName; }
+  if (src.episodeFiles && src.episodeFiles[episode]) {
+    // Per-episode literal filename (e.g. DVD rips with unique titles per ep).
+    file = src.episodeFiles[episode];
+  } else if (src.fileName) { file = src.fileName; }
   else if (src.fileTemplate) {
     file = src.fileTemplate;
     file = file.replace(/\{ep(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(episode); return pad ? s.padStart(Number(pad), "0") : s; });

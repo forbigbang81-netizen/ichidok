@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "### **UI Elements & Layout**  \nThe screenshot shows a mobile Chrome browser displaying the **Ichidoki** anime streaming website. The interface has a **dark theme** with a black background.  \n\n#### **Header**  \n- At the top, the Chrome address bar displays `learningstuffforfun.online` (the website URL).  \n- To the right of the address bar: a `+` (new tab) icon, a tab counter showing `71` (open tabs), and the Chrome menu (three vertical dots).  \n- Below the address bar, the site header includes:  \n  - The site name `ichidoki` (left-aligned, white text).  \n  - A **search icon** (magnifying glass) and **notification bell icon** (right-aligned, white).  \n\n#### **Navigation Menu**  \nBelow the header, a horizontal menu with tabs: `TV` (highlighted with a yellow underline, indicating the active section), `Movie`, `Special`, `OVA`, `ONA` (all gray text, unselected).  \n\n#### **Footer**  \nAt the bottom of the screen, a navigation bar with five icons:  \n- Home (house, yellow, active).  \n- Calendar (gray).  \n- Search (magnifying glass, gray).  \n- Grid (gray).  \n- Folder (gray).  \n\nA **\"Screenshot saved\"** toast notification (white bubble with black text) is centered at the bottom, indicating a recent screenshot action.  \n\n\n### **Anime Titles & Details**  \nThe page displays a **3-column grid** of anime entries (rows of 3, with partial rows for incomplete grids). Each entry includes:  \n- A **poster thumbnail** (with artwork or broken images).  \n- A **title** (truncated if long).  \n- A **rating badge** (yellow star icon + score, e.g., `8.61`).  \n- A **type label** (e.g., `Part 1`, `TV`).  \n\n#### **Visible Anime Titles** (from top-left to bottom-right):  \n1. **Jujutsu Kaisen: The...** (truncated; full title likely *Jujutsu Kaisen: The Movie 0* or similar).  \n   - **Poster**: Full, vibrant artwork (characters in dynamic poses, blue/teal background).  \n   - **Rating**: `8.61` (yellow star badge).  \n   - **Type**: `Part 1` (gray text below title).  \n\n2. **Berserk**  \n   - **Poster**: Full, detailed artwork (dark fantasy theme, red/orange background).  \n   - **Rating**: `8.61`.  \n\n3. **Haikyuu!! Second Season**  \n   - **Poster**: **Broken/missing** (black square with a small, low-resolution image placeholder; no full artwork).  \n   - **Rating**: `8.54`.  \n\n4. **Jujutsu Kaisen** (full title)  \n   - **Poster**: Full, vibrant artwork (red/pink background, characters in action).  \n   - **Rating**: `8.50`.  \n\n5. **Neon Genesis...** (truncated; full title likely *Neon Genesis Evangelion*).  \n   - **Poster**: Full, classic anime artwork (purple/gray background, characters in mecha suits).  \n   - **Rating**: `8.48`.  \n\n6. **Haikyuu!!** (full title)  \n   - **Poster**: **Broken/missing** (black square with a small placeholder, similar to the second season).  \n   - **Rating**: `8.47`.  \n\n7. **(Bottom-left, partial row)**  \n   - **Title**: Truncated (Japanese text: `チェンソーマン` = *Chainsaw Man*).  \n   - **Poster**: Full, dynamic artwork (cityscape with red streaks, character in action).  \n   - **Rating**: `8.42`.  \n\n\n### **Poster Images: Rendered vs. Missing**  \n- **Rendered (full artwork)**:  \n  - *Jujutsu Kaisen: The...* (Part 1)  \n  - *Berserk*  \n  - *Jujutsu Kaisen*  \n  - *Neon Genesis...*  \n  - *Chainsaw Man* (partial row)  \n- **Missing/Broken**:  \n  - *Haikyuu!! Second Season* (black square with placeholder)  \n  - *Haikyuu!!* (black square with placeholder)  \n\n\n### **Additional Details**  \n- **Error Messages/Loaders**: None visible (no spinners, error text, or \"404\" messages).  \n- **Sub/Dub Badges**: None visible (no \"SUB\" or \"DUB\" labels on any entries).  \n- **Type Labels**: Only `Part 1` is visible (below *Jujutsu Kaisen: The...*); other entries lack explicit type labels (e.g., `TV`, `ONA`).  \n\n\n### **Summary**  \nThe page is a **TV anime listing** (active tab) with a 3-column grid. Most posters are rendered, but two *Haikyuu!!* entries have broken images. Ratings are prominently displayed, and the interface uses a dark theme with yellow accents for the active tab and home icon. The \"Screenshot saved\" toast confirms the image was captured from a mobile device.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1783378361,
+  "id": "20260707065215ce532fec62804678",
+  "model": "glm-4.6v",
+  "object": "chat.completion",
+  "request_id": "20260707065215ce532fec62804678",
+  "usage": {
+    "completion_tokens": 1143,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 4431,
+    "prompt_tokens_details": {
+      "cached_tokens": 10
+    },
+    "total_tokens": 5574
+  }
+}

@@ -41,7 +41,7 @@ interface AppState {
 
 export const useApp = create<AppState>((set, get) => ({
   currentView: "home", previousView: "home", selectedMalId: null, selectedEpisode: 1,
-  resumePosition: null, audioMode: "SUB", selectedQuality: "1080p", selectedSpeed: 1,
+  resumePosition: null, audioMode: "DUB", selectedQuality: "1080p", selectedSpeed: 1,
   fullscreenPlayer: false, history: [], bookmarks: [], notifications: [],
   catalogGenre: null,
   navigate: (v) => set((s) => ({ currentView: v, previousView: s.currentView, selectedMalId: v === "detail" ? s.selectedMalId : null })),
