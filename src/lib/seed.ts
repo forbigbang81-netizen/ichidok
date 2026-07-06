@@ -406,6 +406,29 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 1, collection: "dropbox", fileName: "https://www.dropbox.com/scl/fi/6yxbhkr3tt6e2q7ix7umw/AnimePahe_Seihantai_na_Kimi_to_Boku_-_13_1080p_SubsPlease.mp4?rlkey=k15xut763opcnqgaad6vs2r7j&st=cw2pcp6j&dl=1", audio: "sub" },
     ],
   },
+  // Prison School (Uncensored)
+  { malId: 30240, title: "Prison School (Uncensored)", titleEnglish: "Prison School (Uncensored)", titleJapanese: "監獄学園〈プリズンスクール〉",
+    synopsis: "Located on the outskirts of Tokyo, Hachimitsu Private Academy is a prestigious all-girls boarding school. However, this is about to change with the revision of the school's traditional policy: for the first time, boys are being accepted.",
+    poster: "https://cdn.myanimelist.net/images/anime/1286/112161l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1286/112161l.jpg",
+    type: "TV", status: "Finished Airing", score: 7.58, scoredBy: 600000, rank: 0, popularity: 300, members: 1200000,
+    year: 2015, season: "summer", genres: ["Comedy", "Ecchi"], studios: ["J.C.Staff"],
+    episodeCount: 12, duration: "24 min per ep", rating: "R+ - Mild Nudity", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 1, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 01 - The Peep Job.mp4", audio: "dub" },
+      { startEp: 2, endEp: 2, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 02 - The Man Who Viewed Too Much.mp4", audio: "dub" },
+      { startEp: 3, endEp: 3, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 03 - A Mighty Spurt.mp4", audio: "dub" },
+      { startEp: 4, endEp: 4, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 04 - Take Me Out to the Sumoland.mp4", audio: "dub" },
+      { startEp: 5, endEp: 5, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 05 - The School's Number One Most Treacherous Man.mp4", audio: "dub" },
+      { startEp: 6, endEp: 6, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 06 - Vengeance is Hana's.mp4", audio: "dub" },
+      { startEp: 7, endEp: 7, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 07 Meiko's Delicious Restaurant.mp4", audio: "dub" },
+      { startEp: 8, endEp: 8, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 08 - The Diary of Andre.mp4", audio: "dub" },
+      { startEp: 9, endEp: 9, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 09 - Full of Bodily Fluids.mp4", audio: "dub" },
+      { startEp: 10, endEp: 10, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 10 - It's a Bum-derful Life.mp4", audio: "dub" },
+      { startEp: 11, endEp: 11, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 11 - Eryngii Brockovich.mp4", audio: "dub" },
+      { startEp: 12, endEp: 12, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 12 - Good Morning, Prison.mp4", audio: "dub" },
+      { startEp: 1, endEp: 12, collection: "reaktor-prison-school-ova-uncensored-v2-1080pbdx26510-bitdual-audio_202302", fileTemplate: "[Reaktor] Prison School - E{ep:02} Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4", audio: "sub" },
+    ], hasDub: true,
+  },
 ];
 
 /**
