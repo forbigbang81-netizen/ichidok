@@ -74,6 +74,9 @@ const AMBIENT_SAMPLE_INTERVAL_MS = 2000;
 const KB_HINT_AUTOHIDE_MS = 5500;
 const VOLUME_HUD_AUTOHIDE_MS = 1200;
 const VOLUME_STEP = 0.1;
+// If a buffering stall lasts longer than this, flag the network as "slow"
+// so the spinner label changes from "Buffering…" to "Slow network — buffering…".
+const SLOW_NETWORK_MS = 3500;
 
 // ============================================================
 // VTT parsing utilities
@@ -192,6 +195,18 @@ export function VideoPlayer({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Buffering overlay — separate from `loading` (which covers initial URL
+  // resolution). `isBuffering` fires whenever the video element reports it
+  // is waiting for more data from the CDN (waiting/stalled events), and
+  // clears on `playing` / `canplay`. This is essential for archive.org
+  // sources where the CDN throughput can dip below the bitrate.
+  const [isBuffering, setIsBuffering] = useState(false);
+  // Slow-network hint: if a single buffering stall lasts longer than
+  // SLOW_NETWORK_MS, swap the spinner label to "Slow network — buffering…"
+  // so the user knows the problem is throughput, not the player.
+  const [isSlowNetwork, setIsSlowNetwork] = useState(false);
+  const bufferTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -240,6 +255,13 @@ export function VideoPlayer({
     setImportInfo(null);
     setCues([]);
     setActiveCue("");
+    // Reset buffering state from any previous source.
+    setIsBuffering(false);
+    setIsSlowNetwork(false);
+    if (bufferTimerRef.current) {
+      clearTimeout(bufferTimerRef.current);
+      bufferTimerRef.current = null;
+    }
     resumeAppliedRef.current = false;
     fetchVideoImport(malId, episode, audioMode.toLowerCase() as "sub" | "dub")
       .then((info) => {
@@ -381,6 +403,42 @@ export function VideoPlayer({
       );
     };
 
+    // ----- Buffering overlay handlers -----
+    // `waiting` fires when playback stops because the next frame isn't
+    // buffered yet. `stalled` fires when the browser is trying to fetch
+    // data but isn't receiving any. Both indicate CDN throughput issues.
+    const startBuffer = () => {
+      setIsBuffering(true);
+      if (bufferTimerRef.current) clearTimeout(bufferTimerRef.current);
+      bufferTimerRef.current = setTimeout(() => {
+        setIsSlowNetwork(true);
+      }, SLOW_NETWORK_MS);
+    };
+    const stopBuffer = () => {
+      setIsBuffering(false);
+      setIsSlowNetwork(false);
+      if (bufferTimerRef.current) {
+        clearTimeout(bufferTimerRef.current);
+        bufferTimerRef.current = null;
+      }
+    };
+    const onWaiting = () => {
+      // Only show buffering if we're not actively seeking (seek shows its
+      // own scrubber feedback).
+      if (!seekingRef.current) startBuffer();
+    };
+    const onStalled = () => {
+      if (!seekingRef.current) startBuffer();
+    };
+    const onPlayingEv = () => stopBuffer();
+    const onCanPlay = () => stopBuffer();
+    const onLoadStart = () => {
+      // New src — reset buffering state, then mark as buffering until
+      // enough data arrives to play.
+      stopBuffer();
+      startBuffer();
+    };
+
     v.addEventListener("play", onPlay);
     v.addEventListener("pause", onPause);
     v.addEventListener("timeupdate", onTime);
@@ -388,6 +446,11 @@ export function VideoPlayer({
     v.addEventListener("progress", onProgressBuf);
     v.addEventListener("ended", onEndedEv);
     v.addEventListener("error", onErr);
+    v.addEventListener("waiting", onWaiting);
+    v.addEventListener("stalled", onStalled);
+    v.addEventListener("playing", onPlayingEv);
+    v.addEventListener("canplay", onCanPlay);
+    v.addEventListener("loadstart", onLoadStart);
     return () => {
       v.removeEventListener("play", onPlay);
       v.removeEventListener("pause", onPause);
@@ -396,6 +459,15 @@ export function VideoPlayer({
       v.removeEventListener("progress", onProgressBuf);
       v.removeEventListener("ended", onEndedEv);
       v.removeEventListener("error", onErr);
+      v.removeEventListener("waiting", onWaiting);
+      v.removeEventListener("stalled", onStalled);
+      v.removeEventListener("playing", onPlayingEv);
+      v.removeEventListener("canplay", onCanPlay);
+      v.removeEventListener("loadstart", onLoadStart);
+      if (bufferTimerRef.current) {
+        clearTimeout(bufferTimerRef.current);
+        bufferTimerRef.current = null;
+      }
     };
   }, [cues, onProgress, onEnded, resumePosition]);
 
@@ -800,7 +872,7 @@ export function VideoPlayer({
         />
       )}
 
-      {/* ===== Loading overlay ===== */}
+      {/* ===== Loading overlay (initial URL resolution) ===== */}
       {loading && (
         <div className="absolute inset-0 z-40 grid place-items-center bg-black/80">
           <div className="flex flex-col items-center gap-3 text-white">
@@ -814,6 +886,36 @@ export function VideoPlayer({
               />
             </div>
             <p className="text-xs text-white/60">Resolving stream…</p>
+          </div>
+        </div>
+      )}
+
+      {/* ===== Buffering overlay (CDN throughput stalls) =====
+          Distinct from the loading overlay: this fires when the video
+          element reports `waiting` or `stalled`, meaning the source URL
+          resolved fine but bytes aren't arriving fast enough from the CDN
+          (typical for archive.org sources). Spinner sits on top of the
+          last decoded frame so the user can see where playback paused. */}
+      {!loading && !error && videoUrl && isBuffering && (
+        <div className="pointer-events-none absolute inset-0 z-30 grid place-items-center">
+          <div className="flex flex-col items-center gap-2 rounded-xl bg-black/70 px-5 py-4 backdrop-blur-sm">
+            <div className="relative h-9 w-9">
+              <div className="absolute inset-0 rounded-full border-2 border-white/10" />
+              <div
+                className="absolute inset-0 animate-spin rounded-full border-2 border-transparent"
+                style={{
+                  borderTopColor: "#f5c518",
+                }}
+              />
+            </div>
+            <p className="text-[11px] font-medium text-white/80">
+              {isSlowNetwork ? "Slow network — buffering…" : "Buffering…"}
+            </p>
+            {isSlowNetwork && (
+              <p className="text-[9px] text-white/40">
+                CDN throughput is below the video bitrate
+              </p>
+            )}
           </div>
         </div>
       )}
