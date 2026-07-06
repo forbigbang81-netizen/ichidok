@@ -78,7 +78,7 @@ export const SEED_ANIME: SeedAnime[] = [
     episodeCount: 14, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga",
     episodeSources: [
       { startEp: 1, endEp: 9, collection: "BleachTYBW1-28", fileTemplate: "Bleach TYBW Episode 00{ep:02}.mp4", audio: "dub" },
-      { startEp: 1, endEp: 14, collection: "bleach-sennen-kessen-hen-part-3-japanese-tv-2024", fileName: "BLEACH Sennen Kessen-hen Soukoku-tan - 01 (TVA 1280x720 x264 AAC).mp4", audio: "sub" },
+      
     ], hasDub: true,
   },
   // Bleach TYBW Calamity (upcoming)
@@ -143,7 +143,7 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2023, season: "summer", genres: ["Action", "Supernatural"], studios: ["MAPPA"],
     episodeCount: 23, duration: "23 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
     episodeSources: [
-      { startEp: 1, endEp: 3, collection: "gofaku.com-jjk-s-2-03-720p", fileTemplate: "Gofaku.com_JJK-s2_{ep:02}_720p.mp4", audio: "sub" },
+      
       { startEp: 1, endEp: 23, collection: "jujutsu-kaisen-s-02-e-21-1080p-bd-av-1-dual-audio.mkv", fileTemplate: "Jujutsu Kaisen - S02E{ep:02} [1080p BD AV1][Dual Audio].mkv.mp4", needsProxy: true, audio: "both", dualAudio: true },
     ], hasDub: true,
   },
@@ -163,22 +163,9 @@ export const SEED_ANIME: SeedAnime[] = [
     episodeCount: 12, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
     // Real English dialogue subtitles extracted from the embedded GJM ASS track
     // in the archive.org MKV files. See scripts/extract_chainsaw_subs.py.
-    localSubtitlePattern: "/subtitles/44511_e{ep}.vtt",
     // Each episode has a unique hash in the filename, so we use per-episode fileName entries.
     episodeSources: [
-      { startEp: 1, endEp: 1, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_01_(1080p)_(GJM)_(62A0D357).mp4", audio: "sub" },
-      { startEp: 2, endEp: 2, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_02_(1080p)_(GJM)_(A25323AA).mp4", audio: "sub" },
-      { startEp: 3, endEp: 3, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_03_(1080p)_(GJM)_(CB67CABE).mp4", audio: "sub" },
-      { startEp: 4, endEp: 4, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_04_(1080p)_(GJM)_(84DC9A75).mp4", audio: "sub" },
-      { startEp: 5, endEp: 5, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_05_(1080p)_(GJM)_(E3191D55).mp4", audio: "sub" },
-      { startEp: 6, endEp: 6, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_06_(1080p)_(GJM)_(438635DA).mp4", audio: "sub" },
-      { startEp: 7, endEp: 7, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_07_(1080p)_(GJM)_(C71C1C6B).mp4", audio: "sub" },
-      { startEp: 8, endEp: 8, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_08_(1080p)_(GJM)_(AB46185D).mp4", audio: "sub" },
-      { startEp: 9, endEp: 9, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_09_(1080p)_(GJM)_(AA9D08A7).mp4", audio: "sub" },
-      { startEp: 10, endEp: 10, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_10_(1080p)_(GJM)_(17A6694C).mp4", audio: "sub" },
-      { startEp: 11, endEp: 11, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_11_(1080p)_(GJM)_(85DC2EF6).mp4", audio: "sub" },
-      { startEp: 12, endEp: 12, collection: "hi-10-chainsaw-man-s-1-1080p", fileName: "[Hi10]_Chainsaw_Man_S1_[1080p]/(Hi10)_Chainsaw_Man_S1_-_12_(1080p)_(GJM)_(805AD605).mp4", audio: "sub" },
-      { startEp: 1, endEp: 1, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/01. Dog & Chainsaw.mp4", audio: "dub" },
+                                                                              { startEp: 1, endEp: 1, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/01. Dog & Chainsaw.mp4", audio: "dub" },
       { startEp: 2, endEp: 2, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/02. Arrival in Tokyo.mp4", audio: "dub" },
       { startEp: 3, endEp: 3, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/03. Meowy's Whereabouts.mp4", audio: "dub" },
       { startEp: 4, endEp: 4, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/04. Rescue.mp4", audio: "dub" },
@@ -290,7 +277,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.48, scoredBy: 1500000, rank: 180, popularity: 8, members: 2200000,
     year: 1995, season: "fall", genres: ["Award Winning", "Action", "Drama", "Suspense"], studios: ["Gainax"],
     episodeCount: 26, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Original", isFeatured: true,
-    episodeSources: [{ startEp: 1, endEp: 26, collection: "neon-genesis-evangelion-dual-audio", fileTemplate: "Neon Genesis Evangelion - {ep:02} - Angel Attacks.mp4", audio: "both", dualAudio: true }],
+    episodeSources: [{ startEp: 1, endEp: 26, collection: "neon-genesis-evangelion-dual-audio", fileTemplate: "Neon Genesis Evangelion - {ep:02} - Angel Attacks.mp4", audio: "dub", dualAudio: true }],
     hasDub: true,
   },
   // End of Evangelion
@@ -300,7 +287,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "Movie", status: "Finished Airing", score: 8.57, scoredBy: 400000, rank: 50, popularity: 200, members: 600000,
     year: 1997, season: null, genres: ["Award Winning", "Action", "Drama", "Suspense"], studios: ["Gainax"],
     episodeCount: 1, duration: "1 hr 26 min", rating: "R - 17+ (violence & profanity)", source: "Original", isFeatured: true,
-    episodeSources: [{ startEp: 1, endEp: 1, collection: "eva-complete-series-movies-bd-1080p", fileName: "Neon Genesis Evangelion - The End of Evangelion (1995) [1080p x265 HEVC 10bit BluRay Dual Audio AAC 5.1] [Prof].mp4", audio: "both", dualAudio: true }],
+    episodeSources: [{ startEp: 1, endEp: 1, collection: "eva-complete-series-movies-bd-1080p", fileName: "Neon Genesis Evangelion - The End of Evangelion (1995) [1080p x265 HEVC 10bit BluRay Dual Audio AAC 5.1] [Prof].mp4", audio: "dub", dualAudio: true }],
     hasDub: true,
   },
   // Eva 1.0
@@ -341,7 +328,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "Movie", status: "Finished Airing", score: 8.82, scoredBy: 1000000, rank: 14, popularity: 7, members: 2000000,
     year: 2016, season: null, genres: ["Award Winning", "Drama", "Supernatural"], studios: ["CoMix Wave Films"],
     episodeCount: 1, duration: "1 hr 46 min", rating: "PG-13 - Teens 13 or older", source: "Original", isFeatured: true,
-    episodeSources: [{ startEp: 1, endEp: 1, collection: "your.-name.-2016.-1.8-gb.-1080p.-dual.-audio.-hin-eng.-vegamovies.-nl", fileName: "Your.Name.(2016).1.8GB.1080p.Dual.Audio.(Hin-Eng).Vegamovies.NL.mp4", audio: "both", dualAudio: true }],
+    episodeSources: [{ startEp: 1, endEp: 1, collection: "your.-name.-2016.-1.8-gb.-1080p.-dual.-audio.-hin-eng.-vegamovies.-nl", fileName: "Your.Name.(2016).1.8GB.1080p.Dual.Audio.(Hin-Eng).Vegamovies.NL.mp4", audio: "dub", dualAudio: true }],
     hasDub: true,
   },
   // 100 Girlfriends S1
@@ -487,11 +474,11 @@ export const SEASON_GROUPS: { franchise: string; seasons: { malId: number; label
   {
     franchise: "Bleach",
     seasons: [
-      { malId: 269, label: "Bleach (2004)" },
-      { malId: 41467, label: "TYBW — Cour 1" },
-      { malId: 53998, label: "TYBW — Cour 2 (Separation)" },
-      { malId: 56784, label: "TYBW — Cour 3 (Conflict)" },
-      { malId: 60636, label: "TYBW — Cour 4 (Calamity)" },
+      { malId: 269, label: "Season 1 — Bleach (2004)" },
+      { malId: 41467, label: "Season 2 — TYBW Cour 1" },
+      { malId: 53998, label: "Season 3 — TYBW Cour 2 (Separation)" },
+      { malId: 56784, label: "Season 4 — TYBW Cour 3 (Conflict)" },
+      { malId: 60636, label: "Season 5 — TYBW Cour 4 (Calamity)" },
     ],
   },
   {

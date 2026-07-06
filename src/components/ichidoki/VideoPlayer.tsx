@@ -669,7 +669,7 @@ export function VideoPlayer({
   const videoUrl = importInfo?.url ?? null;
   const posterUrl = poster ?? "";
   // Fullscreen mirror — applied to BOTH the video and every overlay.
-  const mirrorStyle = isFullscreen ? "scaleX(-1)" : undefined;
+  const mirrorStyle = undefined; // Removed fullscreen flip — was causing upside-down video
 
   // ----- Keyboard-shortcut hint: show once on first ready, then auto-hide -----
   useEffect(() => {
