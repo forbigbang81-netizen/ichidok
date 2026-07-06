@@ -6,11 +6,13 @@ export const dynamic = "force-dynamic";
 
 export async function POST() {
   try {
-    await ensureSeeded();
+    // Force a full re-upsert so seed data changes (type corrections,
+    // new fields, etc.) get written even when the DB count already matches.
+    await ensureSeeded({ force: true });
     const count = await db.anime.count();
     return NextResponse.json({
       ok: true,
-      message: "Seed complete",
+      message: "Seed complete (forced re-sync)",
       count,
     });
   } catch (err) {

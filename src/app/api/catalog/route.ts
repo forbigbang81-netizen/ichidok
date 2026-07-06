@@ -31,23 +31,29 @@ function serializeGenres(s: SeedAnime) {
  *   3. Otherwise, run the upserts in parallel chunks of 8 to keep latency low.
  *
  * Concurrent calls share a single in-flight promise.
+ *
+ * Pass `force: true` to bypass the count short-circuit and re-run all upserts.
+ * Useful when seed data has changed (e.g. type correction) and the DB needs to
+ * be re-synced. The /api/seed POST endpoint uses this.
  */
-export async function ensureSeeded(): Promise<void> {
-  if (seedVerified) return;
+export async function ensureSeeded(opts?: { force?: boolean }): Promise<void> {
+  if (!opts?.force && seedVerified) return;
   if (seedPromise) return seedPromise;
   seedPromise = (async () => {
     try {
       // Fast path — count check. If the DB already has every seed entry,
-      // skip the expensive upsert loop entirely.
-      try {
-        const existing = await db.anime.count();
-        if (existing >= SEED_ANIME.length) {
-          seedVerified = true;
-          return;
+      // skip the expensive upsert loop entirely. Bypassed when force=true.
+      if (!opts?.force) {
+        try {
+          const existing = await db.anime.count();
+          if (existing >= SEED_ANIME.length) {
+            seedVerified = true;
+            return;
+          }
+        } catch {
+          // Count failed (table might not exist yet on first deploy) — fall
+          // through to the upsert loop, which will create rows.
         }
-      } catch {
-        // Count failed (table might not exist yet on first deploy) — fall
-        // through to the upsert loop, which will create rows.
       }
 
       // Parallel upserts in chunks of 8 to avoid overwhelming the DB.
