@@ -79,11 +79,14 @@ export function CatalogView() {
   const visible = useMemo(() => items.slice(0, limit), [items, limit]);
 
   const hasActiveFilters =
-    type !== "All" || status !== "All" || genre !== "All" || sort !== "popularity";
+    type !== "All" ||
+    status !== "All" ||
+    genre !== "All" ||
+    sort !== "popularity";
 
   return (
     <div className="fade-in flex flex-col gap-4 p-4 pb-6">
-      {/* Section header */}
+      {/* Section header — gradient text */}
       <div className="flex items-center gap-2">
         <div className="min-w-0 flex-1">
           <h1 className="flex items-center gap-2 text-lg font-black tracking-editorial">
@@ -113,7 +116,7 @@ export function CatalogView() {
 
       {/* Sort chips — glass pills with gradient active */}
       <div className="no-scrollbar flex gap-1.5 overflow-x-auto">
-        {SORTS.map((s) => {
+        {SORTS.map((s, i) => {
           const active = sort === s.key;
           return (
             <button
@@ -121,11 +124,12 @@ export function CatalogView() {
               type="button"
               onClick={() => setSort(s.key)}
               className={cn(
-                "btn-press shrink-0 rounded-full px-3.5 py-1 text-[11px] font-bold tracking-editorial transition-all duration-300",
+                "fade-in-stagger btn-press shrink-0 rounded-full px-3.5 py-1 text-[11px] font-bold tracking-editorial transition-all duration-300",
                 active
                   ? "brand-gradient-bg text-black"
                   : "glass-card text-white/70 hover:text-[#f5c518]",
               )}
+              style={{ ["--i"]: i } as React.CSSProperties}
             >
               {s.label}
             </button>
@@ -139,7 +143,7 @@ export function CatalogView() {
           "glass-card overflow-hidden rounded-2xl transition-[max-height,opacity,margin] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
           showFilters
             ? "max-h-[640px] opacity-100"
-            : "max-h-0 opacity-0 pointer-events-none",
+            : "pointer-events-none max-h-0 opacity-0",
         )}
       >
         <div className="flex flex-col gap-3 p-3">
@@ -185,7 +189,7 @@ export function CatalogView() {
                 setGenre("All");
                 setSort("popularity");
               }}
-              className="btn-press flex w-fit items-center gap-1 text-[11px] font-bold text-white/60 hover:text-[#f5c518]"
+              className="btn-press flex w-fit items-center gap-1 text-[11px] font-bold text-white/60 transition-colors duration-300 hover:text-[#f5c518]"
             >
               <X className="h-3 w-3" /> Reset filters
             </button>
@@ -201,8 +205,10 @@ export function CatalogView() {
         </CardGrid>
       ) : visible.length === 0 ? (
         <div className="glass-card grid place-items-center rounded-2xl py-16 text-center">
-          <Filter className="mb-2 h-10 w-10 opacity-30" />
-          <p className="gradient-text text-sm font-black">
+          <div className="float-y mb-3 grid h-14 w-14 place-items-center rounded-2xl brand-gradient-soft">
+            <Filter className="h-6 w-6 text-[#f5c518]" />
+          </div>
+          <p className="gradient-text text-sm font-black tracking-editorial">
             No titles match these filters
           </p>
           <p className="mt-1 text-xs text-white/40">
@@ -220,7 +226,7 @@ export function CatalogView() {
             <button
               type="button"
               onClick={() => setLimit((l) => l + 24)}
-              className="btn-press brand-gradient-bg mx-auto flex items-center gap-2 rounded-full px-6 py-2.5 text-xs font-black tracking-editorial text-black shadow-lg shadow-[#ff8a00]/20 transition-transform duration-300 hover:scale-105"
+              className="btn-press brand-gradient-bg glow mx-auto mt-2 flex items-center gap-2 rounded-full px-6 py-2.5 text-xs font-black uppercase tracking-wider text-black shadow-lg shadow-[#ff8a00]/20 transition-transform duration-300 hover:scale-105"
             >
               Load More
               <span className="rounded-full bg-black/20 px-2 py-0.5 text-[10px] font-bold">
@@ -246,7 +252,7 @@ function FilterRow({
       <p className="text-[10px] font-black uppercase tracking-wider text-white/40">
         {label}
       </p>
-      <div className="flex flex-wrap gap-1.5">{children}</div>
+      <div className="no-scrollbar flex flex-wrap gap-1.5">{children}</div>
     </div>
   );
 }
@@ -267,8 +273,8 @@ function Chip({
       className={cn(
         "btn-press rounded-full px-2.5 py-1 text-[11px] font-semibold transition-all duration-300",
         active
-          ? "brand-gradient-bg text-black"
-          : "bg-white/5 text-white/70 hover:text-[#f5c518] hover:bg-white/10",
+          ? "brand-gradient-bg text-black glow"
+          : "glass-card text-white/70 hover:text-[#f5c518]",
       )}
     >
       {children}

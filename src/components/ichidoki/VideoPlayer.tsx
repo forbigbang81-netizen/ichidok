@@ -592,16 +592,14 @@ export function VideoPlayer({
         </div>
       )}
 
-      {/* Custom subtitle overlay — gradient text shadow, no black box */}
+      {/* Custom subtitle overlay — orange glow for readability */}
       {showSubtitles && activeCue && (
         <div className="pointer-events-none absolute inset-x-0 bottom-16 z-20 flex justify-center px-4 sm:bottom-20">
           <span
-            className="max-w-[90%] text-center text-base font-semibold leading-snug text-white"
+            className="max-w-[90%] text-center text-base font-bold leading-snug text-white"
             style={{
-              WebkitTextStroke: "1.5px rgba(0,0,0,0.85)",
-              paintOrder: "stroke fill",
               textShadow:
-                "0 2px 6px rgba(0,0,0,0.85), 0 0 18px rgba(245,197,24,0.25)",
+                "0 0 3px #000, 0 0 6px #000, 0 0 10px #000, 0 0 15px rgba(255,138,0,0.6), 0 0 25px rgba(255,138,0,0.4), 0 2px 4px rgba(0,0,0,0.9)",
             }}
           >
             {activeCue.split("\n").map((line, i) => (
@@ -616,7 +614,10 @@ export function VideoPlayer({
       {/* Subtitle "unavailable" hint — shows briefly when CC is on but no cues */}
       {showSubtitles && !activeCue && cues.length === 0 && !loading && videoUrl && (
         <div className="pointer-events-none absolute inset-x-0 bottom-16 z-20 flex justify-center px-4 sm:bottom-20">
-          <span className="glass-card rounded-md px-3 py-1 text-center text-xs font-medium text-white/80">
+          <span
+            className="rounded-md bg-black/70 px-3 py-1 text-center text-xs font-bold text-white"
+            style={{ textShadow: "0 0 4px #000, 0 0 8px rgba(255,138,0,0.5)" }}
+          >
             字幕なし · No subtitles available for this episode
           </span>
         </div>

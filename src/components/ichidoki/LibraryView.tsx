@@ -113,6 +113,7 @@ export function LibraryView() {
       setHistory([]);
       toast.success("History cleared");
     } catch (e) {
+      console.error(e);
       toast.error("Failed to clear history");
     }
   };
@@ -122,7 +123,9 @@ export function LibraryView() {
     setBookmarkList((prev) => prev.filter((b) => b.malId !== malId));
     try {
       await removeBookmark(malId);
-    } catch {}
+    } catch {
+      /* noop */
+    }
   };
 
   const handleMarkAllRead = async () => {
@@ -130,41 +133,68 @@ export function LibraryView() {
     setNotifications(notifList.map((n) => ({ ...n, read: true })));
     try {
       await markNotificationsRead({ all: true });
-    } catch {}
+    } catch {
+      /* noop */
+    }
   };
 
+  const unreadCount = notifList.filter((n) => !n.read).length;
+
   return (
-    <div className="flex flex-col gap-4 p-4 pb-6 fade-in">
+    <div className="fade-in flex flex-col gap-4 p-4 pb-6">
+      {/* Section header — gradient text */}
       <div>
-        <h1 className="text-lg font-bold text-white">Library</h1>
-        <p className="text-xs text-white/50">
+        <h1 className="flex items-center gap-2 text-lg font-black tracking-editorial">
+          <span className="gradient-text">
+            <Bookmark className="h-5 w-5" />
+          </span>
+          <span className="gradient-text">Library</span>
+        </h1>
+        <p className="mt-0.5 text-xs text-white/50">
           Your history, bookmarks, and notifications.
         </p>
       </div>
 
-      <Tabs defaultValue="history">
-        <TabsList className="bg-white/5">
+      <Tabs defaultValue="history" className="gap-3">
+        <TabsList className="glass-card h-auto w-full gap-1 rounded-full p-1">
           <TabsTrigger
             value="history"
-            className="data-[state=active]:bg-yellow-400 data-[state=active]:text-black"
+            className={cn(
+              "flex-1 rounded-full px-3 py-1.5 text-xs font-bold tracking-editorial transition-all duration-300",
+              "data-[state=active]:brand-gradient-bg data-[state=active]:text-black data-[state=active]:shadow-lg data-[state=active]:shadow-[#ff8a00]/20",
+              "data-[state=inactive]:text-white/55 data-[state=inactive]:hover:text-white/85",
+            )}
           >
             <History className="h-3 w-3" /> Continue
           </TabsTrigger>
           <TabsTrigger
             value="bookmarks"
-            className="data-[state=active]:bg-yellow-400 data-[state=active]:text-black"
+            className={cn(
+              "flex-1 rounded-full px-3 py-1.5 text-xs font-bold tracking-editorial transition-all duration-300",
+              "data-[state=active]:brand-gradient-bg data-[state=active]:text-black data-[state=active]:shadow-lg data-[state=active]:shadow-[#ff8a00]/20",
+              "data-[state=inactive]:text-white/55 data-[state=inactive]:hover:text-white/85",
+            )}
           >
             <Bookmark className="h-3 w-3" /> Bookmarks
           </TabsTrigger>
           <TabsTrigger
             value="notifications"
-            className="data-[state=active]:bg-yellow-400 data-[state=active]:text-black"
+            className={cn(
+              "relative flex-1 rounded-full px-3 py-1.5 text-xs font-bold tracking-editorial transition-all duration-300",
+              "data-[state=active]:brand-gradient-bg data-[state=active]:text-black data-[state=active]:shadow-lg data-[state=active]:shadow-[#ff8a00]/20",
+              "data-[state=inactive]:text-white/55 data-[state=inactive]:hover:text-white/85",
+            )}
           >
             <Bell className="h-3 w-3" /> Updates
+            {unreadCount > 0 && (
+              <span className="brand-gradient-bg ml-1 rounded-full px-1.5 py-0.5 text-[9px] font-black text-black">
+                {unreadCount}
+              </span>
+            )}
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="history" className="mt-3">
+        <TabsContent value="history" className="mt-0">
           {loading ? (
             <CardGrid>
               {Array.from({ length: 6 }).map((_, i) => (
@@ -173,35 +203,37 @@ export function LibraryView() {
             </CardGrid>
           ) : history.length === 0 ? (
             <EmptyState
-              icon={<History className="h-10 w-10 opacity-30" />}
+              icon={<History className="h-7 w-7 text-[#f5c518]" />}
               title="No watch history yet"
               subtitle="Start watching an episode to see it here."
             />
           ) : (
-            <>
-              <div className="mb-3 flex justify-end">
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center justify-between">
+                <span className="glass-card rounded-full px-2.5 py-0.5 text-[11px] font-bold text-white/70">
+                  {history.length} entr{history.length === 1 ? "y" : "ies"}
+                </span>
                 <button
                   type="button"
                   onClick={handleClearHistory}
-                  className="flex items-center gap-1 text-[11px] font-medium text-white/50 hover:text-red-400"
+                  className="btn-press glass-card flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-bold text-white/60 transition-all duration-300 hover:text-red-400"
                 >
                   <Trash2 className="h-3 w-3" /> Clear all
                 </button>
               </div>
-              <div className="flex flex-col gap-2">
-                {history.map((h) => (
-                  <HistoryRow
-                    key={`${h.malId}-${h.episode}`}
-                    item={h}
-                    onClick={() => openAnime(h.malId, h.episode, h.position)}
-                  />
-                ))}
-              </div>
-            </>
+              {history.map((h, i) => (
+                <HistoryRowV2
+                  key={`${h.malId}-${h.episode}`}
+                  item={h}
+                  index={i}
+                  onClick={() => openAnime(h.malId, h.episode, h.position)}
+                />
+              ))}
+            </div>
           )}
         </TabsContent>
 
-        <TabsContent value="bookmarks" className="mt-3">
+        <TabsContent value="bookmarks" className="mt-0">
           {loading ? (
             <CardGrid>
               {Array.from({ length: 6 }).map((_, i) => (
@@ -210,14 +242,14 @@ export function LibraryView() {
             </CardGrid>
           ) : bookmarkAnime.length === 0 ? (
             <EmptyState
-              icon={<Bookmark className="h-10 w-10 opacity-30" />}
+              icon={<Bookmark className="h-7 w-7 text-[#f5c518]" />}
               title="No bookmarks yet"
               subtitle="Tap the bookmark icon on an anime to save it here."
             />
           ) : (
             <>
-              <div className="mb-3 flex justify-end">
-                <span className="text-[11px] text-white/50">
+              <div className="mb-3 flex items-center justify-between">
+                <span className="glass-card rounded-full px-2.5 py-0.5 text-[11px] font-bold text-white/70">
                   {bookmarkAnime.length} saved
                 </span>
               </div>
@@ -231,7 +263,7 @@ export function LibraryView() {
                         e.stopPropagation();
                         handleRemoveBookmark(a.malId);
                       }}
-                      className="absolute right-1 top-1 grid h-6 w-6 place-items-center rounded-full bg-black/70 text-white/80 hover:bg-red-500/80 hover:text-white"
+                      className="glass-card btn-press absolute right-1 top-1 grid h-7 w-7 place-items-center rounded-full text-white/80 transition-all duration-300 hover:bg-red-500/80 hover:text-white"
                       aria-label="Remove bookmark"
                     >
                       <Trash2 className="h-3 w-3" />
@@ -243,36 +275,42 @@ export function LibraryView() {
           )}
         </TabsContent>
 
-        <TabsContent value="notifications" className="mt-3">
+        <TabsContent value="notifications" className="mt-0">
           {loading ? (
             <div className="flex flex-col gap-2">
               {Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="h-16 rounded-lg shimmer" />
+                <div
+                  key={i}
+                  className="h-20 rounded-xl skeleton-shimmer"
+                />
               ))}
             </div>
           ) : notifList.length === 0 ? (
             <EmptyState
-              icon={<Bell className="h-10 w-10 opacity-30" />}
+              icon={<Bell className="h-7 w-7 text-[#f5c518]" />}
               title="No notifications"
               subtitle="New episode alerts will appear here."
             />
           ) : (
-            <>
-              <div className="mb-3 flex justify-end">
-                <button
-                  type="button"
-                  onClick={handleMarkAllRead}
-                  className="flex items-center gap-1 text-[11px] font-medium text-white/60 hover:text-yellow-400"
-                >
-                  <Check className="h-3 w-3" /> Mark all read
-                </button>
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center justify-between">
+                <span className="glass-card rounded-full px-2.5 py-0.5 text-[11px] font-bold text-white/70">
+                  {notifList.length} total
+                </span>
+                {unreadCount > 0 && (
+                  <button
+                    type="button"
+                    onClick={handleMarkAllRead}
+                    className="btn-press brand-gradient-bg glow flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-bold text-black transition-all duration-300"
+                  >
+                    <Check className="h-3 w-3" /> Mark all read
+                  </button>
+                )}
               </div>
-              <div className="flex flex-col gap-2">
-                {notifList.map((n) => (
-                  <NotificationRow key={n.id} item={n} />
-                ))}
-              </div>
-            </>
+              {notifList.map((n, i) => (
+                <NotificationRowV2 key={n.id} item={n} index={i} />
+              ))}
+            </div>
           )}
         </TabsContent>
       </Tabs>
@@ -280,11 +318,13 @@ export function LibraryView() {
   );
 }
 
-function HistoryRow({
+function HistoryRowV2({
   item,
+  index,
   onClick,
 }: {
   item: HistoryItem;
+  index: number;
   onClick: () => void;
 }) {
   const { main, sub } = splitTitle(item.title);
@@ -294,9 +334,12 @@ function HistoryRow({
     <button
       type="button"
       onClick={onClick}
-      className="flex items-center gap-3 rounded-lg bg-white/[0.04] p-2 text-left transition hover:bg-white/[0.08]"
+      className={cn(
+        "fade-in-stagger glass-card card-hover flex items-center gap-3 rounded-xl p-2 text-left",
+      )}
+      style={{ ["--i"]: index } as React.CSSProperties}
     >
-      <div className="relative h-16 w-28 shrink-0 overflow-hidden rounded-md bg-[#1a1a22]">
+      <div className="relative h-16 w-28 shrink-0 overflow-hidden rounded-lg bg-[#1a1a22]">
         {item.poster && (
           <img
             src={item.poster}
@@ -304,19 +347,31 @@ function HistoryRow({
             className="h-full w-full object-cover"
           />
         )}
-        <div className="absolute inset-0 grid place-items-center bg-black/30">
-          <PlayCircle className="h-7 w-7 text-white drop-shadow" />
+        <div className="absolute inset-0 grid place-items-center bg-black/35">
+          <PlayCircle className="h-7 w-7 text-white drop-shadow-lg" />
         </div>
+        {/* Gradient progress bar overlay */}
+        {pct > 0 && (
+          <div className="absolute inset-x-0 bottom-0 h-1 bg-white/10">
+            <div
+              className="brand-gradient-bg h-full transition-all duration-500"
+              style={{ width: `${pct}%` }}
+            />
+          </div>
+        )}
       </div>
       <div className="min-w-0 flex-1">
-        <p className="truncate text-xs font-semibold text-white">{main}</p>
-        {sub && <p className="truncate text-[10px] text-white/50">{sub}</p>}
-        <p className="mt-0.5 text-[10px] text-white/40">
+        <p className="truncate text-xs font-bold tracking-editorial text-white">
+          {main}
+        </p>
+        {sub && <p className="truncate text-[10px] text-white/45">{sub}</p>}
+        <p className="mt-0.5 text-[10px] font-medium text-white/45">
           Episode {item.episode} · {Math.round(pct)}% watched
         </p>
+        {/* Gradient progress bar inline */}
         <div className="mt-1 h-1 w-full overflow-hidden rounded-full bg-white/10">
           <div
-            className="h-full bg-yellow-400"
+            className="brand-gradient-bg h-full transition-all duration-500"
             style={{ width: `${pct}%` }}
           />
         </div>
@@ -325,29 +380,49 @@ function HistoryRow({
   );
 }
 
-function NotificationRow({ item }: { item: NotificationItem }) {
+function NotificationRowV2({
+  item,
+  index,
+}: {
+  item: NotificationItem;
+  index: number;
+}) {
   return (
     <div
       className={cn(
-        "flex gap-3 rounded-lg border p-3",
-        item.read
-          ? "border-white/5 bg-white/[0.02]"
-          : "border-yellow-400/30 bg-yellow-400/[0.05]",
+        "fade-in-stagger glass-card flex gap-3 rounded-xl p-3 transition-all duration-300",
+        !item.read && "glow",
       )}
+      style={{ ["--i"]: index } as React.CSSProperties}
     >
+      {/* Unread gradient dot */}
       <div
         className={cn(
           "mt-1 h-2 w-2 shrink-0 rounded-full",
-          item.read ? "bg-white/20" : "bg-yellow-400",
+          item.read ? "bg-white/20" : "brand-gradient-bg pulse-glow",
         )}
       />
       <div className="min-w-0 flex-1">
-        <p className="text-xs font-semibold text-white">{item.title}</p>
-        <p className="mt-0.5 text-[11px] text-white/60">{item.body}</p>
-        <p className="mt-1 text-[10px] text-white/30">
+        <p
+          className={cn(
+            "text-xs font-bold tracking-editorial",
+            item.read ? "text-white/70" : "text-white",
+          )}
+        >
+          {item.title}
+        </p>
+        <p className="mt-0.5 text-[11px] leading-relaxed text-white/60">
+          {item.body}
+        </p>
+        <p className="mt-1 text-[10px] font-medium text-white/35">
           {new Date(item.createdAt).toLocaleString()}
         </p>
       </div>
+      {!item.read && (
+        <span className="brand-gradient-bg h-fit shrink-0 rounded-full px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-black">
+          New
+        </span>
+      )}
     </div>
   );
 }
@@ -362,10 +437,16 @@ function EmptyState({
   subtitle: string;
 }) {
   return (
-    <div className="grid place-items-center py-12 text-center text-white/40">
-      <div className="mb-2">{icon}</div>
-      <p className="text-sm font-medium text-white/70">{title}</p>
-      <p className="mt-1 text-xs text-white/40">{subtitle}</p>
+    <div className="glass-card grid place-items-center rounded-2xl py-16 text-center">
+      <div className="float-y mb-3 grid h-14 w-14 place-items-center rounded-2xl brand-gradient-soft pulse-glow">
+        {icon}
+      </div>
+      <p className="gradient-text text-sm font-black tracking-editorial">
+        {title}
+      </p>
+      <p className="mt-1.5 max-w-[16rem] text-xs leading-relaxed text-white/45">
+        {subtitle}
+      </p>
     </div>
   );
 }

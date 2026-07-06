@@ -73,7 +73,7 @@ export function ScheduleView() {
 
       {/* Day selector — glass pills with gradient active state */}
       <div className="no-scrollbar flex gap-1.5 overflow-x-auto">
-        {DAYS.map((d) => {
+        {DAYS.map((d, i) => {
           const count = schedule[d]?.length ?? 0;
           const active = d === activeDay;
           const isToday = d === today;
@@ -83,25 +83,26 @@ export function ScheduleView() {
               type="button"
               onClick={() => setActiveDay(d)}
               className={cn(
-                "btn-press relative flex min-w-[3.5rem] flex-col items-center rounded-xl px-2.5 py-2 text-center transition-all duration-300",
+                "fade-in-stagger btn-press relative flex min-w-[3.75rem] flex-col items-center rounded-xl px-2.5 py-2 text-center transition-all duration-300",
                 active
                   ? "brand-gradient-bg text-black glow"
                   : "glass-card text-white/70 hover:text-white",
               )}
+              style={{ ["--i"]: i } as React.CSSProperties}
             >
               <span className="text-[10px] font-black uppercase tracking-wider">
                 {d}
               </span>
               <span
                 className={cn(
-                  "mt-0.5 text-[11px] font-bold",
-                  active ? "text-black/70" : "text-white/40",
+                  "mt-0.5 text-[12px] font-black",
+                  active ? "text-black/75" : "text-white/45",
                 )}
               >
                 {count}
               </span>
               {isToday && !active && (
-                <span className="absolute -top-1 h-1.5 w-1.5 rounded-full brand-gradient-bg" />
+                <span className="brand-gradient-bg absolute -top-1 h-1.5 w-1.5 rounded-full" />
               )}
               {isToday && active && (
                 <span className="absolute -top-1 h-1.5 w-1.5 rounded-full bg-black" />
@@ -127,10 +128,16 @@ export function ScheduleView() {
           ))}
         </CardGrid>
       ) : activeList.length === 0 ? (
-        <div className="glass-card grid place-items-center rounded-2xl py-12 text-center">
-          <CalendarDays className="mb-2 h-10 w-10 opacity-30" />
-          <p className="gradient-text text-sm font-bold">Nothing airing today</p>
-          <p className="mt-1 text-xs text-white/40">Try another day of the week.</p>
+        <div className="glass-card grid place-items-center rounded-2xl py-14 text-center">
+          <div className="float-y mb-3 grid h-14 w-14 place-items-center rounded-2xl brand-gradient-soft">
+            <CalendarDays className="h-6 w-6 text-[#f5c518]" />
+          </div>
+          <p className="gradient-text text-sm font-black tracking-editorial">
+            Nothing airing today
+          </p>
+          <p className="mt-1 text-xs text-white/40">
+            Try another day of the week.
+          </p>
         </div>
       ) : (
         <CardGrid>
@@ -144,7 +151,7 @@ export function ScheduleView() {
       {!loading && Object.keys(schedule).length > 0 && (
         <div className="glass-card mt-4 rounded-2xl p-3">
           <p className="mb-2.5 flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-white/50">
-            <Clock className="h-3 w-3" />
+            <Clock className="h-3 w-3 text-[#f5c518]" />
             Week at a glance
           </p>
           <div className="grid grid-cols-7 gap-1.5">
@@ -183,7 +190,7 @@ export function ScheduleView() {
                   {isToday && (
                     <span
                       className={cn(
-                        "absolute -top-0.5 -right-0.5 h-1.5 w-1.5 rounded-full",
+                        "absolute -right-0.5 -top-0.5 h-1.5 w-1.5 rounded-full",
                         isActive ? "bg-black" : "brand-gradient-bg",
                       )}
                     />

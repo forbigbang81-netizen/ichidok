@@ -27,6 +27,13 @@ import { VideoPlayer } from "./VideoPlayer";
 
 type DetailTab = "episodes" | "continue" | "seasons" | "synopsis" | "details";
 
+interface BroadcastInfo {
+  day?: string;
+  time?: string;
+  timezone?: string;
+  string?: string;
+}
+
 export function AnimeDetailView() {
   const {
     selectedMalId,
@@ -171,7 +178,7 @@ export function AnimeDetailView() {
 
   if (loading) {
     return (
-      <div className="flex min-h-[60vh] flex-col gap-3 p-4">
+      <div className="fade-in flex min-h-[60vh] flex-col gap-3 p-4">
         <div className="aspect-video w-full rounded-2xl skeleton-shimmer" />
         <div className="h-6 w-2/3 rounded skeleton-shimmer" />
         <div className="h-4 w-1/2 rounded skeleton-shimmer" />
@@ -187,12 +194,15 @@ export function AnimeDetailView() {
   if (!anime || !selectedMalId) {
     return (
       <div className="grid min-h-[60vh] place-items-center p-6 text-center text-white/60">
-        <div>
-          <p className="text-sm">Anime not found.</p>
+        <div className="fade-in flex flex-col items-center">
+          <div className="mb-3 grid h-14 w-14 place-items-center rounded-2xl brand-gradient-soft">
+            <Film className="h-6 w-6 text-[#f5c518]" />
+          </div>
+          <p className="text-sm font-semibold text-white/80">Anime not found.</p>
           <button
             type="button"
             onClick={back}
-            className="btn-press brand-gradient-bg mt-3 rounded-full px-4 py-2 text-xs font-bold text-black"
+            className="btn-press brand-gradient-bg glow mt-4 rounded-full px-5 py-2 text-xs font-black uppercase tracking-wider text-black"
           >
             Go Back
           </button>
@@ -246,7 +256,7 @@ export function AnimeDetailView() {
     <div className="fade-in flex flex-col gap-4 pb-8">
       {/* Glass header with gradient back button */}
       <header className="glass-header sticky top-0 z-20">
-        <div className="flex items-center gap-2 px-3 py-2 pt-safe">
+        <div className="flex items-center gap-2 px-3 py-2.5 pt-safe">
           <button
             type="button"
             onClick={back}
@@ -255,7 +265,7 @@ export function AnimeDetailView() {
           >
             <ArrowLeft className="h-5 w-5" />
           </button>
-          <p className="truncate text-sm font-bold tracking-editorial text-white">
+          <p className="truncate text-sm font-black tracking-editorial text-white">
             Details
           </p>
           <button
@@ -270,7 +280,10 @@ export function AnimeDetailView() {
             aria-label="Bookmark"
           >
             <Bookmark
-              className={cn("h-5 w-5 transition-transform", isBookmarked && "fill-black")}
+              className={cn(
+                "h-5 w-5 transition-transform",
+                isBookmarked && "fill-black",
+              )}
             />
           </button>
         </div>
@@ -385,7 +398,8 @@ export function AnimeDetailView() {
                 {isAiring ? "Next episode airs in" : "Broadcast"}
               </p>
               <p className="gradient-text text-xs font-bold tracking-editorial">
-                {broadcast?.string ?? `${broadcast?.day} ${broadcast?.time} JST`}
+                {broadcast?.string ??
+                  `${broadcast?.day} ${broadcast?.time} JST`}
               </p>
             </div>
             {isAiring && (
@@ -513,7 +527,12 @@ export function AnimeDetailView() {
                       </div>
                       {/* Gradient progress bar */}
                       {h.duration > 0 && (
-                        <div className="absolute bottom-0 left-0 h-1 brand-gradient-bg" style={{ width: `${Math.min(100, h.progress)}%` }} />
+                        <div
+                          className="brand-gradient-bg absolute bottom-0 left-0 h-1"
+                          style={{
+                            width: `${Math.min(100, h.progress)}%`,
+                          }}
+                        />
                       )}
                     </div>
                     <div className="min-w-0 flex-1">
@@ -526,7 +545,9 @@ export function AnimeDetailView() {
                         Episode {h.episode}
                       </p>
                       <p className="text-[10px] text-white/50">
-                        {h.progress > 0 ? `${Math.round(h.progress)}% watched` : "Not started"}
+                        {h.progress > 0
+                          ? `${Math.round(h.progress)}% watched`
+                          : "Not started"}
                       </p>
                       {h.watchedAt && (
                         <p className="text-[9px] text-white/40">
@@ -718,13 +739,6 @@ function PillTabs({
 }
 
 // ---- Episode countdown timer ----
-
-interface BroadcastInfo {
-  day?: string;
-  time?: string;
-  timezone?: string;
-  string?: string;
-}
 
 function getNextAirTime(broadcast: BroadcastInfo | null): Date | null {
   if (!broadcast?.day || !broadcast?.time) return null;

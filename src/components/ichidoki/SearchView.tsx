@@ -54,7 +54,7 @@ export function SearchView() {
 
   return (
     <div className="fade-in flex flex-col gap-4 p-4 pb-6">
-      {/* Section header */}
+      {/* Section header — gradient text */}
       <div>
         <h1 className="flex items-center gap-2 text-lg font-black tracking-editorial">
           <span className="gradient-text">
@@ -122,7 +122,7 @@ export function SearchView() {
       {!touched && (
         <div className="flex flex-wrap items-center gap-1.5">
           <span className="flex items-center gap-1 text-[11px] font-bold text-white/50">
-            <TrendingUp className="h-3 w-3" />
+            <TrendingUp className="h-3 w-3 text-[#f5c518]" />
             Trending
           </span>
           {TRENDING_QUERIES.map((q, i) => (
