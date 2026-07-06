@@ -44,6 +44,8 @@ export function AnimeDetailView() {
   const [episodes, setEpisodes] = useState<Episode[]>([]);
   const [loading, setLoading] = useState(true);
   const [seasons, setSeasons] = useState<{ malId: number; label: string; anime: Anime | null }[]>([]);
+  const [broadcast, setBroadcast] = useState<any>(null);
+  useCountdownTick();
 
   const isBookmarked = selectedMalId
     ? bookmarks.includes(selectedMalId)
@@ -54,10 +56,11 @@ export function AnimeDetailView() {
     let cancelled = false;
     setLoading(true);
     fetchAnimeDetail(selectedMalId, true)
-      .then((r) => {
+      .then((r: any) => {
         if (cancelled) return;
         setAnime(r.anime);
         setEpisodes(r.episodes ?? []);
+        setBroadcast(r.broadcast ?? null);
       })
       .catch((e) => {
         if (!cancelled) toast.error(`Failed to load: ${e.message}`);
@@ -337,13 +340,20 @@ export function AnimeDetailView() {
           <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
             {episodeList.map((ep) => {
               const active = ep.number === selectedEpisode;
+              const isAiring = anime.status === "Currently Airing";
+              const watchedEps = continueWatching.map((h) => h.episode);
+              const latestAvailableEp = watchedEps.length > 0 ? Math.max(...watchedEps) : 0;
+              const hasStream = !isAiring || ep.number <= latestAvailableEp;
+              const epStatus = isAiring
+                ? getEpisodeAirStatus(ep.number, anime.episodeCount, broadcast, hasStream, latestAvailableEp)
+                : null;
               return (
                 <button
                   key={ep.number}
                   type="button"
                   onClick={() => setSelectedEpisode(ep.number)}
                   className={cn(
-                    "flex aspect-video flex-col justify-between rounded-md border p-2 text-left transition",
+                    "relative flex aspect-video flex-col justify-between rounded-md border p-2 text-left transition overflow-hidden",
                     active
                       ? "border-yellow-400 bg-yellow-400/10"
                       : "border-white/5 bg-white/5 hover:bg-white/10",
@@ -363,6 +373,18 @@ export function AnimeDetailView() {
                   {ep.filler && (
                     <span className="text-[9px] font-bold text-red-400">
                       FILLER
+                    </span>
+                  )}
+                  {epStatus && (
+                    <span className={cn(
+                      "absolute bottom-1 right-1 rounded px-1 py-0.5 text-[8px] font-bold",
+                      epStatus.type === "countdown"
+                        ? "bg-yellow-400/20 text-yellow-400"
+                        : epStatus.type === "coming-soon"
+                          ? "bg-orange-500/20 text-orange-400"
+                          : "bg-green-500/20 text-green-400"
+                    )}>
+                      {epStatus.label}
                     </span>
                   )}
                 </button>
@@ -525,4 +547,65 @@ function DetailRow({ label, value }: { label: string; value: string }) {
       <dd className="truncate text-xs font-medium text-white/90">{value}</dd>
     </div>
   );
+}
+
+// ---- Episode countdown timer ----
+
+interface BroadcastInfo { day?: string; time?: string; timezone?: string; string?: string }
+
+function getNextAirTime(broadcast: BroadcastInfo | null): Date | null {
+  if (!broadcast?.day || !broadcast?.time) return null;
+  const dayMap: Record<string, number> = {
+    sunday: 0, monday: 1, tuesday: 2, wednesday: 3, thursday: 4, friday: 5, saturday: 6,
+    sundays: 0, mondays: 1, tuesdays: 2, wednesdays: 3, thursdays: 4, fridays: 5, saturdays: 6,
+  };
+  const targetDay = dayMap[broadcast.day.toLowerCase()];
+  if (targetDay === undefined) return null;
+  const [hours, minutes] = broadcast.time.split(":").map(Number);
+  if (isNaN(hours) || isNaN(minutes)) return null;
+  const now = new Date();
+  const nowJst = new Date(now.getTime() + 9 * 3600000);
+  const nextAirJst = new Date(nowJst);
+  let daysUntil = (targetDay - nowJst.getDay() + 7) % 7;
+  if (daysUntil === 0) {
+    const curMin = nowJst.getHours() * 60 + nowJst.getMinutes();
+    const airMin = hours * 60 + minutes;
+    if (curMin >= airMin) daysUntil = 7;
+  }
+  nextAirJst.setDate(nowJst.getDate() + daysUntil);
+  nextAirJst.setHours(hours, minutes, 0, 0);
+  return new Date(nextAirJst.getTime() - 9 * 3600000);
+}
+
+function getEpisodeAirStatus(
+  epNumber: number, _totalEps: number, broadcast: BroadcastInfo | null,
+  hasStream: boolean, latestAvailableEp: number,
+): { type: "countdown" | "coming-soon" | "available"; label: string } | null {
+  if (!broadcast?.day || !broadcast?.time) return null;
+  if (hasStream) return { type: "available", label: "AVAILABLE" };
+  const nextAir = getNextAirTime(broadcast);
+  if (!nextAir) return null;
+  // Calculate this episode's air time: next air is for ep (latestAvailableEp + 1)
+  const weeksDiff = (latestAvailableEp + 1) - epNumber;
+  const epAirTime = new Date(nextAir.getTime() - weeksDiff * 7 * 24 * 3600000);
+  const diff = epAirTime.getTime() - Date.now();
+  if (diff > 0) {
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    let label: string;
+    if (days > 0) label = `${days}d ${hours}h`;
+    else if (hours > 0) label = `${hours}h ${mins}m`;
+    else label = `${mins}m`;
+    return { type: "countdown", label };
+  }
+  return { type: "coming-soon", label: "COMING SOON" };
+}
+
+function useCountdownTick() {
+  const [, setTick] = useState(0);
+  useEffect(() => {
+    const interval = setInterval(() => setTick((t) => t + 1), 60000);
+    return () => clearInterval(interval);
+  }, []);
 }

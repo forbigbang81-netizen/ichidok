@@ -231,7 +231,7 @@ export const SEED_ANIME: SeedAnime[] = [
   { malId: 62076, title: "Smoking Behind the Supermarket with You", titleEnglish: "Smoking Behind the Supermarket with You", titleJapanese: "スーパーの裏でヤニ吸うふたり",
     synopsis: "The sole thing that gets Sasaki through his soul-sucking job is a cheerful smile from Yamada. After a grueling day, he meets Tayama behind the store.",
     poster: "https://cdn.myanimelist.net/images/anime/1768/156339l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1768/156339l.jpg",
-    type: "TV", status: "Currently Airing", score: 8.51, scoredBy: 26973, rank: 162, popularity: 1951, members: 135442,
+    type: "TV", status: "Finished Airing", score: 8.51, scoredBy: 26973, rank: 162, popularity: 1951, members: 135442,
     year: 2026, season: "summer", genres: ["Romance"], studios: ["Asahi Production"],
     episodeCount: 12, duration: "23 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
     // Real English dialogue subtitles extracted from the embedded Crunchyroll ASS
