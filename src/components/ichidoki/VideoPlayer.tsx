@@ -71,6 +71,9 @@ const HIDE_CONTROLS_MS = 10000;
 const SPEEDS = [0.5, 0.75, 1, 1.25, 1.5, 2];
 const QUALITIES = ["Auto", "1080p", "720p", "480p", "360p"];
 const AMBIENT_SAMPLE_INTERVAL_MS = 2000;
+const KB_HINT_AUTOHIDE_MS = 5500;
+const VOLUME_HUD_AUTOHIDE_MS = 1200;
+const VOLUME_STEP = 0.1;
 
 // ============================================================
 // VTT parsing utilities
@@ -136,6 +139,18 @@ function rgbToLuma(r: number, g: number, b: number): number {
   return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
 }
 
+/**
+ * Returns true if the currently focused element is a text-input control
+ * (so we can avoid hijacking its keystrokes for player shortcuts).
+ */
+function isTextInput(el: Element | null): boolean {
+  if (!el) return false;
+  const tag = el.tagName.toLowerCase();
+  if (tag === "input" || tag === "textarea" || tag === "select") return true;
+  if ((el as HTMLElement).isContentEditable) return true;
+  return false;
+}
+
 // ============================================================
 // VideoPlayer
 // ============================================================
@@ -163,6 +178,9 @@ export function VideoPlayer({
   const audioSwitchPositionRef = useRef<number | null>(null);
   // Canvas used for ambient backlight color sampling.
   const ambientCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  // Ensures the keyboard-shortcut hint only plays once per mount.
+  const hintShownRef = useRef(false);
+  const volumeHudTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const {
     setAudioMode,
@@ -188,6 +206,9 @@ export function VideoPlayer({
   const [cues, setCues] = useState<SubtitleCue[]>([]);
   const [activeCue, setActiveCue] = useState("");
   const [muted, setMuted] = useState(false);
+  // Volume is tracked in state so keyboard shortcuts can update the HUD
+  // and the mute icon can reflect a zero-volume state.
+  const [volume, setVolume] = useState(1);
   const [audioTracks, setAudioTracks] = useState<AudioTrackInfo[]>([]);
   const [activeAudioTrack, setActiveAudioTrack] = useState<number>(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -197,6 +218,10 @@ export function VideoPlayer({
   const [ambientColor, setAmbientColor] = useState<string>(
     "rgba(255, 138, 0, 0.45)",
   );
+  // Brief on-load keyboard-shortcut hint overlay.
+  const [showKbHint, setShowKbHint] = useState(false);
+  // Transient volume HUD shown when adjusting volume via keyboard.
+  const [showVolumeHud, setShowVolumeHud] = useState(false);
 
   // ----- Auto-hide controls -----
   const keepControlsAlive = useCallback(() => {
@@ -301,6 +326,9 @@ export function VideoPlayer({
     };
     const onLoadedMeta = () => {
       setDuration(v.duration || 0);
+      // Sync volume state with the media element on load.
+      setVolume(v.volume);
+      setMuted(v.muted);
       // Resume position — prefer audio-switch captured position, fall back
       // to the resumePosition prop supplied by the parent (history-based).
       if (!resumeAppliedRef.current) {
@@ -490,6 +518,12 @@ export function VideoPlayer({
   const toggleMute = useCallback(() => {
     const v = videoRef.current;
     if (!v) return;
+    // If we're unmuting into a zero-volume state, restore audible volume
+    // so the user actually hears something.
+    if (v.muted && v.volume === 0) {
+      v.volume = 1;
+      setVolume(1);
+    }
     v.muted = !v.muted;
     setMuted(v.muted);
     keepControlsAlive();
@@ -559,6 +593,98 @@ export function VideoPlayer({
     [setAudioMode, keepControlsAlive],
   );
 
+  // ----- Volume HUD (briefly visible when adjusting volume via keyboard) -----
+  const flashVolumeHud = useCallback(() => {
+    setShowVolumeHud(true);
+    if (volumeHudTimerRef.current) clearTimeout(volumeHudTimerRef.current);
+    volumeHudTimerRef.current = setTimeout(
+      () => setShowVolumeHud(false),
+      VOLUME_HUD_AUTOHIDE_MS,
+    );
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (volumeHudTimerRef.current) clearTimeout(volumeHudTimerRef.current);
+    };
+  }, []);
+
+  // ----- Keyboard shortcuts -----
+  // Space/K: play-pause · ←/→: seek ±10s · ↑/↓: volume · F: fullscreen ·
+  // M: mute · C: captions. Ignored while typing in inputs/textareas.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (isTextInput(document.activeElement)) return;
+      const v = videoRef.current;
+      if (!v) return;
+
+      switch (e.key) {
+        case " ":
+        case "k":
+        case "K":
+          e.preventDefault();
+          togglePlay();
+          break;
+        case "ArrowLeft":
+          e.preventDefault();
+          skip(-10);
+          break;
+        case "ArrowRight":
+          e.preventDefault();
+          skip(10);
+          break;
+        case "ArrowUp": {
+          e.preventDefault();
+          const next = Math.min(1, v.volume + VOLUME_STEP);
+          v.volume = next;
+          setVolume(next);
+          if (v.muted) {
+            v.muted = false;
+            setMuted(false);
+          }
+          flashVolumeHud();
+          keepControlsAlive();
+          break;
+        }
+        case "ArrowDown": {
+          e.preventDefault();
+          const next = Math.max(0, v.volume - VOLUME_STEP);
+          v.volume = next;
+          setVolume(next);
+          flashVolumeHud();
+          keepControlsAlive();
+          break;
+        }
+        case "f":
+        case "F":
+          e.preventDefault();
+          toggleFullscreenFn();
+          break;
+        case "m":
+        case "M":
+          e.preventDefault();
+          toggleMute();
+          flashVolumeHud();
+          break;
+        case "c":
+        case "C":
+          e.preventDefault();
+          setShowSubtitles((s) => !s);
+          keepControlsAlive();
+          break;
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [
+    togglePlay,
+    skip,
+    toggleMute,
+    toggleFullscreenFn,
+    keepControlsAlive,
+    flashVolumeHud,
+  ]);
+
   const onSeekScrub = (val: number[]) => {
     seekingRef.current = true;
     setCurrentTime(val[0]);
@@ -576,6 +702,16 @@ export function VideoPlayer({
   // controls remain readable (rather than being backwards) when the video
   // is horizontally flipped in fullscreen.
   const mirrorStyle = isFullscreen ? "scaleX(-1)" : undefined;
+
+  // ----- Keyboard-shortcut hint: show once on first ready, then auto-hide -----
+  useEffect(() => {
+    if (hintShownRef.current) return;
+    if (loading || error || !videoUrl || isYoutube) return;
+    hintShownRef.current = true;
+    setShowKbHint(true);
+    const t = setTimeout(() => setShowKbHint(false), KB_HINT_AUTOHIDE_MS);
+    return () => clearTimeout(t);
+  }, [loading, error, videoUrl, isYoutube]);
 
   // ----- YouTube iframe branch -----
   if (isYoutube && videoUrl) {
@@ -630,6 +766,9 @@ export function VideoPlayer({
     duration > 0 ? Math.min(100, (currentTime / duration) * 100) : 0;
   const bufferedPct =
     duration > 0 ? Math.min(100, (buffered / duration) * 100) : 0;
+
+  // Icon used by the mute button + volume HUD.
+  const isEffectivelyMuted = muted || volume === 0;
 
   return (
     <div
@@ -725,6 +864,71 @@ export function VideoPlayer({
         <div className="absolute inset-0 z-40 grid place-items-center bg-black/80 p-6">
           <div className="glass-card flex max-w-xs flex-col items-center gap-3 rounded-xl p-5 text-center text-white">
             <p className="text-sm leading-relaxed">{error}</p>
+          </div>
+        </div>
+      )}
+
+      {/* ===== Keyboard shortcuts hint — appears briefly on first load ===== */}
+      {showKbHint && !loading && !error && videoUrl && (
+        <div
+          className="pointer-events-none absolute left-1/2 top-12 z-40 w-[92%] max-w-md -translate-x-1/2 scale-in"
+          style={{ transform: mirrorStyle ? `translateX(-50%) scaleX(-1)` : "translateX(-50%)" }}
+        >
+          <div className="glass-card flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-xl px-3 py-2 text-[10px] text-white/85 backdrop-blur-md">
+            <span
+              className="gradient-text font-black uppercase tracking-wider"
+              style={{ textShadow: "0 0 8px rgba(255,138,0,0.5)" }}
+            >
+              Shortcuts
+            </span>
+            <span className="flex items-center gap-1">
+              <Kbd>Space</Kbd> Play
+            </span>
+            <span className="flex items-center gap-1">
+              <Kbd>←</Kbd>
+              <Kbd>→</Kbd> Seek
+            </span>
+            <span className="flex items-center gap-1">
+              <Kbd>↑</Kbd>
+              <Kbd>↓</Kbd> Vol
+            </span>
+            <span className="flex items-center gap-1">
+              <Kbd>F</Kbd> Full
+            </span>
+            <span className="flex items-center gap-1">
+              <Kbd>M</Kbd> Mute
+            </span>
+            <span className="flex items-center gap-1">
+              <Kbd>C</Kbd> CC
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* ===== Volume HUD — brief feedback when adjusting volume ===== */}
+      {showVolumeHud && (
+        <div
+          className="pointer-events-none absolute left-1/2 top-1/2 z-40 -translate-x-1/2 -translate-y-1/2 scale-in"
+          style={{ transform: mirrorStyle ? `translate(-50%, -50%) scaleX(-1)` : "translate(-50%, -50%)" }}
+        >
+          <div className="glass-card flex items-center gap-3 rounded-2xl px-5 py-3 backdrop-blur-md">
+            {isEffectivelyMuted ? (
+              <VolumeX className="h-6 w-6 text-white" />
+            ) : (
+              <Volume2 className="h-6 w-6 text-[#f5c518]" />
+            )}
+            <div className="h-2 w-28 overflow-hidden rounded-full bg-white/20">
+              <div
+                className="brand-gradient-bg h-full rounded-full transition-[width] duration-150 ease-out"
+                style={{ width: `${Math.round(volume * 100)}%` }}
+              />
+            </div>
+            <span
+              className="gradient-text w-9 text-right text-sm font-black tabular-nums"
+              style={{ textShadow: "0 0 8px rgba(255,138,0,0.5)" }}
+            >
+              {Math.round(volume * 100)}
+            </span>
           </div>
         </div>
       )}
@@ -905,7 +1109,7 @@ export function VideoPlayer({
             className="grid h-8 w-8 place-items-center rounded-full hover:bg-white/10"
             aria-label="Mute"
           >
-            {muted ? (
+            {isEffectivelyMuted ? (
               <VolumeX className="h-4 w-4" />
             ) : (
               <Volume2 className="h-4 w-4" />
@@ -1048,6 +1252,18 @@ export function VideoPlayer({
 // ============================================================
 // Sub-components
 // ============================================================
+
+// Small <kbd>-styled key cap used by the keyboard-shortcut hint.
+function Kbd({ children }: { children: React.ReactNode }) {
+  return (
+    <kbd
+      className="inline-grid min-w-[18px] place-items-center rounded border border-white/20 bg-white/10 px-1 text-[9px] font-bold text-white"
+      style={{ textShadow: "0 1px 2px rgba(0,0,0,0.6)" }}
+    >
+      {children}
+    </kbd>
+  );
+}
 
 // SUB/DUB toggle — glass pill with sliding gradient indicator
 function SubDubPill({

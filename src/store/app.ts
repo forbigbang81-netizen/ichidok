@@ -20,6 +20,8 @@ interface AppState {
   selectedSpeed: number; fullscreenPlayer: boolean;
   history: HistoryItem[]; bookmarks: number[];
   notifications: { id: string; title: string; body: string; type: string; read: boolean; createdAt: string }[];
+  // Genre to pre-select when navigating to the Catalog view. Consumed on mount.
+  catalogGenre: string | null;
   navigate: (v: View) => void;
   openAnime: (malId: number, episode?: number, position?: number | null) => void;
   back: () => void;
@@ -34,12 +36,14 @@ interface AppState {
   updateHistoryPosition: (malId: number, episode: number, position: number, duration: number) => void;
   setNotifications: (n: AppState["notifications"]) => void;
   setSelectedEpisode: (ep: number) => void;
+  setCatalogGenre: (g: string | null) => void;
 }
 
 export const useApp = create<AppState>((set, get) => ({
   currentView: "home", previousView: "home", selectedMalId: null, selectedEpisode: 1,
   resumePosition: null, audioMode: "SUB", selectedQuality: "1080p", selectedSpeed: 1,
   fullscreenPlayer: false, history: [], bookmarks: [], notifications: [],
+  catalogGenre: null,
   navigate: (v) => set((s) => ({ currentView: v, previousView: s.currentView, selectedMalId: v === "detail" ? s.selectedMalId : null })),
   openAnime: (malId, episode = 1, position = null) => set((s) => {
     const hist = s.history.find((h) => h.malId === malId && h.episode === episode);
@@ -64,4 +68,5 @@ export const useApp = create<AppState>((set, get) => ({
   })),
   setNotifications: (n) => set({ notifications: n }),
   setSelectedEpisode: (ep) => set({ selectedEpisode: ep, resumePosition: null }),
+  setCatalogGenre: (g) => set({ catalogGenre: g }),
 }));

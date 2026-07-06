@@ -8,11 +8,29 @@ import {
   ChevronRight,
   Play,
   Clock,
+  Shuffle,
+  Sparkles,
 } from "lucide-react";
+import { toast } from "sonner";
 import { useApp, type Anime } from "@/store/app";
 import { apiCatalog, seedCatalog } from "@/lib/api/client";
 import { TOP_10_DECADE } from "@/lib/seed";
+import { cn } from "@/lib/utils";
 import { AnimeCard, CardGrid } from "./AnimeCard";
+
+// Curated quick-browse genre list (kept in sync with CatalogView's GENRES).
+const QUICK_GENRES = [
+  "Action",
+  "Adventure",
+  "Comedy",
+  "Drama",
+  "Fantasy",
+  "Romance",
+  "Sci-Fi",
+  "Supernatural",
+  "Suspense",
+  "Award Winning",
+];
 
 function SectionHeader({
   title,
@@ -56,6 +74,7 @@ function CardSkeleton() {
 export function HomeView({ activeType }: { activeType: string }) {
   const openAnime = useApp((s) => s.openAnime);
   const navigate = useApp((s) => s.navigate);
+  const setCatalogGenre = useApp((s) => s.setCatalogGenre);
   const history = useApp((s) => s.history);
   const [featuredIdx, setFeaturedIdx] = useState(0);
   const [top, setTop] = useState<Anime[]>([]);
@@ -64,6 +83,8 @@ export function HomeView({ activeType }: { activeType: string }) {
   const [loading, setLoading] = useState(true);
   const [paused, setPaused] = useState(false);
   const [parallax, setParallax] = useState(0);
+  // "Surprise Me" rolling state — drives the spin animation while we pick.
+  const [surprising, setSurprising] = useState(false);
   const carouselTimer = useRef<ReturnType<typeof setInterval> | null>(null);
   const rafRef = useRef<number | null>(null);
 
@@ -101,6 +122,9 @@ export function HomeView({ activeType }: { activeType: string }) {
     .slice(0, 5);
   const currentFeatured = featured[featuredIdx] ?? featured[0];
 
+  // Pool for "Surprise Me" — anything in the catalog we have loaded.
+  const surprisePool = all.length > 0 ? all : top.length > 0 ? top : season;
+
   // Auto-rotate with crossfade; pause on hover/tap.
   useEffect(() => {
     if (featured.length <= 1 || paused) return;
@@ -131,6 +155,36 @@ export function HomeView({ activeType }: { activeType: string }) {
     };
   }, []);
 
+  // ===== "Surprise Me" — pick a random anime and open it =====
+  const handleSurprise = () => {
+    if (surprising) return;
+    if (surprisePool.length === 0) {
+      toast.error("No anime to pick from yet", {
+        description: "Try again in a moment.",
+      });
+      return;
+    }
+    setSurprising(true);
+    // Let the spin animation play briefly before revealing the pick.
+    setTimeout(() => {
+      const pick =
+        surprisePool[Math.floor(Math.random() * surprisePool.length)];
+      setSurprising(false);
+      if (pick) {
+        toast.success("Surprise pick!", {
+          description: pick.title,
+        });
+        openAnime(pick.malId);
+      }
+    }, 650);
+  };
+
+  // ===== Genre quick-browse — jump to catalog pre-filtered =====
+  const handleGenreClick = (g: string) => {
+    setCatalogGenre(g);
+    navigate("catalog");
+  };
+
   const filteredTop = top.filter(
     (a) => !upcomingIds.has(a.malId) && a.type === activeType,
   );
@@ -160,6 +214,32 @@ export function HomeView({ activeType }: { activeType: string }) {
 
   return (
     <div className="fade-in pb-6">
+      {/* ===== Genre quick-browse chips — below the type tabs ===== */}
+      <section className="mb-5 mt-3">
+        <div className="no-scrollbar flex gap-2 overflow-x-auto px-4 pb-1">
+          {QUICK_GENRES.map((g, i) => (
+            <button
+              key={g}
+              type="button"
+              onClick={() => handleGenreClick(g)}
+              className={cn(
+                "fade-in-stagger btn-press glass-card card-hover flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[11px] font-bold tracking-editorial text-white/85 transition-all duration-300 hover:border-[#f5c518]/40 hover:text-[#f5c518]",
+              )}
+              style={{ ["--i"]: i } as React.CSSProperties}
+            >
+              <span
+                className="h-1.5 w-1.5 rounded-full"
+                style={{
+                  background: "var(--gradient-brand)",
+                  boxShadow: "0 0 6px rgba(255,138,0,0.6)",
+                }}
+              />
+              {g}
+            </button>
+          ))}
+        </div>
+      </section>
+
       {/* Featured carousel */}
       <section className="mb-6 px-4 pt-3">
         {loading ? (
@@ -203,6 +283,34 @@ export function HomeView({ activeType }: { activeType: string }) {
             {/* Gradient overlays */}
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/45 to-transparent" />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#0a0a0f]/55 via-transparent to-transparent" />
+
+            {/* ===== "Surprise Me" button — top-left of the carousel ===== */}
+            <button
+              type="button"
+              onClick={handleSurprise}
+              disabled={surprising || surprisePool.length === 0}
+              aria-label="Surprise me with a random anime"
+              className={cn(
+                "btn-press brand-gradient-bg glow absolute left-3 top-3 z-20 flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-black shadow-lg shadow-[#ff8a00]/30 transition-transform duration-300 hover:scale-105 disabled:opacity-80",
+                "float-y",
+              )}
+            >
+              <Shuffle
+                className={cn(
+                  "h-3.5 w-3.5 transition-transform duration-500",
+                  surprising && "animate-spin",
+                )}
+              />
+              <span
+                className="tracking-editorial"
+                style={{ textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}
+              >
+                {surprising ? "Picking…" : "Surprise Me"}
+              </span>
+              {!surprising && (
+                <Sparkles className="h-3 w-3 text-black/70" />
+              )}
+            </button>
 
             {/* Center play button */}
             <button

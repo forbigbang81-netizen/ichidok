@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Filter, LayoutGrid, X } from "lucide-react";
 import { apiCatalog } from "@/lib/api/client";
+import { useApp } from "@/store/app";
 import type { Anime } from "@/store/app";
 import { cn } from "@/lib/utils";
 import { AnimeCard, AnimeCardSkeleton, CardGrid } from "./AnimeCard";
@@ -38,14 +39,33 @@ const GENRES = [
 ];
 
 export function CatalogView() {
+  const catalogGenre = useApp((s) => s.catalogGenre);
+  const setCatalogGenre = useApp((s) => s.setCatalogGenre);
+
   const [items, setItems] = useState<Anime[]>([]);
   const [loading, setLoading] = useState(true);
   const [sort, setSort] = useState<SortKey>("popularity");
   const [type, setType] = useState("All");
   const [status, setStatus] = useState("All");
-  const [genre, setGenre] = useState("All");
-  const [showFilters, setShowFilters] = useState(false);
+  const [genre, setGenre] = useState<string>(
+    catalogGenre && GENRES.includes(catalogGenre) ? catalogGenre : "All",
+  );
+  const [showFilters, setShowFilters] = useState(
+    catalogGenre && GENRES.includes(catalogGenre) ? true : false,
+  );
   const [limit, setLimit] = useState(24);
+
+  // Consume any pending genre sent from another view (e.g. HomeView genre
+  // chips) — apply it once on mount, then clear the store flag. Intentionally
+  // mount-only: we want to consume the pending genre once, not react to
+  // every store update.
+  useEffect(() => {
+    if (catalogGenre && GENRES.includes(catalogGenre)) {
+      setGenre(catalogGenre);
+      setShowFilters(true);
+      setCatalogGenre(null);
+    }
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -136,6 +156,23 @@ export function CatalogView() {
           );
         })}
       </div>
+
+      {/* Active genre quick-pill — shown when a genre is selected */}
+      {genre !== "All" && (
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] font-black uppercase tracking-wider text-white/40">
+            Genre
+          </span>
+          <button
+            type="button"
+            onClick={() => setGenre("All")}
+            className="btn-press brand-gradient-bg glow flex items-center gap-1 rounded-full px-3 py-1 text-[11px] font-bold text-black"
+          >
+            {genre}
+            <X className="h-3 w-3" />
+          </button>
+        </div>
+      )}
 
       {/* Filter panel — glass collapsible with smooth height animation */}
       <div

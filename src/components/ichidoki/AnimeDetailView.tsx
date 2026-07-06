@@ -13,8 +13,6 @@ import {
   History,
   Layers,
   Radio,
-  MessageCircle,
-  Send,
 } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -36,19 +34,8 @@ interface BroadcastInfo {
   string?: string;
 }
 
-interface RatingSummary {
-  avg: number; // 10-point scale
-  count: number;
-  rawAvg: number; // 5-point scale
-}
-
-interface CommentItem {
-  id: string;
-  malId: number;
-  name: string;
-  text: string;
-  createdAt: string;
-}
+// Countdown seconds before auto-playing the next episode.
+const NEXT_EP_COUNTDOWN_FROM = 5;
 
 export function AnimeDetailView() {
   const {
@@ -75,21 +62,14 @@ export function AnimeDetailView() {
   const [activeTab, setActiveTab] = useState<DetailTab>("episodes");
   useCountdownTick();
 
-  // ----- Rating state -----
-  const [ratingData, setRatingData] = useState<RatingSummary>({
-    avg: 0,
-    count: 0,
-    rawAvg: 0,
-  });
-  const [userRating, setUserRating] = useState<number>(0);
-  const [hoverRating, setHoverRating] = useState<number>(0);
-  const [submittingRating, setSubmittingRating] = useState(false);
-
-  // ----- Comments state -----
-  const [comments, setComments] = useState<CommentItem[]>([]);
-  const [commentName, setCommentName] = useState<string>("Anonymous");
-  const [commentText, setCommentText] = useState<string>("");
-  const [submittingComment, setSubmittingComment] = useState(false);
+  // ----- Next-episode auto-play countdown -----
+  // null = inactive. When the video ends we seed this with
+  // NEXT_EP_COUNTDOWN_FROM and tick down each second; at 0 we advance.
+  const [nextEpCountdown, setNextEpCountdown] = useState<number | null>(null);
+  // Tracks which episode the active countdown belongs to, so we can cancel
+  // cleanly if the user manually jumps to another episode mid-countdown.
+  // Held in state (not a ref) so the overlay can read it during render.
+  const [countdownForEp, setCountdownForEp] = useState<number | null>(null);
 
   const isBookmarked = selectedMalId
     ? bookmarks.includes(selectedMalId)
@@ -151,53 +131,6 @@ export function AnimeDetailView() {
     };
   }, [selectedMalId]);
 
-  // ----- Fetch rating summary -----
-  useEffect(() => {
-    if (!selectedMalId) {
-      setRatingData({ avg: 0, count: 0, rawAvg: 0 });
-      return;
-    }
-    let cancelled = false;
-    fetch(`/api/ratings?malId=${selectedMalId}`)
-      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-      .then((data: RatingSummary) => {
-        if (cancelled) return;
-        setRatingData({
-          avg: data.avg ?? 0,
-          count: data.count ?? 0,
-          rawAvg: data.rawAvg ?? 0,
-        });
-      })
-      .catch(() => {
-        if (!cancelled)
-          setRatingData({ avg: 0, count: 0, rawAvg: 0 });
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [selectedMalId]);
-
-  // ----- Fetch comments -----
-  useEffect(() => {
-    if (!selectedMalId) {
-      setComments([]);
-      return;
-    }
-    let cancelled = false;
-    fetch(`/api/comments?malId=${selectedMalId}`)
-      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-      .then((data: { comments: CommentItem[] }) => {
-        if (cancelled) return;
-        setComments(data.comments ?? []);
-      })
-      .catch(() => {
-        if (!cancelled) setComments([]);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [selectedMalId]);
-
   // History items for this anime only (Continue Watching)
   const continueWatching = selectedMalId
     ? history
@@ -225,13 +158,49 @@ export function AnimeDetailView() {
     }).catch(() => {});
   };
 
+  // ===== Next-episode auto-play prompt =====
+  // Instead of jumping immediately on `onEnded`, we kick off a visible
+  // countdown. The user can cancel; otherwise we advance at 0.
   const handleEnded = () => {
     if (!anime) return;
     const next = selectedEpisode + 1;
     if (next <= anime.episodeCount) {
-      setSelectedEpisode(next);
-      toast.success(`Moving to episode ${next}`);
+      setCountdownForEp(selectedEpisode);
+      setNextEpCountdown(NEXT_EP_COUNTDOWN_FROM);
     }
+  };
+
+  useEffect(() => {
+    if (nextEpCountdown === null) return;
+    // If the user jumped to a different episode, cancel the countdown.
+    if (countdownForEp !== null && countdownForEp !== selectedEpisode) {
+      setCountdownForEp(null);
+      setNextEpCountdown(null);
+      return;
+    }
+    if (nextEpCountdown <= 0) {
+      const baseEp = countdownForEp ?? selectedEpisode;
+      const next = baseEp + 1;
+      setCountdownForEp(null);
+      setNextEpCountdown(null);
+      if (anime && next <= anime.episodeCount) {
+        setSelectedEpisode(next);
+        toast.success(`Now playing episode ${next}`);
+      }
+      return;
+    }
+    const t = setTimeout(() => {
+      setNextEpCountdown((c) => (c ?? 0) - 1);
+    }, 1000);
+    return () => clearTimeout(t);
+  }, [nextEpCountdown, selectedEpisode, countdownForEp, anime, setSelectedEpisode]);
+
+  // Selecting an episode from the grid should always cancel any pending
+  // auto-play countdown so the two never fight over the episode state.
+  const handleSelectEpisode = (ep: number) => {
+    setCountdownForEp(null);
+    setNextEpCountdown(null);
+    setSelectedEpisode(ep);
   };
 
   const handleBookmarkToggle = async () => {
@@ -252,69 +221,6 @@ export function AnimeDetailView() {
       } catch {
         /* noop */
       }
-    }
-  };
-
-  // ----- Submit rating -----
-  const handleSubmitRating = async (rating: number) => {
-    if (!selectedMalId || submittingRating) return;
-    setUserRating(rating);
-    setSubmittingRating(true);
-    try {
-      const r = await fetch("/api/ratings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ malId: selectedMalId, rating }),
-      });
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      const data: RatingSummary = await r.json();
-      setRatingData({
-        avg: data.avg ?? 0,
-        count: data.count ?? 0,
-        rawAvg: data.rawAvg ?? 0,
-      });
-      toast.success("Thank you for rating!");
-    } catch (e) {
-      toast.error("Failed to submit rating");
-      // Roll back the optimistic userRating on failure.
-      setUserRating(0);
-    } finally {
-      setSubmittingRating(false);
-    }
-  };
-
-  // ----- Submit comment -----
-  const handleSubmitComment = async () => {
-    if (!selectedMalId || submittingComment) return;
-    const text = commentText.trim();
-    if (!text) {
-      toast.error("Please write a comment first");
-      return;
-    }
-    setSubmittingComment(true);
-    try {
-      const r = await fetch("/api/comments", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          malId: selectedMalId,
-          name: commentName.trim() || "Anonymous",
-          text,
-        }),
-      });
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      // Refetch comments so the new one shows up at the top.
-      const fresh = await fetch(`/api/comments?malId=${selectedMalId}`);
-      if (fresh.ok) {
-        const data: { comments: CommentItem[] } = await fresh.json();
-        setComments(data.comments ?? []);
-      }
-      setCommentText("");
-      toast.success("Comment posted");
-    } catch {
-      toast.error("Failed to post comment");
-    } finally {
-      setSubmittingComment(false);
     }
   };
 
@@ -394,6 +300,17 @@ export function AnimeDetailView() {
   const nextAirInfo = getNextAirTime(broadcast);
   const isAiring = anime.status === "Currently Airing";
 
+  // The next episode that the auto-play prompt will advance to (if active).
+  const nextEpNumber = (countdownForEp ?? selectedEpisode) + 1;
+  const showNextEpOverlay =
+    nextEpCountdown !== null &&
+    countdownForEp === selectedEpisode &&
+    nextEpNumber <= anime.episodeCount;
+
+  // The thumbnail used as the background for every episode button —
+  // gives the grid a visual, Netflix-like feel.
+  const episodeThumb = anime.banner || anime.poster;
+
   return (
     <div className="fade-in flex flex-col gap-4 pb-8">
       {/* Glass header with gradient back button */}
@@ -433,7 +350,7 @@ export function AnimeDetailView() {
 
       {/* Video player area with rounded corners + subtle glow */}
       <div className="px-3">
-        <div className="overflow-hidden rounded-2xl glow-orange">
+        <div className="relative overflow-hidden rounded-2xl glow-orange">
           <VideoPlayer
             malId={selectedMalId}
             episode={selectedEpisode}
@@ -445,6 +362,58 @@ export function AnimeDetailView() {
             onEnded={handleEnded}
             onBack={back}
           />
+
+          {/* ===== Next-episode auto-play prompt =====
+              Shown when the video ends and a next episode exists. Counts
+              down from NEXT_EP_COUNTDOWN_FROM; clicking Cancel dismisses. */}
+          {showNextEpOverlay && (
+            <div className="absolute inset-0 z-50 grid place-items-center bg-black/85 backdrop-blur-sm">
+              <div className="glass-card fade-in flex w-[280px] max-w-[85%] flex-col items-center rounded-2xl p-5 text-center">
+                <span className="brand-gradient-bg rounded-full px-2.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-black">
+                  Up Next
+                </span>
+                <p
+                  className="gradient-text mt-2.5 text-lg font-black tracking-editorial"
+                  style={{ textShadow: "0 0 12px rgba(255,138,0,0.6)" }}
+                >
+                  Episode {nextEpNumber}
+                </p>
+                <p className="mt-1 text-xs text-white/70">
+                  Starting in{" "}
+                  <span
+                    className="gradient-text text-base font-black tabular-nums"
+                    style={{ textShadow: "0 0 10px rgba(255,138,0,0.6)" }}
+                  >
+                    {nextEpCountdown}
+                  </span>
+                  …
+                </p>
+                {/* Countdown progress ring */}
+                <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                  <div
+                    className="brand-gradient-bg h-full rounded-full transition-[width] duration-1000 ease-linear"
+                    style={{
+                      width: `${
+                        ((NEXT_EP_COUNTDOWN_FROM - (nextEpCountdown ?? 0)) /
+                          NEXT_EP_COUNTDOWN_FROM) *
+                        100
+                      }%`,
+                    }}
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCountdownForEp(null);
+                    setNextEpCountdown(null);
+                  }}
+                  className="btn-press glass-card mt-4 rounded-full px-6 py-2 text-[11px] font-black uppercase tracking-wider text-white transition-colors hover:text-[#f5c518]"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -583,44 +552,51 @@ export function AnimeDetailView() {
                       latestAvailableEp,
                     )
                   : null;
+                // Watch progress for THIS episode from history.
+                const epHistory = continueWatching.find(
+                  (h) => h.episode === ep.number,
+                );
+                const epProgress = epHistory?.progress ?? 0;
+                const showProgress = epProgress > 0;
+                const isCompleted = epProgress > 90;
                 return (
                   <button
                     key={ep.number}
                     type="button"
-                    onClick={() => setSelectedEpisode(ep.number)}
+                    onClick={() => handleSelectEpisode(ep.number)}
                     className={cn(
-                      "fade-in-stagger card-hover relative flex aspect-video flex-col justify-between overflow-hidden rounded-xl p-2 text-left",
+                      "fade-in-stagger card-hover relative flex aspect-video flex-col justify-between overflow-hidden rounded-xl p-2 text-left ring-1 transition-all duration-300",
                       active
-                        ? "brand-gradient-bg text-black"
-                        : "glass-card text-white hover:text-[#f5c518]",
+                        ? "ring-2 ring-[#ff8a00] glow-orange"
+                        : "ring-white/5 hover:ring-[#f5c518]/40",
                     )}
                     style={{ ["--i"]: idx } as React.CSSProperties}
                   >
-                    <span
-                      className={cn(
-                        "text-xs font-black tracking-editorial",
-                        active ? "text-black" : "text-white",
-                      )}
-                    >
-                      EP {ep.number}
-                    </span>
-                    <span
-                      className={cn(
-                        "line-clamp-2 text-[10px] leading-tight",
-                        active ? "text-black/70" : "text-white/55",
-                      )}
-                    >
-                      {ep.title ?? `Episode ${ep.number}`}
-                    </span>
+                    {/* Background thumbnail — the anime's banner/poster */}
+                    {episodeThumb && (
+                      <img
+                        src={episodeThumb}
+                        alt=""
+                        aria-hidden
+                        loading="lazy"
+                        className="absolute inset-0 h-full w-full object-cover"
+                      />
+                    )}
+                    {/* Gradient overlay for readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/15" />
+
+                    {/* Filler badge */}
                     {ep.filler && (
-                      <span className="absolute left-1 top-1 rounded bg-red-500/80 px-1 text-[8px] font-black text-white">
+                      <span className="absolute left-1 top-1 z-10 rounded bg-red-500/85 px-1 text-[8px] font-black text-white">
                         FILLER
                       </span>
                     )}
+
+                    {/* Air-status badge */}
                     {epStatus && (
                       <span
                         className={cn(
-                          "absolute bottom-1 right-1 rounded px-1.5 py-0.5 text-[8px] font-black uppercase tracking-wider",
+                          "absolute right-1 top-1 z-10 rounded px-1.5 py-0.5 text-[8px] font-black uppercase tracking-wider",
                           epStatus.type === "countdown"
                             ? "brand-gradient-bg text-black"
                             : epStatus.type === "coming-soon"
@@ -630,6 +606,43 @@ export function AnimeDetailView() {
                       >
                         {epStatus.label}
                       </span>
+                    )}
+
+                    {/* Episode number — top */}
+                    <span
+                      className="relative z-10 text-xs font-black tracking-editorial text-white"
+                      style={{
+                        textShadow:
+                          "0 0 8px rgba(255,138,0,0.7), 0 1px 3px rgba(0,0,0,0.9)",
+                      }}
+                    >
+                      EP {ep.number}
+                    </span>
+
+                    {/* Episode title — bottom */}
+                    <span
+                      className="relative z-10 line-clamp-2 text-[10px] leading-tight text-white/85"
+                      style={{ textShadow: "0 1px 3px rgba(0,0,0,0.9)" }}
+                    >
+                      {ep.title ?? `Episode ${ep.number}`}
+                    </span>
+
+                    {/* Watch progress bar — green if completed (>90%), gold if in progress */}
+                    {showProgress && (
+                      <div className="absolute inset-x-0 bottom-0 z-10 h-1 bg-black/50">
+                        <div
+                          className="h-full transition-[width] duration-500"
+                          style={{
+                            width: `${Math.min(100, epProgress)}%`,
+                            background: isCompleted
+                              ? "linear-gradient(90deg, #22c55e, #4ade80)"
+                              : "linear-gradient(90deg, #f5c518, #ff8a00)",
+                            boxShadow: isCompleted
+                              ? "0 0 6px rgba(34,197,94,0.6)"
+                              : "0 0 6px rgba(255,138,0,0.6)",
+                          }}
+                        />
+                      </div>
                     )}
                   </button>
                 );
@@ -646,6 +659,8 @@ export function AnimeDetailView() {
                     key={`${h.malId}-${h.episode}`}
                     type="button"
                     onClick={() => {
+                      setCountdownForEp(null);
+                      setNextEpCountdown(null);
                       if (anime) {
                         openAnime(h.malId, h.episode, h.position);
                       }
@@ -715,6 +730,8 @@ export function AnimeDetailView() {
                     key={s.malId}
                     type="button"
                     onClick={() => {
+                      setCountdownForEp(null);
+                      setNextEpCountdown(null);
                       if (!isCurrent) openAnime(s.malId, 1);
                     }}
                     disabled={isCurrent}
@@ -810,199 +827,6 @@ export function AnimeDetailView() {
           )}
         </div>
       </div>
-
-      {/* ===== Rating section — below tabs, after Details ===== */}
-      <section className="px-3">
-        <div className="glass-card rounded-2xl p-4">
-          {/* Inline SVG gradient definition for the gold→orange star fill.
-              Defined once, referenced by all filled stars via fill="url(#starGradient)". */}
-          <svg
-            className="absolute h-0 w-0"
-            aria-hidden
-            focusable="false"
-          >
-            <defs>
-              <linearGradient id="starGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#f5c518" />
-                <stop offset="100%" stopColor="#ff8a00" />
-              </linearGradient>
-            </defs>
-          </svg>
-
-          <div className="mb-3 flex items-center gap-2">
-            <Star
-              className="h-4 w-4 text-[#f5c518]"
-              style={{ fill: "#f5c518" }}
-            />
-            <h2
-              className="text-sm font-black tracking-editorial text-white"
-              style={{ textShadow: "0 0 8px rgba(255,138,0,0.5)" }}
-            >
-              Rate this anime
-            </h2>
-          </div>
-
-          {/* 5-star picker — gold→orange gradient fill */}
-          <div className="flex items-center gap-1.5">
-            {[1, 2, 3, 4, 5].map((star) => {
-              const filled = star <= (hoverRating || userRating);
-              return (
-                <button
-                  key={star}
-                  type="button"
-                  disabled={submittingRating}
-                  onClick={() => handleSubmitRating(star)}
-                  onMouseEnter={() => setHoverRating(star)}
-                  onMouseLeave={() => setHoverRating(0)}
-                  className={cn(
-                    "btn-press grid h-9 w-9 place-items-center rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-50 disabled:hover:scale-100",
-                    filled && "drop-shadow-[0_0_8px_rgba(255,138,0,0.55)]",
-                  )}
-                  aria-label={`Rate ${star} star${star > 1 ? "s" : ""}`}
-                >
-                  <Star
-                    className={cn(
-                      "h-6 w-6 transition-all duration-200",
-                      filled ? "text-[#ff8a00]" : "text-white/20",
-                    )}
-                    fill={filled ? "url(#starGradient)" : "none"}
-                    stroke={filled ? "url(#starGradient)" : "currentColor"}
-                  />
-                </button>
-              );
-            })}
-
-            {/* 10-point score next to stars */}
-            <div className="ml-2 flex flex-col">
-              <span
-                className="gradient-text text-lg font-black tabular-nums leading-none"
-                style={{ textShadow: "0 0 8px rgba(255,138,0,0.5)" }}
-              >
-                {ratingData.avg > 0 ? ratingData.avg.toFixed(2) : "—"}
-              </span>
-              <span className="text-[10px] text-white/50">/ 10</span>
-            </div>
-          </div>
-
-          {/* Voter count + status line */}
-          <div className="mt-3 flex items-center gap-2 text-[11px] text-white/55">
-            <Users className="h-3 w-3" />
-            <span>
-              {ratingData.count > 0
-                ? `${ratingData.count} ${ratingData.count === 1 ? "person has" : "people have"} rated`
-                : "Be the first to rate"}
-            </span>
-            {userRating > 0 && (
-              <span
-                className="ml-auto rounded-full brand-gradient-soft px-2 py-0.5 text-[10px] font-bold text-[#f5c518]"
-                style={{ textShadow: "0 0 8px rgba(255,138,0,0.5)" }}
-              >
-                You: {userRating}★
-              </span>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== Comments section — below ratings ===== */}
-      <section className="px-3">
-        <div className="glass-card rounded-2xl p-4">
-          <div className="mb-3 flex items-center gap-2">
-            <MessageCircle
-              className="h-4 w-4 text-[#f5c518]"
-              style={{ fill: "#f5c518" }}
-            />
-            <h2
-              className="text-sm font-black tracking-editorial text-white"
-              style={{ textShadow: "0 0 8px rgba(255,138,0,0.5)" }}
-            >
-              Comments
-              {comments.length > 0 && (
-                <span className="ml-1.5 text-[11px] font-bold text-white/45">
-                  ({comments.length})
-                </span>
-              )}
-            </h2>
-          </div>
-
-          {/* New comment form */}
-          <div className="flex flex-col gap-2">
-            <input
-              type="text"
-              value={commentName}
-              onChange={(e) => setCommentName(e.target.value)}
-              placeholder="Your name (optional)"
-              maxLength={32}
-              className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-xs text-white placeholder:text-white/40 focus:border-[#f5c518]/60 focus:outline-none focus:ring-1 focus:ring-[#f5c518]/40"
-            />
-            <textarea
-              value={commentText}
-              onChange={(e) => setCommentText(e.target.value)}
-              placeholder="Share your thoughts…"
-              maxLength={500}
-              rows={3}
-              className="w-full resize-none rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-xs text-white placeholder:text-white/40 focus:border-[#f5c518]/60 focus:outline-none focus:ring-1 focus:ring-[#f5c518]/40"
-            />
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] text-white/35">
-                {commentText.length}/500
-              </span>
-              <button
-                type="button"
-                onClick={handleSubmitComment}
-                disabled={submittingComment || !commentText.trim()}
-                className={cn(
-                  "btn-press brand-gradient-bg glow flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-wider text-black transition-all duration-300",
-                  "hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100",
-                )}
-              >
-                <Send className="h-3.5 w-3.5" />
-                {submittingComment ? "Posting…" : "Post"}
-              </button>
-            </div>
-          </div>
-
-          {/* Comments list (newest first) */}
-          {comments.length > 0 ? (
-            <ul className="mt-4 flex max-h-96 flex-col gap-2 overflow-y-auto pr-1">
-              {comments.map((c, i) => (
-                <li
-                  key={c.id ?? i}
-                  className="fade-in-stagger glass-card rounded-xl p-3"
-                  style={{ ["--i"]: Math.min(i, 8) } as React.CSSProperties}
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-2">
-                      <div className="brand-gradient-bg grid h-6 w-6 shrink-0 place-items-center rounded-full text-[10px] font-black text-black">
-                        {(c.name || "A").charAt(0).toUpperCase()}
-                      </div>
-                      <span
-                        className="text-xs font-bold text-white"
-                        style={{ textShadow: "0 0 8px rgba(255,138,0,0.5)" }}
-                      >
-                        {c.name || "Anonymous"}
-                      </span>
-                    </div>
-                    <span className="shrink-0 text-[10px] text-white/40">
-                      {formatTimeAgo(c.createdAt)}
-                    </span>
-                  </div>
-                  <p className="mt-2 whitespace-pre-wrap break-words text-[12px] leading-relaxed text-white/80">
-                    {c.text}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <div className="mt-4 grid place-items-center rounded-xl border border-dashed border-white/10 py-6 text-center">
-              <MessageCircle className="mb-1.5 h-5 w-5 text-white/25" />
-              <p className="text-xs text-white/40">
-                No comments yet — start the conversation.
-              </p>
-            </div>
-          )}
-        </div>
-      </section>
     </div>
   );
 }
@@ -1016,32 +840,6 @@ function DetailRow({ label, value }: { label: string; value: string }) {
       <dd className="truncate text-xs font-semibold text-white/90">{value}</dd>
     </div>
   );
-}
-
-// ============================================================
-// Rating + comments helpers
-// ============================================================
-
-function formatTimeAgo(iso: string): string {
-  if (!iso) return "";
-  const then = new Date(iso).getTime();
-  if (Number.isNaN(then)) return "";
-  const diff = Date.now() - then;
-  if (diff < 0) return "just now";
-  const sec = Math.floor(diff / 1000);
-  if (sec < 60) return "just now";
-  const min = Math.floor(sec / 60);
-  if (min < 60) return `${min}m ago`;
-  const hr = Math.floor(min / 60);
-  if (hr < 24) return `${hr}h ago`;
-  const day = Math.floor(hr / 24);
-  if (day < 7) return `${day}d ago`;
-  const wk = Math.floor(day / 7);
-  if (wk < 4) return `${wk}w ago`;
-  const mo = Math.floor(day / 30);
-  if (mo < 12) return `${mo}mo ago`;
-  const yr = Math.floor(day / 365);
-  return `${yr}y ago`;
 }
 
 // ============================================================
