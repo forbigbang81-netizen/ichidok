@@ -49,7 +49,7 @@ export function AnimeCard({ anime, className, badge, progress }: AnimeCardProps)
 
         {/* Score badge — gold→orange gradient text on glass */}
         {score > 0 && (
-          <div className="absolute right-1.5 top-1.5 flex items-center gap-0.5 rounded-md border border-white/10 bg-black/55 px-1.5 py-0.5 text-[10px] font-bold text-white backdrop-blur-md">
+          <div className="absolute right-1.5 top-1.5 flex items-center gap-0.5 rounded-md border border-white/10 bg-black/55 px-1.5 py-0.5 text-[10px] font-bold text-white">
             <Star className="h-2.5 w-2.5 fill-[#f5c518] text-[#f5c518]" />
             <span className="gradient-text">{score.toFixed(2)}</span>
           </div>
@@ -62,7 +62,7 @@ export function AnimeCard({ anime, className, badge, progress }: AnimeCardProps)
           </div>
         )}
         {isFeatured && !isNew && (
-          <div className="absolute left-1.5 top-1.5 grid h-5 w-5 place-items-center rounded-full border border-white/15 bg-black/55 text-[10px] font-bold text-[#f5c518] backdrop-blur-md">
+          <div className="absolute left-1.5 top-1.5 grid h-5 w-5 place-items-center rounded-full border border-white/15 bg-black/55 text-[10px] font-bold text-[#f5c518]">
             ★
           </div>
         )}
@@ -78,16 +78,16 @@ export function AnimeCard({ anime, className, badge, progress }: AnimeCardProps)
         )}
 
         {/* Type chip */}
-        <div className="absolute bottom-1.5 left-1.5 rounded border border-white/10 bg-black/55 px-1 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white/85 backdrop-blur-md">
+        <div className="absolute bottom-1.5 left-1.5 rounded border border-white/10 bg-black/55 px-1 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white/85">
           {anime.type}
         </div>
       </div>
 
-      <div className="min-w-0 px-0.5">
-        <p className="truncate text-xs font-semibold tracking-editorial text-white/95 transition-colors duration-200 group-hover:gradient-text">
+      <div className="min-w-0 rounded-md bg-black/40 px-1.5 py-1">
+        <p className="truncate text-xs font-semibold tracking-editorial text-white transition-colors duration-200 group-hover:text-[#f5c518]">
           {main}
         </p>
-        {sub && <p className="truncate text-[10px] font-medium text-white/45">{sub}</p>}
+        {sub && <p className="truncate text-[10px] font-medium text-white/60">{sub}</p>}
       </div>
     </button>
   );

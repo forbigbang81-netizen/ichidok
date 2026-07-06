@@ -221,7 +221,7 @@ export function HomeView({ activeType }: { activeType: string }) {
                 <span className="brand-gradient-bg rounded px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-black">
                   Featured
                 </span>
-                <span className="rounded border border-white/10 bg-black/50 px-2 py-0.5 text-[10px] font-semibold text-white backdrop-blur-md">
+                <span className="rounded border border-white/10 bg-black/50 px-2 py-0.5 text-[10px] font-semibold text-white">
                   {currentFeatured.type}
                 </span>
                 {currentFeatured.score > 0 && (
@@ -296,7 +296,7 @@ export function HomeView({ activeType }: { activeType: string }) {
                     className="h-full w-full object-cover"
                   />
                   <div className="absolute inset-0 grid place-items-center bg-black/40">
-                    <span className="grid h-10 w-10 place-items-center rounded-full bg-white/15 backdrop-blur-md">
+                    <span className="grid h-10 w-10 place-items-center rounded-full bg-white/15">
                       <Play className="ml-0.5 h-4 w-4 fill-white text-white" />
                     </span>
                   </div>
