@@ -551,6 +551,7 @@ export function resolveEpisodeUrl(seed: SeedAnime, episode: number, audioMode: "
     if (entry) { collectionName = collectionName.replace(/\{season(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(entry.season); return pad ? s.padStart(Number(pad), "0") : s; }); }
   }
   if (collectionName === "youtube") { return { url: `https://www.youtube.com/embed/${file}`, source: "youtube", needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" }; }
+  if (collectionName === "dropbox" || collectionName === "external") { return { url: file, source: "external", needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" }; }
   const encodedFile = encodeURIComponent(file).replace(/%2F/g, "/");
   return { url: `https://archive.org/download/${collectionName}/${encodedFile}`, source: src.needsProxy ? "archive-mkv" : "archive", needsProxy: src.needsProxy ?? false, dualAudio: src.dualAudio ?? false, audio: src.audio ?? "sub" };
 }
