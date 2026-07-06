@@ -1,4 +1,5 @@
 // Ichidoki — Prisma schema
+// No datasource url — we use the libsql driver adapter at runtime.
 
 generator client {
   provider = "prisma-client-js"
@@ -6,7 +7,6 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
 }
 
 model Anime {
