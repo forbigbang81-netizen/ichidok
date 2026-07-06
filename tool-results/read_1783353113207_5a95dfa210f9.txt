@@ -1,0 +1,992 @@
+     1→"use client";
+     2→
+     3→import { useEffect, useLayoutEffect, useRef, useState } from "react";
+     4→import {
+     5→  ArrowLeft,
+     6→  Bookmark,
+     7→  Calendar,
+     8→  Clock,
+     9→  Film,
+    10→  PlayCircle,
+    11→  Star,
+    12→  Users,
+    13→  History,
+    14→  Layers,
+    15→  Radio,
+    16→} from "lucide-react";
+    17→import { toast } from "sonner";
+    18→import {
+    19→  addBookmark,
+    20→  fetchAnimeDetail,
+    21→  removeBookmark,
+    22→  saveHistory,
+    23→} from "@/lib/api/client";
+    24→import { useApp, type Anime, type Episode } from "@/store/app";
+    25→import { cn } from "@/lib/utils";
+    26→import { VideoPlayer } from "./VideoPlayer";
+    27→
+    28→type DetailTab = "episodes" | "continue" | "seasons" | "synopsis" | "details";
+    29→
+    30→interface BroadcastInfo {
+    31→  day?: string;
+    32→  time?: string;
+    33→  timezone?: string;
+    34→  string?: string;
+    35→}
+    36→
+    37→// Countdown seconds before auto-playing the next episode.
+    38→const NEXT_EP_COUNTDOWN_FROM = 5;
+    39→
+    40→export function AnimeDetailView() {
+    41→  const {
+    42→    selectedMalId,
+    43→    selectedEpisode,
+    44→    setSelectedEpisode,
+    45→    resumePosition,
+    46→    audioMode,
+    47→    back,
+    48→    bookmarks,
+    49→    toggleBookmark,
+    50→    updateHistoryPosition,
+    51→    history,
+    52→    openAnime,
+    53→  } = useApp();
+    54→
+    55→  const [anime, setAnime] = useState<Anime | null>(null);
+    56→  const [episodes, setEpisodes] = useState<Episode[]>([]);
+    57→  const [loading, setLoading] = useState(true);
+    58→  const [seasons, setSeasons] = useState<
+    59→    { malId: number; label: string; anime: Anime | null }[]
+    60→  >([]);
+    61→  const [broadcast, setBroadcast] = useState<BroadcastInfo | null>(null);
+    62→  const [activeTab, setActiveTab] = useState<DetailTab>("episodes");
+    63→  useCountdownTick();
+    64→
+    65→  // ----- Next-episode auto-play countdown -----
+    66→  // null = inactive. When the video ends we seed this with
+    67→  // NEXT_EP_COUNTDOWN_FROM and tick down each second; at 0 we advance.
+    68→  const [nextEpCountdown, setNextEpCountdown] = useState<number | null>(null);
+    69→  // Tracks which episode the active countdown belongs to, so we can cancel
+    70→  // cleanly if the user manually jumps to another episode mid-countdown.
+    71→  // Held in state (not a ref) so the overlay can read it during render.
+    72→  const [countdownForEp, setCountdownForEp] = useState<number | null>(null);
+    73→
+    74→  const isBookmarked = selectedMalId
+    75→    ? bookmarks.includes(selectedMalId)
+    76→    : false;
+    77→
+    78→  useEffect(() => {
+    79→    if (!selectedMalId) return;
+    80→    let cancelled = false;
+    81→    setLoading(true);
+    82→    fetchAnimeDetail(selectedMalId, true)
+    83→      .then((r: { anime: Anime; episodes: Episode[]; imports: unknown[] }) => {
+    84→        if (cancelled) return;
+    85→        setAnime(r.anime);
+    86→        setEpisodes(r.episodes ?? []);
+    87→        setBroadcast((r as { broadcast?: BroadcastInfo }).broadcast ?? null);
+    88→      })
+    89→      .catch((e: Error) => {
+    90→        if (!cancelled) toast.error(`Failed to load: ${e.message}`);
+    91→      })
+    92→      .finally(() => {
+    93→        if (!cancelled) setLoading(false);
+    94→      });
+    95→    return () => {
+    96→      cancelled = true;
+    97→    };
+    98→  }, [selectedMalId]);
+    99→
+   100→  // Fetch related seasons for this anime
+   101→  useEffect(() => {
+   102→    if (!selectedMalId) {
+   103→      setSeasons([]);
+   104→      return;
+   105→    }
+   106→    let cancelled = false;
+   107→    fetch(`/api/seasons?malId=${selectedMalId}`)
+   108→      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+   109→      .then((data: { seasons: { malId: number; label: string }[] }) => {
+   110→        if (cancelled) return;
+   111→        const seasonList = data.seasons ?? [];
+   112→        // Fetch anime details for each season in parallel
+   113→        Promise.all(
+   114→          seasonList.map(async (s) => {
+   115→            try {
+   116→              const r = await fetchAnimeDetail(s.malId, false);
+   117→              return { malId: s.malId, label: s.label, anime: r.anime };
+   118→            } catch {
+   119→              return { malId: s.malId, label: s.label, anime: null };
+   120→            }
+   121→          }),
+   122→        ).then((results) => {
+   123→          if (!cancelled) setSeasons(results);
+   124→        });
+   125→      })
+   126→      .catch(() => {
+   127→        if (!cancelled) setSeasons([]);
+   128→      });
+   129→    return () => {
+   130→      cancelled = true;
+   131→    };
+   132→  }, [selectedMalId]);
+   133→
+   134→  // History items for this anime only (Continue Watching)
+   135→  const continueWatching = selectedMalId
+   136→    ? history
+   137→        .filter((h) => h.malId === selectedMalId)
+   138→        .sort((a, b) => {
+   139→          const da = a.watchedAt ? new Date(a.watchedAt).getTime() : 0;
+   140→          const db = b.watchedAt ? new Date(b.watchedAt).getTime() : 0;
+   141→          return db - da;
+   142→        })
+   143→    : [];
+   144→
+   145→  const handleProgress = (position: number, duration: number) => {
+   146→    if (!anime) return;
+   147→    const progress = duration > 0 ? (position / duration) * 100 : 0;
+   148→    updateHistoryPosition(anime.malId, selectedEpisode, position, duration);
+   149→    saveHistory({
+   150→      malId: anime.malId,
+   151→      title: anime.title,
+   152→      poster: anime.poster,
+   153→      type: anime.type,
+   154→      episode: selectedEpisode,
+   155→      position,
+   156→      duration,
+   157→      progress,
+   158→    }).catch(() => {});
+   159→  };
+   160→
+   161→  // ===== Next-episode auto-play prompt =====
+   162→  // Instead of jumping immediately on `onEnded`, we kick off a visible
+   163→  // countdown. The user can cancel; otherwise we advance at 0.
+   164→  const handleEnded = () => {
+   165→    if (!anime) return;
+   166→    const next = selectedEpisode + 1;
+   167→    if (next <= anime.episodeCount) {
+   168→      setCountdownForEp(selectedEpisode);
+   169→      setNextEpCountdown(NEXT_EP_COUNTDOWN_FROM);
+   170→    }
+   171→  };
+   172→
+   173→  useEffect(() => {
+   174→    if (nextEpCountdown === null) return;
+   175→    // If the user jumped to a different episode, cancel the countdown.
+   176→    if (countdownForEp !== null && countdownForEp !== selectedEpisode) {
+   177→      setCountdownForEp(null);
+   178→      setNextEpCountdown(null);
+   179→      return;
+   180→    }
+   181→    if (nextEpCountdown <= 0) {
+   182→      const baseEp = countdownForEp ?? selectedEpisode;
+   183→      const next = baseEp + 1;
+   184→      setCountdownForEp(null);
+   185→      setNextEpCountdown(null);
+   186→      if (anime && next <= anime.episodeCount) {
+   187→        setSelectedEpisode(next);
+   188→        toast.success(`Now playing episode ${next}`);
+   189→      }
+   190→      return;
+   191→    }
+   192→    const t = setTimeout(() => {
+   193→      setNextEpCountdown((c) => (c ?? 0) - 1);
+   194→    }, 1000);
+   195→    return () => clearTimeout(t);
+   196→  }, [nextEpCountdown, selectedEpisode, countdownForEp, anime, setSelectedEpisode]);
+   197→
+   198→  // Selecting an episode from the grid should always cancel any pending
+   199→  // auto-play countdown so the two never fight over the episode state.
+   200→  const handleSelectEpisode = (ep: number) => {
+   201→    setCountdownForEp(null);
+   202→    setNextEpCountdown(null);
+   203→    setSelectedEpisode(ep);
+   204→  };
+   205→
+   206→  const handleBookmarkToggle = async () => {
+   207→    if (!anime) return;
+   208→    if (isBookmarked) {
+   209→      toggleBookmark(anime.malId);
+   210→      try {
+   211→        await removeBookmark(anime.malId);
+   212→        toast.success("Removed from bookmarks");
+   213→      } catch {
+   214→        /* noop */
+   215→      }
+   216→    } else {
+   217→      toggleBookmark(anime.malId);
+   218→      try {
+   219→        await addBookmark(anime);
+   220→        toast.success("Added to bookmarks");
+   221→      } catch {
+   222→        /* noop */
+   223→      }
+   224→    }
+   225→  };
+   226→
+   227→  if (loading) {
+   228→    return (
+   229→      <div className="fade-in flex min-h-[60vh] flex-col gap-3 p-4">
+   230→        <div className="aspect-video w-full rounded-2xl skeleton-shimmer" />
+   231→        <div className="h-6 w-2/3 rounded skeleton-shimmer" />
+   232→        <div className="h-4 w-1/2 rounded skeleton-shimmer" />
+   233→        <div className="grid grid-cols-3 gap-3">
+   234→          {Array.from({ length: 9 }).map((_, i) => (
+   235→            <div key={i} className="aspect-[2/3] rounded skeleton-shimmer" />
+   236→          ))}
+   237→        </div>
+   238→      </div>
+   239→    );
+   240→  }
+   241→
+   242→  if (!anime || !selectedMalId) {
+   243→    return (
+   244→      <div className="grid min-h-[60vh] place-items-center p-6 text-center text-white/60">
+   245→        <div className="fade-in flex flex-col items-center">
+   246→          <div className="mb-3 grid h-14 w-14 place-items-center rounded-2xl brand-gradient-soft">
+   247→            <Film className="h-6 w-6 text-[#f5c518]" />
+   248→          </div>
+   249→          <p className="text-sm font-semibold text-white/80">Anime not found.</p>
+   250→          <button
+   251→            type="button"
+   252→            onClick={back}
+   253→            className="btn-press brand-gradient-bg glow mt-4 rounded-full px-5 py-2 text-xs font-black uppercase tracking-wider text-black"
+   254→          >
+   255→            Go Back
+   256→          </button>
+   257→        </div>
+   258→      </div>
+   259→    );
+   260→  }
+   261→
+   262→  // Build episode list — prefer DB rows, else synthesize from episodeCount.
+   263→  const episodeList: Episode[] =
+   264→    episodes.length > 0
+   265→      ? episodes
+   266→      : Array.from({ length: anime.episodeCount }, (_, i) => ({
+   267→          number: i + 1,
+   268→          title: `Episode ${i + 1}`,
+   269→        }));
+   270→
+   271→  // Available tabs (dynamic)
+   272→  const tabs: { key: DetailTab; label: string; icon: React.ReactNode }[] = [
+   273→    { key: "episodes", label: "Episodes", icon: <Film className="h-3 w-3" /> },
+   274→  ];
+   275→  if (continueWatching.length > 0) {
+   276→    tabs.push({
+   277→      key: "continue",
+   278→      label: "Continue",
+   279→      icon: <History className="h-3 w-3" />,
+   280→    });
+   281→  }
+   282→  if (seasons.length > 1) {
+   283→    tabs.push({
+   284→      key: "seasons",
+   285→      label: "Seasons",
+   286→      icon: <Layers className="h-3 w-3" />,
+   287→    });
+   288→  }
+   289→  tabs.push({
+   290→    key: "synopsis",
+   291→    label: "Synopsis",
+   292→    icon: <PlayCircle className="h-3 w-3" />,
+   293→  });
+   294→  tabs.push({
+   295→    key: "details",
+   296→    label: "Details",
+   297→    icon: <Radio className="h-3 w-3" />,
+   298→  });
+   299→
+   300→  const nextAirInfo = getNextAirTime(broadcast);
+   301→  const isAiring = anime.status === "Currently Airing";
+   302→
+   303→  // The next episode that the auto-play prompt will advance to (if active).
+   304→  const nextEpNumber = (countdownForEp ?? selectedEpisode) + 1;
+   305→  const showNextEpOverlay =
+   306→    nextEpCountdown !== null &&
+   307→    countdownForEp === selectedEpisode &&
+   308→    nextEpNumber <= anime.episodeCount;
+   309→
+   310→  // The thumbnail used as the background for every episode button —
+   311→  // gives the grid a visual, Netflix-like feel.
+   312→  const episodeThumb = anime.banner || anime.poster;
+   313→
+   314→  return (
+   315→    <div className="fade-in flex flex-col gap-4 pb-8">
+   316→      {/* Glass header with gradient back button */}
+   317→      <header className="glass-header sticky top-0 z-20">
+   318→        <div className="flex items-center gap-2 px-3 py-2.5 pt-safe">
+   319→          <button
+   320→            type="button"
+   321→            onClick={back}
+   322→            className="btn-press brand-gradient-bg grid h-9 w-9 place-items-center rounded-full text-black shadow-lg shadow-[#ff8a00]/20"
+   323→            aria-label="Back"
+   324→          >
+   325→            <ArrowLeft className="h-5 w-5" />
+   326→          </button>
+   327→          <p className="truncate text-sm font-black tracking-editorial text-white">
+   328→            Details
+   329→          </p>
+   330→          <button
+   331→            type="button"
+   332→            onClick={handleBookmarkToggle}
+   333→            className={cn(
+   334→              "btn-press ml-auto grid h-9 w-9 place-items-center rounded-full transition-all duration-300",
+   335→              isBookmarked
+   336→                ? "brand-gradient-bg text-black glow"
+   337→                : "glass-card text-white hover:text-[#f5c518]",
+   338→            )}
+   339→            aria-label="Bookmark"
+   340→          >
+   341→            <Bookmark
+   342→              className={cn(
+   343→                "h-5 w-5 transition-transform",
+   344→                isBookmarked && "fill-black",
+   345→              )}
+   346→            />
+   347→          </button>
+   348→        </div>
+   349→      </header>
+   350→
+   351→      {/* Video player area with rounded corners + subtle glow */}
+   352→      <div className="px-3">
+   353→        <div className="relative overflow-hidden rounded-2xl glow-orange">
+   354→          <VideoPlayer
+   355→            malId={selectedMalId}
+   356→            episode={selectedEpisode}
+   357→            audioMode={audioMode}
+   358→            poster={anime.banner || anime.poster}
+   359→            title={`${anime.title} — Episode ${selectedEpisode}`}
+   360→            resumePosition={resumePosition}
+   361→            onProgress={handleProgress}
+   362→            onEnded={handleEnded}
+   363→            onBack={back}
+   364→          />
+   365→
+   366→          {/* ===== Next-episode auto-play prompt =====
+   367→              Shown when the video ends and a next episode exists. Counts
+   368→              down from NEXT_EP_COUNTDOWN_FROM; clicking Cancel dismisses. */}
+   369→          {showNextEpOverlay && (
+   370→            <div className="absolute inset-0 z-50 grid place-items-center bg-black/85 backdrop-blur-sm">
+   371→              <div className="glass-card fade-in flex w-[280px] max-w-[85%] flex-col items-center rounded-2xl p-5 text-center">
+   372→                <span className="brand-gradient-bg rounded-full px-2.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-black">
+   373→                  Up Next
+   374→                </span>
+   375→                <p
+   376→                  className="gradient-text mt-2.5 text-lg font-black tracking-editorial"
+   377→                  style={{ textShadow: "0 0 12px rgba(255,138,0,0.6)" }}
+   378→                >
+   379→                  Episode {nextEpNumber}
+   380→                </p>
+   381→                <p className="mt-1 text-xs text-white/70">
+   382→                  Starting in{" "}
+   383→                  <span
+   384→                    className="gradient-text text-base font-black tabular-nums"
+   385→                    style={{ textShadow: "0 0 10px rgba(255,138,0,0.6)" }}
+   386→                  >
+   387→                    {nextEpCountdown}
+   388→                  </span>
+   389→                  …
+   390→                </p>
+   391→                {/* Countdown progress ring */}
+   392→                <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+   393→                  <div
+   394→                    className="brand-gradient-bg h-full rounded-full transition-[width] duration-1000 ease-linear"
+   395→                    style={{
+   396→                      width: `${
+   397→                        ((NEXT_EP_COUNTDOWN_FROM - (nextEpCountdown ?? 0)) /
+   398→                          NEXT_EP_COUNTDOWN_FROM) *
+   399→                        100
+   400→                      }%`,
+   401→                    }}
+   402→                  />
+   403→                </div>
+   404→                <button
+   405→                  type="button"
+   406→                  onClick={() => {
+   407→                    setCountdownForEp(null);
+   408→                    setNextEpCountdown(null);
+   409→                  }}
+   410→                  className="btn-press glass-card mt-4 rounded-full px-6 py-2 text-[11px] font-black uppercase tracking-wider text-white transition-colors hover:text-[#f5c518]"
+   411→                >
+   412→                  Cancel
+   413→                </button>
+   414→              </div>
+   415→            </div>
+   416→          )}
+   417→        </div>
+   418→      </div>
+   419→
+   420→      {/* Anime info: glass card with poster + gradient title */}
+   421→      <section className="glass-card mx-3 rounded-2xl p-4">
+   422→        <div className="flex gap-3">
+   423→          <div className="h-28 w-20 shrink-0 overflow-hidden rounded-xl bg-[#1a1a22] ring-1 ring-white/5">
+   424→            {anime.poster && (
+   425→              <img
+   426→                src={anime.poster}
+   427→                alt={anime.title}
+   428→                className="h-full w-full object-cover"
+   429→              />
+   430→            )}
+   431→          </div>
+   432→          <div className="min-w-0 flex-1">
+   433→            <h1 className="gradient-text line-clamp-2 text-base font-black leading-tight tracking-editorial">
+   434→              {anime.title}
+   435→            </h1>
+   436→            {anime.titleJapanese && (
+   437→              <p className="mt-0.5 text-[11px] text-white/50">
+   438→                {anime.titleJapanese}
+   439→              </p>
+   440→            )}
+   441→            <div className="mt-2 flex flex-wrap items-center gap-1.5 text-[11px] text-white/70">
+   442→              {anime.score > 0 && (
+   443→                <span className="brand-gradient-soft flex items-center gap-1 rounded-md px-1.5 py-0.5 font-bold text-[#f5c518]">
+   444→                  <Star className="h-3 w-3 fill-[#f5c518]" />
+   445→                  {anime.score.toFixed(2)}
+   446→                </span>
+   447→              )}
+   448→              <span className="flex items-center gap-1 text-white/65">
+   449→                <Film className="h-3 w-3" /> {anime.type}
+   450→              </span>
+   451→              {anime.episodeCount > 0 && (
+   452→                <span className="flex items-center gap-1 text-white/65">
+   453→                  <PlayCircle className="h-3 w-3" /> {anime.episodeCount} eps
+   454→                </span>
+   455→              )}
+   456→              {anime.duration && (
+   457→                <span className="flex items-center gap-1 text-white/65">
+   458→                  <Clock className="h-3 w-3" /> {anime.duration}
+   459→                </span>
+   460→              )}
+   461→              {anime.year && (
+   462→                <span className="flex items-center gap-1 text-white/65">
+   463→                  <Calendar className="h-3 w-3" /> {anime.year}
+   464→                </span>
+   465→              )}
+   466→              {anime.members ? (
+   467→                <span className="flex items-center gap-1 text-white/65">
+   468→                  <Users className="h-3 w-3" />
+   469→                  {(anime.members / 1000).toFixed(0)}K
+   470→                </span>
+   471→              ) : null}
+   472→            </div>
+   473→          </div>
+   474→        </div>
+   475→
+   476→        {/* Animated genre chips */}
+   477→        {anime.genres.length > 0 && (
+   478→          <div className="mt-3 flex flex-wrap gap-1.5">
+   479→            {anime.genres.slice(0, 6).map((g, i) => (
+   480→              <span
+   481→                key={g}
+   482→                className="glass-card fade-in-stagger rounded-full px-2.5 py-0.5 text-[10px] font-semibold text-white/80"
+   483→                style={{ ["--i"]: i } as React.CSSProperties}
+   484→              >
+   485→                {g}
+   486→              </span>
+   487→            ))}
+   488→          </div>
+   489→        )}
+   490→
+   491→        {/* Status + studio summary */}
+   492→        <p className="mt-3 text-xs leading-relaxed text-white/65">
+   493→          {anime.status}
+   494→          {anime.studios?.length ? ` · ${anime.studios.join(", ")}` : ""}
+   495→        </p>
+   496→
+   497→        {/* Broadcast time badge: gradient glass with pulse if airing */}
+   498→        {nextAirInfo && (
+   499→          <div
+   500→            className={cn(
+   501→              "mt-3 flex items-center gap-2 rounded-xl px-3 py-2",
+   502→              "brand-gradient-soft glass-card",
+   503→              isAiring && "pulse-glow",
+   504→            )}
+   505→          >
+   506→            <Radio className="h-3.5 w-3.5 shrink-0 text-[#f5c518]" />
+   507→            <div className="min-w-0 flex-1">
+   508→              <p className="text-[10px] font-bold uppercase tracking-wider text-white/50">
+   509→                {isAiring ? "Next episode airs in" : "Broadcast"}
+   510→              </p>
+   511→              <p className="gradient-text text-xs font-bold tracking-editorial">
+   512→                {broadcast?.string ??
+   513→                  `${broadcast?.day} ${broadcast?.time} JST`}
+   514→              </p>
+   515→            </div>
+   516→            {isAiring && (
+   517→              <span className="brand-gradient-bg rounded-md px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-black">
+   518→                {formatCountdown(nextAirInfo)}
+   519→              </span>
+   520→            )}
+   521→          </div>
+   522→        )}
+   523→      </section>
+   524→
+   525→      {/* Pill-style tabs with sliding indicator */}
+   526→      <div className="px-3">
+   527→        <PillTabs
+   528→          tabs={tabs}
+   529→          active={activeTab}
+   530→          onChange={(t) => setActiveTab(t as DetailTab)}
+   531→        />
+   532→      </div>
+   533→
+   534→      {/* Tab content with slide-up transition */}
+   535→      <div className="px-3" key={activeTab}>
+   536→        <div className="slide-up">
+   537→          {activeTab === "episodes" && (
+   538→            <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+   539→              {episodeList.map((ep, idx) => {
+   540→                const active = ep.number === selectedEpisode;
+   541→                const watchedEps = continueWatching.map((h) => h.episode);
+   542→                const latestAvailableEp =
+   543→                  watchedEps.length > 0 ? Math.max(...watchedEps) : 0;
+   544→                const hasStream =
+   545→                  !isAiring || ep.number <= latestAvailableEp;
+   546→                const epStatus = isAiring
+   547→                  ? getEpisodeAirStatus(
+   548→                      ep.number,
+   549→                      anime.episodeCount,
+   550→                      broadcast,
+   551→                      hasStream,
+   552→                      latestAvailableEp,
+   553→                    )
+   554→                  : null;
+   555→                // Watch progress for THIS episode from history.
+   556→                const epHistory = continueWatching.find(
+   557→                  (h) => h.episode === ep.number,
+   558→                );
+   559→                const epProgress = epHistory?.progress ?? 0;
+   560→                const showProgress = epProgress > 0;
+   561→                const isCompleted = epProgress > 90;
+   562→                return (
+   563→                  <button
+   564→                    key={ep.number}
+   565→                    type="button"
+   566→                    onClick={() => handleSelectEpisode(ep.number)}
+   567→                    className={cn(
+   568→                      "fade-in-stagger card-hover relative flex aspect-video flex-col justify-between overflow-hidden rounded-xl p-2 text-left ring-1 transition-all duration-300",
+   569→                      active
+   570→                        ? "ring-2 ring-[#ff8a00] glow-orange"
+   571→                        : "ring-white/5 hover:ring-[#f5c518]/40",
+   572→                    )}
+   573→                    style={{ ["--i"]: idx } as React.CSSProperties}
+   574→                  >
+   575→                    {/* Background thumbnail — the anime's banner/poster */}
+   576→                    {episodeThumb && (
+   577→                      <img
+   578→                        src={episodeThumb}
+   579→                        alt=""
+   580→                        aria-hidden
+   581→                        loading="lazy"
+   582→                        className="absolute inset-0 h-full w-full object-cover"
+   583→                      />
+   584→                    )}
+   585→                    {/* Gradient overlay for readability */}
+   586→                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/15" />
+   587→
+   588→                    {/* Filler badge */}
+   589→                    {ep.filler && (
+   590→                      <span className="absolute left-1 top-1 z-10 rounded bg-red-500/85 px-1 text-[8px] font-black text-white">
+   591→                        FILLER
+   592→                      </span>
+   593→                    )}
+   594→
+   595→                    {/* Air-status badge */}
+   596→                    {epStatus && (
+   597→                      <span
+   598→                        className={cn(
+   599→                          "absolute right-1 top-1 z-10 rounded px-1.5 py-0.5 text-[8px] font-black uppercase tracking-wider",
+   600→                          epStatus.type === "countdown"
+   601→                            ? "brand-gradient-bg text-black"
+   602→                            : epStatus.type === "coming-soon"
+   603→                              ? "bg-orange-500/30 text-orange-300"
+   604→                              : "bg-green-500/30 text-green-300",
+   605→                        )}
+   606→                      >
+   607→                        {epStatus.label}
+   608→                      </span>
+   609→                    )}
+   610→
+   611→                    {/* Episode number — top */}
+   612→                    <span
+   613→                      className="relative z-10 text-xs font-black tracking-editorial text-white"
+   614→                      style={{
+   615→                        textShadow:
+   616→                          "0 0 8px rgba(255,138,0,0.7), 0 1px 3px rgba(0,0,0,0.9)",
+   617→                      }}
+   618→                    >
+   619→                      EP {ep.number}
+   620→                    </span>
+   621→
+   622→                    {/* Episode title — bottom */}
+   623→                    <span
+   624→                      className="relative z-10 line-clamp-2 text-[10px] leading-tight text-white/85"
+   625→                      style={{ textShadow: "0 1px 3px rgba(0,0,0,0.9)" }}
+   626→                    >
+   627→                      {ep.title ?? `Episode ${ep.number}`}
+   628→                    </span>
+   629→
+   630→                    {/* Watch progress bar — green if completed (>90%), gold if in progress */}
+   631→                    {showProgress && (
+   632→                      <div className="absolute inset-x-0 bottom-0 z-10 h-1 bg-black/50">
+   633→                        <div
+   634→                          className="h-full transition-[width] duration-500"
+   635→                          style={{
+   636→                            width: `${Math.min(100, epProgress)}%`,
+   637→                            background: isCompleted
+   638→                              ? "linear-gradient(90deg, #22c55e, #4ade80)"
+   639→                              : "linear-gradient(90deg, #f5c518, #ff8a00)",
+   640→                            boxShadow: isCompleted
+   641→                              ? "0 0 6px rgba(34,197,94,0.6)"
+   642→                              : "0 0 6px rgba(255,138,0,0.6)",
+   643→                          }}
+   644→                        />
+   645→                      </div>
+   646→                    )}
+   647→                  </button>
+   648→                );
+   649→              })}
+   650→            </div>
+   651→          )}
+   652→
+   653→          {activeTab === "continue" && continueWatching.length > 0 && (
+   654→            <div className="flex flex-col gap-2">
+   655→              {continueWatching.map((h, i) => {
+   656→                const isActive = h.episode === selectedEpisode;
+   657→                return (
+   658→                  <button
+   659→                    key={`${h.malId}-${h.episode}`}
+   660→                    type="button"
+   661→                    onClick={() => {
+   662→                      setCountdownForEp(null);
+   663→                      setNextEpCountdown(null);
+   664→                      if (anime) {
+   665→                        openAnime(h.malId, h.episode, h.position);
+   666→                      }
+   667→                    }}
+   668→                    className={cn(
+   669→                      "fade-in-stagger glass-card card-hover flex items-center gap-3 rounded-xl p-2 text-left",
+   670→                      isActive && "glow",
+   671→                    )}
+   672→                    style={{ ["--i"]: i } as React.CSSProperties}
+   673→                  >
+   674→                    <div className="relative h-14 w-24 shrink-0 overflow-hidden rounded-lg bg-black">
+   675→                      {h.poster && (
+   676→                        <img
+   677→                          src={h.poster}
+   678→                          alt={h.title}
+   679→                          className="h-full w-full object-cover"
+   680→                        />
+   681→                      )}
+   682→                      <div className="absolute inset-0 grid place-items-center bg-black/30">
+   683→                        <PlayCircle className="h-6 w-6 text-white/90" />
+   684→                      </div>
+   685→                      {/* Gradient progress bar */}
+   686→                      {h.duration > 0 && (
+   687→                        <div
+   688→                          className="brand-gradient-bg absolute bottom-0 left-0 h-1"
+   689→                          style={{
+   690→                            width: `${Math.min(100, h.progress)}%`,
+   691→                          }}
+   692→                        />
+   693→                      )}
+   694→                    </div>
+   695→                    <div className="min-w-0 flex-1">
+   696→                      <p
+   697→                        className={cn(
+   698→                          "text-xs font-bold tracking-editorial",
+   699→                          isActive ? "gradient-text" : "text-white",
+   700→                        )}
+   701→                      >
+   702→                        Episode {h.episode}
+   703→                      </p>
+   704→                      <p className="text-[10px] text-white/50">
+   705→                        {h.progress > 0
+   706→                          ? `${Math.round(h.progress)}% watched`
+   707→                          : "Not started"}
+   708→                      </p>
+   709→                      {h.watchedAt && (
+   710→                        <p className="text-[9px] text-white/40">
+   711→                          {new Date(h.watchedAt).toLocaleDateString(undefined, {
+   712→                            month: "short",
+   713→                            day: "numeric",
+   714→                          })}
+   715→                        </p>
+   716→                      )}
+   717→                    </div>
+   718→                  </button>
+   719→                );
+   720→              })}
+   721→            </div>
+   722→          )}
+   723→
+   724→          {activeTab === "seasons" && seasons.length > 1 && (
+   725→            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+   726→              {seasons.map((s, idx) => {
+   727→                const isCurrent = s.malId === selectedMalId;
+   728→                return (
+   729→                  <button
+   730→                    key={s.malId}
+   731→                    type="button"
+   732→                    onClick={() => {
+   733→                      setCountdownForEp(null);
+   734→                      setNextEpCountdown(null);
+   735→                      if (!isCurrent) openAnime(s.malId, 1);
+   736→                    }}
+   737→                    disabled={isCurrent}
+   738→                    className={cn(
+   739→                      "fade-in-stagger glass-card card-hover flex items-center gap-3 rounded-xl p-2 text-left disabled:cursor-default",
+   740→                      isCurrent && "glow",
+   741→                    )}
+   742→                    style={{ ["--i"]: idx } as React.CSSProperties}
+   743→                  >
+   744→                    {/* Glass number badge */}
+   745→                    <div
+   746→                      className={cn(
+   747→                        "grid h-12 w-8 shrink-0 place-items-center rounded-lg text-xs font-black",
+   748→                        isCurrent
+   749→                          ? "brand-gradient-bg text-black"
+   750→                          : "brand-gradient-soft text-[#f5c518]",
+   751→                      )}
+   752→                    >
+   753→                      {idx + 1}
+   754→                    </div>
+   755→                    <div className="h-14 w-10 shrink-0 overflow-hidden rounded-lg bg-black">
+   756→                      {s.anime?.poster && (
+   757→                        <img
+   758→                          src={s.anime.poster}
+   759→                          alt={s.label}
+   760→                          className="h-full w-full object-cover"
+   761→                        />
+   762→                      )}
+   763→                    </div>
+   764→                    <div className="min-w-0 flex-1">
+   765→                      <p
+   766→                        className={cn(
+   767→                          "text-xs font-bold leading-tight tracking-editorial",
+   768→                          isCurrent ? "gradient-text" : "text-white",
+   769→                        )}
+   770→                      >
+   771→                        {s.label}
+   772→                      </p>
+   773→                      {s.anime && (
+   774→                        <p className="text-[10px] text-white/50">
+   775→                          {s.anime.episodeCount > 0
+   776→                            ? `${s.anime.episodeCount} eps`
+   777→                            : s.anime.type}
+   778→                          {s.anime.score > 0 &&
+   779→                            ` · ⭐ ${s.anime.score.toFixed(2)}`}
+   780→                          {s.anime.year && ` · ${s.anime.year}`}
+   781→                        </p>
+   782→                      )}
+   783→                      {s.anime?.status && (
+   784→                        <p className="text-[9px] text-white/40">
+   785→                          {s.anime.status}
+   786→                        </p>
+   787→                      )}
+   788→                    </div>
+   789→                    {isCurrent && (
+   790→                      <span className="brand-gradient-bg rounded-md px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-black">
+   791→                        Now
+   792→                      </span>
+   793→                    )}
+   794→                  </button>
+   795→                );
+   796→              })}
+   797→            </div>
+   798→          )}
+   799→
+   800→          {activeTab === "synopsis" && (
+   801→            <div className="glass-card rounded-xl p-4">
+   802→              <p className="text-sm leading-relaxed text-white/80">
+   803→                {anime.synopsis || "No synopsis available."}
+   804→              </p>
+   805→            </div>
+   806→          )}
+   807→
+   808→          {activeTab === "details" && (
+   809→            <dl className="grid grid-cols-2 gap-2 text-[11px]">
+   810→              <DetailRow label="Type" value={anime.type} />
+   811→              <DetailRow label="Status" value={anime.status} />
+   812→              <DetailRow label="Episodes" value={String(anime.episodeCount)} />
+   813→              <DetailRow label="Duration" value={anime.duration ?? "-"} />
+   814→              <DetailRow label="Year" value={String(anime.year ?? "-")} />
+   815→              <DetailRow label="Season" value={anime.season ?? "-"} />
+   816→              <DetailRow label="Rating" value={anime.rating ?? "-"} />
+   817→              <DetailRow label="Source" value={anime.source ?? "-"} />
+   818→              <DetailRow
+   819→                label="Studio"
+   820→                value={anime.studios?.join(", ") || "-"}
+   821→              />
+   822→              <DetailRow
+   823→                label="Score"
+   824→                value={anime.score > 0 ? anime.score.toFixed(2) : "-"}
+   825→              />
+   826→            </dl>
+   827→          )}
+   828→        </div>
+   829→      </div>
+   830→    </div>
+   831→  );
+   832→}
+   833→
+   834→function DetailRow({ label, value }: { label: string; value: string }) {
+   835→  return (
+   836→    <div className="glass-card flex flex-col rounded-lg px-2.5 py-1.5">
+   837→      <dt className="text-[10px] uppercase tracking-wider text-white/40">
+   838→        {label}
+   839→      </dt>
+   840→      <dd className="truncate text-xs font-semibold text-white/90">{value}</dd>
+   841→    </div>
+   842→  );
+   843→}
+   844→
+   845→// ============================================================
+   846→// Tabs
+   847→// ============================================================
+   848→
+   849→// Sliding pill indicator tabs (mirrors the home page type tabs)
+   850→function PillTabs({
+   851→  tabs,
+   852→  active,
+   853→  onChange,
+   854→}: {
+   855→  tabs: { key: string; label: string; icon: React.ReactNode }[];
+   856→  active: string;
+   857→  onChange: (k: string) => void;
+   858→}) {
+   859→  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+   860→  const [indicator, setIndicator] = useState({ left: 0, width: 0 });
+   861→
+   862→  useLayoutEffect(() => {
+   863→    const idx = tabs.findIndex((t) => t.key === active);
+   864→    const el = tabRefs.current[idx];
+   865→    if (el) {
+   866→      setIndicator({ left: el.offsetLeft, width: el.offsetWidth });
+   867→    }
+   868→  }, [active, tabs]);
+   869→
+   870→  return (
+   871→    <div className="no-scrollbar flex gap-1.5 overflow-x-auto">
+   872→      <div className="glass-card relative flex gap-1 rounded-full p-1">
+   873→        <span
+   874→          className="brand-gradient-bg tab-pill-indicator absolute top-1 bottom-1 rounded-full"
+   875→          style={{ left: indicator.left, width: indicator.width }}
+   876→        />
+   877→        {tabs.map((t, i) => {
+   878→          const isActive = t.key === active;
+   879→          return (
+   880→            <button
+   881→              key={t.key}
+   882→              ref={(el) => {
+   883→                tabRefs.current[i] = el;
+   884→              }}
+   885→              type="button"
+   886→              onClick={() => onChange(t.key)}
+   887→              className={cn(
+   888→                "relative z-10 flex items-center gap-1 whitespace-nowrap rounded-full px-3.5 py-1 text-xs font-bold tracking-editorial transition-colors duration-300",
+   889→                isActive
+   890→                  ? "text-black"
+   891→                  : "text-white/55 hover:text-white/85",
+   892→              )}
+   893→            >
+   894→              {t.icon}
+   895→              {t.label}
+   896→            </button>
+   897→          );
+   898→        })}
+   899→      </div>
+   900→    </div>
+   901→  );
+   902→}
+   903→
+   904→// ============================================================
+   905→// Episode countdown timer
+   906→// ============================================================
+   907→
+   908→function getNextAirTime(broadcast: BroadcastInfo | null): Date | null {
+   909→  if (!broadcast?.day || !broadcast?.time) return null;
+   910→  const dayMap: Record<string, number> = {
+   911→    sunday: 0,
+   912→    monday: 1,
+   913→    tuesday: 2,
+   914→    wednesday: 3,
+   915→    thursday: 4,
+   916→    friday: 5,
+   917→    saturday: 6,
+   918→    sundays: 0,
+   919→    mondays: 1,
+   920→    tuesdays: 2,
+   921→    wednesdays: 3,
+   922→    thursdays: 4,
+   923→    fridays: 5,
+   924→    saturdays: 6,
+   925→  };
+   926→  const targetDay = dayMap[broadcast.day.toLowerCase()];
+   927→  if (targetDay === undefined) return null;
+   928→  const [hours, minutes] = broadcast.time.split(":").map(Number);
+   929→  if (isNaN(hours) || isNaN(minutes)) return null;
+   930→  const now = new Date();
+   931→  const nowJst = new Date(now.getTime() + 9 * 3600000);
+   932→  const nextAirJst = new Date(nowJst);
+   933→  let daysUntil = (targetDay - nowJst.getDay() + 7) % 7;
+   934→  if (daysUntil === 0) {
+   935→    const curMin = nowJst.getHours() * 60 + nowJst.getMinutes();
+   936→    const airMin = hours * 60 + minutes;
+   937→    if (curMin >= airMin) daysUntil = 7;
+   938→  }
+   939→  nextAirJst.setDate(nowJst.getDate() + daysUntil);
+   940→  nextAirJst.setHours(hours, minutes, 0, 0);
+   941→  return new Date(nextAirJst.getTime() - 9 * 3600000);
+   942→}
+   943→
+   944→function formatCountdown(d: Date): string {
+   945→  const diff = d.getTime() - Date.now();
+   946→  if (diff <= 0) return "Now";
+   947→  const days = Math.floor(diff / 86400000);
+   948→  const hours = Math.floor((diff % 86400000) / 3600000);
+   949→  const mins = Math.floor((diff % 3600000) / 60000);
+   950→  if (days > 0) return `${days}d ${hours}h`;
+   951→  if (hours > 0) return `${hours}h ${mins}m`;
+   952→  return `${mins}m`;
+   953→}
+   954→
+   955→function getEpisodeAirStatus(
+   956→  epNumber: number,
+   957→  _totalEps: number,
+   958→  broadcast: BroadcastInfo | null,
+   959→  hasStream: boolean,
+   960→  latestAvailableEp: number,
+   961→): { type: "countdown" | "coming-soon" | "available"; label: string } | null {
+   962→  if (!broadcast?.day || !broadcast?.time) return null;
+   963→  if (hasStream) return { type: "available", label: "AVAILABLE" };
+   964→  const nextAir = getNextAirTime(broadcast);
+   965→  if (!nextAir) return null;
+   966→  // Calculate this episode's air time: next air is for ep (latestAvailableEp + 1)
+   967→  const weeksDiff = latestAvailableEp + 1 - epNumber;
+   968→  const epAirTime = new Date(
+   969→    nextAir.getTime() - weeksDiff * 7 * 24 * 3600000,
+   970→  );
+   971→  const diff = epAirTime.getTime() - Date.now();
+   972→  if (diff > 0) {
+   973→    const days = Math.floor(diff / 86400000);
+   974→    const hours = Math.floor((diff % 86400000) / 3600000);
+   975→    const mins = Math.floor((diff % 3600000) / 60000);
+   976→    let label: string;
+   977→    if (days > 0) label = `${days}d ${hours}h`;
+   978→    else if (hours > 0) label = `${hours}h ${mins}m`;
+   979→    else label = `${mins}m`;
+   980→    return { type: "countdown", label };
+   981→  }
+   982→  return { type: "coming-soon", label: "SOON" };
+   983→}
+   984→
+   985→function useCountdownTick() {
+   986→  const [, setTick] = useState(0);
+   987→  useEffect(() => {
+   988→    const interval = setInterval(() => setTick((t) => t + 1), 60000);
+   989→    return () => clearInterval(interval);
+   990→  }, []);
+   991→}
+   992→

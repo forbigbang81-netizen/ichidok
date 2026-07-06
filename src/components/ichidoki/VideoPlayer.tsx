@@ -131,7 +131,7 @@ function fmtTime(s: number): string {
 }
 
 /**
- * Convert an RGB pixel to an HSL tuple so we can detect "dark" frames and
+ * Convert an RGB pixel to a luma value so we can detect "dark" frames and
  * skip them — otherwise the ambient glow goes nearly black during night
  * scenes and the effect is lost.
  */
@@ -173,12 +173,8 @@ export function VideoPlayer({
   const seekingRef = useRef(false);
   const lastProgressEmitRef = useRef(0);
   const resumeAppliedRef = useRef(false);
-  // Position captured before audio-mode switch — preserved across the
-  // reload so the user resumes from the same timestamp in the new track.
   const audioSwitchPositionRef = useRef<number | null>(null);
-  // Canvas used for ambient backlight color sampling.
   const ambientCanvasRef = useRef<HTMLCanvasElement | null>(null);
-  // Ensures the keyboard-shortcut hint only plays once per mount.
   const hintShownRef = useRef(false);
   const volumeHudTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -206,21 +202,17 @@ export function VideoPlayer({
   const [cues, setCues] = useState<SubtitleCue[]>([]);
   const [activeCue, setActiveCue] = useState("");
   const [muted, setMuted] = useState(false);
-  // Volume is tracked in state so keyboard shortcuts can update the HUD
-  // and the mute icon can reflect a zero-volume state.
   const [volume, setVolume] = useState(1);
   const [audioTracks, setAudioTracks] = useState<AudioTrackInfo[]>([]);
   const [activeAudioTrack, setActiveAudioTrack] = useState<number>(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [subtitleSource, setSubtitleSource] = useState<string>("");
   const [mirrored, setMirrored] = useState(false);
-  // Ambient backlight color sampled from the video frame (rgba string).
+  // Ambient backlight color sampled from the video frame — subtle.
   const [ambientColor, setAmbientColor] = useState<string>(
-    "rgba(255, 138, 0, 0.45)",
+    "rgba(255, 255, 255, 0.08)",
   );
-  // Brief on-load keyboard-shortcut hint overlay.
   const [showKbHint, setShowKbHint] = useState(false);
-  // Transient volume HUD shown when adjusting volume via keyboard.
   const [showVolumeHud, setShowVolumeHud] = useState(false);
 
   // ----- Auto-hide controls -----
@@ -281,7 +273,6 @@ export function VideoPlayer({
     fetch(subUrl)
       .then((r) => {
         if (!r.ok) return Promise.reject(r.status);
-        // Track subtitle source for UI feedback (e.g. "OpenSubtitles" vs "Episode Info")
         const src = r.headers.get("x-subtitle-source");
         if (src) setSubtitleSource(src);
         return r.text();
@@ -312,12 +303,10 @@ export function VideoPlayer({
     const onTime = () => {
       if (seekingRef.current) return;
       setCurrentTime(v.currentTime);
-      // Update active cue
       const cue = cues.find(
         (c) => v.currentTime >= c.start && v.currentTime <= c.end,
       );
       setActiveCue(cue ? cue.text : "");
-      // Throttled progress callback (every 5s)
       const now = Date.now();
       if (onProgress && now - lastProgressEmitRef.current > 5000) {
         lastProgressEmitRef.current = now;
@@ -326,11 +315,8 @@ export function VideoPlayer({
     };
     const onLoadedMeta = () => {
       setDuration(v.duration || 0);
-      // Sync volume state with the media element on load.
       setVolume(v.volume);
       setMuted(v.muted);
-      // Resume position — prefer audio-switch captured position, fall back
-      // to the resumePosition prop supplied by the parent (history-based).
       if (!resumeAppliedRef.current) {
         const resumeTarget =
           audioSwitchPositionRef.current ?? resumePosition ?? 0;
@@ -347,7 +333,6 @@ export function VideoPlayer({
         audioSwitchPositionRef.current = null;
       }
       resumeAppliedRef.current = true;
-      // Audio tracks
       const at = (v as VideoElementWithAudioTracks).audioTracks;
       if (at && at.length > 1) {
         const tracks: AudioTrackInfo[] = [];
@@ -381,7 +366,6 @@ export function VideoPlayer({
       onEnded?.();
     };
     const onErr = () => {
-      // Don't override the initial "no stream" error.
       setError(
         (prev) =>
           prev ?? "Video failed to load. The source may be unavailable.",
@@ -424,12 +408,11 @@ export function VideoPlayer({
     return () => document.removeEventListener("fullscreenchange", onFs);
   }, [fullscreenPlayer, toggleFullscreen]);
 
-  // ----- Ambient backlight sampling -----
+  // ----- Ambient backlight sampling (subtle) -----
   // Samples the average color of the current video frame every 2s using a
-  // tiny offscreen canvas. If the video is cross-origin (e.g. archive.org
-  // direct URLs), the canvas becomes tainted and getImageData throws — we
-  // catch that and just keep the previous color. Same-origin proxy URLs
-  // (e.g. /api/stream?url=...) will work fine.
+  // tiny offscreen canvas. If the video is cross-origin, the canvas becomes
+  // tainted and getImageData throws — we catch that and keep the previous
+  // color.
   const ambientVideoUrl = importInfo?.url ?? null;
   useEffect(() => {
     if (!ambientVideoUrl) return;
@@ -454,7 +437,6 @@ export function VideoPlayer({
         let b = 0;
         let count = 0;
         for (let i = 0; i < data.length; i += 4) {
-          // Sample every pixel (16×9 = 144 pixels — cheap).
           r += data[i];
           g += data[i + 1];
           b += data[i + 2];
@@ -466,15 +448,9 @@ export function VideoPlayer({
         // Skip near-black frames — they kill the ambient effect.
         const luma = rgbToLuma(r, g, b);
         if (luma < 0.08) return;
-        // Boost saturation slightly so the glow reads as "mood" not "mud".
-        const max = Math.max(r, g, b);
-        const min = Math.min(r, g, b);
-        const boosted = [r, g, b].map((c) => {
-          if (max === min) return c;
-          return Math.min(255, Math.round(min + (c - min) * 1.15));
-        });
+        // Subtle: low alpha, no blur boost.
         setAmbientColor(
-          `rgba(${boosted[0]}, ${boosted[1]}, ${boosted[2]}, 0.55)`,
+          `rgba(${r}, ${g}, ${b}, 0.12)`,
         );
       } catch {
         // Tainted canvas — keep the previous color. No-op.
@@ -518,8 +494,6 @@ export function VideoPlayer({
   const toggleMute = useCallback(() => {
     const v = videoRef.current;
     if (!v) return;
-    // If we're unmuting into a zero-volume state, restore audible volume
-    // so the user actually hears something.
     if (v.muted && v.volume === 0) {
       v.volume = 1;
       setVolume(1);
@@ -534,13 +508,11 @@ export function VideoPlayer({
     if (!el) return;
     if (document.fullscreenElement) {
       document.exitFullscreen().catch(() => {});
-      // Try to unlock orientation
       if (screen.orientation && screen.orientation.unlock) {
         screen.orientation.unlock().catch(() => {});
       }
     } else {
       el.requestFullscreen().catch(() => {});
-      // Try to lock to landscape
       if (screen.orientation && screen.orientation.lock) {
         screen.orientation.lock("landscape").catch(() => {});
       }
@@ -578,9 +550,7 @@ export function VideoPlayer({
     [keepControlsAlive],
   );
 
-  // switchAudioMode with position preservation — capture the current
-  // playback time before swapping audioMode so the new stream resumes
-  // from the same timestamp.
+  // switchAudioMode with position preservation.
   const switchAudioMode = useCallback(
     (mode: "SUB" | "DUB") => {
       const v = videoRef.current;
@@ -593,7 +563,7 @@ export function VideoPlayer({
     [setAudioMode, keepControlsAlive],
   );
 
-  // ----- Volume HUD (briefly visible when adjusting volume via keyboard) -----
+  // ----- Volume HUD -----
   const flashVolumeHud = useCallback(() => {
     setShowVolumeHud(true);
     if (volumeHudTimerRef.current) clearTimeout(volumeHudTimerRef.current);
@@ -698,9 +668,7 @@ export function VideoPlayer({
   const isYoutube = !!importInfo?.isYoutube && !!importInfo?.url;
   const videoUrl = importInfo?.url ?? null;
   const posterUrl = poster ?? "";
-  // Fullscreen mirror — applied to BOTH the video and every overlay so the
-  // controls remain readable (rather than being backwards) when the video
-  // is horizontally flipped in fullscreen.
+  // Fullscreen mirror — applied to BOTH the video and every overlay.
   const mirrorStyle = isFullscreen ? "scaleX(-1)" : undefined;
 
   // ----- Keyboard-shortcut hint: show once on first ready, then auto-hide -----
@@ -749,13 +717,13 @@ export function VideoPlayer({
           <button
             type="button"
             onClick={onBack}
-            className="glass-card absolute left-3 top-3 z-10 grid h-9 w-9 place-items-center rounded-full text-white hover:text-[#f5c518]"
+            className="absolute left-3 top-3 z-10 grid h-9 w-9 place-items-center rounded-full bg-black/60 text-white"
             aria-label="Back"
           >
             <ArrowLeft className="h-5 w-5" />
           </button>
         )}
-        <div className="glass-card pointer-events-none absolute bottom-3 left-3 z-10 rounded-md px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
+        <div className="pointer-events-none absolute bottom-3 left-3 z-10 rounded bg-black/60 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
           Trailer · YouTube
         </div>
       </div>
@@ -767,16 +735,12 @@ export function VideoPlayer({
   const bufferedPct =
     duration > 0 ? Math.min(100, (buffered / duration) * 100) : 0;
 
-  // Icon used by the mute button + volume HUD.
   const isEffectivelyMuted = muted || volume === 0;
 
   return (
     <div
       ref={containerRef}
-      className={cn(
-        "relative aspect-video w-full select-none overflow-hidden bg-black",
-        isFullscreen ? "rounded-none" : "rounded-2xl",
-      )}
+      className="relative aspect-video w-full select-none overflow-hidden bg-black"
       onMouseMove={keepControlsAlive}
       onMouseLeave={() => {
         if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
@@ -786,23 +750,16 @@ export function VideoPlayer({
         }, HIDE_CONTROLS_MS / 2);
       }}
     >
-      {/* ===== Ambient backlight — sits BEHIND the video, extends beyond
-          the container edges so the box-shadow / blurred gradient is
-          visible as a glow around (not behind) the player. */}
+      {/* ===== Ambient backlight — subtle, behind the video ===== */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -inset-8 z-0 transition-[background,box-shadow] duration-1000 ease-out"
+        className="pointer-events-none absolute -inset-4 z-0 transition-[background] duration-1000 ease-out"
         style={{
-          background: `radial-gradient(ellipse at center, ${ambientColor} 0%, transparent 65%)`,
-          filter: "blur(24px)",
-          boxShadow: `0 0 80px 8px ${ambientColor}`,
+          background: `radial-gradient(ellipse at center, ${ambientColor} 0%, transparent 60%)`,
         }}
       />
 
-      {/* ===== Video element =====
-          NO crossOrigin (breaks archive.org CDN). Tap-to-toggle-UI is
-          handled by a dedicated click-catcher below (the <video>
-          element's onClick is unreliable on mobile). */}
+      {/* ===== Video element ===== */}
       {videoUrl ? (
         <video
           ref={videoRef}
@@ -819,17 +776,13 @@ export function VideoPlayer({
             <img
               src={posterUrl}
               alt={title ?? "poster"}
-              className="absolute inset-0 h-full w-full object-cover opacity-40"
+              className="absolute inset-0 h-full w-full object-cover opacity-30"
             />
           )}
         </div>
       )}
 
-      {/* ===== Always-present transparent click-catcher =====
-          Sits ABOVE the video (z-10) but BELOW the controls (z-20/z-30).
-          The top/bottom bars become pointer-events-none when hidden, so
-          taps fall through to this layer; the center overlay's buttons
-          call e.stopPropagation() so they don't trigger this handler. */}
+      {/* ===== Transparent click-catcher ===== */}
       {!loading && !error && videoUrl && (
         <div
           className="absolute inset-0 z-10"
@@ -838,47 +791,41 @@ export function VideoPlayer({
         />
       )}
 
-      {/* ===== Loading overlay — gradient ring animation ===== */}
+      {/* ===== Loading overlay ===== */}
       {loading && (
-        <div className="absolute inset-0 z-40 grid place-items-center bg-black/70">
+        <div className="absolute inset-0 z-40 grid place-items-center bg-black/80">
           <div className="flex flex-col items-center gap-3 text-white">
-            <div className="relative h-12 w-12">
+            <div className="relative h-10 w-10">
               <div className="absolute inset-0 rounded-full border-2 border-white/10" />
               <div
                 className="absolute inset-0 animate-spin rounded-full border-2 border-transparent"
                 style={{
                   borderTopColor: "#f5c518",
-                  borderRightColor: "#ff8a00",
                 }}
               />
             </div>
-            <p className="text-xs tracking-wide text-white/70">
-              Resolving stream…
-            </p>
+            <p className="text-xs text-white/60">Resolving stream…</p>
           </div>
         </div>
       )}
 
       {/* ===== Error overlay ===== */}
       {!loading && error && (
-        <div className="absolute inset-0 z-40 grid place-items-center bg-black/80 p-6">
-          <div className="glass-card flex max-w-xs flex-col items-center gap-3 rounded-xl p-5 text-center text-white">
+        <div className="absolute inset-0 z-40 grid place-items-center bg-black/90 p-6">
+          <div className="flex max-w-xs flex-col items-center gap-3 rounded-lg bg-[#111111] p-5 text-center text-white">
             <p className="text-sm leading-relaxed">{error}</p>
           </div>
         </div>
       )}
 
-      {/* ===== Keyboard shortcuts hint — appears briefly on first load ===== */}
+      {/* ===== Keyboard shortcuts hint ===== */}
       {showKbHint && !loading && !error && videoUrl && (
         <div
-          className="pointer-events-none absolute left-1/2 top-12 z-40 w-[92%] max-w-md -translate-x-1/2 scale-in"
+          className="pointer-events-none absolute left-1/2 top-12 z-40 w-[92%] max-w-md -translate-x-1/2 fade-in"
           style={{ transform: mirrorStyle ? `translateX(-50%) scaleX(-1)` : "translateX(-50%)" }}
         >
-          <div className="glass-card flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-xl px-3 py-2 text-[10px] text-white/85 backdrop-blur-md">
-            <span
-              className="gradient-text font-black uppercase tracking-wider"
-              style={{ textShadow: "0 0 8px rgba(255,138,0,0.5)" }}
-            >
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-lg bg-black/80 px-3 py-2 text-[10px] text-white/80">
+            <span className="font-bold uppercase tracking-wider text-[#f5c518]">
               Shortcuts
             </span>
             <span className="flex items-center gap-1">
@@ -905,45 +852,42 @@ export function VideoPlayer({
         </div>
       )}
 
-      {/* ===== Volume HUD — brief feedback when adjusting volume ===== */}
+      {/* ===== Volume HUD ===== */}
       {showVolumeHud && (
         <div
-          className="pointer-events-none absolute left-1/2 top-1/2 z-40 -translate-x-1/2 -translate-y-1/2 scale-in"
+          className="pointer-events-none absolute left-1/2 top-1/2 z-40 -translate-x-1/2 -translate-y-1/2 fade-in"
           style={{ transform: mirrorStyle ? `translate(-50%, -50%) scaleX(-1)` : "translate(-50%, -50%)" }}
         >
-          <div className="glass-card flex items-center gap-3 rounded-2xl px-5 py-3 backdrop-blur-md">
+          <div className="flex items-center gap-3 rounded-lg bg-black/80 px-5 py-3">
             {isEffectivelyMuted ? (
               <VolumeX className="h-6 w-6 text-white" />
             ) : (
-              <Volume2 className="h-6 w-6 text-[#f5c518]" />
+              <Volume2 className="h-6 w-6 text-white" />
             )}
-            <div className="h-2 w-28 overflow-hidden rounded-full bg-white/20">
+            <div className="h-1.5 w-28 overflow-hidden rounded-full bg-white/20">
               <div
-                className="brand-gradient-bg h-full rounded-full transition-[width] duration-150 ease-out"
+                className="h-full rounded-full bg-[#f5c518]"
                 style={{ width: `${Math.round(volume * 100)}%` }}
               />
             </div>
-            <span
-              className="gradient-text w-9 text-right text-sm font-black tabular-nums"
-              style={{ textShadow: "0 0 8px rgba(255,138,0,0.5)" }}
-            >
+            <span className="w-9 text-right text-sm font-bold tabular-nums text-white">
               {Math.round(volume * 100)}
             </span>
           </div>
         </div>
       )}
 
-      {/* ===== Custom subtitle overlay — orange glow for readability ===== */}
+      {/* ===== Custom subtitle overlay ===== */}
       {showSubtitles && activeCue && (
         <div
-          className="pointer-events-none absolute inset-x-0 bottom-24 z-20 flex justify-center px-4 sm:bottom-28"
+          className="pointer-events-none absolute inset-x-0 bottom-20 z-20 flex justify-center px-4"
           style={{ transform: mirrorStyle }}
         >
           <span
-            className="max-w-[90%] text-center text-base font-bold leading-snug text-white"
+            className="max-w-[90%] text-center text-base font-medium leading-snug text-white"
             style={{
               textShadow:
-                "0 0 3px #000, 0 0 6px #000, 0 0 10px #000, 0 0 15px rgba(255,138,0,0.6), 0 0 25px rgba(255,138,0,0.4), 0 2px 4px rgba(0,0,0,0.9)",
+                "0 0 3px #000, 0 0 6px #000, 0 2px 4px rgba(0,0,0,0.9)",
             }}
           >
             {activeCue.split("\n").map((line, i) => (
@@ -955,31 +899,27 @@ export function VideoPlayer({
         </div>
       )}
 
-      {/* ===== Subtitle "unavailable" hint — shows briefly when CC is on but no cues ===== */}
+      {/* ===== Subtitle "unavailable" hint ===== */}
       {showSubtitles &&
         !activeCue &&
         cues.length === 0 &&
         !loading &&
         videoUrl && (
           <div
-            className="pointer-events-none absolute inset-x-0 bottom-24 z-20 flex justify-center px-4 sm:bottom-28"
+            className="pointer-events-none absolute inset-x-0 bottom-20 z-20 flex justify-center px-4"
             style={{ transform: mirrorStyle }}
           >
-            <span
-              className="rounded-md bg-black/70 px-3 py-1 text-center text-xs font-bold text-white"
-              style={{
-                textShadow: "0 0 4px #000, 0 0 8px rgba(255,138,0,0.5)",
-              }}
-            >
+            <span className="rounded bg-black/70 px-3 py-1 text-center text-xs font-medium text-white">
               字幕なし · No subtitles available for this episode
             </span>
           </div>
         )}
 
-      {/* ===== Top bar — flip in fullscreen to match mirrored video ===== */}
+      {/* ===== Top bar ===== */}
       <div
         className={cn(
-          "glass-header absolute inset-x-0 top-0 z-30 flex items-center gap-2 p-3 transition-opacity duration-300",
+          "absolute inset-x-0 top-0 z-30 flex items-center gap-2 p-3 transition-opacity duration-200",
+          "bg-gradient-to-b from-black/80 to-transparent",
           controlsVisible ? "opacity-100" : "pointer-events-none opacity-0",
         )}
         style={{ transform: mirrorStyle }}
@@ -991,21 +931,18 @@ export function VideoPlayer({
               e.stopPropagation();
               onBack();
             }}
-            className="btn-press glass-card grid h-9 w-9 place-items-center rounded-full text-white hover:text-[#f5c518]"
+            className="grid h-9 w-9 place-items-center rounded-full text-white transition-colors active:bg-white/10"
             aria-label="Back"
           >
             <ArrowLeft className="h-5 w-5" />
           </button>
         )}
         <div className="min-w-0 flex-1">
-          <p
-            className="truncate text-sm font-bold tracking-editorial text-white"
-            style={{ textShadow: "0 1px 10px rgba(0,0,0,0.85)" }}
-          >
+          <p className="truncate text-sm font-medium text-white">
             {title ?? "Now Playing"}
           </p>
           {importInfo && (
-            <p className="text-[11px] text-white/60">
+            <p className="text-[11px] text-white/50">
               Episode {episode} · {audioMode} · {importInfo.quality}
             </p>
           )}
@@ -1021,11 +958,7 @@ export function VideoPlayer({
         )}
       </div>
 
-      {/* ===== Center controls — only when controls visible =====
-          The wrapper is pointer-events-none so taps on empty center area
-          fall through to the click-catcher (z-10) which toggles the UI.
-          The buttons inside re-enable pointer-events-auto and call
-          e.stopPropagation() so they don't trigger the toggle. */}
+      {/* ===== Center controls ===== */}
       {controlsVisible && !loading && !error && videoUrl && (
         <div
           className="pointer-events-none absolute inset-0 z-20 grid place-items-center"
@@ -1038,7 +971,7 @@ export function VideoPlayer({
                 e.stopPropagation();
                 skip(-10);
               }}
-              className="btn-press glass-card grid h-11 w-11 place-items-center rounded-full text-white transition hover:text-[#f5c518] hover:glow"
+              className="grid h-11 w-11 place-items-center rounded-full text-white transition-colors active:bg-white/10"
               aria-label="Back 10 seconds"
             >
               <RotateCcw className="h-5 w-5" />
@@ -1049,7 +982,7 @@ export function VideoPlayer({
                 e.stopPropagation();
                 togglePlay();
               }}
-              className="btn-press brand-gradient-bg pulse-glow grid h-16 w-16 place-items-center rounded-full text-black shadow-2xl shadow-[#ff8a00]/40 transition-transform duration-300 hover:scale-105"
+              className="grid h-16 w-16 place-items-center rounded-full bg-white text-black transition-transform active:scale-95"
               aria-label={isPlaying ? "Pause" : "Play"}
             >
               {isPlaying ? (
@@ -1064,7 +997,7 @@ export function VideoPlayer({
                 e.stopPropagation();
                 skip(10);
               }}
-              className="btn-press glass-card grid h-11 w-11 place-items-center rounded-full text-white transition hover:text-[#f5c518] hover:glow"
+              className="grid h-11 w-11 place-items-center rounded-full text-white transition-colors active:bg-white/10"
               aria-label="Forward 10 seconds"
             >
               <RotateCw className="h-5 w-5" />
@@ -1074,27 +1007,23 @@ export function VideoPlayer({
       )}
 
       {/* ===== Bottom controls container =====
-          ONE div, absolute bottom-0, holding EVERYTHING that belongs at
-          the bottom — control buttons row, then progress bar, then
-          timestamp. This keeps them anchored to the bottom edge instead
-          of drifting to the middle of the screen. Flip in fullscreen to
-          match the mirrored video. */}
+          Single div anchored to bottom — controls row → progress bar → timestamp. */}
       <div
         className={cn(
-          "absolute inset-x-0 bottom-0 z-30 px-3 pb-2 pt-6 transition-opacity duration-300",
-          "bg-gradient-to-t from-black/90 via-black/55 to-transparent",
+          "absolute inset-x-0 bottom-0 z-30 px-3 pb-2 pt-6 transition-opacity duration-200",
+          "bg-gradient-to-t from-black/90 via-black/50 to-transparent",
           controlsVisible ? "opacity-100" : "pointer-events-none opacity-0",
         )}
         style={{ transform: mirrorStyle }}
         onMouseMove={keepControlsAlive}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Row 1: Control buttons (play, mute, time, CC, settings, fullscreen) */}
+        {/* Row 1: Control buttons */}
         <div className="mb-2 flex items-center gap-1.5 text-white">
           <button
             type="button"
             onClick={togglePlay}
-            className="grid h-8 w-8 place-items-center rounded-full hover:bg-white/10"
+            className="grid h-8 w-8 place-items-center rounded-full transition-colors active:bg-white/10"
             aria-label={isPlaying ? "Pause" : "Play"}
           >
             {isPlaying ? (
@@ -1106,7 +1035,7 @@ export function VideoPlayer({
           <button
             type="button"
             onClick={toggleMute}
-            className="grid h-8 w-8 place-items-center rounded-full hover:bg-white/10"
+            className="grid h-8 w-8 place-items-center rounded-full transition-colors active:bg-white/10"
             aria-label="Mute"
           >
             {isEffectivelyMuted ? (
@@ -1115,16 +1044,12 @@ export function VideoPlayer({
               <Volume2 className="h-4 w-4" />
             )}
           </button>
-          {/* Inline current time / duration (mobile-friendly summary) */}
-          <span
-            className="ml-1 text-[11px] tabular-nums text-white/80"
-            style={{ textShadow: "0 0 8px rgba(255,138,0,0.5)" }}
-          >
+          <span className="ml-1 text-[11px] tabular-nums text-white/80">
             {fmtTime(currentTime)} / {fmtTime(duration)}
           </span>
 
           <div className="ml-auto flex items-center gap-1">
-            {/* CC toggle — glow when active */}
+            {/* CC toggle — gold when active */}
             {(cues.length > 0 ||
               importInfo?.hasSub ||
               importInfo?.subtitleUrl) && (
@@ -1135,8 +1060,8 @@ export function VideoPlayer({
                   keepControlsAlive();
                 }}
                 className={cn(
-                  "grid h-8 w-8 place-items-center rounded-full transition-all duration-300 hover:bg-white/10",
-                  showSubtitles ? "text-[#f5c518] glow" : "text-white/70",
+                  "grid h-8 w-8 place-items-center rounded-full transition-colors active:bg-white/10",
+                  showSubtitles ? "text-[#f5c518]" : "text-white/70",
                 )}
                 aria-label="Toggle subtitles"
                 title={
@@ -1153,7 +1078,7 @@ export function VideoPlayer({
               </button>
             )}
 
-            {/* Audio tracks (only when dual-audio detected) */}
+            {/* Audio tracks */}
             {audioTracks.length > 0 && (
               <AudioTracksMenu
                 tracks={audioTracks}
@@ -1163,7 +1088,7 @@ export function VideoPlayer({
               />
             )}
 
-            {/* Settings: speed + quality + mirror */}
+            {/* Settings */}
             <SettingsMenu
               speed={selectedSpeed}
               quality={selectedQuality}
@@ -1188,14 +1113,11 @@ export function VideoPlayer({
               }}
             />
 
-            {/* Fullscreen button — rotation animation on toggle */}
+            {/* Fullscreen */}
             <button
               type="button"
               onClick={toggleFullscreenFn}
-              className="grid h-8 w-8 place-items-center rounded-full transition-transform duration-500 hover:bg-white/10 hover:rotate-12"
-              style={{
-                transform: isFullscreen ? "rotate(180deg)" : "rotate(0deg)",
-              }}
+              className="grid h-8 w-8 place-items-center rounded-full transition-colors active:bg-white/10"
               aria-label="Fullscreen"
             >
               {isFullscreen ? (
@@ -1207,14 +1129,14 @@ export function VideoPlayer({
           </div>
         </div>
 
-        {/* Row 2: Progress bar (full width) */}
+        {/* Row 2: Progress bar — gold fill */}
         <div className="group relative h-1.5 w-full cursor-pointer rounded-full bg-white/20">
           <div
             className="absolute left-0 top-0 h-full rounded-full bg-white/30"
             style={{ width: `${bufferedPct}%` }}
           />
           <div
-            className="brand-gradient-bg absolute left-0 top-0 h-full rounded-full transition-[width] duration-150 ease-out"
+            className="absolute left-0 top-0 h-full rounded-full bg-[#f5c518]"
             style={{ width: `${progressPct}%` }}
           />
           <input
@@ -1234,13 +1156,13 @@ export function VideoPlayer({
             aria-label="Seek"
           />
           <div
-            className="brand-gradient-bg pointer-events-none absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full"
+            className="pointer-events-none absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#f5c518]"
             style={{ left: `${progressPct}%` }}
           />
         </div>
 
-        {/* Row 3: Timestamp (left = current, right = duration) */}
-        <div className="mt-1 flex justify-between text-[10px] tabular-nums text-white/70">
+        {/* Row 3: Timestamp */}
+        <div className="mt-1 flex justify-between text-[10px] tabular-nums text-white/60">
           <span>{fmtTime(currentTime)}</span>
           <span>{fmtTime(duration)}</span>
         </div>
@@ -1256,16 +1178,13 @@ export function VideoPlayer({
 // Small <kbd>-styled key cap used by the keyboard-shortcut hint.
 function Kbd({ children }: { children: React.ReactNode }) {
   return (
-    <kbd
-      className="inline-grid min-w-[18px] place-items-center rounded border border-white/20 bg-white/10 px-1 text-[9px] font-bold text-white"
-      style={{ textShadow: "0 1px 2px rgba(0,0,0,0.6)" }}
-    >
+    <kbd className="inline-grid min-w-[18px] place-items-center rounded border border-white/20 bg-white/10 px-1 text-[9px] font-bold text-white">
       {children}
     </kbd>
   );
 }
 
-// SUB/DUB toggle — glass pill with sliding gradient indicator
+// SUB/DUB toggle — simple text pill
 function SubDubPill({
   audioMode,
   onChange,
@@ -1275,20 +1194,13 @@ function SubDubPill({
 }) {
   const isSub = audioMode === "SUB";
   return (
-    <div className="glass-card relative flex items-center rounded-full p-0.5 text-[11px] font-black tracking-wider">
-      <span
-        className="brand-gradient-bg tab-pill-indicator absolute top-0.5 bottom-0.5 rounded-full"
-        style={{
-          left: isSub ? "0.125rem" : "50%",
-          width: "calc(50% - 0.125rem)",
-        }}
-      />
+    <div className="flex items-center rounded-full bg-black/60 p-0.5 text-[11px] font-bold tracking-wider">
       <button
         type="button"
         onClick={onChange}
         className={cn(
-          "relative z-10 px-2.5 py-1 transition-colors duration-300",
-          isSub ? "text-black" : "text-white/70",
+          "rounded-full px-2.5 py-1 transition-colors",
+          isSub ? "bg-[#f5c518] text-black" : "text-white/70",
         )}
       >
         SUB
@@ -1297,8 +1209,8 @@ function SubDubPill({
         type="button"
         onClick={onChange}
         className={cn(
-          "relative z-10 px-2.5 py-1 transition-colors duration-300",
-          !isSub ? "text-black" : "text-white/70",
+          "rounded-full px-2.5 py-1 transition-colors",
+          !isSub ? "bg-[#f5c518] text-black" : "text-white/70",
         )}
       >
         DUB
@@ -1326,14 +1238,14 @@ function AudioTracksMenu({
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="grid h-8 w-8 place-items-center rounded-full text-[10px] font-black hover:bg-white/10"
+        className="grid h-8 w-8 place-items-center rounded-full text-[10px] font-bold transition-colors active:bg-white/10"
         aria-label="Audio tracks"
       >
         AUD
       </button>
       {open && (
-        <div className="glass-card scale-in absolute bottom-10 right-0 w-40 overflow-hidden rounded-xl shadow-2xl">
-          <p className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-white/50">
+        <div className="absolute bottom-10 right-0 w-40 overflow-hidden rounded-lg bg-[#111111] py-1 shadow-xl fade-in">
+          <p className="px-3 py-2 text-[10px] font-medium uppercase tracking-wider text-white/40">
             Audio Track
           </p>
           {tracks.map((t) => (
@@ -1346,7 +1258,7 @@ function AudioTracksMenu({
               }}
               className={cn(
                 "block w-full px-3 py-2 text-left text-xs transition-colors hover:bg-white/5",
-                t.id === active ? "gradient-text font-bold" : "text-white",
+                t.id === active ? "text-[#f5c518]" : "text-white/80",
               )}
             >
               {t.label}
@@ -1388,17 +1300,17 @@ function SettingsMenu({
         type="button"
         onClick={() => onOpenChange(!open)}
         className={cn(
-          "grid h-8 w-8 place-items-center rounded-full transition-all duration-300 hover:bg-white/10",
-          open && "text-[#f5c518] glow",
+          "grid h-8 w-8 place-items-center rounded-full transition-colors active:bg-white/10",
+          open && "text-[#f5c518]",
         )}
         aria-label="Settings"
       >
         <Settings className="h-4 w-4" />
       </button>
       {open && (
-        <div className="glass-card scale-in absolute bottom-10 right-0 w-48 overflow-hidden rounded-xl shadow-2xl">
+        <div className="absolute bottom-10 right-0 w-48 overflow-hidden rounded-lg bg-[#111111] shadow-xl fade-in">
           <div className="px-3 py-2">
-            <p className="mb-1.5 text-[10px] font-bold uppercase tracking-wider text-white/50">
+            <p className="mb-1.5 text-[10px] font-medium uppercase tracking-wider text-white/40">
               Speed
             </p>
             <div className="flex flex-wrap gap-1">
@@ -1408,10 +1320,10 @@ function SettingsMenu({
                   type="button"
                   onClick={() => onSpeed(s)}
                   className={cn(
-                    "rounded-md px-2 py-1 text-[11px] font-semibold transition-all duration-300 hover:bg-white/10",
+                    "rounded-md px-2 py-1 text-[11px] font-medium transition-colors",
                     s === speed
-                      ? "brand-gradient-bg text-black"
-                      : "text-white",
+                      ? "bg-[#f5c518] text-black"
+                      : "text-white/80 active:bg-white/10",
                   )}
                 >
                   {s}×
@@ -1420,7 +1332,7 @@ function SettingsMenu({
             </div>
           </div>
           <div className="border-t border-white/10 px-3 py-2">
-            <p className="mb-1.5 text-[10px] font-bold uppercase tracking-wider text-white/50">
+            <p className="mb-1.5 text-[10px] font-medium uppercase tracking-wider text-white/40">
               Quality
             </p>
             <div className="flex flex-wrap gap-1">
@@ -1430,10 +1342,10 @@ function SettingsMenu({
                   type="button"
                   onClick={() => onQuality(q)}
                   className={cn(
-                    "rounded-md px-2 py-1 text-[11px] font-semibold transition-all duration-300 hover:bg-white/10",
+                    "rounded-md px-2 py-1 text-[11px] font-medium transition-colors",
                     q === quality
-                      ? "brand-gradient-bg text-black"
-                      : "text-white",
+                      ? "bg-[#f5c518] text-black"
+                      : "text-white/80 active:bg-white/10",
                   )}
                 >
                   {q}
@@ -1442,24 +1354,24 @@ function SettingsMenu({
             </div>
           </div>
           <div className="border-t border-white/10 px-3 py-2">
-            <p className="mb-1.5 text-[10px] font-bold uppercase tracking-wider text-white/50">
+            <p className="mb-1.5 text-[10px] font-medium uppercase tracking-wider text-white/40">
               Display
             </p>
             <button
               type="button"
               onClick={() => onMirror(!mirrored)}
               className={cn(
-                "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-[11px] font-semibold transition-all duration-300 hover:bg-white/10",
-                mirrored ? "gradient-text" : "text-white",
+                "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-[11px] font-medium transition-colors",
+                mirrored ? "text-[#f5c518]" : "text-white/80",
               )}
             >
               <FlipHorizontal className="h-3.5 w-3.5" />
               Mirror video
               <span
                 className={cn(
-                  "ml-auto rounded-full px-1.5 py-0.5 text-[9px] font-black",
+                  "ml-auto rounded-full px-1.5 py-0.5 text-[9px] font-bold",
                   mirrored
-                    ? "brand-gradient-bg text-black"
+                    ? "bg-[#f5c518] text-black"
                     : "bg-white/10 text-white/60",
                 )}
               >

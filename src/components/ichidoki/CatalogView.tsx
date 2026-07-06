@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Filter, LayoutGrid, X } from "lucide-react";
+import { Filter, LayoutGrid, X, ChevronDown, ChevronUp } from "lucide-react";
 import { apiCatalog } from "@/lib/api/client";
 import { useApp } from "@/store/app";
 import type { Anime } from "@/store/app";
@@ -53,12 +53,10 @@ export function CatalogView() {
   const [showFilters, setShowFilters] = useState(
     catalogGenre && GENRES.includes(catalogGenre) ? true : false,
   );
+  const [sortOpen, setSortOpen] = useState(false);
   const [limit, setLimit] = useState(24);
 
-  // Consume any pending genre sent from another view (e.g. HomeView genre
-  // chips) — apply it once on mount, then clear the store flag. Intentionally
-  // mount-only: we want to consume the pending genre once, not react to
-  // every store update.
+  // Consume any pending genre sent from another view.
   useEffect(() => {
     if (catalogGenre && GENRES.includes(catalogGenre)) {
       setGenre(catalogGenre);
@@ -106,16 +104,14 @@ export function CatalogView() {
 
   return (
     <div className="fade-in flex flex-col gap-4 p-4 pb-6">
-      {/* Section header — gradient text */}
+      {/* Header */}
       <div className="flex items-center gap-2">
         <div className="min-w-0 flex-1">
-          <h1 className="flex items-center gap-2 text-lg font-black tracking-editorial">
-            <span className="gradient-text">
-              <LayoutGrid className="h-5 w-5" />
-            </span>
-            <span className="gradient-text">Catalog</span>
+          <h1 className="flex items-center gap-2 text-lg font-bold text-white">
+            <LayoutGrid className="h-5 w-5" />
+            Catalog
           </h1>
-          <p className="mt-0.5 text-xs text-white/50">
+          <p className="mt-0.5 text-xs text-white/40">
             {loading ? "Loading…" : `${items.length} titles`}
           </p>
         </div>
@@ -123,10 +119,10 @@ export function CatalogView() {
           type="button"
           onClick={() => setShowFilters((s) => !s)}
           className={cn(
-            "btn-press flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold transition-all duration-300",
+            "flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors",
             showFilters || hasActiveFilters
-              ? "brand-gradient-bg text-black glow"
-              : "glass-card text-white/70 hover:text-[#f5c518]",
+              ? "bg-[#f5c518] text-black"
+              : "bg-[#111111] text-white/70 active:bg-white/10",
           )}
         >
           <Filter className="h-3 w-3" />
@@ -134,39 +130,52 @@ export function CatalogView() {
         </button>
       </div>
 
-      {/* Sort chips — glass pills with gradient active */}
-      <div className="no-scrollbar flex gap-1.5 overflow-x-auto">
-        {SORTS.map((s, i) => {
-          const active = sort === s.key;
-          return (
-            <button
-              key={s.key}
-              type="button"
-              onClick={() => setSort(s.key)}
-              className={cn(
-                "fade-in-stagger btn-press shrink-0 rounded-full px-3.5 py-1 text-[11px] font-bold tracking-editorial transition-all duration-300",
-                active
-                  ? "brand-gradient-bg text-black"
-                  : "glass-card text-white/70 hover:text-[#f5c518]",
-              )}
-              style={{ ["--i"]: i } as React.CSSProperties}
-            >
-              {s.label}
-            </button>
-          );
-        })}
+      {/* Sort — simple text dropdown */}
+      <div className="relative">
+        <button
+          type="button"
+          onClick={() => setSortOpen((o) => !o)}
+          className="flex items-center gap-1.5 rounded-lg bg-[#111111] px-3 py-1.5 text-xs font-medium text-white/80 transition-colors active:bg-white/10"
+        >
+          Sort: {SORTS.find((s) => s.key === sort)?.label}
+          {sortOpen ? (
+            <ChevronUp className="h-3 w-3" />
+          ) : (
+            <ChevronDown className="h-3 w-3" />
+          )}
+        </button>
+        {sortOpen && (
+          <div className="absolute left-0 top-full z-30 mt-1 w-40 overflow-hidden rounded-lg bg-[#111111] py-1 shadow-xl">
+            {SORTS.map((s) => (
+              <button
+                key={s.key}
+                type="button"
+                onClick={() => {
+                  setSort(s.key);
+                  setSortOpen(false);
+                }}
+                className={cn(
+                  "block w-full px-3 py-2 text-left text-xs transition-colors hover:bg-white/5",
+                  s.key === sort ? "text-[#f5c518]" : "text-white/80",
+                )}
+              >
+                {s.label}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Active genre quick-pill — shown when a genre is selected */}
+      {/* Active genre pill */}
       {genre !== "All" && (
         <div className="flex items-center gap-2">
-          <span className="text-[10px] font-black uppercase tracking-wider text-white/40">
+          <span className="text-[10px] font-medium uppercase tracking-wider text-white/40">
             Genre
           </span>
           <button
             type="button"
             onClick={() => setGenre("All")}
-            className="btn-press brand-gradient-bg glow flex items-center gap-1 rounded-full px-3 py-1 text-[11px] font-bold text-black"
+            className="flex items-center gap-1 rounded-full bg-[#f5c518] px-3 py-1 text-[11px] font-medium text-black"
           >
             {genre}
             <X className="h-3 w-3" />
@@ -174,16 +183,9 @@ export function CatalogView() {
         </div>
       )}
 
-      {/* Filter panel — glass collapsible with smooth height animation */}
-      <div
-        className={cn(
-          "glass-card overflow-hidden rounded-2xl transition-[max-height,opacity,margin] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-          showFilters
-            ? "max-h-[640px] opacity-100"
-            : "pointer-events-none max-h-0 opacity-0",
-        )}
-      >
-        <div className="flex flex-col gap-3 p-3">
+      {/* Filter panel */}
+      {showFilters && (
+        <div className="flex flex-col gap-3 rounded-lg bg-[#111111] p-3">
           <FilterRow label="Type">
             {TYPES.map((t) => (
               <Chip
@@ -202,7 +204,7 @@ export function CatalogView() {
                 active={status === s}
                 onClick={() => setStatus(s)}
               >
-                {s === "All" ? "All" : s.replace(" ", " ")}
+                {s}
               </Chip>
             ))}
           </FilterRow>
@@ -226,13 +228,13 @@ export function CatalogView() {
                 setGenre("All");
                 setSort("popularity");
               }}
-              className="btn-press flex w-fit items-center gap-1 text-[11px] font-bold text-white/60 transition-colors duration-300 hover:text-[#f5c518]"
+              className="flex w-fit items-center gap-1 text-[11px] font-medium text-white/50 transition-colors hover:text-white"
             >
               <X className="h-3 w-3" /> Reset filters
             </button>
           )}
         </div>
-      </div>
+      )}
 
       {loading ? (
         <CardGrid>
@@ -241,11 +243,9 @@ export function CatalogView() {
           ))}
         </CardGrid>
       ) : visible.length === 0 ? (
-        <div className="glass-card grid place-items-center rounded-2xl py-16 text-center">
-          <div className="float-y mb-3 grid h-14 w-14 place-items-center rounded-2xl brand-gradient-soft">
-            <Filter className="h-6 w-6 text-[#f5c518]" />
-          </div>
-          <p className="gradient-text text-sm font-black tracking-editorial">
+        <div className="grid place-items-center py-16 text-center">
+          <Filter className="mb-3 h-10 w-10 text-white/20" />
+          <p className="text-sm font-medium text-white/70">
             No titles match these filters
           </p>
           <p className="mt-1 text-xs text-white/40">
@@ -263,11 +263,11 @@ export function CatalogView() {
             <button
               type="button"
               onClick={() => setLimit((l) => l + 24)}
-              className="btn-press brand-gradient-bg glow mx-auto mt-2 flex items-center gap-2 rounded-full px-6 py-2.5 text-xs font-black uppercase tracking-wider text-black shadow-lg shadow-[#ff8a00]/20 transition-transform duration-300 hover:scale-105"
+              className="mx-auto mt-2 rounded-lg border border-white/10 px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-white/5"
             >
               Load More
-              <span className="rounded-full bg-black/20 px-2 py-0.5 text-[10px] font-bold">
-                {items.length - limit} left
+              <span className="ml-2 text-white/40">
+                ({items.length - limit} left)
               </span>
             </button>
           )}
@@ -286,7 +286,7 @@ function FilterRow({
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <p className="text-[10px] font-black uppercase tracking-wider text-white/40">
+      <p className="text-[10px] font-medium uppercase tracking-wider text-white/40">
         {label}
       </p>
       <div className="no-scrollbar flex flex-wrap gap-1.5">{children}</div>
@@ -308,10 +308,10 @@ function Chip({
       type="button"
       onClick={onClick}
       className={cn(
-        "btn-press rounded-full px-2.5 py-1 text-[11px] font-semibold transition-all duration-300",
+        "rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors",
         active
-          ? "brand-gradient-bg text-black glow"
-          : "glass-card text-white/70 hover:text-[#f5c518]",
+          ? "bg-[#f5c518] text-black"
+          : "bg-black text-white/70 active:bg-white/10",
       )}
     >
       {children}

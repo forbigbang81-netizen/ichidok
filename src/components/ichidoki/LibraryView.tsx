@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Bell,
   Bookmark,
@@ -21,7 +21,6 @@ import {
 import type { Anime, HistoryItem } from "@/store/app";
 import { useApp } from "@/store/app";
 import { cn, splitTitle } from "@/lib/utils";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AnimeCard, AnimeCardSkeleton, CardGrid } from "./AnimeCard";
 
 interface BookmarkItem {
@@ -41,6 +40,8 @@ interface NotificationItem {
   createdAt: string;
 }
 
+type LibTab = "history" | "bookmarks" | "notifications";
+
 export function LibraryView() {
   const {
     history,
@@ -56,6 +57,10 @@ export function LibraryView() {
   const [loading, setLoading] = useState(true);
   const [bookmarkList, setBookmarkList] = useState<BookmarkItem[]>([]);
   const [notifList, setNotifList] = useState<NotificationItem[]>([]);
+  const [activeTab, setActiveTab] = useState<LibTab>("history");
+
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [indicator, setIndicator] = useState({ left: 0, width: 0 });
 
   useEffect(() => {
     let cancelled = false;
@@ -84,12 +89,21 @@ export function LibraryView() {
     };
   }, [setHistory, setBookmarks, setNotifications]);
 
-  // Re-fetch bookmarks when bookmark IDs change externally (e.g. add from detail).
+  // Re-fetch bookmarks when bookmark IDs change externally.
   useEffect(() => {
     fetchBookmarks()
       .then((b) => setBookmarkList(b as BookmarkItem[]))
       .catch(() => {});
   }, [bookmarks]);
+
+  // Update underline indicator when tab changes.
+  useEffect(() => {
+    const idx = ["history", "bookmarks", "notifications"].indexOf(activeTab);
+    const el = tabRefs.current[idx];
+    if (el) {
+      setIndicator({ left: el.offsetLeft, width: el.offsetWidth });
+    }
+  }, [activeTab, loading]);
 
   const bookmarkAnime: Anime[] = bookmarkList.map((b) => ({
     id: b.id,
@@ -140,61 +154,66 @@ export function LibraryView() {
 
   const unreadCount = notifList.filter((n) => !n.read).length;
 
+  const tabs: { key: LibTab; label: string; icon: React.ReactNode; badge?: number }[] = [
+    { key: "history", label: "Continue", icon: <History className="h-4 w-4" /> },
+    { key: "bookmarks", label: "Bookmarks", icon: <Bookmark className="h-4 w-4" /> },
+    {
+      key: "notifications",
+      label: "Updates",
+      icon: <Bell className="h-4 w-4" />,
+      badge: unreadCount > 0 ? unreadCount : undefined,
+    },
+  ];
+
   return (
     <div className="fade-in flex flex-col gap-4 p-4 pb-6">
-      {/* Section header — gradient text */}
+      {/* Header */}
       <div>
-        <h1 className="flex items-center gap-2 text-lg font-black tracking-editorial">
-          <span className="gradient-text">
-            <Bookmark className="h-5 w-5" />
-          </span>
-          <span className="gradient-text">Library</span>
+        <h1 className="flex items-center gap-2 text-lg font-bold text-white">
+          <Bookmark className="h-5 w-5" />
+          Library
         </h1>
-        <p className="mt-0.5 text-xs text-white/50">
+        <p className="mt-0.5 text-xs text-white/40">
           Your history, bookmarks, and notifications.
         </p>
       </div>
 
-      <Tabs defaultValue="history" className="gap-3">
-        <TabsList className="glass-card h-auto w-full gap-1 rounded-full p-1">
-          <TabsTrigger
-            value="history"
-            className={cn(
-              "flex-1 rounded-full px-3 py-1.5 text-xs font-bold tracking-editorial transition-all duration-300",
-              "data-[state=active]:brand-gradient-bg data-[state=active]:text-black data-[state=active]:shadow-lg data-[state=active]:shadow-[#ff8a00]/20",
-              "data-[state=inactive]:text-white/55 data-[state=inactive]:hover:text-white/85",
-            )}
-          >
-            <History className="h-3 w-3" /> Continue
-          </TabsTrigger>
-          <TabsTrigger
-            value="bookmarks"
-            className={cn(
-              "flex-1 rounded-full px-3 py-1.5 text-xs font-bold tracking-editorial transition-all duration-300",
-              "data-[state=active]:brand-gradient-bg data-[state=active]:text-black data-[state=active]:shadow-lg data-[state=active]:shadow-[#ff8a00]/20",
-              "data-[state=inactive]:text-white/55 data-[state=inactive]:hover:text-white/85",
-            )}
-          >
-            <Bookmark className="h-3 w-3" /> Bookmarks
-          </TabsTrigger>
-          <TabsTrigger
-            value="notifications"
-            className={cn(
-              "relative flex-1 rounded-full px-3 py-1.5 text-xs font-bold tracking-editorial transition-all duration-300",
-              "data-[state=active]:brand-gradient-bg data-[state=active]:text-black data-[state=active]:shadow-lg data-[state=active]:shadow-[#ff8a00]/20",
-              "data-[state=inactive]:text-white/55 data-[state=inactive]:hover:text-white/85",
-            )}
-          >
-            <Bell className="h-3 w-3" /> Updates
-            {unreadCount > 0 && (
-              <span className="brand-gradient-bg ml-1 rounded-full px-1.5 py-0.5 text-[9px] font-black text-black">
-                {unreadCount}
-              </span>
-            )}
-          </TabsTrigger>
-        </TabsList>
+      {/* Underline tabs */}
+      <div className="relative flex border-b border-white/10">
+        {tabs.map((t, i) => {
+          const isActive = t.key === activeTab;
+          return (
+            <button
+              key={t.key}
+              ref={(el) => {
+                tabRefs.current[i] = el;
+              }}
+              type="button"
+              onClick={() => setActiveTab(t.key)}
+              className={cn(
+                "relative flex flex-1 items-center justify-center gap-1.5 pb-2.5 text-sm font-medium transition-colors",
+                isActive ? "text-white" : "text-white/40",
+              )}
+            >
+              {t.icon}
+              {t.label}
+              {t.badge ? (
+                <span className="ml-0.5 rounded-full bg-[#f5c518] px-1.5 py-0.5 text-[9px] font-bold text-black">
+                  {t.badge}
+                </span>
+              ) : null}
+            </button>
+          );
+        })}
+        <span
+          className="absolute bottom-0 h-0.5 rounded-full bg-[#f5c518] transition-all duration-200 ease-out"
+          style={{ left: indicator.left, width: indicator.width }}
+        />
+      </div>
 
-        <TabsContent value="history" className="mt-0">
+      {/* Tab content */}
+      {activeTab === "history" && (
+        <>
           {loading ? (
             <CardGrid>
               {Array.from({ length: 6 }).map((_, i) => (
@@ -203,37 +222,38 @@ export function LibraryView() {
             </CardGrid>
           ) : history.length === 0 ? (
             <EmptyState
-              icon={<History className="h-7 w-7 text-[#f5c518]" />}
+              icon={<History className="h-7 w-7" />}
               title="No watch history yet"
               subtitle="Start watching an episode to see it here."
             />
           ) : (
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
-                <span className="glass-card rounded-full px-2.5 py-0.5 text-[11px] font-bold text-white/70">
+                <span className="rounded-full bg-[#111111] px-2.5 py-0.5 text-[11px] font-medium text-white/60">
                   {history.length} entr{history.length === 1 ? "y" : "ies"}
                 </span>
                 <button
                   type="button"
                   onClick={handleClearHistory}
-                  className="btn-press glass-card flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-bold text-white/60 transition-all duration-300 hover:text-red-400"
+                  className="flex items-center gap-1 rounded-full bg-[#111111] px-2.5 py-1 text-[11px] font-medium text-white/50 transition-colors hover:text-red-400"
                 >
                   <Trash2 className="h-3 w-3" /> Clear all
                 </button>
               </div>
-              {history.map((h, i) => (
+              {history.map((h) => (
                 <HistoryRowV2
                   key={`${h.malId}-${h.episode}`}
                   item={h}
-                  index={i}
                   onClick={() => openAnime(h.malId, h.episode, h.position)}
                 />
               ))}
             </div>
           )}
-        </TabsContent>
+        </>
+      )}
 
-        <TabsContent value="bookmarks" className="mt-0">
+      {activeTab === "bookmarks" && (
+        <>
           {loading ? (
             <CardGrid>
               {Array.from({ length: 6 }).map((_, i) => (
@@ -242,14 +262,14 @@ export function LibraryView() {
             </CardGrid>
           ) : bookmarkAnime.length === 0 ? (
             <EmptyState
-              icon={<Bookmark className="h-7 w-7 text-[#f5c518]" />}
+              icon={<Bookmark className="h-7 w-7" />}
               title="No bookmarks yet"
               subtitle="Tap the bookmark icon on an anime to save it here."
             />
           ) : (
             <>
               <div className="mb-3 flex items-center justify-between">
-                <span className="glass-card rounded-full px-2.5 py-0.5 text-[11px] font-bold text-white/70">
+                <span className="rounded-full bg-[#111111] px-2.5 py-0.5 text-[11px] font-medium text-white/60">
                   {bookmarkAnime.length} saved
                 </span>
               </div>
@@ -263,7 +283,7 @@ export function LibraryView() {
                         e.stopPropagation();
                         handleRemoveBookmark(a.malId);
                       }}
-                      className="glass-card btn-press absolute right-1 top-1 grid h-7 w-7 place-items-center rounded-full text-white/80 transition-all duration-300 hover:bg-red-500/80 hover:text-white"
+                      className="absolute right-1 top-1 grid h-7 w-7 place-items-center rounded-full bg-black/70 text-white/80 transition-colors hover:bg-red-500/80 hover:text-white"
                       aria-label="Remove bookmark"
                     >
                       <Trash2 className="h-3 w-3" />
@@ -273,58 +293,58 @@ export function LibraryView() {
               </CardGrid>
             </>
           )}
-        </TabsContent>
+        </>
+      )}
 
-        <TabsContent value="notifications" className="mt-0">
+      {activeTab === "notifications" && (
+        <>
           {loading ? (
             <div className="flex flex-col gap-2">
               {Array.from({ length: 4 }).map((_, i) => (
                 <div
                   key={i}
-                  className="h-20 rounded-xl skeleton-shimmer"
+                  className="h-20 rounded-lg skeleton-shimmer"
                 />
               ))}
             </div>
           ) : notifList.length === 0 ? (
             <EmptyState
-              icon={<Bell className="h-7 w-7 text-[#f5c518]" />}
+              icon={<Bell className="h-7 w-7" />}
               title="No notifications"
               subtitle="New episode alerts will appear here."
             />
           ) : (
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
-                <span className="glass-card rounded-full px-2.5 py-0.5 text-[11px] font-bold text-white/70">
+                <span className="rounded-full bg-[#111111] px-2.5 py-0.5 text-[11px] font-medium text-white/60">
                   {notifList.length} total
                 </span>
                 {unreadCount > 0 && (
                   <button
                     type="button"
                     onClick={handleMarkAllRead}
-                    className="btn-press brand-gradient-bg glow flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-bold text-black transition-all duration-300"
+                    className="flex items-center gap-1 rounded-full bg-[#f5c518] px-2.5 py-1 text-[11px] font-medium text-black"
                   >
                     <Check className="h-3 w-3" /> Mark all read
                   </button>
                 )}
               </div>
-              {notifList.map((n, i) => (
-                <NotificationRowV2 key={n.id} item={n} index={i} />
+              {notifList.map((n) => (
+                <NotificationRowV2 key={n.id} item={n} />
               ))}
             </div>
           )}
-        </TabsContent>
-      </Tabs>
+        </>
+      )}
     </div>
   );
 }
 
 function HistoryRowV2({
   item,
-  index,
   onClick,
 }: {
   item: HistoryItem;
-  index: number;
   onClick: () => void;
 }) {
   const { main, sub } = splitTitle(item.title);
@@ -334,12 +354,9 @@ function HistoryRowV2({
     <button
       type="button"
       onClick={onClick}
-      className={cn(
-        "fade-in-stagger glass-card card-hover flex items-center gap-3 rounded-xl p-2 text-left",
-      )}
-      style={{ ["--i"]: index } as React.CSSProperties}
+      className="flex items-center gap-3 rounded-lg p-2 text-left transition-colors active:bg-white/5"
     >
-      <div className="relative h-16 w-28 shrink-0 overflow-hidden rounded-lg bg-[#1a1a22]">
+      <div className="relative h-16 w-28 shrink-0 overflow-hidden rounded-md bg-[#111111]">
         {item.poster && (
           <img
             src={item.poster}
@@ -347,79 +364,61 @@ function HistoryRowV2({
             className="h-full w-full object-cover"
           />
         )}
-        <div className="absolute inset-0 grid place-items-center bg-black/35">
-          <PlayCircle className="h-7 w-7 text-white drop-shadow-lg" />
+        <div className="absolute inset-0 grid place-items-center bg-black/40">
+          <PlayCircle className="h-7 w-7 text-white" />
         </div>
-        {/* Gradient progress bar overlay */}
         {pct > 0 && (
           <div className="absolute inset-x-0 bottom-0 h-1 bg-white/10">
             <div
-              className="brand-gradient-bg h-full transition-all duration-500"
+              className="h-full bg-[#f5c518]"
               style={{ width: `${pct}%` }}
             />
           </div>
         )}
       </div>
       <div className="min-w-0 flex-1">
-        <p className="truncate text-xs font-bold tracking-editorial text-white">
-          {main}
-        </p>
-        {sub && <p className="truncate text-[10px] text-white/45">{sub}</p>}
-        <p className="mt-0.5 text-[10px] font-medium text-white/45">
+        <p className="line-clamp-1 text-xs font-medium text-white">{main}</p>
+        {sub && <p className="line-clamp-1 text-[10px] text-white/40">{sub}</p>}
+        <p className="mt-0.5 text-[10px] text-white/40">
           Episode {item.episode} · {Math.round(pct)}% watched
         </p>
-        {/* Gradient progress bar inline */}
-        <div className="mt-1 h-1 w-full overflow-hidden rounded-full bg-white/10">
-          <div
-            className="brand-gradient-bg h-full transition-all duration-500"
-            style={{ width: `${pct}%` }}
-          />
-        </div>
       </div>
     </button>
   );
 }
 
-function NotificationRowV2({
-  item,
-  index,
-}: {
-  item: NotificationItem;
-  index: number;
-}) {
+function NotificationRowV2({ item }: { item: NotificationItem }) {
   return (
     <div
       className={cn(
-        "fade-in-stagger glass-card flex gap-3 rounded-xl p-3 transition-all duration-300",
-        !item.read && "glow",
+        "flex gap-3 rounded-lg bg-[#111111] p-3",
+        !item.read && "border-l-2 border-[#f5c518]",
       )}
-      style={{ ["--i"]: index } as React.CSSProperties}
     >
-      {/* Unread gradient dot */}
       <div
         className={cn(
           "mt-1 h-2 w-2 shrink-0 rounded-full",
-          item.read ? "bg-white/20" : "brand-gradient-bg pulse-glow",
+          item.read ? "bg-white/20" : "bg-[#f5c518]",
         )}
       />
       <div className="min-w-0 flex-1">
         <p
           className={cn(
-            "text-xs font-bold tracking-editorial",
-            item.read ? "text-white/70" : "text-white",
+            "text-xs font-medium",
+            item.read ? "text-white/60" : "text-white",
           )}
         >
           {item.title}
         </p>
-        <p className="mt-0.5 text-[11px] leading-relaxed text-white/60">
+        <p className="mt-0.5 text-[11px] leading-relaxed text-white/50">
           {item.body}
         </p>
-        <p className="mt-1 text-[10px] font-medium text-white/35">
+        <p className="mt-1 text-[10px] text-white/30">
           {new Date(item.createdAt).toLocaleString()}
         </p>
       </div>
       {!item.read && (
-        <span className="brand-gradient-bg h-fit shrink-0 rounded-full px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-black">
+        <span className="h-fit shrink-0 rounded-full bg-[#f5c518] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-black">
           New
         </span>
       )}
@@ -437,14 +436,12 @@ function EmptyState({
   subtitle: string;
 }) {
   return (
-    <div className="glass-card grid place-items-center rounded-2xl py-16 text-center">
-      <div className="float-y mb-3 grid h-14 w-14 place-items-center rounded-2xl brand-gradient-soft pulse-glow">
+    <div className="grid place-items-center py-16 text-center">
+      <div className="mb-3 grid h-14 w-14 place-items-center rounded-full bg-[#111111] text-white/40">
         {icon}
       </div>
-      <p className="gradient-text text-sm font-black tracking-editorial">
-        {title}
-      </p>
-      <p className="mt-1.5 max-w-[16rem] text-xs leading-relaxed text-white/45">
+      <p className="text-sm font-medium text-white/70">{title}</p>
+      <p className="mt-1.5 max-w-[16rem] text-xs leading-relaxed text-white/40">
         {subtitle}
       </p>
     </div>
