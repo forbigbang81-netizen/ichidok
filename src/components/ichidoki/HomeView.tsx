@@ -320,28 +320,37 @@ export function HomeView({ activeType }: { activeType: string }) {
         </section>
       )}
 
-      {/* Top 10 of the Decade */}
+      {/* Top 10 on Ichidok — 3D style */}
       <section className="mb-7">
         <SectionHeader
-          title="Top 10 of the Decade"
+          title="Top 10 on Ichidok"
           icon={<Flame className="h-3.5 w-3.5" />}
         />
-        <div className="no-scrollbar flex gap-3 overflow-x-auto px-4 pb-2">
+        <div className="no-scrollbar flex gap-2 overflow-x-auto px-4 pb-3" style={{ perspective: "1000px" }}>
           {TOP_10_DECADE.map((item, i) => (
             <button
               key={item.malId}
               onClick={() => openAnime(item.malId)}
-              className="group relative flex h-44 w-32 shrink-0 flex-col overflow-hidden rounded-xl border border-white/8 bg-[#11111a] transition-all duration-200 hover:border-[#f5c518]/40 hover:scale-[1.03]"
-              style={{ animationDelay: `${i * 60}ms` }}
+              className="group relative flex h-48 w-28 shrink-0 flex-col overflow-hidden rounded-xl bg-[#0d0d14] transition-all duration-200 hover:border-[#f5c518]/40"
+              style={{
+                transform: `rotateY(${i === 0 ? -8 : i === 9 ? 8 : 0}deg) translateZ(${item.rank <= 3 ? 20 : 0}px)`,
+                boxShadow: item.rank <= 3
+                  ? "0 8px 30px -8px rgba(245,197,24,0.3), 0 4px 12px -4px rgba(0,0,0,0.6)"
+                  : "0 4px 16px -6px rgba(0,0,0,0.5)",
+                border: item.rank <= 3 ? "1px solid rgba(245,197,24,0.25)" : "1px solid rgba(255,255,255,0.06)",
+              }}
             >
-              {/* Rank number */}
+              {/* Giant rank number — 3D style */}
               <div
-                className="absolute left-1 top-1 z-10 grid h-7 w-7 place-items-center rounded-lg text-sm font-black text-black"
+                className="absolute -left-1 -top-2 z-10 text-5xl font-black leading-none"
                 style={{
                   background: item.rank <= 3
-                    ? "linear-gradient(135deg, #f5c518, #ff8a00)"
-                    : "rgba(255,255,255,0.15)",
-                  boxShadow: item.rank <= 3 ? "0 0 12px rgba(245,197,24,0.5)" : "none",
+                    ? "linear-gradient(180deg, #f5c518, #ff8a00)"
+                    : "linear-gradient(180deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1))",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  filter: item.rank <= 3 ? "drop-shadow(0 0 8px rgba(245,197,24,0.5))" : "none",
                 }}
               >
                 {item.rank}
@@ -354,14 +363,14 @@ export function HomeView({ activeType }: { activeType: string }) {
                   className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
               </div>
               {/* Info */}
-              <div className="absolute bottom-0 left-0 right-0 p-2">
-                <p className="truncate text-[11px] font-bold text-white">{item.title}</p>
-                <div className="mt-0.5 flex items-center gap-1.5">
-                  <span className="text-[9px] font-bold text-[#f5c518]">★ {item.score}</span>
-                  <span className="text-[9px] text-white/50">{item.year}</span>
+              <div className="absolute bottom-0 left-0 right-0 p-1.5">
+                <p className="truncate text-[10px] font-bold text-white" style={{ textShadow: "0 0 6px rgba(255,138,0,0.4)" }}>{item.title}</p>
+                <div className="mt-0.5 flex items-center gap-1">
+                  <span className="text-[8px] font-bold text-[#f5c518]" style={{ textShadow: "0 0 4px rgba(245,197,24,0.5)" }}>★ {item.score}</span>
+                  <span className="text-[8px] text-white/40">{item.year}</span>
                 </div>
               </div>
             </button>

@@ -758,9 +758,6 @@ export function VideoPlayer({
               <Volume2 className="h-4 w-4" />
             )}
           </button>
-          <span className="text-[11px] tabular-nums text-white/80">
-            {fmtTime(currentTime)} / {fmtTime(duration)}
-          </span>
 
           <div className="ml-auto flex items-center gap-1">
             {/* CC toggle — glow when active */}
