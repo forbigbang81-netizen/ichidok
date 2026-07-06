@@ -13,6 +13,8 @@ import {
   History,
   Layers,
   Radio,
+  MessageCircle,
+  Send,
 } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -32,6 +34,20 @@ interface BroadcastInfo {
   time?: string;
   timezone?: string;
   string?: string;
+}
+
+interface RatingSummary {
+  avg: number; // 10-point scale
+  count: number;
+  rawAvg: number; // 5-point scale
+}
+
+interface CommentItem {
+  id: string;
+  malId: number;
+  name: string;
+  text: string;
+  createdAt: string;
 }
 
 export function AnimeDetailView() {
@@ -58,6 +74,22 @@ export function AnimeDetailView() {
   const [broadcast, setBroadcast] = useState<BroadcastInfo | null>(null);
   const [activeTab, setActiveTab] = useState<DetailTab>("episodes");
   useCountdownTick();
+
+  // ----- Rating state -----
+  const [ratingData, setRatingData] = useState<RatingSummary>({
+    avg: 0,
+    count: 0,
+    rawAvg: 0,
+  });
+  const [userRating, setUserRating] = useState<number>(0);
+  const [hoverRating, setHoverRating] = useState<number>(0);
+  const [submittingRating, setSubmittingRating] = useState(false);
+
+  // ----- Comments state -----
+  const [comments, setComments] = useState<CommentItem[]>([]);
+  const [commentName, setCommentName] = useState<string>("Anonymous");
+  const [commentText, setCommentText] = useState<string>("");
+  const [submittingComment, setSubmittingComment] = useState(false);
 
   const isBookmarked = selectedMalId
     ? bookmarks.includes(selectedMalId)
@@ -119,6 +151,53 @@ export function AnimeDetailView() {
     };
   }, [selectedMalId]);
 
+  // ----- Fetch rating summary -----
+  useEffect(() => {
+    if (!selectedMalId) {
+      setRatingData({ avg: 0, count: 0, rawAvg: 0 });
+      return;
+    }
+    let cancelled = false;
+    fetch(`/api/ratings?malId=${selectedMalId}`)
+      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+      .then((data: RatingSummary) => {
+        if (cancelled) return;
+        setRatingData({
+          avg: data.avg ?? 0,
+          count: data.count ?? 0,
+          rawAvg: data.rawAvg ?? 0,
+        });
+      })
+      .catch(() => {
+        if (!cancelled)
+          setRatingData({ avg: 0, count: 0, rawAvg: 0 });
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedMalId]);
+
+  // ----- Fetch comments -----
+  useEffect(() => {
+    if (!selectedMalId) {
+      setComments([]);
+      return;
+    }
+    let cancelled = false;
+    fetch(`/api/comments?malId=${selectedMalId}`)
+      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+      .then((data: { comments: CommentItem[] }) => {
+        if (cancelled) return;
+        setComments(data.comments ?? []);
+      })
+      .catch(() => {
+        if (!cancelled) setComments([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedMalId]);
+
   // History items for this anime only (Continue Watching)
   const continueWatching = selectedMalId
     ? history
@@ -173,6 +252,69 @@ export function AnimeDetailView() {
       } catch {
         /* noop */
       }
+    }
+  };
+
+  // ----- Submit rating -----
+  const handleSubmitRating = async (rating: number) => {
+    if (!selectedMalId || submittingRating) return;
+    setUserRating(rating);
+    setSubmittingRating(true);
+    try {
+      const r = await fetch("/api/ratings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ malId: selectedMalId, rating }),
+      });
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const data: RatingSummary = await r.json();
+      setRatingData({
+        avg: data.avg ?? 0,
+        count: data.count ?? 0,
+        rawAvg: data.rawAvg ?? 0,
+      });
+      toast.success("Thank you for rating!");
+    } catch (e) {
+      toast.error("Failed to submit rating");
+      // Roll back the optimistic userRating on failure.
+      setUserRating(0);
+    } finally {
+      setSubmittingRating(false);
+    }
+  };
+
+  // ----- Submit comment -----
+  const handleSubmitComment = async () => {
+    if (!selectedMalId || submittingComment) return;
+    const text = commentText.trim();
+    if (!text) {
+      toast.error("Please write a comment first");
+      return;
+    }
+    setSubmittingComment(true);
+    try {
+      const r = await fetch("/api/comments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          malId: selectedMalId,
+          name: commentName.trim() || "Anonymous",
+          text,
+        }),
+      });
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      // Refetch comments so the new one shows up at the top.
+      const fresh = await fetch(`/api/comments?malId=${selectedMalId}`);
+      if (fresh.ok) {
+        const data: { comments: CommentItem[] } = await fresh.json();
+        setComments(data.comments ?? []);
+      }
+      setCommentText("");
+      toast.success("Comment posted");
+    } catch {
+      toast.error("Failed to post comment");
+    } finally {
+      setSubmittingComment(false);
     }
   };
 
@@ -668,6 +810,199 @@ export function AnimeDetailView() {
           )}
         </div>
       </div>
+
+      {/* ===== Rating section — below tabs, after Details ===== */}
+      <section className="px-3">
+        <div className="glass-card rounded-2xl p-4">
+          {/* Inline SVG gradient definition for the gold→orange star fill.
+              Defined once, referenced by all filled stars via fill="url(#starGradient)". */}
+          <svg
+            className="absolute h-0 w-0"
+            aria-hidden
+            focusable="false"
+          >
+            <defs>
+              <linearGradient id="starGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#f5c518" />
+                <stop offset="100%" stopColor="#ff8a00" />
+              </linearGradient>
+            </defs>
+          </svg>
+
+          <div className="mb-3 flex items-center gap-2">
+            <Star
+              className="h-4 w-4 text-[#f5c518]"
+              style={{ fill: "#f5c518" }}
+            />
+            <h2
+              className="text-sm font-black tracking-editorial text-white"
+              style={{ textShadow: "0 0 8px rgba(255,138,0,0.5)" }}
+            >
+              Rate this anime
+            </h2>
+          </div>
+
+          {/* 5-star picker — gold→orange gradient fill */}
+          <div className="flex items-center gap-1.5">
+            {[1, 2, 3, 4, 5].map((star) => {
+              const filled = star <= (hoverRating || userRating);
+              return (
+                <button
+                  key={star}
+                  type="button"
+                  disabled={submittingRating}
+                  onClick={() => handleSubmitRating(star)}
+                  onMouseEnter={() => setHoverRating(star)}
+                  onMouseLeave={() => setHoverRating(0)}
+                  className={cn(
+                    "btn-press grid h-9 w-9 place-items-center rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-50 disabled:hover:scale-100",
+                    filled && "drop-shadow-[0_0_8px_rgba(255,138,0,0.55)]",
+                  )}
+                  aria-label={`Rate ${star} star${star > 1 ? "s" : ""}`}
+                >
+                  <Star
+                    className={cn(
+                      "h-6 w-6 transition-all duration-200",
+                      filled ? "text-[#ff8a00]" : "text-white/20",
+                    )}
+                    fill={filled ? "url(#starGradient)" : "none"}
+                    stroke={filled ? "url(#starGradient)" : "currentColor"}
+                  />
+                </button>
+              );
+            })}
+
+            {/* 10-point score next to stars */}
+            <div className="ml-2 flex flex-col">
+              <span
+                className="gradient-text text-lg font-black tabular-nums leading-none"
+                style={{ textShadow: "0 0 8px rgba(255,138,0,0.5)" }}
+              >
+                {ratingData.avg > 0 ? ratingData.avg.toFixed(2) : "—"}
+              </span>
+              <span className="text-[10px] text-white/50">/ 10</span>
+            </div>
+          </div>
+
+          {/* Voter count + status line */}
+          <div className="mt-3 flex items-center gap-2 text-[11px] text-white/55">
+            <Users className="h-3 w-3" />
+            <span>
+              {ratingData.count > 0
+                ? `${ratingData.count} ${ratingData.count === 1 ? "person has" : "people have"} rated`
+                : "Be the first to rate"}
+            </span>
+            {userRating > 0 && (
+              <span
+                className="ml-auto rounded-full brand-gradient-soft px-2 py-0.5 text-[10px] font-bold text-[#f5c518]"
+                style={{ textShadow: "0 0 8px rgba(255,138,0,0.5)" }}
+              >
+                You: {userRating}★
+              </span>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== Comments section — below ratings ===== */}
+      <section className="px-3">
+        <div className="glass-card rounded-2xl p-4">
+          <div className="mb-3 flex items-center gap-2">
+            <MessageCircle
+              className="h-4 w-4 text-[#f5c518]"
+              style={{ fill: "#f5c518" }}
+            />
+            <h2
+              className="text-sm font-black tracking-editorial text-white"
+              style={{ textShadow: "0 0 8px rgba(255,138,0,0.5)" }}
+            >
+              Comments
+              {comments.length > 0 && (
+                <span className="ml-1.5 text-[11px] font-bold text-white/45">
+                  ({comments.length})
+                </span>
+              )}
+            </h2>
+          </div>
+
+          {/* New comment form */}
+          <div className="flex flex-col gap-2">
+            <input
+              type="text"
+              value={commentName}
+              onChange={(e) => setCommentName(e.target.value)}
+              placeholder="Your name (optional)"
+              maxLength={32}
+              className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-xs text-white placeholder:text-white/40 focus:border-[#f5c518]/60 focus:outline-none focus:ring-1 focus:ring-[#f5c518]/40"
+            />
+            <textarea
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+              placeholder="Share your thoughts…"
+              maxLength={500}
+              rows={3}
+              className="w-full resize-none rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-xs text-white placeholder:text-white/40 focus:border-[#f5c518]/60 focus:outline-none focus:ring-1 focus:ring-[#f5c518]/40"
+            />
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] text-white/35">
+                {commentText.length}/500
+              </span>
+              <button
+                type="button"
+                onClick={handleSubmitComment}
+                disabled={submittingComment || !commentText.trim()}
+                className={cn(
+                  "btn-press brand-gradient-bg glow flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-wider text-black transition-all duration-300",
+                  "hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100",
+                )}
+              >
+                <Send className="h-3.5 w-3.5" />
+                {submittingComment ? "Posting…" : "Post"}
+              </button>
+            </div>
+          </div>
+
+          {/* Comments list (newest first) */}
+          {comments.length > 0 ? (
+            <ul className="mt-4 flex max-h-96 flex-col gap-2 overflow-y-auto pr-1">
+              {comments.map((c, i) => (
+                <li
+                  key={c.id ?? i}
+                  className="fade-in-stagger glass-card rounded-xl p-3"
+                  style={{ ["--i"]: Math.min(i, 8) } as React.CSSProperties}
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <div className="brand-gradient-bg grid h-6 w-6 shrink-0 place-items-center rounded-full text-[10px] font-black text-black">
+                        {(c.name || "A").charAt(0).toUpperCase()}
+                      </div>
+                      <span
+                        className="text-xs font-bold text-white"
+                        style={{ textShadow: "0 0 8px rgba(255,138,0,0.5)" }}
+                      >
+                        {c.name || "Anonymous"}
+                      </span>
+                    </div>
+                    <span className="shrink-0 text-[10px] text-white/40">
+                      {formatTimeAgo(c.createdAt)}
+                    </span>
+                  </div>
+                  <p className="mt-2 whitespace-pre-wrap break-words text-[12px] leading-relaxed text-white/80">
+                    {c.text}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className="mt-4 grid place-items-center rounded-xl border border-dashed border-white/10 py-6 text-center">
+              <MessageCircle className="mb-1.5 h-5 w-5 text-white/25" />
+              <p className="text-xs text-white/40">
+                No comments yet — start the conversation.
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
     </div>
   );
 }
@@ -682,6 +1017,36 @@ function DetailRow({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
+
+// ============================================================
+// Rating + comments helpers
+// ============================================================
+
+function formatTimeAgo(iso: string): string {
+  if (!iso) return "";
+  const then = new Date(iso).getTime();
+  if (Number.isNaN(then)) return "";
+  const diff = Date.now() - then;
+  if (diff < 0) return "just now";
+  const sec = Math.floor(diff / 1000);
+  if (sec < 60) return "just now";
+  const min = Math.floor(sec / 60);
+  if (min < 60) return `${min}m ago`;
+  const hr = Math.floor(min / 60);
+  if (hr < 24) return `${hr}h ago`;
+  const day = Math.floor(hr / 24);
+  if (day < 7) return `${day}d ago`;
+  const wk = Math.floor(day / 7);
+  if (wk < 4) return `${wk}w ago`;
+  const mo = Math.floor(day / 30);
+  if (mo < 12) return `${mo}mo ago`;
+  const yr = Math.floor(day / 365);
+  return `${yr}y ago`;
+}
+
+// ============================================================
+// Tabs
+// ============================================================
 
 // Sliding pill indicator tabs (mirrors the home page type tabs)
 function PillTabs({
@@ -738,7 +1103,9 @@ function PillTabs({
   );
 }
 
-// ---- Episode countdown timer ----
+// ============================================================
+// Episode countdown timer
+// ============================================================
 
 function getNextAirTime(broadcast: BroadcastInfo | null): Date | null {
   if (!broadcast?.day || !broadcast?.time) return null;

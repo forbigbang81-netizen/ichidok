@@ -19,6 +19,10 @@ import { fetchVideoImport, type VideoImport } from "@/lib/api/client";
 import { useApp } from "@/store/app";
 import { cn } from "@/lib/utils";
 
+// ============================================================
+// Types
+// ============================================================
+
 interface SubtitleCue {
   start: number;
   end: number;
@@ -38,9 +42,39 @@ interface VideoPlayerProps {
   onBack?: () => void;
 }
 
+interface AudioTrackInfo {
+  id: number;
+  label: string;
+  language?: string;
+  enabled: boolean;
+}
+
+// Minimal types for the non-standard HTMLMediaElement.audioTracks API.
+interface AudioTrackLike {
+  label: string;
+  language: string;
+  enabled: boolean;
+}
+interface AudioTrackListLike {
+  length: number;
+  [index: number]: AudioTrackLike;
+}
+interface VideoElementWithAudioTracks extends HTMLVideoElement {
+  audioTracks?: AudioTrackListLike;
+}
+
+// ============================================================
+// Constants
+// ============================================================
+
 const HIDE_CONTROLS_MS = 10000;
 const SPEEDS = [0.5, 0.75, 1, 1.25, 1.5, 2];
 const QUALITIES = ["Auto", "1080p", "720p", "480p", "360p"];
+const AMBIENT_SAMPLE_INTERVAL_MS = 2000;
+
+// ============================================================
+// VTT parsing utilities
+// ============================================================
 
 function timeToSeconds(t: string): number {
   const m = t.match(/(\d{1,2}):(\d{2}):(\d{2})[.,](\d{1,3})/);
@@ -54,7 +88,11 @@ function timeToSeconds(t: string): number {
   );
 }
 
-function parseVtt(text: string): SubtitleCue[] {
+/**
+ * Parse a WebVTT subtitle file into a list of cues. Exported for use
+ * outside the player (e.g. preview, tests).
+ */
+export function parseVtt(text: string): SubtitleCue[] {
   const normalized = text.replace(/\r/g, "");
   const blocks = normalized.split(/\n\s*\n/);
   const cues: SubtitleCue[] = [];
@@ -89,26 +127,18 @@ function fmtTime(s: number): string {
   return `${m}:${String(sec).padStart(2, "0")}`;
 }
 
-interface AudioTrackInfo {
-  id: number;
-  label: string;
-  language?: string;
-  enabled: boolean;
+/**
+ * Convert an RGB pixel to an HSL tuple so we can detect "dark" frames and
+ * skip them — otherwise the ambient glow goes nearly black during night
+ * scenes and the effect is lost.
+ */
+function rgbToLuma(r: number, g: number, b: number): number {
+  return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
 }
 
-// Minimal types for the non-standard HTMLMediaElement.audioTracks API.
-interface AudioTrackLike {
-  label: string;
-  language: string;
-  enabled: boolean;
-}
-interface AudioTrackListLike {
-  length: number;
-  [index: number]: AudioTrackLike;
-}
-interface VideoElementWithAudioTracks extends HTMLVideoElement {
-  audioTracks?: AudioTrackListLike;
-}
+// ============================================================
+// VideoPlayer
+// ============================================================
 
 export function VideoPlayer({
   malId,
@@ -131,8 +161,18 @@ export function VideoPlayer({
   // Position captured before audio-mode switch — preserved across the
   // reload so the user resumes from the same timestamp in the new track.
   const audioSwitchPositionRef = useRef<number | null>(null);
+  // Canvas used for ambient backlight color sampling.
+  const ambientCanvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  const { setAudioMode, setQuality, setSpeed, selectedQuality, selectedSpeed, toggleFullscreen, fullscreenPlayer } = useApp();
+  const {
+    setAudioMode,
+    setQuality,
+    setSpeed,
+    selectedQuality,
+    selectedSpeed,
+    toggleFullscreen,
+    fullscreenPlayer,
+  } = useApp();
 
   const [importInfo, setImportInfo] = useState<VideoImport | null>(null);
   const [loading, setLoading] = useState(true);
@@ -153,6 +193,10 @@ export function VideoPlayer({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [subtitleSource, setSubtitleSource] = useState<string>("");
   const [mirrored, setMirrored] = useState(false);
+  // Ambient backlight color sampled from the video frame (rgba string).
+  const [ambientColor, setAmbientColor] = useState<string>(
+    "rgba(255, 138, 0, 0.45)",
+  );
 
   // ----- Auto-hide controls -----
   const keepControlsAlive = useCallback(() => {
@@ -244,7 +288,9 @@ export function VideoPlayer({
       if (seekingRef.current) return;
       setCurrentTime(v.currentTime);
       // Update active cue
-      const cue = cues.find((c) => v.currentTime >= c.start && v.currentTime <= c.end);
+      const cue = cues.find(
+        (c) => v.currentTime >= c.start && v.currentTime <= c.end,
+      );
       setActiveCue(cue ? cue.text : "");
       // Throttled progress callback (every 5s)
       const now = Date.now();
@@ -308,7 +354,10 @@ export function VideoPlayer({
     };
     const onErr = () => {
       // Don't override the initial "no stream" error.
-      setError((prev) => prev ?? "Video failed to load. The source may be unavailable.");
+      setError(
+        (prev) =>
+          prev ?? "Video failed to load. The source may be unavailable.",
+      );
     };
 
     v.addEventListener("play", onPlay);
@@ -347,6 +396,67 @@ export function VideoPlayer({
     return () => document.removeEventListener("fullscreenchange", onFs);
   }, [fullscreenPlayer, toggleFullscreen]);
 
+  // ----- Ambient backlight sampling -----
+  // Samples the average color of the current video frame every 2s using a
+  // tiny offscreen canvas. If the video is cross-origin (e.g. archive.org
+  // direct URLs), the canvas becomes tainted and getImageData throws — we
+  // catch that and just keep the previous color. Same-origin proxy URLs
+  // (e.g. /api/stream?url=...) will work fine.
+  const ambientVideoUrl = importInfo?.url ?? null;
+  useEffect(() => {
+    if (!ambientVideoUrl) return;
+    if (!ambientCanvasRef.current) {
+      const c = document.createElement("canvas");
+      c.width = 16;
+      c.height = 9;
+      ambientCanvasRef.current = c;
+    }
+    const canvas = ambientCanvasRef.current;
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    if (!ctx) return;
+
+    const sample = () => {
+      const v = videoRef.current;
+      if (!v || v.readyState < 2 || !v.videoWidth) return;
+      try {
+        ctx.drawImage(v, 0, 0, canvas.width, canvas.height);
+        const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        let r = 0;
+        let g = 0;
+        let b = 0;
+        let count = 0;
+        for (let i = 0; i < data.length; i += 4) {
+          // Sample every pixel (16×9 = 144 pixels — cheap).
+          r += data[i];
+          g += data[i + 1];
+          b += data[i + 2];
+          count++;
+        }
+        r = Math.round(r / count);
+        g = Math.round(g / count);
+        b = Math.round(b / count);
+        // Skip near-black frames — they kill the ambient effect.
+        const luma = rgbToLuma(r, g, b);
+        if (luma < 0.08) return;
+        // Boost saturation slightly so the glow reads as "mood" not "mud".
+        const max = Math.max(r, g, b);
+        const min = Math.min(r, g, b);
+        const boosted = [r, g, b].map((c) => {
+          if (max === min) return c;
+          return Math.min(255, Math.round(min + (c - min) * 1.15));
+        });
+        setAmbientColor(
+          `rgba(${boosted[0]}, ${boosted[1]}, ${boosted[2]}, 0.55)`,
+        );
+      } catch {
+        // Tainted canvas — keep the previous color. No-op.
+      }
+    };
+
+    const interval = setInterval(sample, AMBIENT_SAMPLE_INTERVAL_MS);
+    return () => clearInterval(interval);
+  }, [ambientVideoUrl]);
+
   // ----- Controls -----
   const togglePlay = useCallback(() => {
     const v = videoRef.current;
@@ -360,7 +470,7 @@ export function VideoPlayer({
     (delta: number) => {
       const v = videoRef.current;
       if (!v) return;
-      v.currentTime = Math.max(0, Math.min((v.duration || 0), v.currentTime + delta));
+      v.currentTime = Math.max(0, Math.min(v.duration || 0, v.currentTime + delta));
       keepControlsAlive();
     },
     [keepControlsAlive],
@@ -370,7 +480,7 @@ export function VideoPlayer({
     (t: number) => {
       const v = videoRef.current;
       if (!v) return;
-      v.currentTime = Math.max(0, Math.min((v.duration || 0), t));
+      v.currentTime = Math.max(0, Math.min(v.duration || 0, t));
       setCurrentTime(v.currentTime);
       keepControlsAlive();
     },
@@ -398,7 +508,7 @@ export function VideoPlayer({
       el.requestFullscreen().catch(() => {});
       // Try to lock to landscape
       if (screen.orientation && screen.orientation.lock) {
-        screen.orientation.lock('landscape').catch(() => {});
+        screen.orientation.lock("landscape").catch(() => {});
       }
     }
     keepControlsAlive();
@@ -462,8 +572,12 @@ export function VideoPlayer({
   const isYoutube = !!importInfo?.isYoutube && !!importInfo?.url;
   const videoUrl = importInfo?.url ?? null;
   const posterUrl = poster ?? "";
+  // Fullscreen mirror — applied to BOTH the video and every overlay so the
+  // controls remain readable (rather than being backwards) when the video
+  // is horizontally flipped in fullscreen.
+  const mirrorStyle = isFullscreen ? "scaleX(-1)" : undefined;
 
-  // YouTube iframe branch
+  // ----- YouTube iframe branch -----
   if (isYoutube && videoUrl) {
     const ytId = (() => {
       try {
@@ -533,9 +647,23 @@ export function VideoPlayer({
         }, HIDE_CONTROLS_MS / 2);
       }}
     >
-      {/* Video element — NO crossOrigin (breaks archive.org CDN).
-          Tap-to-toggle-UI is handled by a dedicated click-catcher below
-          (the <video> element's onClick is unreliable on mobile). */}
+      {/* ===== Ambient backlight — sits BEHIND the video, extends beyond
+          the container edges so the box-shadow / blurred gradient is
+          visible as a glow around (not behind) the player. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -inset-8 z-0 transition-[background,box-shadow] duration-1000 ease-out"
+        style={{
+          background: `radial-gradient(ellipse at center, ${ambientColor} 0%, transparent 65%)`,
+          filter: "blur(24px)",
+          boxShadow: `0 0 80px 8px ${ambientColor}`,
+        }}
+      />
+
+      {/* ===== Video element =====
+          NO crossOrigin (breaks archive.org CDN). Tap-to-toggle-UI is
+          handled by a dedicated click-catcher below (the <video>
+          element's onClick is unreliable on mobile). */}
       {videoUrl ? (
         <video
           ref={videoRef}
@@ -543,11 +671,11 @@ export function VideoPlayer({
           poster={posterUrl}
           playsInline
           preload="metadata"
-          className="absolute inset-0 h-full w-full bg-black"
-          style={{ transform: isFullscreen ? "scaleX(-1)" : undefined }}
+          className="absolute inset-0 z-[1] h-full w-full bg-black"
+          style={{ transform: mirrorStyle }}
         />
       ) : (
-        <div className="absolute inset-0 grid place-items-center bg-black">
+        <div className="absolute inset-0 z-[1] grid place-items-center bg-black">
           {posterUrl && (
             <img
               src={posterUrl}
@@ -558,7 +686,7 @@ export function VideoPlayer({
         </div>
       )}
 
-      {/* Always-present tap catcher — toggles the controls UI on click.
+      {/* ===== Always-present transparent click-catcher =====
           Sits ABOVE the video (z-10) but BELOW the controls (z-20/z-30).
           The top/bottom bars become pointer-events-none when hidden, so
           taps fall through to this layer; the center overlay's buttons
@@ -567,12 +695,13 @@ export function VideoPlayer({
         <div
           className="absolute inset-0 z-10"
           onClick={handleVideoTap}
+          aria-hidden
         />
       )}
 
-      {/* Loading overlay — gradient ring animation */}
+      {/* ===== Loading overlay — gradient ring animation ===== */}
       {loading && (
-        <div className="absolute inset-0 grid place-items-center bg-black/70">
+        <div className="absolute inset-0 z-40 grid place-items-center bg-black/70">
           <div className="flex flex-col items-center gap-3 text-white">
             <div className="relative h-12 w-12">
               <div className="absolute inset-0 rounded-full border-2 border-white/10" />
@@ -591,18 +720,21 @@ export function VideoPlayer({
         </div>
       )}
 
-      {/* Error overlay */}
+      {/* ===== Error overlay ===== */}
       {!loading && error && (
-        <div className="absolute inset-0 grid place-items-center bg-black/80 p-6">
+        <div className="absolute inset-0 z-40 grid place-items-center bg-black/80 p-6">
           <div className="glass-card flex max-w-xs flex-col items-center gap-3 rounded-xl p-5 text-center text-white">
             <p className="text-sm leading-relaxed">{error}</p>
           </div>
         </div>
       )}
 
-      {/* Custom subtitle overlay — orange glow for readability */}
+      {/* ===== Custom subtitle overlay — orange glow for readability ===== */}
       {showSubtitles && activeCue && (
-        <div className="pointer-events-none absolute inset-x-0 bottom-16 z-20 flex justify-center px-4 sm:bottom-20" style={{ transform: isFullscreen ? "scaleX(-1)" : undefined }}>
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-24 z-20 flex justify-center px-4 sm:bottom-28"
+          style={{ transform: mirrorStyle }}
+        >
           <span
             className="max-w-[90%] text-center text-base font-bold leading-snug text-white"
             style={{
@@ -619,26 +751,34 @@ export function VideoPlayer({
         </div>
       )}
 
-      {/* Subtitle "unavailable" hint — shows briefly when CC is on but no cues */}
-      {showSubtitles && !activeCue && cues.length === 0 && !loading && videoUrl && (
-        <div className="pointer-events-none absolute inset-x-0 bottom-16 z-20 flex justify-center px-4 sm:bottom-20" style={{ transform: isFullscreen ? "scaleX(-1)" : undefined }}>
-          <span
-            className="rounded-md bg-black/70 px-3 py-1 text-center text-xs font-bold text-white"
-            style={{ textShadow: "0 0 4px #000, 0 0 8px rgba(255,138,0,0.5)" }}
+      {/* ===== Subtitle "unavailable" hint — shows briefly when CC is on but no cues ===== */}
+      {showSubtitles &&
+        !activeCue &&
+        cues.length === 0 &&
+        !loading &&
+        videoUrl && (
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-24 z-20 flex justify-center px-4 sm:bottom-28"
+            style={{ transform: mirrorStyle }}
           >
-            字幕なし · No subtitles available for this episode
-          </span>
-        </div>
-      )}
+            <span
+              className="rounded-md bg-black/70 px-3 py-1 text-center text-xs font-bold text-white"
+              style={{
+                textShadow: "0 0 4px #000, 0 0 8px rgba(255,138,0,0.5)",
+              }}
+            >
+              字幕なし · No subtitles available for this episode
+            </span>
+          </div>
+        )}
 
-      {/* Top bar — flip in fullscreen to match mirrored video */}
+      {/* ===== Top bar — flip in fullscreen to match mirrored video ===== */}
       <div
         className={cn(
-          "absolute inset-x-0 top-0 z-30 flex items-center gap-2 p-3 transition-opacity duration-300",
-          "glass-header",
+          "glass-header absolute inset-x-0 top-0 z-30 flex items-center gap-2 p-3 transition-opacity duration-300",
           controlsVisible ? "opacity-100" : "pointer-events-none opacity-0",
         )}
-        style={{ transform: isFullscreen ? "scaleX(-1)" : undefined }}
+        style={{ transform: mirrorStyle }}
       >
         {onBack && (
           <button
@@ -654,7 +794,10 @@ export function VideoPlayer({
           </button>
         )}
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-bold tracking-editorial text-white text-glow">
+          <p
+            className="truncate text-sm font-bold tracking-editorial text-white"
+            style={{ textShadow: "0 1px 10px rgba(0,0,0,0.85)" }}
+          >
             {title ?? "Now Playing"}
           </p>
           {importInfo && (
@@ -674,13 +817,16 @@ export function VideoPlayer({
         )}
       </div>
 
-      {/* Center controls — only when controls visible.
+      {/* ===== Center controls — only when controls visible =====
           The wrapper is pointer-events-none so taps on empty center area
           fall through to the click-catcher (z-10) which toggles the UI.
           The buttons inside re-enable pointer-events-auto and call
           e.stopPropagation() so they don't trigger the toggle. */}
       {controlsVisible && !loading && !error && videoUrl && (
-        <div className="pointer-events-none absolute inset-0 z-20 grid place-items-center" style={{ transform: isFullscreen ? "scaleX(-1)" : undefined }}>
+        <div
+          className="pointer-events-none absolute inset-0 z-20 grid place-items-center"
+          style={{ transform: mirrorStyle }}
+        >
           <div className="pointer-events-auto flex items-center gap-6">
             <button
               type="button"
@@ -723,20 +869,24 @@ export function VideoPlayer({
         </div>
       )}
 
-      {/* Bottom controls — progress bar at bottom, controls above.
-          Flip controls in fullscreen to match the mirrored video. */}
+      {/* ===== Bottom controls container =====
+          ONE div, absolute bottom-0, holding EVERYTHING that belongs at
+          the bottom — control buttons row, then progress bar, then
+          timestamp. This keeps them anchored to the bottom edge instead
+          of drifting to the middle of the screen. Flip in fullscreen to
+          match the mirrored video. */}
       <div
         className={cn(
           "absolute inset-x-0 bottom-0 z-30 px-3 pb-2 pt-6 transition-opacity duration-300",
-          "glass-nav",
+          "bg-gradient-to-t from-black/90 via-black/55 to-transparent",
           controlsVisible ? "opacity-100" : "pointer-events-none opacity-0",
         )}
-        style={{ transform: isFullscreen ? "scaleX(-1)" : undefined }}
+        style={{ transform: mirrorStyle }}
         onMouseMove={keepControlsAlive}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Control buttons row */}
-        <div className="flex items-center gap-1.5 text-white mb-2">
+        {/* Row 1: Control buttons (play, mute, time, CC, settings, fullscreen) */}
+        <div className="mb-2 flex items-center gap-1.5 text-white">
           <button
             type="button"
             onClick={togglePlay}
@@ -761,10 +911,19 @@ export function VideoPlayer({
               <Volume2 className="h-4 w-4" />
             )}
           </button>
+          {/* Inline current time / duration (mobile-friendly summary) */}
+          <span
+            className="ml-1 text-[11px] tabular-nums text-white/80"
+            style={{ textShadow: "0 0 8px rgba(255,138,0,0.5)" }}
+          >
+            {fmtTime(currentTime)} / {fmtTime(duration)}
+          </span>
 
           <div className="ml-auto flex items-center gap-1">
             {/* CC toggle — glow when active */}
-            {(cues.length > 0 || importInfo?.hasSub || importInfo?.subtitleUrl) && (
+            {(cues.length > 0 ||
+              importInfo?.hasSub ||
+              importInfo?.subtitleUrl) && (
               <button
                 type="button"
                 onClick={() => {
@@ -844,7 +1003,7 @@ export function VideoPlayer({
           </div>
         </div>
 
-        {/* Progress bar + timestamp — at the very bottom */}
+        {/* Row 2: Progress bar (full width) */}
         <div className="group relative h-1.5 w-full cursor-pointer rounded-full bg-white/20">
           <div
             className="absolute left-0 top-0 h-full rounded-full bg-white/30"
@@ -861,8 +1020,12 @@ export function VideoPlayer({
             step={0.1}
             value={currentTime}
             onChange={(e) => onSeekScrub([Number(e.target.value)])}
-            onPointerUp={(e) => onSeekCommit([Number((e.target as HTMLInputElement).value)])}
-            onTouchEnd={(e) => onSeekCommit([Number((e.target as HTMLInputElement).value)])}
+            onPointerUp={(e) =>
+              onSeekCommit([Number((e.target as HTMLInputElement).value)])
+            }
+            onTouchEnd={(e) =>
+              onSeekCommit([Number((e.target as HTMLInputElement).value)])
+            }
             className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
             aria-label="Seek"
           />
@@ -871,6 +1034,8 @@ export function VideoPlayer({
             style={{ left: `${progressPct}%` }}
           />
         </div>
+
+        {/* Row 3: Timestamp (left = current, right = duration) */}
         <div className="mt-1 flex justify-between text-[10px] tabular-nums text-white/70">
           <span>{fmtTime(currentTime)}</span>
           <span>{fmtTime(duration)}</span>
@@ -879,6 +1044,10 @@ export function VideoPlayer({
     </div>
   );
 }
+
+// ============================================================
+// Sub-components
+// ============================================================
 
 // SUB/DUB toggle — glass pill with sliding gradient indicator
 function SubDubPill({
@@ -929,13 +1098,15 @@ interface AudioTracksMenuProps {
   onHover: () => void;
 }
 
-function AudioTracksMenu({ tracks, active, onSelect, onHover }: AudioTracksMenuProps) {
+function AudioTracksMenu({
+  tracks,
+  active,
+  onSelect,
+  onHover,
+}: AudioTracksMenuProps) {
   const [open, setOpen] = useState(false);
   return (
-    <div
-      className="relative"
-      onMouseEnter={onHover}
-    >
+    <div className="relative" onMouseEnter={onHover}>
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
@@ -996,10 +1167,7 @@ function SettingsMenu({
   onOpenChange,
 }: SettingsMenuProps) {
   return (
-    <div
-      className="relative"
-      onMouseEnter={onHover}
-    >
+    <div className="relative" onMouseEnter={onHover}>
       <button
         type="button"
         onClick={() => onOpenChange(!open)}
