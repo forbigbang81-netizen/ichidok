@@ -1157,9 +1157,15 @@ export function VideoPlayer({
         {(importInfo?.hasSub || importInfo?.hasDub) && (
           <SubDubPill
             audioMode={audioMode}
+            hasSub={!!importInfo?.hasSub}
+            hasDub={!!importInfo?.hasDub}
             onChange={(e) => {
               e.stopPropagation();
-              switchAudioMode(audioMode === "SUB" ? "DUB" : "SUB");
+              const next = audioMode === "SUB" ? "DUB" : "SUB";
+              // Only switch if the target mode is available
+              if (next === "SUB" && !importInfo?.hasSub) return;
+              if (next === "DUB" && !importInfo?.hasDub) return;
+              switchAudioMode(next);
             }}
           />
         )}
@@ -1417,33 +1423,48 @@ function Kbd({ children }: { children: React.ReactNode }) {
   );
 }
 
-// SUB/DUB toggle — simple text pill
+// SUB/DUB toggle — simple text pill. Each side is disabled if that audio
+// mode is not available (e.g. dub-only anime disables the SUB button).
 function SubDubPill({
   audioMode,
   onChange,
+  hasSub,
+  hasDub,
 }: {
   audioMode: "SUB" | "DUB";
   onChange: (e: React.MouseEvent) => void;
+  hasSub: boolean;
+  hasDub: boolean;
 }) {
   const isSub = audioMode === "SUB";
   return (
     <div className="flex items-center rounded-full bg-black/60 p-0.5 text-[11px] font-bold tracking-wider">
       <button
         type="button"
-        onClick={onChange}
+        onClick={hasSub ? onChange : undefined}
+        disabled={!hasSub}
         className={cn(
           "rounded-full px-2.5 py-1 transition-colors",
-          isSub ? "bg-[#f5c518] text-black" : "text-white/70",
+          isSub && hasSub
+            ? "bg-[#f5c518] text-black"
+            : hasSub
+              ? "text-white/70"
+              : "text-white/20 cursor-not-allowed",
         )}
       >
         SUB
       </button>
       <button
         type="button"
-        onClick={onChange}
+        onClick={hasDub ? onChange : undefined}
+        disabled={!hasDub}
         className={cn(
           "rounded-full px-2.5 py-1 transition-colors",
-          !isSub ? "bg-[#f5c518] text-black" : "text-white/70",
+          !isSub && hasDub
+            ? "bg-[#f5c518] text-black"
+            : hasDub
+              ? "text-white/70"
+              : "text-white/20 cursor-not-allowed",
         )}
       >
         DUB
