@@ -66,8 +66,6 @@ export async function GET(request: Request) {
         : cached.source === "archive-mkv" || cached.source === "archive-proxy"
           ? buildStreamProxy(cached.url, request)
           : cached.url;
-      // Look up skip timestamps from seed data (not stored in DB)
-      const seedForSkip = findSeed(malId);
       return NextResponse.json({
         source: "cache",
         malId,
@@ -83,10 +81,6 @@ export async function GET(request: Request) {
         isTrailer: cached.isTrailer,
         isYoutube,
         title: null,
-        introStart: seedForSkip?.introStart ?? null,
-        introEnd: seedForSkip?.introEnd ?? null,
-        outroStart: seedForSkip?.outroStart ?? null,
-        outroEnd: seedForSkip?.outroEnd ?? null,
       });
     }
 
@@ -196,10 +190,6 @@ export async function GET(request: Request) {
       isYoutube,
       dualAudio: resolved.dualAudio,
       title: seed.title,
-      introStart: seed.introStart ?? null,
-      introEnd: seed.introEnd ?? null,
-      outroStart: seed.outroStart ?? null,
-      outroEnd: seed.outroEnd ?? null,
     });
   } catch (err) {
     console.error("[/api/auto-import] error:", err);

@@ -11,12 +11,6 @@ export interface SeedAnime {
   rating: string; source: string; isFeatured?: boolean;
   episodeSources?: EpisodeSource[]; hasDub?: boolean; hasSub?: boolean;
   subtitlePattern?: string; localSubtitlePattern?: string; noSubtitles?: boolean;
-  // Skip intro/outro timestamps in seconds. When the video reaches introStart,
-  // a "Skip Intro" button appears. Clicking it seeks to introEnd. Same for
-  // outro — when outroStart is reached, "Skip Outro" appears and clicking it
-  // seeks to the end (triggering next episode auto-play).
-  introStart?: number; introEnd?: number;
-  outroStart?: number; outroEnd?: number;
 }
 
 export interface EpisodeSource {
@@ -994,7 +988,6 @@ export const SEED_ANIME: SeedAnime[] = [
         13: "[Okay-Subs] Uma Musume Pretty Derby - 13v2 (BD 1080p) [7F3DFF65].mp4",
       }},
     ], hasSub: true, localSubtitlePattern: "/subtitles/35349_e{ep}.vtt",
-    introStart: 244, introEnd: 330, outroStart: 1350, outroEnd: 1425,
   },
   // Uma Musume S2
   { malId: 42334, title: "Umamusume: Pretty Derby Season 2", titleEnglish: "Umamusume: Pretty Derby Season 2", titleJapanese: "ウマ娘 プリティーダービー Season 2",
@@ -1019,8 +1012,7 @@ export const SEED_ANIME: SeedAnime[] = [
         12: "Uma Musume Pretty Derby Season 2 Episode 12 English Subbed.mp4",
         13: "Uma Musume Pretty Derby Season 2 Episode 13 English Subbed.mp4",
       }},
-    ], hasSub: true, localSubtitlePattern: "/subtitles/42334_e{ep}.vtt",
-    introStart: 205, introEnd: 300, outroStart: 1299, outroEnd: 1415,
+    ], hasSub: true, 
   },
   // Uma Musume S3
   { malId: 48654, title: "Umamusume: Pretty Derby Season 3", titleEnglish: "Umamusume: Pretty Derby Season 3", titleJapanese: "ウマ娘 プリティーダービー Season 3",
@@ -1045,8 +1037,7 @@ export const SEED_ANIME: SeedAnime[] = [
         12: "Uma Musume Pretty Derby Season 3 Episode 12 English Subbed.mp4",
         13: "Uma Musume Pretty Derby Season 3 Episode 13 English Subbed.mp4",
       }},
-    ], hasSub: true, localSubtitlePattern: "/subtitles/48654_e{ep}.vtt",
-    introStart: 142, introEnd: 210, outroStart: 1324, outroEnd: 1408,
+    ], hasSub: true, 
   },
   // Uma Musume Specials (3 episodes)
   { malId: -3, title: "Umamusume: Pretty Derby Specials", titleEnglish: "Umamusume: Pretty Derby Specials", titleJapanese: "ウマ娘 プリティーダービー スペシャル",
