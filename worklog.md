@@ -445,3 +445,52 @@ Stage Summary:
 - Berserk SUB player now plays Japanese audio (Cartoons-and-Anime)
 - Berserk DUB player now plays English dub (berserk-1997-complete Blu-Ray rip)
 - Both SUB and DUB work for all 25 episodes
+
+---
+Task ID: berserk-subs-chromecast
+Agent: main
+Task: Add VTT subtitles to all Berserk episodes (sub mode) + Chromecast feature
+
+Work Log:
+- Searched archive.org for Berserk subtitle files — none found in any collection.
+- Searched OpenSubtitles REST API for Berserk 1997 TV series English subtitles.
+- Found the "haiku" BluRay release which has all 25 episodes as SRT files:
+  berserk.eNN.1080p.bluray.x264-haiku.eng.srt
+- Wrote a Python script to download all 25 gzipped SRT files, decompress,
+  convert to WebVTT format, and save to /public/subtitles/33_e{ep}.vtt.
+- All 25 files successfully downloaded and converted (14-26KB each).
+- Added localSubtitlePattern: "/subtitles/33_e{ep}.vtt" to the Berserk seed
+  entry so resolveSubtitleUrl returns the local VTT path for all episodes.
+- Verified ep1 subtitles start with "Is the destiny of mankind controlled
+  by some transcendental entity or law?" (the iconic Berserk opening narration).
+
+Chromecast support:
+- Created CastProviderScript component that loads the Google Cast Framework
+  SDK (cast_sender.js?loadCastFramework=1) in the app layout <head> with
+  strategy="afterInteractive" to avoid blocking first paint.
+- The SDK callback __onGCastApiAvailable dispatches a 'cast-ready' event.
+- Created CastButton component that:
+  - Listens for 'cast-ready' event before initializing
+  - Initializes CastContext with DEFAULT_MEDIA_RECEIVER app ID
+  - Renders a cast icon (SVG) styled to match other VideoPlayer controls
+  - Calls requestSession() on click to open the device picker
+  - Loads the current video URL onto the receiver when a session starts
+  - Shows gold tint when casting, tooltip with cast state
+  - Hidden on YouTube embeds and when no video URL is available
+- Added CastButton between Settings and Fullscreen in the control bar.
+- archive.org serves video with Access-Control-Allow-Origin: *, so
+  Chromecast can stream directly from the CDN without a proxy.
+- Built and pushed commit bcb18aa. Vercel auto-deployed.
+- Verified:
+  - All 25 VTT files serve with HTTP 200 on deployed site
+  - subtitleUrl for Berserk ep1 returns "/subtitles/33_e1.vtt"
+  - Cast SDK script (cast_sender.js) is loaded on the page
+  - CastButton component ("Cast to device" aria-label) is in the JS bundle
+
+Stage Summary:
+- All 25 Berserk episodes now have real English dialogue VTT subtitles
+  in SUB mode (Japanese audio)
+- Chromecast button appears in the video player controls (between Settings
+  and Fullscreen) when the Cast SDK is available
+- Clicking the cast button opens the device picker and streams the current
+  video to the selected Chromecast device
