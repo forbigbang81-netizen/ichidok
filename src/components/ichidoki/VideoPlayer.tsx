@@ -844,7 +844,7 @@ export function VideoPlayer({
       return "";
     })();
     const embedSrc = ytId
-      ? `https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1`
+      ? `https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0&playsinline=1`
       : videoUrl;
 
     return (
@@ -856,7 +856,7 @@ export function VideoPlayer({
           src={embedSrc}
           title={title ?? "Video player"}
           className="absolute inset-0 h-full w-full"
-          allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+          allow="autoplay; fullscreen; picture-in-picture; encrypted-media; cast"
           allowFullScreen
         />
         {onBack && (
