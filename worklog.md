@@ -494,3 +494,44 @@ Stage Summary:
   and Fullscreen) when the Cast SDK is available
 - Clicking the cast button opens the device picker and streams the current
   video to the selected Chromecast device
+
+---
+Task ID: subtitle-sync-offset
+Agent: main
+Task: Fix subtitle timing delay — subtitles appear ~0.4s late in SUB, ~0.5-1s in DUB
+
+Work Log:
+- Diagnosed root cause: the Berserk VTT subtitles (haiku BluRay release) are
+  timed for the Japanese BluRay audio, but the actual video sources have
+  different start points:
+    SUB (Cartoons-and-Anime TV rip): subs ~0.4s late
+    DUB (berserk-1997-complete BluRay MP4): subs ~0.5-1s late
+- Rather than re-time the subtitle files (which would require per-source VTT
+  variants), added a user-adjustable subtitle offset control.
+- New subtitleOffset state (in seconds, range -10 to +10, default 0)
+- Applied in the cue matching logic: adjTime = v.currentTime - subtitleOffset
+  Negative offset shifts subs earlier, positive shifts later.
+- Persisted per malId+audioMode in localStorage key
+  "ichidoki-sub-offset-{malId}-{audioMode}" so each source keeps its own
+  offset. User only tunes it once per anime+audio combo.
+- UI: new "Subtitle sync" section in the Settings menu with:
+    −0.1s button (subs earlier)
+    Reset button
+    +0.1s button (subs later)
+    Live offset badge (gold when non-zero, shows "+0.4s" or "-0.4s")
+  Only shown when subtitles are available.
+- Transient HUD overlay (like the volume HUD) flashes the current offset
+  for 1.2s when adjusted, showing "subs earlier" or "subs later" label.
+- Keyboard shortcuts: Shift+, (<) = 0.1s earlier, Shift+. (>) = 0.1s later
+- Added "Sub sync" hint to the keyboard shortcuts overlay.
+- Built and pushed commit 444f53e. Vercel auto-deployed.
+- Verified "Subtitle sync", "subs earlier", and "Sub sync" strings are in
+  the deployed JS bundle.
+
+Stage Summary:
+- Subtitle timing can now be fine-tuned by the user in 0.1s increments
+- Offset persists per anime+audio mode (so Berserk SUB and Berserk DUB
+  can have different offsets)
+- For Berserk SUB: tap −0.1s a few times (or Shift+,) to fix the ~0.4s delay
+- For Berserk DUB: tap −0.1s more times (or Shift+,) to fix the ~0.5-1s delay
+- Settings menu shows the current offset value as a gold badge
