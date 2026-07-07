@@ -568,11 +568,12 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 32, collection: "Cartoons-and-Anime", fileTemplate: "Shinzo (2000)/Shinzo - S01E{ep:02} - 4x3.mp4", audio: "dub" },
     ], hasDub: true,
   },
-  // Slayers — switched to The-Slayers-Season-1 archive.org collection which is a
-  // Japanese DVD rip with hardcoded English subs (NSSB = Napa Supersaiyanblue
-  // Subbed). The previous Cartoons-and-Anime source was a Western TV rip with
-  // English dub audio only — didn't sound Japanese. Audio marked as "sub"
-  // because these files are Japanese audio + English hardcoded subs.
+  // Slayers — dual source: Japanese sub (The-Slayers-Season-1) + English dub
+  // (Cartoons-and-Anime). The-Slayers-Season-1 is a Japanese DVD rip with
+  // hardcoded English subs (NSSB = Napa Supersaiyanblue Subbed) — verified
+  // Japanese audio via ASR. The Cartoons-and-Anime source is a Western TV
+  // rip with English dub audio — the user confirmed it "doesn't sound
+  // Japanese" so it's the English dub.
   { malId: 534, title: "Slayers", titleEnglish: "Slayers", titleJapanese: "スレイヤーズ",
     synopsis: "The teenage sorceress Lina Inverse travels the world fighting bandits and monsters, accompanied by the swordsman Gourry.",
     poster: "https://cdn.myanimelist.net/images/anime/6/19870l.jpg", banner: "https://cdn.myanimelist.net/images/anime/6/19870l.jpg",
@@ -580,9 +581,10 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 1995, season: "spring", genres: ["Action", "Adventure", "Comedy", "Fantasy"], studios: ["E&G Films"],
     episodeCount: 26, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Light novel",
     episodeSources: [
-      // Per-episode MP4 files from the Japanese DVD release. Each episode
-      // file has the episode title baked into the filename, so we use the
-      // episodeFiles map instead of a template.
+      // English dub — from the Cartoons-and-Anime Western TV rip collection.
+      { startEp: 1, endEp: 26, collection: "Cartoons-and-Anime", fileTemplate: "Slayers/Slayers - S01E{ep:02} - 4x3.mp4", audio: "dub" },
+      // Japanese audio (sub) — from The-Slayers-Season-1 Japanese DVD release.
+      // Each episode file has the episode title baked into the filename.
       {
         startEp: 1, endEp: 26, collection: "The-Slayers-Season-1", audio: "sub",
         episodeFiles: {
@@ -614,7 +616,7 @@ export const SEED_ANIME: SeedAnime[] = [
           26: "(NSSB) Slayers Episode 26 Zap! Victory is Always Mine!.mp4",
         },
       },
-    ], hasSub: true, noSubtitles: true,
+    ], hasSub: true, hasDub: true, noSubtitles: true,
   },
   // Berserk (1997) — dual source: Japanese sub + English dub
   // The Cartoons-and-Anime source was previously mislabeled as "dub" but is

@@ -13,6 +13,11 @@ import { useEffect, useRef, useState } from "react";
  *
  * The button is styled to match the other VideoPlayer control buttons
  * (8x8 grid, gold tint when a session is active).
+ *
+ * NOTE: archive.org/download/... URLs return a 302 redirect to the CDN
+ * (e.g. ia801000.us.archive.org/...). The Chromecast receiver sometimes
+ * fails to follow these redirects, so we resolve the redirect client-side
+ * using a HEAD fetch and pass the direct CDN URL to the receiver.
  */
 
 // Minimal type declarations for the Cast Framework SDK
@@ -25,6 +30,12 @@ declare global {
           MediaInfo: any;
           GenericMediaMetadata: any;
           LoadRequest: any;
+          Image: any;
+          DEFAULT_MEDIA_RECEIVER_APP_ID?: string;
+        };
+        AutoJoinPolicy?: {
+          ORIGIN_SCOPED: string;
+          TAB_AND_ORIGIN_SCOPED: string;
         };
         [key: string]: any;
       };
@@ -35,13 +46,14 @@ declare global {
           getInstance(): any;
           setOptions(opts: any): void;
           getCastState(): any;
-          getInstance(): any;
+          requestSession(): Promise<any>;
+          getCurrentSession(): any;
+          addEventListener: (type: any, handler: any) => void;
+          removeEventListener: (type: any, handler: any) => void;
           EventType: any;
           CastContextEventType: any;
           SessionState: any;
         };
-        RemotePlayer: any;
-        RemotePlayerController: any;
       };
     };
     __castReady?: boolean;
@@ -61,10 +73,11 @@ export interface CastButtonProps {
 }
 
 export function CastButton({ mediaUrl, title, poster, onSessionChange }: CastButtonProps) {
-  const buttonRef = useRef<HTMLDivElement>(null);
   const [castReady, setCastReady] = useState(false);
   const [isCasting, setIsCasting] = useState(false);
   const [castState, setCastState] = useState<string>("NO_DEVICES_AVAILABLE");
+  const [resolvedUrl, setResolvedUrl] = useState<string | null>(null);
+  const initializedRef = useRef(false);
 
   // Wait for the Cast SDK to be ready
   useEffect(() => {
@@ -77,23 +90,61 @@ export function CastButton({ mediaUrl, title, poster, onSessionChange }: CastBut
     return () => window.removeEventListener("cast-ready", handler);
   }, []);
 
+  // Resolve the archive.org 302 redirect to get the direct CDN URL.
+  // Chromecast receivers sometimes fail to follow redirects, so we do it
+  // client-side using a HEAD fetch (which follows redirects automatically)
+  // and extract the final URL from the response.
+  useEffect(() => {
+    if (!mediaUrl) {
+      setResolvedUrl(null);
+      return;
+    }
+    let cancelled = false;
+    // Use a HEAD request via fetch to resolve redirects. archive.org returns
+    // CORS headers (Access-Control-Allow-Origin: *) so this works from the
+    // browser.
+    fetch(mediaUrl, { method: "HEAD", redirect: "follow" })
+      .then((res) => {
+        if (cancelled) return;
+        // res.url is the final URL after following redirects
+        if (res.url && res.url !== mediaUrl) {
+          setResolvedUrl(res.url);
+        } else {
+          setResolvedUrl(mediaUrl);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setResolvedUrl(mediaUrl);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [mediaUrl]);
+
   // Initialize the Cast context once the SDK is ready
   useEffect(() => {
-    if (!castReady || !window.cast?.framework) return;
+    if (!castReady || !window.cast?.framework || initializedRef.current) return;
+    initializedRef.current = true;
 
     const context = window.cast.framework.CastContext.getInstance();
+    const appId =
+      window.chrome?.cast?.media?.DEFAULT_MEDIA_RECEIVER_APP_ID ?? "CC1AD845";
+    const autoJoin =
+      window.chrome?.cast?.AutoJoinPolicy?.ORIGIN_SCOPED ?? "origin_scoped";
+
     context.setOptions({
-      receiverApplicationId:
-        window.chrome?.cast?.media?.DEFAULT_MEDIA_RECEIVER_APP_ID ?? "CC1AD845",
-      autoJoinPolicy: window.chrome?.cast?.AutoJoinPolicy?.ORIGIN_SCOPED ?? "origin_scoped",
+      receiverApplicationId: appId,
+      autoJoinPolicy: autoJoin,
     });
 
-    // Listen for session state changes
+    const EventType = window.cast.framework.CastContextEventType;
     const SessionState = window.cast.framework.CastContext.SessionState;
+
     const onSessionStateChanged = (event: any) => {
       const state = event?.sessionState;
       const casting =
-        state === SessionState.SESSION_STARTED || state === SessionState.SESSION_RESUMED;
+        state === SessionState.SESSION_STARTED ||
+        state === SessionState.SESSION_RESUMED;
       setIsCasting(casting);
       onSessionChange?.(casting);
     };
@@ -102,65 +153,69 @@ export function CastButton({ mediaUrl, title, poster, onSessionChange }: CastBut
       setCastState(event?.castState ?? "NO_DEVICES_AVAILABLE");
     };
 
-    context.addEventListener(
-      window.cast.framework.CastContextEventType.SESSION_STATE_CHANGED,
-      onSessionStateChanged,
-    );
-    context.addEventListener(
-      window.cast.framework.CastContextEventType.CAST_STATE_CHANGED,
-      onCastStateChanged,
-    );
+    context.addEventListener(EventType.SESSION_STATE_CHANGED, onSessionStateChanged);
+    context.addEventListener(EventType.CAST_STATE_CHANGED, onCastStateChanged);
 
-    setCastState(context.getCastState());
+    try {
+      setCastState(context.getCastState());
+    } catch {}
 
     return () => {
-      context.removeEventListener(
-        window.cast.framework.CastContextEventType.SESSION_STATE_CHANGED,
-        onSessionStateChanged,
-      );
-      context.removeEventListener(
-        window.cast.framework.CastContextEventType.CAST_STATE_CHANGED,
-        onCastStateChanged,
-      );
+      context.removeEventListener(EventType.SESSION_STATE_CHANGED, onSessionStateChanged);
+      context.removeEventListener(EventType.CAST_STATE_CHANGED, onCastStateChanged);
     };
   }, [castReady, onSessionChange]);
 
   // Load media onto the receiver when a session is active and the URL changes
   useEffect(() => {
-    if (!castReady || !isCasting || !mediaUrl || !window.cast?.framework) return;
+    if (!castReady || !isCasting || !resolvedUrl || !window.cast?.framework) return;
     const context = window.cast.framework.CastContext.getInstance();
     const session = context.getCurrentSession();
     if (!session || !window.chrome?.cast?.media) return;
 
     try {
       const mediaInfo = new window.chrome.cast.media.MediaInfo(
-        mediaUrl,
+        resolvedUrl,
         "video/mp4",
       );
       const metadata = new window.chrome.cast.media.GenericMediaMetadata();
       if (title) metadata.title = title;
-      if (poster) {
-        metadata.images = [new window.chrome.cast.Image(poster)];
+      if (poster && window.chrome.cast.media.Image) {
+        const img = new window.chrome.cast.media.Image(poster);
+        metadata.images = [img];
       }
       mediaInfo.metadata = metadata;
       const request = new window.chrome.cast.media.LoadRequest(mediaInfo);
-      session.loadMedia(request).catch(() => {});
-    } catch {
-      // SDK not fully initialized — ignore
+      session.loadMedia(request).catch((err: any) => {
+        console.error("[CastButton] loadMedia failed:", err);
+      });
+    } catch (e) {
+      console.error("[CastButton] media setup error:", e);
     }
-  }, [castReady, isCasting, mediaUrl, title, poster]);
+  }, [castReady, isCasting, resolvedUrl, title, poster]);
 
   // Don't render if the SDK isn't available (e.g. on desktop browsers
   // without cast extension, or during SSR)
   if (!castReady) return null;
 
+  const handleClick = () => {
+    const context = window.cast?.framework?.CastContext.getInstance();
+    if (!context) return;
+    context
+      .requestSession()
+      .then(() => {
+        // Session started — the SESSION_STATE_CHANGED listener will fire
+        // and loadMedia will be called by the effect above.
+      })
+      .catch((err: any) => {
+        console.error("[CastButton] requestSession failed:", err);
+      });
+  };
+
   return (
     <button
       type="button"
-      onClick={() => {
-        const context = window.cast?.framework?.CastContext.getInstance();
-        context?.requestSession().catch(() => {});
-      }}
+      onClick={handleClick}
       aria-label="Cast to device"
       title={
         isCasting
