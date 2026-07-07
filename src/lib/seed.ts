@@ -568,12 +568,10 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 32, collection: "Cartoons-and-Anime", fileTemplate: "Shinzo (2000)/Shinzo - S01E{ep:02} - 4x3.mp4", audio: "dub" },
     ], hasDub: true,
   },
-  // Slayers — dual source: Japanese sub (The-Slayers-Season-1) + English dub
-  // (Cartoons-and-Anime). The-Slayers-Season-1 is a Japanese DVD rip with
-  // hardcoded English subs (NSSB = Napa Supersaiyanblue Subbed) — verified
-  // Japanese audio via ASR. The Cartoons-and-Anime source is a Western TV
-  // rip with English dub audio — the user confirmed it "doesn't sound
-  // Japanese" so it's the English dub.
+  // Slayers — dual source: Japanese sub (Cartoons-and-Anime) + English dub
+  // (The-Slayers-Season-1). User confirmed the audio was swapped: the
+  // Cartoons-and-Anime source is Japanese audio and The-Slayers-Season-1
+  // source is English dub. Swapped the labels accordingly.
   { malId: 534, title: "Slayers", titleEnglish: "Slayers", titleJapanese: "スレイヤーズ",
     synopsis: "The teenage sorceress Lina Inverse travels the world fighting bandits and monsters, accompanied by the swordsman Gourry.",
     poster: "https://cdn.myanimelist.net/images/anime/6/19870l.jpg", banner: "https://cdn.myanimelist.net/images/anime/6/19870l.jpg",
@@ -581,12 +579,12 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 1995, season: "spring", genres: ["Action", "Adventure", "Comedy", "Fantasy"], studios: ["E&G Films"],
     episodeCount: 26, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Light novel",
     episodeSources: [
-      // English dub — from the Cartoons-and-Anime Western TV rip collection.
-      { startEp: 1, endEp: 26, collection: "Cartoons-and-Anime", fileTemplate: "Slayers/Slayers - S01E{ep:02} - 4x3.mp4", audio: "dub" },
-      // Japanese audio (sub) — from The-Slayers-Season-1 Japanese DVD release.
+      // Japanese audio (sub) — from the Cartoons-and-Anime TV rip collection.
+      { startEp: 1, endEp: 26, collection: "Cartoons-and-Anime", fileTemplate: "Slayers/Slayers - S01E{ep:02} - 4x3.mp4", audio: "sub" },
+      // English dub — from The-Slayers-Season-1 collection.
       // Each episode file has the episode title baked into the filename.
       {
-        startEp: 1, endEp: 26, collection: "The-Slayers-Season-1", audio: "sub",
+        startEp: 1, endEp: 26, collection: "The-Slayers-Season-1", audio: "dub",
         episodeFiles: {
           1: "(1) (NSSB) Slayers Episode 1 Angry Lina's Furious Dragon Slave!.mp4",
           2: "(2) (NSSB) Slayers Episode 2 Bad! Mummy Men Aren't My Type!.mp4",
@@ -687,6 +685,210 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 26, collection: "Cartoons-and-Anime", fileTemplate: "Megas XLR (2004)/Megas XLR - S01E{ep:02} - 4x3.mp4", audio: "dub" },
     ], hasDub: true,
   },
+  // ===== My Hero Academia (all 7 seasons) =====
+  // S1: sub+dub | S2: sub+dub | S3: sub only | S4: sub only | S5: sub only
+  // S6: sub+dub | S7: sub only
+  // Sub sources are 1080p BD rips from mha-sN-full collections (Japanese audio).
+  // Dub sources from dedicated English dub collections where available.
+  // MHA S6 dub is missing episode 10 (the collection only has 24 of 25 eps).
+  // My Hero Academia S1
+  { malId: 31964, title: "My Hero Academia", titleEnglish: "My Hero Academia", titleJapanese: "僕のヒーローアカデミア",
+    synopsis: "Izuku Midoriya dreams of becoming a hero in a world where almost everyone has superpowers called Quirks. Born without a Quirk, he is chosen by the legendary hero All Might to inherit his power.",
+    poster: "/posters/mha-s1.jpg", banner: "/posters/mha-s1.jpg",
+    type: "TV", status: "Finished Airing", score: 7.82, scoredBy: 500000, rank: 0, popularity: 50, members: 2500000,
+    year: 2016, season: "spring", genres: ["Action", "Adventure", "Comedy", "Fantasy"], studios: ["Bones"],
+    episodeCount: 13, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 13, collection: "my-hero-episode-1-season-1-dub", audio: "dub", episodeFiles: {
+        1: "My hero episode 1 season 1 - dub.mp4", 2: "my hero_episode 2 _season1.mp4", 3: "My hero_episode 3_season 1.mp4",
+        4: "my hero_episode 4 _season1.mp4", 5: "my hero_episode 5 _season 1.mp4", 6: "my hero_episode 6 _season1.mp4",
+        7: "my hero_episode 7 _season1.mp4", 8: "my hero_episode 8_season1.mp4", 9: "My hero_episode 9_season 1.mp4",
+        10: "My hero_episode10_season 1.mp4", 11: "my hero_episode 11 _season1.mp4", 12: "my hero_episode 12 _season1.mp4",
+        13: "My hero_episode 13_season 1.mp4",
+      }},
+      { startEp: 1, endEp: 13, collection: "mha-s1-full", audio: "sub", episodeFiles: {
+        1: "AnimePahe_Boku_no_Hero_Academia_-_001_BD_1080p_Nep_Blanc.mp4", 2: "AnimePahe_Boku_no_Hero_Academia_-_002_BD_1080p_Nep_Blanc.mp4",
+        3: "AnimePahe_Boku_no_Hero_Academia_-_003_BD_1080p_Nep_Blanc.mp4", 4: "AnimePahe_Boku_no_Hero_Academia_-_004_BD_1080p_Nep_Blanc.mp4",
+        5: "AnimePahe_Boku_no_Hero_Academia_-_005_BD_1080p_Nep_Blanc.mp4", 6: "AnimePahe_Boku_no_Hero_Academia_-_006_BD_1080p_Nep_Blanc.mp4",
+        7: "AnimePahe_Boku_no_Hero_Academia_-_007_BD_1080p_Nep_Blanc.mp4", 8: "AnimePahe_Boku_no_Hero_Academia_-_008_BD_1080p_Nep_Blanc.mp4",
+        9: "AnimePahe_Boku_no_Hero_Academia_-_009_BD_1080p_Nep_Blanc.mp4", 10: "AnimePahe_Boku_no_Hero_Academia_-_010_BD_1080p_Nep_Blanc.mp4",
+        11: "AnimePahe_Boku_no_Hero_Academia_-_011_BD_1080p_Nep_Blanc.mp4", 12: "AnimePahe_Boku_no_Hero_Academia_-_012_BD_1080p_Nep_Blanc.mp4",
+        13: "AnimePahe_Boku_no_Hero_Academia_-_013_BD_1080p_Nep_Blanc.mp4",
+      }},
+    ], hasSub: true, hasDub: true,
+  },
+  // My Hero Academia S2
+  { malId: 33458, title: "My Hero Academia Season 2", titleEnglish: "My Hero Academia Season 2", titleJapanese: "僕のヒーローアカデミア 2ndシーズン",
+    synopsis: "The U.A. High School students participate in the sports festival and begin their internships with pro heroes, facing new threats.",
+    poster: "/posters/mha-s2.jpg", banner: "/posters/mha-s2.jpg",
+    type: "TV", status: "Finished Airing", score: 8.00, scoredBy: 500000, rank: 0, popularity: 80, members: 2000000,
+    year: 2017, season: "spring", genres: ["Action", "Adventure", "Comedy", "Fantasy"], studios: ["Bones"],
+    episodeCount: 25, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 25, collection: "myheroacademiaseasontwo", audio: "dub", episodeFiles: {
+        1: "1ThatsTheIdeaOchaco2.mp4", 2: "2RoaringSportsFestival2.mp4", 3: "3InTheirOwnQuirkyWays2.mp4",
+        4: "4StrategyStrategyStrategy2.mp4", 5: "5CavalryBattleFinale2.mp4", 6: "6TheBoyBornWithEverything2.mp4",
+        7: "7VictoryorDefeat2.mp4", 8: "8BattleOnChallengers!.mp4", 9: "9BakugoVSUraraka2.mp4",
+        10: "10ShotoTodorokiOrigin2.mp4", 11: "11FightOnIida.mp4", 12: "12TodorokiVSBakugo2.mp4",
+        13: "13TimetoPickSomeNames2.mp4", 14: "14Bizarre!GranTorinoAppears2.mp4", 15: "15MidoriyaandShigaraki2.mp4",
+        16: "16HeroKillerStainVSUAStudents2.mp4", 17: "17Climax2.mp4", 18: "18TheAftermathofHeroKillerStain2.mp4",
+        19: "19EveryonesInternships2.mp4", 20: "20ListenUp!!ATalefromthePast2.mp4", 21: "21GearUpforFinalExams2.mp4",
+        22: "22YaoyorozuRising2.mp4", 23: "23StrippingtheVarnish2.mp4", 24: "24KatsukiBakugoOrigin2.mp4",
+        25: "25Encounter2.mp4",
+      }},
+      { startEp: 1, endEp: 25, collection: "mha-s2-full", audio: "sub", episodeFiles: {
+        1: "AnimePahe_Boku_no_Hero_Academia_-_014_BD_1080p_ITH.mp4", 2: "AnimePahe_Boku_no_Hero_Academia_-_015_BD_1080p_ITH.mp4",
+        3: "AnimePahe_Boku_no_Hero_Academia_-_016_BD_1080p_ITH.mp4", 4: "AnimePahe_Boku_no_Hero_Academia_-_017_BD_1080p_ITH.mp4",
+        5: "AnimePahe_Boku_no_Hero_Academia_-_018_BD_1080p_ITH.mp4", 6: "AnimePahe_Boku_no_Hero_Academia_-_019_BD_1080p_ITH (1).mp4",
+        7: "AnimePahe_Boku_no_Hero_Academia_-_020_BD_1080p_ITH.mp4", 8: "AnimePahe_Boku_no_Hero_Academia_-_021_BD_1080p_ITH.mp4",
+        9: "AnimePahe_Boku_no_Hero_Academia_-_022_BD_1080p_ITH.mp4", 10: "AnimePahe_Boku_no_Hero_Academia_-_023_BD_1080p_ITH.mp4",
+        11: "AnimePahe_Boku_no_Hero_Academia_-_024_BD_1080p_ITH.mp4", 12: "AnimePahe_Boku_no_Hero_Academia_-_025_BD_1080p_ITH.mp4",
+        13: "AnimePahe_Boku_no_Hero_Academia_-_026_BD_1080p_ITH.mp4", 14: "AnimePahe_Boku_no_Hero_Academia_-_027_BD_1080p_ITH.mp4",
+        15: "AnimePahe_Boku_no_Hero_Academia_-_028_BD_1080p_ITH.mp4", 16: "AnimePahe_Boku_no_Hero_Academia_-_029_BD_1080p_ITH.mp4",
+        17: "AnimePahe_Boku_no_Hero_Academia_-_030_BD_1080p_ITH.mp4", 18: "AnimePahe_Boku_no_Hero_Academia_-_031_BD_1080p_ITH.mp4",
+        19: "AnimePahe_Boku_no_Hero_Academia_-_032_BD_1080p_ITH.mp4", 20: "AnimePahe_Boku_no_Hero_Academia_-_033_BD_1080p_ITH.mp4",
+        21: "AnimePahe_Boku_no_Hero_Academia_-_034_BD_1080p_ITH.mp4", 22: "AnimePahe_Boku_no_Hero_Academia_-_035_BD_1080p_ITH.mp4",
+        23: "AnimePahe_Boku_no_Hero_Academia_-_036_BD_1080p_ITH.mp4", 24: "AnimePahe_Boku_no_Hero_Academia_-_037_BD_1080p_ITH.mp4",
+        25: "AnimePahe_Boku_no_Hero_Academia_-_038_BD_1080p_ITH.mp4",
+      }},
+    ], hasSub: true, hasDub: true,
+  },
+  // My Hero Academia S3 (sub only — no dub MP4 collection found)
+  { malId: 36474, title: "My Hero Academia Season 3", titleEnglish: "My Hero Academia Season 3", titleJapanese: "僕のヒーローアカデミア 3rdシーズン",
+    synopsis: "Class 1-A goes to a summer training camp, but the League of Villains attacks. All Might faces All For One in a battle that changes everything.",
+    poster: "/posters/mha-s3.jpg", banner: "/posters/mha-s3.jpg",
+    type: "TV", status: "Finished Airing", score: 7.93, scoredBy: 500000, rank: 0, popularity: 100, members: 1800000,
+    year: 2018, season: "spring", genres: ["Action", "Adventure", "Comedy", "Fantasy"], studios: ["Bones"],
+    episodeCount: 25, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 25, collection: "mha-s3-full", audio: "sub", episodeFiles: {
+        1: "AnimePahe_Boku_no_Hero_Academia_-_039_BD_1080p_Yūrei.mp4", 2: "AnimePahe_Boku_no_Hero_Academia_-_040_BD_1080p_Yūrei.mp4",
+        3: "AnimePahe_Boku_no_Hero_Academia_-_041_BD_1080p_Yūrei.mp4", 4: "AnimePahe_Boku_no_Hero_Academia_-_042_BD_1080p_Yūrei.mp4",
+        5: "AnimePahe_Boku_no_Hero_Academia_-_043_BD_1080p_Yūrei.mp4", 6: "AnimePahe_Boku_no_Hero_Academia_-_044_BD_1080p_Yūrei.mp4",
+        7: "AnimePahe_Boku_no_Hero_Academia_-_045_BD_1080p_Yūrei.mp4", 8: "AnimePahe_Boku_no_Hero_Academia_-_046_BD_1080p_Yūrei.mp4",
+        9: "AnimePahe_Boku_no_Hero_Academia_-_047_BD_1080p_Yūrei.mp4", 10: "AnimePahe_Boku_no_Hero_Academia_-_048_BD_1080p_Yūrei.mp4",
+        11: "AnimePahe_Boku_no_Hero_Academia_-_049_BD_1080p_Yūrei.mp4", 12: "AnimePahe_Boku_no_Hero_Academia_-_050_BD_1080p_Yūrei.mp4",
+        13: "AnimePahe_Boku_no_Hero_Academia_-_051_BD_1080p_Yūrei.mp4", 14: "AnimePahe_Boku_no_Hero_Academia_-_052_BD_1080p_Yūrei.mp4",
+        15: "AnimePahe_Boku_no_Hero_Academia_-_053_BD_1080p_Yūrei.mp4", 16: "AnimePahe_Boku_no_Hero_Academia_-_054_BD_1080p_Yūrei.mp4",
+        17: "AnimePahe_Boku_no_Hero_Academia_-_055_BD_1080p_Yūrei.mp4", 18: "AnimePahe_Boku_no_Hero_Academia_-_056_BD_1080p_Yūrei.mp4",
+        19: "AnimePahe_Boku_no_Hero_Academia_-_057_BD_1080p_Yūrei.mp4", 20: "AnimePahe_Boku_no_Hero_Academia_-_058_BD_1080p_Yūrei.mp4",
+        21: "AnimePahe_Boku_no_Hero_Academia_-_059_BD_1080p_Yūrei.mp4", 22: "AnimePahe_Boku_no_Hero_Academia_-_060_BD_1080p_Yūrei.mp4",
+        23: "AnimePahe_Boku_no_Hero_Academia_-_061_BD_1080p_Yūrei.mp4", 24: "AnimePahe_Boku_no_Hero_Academia_-_062_BD_1080p_Yūrei.mp4",
+        25: "AnimePahe_Boku_no_Hero_Academia_-_063_BD_1080p_Yūrei.mp4",
+      }},
+    ], hasSub: true,
+  },
+  // My Hero Academia S4 (sub only — no dub MP4 collection found)
+  { malId: 38408, title: "My Hero Academia Season 4", titleEnglish: "My Hero Academia Season 4", titleJapanese: "僕のヒーローアカデミア 4thシーズン",
+    synopsis: "Deku works with Sir Nighteye to investigate the Shie Hassaikai yakuza group and rescue a young girl named Eri.",
+    poster: "/posters/mha-s4.jpg", banner: "/posters/mha-s4.jpg",
+    type: "TV", status: "Finished Airing", score: 7.50, scoredBy: 500000, rank: 0, popularity: 120, members: 1700000,
+    year: 2019, season: "fall", genres: ["Action", "Adventure", "Comedy", "Fantasy"], studios: ["Bones"],
+    episodeCount: 25, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 25, collection: "mha-s4-full", audio: "sub", episodeFiles: {
+        1: "AnimePahe_Boku_no_Hero_Academia_-_064_BD_1080p_EMBER.mp4", 2: "AnimePahe_Boku_no_Hero_Academia_-_065_BD_1080p_EMBER.mp4",
+        3: "AnimePahe_Boku_no_Hero_Academia_-_066_BD_1080p_EMBER.mp4", 4: "AnimePahe_Boku_no_Hero_Academia_-_067_BD_1080p_EMBER.mp4",
+        5: "AnimePahe_Boku_no_Hero_Academia_-_068_BD_1080p_EMBER.mp4", 6: "AnimePahe_Boku_no_Hero_Academia_-_069_BD_1080p_EMBER.mp4",
+        7: "AnimePahe_Boku_no_Hero_Academia_-_070_BD_1080p_EMBER.mp4", 8: "AnimePahe_Boku_no_Hero_Academia_-_071_BD_1080p_EMBER.mp4",
+        9: "AnimePahe_Boku_no_Hero_Academia_-_072_BD_1080p_EMBER.mp4", 10: "AnimePahe_Boku_no_Hero_Academia_-_073_BD_1080p_EMBER.mp4",
+        11: "AnimePahe_Boku_no_Hero_Academia_-_074_BD_1080p_EMBER.mp4", 12: "AnimePahe_Boku_no_Hero_Academia_-_075_BD_1080p_EMBER.mp4",
+        13: "AnimePahe_Boku_no_Hero_Academia_-_076_BD_1080p_EMBER.mp4", 14: "AnimePahe_Boku_no_Hero_Academia_-_077_BD_1080p_EMBER.mp4",
+        15: "AnimePahe_Boku_no_Hero_Academia_-_078_BD_1080p_EMBER.mp4", 16: "AnimePahe_Boku_no_Hero_Academia_-_079_BD_1080p_EMBER.mp4",
+        17: "AnimePahe_Boku_no_Hero_Academia_-_080_BD_1080p_EMBER.mp4", 18: "AnimePahe_Boku_no_Hero_Academia_-_081_BD_1080p_EMBER.mp4",
+        19: "AnimePahe_Boku_no_Hero_Academia_-_082_BD_1080p_EMBER.mp4", 20: "AnimePahe_Boku_no_Hero_Academia_-_083_BD_1080p_EMBER.mp4",
+        21: "AnimePahe_Boku_no_Hero_Academia_-_084_BD_1080p_EMBER.mp4", 22: "AnimePahe_Boku_no_Hero_Academia_-_085_BD_1080p_EMBER.mp4",
+        23: "AnimePahe_Boku_no_Hero_Academia_-_086_BD_1080p_EMBER.mp4", 24: "AnimePahe_Boku_no_Hero_Academia_-_087_BD_1080p_EMBER.mp4",
+        25: "AnimePahe_Boku_no_Hero_Academia_-_088_BD_1080p_EMBER.mp4",
+      }},
+    ], hasSub: true,
+  },
+  // My Hero Academia S5 (sub only — no dub MP4 collection found)
+  { malId: 41587, title: "My Hero Academia Season 5", titleEnglish: "My Hero Academia Season 5", titleJapanese: "僕のヒーローアカデミア 5thシーズン",
+    synopsis: "Class 1-A and 1-B participate in joint training exercises, while the Meta Liberation Army and the League of Villains merge.",
+    poster: "/posters/mha-s5.jpg", banner: "/posters/mha-s5.jpg",
+    type: "TV", status: "Finished Airing", score: 7.30, scoredBy: 500000, rank: 0, popularity: 150, members: 1500000,
+    year: 2021, season: "spring", genres: ["Action", "Adventure", "Comedy", "Fantasy"], studios: ["Bones"],
+    episodeCount: 25, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 25, collection: "mha-s5-full", audio: "sub", episodeFiles: {
+        1: "AnimePahe_Boku_no_Hero_Academia_-_089_BD_1080p_EMBER.mp4", 2: "AnimePahe_Boku_no_Hero_Academia_-_090_BD_1080p_EMBER.mp4",
+        3: "AnimePahe_Boku_no_Hero_Academia_-_091_BD_1080p_EMBER.mp4", 4: "AnimePahe_Boku_no_Hero_Academia_-_092_BD_1080p_EMBER.mp4",
+        5: "AnimePahe_Boku_no_Hero_Academia_-_093_BD_1080p_EMBER.mp4", 6: "AnimePahe_Boku_no_Hero_Academia_-_094_BD_1080p_EMBER.mp4",
+        7: "AnimePahe_Boku_no_Hero_Academia_-_095_BD_1080p_EMBER.mp4", 8: "AnimePahe_Boku_no_Hero_Academia_-_096_BD_1080p_EMBER.mp4",
+        9: "AnimePahe_Boku_no_Hero_Academia_-_097_BD_1080p_EMBER.mp4", 10: "AnimePahe_Boku_no_Hero_Academia_-_098_BD_1080p_EMBER.mp4",
+        11: "AnimePahe_Boku_no_Hero_Academia_-_099_BD_1080p_EMBER.mp4", 12: "AnimePahe_Boku_no_Hero_Academia_-_100_BD_1080p_EMBER.mp4",
+        13: "AnimePahe_Boku_no_Hero_Academia_-_101_BD_1080p_EMBER.mp4", 14: "AnimePahe_Boku_no_Hero_Academia_-_102_BD_1080p_EMBER.mp4",
+        15: "AnimePahe_Boku_no_Hero_Academia_-_103_BD_1080p_EMBER.mp4", 16: "AnimePahe_Boku_no_Hero_Academia_-_104_BD_1080p_EMBER.mp4",
+        17: "AnimePahe_Boku_no_Hero_Academia_-_105_BD_1080p_EMBER.mp4", 18: "AnimePahe_Boku_no_Hero_Academia_-_106_BD_1080p_EMBER.mp4",
+        19: "AnimePahe_Boku_no_Hero_Academia_-_107_BD_1080p_EMBER.mp4", 20: "AnimePahe_Boku_no_Hero_Academia_-_108_BD_1080p_EMBER.mp4",
+        21: "AnimePahe_Boku_no_Hero_Academia_-_109_BD_1080p_EMBER.mp4", 22: "AnimePahe_Boku_no_Hero_Academia_-_110_BD_1080p_EMBER.mp4",
+        23: "AnimePahe_Boku_no_Hero_Academia_-_111_BD_1080p_EMBER.mp4", 24: "AnimePahe_Boku_no_Hero_Academia_-_112_BD_1080p_EMBER.mp4",
+        25: "AnimePahe_Boku_no_Hero_Academia_-_113_BD_1080p_EMBER.mp4",
+      }},
+    ], hasSub: true,
+  },
+  // My Hero Academia S6 (sub + dub; dub missing ep 10)
+  { malId: 49992, title: "My Hero Academia Season 6", titleEnglish: "My Hero Academia Season 6", titleJapanese: "僕のヒーローアカデミア 6thシーズン",
+    synopsis: "The Paranormal Liberation War begins as heroes launch a massive raid on the villains' headquarters. Deku discovers the true power of One For All.",
+    poster: "/posters/mha-s6.jpg", banner: "/posters/mha-s6.jpg",
+    type: "TV", status: "Finished Airing", score: 8.17, scoredBy: 500000, rank: 0, popularity: 130, members: 1600000,
+    year: 2022, season: "fall", genres: ["Action", "Adventure", "Comedy", "Fantasy"], studios: ["Bones"],
+    episodeCount: 25, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 25, collection: "s-6.-e-8-league-of-villains-vs.-u.-a.-students", audio: "dub", episodeFiles: {
+        1: "S6.E1 ∙ A Quiet Beginning.mp4", 2: "S6.E2 ∙ Mirko, the No. 5 Hero.mp4", 3: "S6.E3 ∙ One's Justice.mp4",
+        4: "S6.E4 ∙ Inheritance.mp4", 5: "S6.E5 ∙ The Thrill of Destruction.mp4", 6: "S6.E6 ∙ Encounter, Part 2.mp4",
+        7: "S6.E7 ∙ Disaster Walker.mp4", 8: "S6.E8 ∙ League of Villains vs. U.A. Students.mp4",
+        9: "S6.E9 ∙ Katsuki Bakugo Rising.mp4",
+        // ep 10 missing from the dub collection — will fall through to sub
+        11: "S6.E11 ∙ Dabi's Dance.mp4", 12: "S6.E12 ∙ Threads of Hope.mp4", 13: "S6.E13 ∙ Final Performance.mp4",
+        14: "S6.E14 ∙ Hellish Hell.mp4", 15: "S6.E15 ∙ Tartarus.mp4", 16: "S6.E16 ∙ The Hellish Todoroki Family, Part 2.mp4",
+        17: "S6.E17 ∙ The Wrong Way to Put Out a Fire.mp4", 18: "S6.E18 ∙ Izuku Midoriya and Tomura Shigaraki.mp4",
+        19: "S6.E19 ∙ Full Power!!.mp4", 20: "S6.E20 ∙ Hired Gun.mp4", 21: "S6.E21 ∙ The Lovely Lady Nagant.mp4",
+        22: "S6.E22 ∙ Friend.mp4", 23: "S6.E23 ∙ Deku vs. Class A.mp4", 24: "S6.E24 ∙ A Young Woman's Declaration.mp4",
+        25: "S6.E25 ∙ No Man Is an Island.mp4",
+      }},
+      { startEp: 1, endEp: 25, collection: "mha-s6-full", audio: "sub", episodeFiles: {
+        1: "AnimePahe_Boku_no_Hero_Academia_-_114_1080p_SubsPlease.mp4", 2: "AnimePahe_Boku_no_Hero_Academia_-_115_1080p_SubsPlease.mp4",
+        3: "AnimePahe_Boku_no_Hero_Academia_-_116_1080p_SubsPlease.mp4", 4: "AnimePahe_Boku_no_Hero_Academia_-_117_1080p_SubsPlease (1).mp4",
+        5: "AnimePahe_Boku_no_Hero_Academia_-_118_1080p_SubsPlease.mp4", 6: "AnimePahe_Boku_no_Hero_Academia_-_119_1080p_SubsPlease.mp4",
+        7: "AnimePahe_Boku_no_Hero_Academia_-_120_1080p_SubsPlease.mp4", 8: "AnimePahe_Boku_no_Hero_Academia_-_121_1080p_SubsPlease.mp4",
+        9: "AnimePahe_Boku_no_Hero_Academia_-_122_1080p_SubsPlease.mp4", 10: "AnimePahe_Boku_no_Hero_Academia_-_123_1080p_SubsPlease.mp4",
+        11: "AnimePahe_Boku_no_Hero_Academia_-_124_1080p_SubsPlease.mp4", 12: "AnimePahe_Boku_no_Hero_Academia_-_125_1080p_SubsPlease.mp4",
+        13: "AnimePahe_Boku_no_Hero_Academia_-_126_1080p_SubsPlease.mp4", 14: "AnimePahe_Boku_no_Hero_Academia_-_127_1080p_SubsPlease.mp4",
+        15: "AnimePahe_Boku_no_Hero_Academia_-_128_1080p_SubsPlease.mp4", 16: "AnimePahe_Boku_no_Hero_Academia_-_129_1080p_SubsPlease.mp4",
+        17: "AnimePahe_Boku_no_Hero_Academia_-_130_1080p_SubsPlease.mp4", 18: "AnimePahe_Boku_no_Hero_Academia_-_131_1080p_SubsPlease.mp4",
+        19: "AnimePahe_Boku_no_Hero_Academia_-_132_1080p_SubsPlease.mp4", 20: "AnimePahe_Boku_no_Hero_Academia_-_133_1080p_SubsPlease.mp4",
+        21: "AnimePahe_Boku_no_Hero_Academia_-_134_1080p_SubsPlease.mp4", 22: "AnimePahe_Boku_no_Hero_Academia_-_135_1080p_SubsPlease.mp4",
+        23: "AnimePahe_Boku_no_Hero_Academia_-_136_1080p_SubsPlease.mp4", 24: "AnimePahe_Boku_no_Hero_Academia_-_137_1080p_SubsPlease.mp4",
+        25: "AnimePahe_Boku_no_Hero_Academia_-_138_1080p_SubsPlease.mp4",
+      }},
+    ], hasSub: true, hasDub: true,
+  },
+  // My Hero Academia S7 (sub only — no dub MP4 collection found)
+  { malId: 54945, title: "My Hero Academia Season 7", titleEnglish: "My Hero Academia Season 7", titleJapanese: "僕のヒーローアカデミア 7thシーズン",
+    synopsis: "Star and Stripe arrives to fight Shigaraki, while the final war between heroes and villains reaches its climax.",
+    poster: "/posters/mha-s7.jpg", banner: "/posters/mha-s7.jpg",
+    type: "TV", status: "Finished Airing", score: 8.24, scoredBy: 500000, rank: 0, popularity: 200, members: 800000,
+    year: 2024, season: "spring", genres: ["Action", "Adventure", "Comedy", "Fantasy"], studios: ["Bones"],
+    episodeCount: 21, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 21, collection: "mha-s7-full", audio: "sub", episodeFiles: {
+        1: "AnimePahe_Boku_no_Hero_Academia_-_139_1080p_SubsPlease.mp4", 2: "AnimePahe_Boku_no_Hero_Academia_-_140_1080p_SubsPlease.mp4",
+        3: "AnimePahe_Boku_no_Hero_Academia_-_141_1080p_SubsPlease.mp4", 4: "AnimePahe_Boku_no_Hero_Academia_-_142_1080p_SubsPlease.mp4",
+        5: "AnimePahe_Boku_no_Hero_Academia_-_143_1080p_SubsPlease.mp4", 6: "AnimePahe_Boku_no_Hero_Academia_-_144_1080p_SubsPlease.mp4",
+        7: "AnimePahe_Boku_no_Hero_Academia_-_145_1080p_SubsPlease.mp4", 8: "AnimePahe_Boku_no_Hero_Academia_-_146_1080p_SubsPlease (1).mp4",
+        9: "AnimePahe_Boku_no_Hero_Academia_-_147_1080p_SubsPlease.mp4", 10: "AnimePahe_Boku_no_Hero_Academia_-_148_1080p_SubsPlease.mp4",
+        11: "AnimePahe_Boku_no_Hero_Academia_-_149_1080p_SubsPlease.mp4", 12: "AnimePahe_Boku_no_Hero_Academia_-_150_1080p_SubsPlease.mp4",
+        13: "AnimePahe_Boku_no_Hero_Academia_-_151_1080p_SubsPlease.mp4", 14: "AnimePahe_Boku_no_Hero_Academia_-_152_1080p_SubsPlease.mp4",
+        15: "AnimePahe_Boku_no_Hero_Academia_-_153_1080p_SubsPlease.mp4", 16: "AnimePahe_Boku_no_Hero_Academia_-_154_1080p_SubsPlease.mp4",
+        17: "AnimePahe_Boku_no_Hero_Academia_-_155_1080p_SubsPlease.mp4", 18: "AnimePahe_Boku_no_Hero_Academia_-_156_1080p_SubsPlease.mp4",
+        19: "AnimePahe_Boku_no_Hero_Academia_-_157_1080p_SubsPlease.mp4", 20: "AnimePahe_Boku_no_Hero_Academia_-_158_1080p_SubsPlease.mp4",
+        21: "AnimePahe_Boku_no_Hero_Academia_-_159_1080p_SubsPlease.mp4",
+      }},
+    ], hasSub: true,
+  },
 ];
 
 /**
@@ -782,6 +984,18 @@ export const SEASON_GROUPS: { franchise: string; seasons: { malId: number; label
     seasons: [
       { malId: 52412, label: "Season 1" },
       { malId: 58514, label: "Season 2" },
+    ],
+  },
+  {
+    franchise: "My Hero Academia",
+    seasons: [
+      { malId: 31964, label: "Season 1" },
+      { malId: 33458, label: "Season 2" },
+      { malId: 36474, label: "Season 3" },
+      { malId: 38408, label: "Season 4" },
+      { malId: 41587, label: "Season 5" },
+      { malId: 49992, label: "Season 6" },
+      { malId: 54945, label: "Season 7" },
     ],
   },
 ];
