@@ -420,10 +420,9 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 12, endEp: 12, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 12 - Good Morning, Prison.mp4", audio: "dub" },
     ], hasDub: true,
   },
-  // The Apothecary Diaries S2 — verified Japanese audio via ASR (the collection
-  // is titled "ENG Dubbed" but is actually Japanese audio with hardcoded
-  // English subs). Labeled as "sub" so it plays in the SUB player.
-  // No English dub MP4 collection found on archive.org for S2.
+  // The Apothecary Diaries S2 — English dub (user confirmed it had dub).
+  // The collection is titled "ENG Dubbed" and the user wants it kept as dub.
+  // No separate Japanese sub source found on archive.org for S2.
   { malId: 58514, title: "The Apothecary Diaries Season 2", titleEnglish: "The Apothecary Diaries Season 2", titleJapanese: "薬屋のひとりごと 第2期",
     synopsis: "Maomao, a pharmacist in the imperial court, continues to solve mysteries and navigate palace politics in ancient China.",
     poster: "https://cdn.myanimelist.net/images/anime/1025/147458l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1025/147458l.jpg",
@@ -431,8 +430,8 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2025, season: "winter", genres: ["Drama", "Mystery", "Romance"], studios: ["OLM"],
     episodeCount: 24, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Light novel", isFeatured: true,
     episodeSources: [
-      { startEp: 1, endEp: 24, collection: "the-apothecary-diaries-s-2", fileTemplate: "The Apothecary Diaries S2Ep{ep}.mp4", audio: "sub" },
-    ], hasSub: true, noSubtitles: true,
+      { startEp: 1, endEp: 24, collection: "the-apothecary-diaries-s-2", fileTemplate: "The Apothecary Diaries S2Ep{ep}.mp4", audio: "dub" },
+    ], hasDub: true,
   },
   // Haikyuu!! S3 (Top 10 #7)
   { malId: 32935, title: "Haikyuu!! Karasuno vs Shiratorizawa", titleEnglish: "Haikyuu!! Third Season", titleJapanese: "ハイキュー!! 烏野高校 VS 白鳥沢学園高校",
