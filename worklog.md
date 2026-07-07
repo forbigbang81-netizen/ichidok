@@ -406,3 +406,42 @@ Stage Summary:
 - Apothecary Diaries S1 poster fixed
 - Default audio mode is DUB (most catalog is dub-only)
 - Stale DB rows from old malIds deleted (catalog went from 47 -> 44 entries)
+
+---
+Task ID: continue-watching-homepage-berserk-subdub
+Agent: main
+Task: Move Continue Watching to homepage with progress bar + episode count, persist history across updates, fix Berserk sub/dub split
+
+Work Log:
+- Diagnosed history loading gap: fetchHistory() was only called in LibraryView,
+  so the homepage Continue Watching section only showed items watched in the
+  current session. Added fetchHistory() to the app shell (page.tsx) useEffect
+  so history loads on mount and persists across redeploys.
+- Redesigned Continue Watching section on HomeView:
+  - Moved to TOP of homepage (above featured banner)
+  - 16:9 poster thumbnails with play overlay
+  - Episode badge (EP X / Y) using episodeCount from the in-memory all list
+  - Position/duration timestamp (e.g., "5:23 / 23:58")
+  - Progress bar BELOW the card with percentage label
+  - Increased from 4 to 10 items
+  - Clicking resumes at saved position
+  - Removed duplicate section that was further down the page
+- Berserk 1997 audio fix:
+  - Used ASR (z-ai-web-dev-sdk) to transcribe audio samples from both sources
+  - Confirmed Cartoons-and-Anime source = Japanese audio (was mislabeled as dub)
+  - Confirmed berserk-1997-complete MP4 = English dub (Blu-Ray rip)
+  - Moved Cartoons-and-Anime source to sub player
+  - Added berserk-1997-complete as the dub source with episodeFiles map
+    (each episode has its title in the filename)
+  - Berserk now has hasSub=true, hasDub=true so the player shows the SUB/DUB toggle
+- Built and pushed commit 0a65614. Vercel auto-deployed.
+- Forced re-seed + clear-cache on production.
+
+Stage Summary:
+- Continue Watching is now the first section on the homepage, with progress
+  bars below each card, episode counts (EP X / Y), and position timestamps
+- History loads from /api/history on app mount, so it survives updates/redeploys
+- 34 history items already persisted server-side in Turso DB
+- Berserk SUB player now plays Japanese audio (Cartoons-and-Anime)
+- Berserk DUB player now plays English dub (berserk-1997-complete Blu-Ray rip)
+- Both SUB and DUB work for all 25 episodes
