@@ -944,6 +944,113 @@ export const SEED_ANIME: SeedAnime[] = [
       }},
     ], hasSub: true, hasDub: true,
   },
+  // ===== Uma Musume: Pretty Derby (S1, S2, S3, Specials, Movie) =====
+  // All sub-only (Japanese audio with hardcoded English subs). MP4 files.
+  // S1: 1080p BD from uma-musume-s1-engsub (Okay-Subs release)
+  // S2+S3+Specials: from uma-musume-pretty-derby-english-subbed
+  // Movie: from uma-musume-beginning-of-a-new-era (1.4GB, 1080p)
+  // Posters: archive.org item thumbnails (MAL CDN was rate-limited)
+  // Uma Musume S1
+  { malId: 35349, title: "Uma Musume: Pretty Derby", titleEnglish: "Uma Musume: Pretty Derby", titleJapanese: "ウマ娘 プリティーダービー",
+    synopsis: "In a world where horse girls race to fulfill their dreams, Special Week transfers to Tracen Academy to become the best horse girl in Japan.",
+    poster: "https://archive.org/services/img/uma-musume-s1-engsub", banner: "https://archive.org/services/img/uma-musume-s1-engsub",
+    type: "TV", status: "Finished Airing", score: 7.78, scoredBy: 100000, rank: 0, popularity: 800, members: 300000,
+    year: 2018, season: "spring", genres: ["Comedy", "Sports", "Drama"], studios: ["P.A. Works"],
+    episodeCount: 13, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Game", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 13, collection: "uma-musume-s1-engsub", audio: "sub", episodeFiles: {
+        1: "[Okay-Subs] Uma Musume Pretty Derby - 01v2 (BD 1080p) [3C967D27].mp4",
+        2: "[Okay-Subs] Uma Musume Pretty Derby - 02v2 (BD 1080p) [1A81FD14].mp4",
+        3: "[Okay-Subs] Uma Musume Pretty Derby - 03v2 (BD 1080p) [C0D18371].mp4",
+        4: "[Okay-Subs] Uma Musume Pretty Derby - 04v2 (BD 1080p) [1E8710CA].mp4",
+        5: "[Okay-Subs] Uma Musume Pretty Derby - 05v2 (BD 1080p) [63B1AB7F].mp4",
+        6: "[Okay-Subs] Uma Musume Pretty Derby - 06v2 (BD 1080p) [28F1A8FD].mp4",
+        7: "[Okay-Subs] Uma Musume Pretty Derby - 07v2 (BD 1080p) [6D4CAF3A].mp4",
+        8: "[Okay-Subs] Uma Musume Pretty Derby - 08v2 (BD 1080p) [DABDB3AE].mp4",
+        9: "[Okay-Subs] Uma Musume Pretty Derby - 09v2 (BD 1080p) [153A9BC9].mp4",
+        10: "[Okay-Subs] Uma Musume Pretty Derby - 10v2 (BD 1080p) [54770AF4].mp4",
+        11: "[Okay-Subs] Uma Musume Pretty Derby - 11v2 (BD 1080p) [79B7244E].mp4",
+        12: "[Okay-Subs] Uma Musume Pretty Derby - 12v2 (BD 1080p) [E97733B4].mp4",
+        13: "[Okay-Subs] Uma Musume Pretty Derby - 13v2 (BD 1080p) [7F3DFF65].mp4",
+      }},
+    ], hasSub: true, noSubtitles: true,
+  },
+  // Uma Musume S2
+  { malId: 42334, title: "Uma Musume: Pretty Derby Season 2", titleEnglish: "Uma Musume: Pretty Derby Season 2", titleJapanese: "ウマ娘 プリティーダービー Season 2",
+    synopsis: "Tokai Teio, a horse girl who overcame a broken leg, aims to win the G1 races alongside her rival Mejiro McQueen.",
+    poster: "https://archive.org/services/img/uma-musume-pretty-derby-english-subbed", banner: "https://archive.org/services/img/uma-musume-pretty-derby-english-subbed",
+    type: "TV", status: "Finished Airing", score: 8.24, scoredBy: 80000, rank: 0, popularity: 900, members: 250000,
+    year: 2021, season: "winter", genres: ["Comedy", "Sports", "Drama"], studios: ["Studio Kai"],
+    episodeCount: 13, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Game", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 13, collection: "uma-musume-pretty-derby-english-subbed", audio: "sub", episodeFiles: {
+        1: "Uma Musume Pretty Derby Season 2 Episode 1 English Subbed.mp4",
+        2: "Uma Musume Pretty Derby Season 2 Episode 2 English Subbed.mp4",
+        3: "Uma Musume Pretty Derby Season 2 Episode 3 English Subbed.mp4",
+        4: "Uma Musume Pretty Derby Season 2 Episode 4 English Subbed.mp4",
+        5: "Uma Musume Pretty Derby Season 2 Episode 5 English Subbed.mp4",
+        6: "Uma Musume Pretty Derby Season 2 Episode 6 English Subbed.mp4",
+        7: "Uma Musume Pretty Derby Season 2 Episode 7 English Subbed.mp4",
+        8: "Uma Musume Pretty Derby Season 2 Episode 8 English Subbed.mp4",
+        9: "Uma Musume Pretty Derby Season 2 Episode 9 English Subbed.mp4",
+        10: "Uma Musume Pretty Derby Season 2 Episode 10 English Subbed.mp4",
+        11: "Uma Musume Pretty Derby Season 2 Episode 11 English Subbed.mp4",
+        12: "Uma Musume Pretty Derby Season 2 Episode 12 English Subbed.mp4",
+        13: "Uma Musume Pretty Derby Season 2 Episode 13 English Subbed.mp4",
+      }},
+    ], hasSub: true, noSubtitles: true,
+  },
+  // Uma Musume S3
+  { malId: 48654, title: "Uma Musume: Pretty Derby Season 3", titleEnglish: "Uma Musume: Pretty Derby Season 3", titleJapanese: "ウマ娘 プリティーダービー Season 3",
+    synopsis: "Kitasan Black and Satono Diamond navigate their final year at Tracen Academy, chasing their dreams on the racetrack.",
+    poster: "https://archive.org/services/img/uma-musume-pretty-derby-english-subbed", banner: "https://archive.org/services/img/uma-musume-pretty-derby-english-subbed",
+    type: "TV", status: "Finished Airing", score: 8.02, scoredBy: 50000, rank: 0, popularity: 1100, members: 180000,
+    year: 2023, season: "fall", genres: ["Comedy", "Sports", "Drama"], studios: ["Studio Kai"],
+    episodeCount: 13, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Game", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 13, collection: "uma-musume-pretty-derby-english-subbed", audio: "sub", episodeFiles: {
+        1: "Uma Musume Pretty Derby Season 3 Episode 1 English Subbed.mp4",
+        2: "Uma Musume Pretty Derby Season 3 Episode 2 English Subbed.mp4",
+        3: "Uma Musume Pretty Derby Season 3 Episode 3 English Subbed.mp4",
+        4: "Uma Musume Pretty Derby Season 3 Episode 4 English Subbed.mp4",
+        5: "Uma Musume Pretty Derby Season 3 Episode 5 English Subbed.mp4",
+        6: "Uma Musume Pretty Derby Season 3 Episode 6 English Subbed.mp4",
+        7: "Uma Musume Pretty Derby Season 3 Episode 7 English Subbed.mp4",
+        8: "Uma Musume Pretty Derby Season 3 Episode 8 English Subbed.mp4",
+        9: "Uma Musume Pretty Derby Season 3 Episode 9 English Subbed.mp4",
+        10: "Uma Musume Pretty Derby Season 3 Episode 10 English Subbed.mp4",
+        11: "Uma Musume Pretty Derby Season 3 Episode 11 English Subbed.mp4",
+        12: "Uma Musume Pretty Derby Season 3 Episode 12 English Subbed.mp4",
+        13: "Uma Musume Pretty Derby Season 3 Episode 13 English Subbed.mp4",
+      }},
+    ], hasSub: true, noSubtitles: true,
+  },
+  // Uma Musume Specials (3 episodes)
+  { malId: -3, title: "Uma Musume: Pretty Derby Specials", titleEnglish: "Uma Musume: Pretty Derby Specials", titleJapanese: "ウマ娘 プリティーダービー スペシャル",
+    synopsis: "Special episodes of Uma Musume: Pretty Derby featuring bonus stories and character moments.",
+    poster: "https://archive.org/services/img/uma-musume-pretty-derby-english-subbed", banner: "https://archive.org/services/img/uma-musume-pretty-derby-english-subbed",
+    type: "Special", status: "Finished Airing", score: 7.20, scoredBy: 5000, rank: 0, popularity: 3000, members: 20000,
+    year: 2018, season: null, genres: ["Comedy", "Sports"], studios: ["P.A. Works"],
+    episodeCount: 3, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Game",
+    episodeSources: [
+      { startEp: 1, endEp: 3, collection: "uma-musume-pretty-derby-english-subbed", audio: "sub", episodeFiles: {
+        1: "Uma Musume Pretty Derby Special Episode 1 English Subbed.mp4",
+        2: "Uma Musume Pretty Derby Special Episode 2 English Subbed.mp4",
+        3: "Uma Musume Pretty Derby Special Episode 3 English Subbed.mp4",
+      }},
+    ], hasSub: true, noSubtitles: true,
+  },
+  // Uma Musume Movie: Beginning of a New Era
+  { malId: 55311, title: "Uma Musume: Pretty Derby - Beginning of a New Era", titleEnglish: "Uma Musume: Pretty Derby - Beginning of a New Era", titleJapanese: "ウマ娘 プリティーダービー 新時代の扉",
+    synopsis: "A new era begins as Jungle Pocket arrives at Tracen Academy, chasing her dream to become the strongest horse girl.",
+    poster: "https://archive.org/services/img/uma-musume-beginning-of-a-new-era", banner: "https://archive.org/services/img/uma-musume-beginning-of-a-new-era",
+    type: "Movie", status: "Finished Airing", score: 7.65, scoredBy: 30000, rank: 0, popularity: 1500, members: 100000,
+    year: 2024, season: null, genres: ["Comedy", "Sports", "Drama"], studios: ["Cygames Pictures"],
+    episodeCount: 1, duration: "2 hr 7 min", rating: "PG-13 - Teens 13 or older", source: "Game", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 1, collection: "uma-musume-beginning-of-a-new-era", fileName: "Uma Musume - Beginning of a New Era.mp4", audio: "sub" },
+    ], hasSub: true, noSubtitles: true,
+  },
 ];
 
 /**
@@ -1052,6 +1159,16 @@ export const SEASON_GROUPS: { franchise: string; seasons: { malId: number; label
       { malId: 49992, label: "Season 6" },
       { malId: 54945, label: "Season 7" },
       { malId: -2, label: "Final Season (S8)" },
+    ],
+  },
+  {
+    franchise: "Uma Musume: Pretty Derby",
+    seasons: [
+      { malId: 35349, label: "Season 1" },
+      { malId: 42334, label: "Season 2" },
+      { malId: 48654, label: "Season 3" },
+      { malId: -3, label: "Specials" },
+      { malId: 55311, label: "Movie — Beginning of a New Era" },
     ],
   },
 ];
