@@ -420,7 +420,10 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 12, endEp: 12, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 12 - Good Morning, Prison.mp4", audio: "dub" },
     ], hasDub: true,
   },
-  // The Apothecary Diaries S2 (Top 10 #10)
+  // The Apothecary Diaries S2 — verified Japanese audio via ASR (the collection
+  // is titled "ENG Dubbed" but is actually Japanese audio with hardcoded
+  // English subs). Labeled as "sub" so it plays in the SUB player.
+  // No English dub MP4 collection found on archive.org for S2.
   { malId: 58514, title: "The Apothecary Diaries Season 2", titleEnglish: "The Apothecary Diaries Season 2", titleJapanese: "薬屋のひとりごと 第2期",
     synopsis: "Maomao, a pharmacist in the imperial court, continues to solve mysteries and navigate palace politics in ancient China.",
     poster: "https://cdn.myanimelist.net/images/anime/1025/147458l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1025/147458l.jpg",
@@ -428,8 +431,8 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2025, season: "winter", genres: ["Drama", "Mystery", "Romance"], studios: ["OLM"],
     episodeCount: 24, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Light novel", isFeatured: true,
     episodeSources: [
-      { startEp: 1, endEp: 24, collection: "the-apothecary-diaries-s-2", fileTemplate: "The Apothecary Diaries S2Ep{ep}.mp4", audio: "dub" },
-    ], hasDub: true,
+      { startEp: 1, endEp: 24, collection: "the-apothecary-diaries-s-2", fileTemplate: "The Apothecary Diaries S2Ep{ep}.mp4", audio: "sub" },
+    ], hasSub: true, noSubtitles: true,
   },
   // Haikyuu!! S3 (Top 10 #7)
   { malId: 32935, title: "Haikyuu!! Karasuno vs Shiratorizawa", titleEnglish: "Haikyuu!! Third Season", titleJapanese: "ハイキュー!! 烏野高校 VS 白鳥沢学園高校",
@@ -475,7 +478,12 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 13, collection: "haikyuu-to-the-top-dub-episode-11", fileTemplate: "Season 4 - Part 1/Haikyuu!! To the Top (Dub) Episode {ep}.mp4", audio: "dub" },
     ], hasDub: true,
   },
-  // The Apothecary Diaries S1
+  // The Apothecary Diaries S1 — dual source: Japanese sub + English dub
+  // Japanese audio (sub): 720p for eps 1-18 (kusuriya-no-hitorigoto-eps-01-720p),
+  // 360p for eps 19-24 (S25IMjAyNA Meownime release). Both verified Japanese
+  // audio via ASR. The 720p collection only has 18 episodes, so eps 19-24
+  // fall back to the 360p Meownime release.
+  // English dub: AnimePahe BD 720p release (all 24 eps).
   { malId: 52412, title: "The Apothecary Diaries", titleEnglish: "The Apothecary Diaries", titleJapanese: "薬屋のひとりごと",
     synopsis: "Maomao, a young pharmacist kidnapped and sold to the imperial palace, uses her knowledge of medicine and poisons to solve mysteries.",
     poster: "https://cdn.myanimelist.net/images/anime/1708/138033l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1708/138033l.jpg",
@@ -483,9 +491,18 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2023, season: "fall", genres: ["Award Winning", "Drama", "Mystery", "Romance"], studios: ["OLM"],
     episodeCount: 24, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Light novel", isFeatured: true,
     episodeSources: [
+      // Japanese audio (sub) — 720p for eps 1-18
+      { startEp: 1, endEp: 18, collection: "kusuriya-no-hitorigoto-eps-01-720p", fileTemplate: "Kusuriya no Hitorigoto_eps{ep:02}_720p.mp4", audio: "sub" },
+      // Japanese audio (sub) — 360p Meownime release for eps 19-24 (720p collection only has 18 eps)
+      { startEp: 19, endEp: 24, collection: "S25IMjAyNA", audio: "sub", episodeFiles: {
+        19: "Meownime_KnH--19_360p.mp4", 20: "Meownime_KnH--20_360p.mp4",
+        21: "Meownime_KnH--21_360p.mp4", 22: "Meownime_KnH--22_360p.mp4",
+        23: "Meownime_KnH--23_360p.mp4", 24: "Meownime_KnH--24_End_360p.mp4",
+      }},
+      // English dub — AnimePahe BD 720p release (all 24 eps)
       { startEp: 1, endEp: 1, collection: "anime-pahe-kusuriya-no-hitorigoto-eng-dub-01-bd-720p-sam.mp-4-kw", fileName: "AnimePahe_Kusuriya_no_Hitorigoto_Eng_Dub_-_01_BD_720p_sam.mp4 Kw.mp4", audio: "dub" },
       { startEp: 2, endEp: 24, collection: "anime-pahe-kusuriya-no-hitorigoto-eng-dub-01-bd-720p-sam.mp-4-kw", fileTemplate: "AnimePahe_Kusuriya_no_Hitorigoto_Eng_Dub_-_{ep:02}_BD_720p_sam.mp4", audio: "dub" },
-    ], hasDub: true,
+    ], hasSub: true, hasDub: true,
   },
   // Fushigi Yuugi
   { malId: 123, title: "Fushigi Yuugi", titleEnglish: "Fushigi Yuugi", titleJapanese: "ふしぎ遊戯",
