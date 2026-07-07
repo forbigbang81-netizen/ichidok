@@ -1050,50 +1050,82 @@ export function resolveEpisodeUrl(seed: SeedAnime, episode: number, audioMode: "
   const matchingSources = seed.episodeSources.filter((src) => episode >= src.startEp && episode <= src.endEp);
   if (matchingSources.length === 0) return null;
   const wantedAudio = audioMode === "dub" ? "dub" : "sub";
-  // Find a source that matches the wanted audio mode (exact match or "both").
-  // Do NOT fall back to a different audio mode — if the user asked for SUB and
-  // we only have DUB sources, return null so the player shows "no stream"
-  // instead of silently playing the wrong audio.
-  const preferred = matchingSources.find((src) => { const a = src.audio ?? "sub"; return a === wantedAudio || a === "both"; });
-  const src = preferred ?? null;
-  if (!src) return null;
+  const otherAudio = wantedAudio === "dub" ? "sub" : "dub";
 
-  let file: string;
-  if (src.episodeFiles && src.episodeFiles[episode]) {
-    // Per-episode literal filename (e.g. DVD rips with unique titles per ep).
-    file = src.episodeFiles[episode];
-  } else if (src.fileName) { file = src.fileName; }
-  else if (src.fileTemplate) {
-    file = src.fileTemplate;
-    file = file.replace(/\{ep(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(episode); return pad ? s.padStart(Number(pad), "0") : s; });
+  // Try to resolve the file from a source matching the wanted audio mode.
+  // If that source doesn't have this specific episode (e.g. episodeFiles map
+  // doesn't include it), fall through to the other audio mode so the user
+  // still gets a playable stream instead of a "no stream" error.
+  function tryResolve(src: EpisodeSource): string | null {
+    if (src.episodeFiles && src.episodeFiles[episode]) {
+      return src.episodeFiles[episode];
+    }
+    if (src.fileName) return src.fileName;
+    if (src.fileTemplate) {
+      let file = src.fileTemplate;
+      file = file.replace(/\{ep(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(episode); return pad ? s.padStart(Number(pad), "0") : s; });
+      if (src.seasonMap) {
+        const entry = src.seasonMap.find((m) => episode >= m.startEp && episode <= m.endEp);
+        if (entry) {
+          const seasonEp = episode - entry.startEp + 1;
+          file = file.replace(/\{season(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(entry.season); return pad ? s.padStart(Number(pad), "0") : s; });
+          file = file.replace(/\{seasonEp(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(seasonEp); return pad ? s.padStart(Number(pad), "0") : s; });
+        }
+      }
+      return file;
+    }
+    return null;
+  }
+
+  function buildResult(src: EpisodeSource, file: string) {
+    let collectionName = src.collection;
     if (src.seasonMap) {
       const entry = src.seasonMap.find((m) => episode >= m.startEp && episode <= m.endEp);
-      if (entry) {
-        const seasonEp = episode - entry.startEp + 1;
-        file = file.replace(/\{season(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(entry.season); return pad ? s.padStart(Number(pad), "0") : s; });
-        file = file.replace(/\{seasonEp(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(seasonEp); return pad ? s.padStart(Number(pad), "0") : s; });
-      }
+      if (entry) { collectionName = collectionName.replace(/\{season(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(entry.season); return pad ? s.padStart(Number(pad), "0") : s; }); }
     }
-  } else { return null; }
-
-  let collectionName = src.collection;
-  if (src.seasonMap) {
-    const entry = src.seasonMap.find((m) => episode >= m.startEp && episode <= m.endEp);
-    if (entry) { collectionName = collectionName.replace(/\{season(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(entry.season); return pad ? s.padStart(Number(pad), "0") : s; }); }
+    if (collectionName === "youtube") { return { url: `https://www.youtube.com/embed/${file}`, source: "youtube", needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" as const }; }
+    if (collectionName === "dropbox" || collectionName === "external") { return { url: file, source: "external", needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" as const }; }
+    const encodedFile = encodeURIComponent(file).replace(/%2F/g, "/");
+    return { url: `https://archive.org/download/${collectionName}/${encodedFile}`, source: src.needsProxy ? "archive-mkv" : "archive", needsProxy: src.needsProxy ?? false, dualAudio: src.dualAudio ?? false, audio: src.audio ?? "sub" as const };
   }
-  if (collectionName === "youtube") { return { url: `https://www.youtube.com/embed/${file}`, source: "youtube", needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" }; }
-  if (collectionName === "dropbox" || collectionName === "external") { return { url: file, source: "external", needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" }; }
-  const encodedFile = encodeURIComponent(file).replace(/%2F/g, "/");
-  return { url: `https://archive.org/download/${collectionName}/${encodedFile}`, source: src.needsProxy ? "archive-mkv" : "archive", needsProxy: src.needsProxy ?? false, dualAudio: src.dualAudio ?? false, audio: src.audio ?? "sub" };
+
+  // 1) Try the wanted audio mode first.
+  const preferred = matchingSources.find((src) => { const a = src.audio ?? "sub"; return a === wantedAudio || a === "both"; });
+  if (preferred) {
+    const file = tryResolve(preferred);
+    if (file) return buildResult(preferred, file);
+  }
+
+  // 2) Fall through to the other audio mode if the wanted source doesn't
+  //    have this specific episode (e.g. dub is missing ep 9 — play sub instead).
+  const fallback = matchingSources.find((src) => { const a = src.audio ?? "sub"; return a === otherAudio || a === "both"; });
+  if (fallback) {
+    const file = tryResolve(fallback);
+    if (file) return buildResult(fallback, file);
+  }
+
+  return null;
 }
 
 export function episodeHasSub(seed: SeedAnime, episode: number): boolean {
   if (!seed.episodeSources) return false;
-  return seed.episodeSources.some((src) => episode >= src.startEp && episode <= src.endEp && (src.audio === "sub" || src.audio === "both"));
+  return seed.episodeSources.some((src) => {
+    if (!(episode >= src.startEp && episode <= src.endEp)) return false;
+    if (src.audio !== "sub" && src.audio !== "both") return false;
+    // If episodeFiles is set, verify the specific episode exists.
+    if (src.episodeFiles && !src.episodeFiles[episode]) return false;
+    return true;
+  });
 }
 export function episodeHasDub(seed: SeedAnime, episode: number): boolean {
   if (!seed.episodeSources) return false;
-  return seed.episodeSources.some((src) => episode >= src.startEp && episode <= src.endEp && (src.audio === "dub" || src.audio === "both"));
+  return seed.episodeSources.some((src) => {
+    if (!(episode >= src.startEp && episode <= src.endEp)) return false;
+    if (src.audio !== "dub" && src.audio !== "both") return false;
+    // If episodeFiles is set, verify the specific episode exists.
+    if (src.episodeFiles && !src.episodeFiles[episode]) return false;
+    return true;
+  });
 }
 
 export function resolveSubtitleUrl(seed: SeedAnime, episode: number): string | null {
