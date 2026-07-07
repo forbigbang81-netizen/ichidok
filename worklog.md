@@ -635,3 +635,40 @@ Stage Summary:
 - Slayers audio swapped: SUB player now plays Japanese, DUB plays English
 - Catalog: 51 anime total
 - All verified via /api/auto-import and /api/catalog endpoints
+
+---
+Task ID: mha-s8-final-season
+Agent: main
+Task: Add MHA Season 8 (Final Season) with poster + dub
+
+Work Log:
+- User uploaded S8 poster (1aa02440...jpg, 736x981). Copied to
+  /public/posters/mha-s8.jpg.
+- Found two archive.org collections for MHA S8 (Final Season):
+  Sub: mha-final-season (11 eps, 160-170, 1080p SubsPlease, Japanese audio)
+  Dub: anime-pahe-...-yameii (8 eps, 160-167, English dub, mixed quality:
+       eps 1-3 = 720p, ep 4 = 360p, eps 5-8 = 1080p)
+- Jikan API was heavily rate-limited so I couldn't verify the real MAL ID
+  for MHA Final Season. Used malId -2 as a sentinel (same pattern as Megas
+  XLR's -1). All data is provided in-seed so catalog/detail/seasons work.
+- Added S8 entry with status "Currently Airing", 11 episodes, both sub+dub.
+- Added S8 to SEASON_GROUPS as "Final Season (S8)".
+- Fixed resolveEpisodeUrl to fall through to the other audio mode when the
+  preferred source's episodeFiles map doesn't include the requested episode.
+  This means MHA S8 dub eps 9-11 (not yet dubbed) automatically play the
+  sub version instead of showing "no stream available".
+- Updated episodeHasSub/episodeHasDub to check episodeFiles maps so the
+  hasSub/hasDub flags reflect per-episode availability.
+- Built and pushed 2 commits (1cd577c + e93b79a). Vercel auto-deployed.
+- Verified:
+  - S8 dub ep1 returns Yameii dub URL (correct)
+  - S8 dub ep9 falls through to SubsPlease sub URL (correct)
+  - S8 sub ep11 returns the last available episode (correct)
+  - Catalog now has 52 anime total
+
+Stage Summary:
+- MHA S8 (Final Season) added with user-uploaded poster
+- SUB: 11 episodes in 1080p (Japanese audio)
+- DUB: 8 episodes (English dub, mixed 360p-1080p quality)
+- Eps 9-11 in DUB mode automatically fall through to SUB
+- Total catalog: 52 anime
