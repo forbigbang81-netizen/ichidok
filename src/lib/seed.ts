@@ -889,6 +889,45 @@ export const SEED_ANIME: SeedAnime[] = [
       }},
     ], hasSub: true,
   },
+  // My Hero Academia S8 (Final Season) — sub + dub. Currently airing.
+  // Sub: mha-final-season collection (1080p SubsPlease, Japanese audio, eps 160-170).
+  // Dub: anime-pahe-...-yameii collection (English dub, eps 160-167, mixed quality).
+  // Dub is missing eps 8-11 (168-170) — those will fall through to sub.
+  // malId -2 is a sentinel since the real MAL ID couldn't be verified via Jikan
+  // (rate-limited). All data is provided in-seed so the catalog/detail views work.
+  { malId: -2, title: "My Hero Academia Final Season", titleEnglish: "My Hero Academia Final Season", titleJapanese: "僕のヒーローアカデミア Final Season",
+    synopsis: "The final war between heroes and villains reaches its conclusion as Deku and his classmates face All For One and Shigaraki in their last battle.",
+    poster: "/posters/mha-s8.jpg", banner: "/posters/mha-s8.jpg",
+    type: "TV", status: "Currently Airing", score: 8.30, scoredBy: 100000, rank: 0, popularity: 300, members: 400000,
+    year: 2025, season: "winter", genres: ["Action", "Adventure", "Comedy", "Fantasy"], studios: ["Bones"],
+    episodeCount: 11, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 11, collection: "anime-pahe-boku-no-hero-academia-eng-dub-160-720p-yameii", audio: "dub", episodeFiles: {
+        1: "AnimePahe_Boku_no_Hero_Academia_Eng_Dub_-_160_720p_Yameii.mp4",
+        2: "AnimePahe_Boku_no_Hero_Academia_Eng_Dub_-_161_720p_Yameii.mp4",
+        3: "AnimePahe_Boku_no_Hero_Academia_Eng_Dub_-_162_720p_Yameii.mp4",
+        4: "AnimePahe_Boku_no_Hero_Academia_Eng_Dub_-_163_360p_Yameii.mp4",
+        5: "AnimePahe_Boku_no_Hero_Academia_Eng_Dub_-_164_1080p_Yameii.mp4",
+        6: "AnimePahe_Boku_no_Hero_Academia_Eng_Dub_-_165_1080p_Yameii.mp4",
+        7: "AnimePahe_Boku_no_Hero_Academia_Eng_Dub_-_166_1080p_Yameii.mp4",
+        8: "AnimePahe_Boku_no_Hero_Academia_Eng_Dub_-_167_1080p_Yameii.mp4",
+        // eps 9-11 (168-170) not yet dubbed — fall through to sub
+      }},
+      { startEp: 1, endEp: 11, collection: "mha-final-season", audio: "sub", episodeFiles: {
+        1: "AnimePahe_Boku_no_Hero_Academia_-_160_1080p_SubsPlease.mp4",
+        2: "AnimePahe_Boku_no_Hero_Academia_-_161_1080p_SubsPlease.mp4",
+        3: "AnimePahe_Boku_no_Hero_Academia_-_162_1080p_SubsPlease.mp4",
+        4: "AnimePahe_Boku_no_Hero_Academia_-_163_1080p_SubsPlease.mp4",
+        5: "AnimePahe_Boku_no_Hero_Academia_-_164v2_1080p_SubsPlease.mp4",
+        6: "AnimePahe_Boku_no_Hero_Academia_-_165_1080p_SubsPlease.mp4",
+        7: "AnimePahe_Boku_no_Hero_Academia_-_166_1080p_SubsPlease.mp4",
+        8: "AnimePahe_Boku_no_Hero_Academia_-_167_1080p_SubsPlease.mp4",
+        9: "AnimePahe_Boku_no_Hero_Academia_-_168_1080p_SubsPlease.mp4",
+        10: "AnimePahe_Boku_no_Hero_Academia_-_169_1080p_SubsPlease.mp4",
+        11: "AnimePahe_Boku_no_Hero_Academia_-_170_1080p_SubsPlease.mp4",
+      }},
+    ], hasSub: true, hasDub: true,
+  },
 ];
 
 /**
@@ -996,6 +1035,7 @@ export const SEASON_GROUPS: { franchise: string; seasons: { malId: number; label
       { malId: 41587, label: "Season 5" },
       { malId: 49992, label: "Season 6" },
       { malId: 54945, label: "Season 7" },
+      { malId: -2, label: "Final Season (S8)" },
     ],
   },
 ];
