@@ -585,3 +585,53 @@ Stage Summary:
 - Chromecast SDK loads properly via plain <script> tags
 - CastButton resolves archive.org 302 redirects to direct CDN URLs
 - CastButton logs errors to console for debugging
+
+---
+Task ID: mha-all-seasons-slayers-swap
+Agent: main
+Task: Add MHA all 7 seasons with dub + fix Slayers audio swap
+
+Work Log:
+MHA (My Hero Academia):
+- Searched archive.org for all MHA seasons. Found mha-s1-full through
+  mha-s7-full collections (1080p BD rips, Japanese audio, verified via ASR).
+- Searched for English dub collections:
+  S1: my-hero-episode-1-season-1-dub (13 eps, English dub)
+  S2: myheroacademiaseasontwo (25 eps, English dub)
+  S6: s-6.-e-8-league-of-villains-vs.-u.-a.-students (24 of 25 eps, English dub)
+  S3, S4, S5, S7: No dedicated English dub MP4 collections found on archive.org.
+  (The Sokudo dual-audio MKV collection exists but browsers can't play MKV.)
+- Used VLM to identify 7 user-uploaded posters (S1-S7) and copied them to
+  /public/posters/mha-s{N}.jpg.
+- Wrote a Python script to fetch all file listings from archive.org and
+  generate TypeScript episodeFiles maps for each season.
+- Added all 7 MHA entries to SEED_ANIME with:
+  S1: sub + dub (hasSub=true, hasDub=true)
+  S2: sub + dub
+  S3: sub only (hasSub=true)
+  S4: sub only
+  S5: sub only
+  S6: sub + dub (dub missing ep 10 — falls through to sub)
+  S7: sub only
+- Added MHA to SEASON_GROUPS as "My Hero Academia" franchise.
+- All sub sources are 1080p BD rips. Dub sources are SD/web quality where
+  available.
+- Catalog now has 51 total anime (was 44).
+
+Slayers audio swap:
+- User reported: "slayers dub audio is in the sub player and the sub audio
+  is in dub player switch them around"
+- Swapped the audio labels:
+  Cartoons-and-Anime: audio "dub" -> "sub" (now in SUB player)
+  The-Slayers-Season-1: audio "sub" -> "dub" (now in DUB player)
+- Verified: SUB mode returns Cartoons-and-Anime URL, DUB mode returns
+  The-Slayers-Season-1 URL.
+
+Stage Summary:
+- All 7 MHA seasons added with correct posters, MAL IDs, and episode sources
+- MHA S1, S2, S6 have both SUB (Japanese 1080p BD) and DUB (English) modes
+- MHA S3, S4, S5, S7 are SUB only (no dub MP4 available on archive.org)
+- MHA S6 dub is missing episode 10 (falls through to sub for that ep)
+- Slayers audio swapped: SUB player now plays Japanese, DUB plays English
+- Catalog: 51 anime total
+- All verified via /api/auto-import and /api/catalog endpoints
