@@ -535,3 +535,53 @@ Stage Summary:
 - For Berserk SUB: tap −0.1s a few times (or Shift+,) to fix the ~0.4s delay
 - For Berserk DUB: tap −0.1s more times (or Shift+,) to fix the ~0.5-1s delay
 - Settings menu shows the current offset value as a gold badge
+
+---
+Task ID: slayers-dual-audio-cast-fix
+Agent: main
+Task: Fix Slayers dub audio in sub player + fix Chromecast not working
+
+Work Log:
+Slayers audio:
+- User reported hearing English dub in the SUB player. Root cause: the
+  The-Slayers-Season-1 source IS Japanese audio (verified via ASR —
+  transcription returned Japanese hiragana/katakana), but the Import
+  cache had a stale entry from when Slayers was dub-only (Cartoons-and-
+  Anime with audio:"dub"). The cache wasn't cleared properly after the
+  source change.
+- Added the Cartoons-and-Anime source back as audio:"dub" (English dub
+  TV rip) so Slayers now has proper dual audio:
+    SUB = The-Slayers-Season-1 (Japanese audio, hardcoded English subs)
+    DUB = Cartoons-and-Anime (English dub TV rip)
+- hasSub=true, hasDub=true
+- Cleared Import cache + forced re-seed so stale entries are gone.
+- Verified: SUB mode returns The-Slayers-Season-1 URL, DUB mode returns
+  Cartoons-and-Anime URL.
+
+Chromecast:
+- Root cause: the Cast SDK wasn't initializing because next/script with
+  strategy="afterInteractive" loaded the SDK script before the
+  __onGCastApiAvailable callback was set. The callback is what the SDK
+  calls when ready, and if it's not set, the 'cast-ready' event never
+  fires, so the CastButton never initialized.
+- Fix: CastProviderScript now uses plain <script> tags in <head> instead
+  of next/script. The callback script is injected first, then the SDK
+  script loads after. This guarantees the callback is set before the
+  SDK calls it.
+- Second fix: archive.org/download/... URLs return a 302 redirect to
+  ia123.us.archive.org/... CDN URLs. The Chromecast receiver sometimes
+  fails to follow redirects, so the media never loaded.
+- CastButton now resolves the redirect client-side via fetch(HEAD) and
+  passes the direct CDN URL to the receiver.
+- Added error logging for requestSession() and loadMedia() failures.
+- Added initializedRef guard to prevent double-init of CastContext.
+- Verified: cast_sender.js loads on the page, CastButton code with
+  requestSession is in the JS bundle.
+
+Stage Summary:
+- Slayers SUB player now plays Japanese audio (The-Slayers-Season-1)
+- Slayers DUB player now plays English dub (Cartoons-and-Anime)
+- Both modes verified via /api/auto-import endpoint
+- Chromecast SDK loads properly via plain <script> tags
+- CastButton resolves archive.org 302 redirects to direct CDN URLs
+- CastButton logs errors to console for debugging
