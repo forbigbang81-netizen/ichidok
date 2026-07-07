@@ -155,9 +155,18 @@ export const SEED_ANIME: SeedAnime[] = [
   // JJK Culling Game (upcoming)
   { malId: 57658, title: "Jujutsu Kaisen: The Culling Game Part 1", titleEnglish: "Jujutsu Kaisen: The Culling Game Part 1", titleJapanese: "呪術廻戦 死滅回遊 前編",
     synopsis: "Kenjaku has initiated the next step in his plan, releasing curses across Japan.", poster: "https://cdn.myanimelist.net/images/anime/1659/154920l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1659/154920l.jpg",
-    type: "TV", status: "Finished Airing", score: 8.61, scoredBy: 12345, rank: 200, popularity: 350, members: 56789,
-    year: 2026, season: "winter", genres: ["Action", "Supernatural"], studios: ["MAPPA"],
-    episodeCount: 12, duration: "23 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", episodeSources: [],
+    type: "TV", status: "Currently Airing", score: 8.61, scoredBy: 12345, rank: 200, popularity: 350, members: 56789,
+    year: 2026, season: "winter", genres: ["Action", "Supernatural", "Suspense"], studios: ["MAPPA"],
+    episodeCount: 6, duration: "23 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    episodeSources: [
+      // Episodes are in separate archive.org collections — each is its own source.
+      { startEp: 1, endEp: 1, collection: "jujutsu-kaisen-the-culling-game-part-1-episode-1-english-sub-1", fileName: "Jujutsu Kaisen The Culling Game Part 1 Episode 1 English Sub_1.mp4", audio: "sub" },
+      { startEp: 2, endEp: 2, collection: "jujutsu-kaisen-the-culling-game-part-1-episode-1-english-sub-1", fileName: "Jujutsu Kaisen The Culling Game Part 1 Episode 2 English Subbed.mp4", audio: "sub" },
+      { startEp: 3, endEp: 3, collection: "jujutsu-kaisen-the-culling-game-part-1-episode-3-english-sub", fileName: "Jujutsu Kaisen The Culling Game Part 1 Episode 3 English Sub.mp4", audio: "sub" },
+      { startEp: 4, endEp: 4, collection: "jujutsu-kaisen_202606", fileName: "[SubsPlease] Jujutsu Kaisen - 51 (1080p) [84C776B4].mkv.mp4", audio: "sub" },
+      { startEp: 5, endEp: 5, collection: "jujutsu-kaisen-the-culling-game-part-1-episode-5-english-sub", fileName: "Jujutsu Kaisen The Culling Game Part 1 Episode 5 English Sub.mp4", audio: "sub" },
+      { startEp: 6, endEp: 6, collection: "jujutsu-kaisen-the-culling-game-part-1-episode-6-english-subbed", fileName: "Jujutsu Kaisen The Culling Game Part 1 Episode 6 English Subbed.mp4", audio: "sub" },
+    ], hasSub: true, noSubtitles: true,
   },
   // Chainsaw Man
   { malId: 44511, title: "Chainsaw Man", titleEnglish: "Chainsaw Man", titleJapanese: "チェンソーマン",
@@ -398,7 +407,10 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 1, collection: "dropbox", fileName: "https://www.dropbox.com/scl/fi/6yxbhkr3tt6e2q7ix7umw/AnimePahe_Seihantai_na_Kimi_to_Boku_-_13_1080p_SubsPlease.mp4?rlkey=k15xut763opcnqgaad6vs2r7j&st=cw2pcp6j&dl=1", audio: "sub" },
     ],
   },
-  // Prison School (Uncensored)
+  // Prison School (Uncensored) — switched to Reaktor 1080p dual-audio collection
+  // because the original Prison-School- collection started returning HTTP 500.
+  // Reaktor MP4 files are 1080p x265 10-bit with English dub audio (dual-audio
+  // but MP4 only has one track — the English dub). 12 episodes + 1 OVA.
   { malId: 30240, title: "Prison School (Uncensored)", titleEnglish: "Prison School (Uncensored)", titleJapanese: "監獄学園〈プリズンスクール〉",
     synopsis: "Located on the outskirts of Tokyo, Hachimitsu Private Academy is a prestigious all-girls boarding school. However, this is about to change with the revision of the school's traditional policy: for the first time, boys are being accepted.",
     poster: "https://cdn.myanimelist.net/images/anime/1286/112161l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1286/112161l.jpg",
@@ -406,18 +418,20 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2015, season: "summer", genres: ["Comedy", "Ecchi"], studios: ["J.C.Staff"],
     episodeCount: 12, duration: "24 min per ep", rating: "R+ - Mild Nudity", source: "Manga", isFeatured: true,
     episodeSources: [
-      { startEp: 1, endEp: 1, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 01 - The Peep Job.mp4", audio: "dub" },
-      { startEp: 2, endEp: 2, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 02 - The Man Who Viewed Too Much.mp4", audio: "dub" },
-      { startEp: 3, endEp: 3, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 03 - A Mighty Spurt.mp4", audio: "dub" },
-      { startEp: 4, endEp: 4, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 04 - Take Me Out to the Sumoland.mp4", audio: "dub" },
-      { startEp: 5, endEp: 5, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 05 - The School's Number One Most Treacherous Man.mp4", audio: "dub" },
-      { startEp: 6, endEp: 6, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 06 - Vengeance is Hana's.mp4", audio: "dub" },
-      { startEp: 7, endEp: 7, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 07 Meiko's Delicious Restaurant.mp4", audio: "dub" },
-      { startEp: 8, endEp: 8, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 08 - The Diary of Andre.mp4", audio: "dub" },
-      { startEp: 9, endEp: 9, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 09 - Full of Bodily Fluids.mp4", audio: "dub" },
-      { startEp: 10, endEp: 10, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 10 - It's a Bum-derful Life.mp4", audio: "dub" },
-      { startEp: 11, endEp: 11, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 11 - Eryngii Brockovich.mp4", audio: "dub" },
-      { startEp: 12, endEp: 12, collection: "Prison-School-", fileName: "Prison School [Dubbed] [Uncensored] [720p]/Episode 12 - Good Morning, Prison.mp4", audio: "dub" },
+      { startEp: 1, endEp: 12, collection: "reaktor-prison-school-ova-uncensored-v2-1080pbdx26510-bitdual-audio_202302", audio: "dub", episodeFiles: {
+        1: "[Reaktor] Prison School - E01 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
+        2: "[Reaktor] Prison School - E02 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
+        3: "[Reaktor] Prison School - E03 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
+        4: "[Reaktor] Prison School - E04 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
+        5: "[Reaktor] Prison School - E05 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
+        6: "[Reaktor] Prison School - E06 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
+        7: "[Reaktor] Prison School - E07 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
+        8: "[Reaktor] Prison School - E08 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
+        9: "[Reaktor] Prison School - E09 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
+        10: "[Reaktor] Prison School - E10 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
+        11: "[Reaktor] Prison School - E11 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
+        12: "[Reaktor] Prison School - E12 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
+      }},
     ], hasDub: true,
   },
   // The Apothecary Diaries S2 — English dub (user confirmed it had dub).
@@ -951,9 +965,9 @@ export const SEED_ANIME: SeedAnime[] = [
   // Movie: from uma-musume-beginning-of-a-new-era (1.4GB, 1080p)
   // Posters: archive.org item thumbnails (MAL CDN was rate-limited)
   // Uma Musume S1
-  { malId: 35349, title: "Uma Musume: Pretty Derby", titleEnglish: "Uma Musume: Pretty Derby", titleJapanese: "ウマ娘 プリティーダービー",
+  { malId: 35349, title: "Umamusume: Pretty Derby", titleEnglish: "Umamusume: Pretty Derby", titleJapanese: "ウマ娘 プリティーダービー",
     synopsis: "In a world where horse girls race to fulfill their dreams, Special Week transfers to Tracen Academy to become the best horse girl in Japan.",
-    poster: "/posters/uma-musume-s1.jpg", banner: "/posters/uma-musume-s1.jpg",
+    poster: "/posters/umamusume-s1.jpg", banner: "/posters/umamusume-s1.jpg",
     type: "TV", status: "Finished Airing", score: 7.78, scoredBy: 100000, rank: 0, popularity: 800, members: 300000,
     year: 2018, season: "spring", genres: ["Comedy", "Sports", "Drama"], studios: ["P.A. Works"],
     episodeCount: 13, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Game", isFeatured: true,
@@ -973,12 +987,12 @@ export const SEED_ANIME: SeedAnime[] = [
         12: "[Okay-Subs] Uma Musume Pretty Derby - 12v2 (BD 1080p) [E97733B4].mp4",
         13: "[Okay-Subs] Uma Musume Pretty Derby - 13v2 (BD 1080p) [7F3DFF65].mp4",
       }},
-    ], hasSub: true, noSubtitles: true,
+    ], hasSub: true, localSubtitlePattern: "/subtitles/35349_e{ep}.vtt",
   },
   // Uma Musume S2
-  { malId: 42334, title: "Uma Musume: Pretty Derby Season 2", titleEnglish: "Uma Musume: Pretty Derby Season 2", titleJapanese: "ウマ娘 プリティーダービー Season 2",
+  { malId: 42334, title: "Umamusume: Pretty Derby Season 2", titleEnglish: "Umamusume: Pretty Derby Season 2", titleJapanese: "ウマ娘 プリティーダービー Season 2",
     synopsis: "Tokai Teio, a horse girl who overcame a broken leg, aims to win the G1 races alongside her rival Mejiro McQueen.",
-    poster: "/posters/uma-musume-s2.jpg", banner: "/posters/uma-musume-s2.jpg",
+    poster: "/posters/umamusume-s2.jpg", banner: "/posters/umamusume-s2.jpg",
     type: "TV", status: "Finished Airing", score: 8.24, scoredBy: 80000, rank: 0, popularity: 900, members: 250000,
     year: 2021, season: "winter", genres: ["Comedy", "Sports", "Drama"], studios: ["Studio Kai"],
     episodeCount: 13, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Game", isFeatured: true,
@@ -1001,9 +1015,9 @@ export const SEED_ANIME: SeedAnime[] = [
     ], hasSub: true, noSubtitles: true,
   },
   // Uma Musume S3
-  { malId: 48654, title: "Uma Musume: Pretty Derby Season 3", titleEnglish: "Uma Musume: Pretty Derby Season 3", titleJapanese: "ウマ娘 プリティーダービー Season 3",
+  { malId: 48654, title: "Umamusume: Pretty Derby Season 3", titleEnglish: "Umamusume: Pretty Derby Season 3", titleJapanese: "ウマ娘 プリティーダービー Season 3",
     synopsis: "Kitasan Black and Satono Diamond navigate their final year at Tracen Academy, chasing their dreams on the racetrack.",
-    poster: "/posters/uma-musume-s3.jpg", banner: "/posters/uma-musume-s3.jpg",
+    poster: "/posters/umamusume-s3.jpg", banner: "/posters/umamusume-s3.jpg",
     type: "TV", status: "Finished Airing", score: 8.02, scoredBy: 50000, rank: 0, popularity: 1100, members: 180000,
     year: 2023, season: "fall", genres: ["Comedy", "Sports", "Drama"], studios: ["Studio Kai"],
     episodeCount: 13, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Game", isFeatured: true,
@@ -1026,9 +1040,9 @@ export const SEED_ANIME: SeedAnime[] = [
     ], hasSub: true, noSubtitles: true,
   },
   // Uma Musume Specials (3 episodes)
-  { malId: -3, title: "Uma Musume: Pretty Derby Specials", titleEnglish: "Uma Musume: Pretty Derby Specials", titleJapanese: "ウマ娘 プリティーダービー スペシャル",
+  { malId: -3, title: "Umamusume: Pretty Derby Specials", titleEnglish: "Umamusume: Pretty Derby Specials", titleJapanese: "ウマ娘 プリティーダービー スペシャル",
     synopsis: "Special episodes of Uma Musume: Pretty Derby featuring bonus stories and character moments.",
-    poster: "https://archive.org/services/img/uma-musume-pretty-derby-english-subbed", banner: "https://archive.org/services/img/uma-musume-pretty-derby-english-subbed",
+    poster: "/posters/umamusume-specials.jpg", banner: "/posters/umamusume-specials.jpg",
     type: "Special", status: "Finished Airing", score: 7.20, scoredBy: 5000, rank: 0, popularity: 3000, members: 20000,
     year: 2018, season: null, genres: ["Comedy", "Sports"], studios: ["P.A. Works"],
     episodeCount: 3, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Game",
@@ -1041,9 +1055,9 @@ export const SEED_ANIME: SeedAnime[] = [
     ], hasSub: true, noSubtitles: true,
   },
   // Uma Musume Movie: Beginning of a New Era
-  { malId: 55311, title: "Uma Musume: Pretty Derby - Beginning of a New Era", titleEnglish: "Uma Musume: Pretty Derby - Beginning of a New Era", titleJapanese: "ウマ娘 プリティーダービー 新時代の扉",
+  { malId: 55311, title: "Umamusume: Pretty Derby - Beginning of a New Era", titleEnglish: "Umamusume: Pretty Derby - Beginning of a New Era", titleJapanese: "ウマ娘 プリティーダービー 新時代の扉",
     synopsis: "A new era begins as Jungle Pocket arrives at Tracen Academy, chasing her dream to become the strongest horse girl.",
-    poster: "https://archive.org/services/img/uma-musume-beginning-of-a-new-era", banner: "https://archive.org/services/img/uma-musume-beginning-of-a-new-era",
+    poster: "/posters/umamusume-movie.jpg", banner: "/posters/umamusume-movie.jpg",
     type: "Movie", status: "Finished Airing", score: 7.65, scoredBy: 30000, rank: 0, popularity: 1500, members: 100000,
     year: 2024, season: null, genres: ["Comedy", "Sports", "Drama"], studios: ["Cygames Pictures"],
     episodeCount: 1, duration: "2 hr 7 min", rating: "PG-13 - Teens 13 or older", source: "Game", isFeatured: true,
@@ -1162,7 +1176,7 @@ export const SEASON_GROUPS: { franchise: string; seasons: { malId: number; label
     ],
   },
   {
-    franchise: "Uma Musume: Pretty Derby",
+    franchise: "Umamusume: Pretty Derby",
     seasons: [
       { malId: 35349, label: "Season 1" },
       { malId: 42334, label: "Season 2" },
@@ -1291,14 +1305,14 @@ export function resolveSubtitleUrl(seed: SeedAnime, episode: number): string | n
  * The #1 highest-scored TV anime from each year, ranked by score.
  */
 export const TOP_10_DECADE: { malId: number; title: string; year: number; score: number; poster: string; rank: number }[] = [
-  { malId: 38524, title: "Attack on Titan Season 3 Part 2", year: 2019, score: 9.05, poster: "https://cdn.myanimelist.net/images/anime/1517/100633l.jpg", rank: 1 },
-  { malId: 34096, title: "Gintama.", year: 2017, score: 8.98, poster: "https://cdn.myanimelist.net/images/anime/3/83528l.jpg", rank: 2 },
-  { malId: 41467, title: "Bleach: Thousand-Year Blood War", year: 2022, score: 8.98, poster: "https://cdn.myanimelist.net/images/anime/1908/135431l.jpg", rank: 3 },
-  { malId: 37491, title: "Gintama.: Silver Soul Arc Part 2", year: 2018, score: 8.88, poster: "https://cdn.myanimelist.net/images/anime/1776/96566l.jpg", rank: 4 },
-  { malId: 59978, title: "Frieren: Beyond Journey's End Season 2", year: 2026, score: 8.86, poster: "https://cdn.myanimelist.net/images/anime/1921/154528l.jpg", rank: 5 },
-  { malId: 49387, title: "Vinland Saga Season 2", year: 2023, score: 8.83, poster: "https://cdn.myanimelist.net/images/anime/1170/124312l.jpg", rank: 6 },
-  { malId: 32935, title: "Haikyuu!! Karasuno vs Shiratorizawa", year: 2016, score: 8.77, poster: "https://cdn.myanimelist.net/images/anime/7/81992l.jpg", rank: 7 },
-  { malId: 39894, title: "Sound! Euphonium 3", year: 2024, score: 8.73, poster: "https://cdn.myanimelist.net/images/anime/1216/142086l.jpg", rank: 8 },
-  { malId: 42938, title: "Fruits Basket: The Final", year: 2021, score: 8.93, poster: "https://cdn.myanimelist.net/images/anime/1085/114792l.jpg", rank: 9 },
-  { malId: 58514, title: "The Apothecary Diaries Season 2", year: 2025, score: 8.91, poster: "https://cdn.myanimelist.net/images/anime/1025/147458l.jpg", rank: 10 },
+  { malId: 35349, title: "Umamusume: Pretty Derby", year: 2018, score: 7.78, poster: "/posters/umamusume-s1.jpg", rank: 1 },
+  { malId: 42334, title: "Umamusume: Pretty Derby Season 2", year: 2021, score: 8.24, poster: "/posters/umamusume-s2.jpg", rank: 2 },
+  { malId: 48654, title: "Umamusume: Pretty Derby Season 3", year: 2023, score: 8.02, poster: "/posters/umamusume-s3.jpg", rank: 3 },
+  { malId: 55311, title: "Umamusume: Pretty Derby - Beginning of a New Era", year: 2024, score: 7.65, poster: "/posters/umamusume-movie.jpg", rank: 4 },
+  { malId: -3, title: "Umamusume: Pretty Derby Specials", year: 2018, score: 7.20, poster: "/posters/umamusume-specials.jpg", rank: 5 },
+  { malId: 57658, title: "Jujutsu Kaisen: Culling Game", year: 2026, score: 8.61, poster: "https://cdn.myanimelist.net/images/anime/1659/154920l.jpg", rank: 6 },
+  { malId: 60636, title: "Bleach: Thousand-Year Blood War - The Calamity", year: 2026, score: 0, poster: "https://cdn.myanimelist.net/images/anime/1275/158595l.jpg", rank: 7 },
+  { malId: 30240, title: "Prison School (Uncensored)", year: 2015, score: 7.58, poster: "https://cdn.myanimelist.net/images/anime/1286/112161l.jpg", rank: 8 },
+  { malId: 33, title: "Berserk", year: 1997, score: 8.61, poster: "https://cdn.myanimelist.net/images/anime/1384/119988l.jpg", rank: 9 },
+  { malId: 1, title: "Cowboy Bebop", year: 1998, score: 8.75, poster: "https://cdn.myanimelist.net/images/anime/4/19644l.jpg", rank: 10 },
 ];
