@@ -1019,8 +1019,8 @@ export const SEED_ANIME: SeedAnime[] = [
         12: "Uma Musume Pretty Derby Season 2 Episode 12 English Subbed.mp4",
         13: "Uma Musume Pretty Derby Season 2 Episode 13 English Subbed.mp4",
       }},
-    ], hasSub: true, noSubtitles: true,
-    introStart: 90, introEnd: 180, outroStart: 1290, outroEnd: 1380,
+    ], hasSub: true, localSubtitlePattern: "/subtitles/42334_e{ep}.vtt",
+    introStart: 205, introEnd: 300, outroStart: 1299, outroEnd: 1415,
   },
   // Uma Musume S3
   { malId: 48654, title: "Umamusume: Pretty Derby Season 3", titleEnglish: "Umamusume: Pretty Derby Season 3", titleJapanese: "ウマ娘 プリティーダービー Season 3",
@@ -1045,8 +1045,8 @@ export const SEED_ANIME: SeedAnime[] = [
         12: "Uma Musume Pretty Derby Season 3 Episode 12 English Subbed.mp4",
         13: "Uma Musume Pretty Derby Season 3 Episode 13 English Subbed.mp4",
       }},
-    ], hasSub: true, noSubtitles: true,
-    introStart: 90, introEnd: 180, outroStart: 1290, outroEnd: 1380,
+    ], hasSub: true, localSubtitlePattern: "/subtitles/48654_e{ep}.vtt",
+    introStart: 142, introEnd: 210, outroStart: 1324, outroEnd: 1408,
   },
   // Uma Musume Specials (3 episodes)
   { malId: -3, title: "Umamusume: Pretty Derby Specials", titleEnglish: "Umamusume: Pretty Derby Specials", titleJapanese: "ウマ娘 プリティーダービー スペシャル",
