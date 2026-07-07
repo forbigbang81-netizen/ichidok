@@ -19,12 +19,14 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const malId = Number(searchParams.get("malId"));
 
-    if (!Number.isFinite(malId) || malId <= 0) {
+    if (!Number.isFinite(malId)) {
       return NextResponse.json(
-        { error: "malId is required" },
+        { error: "malId is required and must be a number" },
         { status: 400 },
       );
     }
+    // Allow malId < 1 (e.g. -1 for Megas XLR, -2 for MHA S8) so sentinel
+    // malIds can still resolve their season group.
 
     const group = findSeasonGroup(malId);
     if (!group) {
