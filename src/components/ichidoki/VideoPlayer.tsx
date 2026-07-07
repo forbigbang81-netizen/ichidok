@@ -1341,7 +1341,8 @@ export function VideoPlayer({
               hasSubtitles={!!importInfo?.subtitleUrl && cues.length > 0}
             />
 
-            {/* Cast to Chromecast — hidden for YouTube embeds */}
+            {/* Cast to Chromecast — hidden for YouTube embeds (YouTube has
+                its own built-in cast button in the player controls) */}
             {!isYoutube && videoUrl && (
               <CastButton
                 mediaUrl={videoUrl}
