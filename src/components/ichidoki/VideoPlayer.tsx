@@ -18,6 +18,7 @@ import {
 import { fetchVideoImport, type VideoImport } from "@/lib/api/client";
 import { useApp } from "@/store/app";
 import { cn } from "@/lib/utils";
+import { CastButton } from "./CastButton";
 
 // ============================================================
 // Types
@@ -1223,6 +1224,15 @@ export function VideoPlayer({
                 if (o) keepControlsAlive();
               }}
             />
+
+            {/* Cast to Chromecast — hidden for YouTube embeds */}
+            {!isYoutube && videoUrl && (
+              <CastButton
+                mediaUrl={videoUrl}
+                title={title ?? undefined}
+                poster={posterUrl || undefined}
+              />
+            )}
 
             {/* Fullscreen */}
             <button

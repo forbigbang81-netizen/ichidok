@@ -620,12 +620,16 @@ export const SEED_ANIME: SeedAnime[] = [
   // The Cartoons-and-Anime source was previously mislabeled as "dub" but is
   // actually Japanese audio (verified via ASR). The berserk-1997-complete
   // collection is a Blu-Ray rip with English dub as the default audio track.
+  // English dialogue VTT subtitles for the Japanese audio track are stored
+  // locally at /public/subtitles/33_e{ep}.vtt (haiku BluRay release subs
+  // downloaded from OpenSubtitles).
   { malId: 33, title: "Berserk", titleEnglish: "Berserk", titleJapanese: "ベルセルク",
     synopsis: "Guts, a wandering mercenary, joins the Band of the Hawk led by the charismatic Griffith, leading to a dark and tragic fate.",
     poster: "https://cdn.myanimelist.net/images/anime/1384/119988l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1384/119988l.jpg",
     type: "TV", status: "Finished Airing", score: 8.61, scoredBy: 700000, rank: 0, popularity: 100, members: 1400000,
     year: 1997, season: "fall", genres: ["Action", "Adventure", "Drama", "Fantasy", "Horror"], studios: ["OLM"],
     episodeCount: 25, duration: "23 min per ep", rating: "R+ - Mild Nudity", source: "Manga", isFeatured: true,
+    localSubtitlePattern: "/subtitles/33_e{ep}.vtt",
     episodeSources: [
       // Japanese audio (sub) — from the Cartoons-and-Anime TV rip collection.
       { startEp: 1, endEp: 25, collection: "Cartoons-and-Anime", fileTemplate: "Berserk (1997)/Berserk - S01E{ep:02} - 4x3.mp4", audio: "sub" },
