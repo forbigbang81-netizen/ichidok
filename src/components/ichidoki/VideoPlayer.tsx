@@ -181,6 +181,7 @@ export function VideoPlayer({
   const ambientCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const hintShownRef = useRef(false);
   const volumeHudTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const subSyncHudTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const {
     setAudioMode,
@@ -224,12 +225,20 @@ export function VideoPlayer({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [subtitleSource, setSubtitleSource] = useState<string>("");
   const [mirrored, setMirrored] = useState(false);
+  // Subtitle timing offset in seconds. Positive = subtitles appear LATER
+  // (useful when subs are too early). Negative = subtitles appear EARLIER
+  // (useful when subs lag behind the audio, which is the common case when
+  // using BluRay-timed subs against a TV-rip video source).
+  // Persisted per malId+audioMode so different sources can have different
+  // offsets. Default 0 = no adjustment.
+  const [subtitleOffset, setSubtitleOffset] = useState(0);
   // Ambient backlight color sampled from the video frame — subtle.
   const [ambientColor, setAmbientColor] = useState<string>(
     "rgba(255, 255, 255, 0.08)",
   );
   const [showKbHint, setShowKbHint] = useState(false);
   const [showVolumeHud, setShowVolumeHud] = useState(false);
+  const [showSubSyncHud, setShowSubSyncHud] = useState(false);
 
   // ----- Auto-hide controls -----
   const keepControlsAlive = useCallback(() => {
@@ -335,8 +344,11 @@ export function VideoPlayer({
     const onTime = () => {
       if (seekingRef.current) return;
       setCurrentTime(v.currentTime);
+      // Apply user-configured subtitle offset. Negative offset shifts subs
+      // earlier (for when subs lag behind audio), positive shifts later.
+      const adjTime = v.currentTime - subtitleOffset;
       const cue = cues.find(
-        (c) => v.currentTime >= c.start && v.currentTime <= c.end,
+        (c) => adjTime >= c.start && adjTime <= c.end,
       );
       setActiveCue(cue ? cue.text : "");
       const now = Date.now();
@@ -470,7 +482,7 @@ export function VideoPlayer({
         bufferTimerRef.current = null;
       }
     };
-  }, [cues, onProgress, onEnded, resumePosition]);
+  }, [cues, onProgress, onEnded, resumePosition, subtitleOffset]);
 
   // ----- Apply playback rate -----
   useEffect(() => {
@@ -478,6 +490,48 @@ export function VideoPlayer({
     if (!v) return;
     v.playbackRate = selectedSpeed;
   }, [selectedSpeed]);
+
+  // ----- Load persisted subtitle offset per malId + audioMode -----
+  // Different video sources (TV rip vs BluRay) have different start points,
+  // so the same subtitle file can be ~0.4s off for one source and ~1s off
+  // for another. The user can adjust via the settings menu and it persists
+  // per anime+audio so they only tune it once.
+  useEffect(() => {
+    const key = `ichidoki-sub-offset-${malId}-${audioMode}`;
+    try {
+      const saved = localStorage.getItem(key);
+      if (saved !== null) {
+        const val = parseFloat(saved);
+        if (Number.isFinite(val)) setSubtitleOffset(val);
+      } else {
+        setSubtitleOffset(0);
+      }
+    } catch {
+      setSubtitleOffset(0);
+    }
+  }, [malId, audioMode]);
+
+  const adjustSubtitleOffset = useCallback((delta: number) => {
+    setSubtitleOffset((prev) => {
+      const next = Math.max(-10, Math.min(10, Math.round((prev + delta) * 10) / 10));
+      try {
+        localStorage.setItem(
+          `ichidoki-sub-offset-${malId}-${audioMode}`,
+          String(next),
+        );
+      } catch {
+        // localStorage may be unavailable in private browsing
+      }
+      return next;
+    });
+    // Flash the sub-sync HUD so the user sees the current offset value
+    setShowSubSyncHud(true);
+    if (subSyncHudTimerRef.current) clearTimeout(subSyncHudTimerRef.current);
+    subSyncHudTimerRef.current = setTimeout(
+      () => setShowSubSyncHud(false),
+      1200,
+    );
+  }, [malId, audioMode]);
 
   // ----- Fullscreen change listener -----
   useEffect(() => {
@@ -724,6 +778,17 @@ export function VideoPlayer({
           setShowSubtitles((s) => !s);
           keepControlsAlive();
           break;
+        // Subtitle sync: Shift+, = subs earlier, Shift+. = subs later
+        case "<":
+          e.preventDefault();
+          adjustSubtitleOffset(-0.1);
+          keepControlsAlive();
+          break;
+        case ">":
+          e.preventDefault();
+          adjustSubtitleOffset(0.1);
+          keepControlsAlive();
+          break;
       }
     };
     window.addEventListener("keydown", onKey);
@@ -735,6 +800,7 @@ export function VideoPlayer({
     toggleFullscreenFn,
     keepControlsAlive,
     flashVolumeHud,
+    adjustSubtitleOffset,
   ]);
 
   const onSeekScrub = (val: number[]) => {
@@ -960,6 +1026,11 @@ export function VideoPlayer({
             <span className="flex items-center gap-1">
               <Kbd>C</Kbd> CC
             </span>
+            <span className="flex items-center gap-1">
+              <Kbd>⇧</Kbd>
+              <Kbd>&lt;</Kbd>
+              <Kbd>&gt;</Kbd> Sub sync
+            </span>
           </div>
         </div>
       )}
@@ -984,6 +1055,30 @@ export function VideoPlayer({
             </div>
             <span className="w-9 text-right text-sm font-bold tabular-nums text-white">
               {Math.round(volume * 100)}
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* ===== Subtitle sync HUD — shows current offset when adjusting ===== */}
+      {showSubSyncHud && (
+        <div
+          className="pointer-events-none absolute left-1/2 top-1/2 z-40 -translate-x-1/2 -translate-y-1/2 fade-in"
+          style={{ transform: mirrorStyle ? `translate(-50%, -50%) scaleX(-1)` : "translate(-50%, -50%)" }}
+        >
+          <div className="flex items-center gap-3 rounded-lg bg-black/80 px-5 py-3">
+            <Captions className="h-5 w-5 text-[#f5c518]" />
+            <span className="text-sm font-bold tabular-nums text-white">
+              {subtitleOffset > 0
+                ? `+${subtitleOffset.toFixed(1)}s`
+                : `${subtitleOffset.toFixed(1)}s`}
+            </span>
+            <span className="text-[10px] text-white/50">
+              {subtitleOffset === 0
+                ? "reset"
+                : subtitleOffset < 0
+                  ? "subs earlier"
+                  : "subs later"}
             </span>
           </div>
         </div>
@@ -1223,6 +1318,23 @@ export function VideoPlayer({
                 setShowSettings(o);
                 if (o) keepControlsAlive();
               }}
+              subtitleOffset={subtitleOffset}
+              onSubtitleOffset={(delta) => {
+                if (delta === 0) {
+                  // Reset to 0
+                  setSubtitleOffset(0);
+                  try {
+                    localStorage.setItem(
+                      `ichidoki-sub-offset-${malId}-${audioMode}`,
+                      "0",
+                    );
+                  } catch {}
+                } else {
+                  adjustSubtitleOffset(delta);
+                }
+                keepControlsAlive();
+              }}
+              hasSubtitles={!!importInfo?.subtitleUrl && cues.length > 0}
             />
 
             {/* Cast to Chromecast — hidden for YouTube embeds */}
@@ -1402,6 +1514,9 @@ interface SettingsMenuProps {
   onHover: () => void;
   open: boolean;
   onOpenChange: (o: boolean) => void;
+  subtitleOffset: number;
+  onSubtitleOffset: (delta: number) => void;
+  hasSubtitles: boolean;
 }
 
 function SettingsMenu({
@@ -1414,6 +1529,9 @@ function SettingsMenu({
   onHover,
   open,
   onOpenChange,
+  subtitleOffset,
+  onSubtitleOffset,
+  hasSubtitles,
 }: SettingsMenuProps) {
   return (
     <div className="relative" onMouseEnter={onHover}>
@@ -1474,6 +1592,55 @@ function SettingsMenu({
               ))}
             </div>
           </div>
+          {/* Subtitle sync — only shown when subtitles are available */}
+          {hasSubtitles && (
+            <div className="border-t border-white/10 px-3 py-2">
+              <div className="mb-1.5 flex items-center justify-between">
+                <p className="text-[10px] font-medium uppercase tracking-wider text-white/40">
+                  Subtitle sync
+                </p>
+                <span
+                  className={cn(
+                    "rounded-full px-1.5 py-0.5 text-[9px] font-bold",
+                    subtitleOffset !== 0
+                      ? "bg-[#f5c518] text-black"
+                      : "bg-white/10 text-white/60",
+                  )}
+                >
+                  {subtitleOffset > 0 ? `+${subtitleOffset}s` : `${subtitleOffset}s`}
+                </span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => onSubtitleOffset(-0.1)}
+                  className="flex-1 rounded-md bg-white/5 py-1.5 text-[11px] font-medium text-white/80 transition-colors active:bg-white/10"
+                  aria-label="Subtitles earlier"
+                >
+                  −0.1s
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onSubtitleOffset(0)}
+                  className="rounded-md bg-white/5 px-2 py-1.5 text-[10px] font-medium text-white/60 transition-colors active:bg-white/10"
+                  aria-label="Reset subtitle offset"
+                >
+                  Reset
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onSubtitleOffset(0.1)}
+                  className="flex-1 rounded-md bg-white/5 py-1.5 text-[11px] font-medium text-white/80 transition-colors active:bg-white/10"
+                  aria-label="Subtitles later"
+                >
+                  +0.1s
+                </button>
+              </div>
+              <p className="mt-1 text-[9px] text-white/30">
+                − = subs earlier · + = subs later
+              </p>
+            </div>
+          )}
           <div className="border-t border-white/10 px-3 py-2">
             <p className="mb-1.5 text-[10px] font-medium uppercase tracking-wider text-white/40">
               Display
