@@ -90,28 +90,25 @@ export function CastButton({ mediaUrl, title, poster, onSessionChange }: CastBut
     return () => window.removeEventListener("cast-ready", handler);
   }, []);
 
-  // Resolve the archive.org 302 redirect to get the direct CDN URL.
-  // Chromecast receivers sometimes fail to follow redirects, so we do it
-  // client-side using a HEAD fetch (which follows redirects automatically)
-  // and extract the final URL from the response.
+  // Resolve the archive.org 302 redirect server-side to get the direct CDN
+  // URL. Chromecast receivers fail to follow redirects, so we use our own
+  // /api/resolve-redirect endpoint which does the HEAD request server-side
+  // (avoiding CORS issues) and returns the final CDN URL.
   useEffect(() => {
     if (!mediaUrl) {
       setResolvedUrl(null);
       return;
     }
     let cancelled = false;
-    // Use a HEAD request via fetch to resolve redirects. archive.org returns
-    // CORS headers (Access-Control-Allow-Origin: *) so this works from the
-    // browser.
-    fetch(mediaUrl, { method: "HEAD", redirect: "follow" })
-      .then((res) => {
+    // Use our server-side redirect resolver. This avoids CORS issues with
+    // client-side HEAD requests to archive.org.
+    const resolverUrl = `/api/resolve-redirect?url=${encodeURIComponent(mediaUrl)}`;
+    fetch(resolverUrl)
+      .then((r) => r.json())
+      .then((data: { resolvedUrl?: string }) => {
         if (cancelled) return;
-        // res.url is the final URL after following redirects
-        if (res.url && res.url !== mediaUrl) {
-          setResolvedUrl(res.url);
-        } else {
-          setResolvedUrl(mediaUrl);
-        }
+        const final = data.resolvedUrl || mediaUrl;
+        setResolvedUrl(final);
       })
       .catch(() => {
         if (!cancelled) setResolvedUrl(mediaUrl);

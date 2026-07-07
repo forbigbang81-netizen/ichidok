@@ -29,6 +29,11 @@ export interface VideoImport {
   isYoutube: boolean;
   dualAudio?: boolean;
   title: string | null;
+  // Skip intro/outro timestamps (seconds). Null if not configured.
+  introStart?: number | null;
+  introEnd?: number | null;
+  outroStart?: number | null;
+  outroEnd?: number | null;
   // Back-compat aliases used by older consumers.
   cached?: boolean;
 }

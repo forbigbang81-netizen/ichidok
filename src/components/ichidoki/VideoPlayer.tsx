@@ -237,6 +237,11 @@ export function VideoPlayer({
     "rgba(255, 255, 255, 0.08)",
   );
   const [showKbHint, setShowKbHint] = useState(false);
+  // Skip intro/outro — show buttons when currentTime is within the
+  // intro or outro time range. introStart/introEnd/outroStart/outroEnd
+  // come from the seed data via the auto-import API response.
+  const [showSkipIntro, setShowSkipIntro] = useState(false);
+  const [showSkipOutro, setShowSkipOutro] = useState(false);
   const [showVolumeHud, setShowVolumeHud] = useState(false);
   const [showSubSyncHud, setShowSubSyncHud] = useState(false);
 
@@ -351,6 +356,17 @@ export function VideoPlayer({
         (c) => adjTime >= c.start && adjTime <= c.end,
       );
       setActiveCue(cue ? cue.text : "");
+      // Skip intro/outro button visibility
+      const iS = importInfo?.introStart;
+      const iE = importInfo?.introEnd;
+      const oS = importInfo?.outroStart;
+      const oE = importInfo?.outroEnd;
+      setShowSkipIntro(
+        iS != null && iE != null && v.currentTime >= iS && v.currentTime < iE,
+      );
+      setShowSkipOutro(
+        oS != null && oE != null && v.currentTime >= oS && v.currentTime < oE,
+      );
       const now = Date.now();
       if (onProgress && now - lastProgressEmitRef.current > 5000) {
         lastProgressEmitRef.current = now;
@@ -482,7 +498,7 @@ export function VideoPlayer({
         bufferTimerRef.current = null;
       }
     };
-  }, [cues, onProgress, onEnded, resumePosition, subtitleOffset]);
+  }, [cues, onProgress, onEnded, resumePosition, subtitleOffset, importInfo]);
 
   // ----- Apply playback rate -----
   useEffect(() => {
@@ -1082,6 +1098,47 @@ export function VideoPlayer({
             </span>
           </div>
         </div>
+      )}
+
+      {/* ===== Skip Intro / Skip Outro buttons =====
+          Shows when currentTime is within the intro or outro time range.
+          Skip Intro seeks to introEnd. Skip Outro seeks to the end of
+          the video (triggering onEnded -> next episode auto-play). */}
+      {showSkipIntro && !loading && !error && videoUrl && (
+        <button
+          type="button"
+          onClick={() => {
+            const v = videoRef.current;
+            if (v && importInfo?.introEnd != null) {
+              v.currentTime = importInfo.introEnd;
+              setShowSkipIntro(false);
+            }
+            keepControlsAlive();
+          }}
+          className="absolute bottom-20 right-4 z-30 rounded-md bg-white/90 px-4 py-2 text-xs font-bold text-black shadow-lg transition-transform active:scale-95 hover:bg-white fade-in"
+        >
+          Skip Intro
+        </button>
+      )}
+      {showSkipOutro && !loading && !error && videoUrl && (
+        <button
+          type="button"
+          onClick={() => {
+            const v = videoRef.current;
+            if (v && importInfo?.outroEnd != null) {
+              v.currentTime = importInfo.outroEnd;
+            } else if (v && v.duration) {
+              v.currentTime = v.duration;
+            }
+            setShowSkipOutro(false);
+            // Trigger onEnded manually to start next episode
+            if (onEnded) onEnded();
+            keepControlsAlive();
+          }}
+          className="absolute bottom-20 right-4 z-30 rounded-md bg-white/90 px-4 py-2 text-xs font-bold text-black shadow-lg transition-transform active:scale-95 hover:bg-white fade-in"
+        >
+          Skip Outro
+        </button>
       )}
 
       {/* ===== Custom subtitle overlay ===== */}
