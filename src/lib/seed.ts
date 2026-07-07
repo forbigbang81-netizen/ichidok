@@ -467,7 +467,7 @@ export const SEED_ANIME: SeedAnime[] = [
   // Haikyuu!! S4 — To the Top (correct malId 38883; 38500 was a music video)
   { malId: 38883, title: "Haikyuu!! To the Top", titleEnglish: "Haikyuu!! To the Top", titleJapanese: "ハイキュー!! TO THE TOP",
     synopsis: "After their victory over Shiratorizawa, Karasuno heads to the national tournament in Tokyo.",
-    poster: "https://cdn.myanimelist.net/images/anime/1813/105367l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1813/105367l.jpg",
+    poster: "/posters/haikyuu-to-the-top.jpg", banner: "/posters/haikyuu-to-the-top.jpg",
     type: "TV", status: "Finished Airing", score: 8.24, scoredBy: 500000, rank: 0, popularity: 120, members: 1000000,
     year: 2020, season: "winter", genres: ["Award Winning", "Sports"], studios: ["Production I.G"],
     episodeCount: 13, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga",
