@@ -1066,6 +1066,18 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 1, collection: "uma-musume-beginning-of-a-new-era", fileName: "Uma Musume - Beginning of a New Era.mp4", audio: "sub" },
     ], hasSub: true, noSubtitles: true,
   },
+  // Ghost Stories (Gakkou no Kaidan) — English dub, 1080p
+  // Famous for its hilarious ad-libbed ADV English dub. 20 episodes.
+  { malId: 1281, title: "Ghost Stories", titleEnglish: "Ghost Stories", titleJapanese: "学校の怪談",
+    synopsis: "A group of schoolchildren seal ghosts that have been unleashed from a haunted school building, with the help of a mysterious diary.",
+    poster: "https://cdn.myanimelist.net/images/anime/1414/112029l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1414/112029l.jpg",
+    type: "TV", status: "Finished Airing", score: 7.76, scoredBy: 200000, rank: 0, popularity: 500, members: 500000,
+    year: 2000, season: "fall", genres: ["Comedy", "Horror", "Supernatural"], studios: ["Studio Pierrot"],
+    episodeCount: 20, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Original", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 20, collection: "ghost-stories-", fileTemplate: "Ghost Stories - S01E{ep:02}.mp4", audio: "dub" },
+    ], hasDub: true,
+  },
 ];
 
 /**
