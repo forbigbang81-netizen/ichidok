@@ -953,7 +953,7 @@ export const SEED_ANIME: SeedAnime[] = [
   // Uma Musume S1
   { malId: 35349, title: "Uma Musume: Pretty Derby", titleEnglish: "Uma Musume: Pretty Derby", titleJapanese: "ウマ娘 プリティーダービー",
     synopsis: "In a world where horse girls race to fulfill their dreams, Special Week transfers to Tracen Academy to become the best horse girl in Japan.",
-    poster: "https://archive.org/services/img/uma-musume-s1-engsub", banner: "https://archive.org/services/img/uma-musume-s1-engsub",
+    poster: "/posters/uma-musume-s1.jpg", banner: "/posters/uma-musume-s1.jpg",
     type: "TV", status: "Finished Airing", score: 7.78, scoredBy: 100000, rank: 0, popularity: 800, members: 300000,
     year: 2018, season: "spring", genres: ["Comedy", "Sports", "Drama"], studios: ["P.A. Works"],
     episodeCount: 13, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Game", isFeatured: true,
@@ -978,7 +978,7 @@ export const SEED_ANIME: SeedAnime[] = [
   // Uma Musume S2
   { malId: 42334, title: "Uma Musume: Pretty Derby Season 2", titleEnglish: "Uma Musume: Pretty Derby Season 2", titleJapanese: "ウマ娘 プリティーダービー Season 2",
     synopsis: "Tokai Teio, a horse girl who overcame a broken leg, aims to win the G1 races alongside her rival Mejiro McQueen.",
-    poster: "https://archive.org/services/img/uma-musume-pretty-derby-english-subbed", banner: "https://archive.org/services/img/uma-musume-pretty-derby-english-subbed",
+    poster: "/posters/uma-musume-s2.jpg", banner: "/posters/uma-musume-s2.jpg",
     type: "TV", status: "Finished Airing", score: 8.24, scoredBy: 80000, rank: 0, popularity: 900, members: 250000,
     year: 2021, season: "winter", genres: ["Comedy", "Sports", "Drama"], studios: ["Studio Kai"],
     episodeCount: 13, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Game", isFeatured: true,
@@ -1003,7 +1003,7 @@ export const SEED_ANIME: SeedAnime[] = [
   // Uma Musume S3
   { malId: 48654, title: "Uma Musume: Pretty Derby Season 3", titleEnglish: "Uma Musume: Pretty Derby Season 3", titleJapanese: "ウマ娘 プリティーダービー Season 3",
     synopsis: "Kitasan Black and Satono Diamond navigate their final year at Tracen Academy, chasing their dreams on the racetrack.",
-    poster: "https://archive.org/services/img/uma-musume-pretty-derby-english-subbed", banner: "https://archive.org/services/img/uma-musume-pretty-derby-english-subbed",
+    poster: "/posters/uma-musume-s3.jpg", banner: "/posters/uma-musume-s3.jpg",
     type: "TV", status: "Finished Airing", score: 8.02, scoredBy: 50000, rank: 0, popularity: 1100, members: 180000,
     year: 2023, season: "fall", genres: ["Comedy", "Sports", "Drama"], studios: ["Studio Kai"],
     episodeCount: 13, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Game", isFeatured: true,
