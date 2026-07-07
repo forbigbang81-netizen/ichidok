@@ -616,7 +616,10 @@ export const SEED_ANIME: SeedAnime[] = [
       },
     ], hasSub: true, noSubtitles: true,
   },
-  // Berserk (1997)
+  // Berserk (1997) — dual source: Japanese sub + English dub
+  // The Cartoons-and-Anime source was previously mislabeled as "dub" but is
+  // actually Japanese audio (verified via ASR). The berserk-1997-complete
+  // collection is a Blu-Ray rip with English dub as the default audio track.
   { malId: 33, title: "Berserk", titleEnglish: "Berserk", titleJapanese: "ベルセルク",
     synopsis: "Guts, a wandering mercenary, joins the Band of the Hawk led by the charismatic Griffith, leading to a dark and tragic fate.",
     poster: "https://cdn.myanimelist.net/images/anime/1384/119988l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1384/119988l.jpg",
@@ -624,8 +627,42 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 1997, season: "fall", genres: ["Action", "Adventure", "Drama", "Fantasy", "Horror"], studios: ["OLM"],
     episodeCount: 25, duration: "23 min per ep", rating: "R+ - Mild Nudity", source: "Manga", isFeatured: true,
     episodeSources: [
-      { startEp: 1, endEp: 25, collection: "Cartoons-and-Anime", fileTemplate: "Berserk (1997)/Berserk - S01E{ep:02} - 4x3.mp4", audio: "dub" },
-    ], hasDub: true,
+      // Japanese audio (sub) — from the Cartoons-and-Anime TV rip collection.
+      { startEp: 1, endEp: 25, collection: "Cartoons-and-Anime", fileTemplate: "Berserk (1997)/Berserk - S01E{ep:02} - 4x3.mp4", audio: "sub" },
+      // English dub — from the berserk-1997-complete Blu-Ray rip (English is
+      // the default audio track in the source MKV; the MP4 was encoded from it).
+      // Each episode has its title in the filename, so we use episodeFiles.
+      {
+        startEp: 1, endEp: 25, collection: "berserk-1997-complete", audio: "dub",
+        episodeFiles: {
+          1: "Berserk (1997) S1E01 - The Black Swordsman.mp4",
+          2: "Berserk (1997) S1E02 - The Band of the Hawk.mp4",
+          3: "Berserk (1997) S1E03 - First Battle.mp4",
+          4: "Berserk (1997) S1E04 - The Hand of God.mp4",
+          5: "Berserk (1997) S1E05 - Sword and the Wind.mp4",
+          6: "Berserk (1997) S1E06 - Zodd the Immortal.mp4",
+          7: "Berserk (1997) S1E07 - The Sword Master.mp4",
+          8: "Berserk (1997) S1E08 - Conspiracy.mp4",
+          9: "Berserk (1997) S1E09 - Assassination.mp4",
+          10: "Berserk (1997) S1E10 - Nobleman.mp4",
+          11: "Berserk (1997) S1E11 - Battle Engagement.mp4",
+          12: "Berserk (1997) S1E12 - Two People.mp4",
+          13: "Berserk (1997) S1E13 - Suicidal Act.mp4",
+          14: "Berserk (1997) S1E14 - Campfire of Dreams.mp4",
+          15: "Berserk (1997) S1E15 - The Decisive Battle.mp4",
+          16: "Berserk (1997) S1E16 - The Conqueror.mp4",
+          17: "Berserk (1997) S1E17 - Moment of Glory.mp4",
+          18: "Berserk (1997) S1E18 - Tombstone of Flames.mp4",
+          19: "Berserk (1997) S1E19 - Parting.mp4",
+          20: "Berserk (1997) S1E20 - The Spark.mp4",
+          21: "Berserk (1997) S1E21 - Confession.mp4",
+          22: "Berserk (1997) S1E22 - The Infiltration.mp4",
+          23: "Berserk (1997) S1E23 - Eve of the Feast.mp4",
+          24: "Berserk (1997) S1E24 - Eclipse.mp4",
+          25: "Berserk (1997) S1E25 - Perpetual Time.mp4",
+        },
+      },
+    ], hasSub: true, hasDub: true,
   },
   // Megas XLR — not on MAL (Cartoon Network show). Use a sentinel
   // malId of -1 so it doesn't clash with real MAL entries, and so the

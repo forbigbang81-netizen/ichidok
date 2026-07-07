@@ -169,25 +169,23 @@ export function HomeView({ activeType }: { activeType: string }) {
     (a) => !upcomingIds.has(a.malId) && a.type === activeType,
   );
 
-  const continueWatching = history.slice(0, 4).map((h) => ({
-    anime: {
+  // Build continue-watching cards by joining history items with the in-memory
+  // `all` list so we can show "Episode X / Y" and use the full poster.
+  const continueWatching = history.slice(0, 10).map((h) => {
+    const matched = all.find((a) => a.malId === h.malId);
+    const total = matched?.episodeCount ?? 0;
+    return {
       malId: h.malId,
-      id: String(h.malId),
-      title: h.title,
-      poster: h.poster ?? "",
-      banner: h.poster ?? "",
-      type: h.type,
-      score: 0,
-      genres: [],
-      studios: [],
-      episodeCount: 0,
-      synopsis: "",
-      year: undefined,
-      isNew: false,
-    } as Anime,
-    episode: h.episode,
-    progress: h.progress,
-  }));
+      title: matched?.title ?? h.title,
+      poster: matched?.poster ?? h.poster ?? "",
+      type: matched?.type ?? h.type,
+      episode: h.episode,
+      totalEpisodes: total,
+      progress: h.progress,
+      position: h.position,
+      duration: h.duration,
+    };
+  });
 
   return (
     <div className="fade-in pb-6">
@@ -211,6 +209,81 @@ export function HomeView({ activeType }: { activeType: string }) {
           ))}
         </div>
       </section>
+
+      {/* ===== Continue watching — top of homepage, server-persisted =====
+          Each card shows the poster, episode number + total, position
+          timestamp, and a progress bar BELOW the poster. Clicking resumes
+          at the saved position. History is fetched from /api/history on
+          app mount so it survives redeploys. */}
+      {continueWatching.length > 0 && (
+        <section className="mb-7">
+          <SectionHeader
+            title="Continue watching"
+            onMore={() => navigate("library")}
+          />
+          <div className="no-scrollbar flex gap-3 overflow-x-auto px-4 pb-1">
+            {continueWatching.map((c) => {
+              const pct = Math.max(0, Math.min(100, c.progress ?? 0));
+              const posMin = Math.floor((c.position ?? 0) / 60);
+              const posSec = Math.floor((c.position ?? 0) % 60);
+              const durMin = Math.floor((c.duration ?? 0) / 60);
+              const durSec = Math.floor((c.duration ?? 0) % 60);
+              const posStr = `${posMin}:${String(posSec).padStart(2, "0")}`;
+              const durStr = `${durMin}:${String(durSec).padStart(2, "0")}`;
+              return (
+                <button
+                  key={`${c.malId}-${c.episode}`}
+                  type="button"
+                  onClick={() =>
+                    openAnime(c.malId, c.episode, c.position > 5 ? c.position : null)
+                  }
+                  className="w-40 shrink-0 text-left"
+                >
+                  {/* Poster thumbnail with play overlay */}
+                  <div className="relative aspect-video w-40 overflow-hidden rounded-lg bg-[#111111]">
+                    <img
+                      src={c.poster}
+                      alt={c.title}
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 grid place-items-center bg-black/40">
+                      <span className="grid h-10 w-10 place-items-center rounded-full bg-black/70">
+                        <Play className="ml-0.5 h-4 w-4 fill-white text-white" />
+                      </span>
+                    </div>
+                    {/* Episode badge top-left */}
+                    <span className="absolute left-1.5 top-1.5 rounded bg-black/80 px-1.5 py-0.5 text-[9px] font-bold text-white">
+                      EP {c.episode}
+                      {c.totalEpisodes > 0 ? ` / ${c.totalEpisodes}` : ""}
+                    </span>
+                    {/* Time-remaining hint bottom-right */}
+                    <span className="absolute bottom-1.5 right-1.5 rounded bg-black/80 px-1.5 py-0.5 text-[9px] font-medium text-white/90">
+                      {posStr} / {durStr}
+                    </span>
+                  </div>
+                  {/* Title */}
+                  <p className="mt-1.5 line-clamp-1 text-xs font-medium text-white">
+                    {c.title}
+                  </p>
+                  {/* Progress bar BELOW the card — gold fill on dark track */}
+                  <div className="mt-1 flex items-center gap-2">
+                    <div className="h-1 flex-1 overflow-hidden rounded-full bg-white/10">
+                      <div
+                        className="h-full rounded-full bg-[#f5c518]"
+                        style={{ width: `${pct}%` }}
+                      />
+                    </div>
+                    <span className="text-[9px] font-medium text-white/40">
+                      {Math.round(pct)}%
+                    </span>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       {/* ===== Featured banner — full-width, no rounded corners ===== */}
       <section className="mb-6">
@@ -316,51 +389,6 @@ export function HomeView({ activeType }: { activeType: string }) {
           </div>
         ) : null}
       </section>
-
-      {/* ===== Continue watching ===== */}
-      {continueWatching.length > 0 && (
-        <section className="mb-7">
-          <SectionHeader
-            title="Continue watching"
-            onMore={() => navigate("library")}
-          />
-          <div className="no-scrollbar flex gap-3 overflow-x-auto px-4">
-            {continueWatching.map((c) => (
-              <button
-                key={`${c.anime.malId}-${c.episode}`}
-                type="button"
-                onClick={() => openAnime(c.anime.malId, c.episode)}
-                className="w-44 shrink-0 text-left"
-              >
-                <div className="relative h-24 w-44 overflow-hidden rounded-lg bg-[#111111]">
-                  <img
-                    src={c.anime.poster}
-                    alt={c.anime.title}
-                    className="h-full w-full object-cover"
-                  />
-                  <div className="absolute inset-0 grid place-items-center bg-black/40">
-                    <span className="grid h-10 w-10 place-items-center rounded-full bg-black/60">
-                      <Play className="ml-0.5 h-4 w-4 fill-white text-white" />
-                    </span>
-                  </div>
-                  <div className="absolute inset-x-0 bottom-0 h-1 bg-black/60">
-                    <div
-                      className="h-full bg-[#f5c518]"
-                      style={{ width: `${c.progress}%` }}
-                    />
-                  </div>
-                </div>
-                <p className="mt-1.5 line-clamp-1 text-xs font-medium text-white">
-                  {c.anime.title}
-                </p>
-                <p className="mt-0.5 text-[10px] text-white/40">
-                  Episode {c.episode}
-                </p>
-              </button>
-            ))}
-          </div>
-        </section>
-      )}
 
       {/* ===== Top 10 on Ichidok — horizontal scroll with rank numbers ===== */}
       <section className="mb-7">

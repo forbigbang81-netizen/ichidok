@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { useApp } from "@/store/app";
-import { fetchNotifications } from "@/lib/api/client";
+import { fetchHistory, fetchNotifications } from "@/lib/api/client";
 import { cn } from "@/lib/utils";
 import { HomeView } from "@/components/ichidoki/HomeView";
 import { ScheduleView } from "@/components/ichidoki/ScheduleView";
@@ -29,14 +29,21 @@ export default function Page() {
   const selectedEpisode = useApp((s) => s.selectedEpisode);
   const notifications = useApp((s) => s.notifications);
   const setNotifications = useApp((s) => s.setNotifications);
+  const setHistory = useApp((s) => s.setHistory);
 
   const [activeType, setActiveType] = useState("TV");
 
+  // Load notifications + history on app mount. History must be loaded
+  // server-side so "Continue Watching" on the homepage reflects everything
+  // the user has ever watched, even after app updates / redeploys.
   useEffect(() => {
     fetchNotifications()
       .then((n) => setNotifications(n as typeof notifications))
       .catch(() => {});
-  }, [setNotifications]);
+    fetchHistory()
+      .then((hist) => setHistory(hist as any[]))
+      .catch(() => {});
+  }, [setNotifications, setHistory]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
