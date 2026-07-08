@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { db } from "@/lib/db";
 import { serializeAnime } from "@/app/api/catalog/route";
 
 export const dynamic = "force-dynamic";
@@ -12,12 +13,9 @@ const BROADCAST_SCHEDULE: Record<number, { day: number; time: string }> = {
 
 export async function GET() {
   try {
-    
-    // Fetch all anime via the catalog route's findMany with orderBy
-    // (findMany without orderBy causes a SQL error in this environment)
-    const { db } = await import("@/lib/db");
-    const all = await db.anime.findMany({ orderBy: { popularity: "asc" } });
-    const airing = all.filter((a: any) => a.status === "Currently Airing");
+    // Use the same query pattern as the catalog route (which works)
+    const animes = await db.anime.findMany({ orderBy: { popularity: "asc" } });
+    const airing = animes.filter((a: any) => a.status === "Currently Airing");
 
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const byDay: Record<number, any[]> = { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] };
@@ -34,11 +32,9 @@ export async function GET() {
         studios: a.studios, episodeCount: a.episodeCount, duration: a.duration ?? "",
         rating: a.rating ?? "", source: a.source ?? "", isFeatured: a.isFeatured,
       });
-      if (sched) {
-        byDay[sched.day].push({ anime: serialized, time: sched.time });
-      } else {
-        byDay[0].push({ anime: serialized, time: "TBA JST" });
-      }
+      const day = sched ? sched.day : 0;
+      const time = sched ? sched.time : "TBA JST";
+      byDay[day].push({ anime: serialized, time });
     }
 
     const schedule: Record<string, any[]> = {};
