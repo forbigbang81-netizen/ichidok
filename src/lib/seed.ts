@@ -130,7 +130,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "/posters/bleach-tybw-cal.jpg", banner: "/posters/bleach-tybw-cal.jpg",
     type: "Movie", status: "Currently Airing", score: 0, scoredBy: 0, rank: 0, popularity: 100, members: 50000,
     year: 2026, season: "summer", genres: ["Action", "Adventure", "Supernatural"], studios: ["Pierrot Films"],
-    episodeCount: 1, duration: "24 min", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    episodeCount: 1, duration: "1 hr 37 min", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
     episodeSources: [
       { startEp: 1, endEp: 1, collection: "dropbox", fileName: "https://www.dropbox.com/scl/fi/5ps37smjsko45e3e090un/videoplayback_4.mp4?rlkey=iesfyh2rdr2vpnzcoy5lc3p1j&st=14hboa19&dl=1", audio: "sub" },
     ], hasSub: true,
@@ -199,16 +199,32 @@ export const SEED_ANIME: SeedAnime[] = [
     synopsis: "Kenjaku has initiated the next step in his plan, releasing curses across Japan.", poster: "https://cdn.myanimelist.net/images/anime/1659/154920l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1659/154920l.jpg",
     type: "TV", status: "Currently Airing", score: 8.61, scoredBy: 12345, rank: 200, popularity: 350, members: 56789,
     year: 2026, season: "winter", genres: ["Action", "Supernatural", "Suspense"], studios: ["MAPPA"],
-    episodeCount: 6, duration: "23 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    episodeCount: 12, duration: "23 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
     episodeSources: [
-      // Episodes are in separate archive.org collections — each is its own source.
+      // English dub — all 12 episodes from jujutsu-kaisen-s3-dub collection
+      { startEp: 1, endEp: 12, collection: "jujutsu-kaisen-s3-dub", audio: "dub", episodeFiles: {
+        1: "jujutsu kaisen s3 e1 dubbed.mp4",
+        2: "jujutsu kaisen s3 e2 dubbed.mp4",
+        3: "jujutsu kaisen s3 e3 dubbed.mp4",
+        4: "jujutsu kaisen s3 e4 dubbed.mp4",
+        5: "jujutsu kaisen s3 e5 dubbed.mp4",
+        6: "jujutsu kaisen s3 e6 dubbed.mp4",
+        7: "jujutsu kaisen s3 e7 dubbed.mp4",
+        8: "jujutsu kaisen s3 e8 dubbed.mp4",
+        9: "jujutsu kaisen s3 e9 dubbed.mp4",
+        10: "jujutsu kaisen s3 e10 dubbed.mp4",
+        11: "jujutsu kaisen s3 e11 dubbed.mp4",
+        12: "jujutsu kaisen s3 e12 dubbed.mp4",
+      }},
+      // English sub — episodes 1-7 available (rest not yet uploaded)
       { startEp: 1, endEp: 1, collection: "jujutsu-kaisen-the-culling-game-part-1-episode-1-english-sub-1", fileName: "Jujutsu Kaisen The Culling Game Part 1 Episode 1 English Sub_1.mp4", audio: "sub" },
       { startEp: 2, endEp: 2, collection: "jujutsu-kaisen-the-culling-game-part-1-episode-1-english-sub-1", fileName: "Jujutsu Kaisen The Culling Game Part 1 Episode 2 English Subbed.mp4", audio: "sub" },
       { startEp: 3, endEp: 3, collection: "jujutsu-kaisen-the-culling-game-part-1-episode-3-english-sub", fileName: "Jujutsu Kaisen The Culling Game Part 1 Episode 3 English Sub.mp4", audio: "sub" },
       { startEp: 4, endEp: 4, collection: "jujutsu-kaisen_202606", fileName: "[SubsPlease] Jujutsu Kaisen - 51 (1080p) [84C776B4].mkv.mp4", audio: "sub" },
       { startEp: 5, endEp: 5, collection: "jujutsu-kaisen-the-culling-game-part-1-episode-5-english-sub", fileName: "Jujutsu Kaisen The Culling Game Part 1 Episode 5 English Sub.mp4", audio: "sub" },
       { startEp: 6, endEp: 6, collection: "jujutsu-kaisen-the-culling-game-part-1-episode-6-english-subbed", fileName: "Jujutsu Kaisen The Culling Game Part 1 Episode 6 English Subbed.mp4", audio: "sub" },
-    ], hasSub: true, noSubtitles: true,
+      { startEp: 7, endEp: 7, collection: "jujutsu-3-07", fileName: "Juju3-07.mp4", audio: "sub" },
+    ], hasSub: true, hasDub: true, noSubtitles: true,
   },
   // Chainsaw Man
   { malId: 44511, title: "Chainsaw Man", titleEnglish: "Chainsaw Man", titleJapanese: "チェンソーマン",
