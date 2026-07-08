@@ -93,6 +93,17 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2026, season: "summer", genres: ["Action", "Adventure", "Supernatural"], studios: ["Pierrot Films"],
     episodeCount: 12, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true, episodeSources: [],
   },
+  // Bleach TYBW Calamity Movie (Leaked) — Dropbox 720p, sub only
+  { malId: -5, title: "Bleach: Thousand-Year Blood War - The Calamity (Leaked)", titleEnglish: "Bleach: Thousand-Year Blood War - The Calamity (Leaked)", titleJapanese: "BLEACH 千年血戦篇-禍相譚-",
+    synopsis: "The final part of the Thousand-Year Blood War arc. Ichigo and his allies face Yhwach and the Quincy in their last battle.",
+    poster: "/posters/bleach-tybw-cal.jpg", banner: "/posters/bleach-tybw-cal.jpg",
+    type: "Movie", status: "Currently Airing", score: 0, scoredBy: 0, rank: 0, popularity: 100, members: 50000,
+    year: 2026, season: "summer", genres: ["Action", "Adventure", "Supernatural"], studios: ["Pierrot Films"],
+    episodeCount: 1, duration: "24 min", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 1, collection: "dropbox", fileName: "https://www.dropbox.com/scl/fi/5ps37smjsko45e3e090un/videoplayback_4.mp4?rlkey=iesfyh2rdr2vpnzcoy5lc3p1j&st=14hboa19&dl=1", audio: "sub" },
+    ], hasSub: true,
+  },
   // Bleach 2004
   { malId: 269, title: "Bleach", titleEnglish: "Bleach", titleJapanese: "BLEACH - ブリーチ -",
     synopsis: "Ichigo Kurosaki is an ordinary high schooler—until his family is attacked by a Hollow. He meets a Soul Reaper named Rukia Kuchiki, and becomes a Soul Reaper himself.",
@@ -1104,6 +1115,7 @@ export const SEASON_GROUPS: { franchise: string; seasons: { malId: number; label
       { malId: 53998, label: "Cour 2 — The Separation" },
       { malId: 56784, label: "Cour 3 — The Conflict" },
       { malId: 60636, label: "Cour 4 — The Calamity" },
+      { malId: -5, label: "The Calamity (Leaked Movie)" },
     ],
   },
   {
