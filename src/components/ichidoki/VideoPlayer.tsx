@@ -18,7 +18,7 @@ import {
 import { fetchVideoImport, type VideoImport } from "@/lib/api/client";
 import { useApp } from "@/store/app";
 import { cn } from "@/lib/utils";
-import { CastButton } from "./CastButton";
+import { toast } from "sonner";
 
 // ============================================================
 // Types
@@ -1341,14 +1341,26 @@ export function VideoPlayer({
               hasSubtitles={!!importInfo?.subtitleUrl && cues.length > 0}
             />
 
-            {/* Cast to Chromecast — hidden for YouTube embeds (YouTube has
-                its own built-in cast button in the player controls) */}
+            {/* Cast button — shows "coming soon" notification */}
             {!isYoutube && videoUrl && (
-              <CastButton
-                mediaUrl={videoUrl}
-                title={title ?? undefined}
-                poster={posterUrl || undefined}
-              />
+              <button
+                type="button"
+                onClick={() => {
+                  toast("Chromecast feature coming soon!", {
+                    description: "We're working on bringing cast support to Ichidoki.",
+                  });
+                  keepControlsAlive();
+                }}
+                aria-label="Cast to device"
+                className="grid h-8 w-8 place-items-center rounded-full text-white/70 transition-colors active:bg-white/10"
+              >
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6" />
+                  <path d="M2 12a9 9 0 0 1 8 8" />
+                  <path d="M2 16a5 5 0 0 1 4 4" />
+                  <line x1="2" y1="20" x2="2.01" y2="20" />
+                </svg>
+              </button>
             )}
 
             {/* Fullscreen */}

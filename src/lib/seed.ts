@@ -1074,8 +1074,11 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2000, season: "fall", genres: ["Comedy", "Horror", "Supernatural"], studios: ["Studio Pierrot"],
     episodeCount: 20, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Original", isFeatured: true,
     episodeSources: [
+      // English dub — 1080p from ghost-stories- collection
       { startEp: 1, endEp: 20, collection: "ghost-stories-", fileTemplate: "Ghost Stories - S01E{ep:02}.mp4", audio: "dub" },
-    ], hasDub: true,
+      // Japanese audio (sub) — 720p dual-audio DVDRip (first track is Japanese)
+      { startEp: 1, endEp: 20, collection: "17.-ghost-stories-2000-dual-audio-dvdrip-960x-720-10bit-hevc", fileTemplate: "{ep:02}. Ghost Stories (2000) (Dual Audio DVDRip 960x720 10bit HEVC).mp4", audio: "sub" },
+    ], hasSub: true, hasDub: true,
   },
 ];
 
