@@ -1076,33 +1076,17 @@ export const SEED_ANIME: SeedAnime[] = [
     episodeSources: [
       // English dub — 1080p from ghost-stories- collection
       { startEp: 1, endEp: 20, collection: "ghost-stories-", fileTemplate: "Ghost Stories - S01E{ep:02}.mp4", audio: "dub" },
-      // Japanese audio (sub) — 960x720 DVDRip from gakkou-no-kaidan_202306
-      // (R1J = Region 1 Japan, 3Audio AC3, verified Japanese via ASR)
-      {
-        startEp: 1, endEp: 20, collection: "gakkou-no-kaidan_202306", audio: "sub",
-        episodeFiles: {
-          1: "[2000-2001] Gakkou no kaidan_學校怪談(學校有鬼,学校の怪談)_TV/DVDRip.AVI.1280x960.krSub/学校の怪談.2000.第01話.1280x960.R1J.DVDRIP.x264.3Audio.AC3-Kamihikouki.mp4",
-          2: "[2000-2001] Gakkou no kaidan_學校怪談(學校有鬼,学校の怪談)_TV/DVDRip.AVI.1280x960.krSub/学校の怪談.2000.第02話.1280x960.R1J.DVDRIP.x264.3Audio.AC3-Kamihikouki.mp4",
-          3: "[2000-2001] Gakkou no kaidan_學校怪談(學校有鬼,学校の怪談)_TV/DVDRip.AVI.1280x960.krSub/学校の怪談.2000.第03話.1280x960.R1J.DVDRIP.x264.3Audio.AC3-Kamihikouki.mp4",
-          4: "[2000-2001] Gakkou no kaidan_學校怪談(學校有鬼,学校の怪談)_TV/DVDRip.AVI.1280x960.krSub/学校の怪談.2000.第04話.1280x960.R1J.DVDRIP.x264.3Audio.AC3-Kamihikouki.mp4",
-          5: "[2000-2001] Gakkou no kaidan_學校怪談(學校有鬼,学校の怪談)_TV/DVDRip.AVI.1280x960.krSub/学校の怪談.2000.第05話.1280x960.R1J.DVDRIP.x264.3Audio.AC3-Kamihikouki.mp4",
-          6: "[2000-2001] Gakkou no kaidan_學校怪談(學校有鬼,学校の怪談)_TV/DVDRip.AVI.1280x960.krSub/学校の怪談.2000.第06話.1280x960.R1J.DVDRIP.x264.3Audio.AC3-Kamihikouki.mp4",
-          7: "[2000-2001] Gakkou no kaidan_學校怪談(學校有鬼,学校の怪談)_TV/DVDRip.AVI.1280x960.krSub/学校の怪談.2000.第07話.1280x960.R1J.DVDRIP.x264.3Audio.AC3-Kamihikouki.mp4",
-          8: "[2000-2001] Gakkou no kaidan_學校怪談(學校有鬼,学校の怪談)_TV/DVDRip.AVI.1280x960.krSub/学校の怪談.2000.第08話.1280x960.R1J.DVDRIP.x264.3Audio.AC3-Kamihikouki.mp4",
-          9: "[2000-2001] Gakkou no kaidan_學校怪談(學校有鬼,学校の怪談)_TV/DVDRip.AVI.1280x960.krSub/学校の怪談.2000.第09話.1280x960.R1J.DVDRIP.x264.3Audio.AC3-Kamihikouki.mp4",
-          10: "[2000-2001] Gakkou no kaidan_學校怪談(學校有鬼,学校の怪談)_TV/DVDRip.AVI.1280x960.krSub/学校の怪談.2000.第10話.1280x960.R1J.DVDRIP.x264.3Audio.AC3-Kamihikouki.mp4",
-          11: "[2000-2001] Gakkou no kaidan_學校怪談(學校有鬼,学校の怪談)_TV/DVDRip.AVI.1280x960.krSub/学校の怪談.2000.第11話.1280x960.R1J.DVDRIP.x264.3Audio.AC3-Kamihikouki.mp4",
-          12: "[2000-2001] Gakkou no kaidan_學校怪談(學校有鬼,学校の怪談)_TV/DVDRip.AVI.1280x960.krSub/学校の怪談.2000.第12話.1280x960.R1J.DVDRIP.x264.3Audio.AC3-Kamihikouki.mp4",
-          13: "[2000-2001] Gakkou no kaidan_學校怪談(學校有鬼,学校の怪談)_TV/DVDRip.AVI.1280x960.krSub/学校の怪談.2000.第13話.1280x960.R1J.DVDRIP.x264.3Audio.AC3-Kamihikouki.mp4",
-          14: "[2000-2001] Gakkou no kaidan_學校怪談(學校有鬼,学校の怪談)_TV/DVDRip.AVI.1280x960.krSub/学校の怪談.2000.第14話.1280x960.R1J.DVDRIP.x264.3Audio.AC3-Kamihikouki.mp4",
-          15: "[2000-2001] Gakkou no kaidan_學校怪談(學校有鬼,学校の怪談)_TV/DVDRip.AVI.1280x960.krSub/学校の怪談.2000.第15話.1280x960.R1J.DVDRIP.x264.3Audio.AC3-Kamihikouki.mp4",
-          16: "[2000-2001] Gakkou no kaidan_學校怪談(學校有鬼,学校の怪談)_TV/DVDRip.AVI.1280x960.krSub/学校の怪談.2000.第16話.1280x960.R1J.DVDRIP.x264.3Audio.AC3-Kamihikouki.mp4",
-          17: "[2000-2001] Gakkou no kaidan_學校怪談(學校有鬼,学校の怪談)_TV/DVDRip.AVI.1280x960.krSub/学校の怪談.2000.第17話.1280x960.R1J.DVDRIP.x264.3Audio.AC3-Kamihikouki.mp4",
-          18: "[2000-2001] Gakkou no kaidan_學校怪談(學校有鬼,学校の怪談)_TV/DVDRip.AVI.1280x960.krSub/学校の怪談.2000.第18話.1280x960.R1J.DVDRIP.x264.3Audio.AC3-Kamihikouki.mp4",
-          19: "[2000-2001] Gakkou no kaidan_學校怪談(學校有鬼,学校の怪談)_TV/DVDRip.AVI.1280x960.krSub/学校の怪談.2000.第19話.1280x960.R1J.DVDRIP.x264.3Audio.AC3-Kamihikouki.mp4",
-          20: "[2000-2001] Gakkou no kaidan_學校怪談(學校有鬼,学校の怪談)_TV/DVDRip.AVI.1280x960.krSub/学校の怪談.2000.第20話.1280x960.R1J.DVDRIP.x264.3Audio.AC3-Kamihikouki.mp4",
-        },
-      },
+      // Japanese audio (sub) — YouTube playlist (user-provided)
+      // Playlist: PLeJTjEo5fDHNQ85NfJGZuQEXz2dTw0LVi
+      // First 8 episodes available on YouTube, remaining fall through to dub.
+      { startEp: 1, endEp: 1, collection: "youtube", fileName: "x404iAjHsUU", audio: "sub" },
+      { startEp: 2, endEp: 2, collection: "youtube", fileName: "_kx3MpejzB0", audio: "sub" },
+      { startEp: 3, endEp: 3, collection: "youtube", fileName: "BqQer4niL3E", audio: "sub" },
+      { startEp: 4, endEp: 4, collection: "youtube", fileName: "hvitwSztvgk", audio: "sub" },
+      { startEp: 5, endEp: 5, collection: "youtube", fileName: "G_ORNgOSScU", audio: "sub" },
+      { startEp: 6, endEp: 6, collection: "youtube", fileName: "U7XYHvz2drM", audio: "sub" },
+      { startEp: 7, endEp: 7, collection: "youtube", fileName: "8lUFR7R8iSU", audio: "sub" },
+      { startEp: 8, endEp: 8, collection: "youtube", fileName: "XAtMaSrau3s", audio: "sub" },
     ], hasSub: true, hasDub: true,
   },
 ];
