@@ -86,12 +86,12 @@ export const SEED_ANIME: SeedAnime[] = [
       
     ], hasDub: true,
   },
-  // Bleach TYBW Calamity (upcoming)
+  // Bleach TYBW Calamity (upcoming — July 2026)
   { malId: 60636, title: "Bleach: Thousand-Year Blood War - The Calamity", titleEnglish: "Bleach: Thousand-Year Blood War - The Calamity", titleJapanese: "BLEACH 千年血戦篇-禍相譚-",
-    synopsis: "Final part of Bleach: Sennen Kessen-hen.", poster: "https://cdn.myanimelist.net/images/anime/1275/158595l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1275/158595l.jpg",
+    synopsis: "The final part of the Thousand-Year Blood War arc. Ichigo and his allies face Yhwach and the Quincy in their last battle.", poster: "/posters/bleach-tybw-cal.jpg", banner: "/posters/bleach-tybw-cal.jpg",
     type: "TV", status: "Not yet aired", score: 0, scoredBy: 0, rank: 0, popularity: 380, members: 23456,
     year: 2026, season: "summer", genres: ["Action", "Adventure", "Supernatural"], studios: ["Pierrot Films"],
-    episodeCount: 12, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", episodeSources: [],
+    episodeCount: 12, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true, episodeSources: [],
   },
   // Bleach 2004
   { malId: 269, title: "Bleach", titleEnglish: "Bleach", titleJapanese: "BLEACH - ブリーチ -",
@@ -1335,7 +1335,7 @@ export const TOP_10_DECADE: { malId: number; title: string; year: number; score:
   { malId: 55311, title: "Umamusume: Pretty Derby - Beginning of a New Era", year: 2024, score: 7.65, poster: "/posters/umamusume-movie.jpg", rank: 4 },
   { malId: -3, title: "Umamusume: Pretty Derby Specials", year: 2018, score: 7.20, poster: "/posters/umamusume-specials.jpg", rank: 5 },
   { malId: 57658, title: "Jujutsu Kaisen: Culling Game", year: 2026, score: 8.61, poster: "https://cdn.myanimelist.net/images/anime/1659/154920l.jpg", rank: 6 },
-  { malId: 60636, title: "Bleach: Thousand-Year Blood War - The Calamity", year: 2026, score: 0, poster: "https://cdn.myanimelist.net/images/anime/1275/158595l.jpg", rank: 7 },
+  { malId: 60636, title: "Bleach: Thousand-Year Blood War - The Calamity", year: 2026, score: 0, poster: "/posters/bleach-tybw-cal.jpg", rank: 7 },
   { malId: 30240, title: "Prison School (Uncensored)", year: 2015, score: 7.58, poster: "https://cdn.myanimelist.net/images/anime/1286/112161l.jpg", rank: 8 },
   { malId: 33, title: "Berserk", year: 1997, score: 8.61, poster: "https://cdn.myanimelist.net/images/anime/1384/119988l.jpg", rank: 9 },
   { malId: 1, title: "Cowboy Bebop", year: 1998, score: 8.75, poster: "https://cdn.myanimelist.net/images/anime/4/19644l.jpg", rank: 10 },

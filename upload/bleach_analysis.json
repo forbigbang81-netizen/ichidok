@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "1) **Exact Title**:  \n   - English: *Bleach: Thousand-Year Blood War - The Invasion*  \n   - Japanese: *BLEACH 千年血戦篇 襟進譚* (BLEACH Senen Kessen Hen Kinshin Tan)  \n\n\n2) **Visible Text (English and Japanese)**:  \n   - Top Japanese: *そして、禍と呼ばれたものたちへ* (Soshite, Magari to Yobareta Mono-tachi e) – \"And to those called calamities\"  \n   - Title (English): *BLEACH*  \n   - Title (Japanese): *千年血戦篇* (Senen Kessen Hen) – \"Thousand-Year Blood War Arc\"  \n   - Subtitle (Japanese): *襟進譚* (Kinshin Tan) – \"The Invasion\"  \n   - Bottom English: *2026.7 ONAIR*  \n   - Bottom Japanese (small print): *© BLEACH Animation, Tite Kubo, Shueisha, TV Tokyo, Dentsu, Pierrot, Shonen Jump, Toho, bleach-anime.com*  \n\n\n3) **Visual Content Description**:  \n   The poster features dynamic anime-style artwork with a focus on action and character drama. At the top, a muscular figure with spiky orange hair (Ichigo Kurosaki) is depicted breaking through a shattered wall, conveying intensity and movement. Below him, three additional characters appear: a man with dark hair and a stern expression (likely a Shinigami), a man with a green headband shouting (possibly a supporting character), and a red-haired woman in a white uniform (likely Orihime Inoue) looking concerned. The color palette blends warm oranges (Ichigo’s hair, glowing light) with cool blues (a glowing blue aura on the bottom-right character) and neutral grays (shattered debris), creating contrast between energy and tension. The style is typical of *Bleach*’s action-oriented animation, with sharp lines, dramatic lighting, and a sense of urgency. The \"2026.7 ONAIR\" text at the bottom indicates a release date, while the top Japanese text hints at the film’s thematic focus on confronting \"calamities.\"",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1783491787,
+  "id": "20260708142251adcc335bed2d4d7c",
+  "model": "glm-4.6v",
+  "object": "chat.completion",
+  "request_id": "20260708142251adcc335bed2d4d7c",
+  "usage": {
+    "completion_tokens": 472,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 1050,
+    "prompt_tokens_details": {
+      "cached_tokens": 7
+    },
+    "total_tokens": 1522
+  }
+}

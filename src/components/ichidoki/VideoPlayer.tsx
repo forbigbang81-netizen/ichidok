@@ -928,11 +928,19 @@ export function VideoPlayer({
         </div>
       )}
 
-      {/* ===== Transparent click-catcher ===== */}
+      {/* ===== Transparent click-catcher =====
+          Uses both onClick and onTouchEnd to ensure taps register on mobile.
+          The issue was that onClick alone doesn't always fire on mobile
+          browsers when the controls are hidden — adding onTouchEnd with
+          a preventDefault ensures the tap is captured. */}
       {!loading && !error && videoUrl && (
         <div
           className="absolute inset-0 z-10"
           onClick={handleVideoTap}
+          onTouchEnd={(e) => {
+            e.preventDefault();
+            handleVideoTap();
+          }}
           aria-hidden
         />
       )}
