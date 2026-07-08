@@ -55,10 +55,14 @@ export async function GET(request: Request) {
     await ensureSeeded();
     const now = new Date();
 
-    // Get all anime from the DB and filter for currently airing in code
-    // (avoids SQL column name issues with the where clause)
-    const allAnime = await db.anime.findMany({});
-    const airing = allAnime.filter((a: any) => a.status === "Currently Airing");
+    // Get all anime from the DB using a raw SQL query to avoid ORM issues
+    const { createClient } = await import("@libsql/client");
+    const libsql = createClient({
+      url: process.env.DATABASE_URL!,
+      authToken: process.env.DATABASE_AUTH_TOKEN || undefined,
+    });
+    const result = await libsql.execute('SELECT * FROM "Anime" WHERE "status" = \'Currently Airing\'');
+    const airing = result.rows as any[];
 
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const byDay: Record<number, { anime: ReturnType<typeof serializeScheduleAnime>; time: string }[]> = {
