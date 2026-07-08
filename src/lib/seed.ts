@@ -130,7 +130,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "/posters/bleach-tybw-cal.jpg", banner: "/posters/bleach-tybw-cal.jpg",
     type: "Movie", status: "Currently Airing", score: 0, scoredBy: 0, rank: 0, popularity: 100, members: 50000,
     year: 2026, season: "summer", genres: ["Action", "Adventure", "Supernatural"], studios: ["Pierrot Films"],
-    episodeCount: 1, duration: "1 hr 37 min", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    episodeCount: 1, duration: "67 min", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
     episodeSources: [
       { startEp: 1, endEp: 1, collection: "dropbox", fileName: "https://www.dropbox.com/scl/fi/5ps37smjsko45e3e090un/videoplayback_4.mp4?rlkey=iesfyh2rdr2vpnzcoy5lc3p1j&st=14hboa19&dl=1", audio: "sub" },
     ], hasSub: true,
@@ -216,14 +216,22 @@ export const SEED_ANIME: SeedAnime[] = [
         11: "jujutsu kaisen s3 e11 dubbed.mp4",
         12: "jujutsu kaisen s3 e12 dubbed.mp4",
       }},
-      // English sub — episodes 1-7 available (rest not yet uploaded)
+      // English sub — episodes 1-5 from archive.org, eps 6-12 from Dropbox (1080p SubsPlease)
       { startEp: 1, endEp: 1, collection: "jujutsu-kaisen-the-culling-game-part-1-episode-1-english-sub-1", fileName: "Jujutsu Kaisen The Culling Game Part 1 Episode 1 English Sub_1.mp4", audio: "sub" },
       { startEp: 2, endEp: 2, collection: "jujutsu-kaisen-the-culling-game-part-1-episode-1-english-sub-1", fileName: "Jujutsu Kaisen The Culling Game Part 1 Episode 2 English Subbed.mp4", audio: "sub" },
       { startEp: 3, endEp: 3, collection: "jujutsu-kaisen-the-culling-game-part-1-episode-3-english-sub", fileName: "Jujutsu Kaisen The Culling Game Part 1 Episode 3 English Sub.mp4", audio: "sub" },
       { startEp: 4, endEp: 4, collection: "jujutsu-kaisen_202606", fileName: "[SubsPlease] Jujutsu Kaisen - 51 (1080p) [84C776B4].mkv.mp4", audio: "sub" },
       { startEp: 5, endEp: 5, collection: "jujutsu-kaisen-the-culling-game-part-1-episode-5-english-sub", fileName: "Jujutsu Kaisen The Culling Game Part 1 Episode 5 English Sub.mp4", audio: "sub" },
-      { startEp: 6, endEp: 6, collection: "jujutsu-kaisen-the-culling-game-part-1-episode-6-english-subbed", fileName: "Jujutsu Kaisen The Culling Game Part 1 Episode 6 English Subbed.mp4", audio: "sub" },
-      { startEp: 7, endEp: 7, collection: "jujutsu-3-07", fileName: "Juju3-07.mp4", audio: "sub" },
+      // Eps 6-12 from Dropbox (1080p SubsPlease, user-provided)
+      { startEp: 6, endEp: 12, collection: "dropbox", audio: "sub", episodeFiles: {
+        6: "https://www.dropbox.com/scl/fi/bmddgg7we45845izvvoaz/AnimePahe_Jujutsu_Kaisen_-_53_1080p_SubsPlease.mp4?rlkey=4qykhow0p0kmrdjp82012g1ge&st=1jil4cc0&dl=1",
+        7: "https://www.dropbox.com/scl/fi/ldskvlu3d58i3m448kzfp/AnimePahe_Jujutsu_Kaisen_-_54_1080p_SubsPlease.mp4?rlkey=zg9meoc3tx7fk3j5u0gr3ga6l&st=1v02lpir&dl=1",
+        8: "https://www.dropbox.com/scl/fi/9v6apy3nzx31krjjyofps/AnimePahe_Jujutsu_Kaisen_-_55_1080p_SubsPlease.mp4?rlkey=ogmpt3xirufpr7xv0bz9ynkeq&st=em4jnfwo&dl=1",
+        9: "https://www.dropbox.com/scl/fi/aodj07k4l0au7lulrxmud/AnimePahe_Jujutsu_Kaisen_-_56_1080p_SubsPlease.mp4?rlkey=tf238e94govkx7xjs1g0osnn2&st=2zyyzi3u&dl=1",
+        10: "https://www.dropbox.com/scl/fi/r2zkl9om1ti7og7t4a1d4/AnimePahe_Jujutsu_Kaisen_-_57_1080p_SubsPlease.mp4?rlkey=zo8l6wwl8u0w2rpnsun2pgahu&st=sn2bfn6a&dl=1",
+        11: "https://www.dropbox.com/scl/fi/000cn94c2zq185q15rdjt/AnimePahe_Jujutsu_Kaisen_-_58_1080p_SubsPlease.mp4?rlkey=0cxi26y1b4v0ahw31xdv7lwu2&st=nhz6vqoz&dl=1",
+        12: "https://www.dropbox.com/scl/fi/tj91umf4ipjhj6e1bhiuj/AnimePahe_Jujutsu_Kaisen_-_59_1080p_SubsPlease.mp4?rlkey=6eff7qhwnyahnj1nh4ssmo6bd&st=krb6vci6&dl=1",
+      }},
     ], hasSub: true, hasDub: true, noSubtitles: true,
   },
   // Chainsaw Man
