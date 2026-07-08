@@ -3,19 +3,13 @@
 import { useEffect, useState } from "react";
 import { CalendarDays } from "lucide-react";
 import { useApp, type Anime } from "@/store/app";
-import { fetchSchedule, type ScheduleDay } from "@/lib/api/client";
+import { fetchSchedule } from "@/lib/api/client";
 import { cn } from "@/lib/utils";
-import { AnimeCard, CardGrid } from "./AnimeCard";
 
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] as const;
 const DAY_LABELS: Record<string, string> = {
-  Sun: "Sunday",
-  Mon: "Monday",
-  Tue: "Tuesday",
-  Wed: "Wednesday",
-  Thu: "Thursday",
-  Fri: "Friday",
-  Sat: "Saturday",
+  Sun: "Sunday", Mon: "Monday", Tue: "Tuesday",
+  Wed: "Wednesday", Thu: "Thursday", Fri: "Friday", Sat: "Saturday",
 };
 
 interface ScheduleItem {
@@ -24,6 +18,7 @@ interface ScheduleItem {
 }
 
 export function ScheduleView() {
+  const openAnime = useApp((s) => s.openAnime);
   const [schedule, setSchedule] = useState<Record<string, ScheduleItem[]>>({});
   const [loading, setLoading] = useState(true);
   const [activeDay, setActiveDay] = useState<string>(() => {
@@ -46,16 +41,13 @@ export function ScheduleView() {
       .finally(() => {
         if (!cancelled) setLoading(false);
       });
-    return () => {
-      cancelled = true;
-    };
+    return () => { cancelled = true; };
   }, []);
 
   const today = DAYS[new Date().getDay()];
   const activeList = schedule[activeDay] ?? [];
   const totalThisWeek = DAYS.reduce(
-    (acc, d) => acc + (schedule[d]?.length ?? 0),
-    0,
+    (acc, d) => acc + (schedule[d]?.length ?? 0), 0,
   );
 
   return (
@@ -114,39 +106,76 @@ export function ScheduleView() {
       </div>
 
       {loading ? (
-        <CardGrid>
-          {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="flex flex-col gap-1.5">
-              <div className="aspect-[2/3] w-full rounded-lg skeleton-shimmer" />
-              <div className="mt-1 h-3 w-24 rounded skeleton-shimmer" />
+        <div className="flex flex-col gap-3">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="flex items-center gap-3">
+              <div className="h-8 w-20 rounded-md skeleton-shimmer" />
+              <div className="aspect-[2/3] w-16 rounded-lg skeleton-shimmer" />
+              <div className="flex-1">
+                <div className="h-3 w-32 rounded skeleton-shimmer" />
+                <div className="mt-2 h-2 w-20 rounded skeleton-shimmer" />
+              </div>
             </div>
           ))}
-        </CardGrid>
+        </div>
       ) : activeList.length === 0 ? (
         <div className="grid place-items-center py-16 text-center">
           <CalendarDays className="mb-3 h-10 w-10 text-white/20" />
-          <p className="text-sm font-medium text-white/70">
-            Nothing airing today
-          </p>
-          <p className="mt-1 text-xs text-white/40">
-            Try another day of the week.
-          </p>
+          <p className="text-sm font-medium text-white/70">Nothing airing today</p>
+          <p className="mt-1 text-xs text-white/40">Try another day of the week.</p>
         </div>
       ) : (
         <div className="flex flex-col gap-3">
           {activeList.map((item) => (
-            <div key={item.anime.malId} className="flex items-center gap-3">
+            <button
+              key={item.anime.malId}
+              type="button"
+              onClick={() => openAnime(item.anime.malId)}
+              className="flex items-center gap-3 rounded-lg p-1 text-left transition-colors active:bg-white/5"
+            >
               {/* JST time badge */}
-              <div className="w-20 shrink-0 text-right">
-                <span className="rounded-md bg-[#f5c518]/10 px-2 py-1 text-[11px] font-bold text-[#f5c518]">
+              <div className="w-16 shrink-0 text-right">
+                <span className="rounded-md bg-[#f5c518]/10 px-1.5 py-1 text-[10px] font-bold text-[#f5c518]">
                   {item.time}
                 </span>
               </div>
-              {/* Anime card */}
-              <div className="flex-1">
-                <AnimeCard anime={item.anime} />
+              {/* Poster thumbnail — fixed small size */}
+              <div className="relative aspect-[2/3] w-14 shrink-0 overflow-hidden rounded-md bg-[#111111]">
+                {item.anime.poster ? (
+                  <img
+                    src={item.anime.poster}
+                    alt={item.anime.title}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="grid h-full w-full place-items-center text-[8px] text-white/30">
+                    No Image
+                  </div>
+                )}
+                {/* NEW badge */}
+                <div className="absolute left-0.5 top-0.5 rounded bg-[#f5c518] px-1 py-0.5 text-[7px] font-bold uppercase text-black">
+                  NEW
+                </div>
               </div>
-            </div>
+              {/* Title + info */}
+              <div className="min-w-0 flex-1">
+                <p className="line-clamp-2 text-xs font-medium text-white">
+                  {item.anime.title}
+                </p>
+                <div className="mt-1 flex items-center gap-2">
+                  {item.anime.score > 0 && (
+                    <span className="text-[10px] font-bold text-[#f5c518]">
+                      ★ {item.anime.score.toFixed(2)}
+                    </span>
+                  )}
+                  <span className="text-[10px] text-white/40">{item.anime.type}</span>
+                </div>
+                <p className="mt-0.5 text-[9px] text-white/30">
+                  {item.anime.episodeCount} eps
+                </p>
+              </div>
+            </button>
           ))}
         </div>
       )}
