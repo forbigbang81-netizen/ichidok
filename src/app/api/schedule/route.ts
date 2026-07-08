@@ -4,13 +4,6 @@ import { ensureSeeded, serializeAnime } from "@/app/api/catalog/route";
 
 export const dynamic = "force-dynamic";
 
-const SEASON_MONTHS: Record<string, [number, number]> = {
-  winter: [0, 2], // Jan – Mar
-  spring: [3, 5], // Apr – Jun
-  summer: [6, 8], // Jul – Sep
-  fall: [9, 11], // Oct – Dec
-};
-
 type AnimeRow = Awaited<ReturnType<typeof db.anime.findFirst>>;
 
 function serializeScheduleAnime(a: NonNullable<AnimeRow>) {
@@ -43,68 +36,74 @@ function serializeScheduleAnime(a: NonNullable<AnimeRow>) {
   });
 }
 
+// Manual broadcast schedule for currently airing anime.
+// Keyed by malId. Values: { day: 0-6 (0=Sun), time: "HH:MM JST" }
+// Updated based on web search for actual broadcast times.
+const BROADCAST_SCHEDULE: Record<number, { day: number; time: string }> = {
+  // 100 Girlfriends S3 — Sundays at 22:30 JST
+  62811: { day: 0, time: "22:30 JST" },
+  // Polar Opposites S2 — Sundays at 17:00 JST
+  63832: { day: 0, time: "17:00 JST" },
+  // MHA Final Season (S8) — Saturdays at 17:30 JST (finished airing but keep for reference)
+  -2: { day: 6, time: "17:30 JST" },
+  // JJK Culling Game — Thursdays at 23:00 JST (Winter 2026)
+  57658: { day: 4, time: "23:00 JST" },
+};
+
 export async function GET(request: Request) {
   try {
     await ensureSeeded();
-    const { searchParams } = new URL(request.url);
     const now = new Date();
-    const year = Number(searchParams.get("year") ?? now.getFullYear());
-    const seasonQuery = searchParams.get("season");
 
-    let season: keyof typeof SEASON_MONTHS | null = null;
-    if (seasonQuery && seasonQuery in SEASON_MONTHS) {
-      season = seasonQuery as keyof typeof SEASON_MONTHS;
-    } else {
-      const m = now.getMonth();
-      if (m <= 2) season = "winter";
-      else if (m <= 5) season = "spring";
-      else if (m <= 8) season = "summer";
-      else season = "fall";
-    }
-
-    const animes = await db.anime.findMany({
-      where: {
-        year,
-        season,
-        status: { in: ["Currently Airing", "Not yet aired"] },
-      },
+    // Get all currently airing anime from the DB
+    const airing = await db.anime.findMany({
+      where: { status: "Currently Airing" },
       orderBy: [{ popularity: "asc" }],
     });
 
-    // Group by day-of-week based on airing season start month.
-    const [startMonth] = SEASON_MONTHS[season];
-    const seasonStart = new Date(year, startMonth, 1);
-    const dow = seasonStart.getDay(); // 0=Sun
-
-    const byDay: Record<number, typeof animes> = {
+    const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const byDay: Record<number, { anime: ReturnType<typeof serializeScheduleAnime>; time: string }[]> = {
       0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [],
     };
 
-    animes.forEach((a, i) => {
-      const day = (dow + i) % 7;
-      byDay[day].push(a);
-    });
-
-    const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-    // Schedule as a Record<day, Anime[]> for easy client lookup.
-    const schedule: Record<string, ReturnType<typeof serializeScheduleAnime>[]> = {};
-    for (let i = 0; i < days.length; i++) {
-      schedule[days[i]] = byDay[i].map((a) => serializeScheduleAnime(a));
+    // Place each airing anime on its broadcast day with JST time
+    for (const a of airing) {
+      const sched = BROADCAST_SCHEDULE[a.malId];
+      if (sched) {
+        byDay[sched.day].push({
+          anime: serializeScheduleAnime(a),
+          time: sched.time,
+        });
+      } else {
+        // Unknown broadcast time — put on Sunday as default
+        byDay[0].push({ anime: serializeScheduleAnime(a), time: "TBA JST" });
+      }
     }
 
+    // Sort each day's anime by time (earliest first)
+    for (const day of Object.keys(byDay)) {
+      byDay[Number(day)].sort((a, b) => {
+        const ta = parseInt(a.time.replace(/\D/g, "")) || 0;
+        const tb = parseInt(b.time.replace(/\D/g, "")) || 0;
+        return ta - tb;
+      });
+    }
+
+    const schedule: Record<string, { anime: any; time: string }[]> = {};
     const scheduleList = days.map((d, i) => ({
       day: d,
       dayIndex: i,
-      anime: byDay[i].map((a) => serializeScheduleAnime(a)),
+      anime: byDay[i],
     }));
+    for (let i = 0; i < days.length; i++) {
+      schedule[days[i]] = byDay[i];
+    }
 
     return NextResponse.json({
-      year,
-      season,
-      total: animes.length,
-      schedule, // Record<string, Anime[]>
-      scheduleList, // Array<{ day, dayIndex, anime }>
+      year: now.getFullYear(),
+      total: airing.length,
+      schedule,
+      scheduleList,
     });
   } catch (err) {
     console.error("[/api/schedule] error:", err);

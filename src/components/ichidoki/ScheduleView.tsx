@@ -2,24 +2,29 @@
 
 import { useEffect, useState } from "react";
 import { CalendarDays } from "lucide-react";
-import { fetchSchedule } from "@/lib/api/client";
-import type { Anime } from "@/store/app";
+import { useApp, type Anime } from "@/store/app";
+import { fetchSchedule, type ScheduleDay } from "@/lib/api/client";
 import { cn } from "@/lib/utils";
-import { AnimeCard, AnimeCardSkeleton, CardGrid } from "./AnimeCard";
+import { AnimeCard, CardGrid } from "./AnimeCard";
 
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] as const;
 const DAY_LABELS: Record<string, string> = {
-  Sun: "Sundays",
-  Mon: "Mondays",
-  Tue: "Tuesdays",
-  Wed: "Wednesdays",
-  Thu: "Thursdays",
-  Fri: "Fridays",
-  Sat: "Saturdays",
+  Sun: "Sunday",
+  Mon: "Monday",
+  Tue: "Tuesday",
+  Wed: "Wednesday",
+  Thu: "Thursday",
+  Fri: "Friday",
+  Sat: "Saturday",
 };
 
+interface ScheduleItem {
+  anime: Anime;
+  time: string;
+}
+
 export function ScheduleView() {
-  const [schedule, setSchedule] = useState<Record<string, Anime[]>>({});
+  const [schedule, setSchedule] = useState<Record<string, ScheduleItem[]>>({});
   const [loading, setLoading] = useState(true);
   const [activeDay, setActiveDay] = useState<string>(() => {
     const d = new Date().getDay();
@@ -31,8 +36,8 @@ export function ScheduleView() {
     fetchSchedule()
       .then((s) => {
         if (cancelled) return;
-        setSchedule(s);
-        if (!s[activeDay] || s[activeDay].length === 0) {
+        setSchedule(s as Record<string, ScheduleItem[]>);
+        if (!s[activeDay] || s[activeDay]?.length === 0) {
           const firstWithAnime = DAYS.find((d) => (s[d]?.length ?? 0) > 0);
           if (firstWithAnime) setActiveDay(firstWithAnime);
         }
@@ -68,7 +73,7 @@ export function ScheduleView() {
         </p>
       </div>
 
-      {/* Day selector — simple text tabs */}
+      {/* Day selector */}
       <div className="no-scrollbar flex gap-5 overflow-x-auto border-b border-white/10 pb-2">
         {DAYS.map((d) => {
           const count = schedule[d]?.length ?? 0;
@@ -80,21 +85,16 @@ export function ScheduleView() {
               type="button"
               onClick={() => setActiveDay(d)}
               className={cn(
-                "relative flex flex-col items-center whitespace-nowrap text-sm font-medium transition-colors",
+                "relative whitespace-nowrap py-1.5 text-sm font-medium transition-colors",
                 active ? "text-white" : "text-white/40",
               )}
             >
-              <span>{d}</span>
-              <span
-                className={cn(
-                  "mt-0.5 text-[11px] font-bold",
-                  active ? "text-[#f5c518]" : "text-white/30",
-                )}
-              >
-                {count}
-              </span>
+              {d}
+              {count > 0 && (
+                <span className="ml-1 text-[10px] text-white/30">{count}</span>
+              )}
               {active && (
-                <span className="absolute -bottom-2 left-0 right-0 h-0.5 rounded-full bg-[#f5c518]" />
+                <span className="absolute -bottom-2 left-0 h-0.5 w-full rounded-full bg-[#f5c518]" />
               )}
               {isToday && !active && (
                 <span className="absolute -top-1 right-0 h-1.5 w-1.5 rounded-full bg-[#f5c518]" />
@@ -116,7 +116,10 @@ export function ScheduleView() {
       {loading ? (
         <CardGrid>
           {Array.from({ length: 6 }).map((_, i) => (
-            <AnimeCardSkeleton key={i} />
+            <div key={i} className="flex flex-col gap-1.5">
+              <div className="aspect-[2/3] w-full rounded-lg skeleton-shimmer" />
+              <div className="mt-1 h-3 w-24 rounded skeleton-shimmer" />
+            </div>
           ))}
         </CardGrid>
       ) : activeList.length === 0 ? (
@@ -130,11 +133,22 @@ export function ScheduleView() {
           </p>
         </div>
       ) : (
-        <CardGrid>
-          {activeList.map((a) => (
-            <AnimeCard key={a.malId} anime={a} />
+        <div className="flex flex-col gap-3">
+          {activeList.map((item) => (
+            <div key={item.anime.malId} className="flex items-center gap-3">
+              {/* JST time badge */}
+              <div className="w-20 shrink-0 text-right">
+                <span className="rounded-md bg-[#f5c518]/10 px-2 py-1 text-[11px] font-bold text-[#f5c518]">
+                  {item.time}
+                </span>
+              </div>
+              {/* Anime card */}
+              <div className="flex-1">
+                <AnimeCard anime={item.anime} />
+              </div>
+            </div>
           ))}
-        </CardGrid>
+        </div>
       )}
     </div>
   );
