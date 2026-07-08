@@ -55,3 +55,7 @@ server.log
 
 # OpenSubtitles disk cache (real subtitle files cached after first download)
 .opensubs-cache/
+.gitignore
+tmp/
+tool-results/
+.github/

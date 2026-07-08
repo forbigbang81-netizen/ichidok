@@ -48,10 +48,12 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2011, season: "spring", genres: ["Drama", "Sci-Fi", "Suspense"], studios: ["White Fox"],
     episodeCount: 24, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Visual novel", isFeatured: true,
     episodeSources: [
-      // Japanese audio with English subs — anime-time-steins-gate (1080p, 24 eps + OVA)
-      // The previous source (steinsgate_1.130209) was Portuguese subs, not English.
-      { startEp: 1, endEp: 24, collection: "anime-time-steins-gate", fileTemplate: "[Anime Time] Steins;Gate - {ep:02}.mp4", audio: "sub" },
-    ], hasSub: true,
+      // Japanese audio (sub) — 3asq Upload Team BluRay 1080p (verified Japanese via ASR)
+      // eps 1-12, 15-24 are 1080p; eps 13-14 are 720p. All 24 episodes + 1 special.
+      { startEp: 1, endEp: 24, collection: "3asquploadteamsteinsgatebluray1080p", fileTemplate: "[3asq upload team] Steins;Gate - {ep:02} [BluRay-1080p].mp4", audio: "sub" },
+      // English dub — anime-time-steins-gate collection (verified English via ASR)
+      { startEp: 1, endEp: 24, collection: "anime-time-steins-gate", fileTemplate: "[Anime Time] Steins;Gate - {ep:02}.mp4", audio: "dub" },
+    ], hasSub: true, hasDub: true,
   },
   // Bleach TYBW
   { malId: 41467, title: "Bleach: Thousand-Year Blood War", titleEnglish: "Bleach: Thousand-Year Blood War", titleJapanese: "BLEACH 千年血戦篇",
