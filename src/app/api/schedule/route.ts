@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { ensureSeeded, serializeAnime } from "@/app/api/catalog/route";
+import { serializeAnime } from "@/app/api/catalog/route";
 
 export const dynamic = "force-dynamic";
 
@@ -12,7 +12,7 @@ const BROADCAST_SCHEDULE: Record<number, { day: number; time: string }> = {
 
 export async function GET() {
   try {
-    await ensureSeeded();
+    
     // Fetch all anime via the catalog route's findMany with orderBy
     // (findMany without orderBy causes a SQL error in this environment)
     const { db } = await import("@/lib/db");
