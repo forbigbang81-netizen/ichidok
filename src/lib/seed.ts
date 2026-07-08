@@ -1087,17 +1087,31 @@ export const SEED_ANIME: SeedAnime[] = [
     episodeSources: [
       // English dub — 1080p from ghost-stories- collection
       { startEp: 1, endEp: 20, collection: "ghost-stories-", fileTemplate: "Ghost Stories - S01E{ep:02}.mp4", audio: "dub" },
-      // Japanese audio (sub) — YouTube playlist (user-provided)
-      // Playlist: PLeJTjEo5fDHNQ85NfJGZuQEXz2dTw0LVi
-      // First 8 episodes available on YouTube, remaining fall through to dub.
-      { startEp: 1, endEp: 1, collection: "youtube", fileName: "x404iAjHsUU", audio: "sub" },
-      { startEp: 2, endEp: 2, collection: "youtube", fileName: "_kx3MpejzB0", audio: "sub" },
-      { startEp: 3, endEp: 3, collection: "youtube", fileName: "BqQer4niL3E", audio: "sub" },
-      { startEp: 4, endEp: 4, collection: "youtube", fileName: "hvitwSztvgk", audio: "sub" },
-      { startEp: 5, endEp: 5, collection: "youtube", fileName: "G_ORNgOSScU", audio: "sub" },
-      { startEp: 6, endEp: 6, collection: "youtube", fileName: "U7XYHvz2drM", audio: "sub" },
-      { startEp: 7, endEp: 7, collection: "youtube", fileName: "8lUFR7R8iSU", audio: "sub" },
-      { startEp: 8, endEp: 8, collection: "youtube", fileName: "XAtMaSrau3s", audio: "sub" },
+      // Japanese audio (sub) — Dropbox 480p DVD (Exiled-Destiny, user-provided)
+      // Eps 1-19 available; ep 20 falls through to dub.
+      {
+        startEp: 1, endEp: 19, collection: "dropbox", audio: "sub", episodeFiles: {
+          1: "https://www.dropbox.com/scl/fi/oacsqa6rtv933ehqlx7ae/AnimePahe_Gakkou_no_Kaidan_-_01_DVD_480p_Exiled-Destiny.mp4?rlkey=j3j8v82hxglw5bq7c9s48dfdo&st=pn5lsg2z&dl=1",
+          2: "https://www.dropbox.com/scl/fi/ukrk9iqqy513p37uo0s06/AnimePahe_Gakkou_no_Kaidan_-_02_DVD_480p_Exiled-Destiny.mp4?rlkey=tc9jvb3e38q3b9gntmj7cd7tk&st=ir2nivv5&dl=1",
+          3: "https://www.dropbox.com/scl/fi/wo1wugif57rkmid6nbqgs/AnimePahe_Gakkou_no_Kaidan_-_03_DVD_480p_Exiled-Destiny.mp4?rlkey=hyqom47k78jo6xd0wxhqvhgow&st=gin3urgr&dl=1",
+          4: "https://www.dropbox.com/scl/fi/e4sj4yvb2k6clz8zelvc0/AnimePahe_Gakkou_no_Kaidan_-_04_DVD_480p_Exiled-Destiny.mp4?rlkey=6ryd2x5o0dyo3kuaqo6hwktkk&st=mu6qbhy9&dl=1",
+          5: "https://www.dropbox.com/scl/fi/jheiv3a6t66cnag3n6s55/AnimePahe_Gakkou_no_Kaidan_-_05_DVD_480p_Exiled-Destiny.mp4?rlkey=vy2r2t03ncijvofy15hvqx4mq&st=2cy2d8hp&dl=1",
+          6: "https://www.dropbox.com/scl/fi/toi7ce5jsucy50lsnyalh/AnimePahe_Gakkou_no_Kaidan_-_06_DVD_480p_Exiled-Destiny.mp4?rlkey=ggtrrmd296kt5dxb4j9kdxanu&st=jbusvnkk&dl=1",
+          7: "https://www.dropbox.com/scl/fi/iutflrippvulf6j90r2t0/AnimePahe_Gakkou_no_Kaidan_-_07_DVD_480p_Exiled-Destiny.mp4?rlkey=5l4ihstalkv98rhsd89tuww9b&st=3ib2z6ug&dl=1",
+          8: "https://www.dropbox.com/scl/fi/2sxth0afspx4omw5a1kdg/AnimePahe_Gakkou_no_Kaidan_-_08_DVD_480p_Exiled-Destiny.mp4?rlkey=tzhm86jn2juv2tnd7yhysioin&st=wy6vre5l&dl=1",
+          9: "https://www.dropbox.com/scl/fi/fsu8abfs5qygmk5pqmkbw/AnimePahe_Gakkou_no_Kaidan_-_09_DVD_480p_Exiled-Destiny.mp4?rlkey=0el9nslvfciw86ldnlsa5by5s&st=6qnvaw6x&dl=1",
+          10: "https://www.dropbox.com/scl/fi/ybpmndztze8w5dmsq1jlf/AnimePahe_Gakkou_no_Kaidan_-_10_DVD_480p_Exiled-Destiny.mp4?rlkey=2x197k6k5eymoy6drmt4bxa6d&st=r1heb7tc&dl=1",
+          11: "https://www.dropbox.com/scl/fi/lqvmitvf4rqvacghpbg1l/AnimePahe_Gakkou_no_Kaidan_-_11_DVD_480p_Exiled-Destiny.mp4?rlkey=p35ubf1zb97ghap9aw9q6zxiz&st=vibx01if&dl=1",
+          12: "https://www.dropbox.com/scl/fi/rjb3onvovdsj2ixasrtu5/AnimePahe_Gakkou_no_Kaidan_-_12_DVD_480p_Exiled-Destiny.mp4?rlkey=a2hdfie1pgonlhqcvaq9po61v&st=9juk772v&dl=1",
+          13: "https://www.dropbox.com/scl/fi/gu7k3x7kg5f4001q0aml7/AnimePahe_Gakkou_no_Kaidan_-_13_DVD_480p_Exiled-Destiny.mp4?rlkey=luztyv01ixwjk49jo3gm3tsyk&st=au2tc9qc&dl=1",
+          14: "https://www.dropbox.com/scl/fi/ubpjdshxhekd2v7kanp6y/AnimePahe_Gakkou_no_Kaidan_-_14_DVD_480p_Exiled-Destiny.mp4?rlkey=4rirzjir9ejr9xdko9pqcrksi&st=6sfy7ry6&dl=1",
+          15: "https://www.dropbox.com/scl/fi/hf2unzmjso54xjddutgti/AnimePahe_Gakkou_no_Kaidan_-_15_DVD_480p_Exiled-Destiny.mp4?rlkey=utxwutpthilurffv73yfmn8w5&st=0kwadezp&dl=1",
+          16: "https://www.dropbox.com/scl/fi/1jr7ji1oa53cb1qjtn3la/AnimePahe_Gakkou_no_Kaidan_-_16_DVD_480p_Exiled-Destiny.mp4?rlkey=n45poij71ltyaruunphadhak6&st=pne7n497&dl=1",
+          17: "https://www.dropbox.com/scl/fi/xyaey375jwaq7y83ewkn2/AnimePahe_Gakkou_no_Kaidan_-_17_DVD_480p_Exiled-Destiny.mp4?rlkey=rt0fudpjfqfvj1et49ty8hv7l&st=ptoulxri&dl=1",
+          18: "https://www.dropbox.com/scl/fi/gm4uzfnwrqavl1kxxxykx/AnimePahe_Gakkou_no_Kaidan_-_18_DVD_480p_Exiled-Destiny.mp4?rlkey=2l942xmg0pnmb65ji46v2ozqo&st=0qhpaqp9&dl=1",
+          19: "https://www.dropbox.com/scl/fi/hcu6nqwzg1a6m0bc6qbr4/AnimePahe_Gakkou_no_Kaidan_-_19_DVD_480p_Exiled-Destiny.mp4?rlkey=a31grtz0rylmuu5x12x3gp8zd&st=r5fsnrh2&dl=1",
+        },
+      },
     ], hasSub: true, hasDub: true,
   },
 ];
