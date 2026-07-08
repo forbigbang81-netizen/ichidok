@@ -55,11 +55,10 @@ export async function GET(request: Request) {
     await ensureSeeded();
     const now = new Date();
 
-    // Get all currently airing anime from the DB
-    const airing = await db.anime.findMany({
-      where: { status: "Currently Airing" },
-      orderBy: [{ popularity: "asc" }],
-    });
+    // Get all anime from the DB and filter for currently airing in code
+    // (avoids SQL column name issues with the where clause)
+    const allAnime = await db.anime.findMany({});
+    const airing = allAnime.filter((a: any) => a.status === "Currently Airing");
 
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const byDay: Record<number, { anime: ReturnType<typeof serializeScheduleAnime>; time: string }[]> = {
