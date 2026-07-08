@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { ensureSeeded, serializeAnime } from "@/app/api/catalog/route";
-import { db } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
@@ -14,8 +13,10 @@ const BROADCAST_SCHEDULE: Record<number, { day: number; time: string }> = {
 export async function GET() {
   try {
     await ensureSeeded();
-    // Use db.anime.findMany without where clause (works), then filter in JS
-    const all = await db.anime.findMany({});
+    // Fetch all anime via the catalog route's findMany with orderBy
+    // (findMany without orderBy causes a SQL error in this environment)
+    const { db } = await import("@/lib/db");
+    const all = await db.anime.findMany({ orderBy: { popularity: "asc" } });
     const airing = all.filter((a: any) => a.status === "Currently Airing");
 
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
