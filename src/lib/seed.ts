@@ -47,6 +47,7 @@ export const SEED_ANIME: SeedAnime[] = [
     trailer: "27OZc-ku6is", type: "TV", status: "Finished Airing", score: 9.07, scoredBy: 1528717, rank: 5, popularity: 14, members: 2829293,
     year: 2011, season: "spring", genres: ["Drama", "Sci-Fi", "Suspense"], studios: ["White Fox"],
     episodeCount: 24, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Visual novel", isFeatured: true,
+    localSubtitlePattern: "/subtitles/9253_e{ep}.vtt",
     episodeSources: [
       // Japanese audio (sub) — Anitsu-Avalon BD 1080p dual-audio (verified Japanese via ASR)
       // No burned-in subtitles, clean video. Each episode has a unique hash in the filename.
