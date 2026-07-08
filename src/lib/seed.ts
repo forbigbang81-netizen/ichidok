@@ -48,9 +48,10 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2011, season: "spring", genres: ["Drama", "Sci-Fi", "Suspense"], studios: ["White Fox"],
     episodeCount: 24, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Visual novel", isFeatured: true,
     episodeSources: [
-      { startEp: 1, endEp: 21, collection: "steinsgate_1.130209", fileTemplate: "Steins;Gate_-_{ep:02}_-Blu-Ray.mp4", audio: "sub" },
-      { startEp: 22, endEp: 24, collection: "steins-gte", fileTemplate: "{ep}.mp4", audio: "sub" },
-    ],
+      // Japanese audio with English subs — anime-time-steins-gate (1080p, 24 eps + OVA)
+      // The previous source (steinsgate_1.130209) was Portuguese subs, not English.
+      { startEp: 1, endEp: 24, collection: "anime-time-steins-gate", fileTemplate: "[Anime Time] Steins;Gate - {ep:02}.mp4", audio: "sub" },
+    ], hasSub: true,
   },
   // Bleach TYBW
   { malId: 41467, title: "Bleach: Thousand-Year Blood War", titleEnglish: "Bleach: Thousand-Year Blood War", titleJapanese: "BLEACH 千年血戦篇",
@@ -282,7 +283,22 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2022, season: "fall", genres: ["Action", "Sci-Fi"], studios: ["Trigger"],
     episodeCount: 10, duration: "25 min per ep", rating: "R+ - Mild Nudity", source: "Game", isFeatured: true,
     episodeSources: [
-      { startEp: 1, endEp: 10, collection: "1-cybpnk", fileTemplate: "Cyberpunk.Edgerunners.S01E{ep:02}.mp4", audio: "sub" },
+      // Japanese audio (sub) — Dropbox 1080p BD (CRUCiBLE release, user-provided)
+      {
+        startEp: 1, endEp: 10, collection: "dropbox", audio: "sub", episodeFiles: {
+          1: "https://www.dropbox.com/scl/fi/c53bt9g47lpvcah1yksbp/AnimePahe_Cyberpunk_-_Edgerunners_-_01_BD_1080p_CRUCiBLE-1.mp4?rlkey=m96xrml2rlcw9h3hgl6p25dux&st=stqpoj22&dl=1",
+          2: "https://www.dropbox.com/scl/fi/nzw6fssdimp9vss0xvhgf/AnimePahe_Cyberpunk_-_Edgerunners_-_02_BD_1080p_CRUCiBLE.mp4?rlkey=uny7nfvbpvvysx13shq6pg76y&st=ovtraqve&dl=1",
+          3: "https://www.dropbox.com/scl/fi/lh3pjhfei98a3gkhy9idv/AnimePahe_Cyberpunk_-_Edgerunners_-_03_BD_1080p_CRUCiBLE.mp4?rlkey=udpbpywjxr6sjkigeiw3vsd8l&st=ffdd31vw&dl=1",
+          4: "https://www.dropbox.com/scl/fi/5od1rhazwbr1gecpt2xib/AnimePahe_Cyberpunk_-_Edgerunners_-_04_BD_1080p_CRUCiBLE.mp4?rlkey=kjt329k2pd9lymwzwfpqvkyi3&st=d6921ztx&dl=1",
+          5: "https://www.dropbox.com/scl/fi/uujlpdizafvdxy7pop5dv/AnimePahe_Cyberpunk_-_Edgerunners_-_05_BD_1080p_CRUCiBLE.mp4?rlkey=mpohu5y3ark7dinamiv14c4d3&st=ht0lh9iy&dl=1",
+          6: "https://www.dropbox.com/scl/fi/ve5ixwc8ebhdvvyfu2q82/AnimePahe_Cyberpunk_-_Edgerunners_-_06_BD_1080p_CRUCiBLE.mp4?rlkey=7y6ex9aqc3olccewxuwm6sfto&st=r2oll6dq&dl=1",
+          7: "https://www.dropbox.com/scl/fi/xct66znf3hhxdg5evb8jk/AnimePahe_Cyberpunk_-_Edgerunners_-_07_BD_1080p_CRUCiBLE.mp4?rlkey=byass9geoz0na25mx4llc9x4k&st=lvbf284n&dl=1",
+          8: "https://www.dropbox.com/scl/fi/37fyp4qrdeq54p3zfl11b/AnimePahe_Cyberpunk_-_Edgerunners_-_08_BD_1080p_CRUCiBLE.mp4?rlkey=6f2p3tl8quereiwkk3pkz53s3&st=93vy1o64&dl=1",
+          9: "https://www.dropbox.com/scl/fi/k8n2ydgvylkjsf50mfrjf/AnimePahe_Cyberpunk_-_Edgerunners_-_09_BD_1080p_CRUCiBLE.mp4?rlkey=w0j16mypm8ph47xw08g3rh6kc&st=c9t1ypry&dl=1",
+          10: "https://www.dropbox.com/scl/fi/g7izzb2ceefuyk392pyuh/AnimePahe_Cyberpunk_-_Edgerunners_-_10_BD_1080p_CRUCiBLE.mp4?rlkey=ibhxfe21nt2nhuibq2jseyow8&st=kpm4igzt&dl=1",
+        },
+      },
+      // English dub — archive.org CyberpunkEdge collection
       { startEp: 1, endEp: 1, collection: "CyberpunkEdge", fileName: "S01-E01 - Let You Down.mp4", audio: "dub" },
       { startEp: 2, endEp: 2, collection: "CyberpunkEdge", fileName: "S01-E02 - Like A Boy.mp4", audio: "dub" },
       { startEp: 3, endEp: 3, collection: "CyberpunkEdge", fileName: "S01-E03 - Smooth Criminal.mp4", audio: "dub" },
@@ -293,7 +309,7 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 8, endEp: 8, collection: "CyberpunkEdge", fileName: "S01-E08 - Stay.mp4", audio: "dub" },
       { startEp: 9, endEp: 9, collection: "CyberpunkEdge", fileName: "S01-E09 - Humanity.mp4", audio: "dub" },
       { startEp: 10, endEp: 10, collection: "CyberpunkEdge", fileName: "S01-E10 - My Moon My Man.mp4", audio: "dub" },
-    ], hasDub: true,
+    ], hasSub: true, hasDub: true,
   },
   // NGE
   { malId: 30, title: "Neon Genesis Evangelion", titleEnglish: "Neon Genesis Evangelion", titleJapanese: "新世紀エヴァンゲリオン",
