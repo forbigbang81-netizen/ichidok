@@ -328,17 +328,21 @@ export const SEED_ANIME: SeedAnime[] = [
           10: "https://www.dropbox.com/scl/fi/g7izzb2ceefuyk392pyuh/AnimePahe_Cyberpunk_-_Edgerunners_-_10_BD_1080p_CRUCiBLE.mp4?rlkey=ibhxfe21nt2nhuibq2jseyow8&st=kpm4igzt&dl=1",
         },
       },
-      // English dub — archive.org CyberpunkEdge collection
-      { startEp: 1, endEp: 1, collection: "CyberpunkEdge", fileName: "S01-E01 - Let You Down.mp4", audio: "dub" },
-      { startEp: 2, endEp: 2, collection: "CyberpunkEdge", fileName: "S01-E02 - Like A Boy.mp4", audio: "dub" },
-      { startEp: 3, endEp: 3, collection: "CyberpunkEdge", fileName: "S01-E03 - Smooth Criminal.mp4", audio: "dub" },
-      { startEp: 4, endEp: 4, collection: "CyberpunkEdge", fileName: "S01-E04 - Lucky You.mp4", audio: "dub" },
-      { startEp: 5, endEp: 5, collection: "CyberpunkEdge", fileName: "S01-E05 - All Eyez On Me.mp4", audio: "dub" },
-      { startEp: 6, endEp: 6, collection: "CyberpunkEdge", fileName: "S01-E06 - Girl On Fire.mp4", audio: "dub" },
-      { startEp: 7, endEp: 7, collection: "CyberpunkEdge", fileName: "S01-E07 - Stronger.mp4", audio: "dub" },
-      { startEp: 8, endEp: 8, collection: "CyberpunkEdge", fileName: "S01-E08 - Stay.mp4", audio: "dub" },
-      { startEp: 9, endEp: 9, collection: "CyberpunkEdge", fileName: "S01-E09 - Humanity.mp4", audio: "dub" },
-      { startEp: 10, endEp: 10, collection: "CyberpunkEdge", fileName: "S01-E10 - My Moon My Man.mp4", audio: "dub" },
+      // English dub — Dropbox 1080p BD (CRUCiBLE release, user-provided)
+      {
+        startEp: 1, endEp: 10, collection: "dropbox", audio: "dub", episodeFiles: {
+          1: "https://www.dropbox.com/scl/fi/9f39k0yo77i4n5vvcij4i/AnimePahe_Cyberpunk_-_Edgerunners_Eng_Dub_-_01_BD_1080p_CRUCiBLE-1.mp4?rlkey=r328t61uukg3b3z3kvzdv1tab&st=c8hbex1n&dl=1",
+          2: "https://www.dropbox.com/scl/fi/mshblu4wewefp1trpjv39/AnimePahe_Cyberpunk_-_Edgerunners_Eng_Dub_-_02_BD_1080p_CRUCiBLE.mp4?rlkey=mnew8mmizfusyuyqllf2tixsk&st=h69ob9or&dl=1",
+          3: "https://www.dropbox.com/scl/fi/j8pxltp8jz6ot55cf5yrh/AnimePahe_Cyberpunk_-_Edgerunners_Eng_Dub_-_03_BD_1080p_CRUCiBLE.mp4?rlkey=ug4gc1am0xo7z9hn37g08jgfc&st=x9sze55y&dl=1",
+          4: "https://www.dropbox.com/scl/fi/mfmjpzrde9puy7m5z54g3/AnimePahe_Cyberpunk_-_Edgerunners_Eng_Dub_-_04_BD_1080p_CRUCiBLE.mp4?rlkey=m4lc1l3iwom6zuoqfvkmf4bx8&st=bancgvg5&dl=1",
+          5: "https://www.dropbox.com/scl/fi/nehwgv3yzlp5aylqv7dbc/AnimePahe_Cyberpunk_-_Edgerunners_Eng_Dub_-_05_BD_1080p_CRUCiBLE.mp4?rlkey=b4qmmqdhy1q0eerr5otw3v210&st=bxk2devx&dl=1",
+          6: "https://www.dropbox.com/scl/fi/knzq6o7bx7zvmy32fvavz/animepahe_cyberpunk_-_edgerunners_eng_dub_-_06_bd_1080p_crucible.mp4?rlkey=7i7pfz5e2t6mwy6g2pi0z1rup&st=89f7168p&dl=1",
+          7: "https://www.dropbox.com/scl/fi/o735stb63mq9abib17n4x/AnimePahe_Cyberpunk_-_Edgerunners_Eng_Dub_-_07_BD_1080p_CRUCiBLE.mp4?rlkey=ev09ie7dp1n3tuc1uuj4gah0u&st=yqxaddxh&dl=1",
+          8: "https://www.dropbox.com/scl/fi/twz7fs4e610oinszg55qv/AnimePahe_Cyberpunk_-_Edgerunners_Eng_Dub_-_08_BD_1080p_CRUCiBLE.mp4?rlkey=0ioxsilycj4z275ou7fsns4al&st=icxgc28r&dl=1",
+          9: "https://www.dropbox.com/scl/fi/02c9kkp6rfh5gtrv3cl17/AnimePahe_Cyberpunk_-_Edgerunners_Eng_Dub_-_09_BD_1080p_CRUCiBLE.mp4?rlkey=rkd306rt2nbt5hjgungekfgvp&st=oowbpb4x&dl=1",
+          10: "https://www.dropbox.com/scl/fi/qaj50oxa9h2ggctg0jolu/AnimePahe_Cyberpunk_-_Edgerunners_Eng_Dub_-_10_BD_1080p_CRUCiBLE.mp4?rlkey=tqk4rnbv6nb3fleqr1dg9sgat&st=vrzbfcn7&dl=1",
+        },
+      },
     ], hasSub: true, hasDub: true,
   },
   // NGE
