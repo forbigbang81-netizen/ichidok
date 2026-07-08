@@ -1155,16 +1155,6 @@ export function VideoPlayer({
             <ArrowLeft className="h-5 w-5" />
           </button>
         )}
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            onBack?.();
-          }}
-          className="text-sm font-medium text-white/80 transition-colors active:text-white"
-        >
-          Details
-        </button>
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-medium text-white">
             {title ?? "Now Playing"}

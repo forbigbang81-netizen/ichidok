@@ -88,7 +88,7 @@ export const SEED_ANIME: SeedAnime[] = [
   },
   // Bleach TYBW Calamity (upcoming — July 2026)
   { malId: 60636, title: "Bleach: Thousand-Year Blood War - The Calamity", titleEnglish: "Bleach: Thousand-Year Blood War - The Calamity", titleJapanese: "BLEACH 千年血戦篇-禍相譚-",
-    synopsis: "The final part of the Thousand-Year Blood War arc. Ichigo and his allies face Yhwach and the Quincy in their last battle.", poster: "/posters/bleach-tybw-cal.jpg", banner: "/posters/bleach-tybw-cal.jpg",
+    synopsis: "The final part of the Thousand-Year Blood War arc. Ichigo and his allies face Yhwach and the Quincy in their last battle.", poster: "/posters/bleach-tybw-cal-tv.jpg", banner: "/posters/bleach-tybw-cal-tv.jpg",
     type: "TV", status: "Not yet aired", score: 0, scoredBy: 0, rank: 0, popularity: 380, members: 23456,
     year: 2026, season: "summer", genres: ["Action", "Adventure", "Supernatural"], studios: ["Pierrot Films"],
     episodeCount: 12, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true, episodeSources: [],
@@ -1085,8 +1085,34 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2000, season: "fall", genres: ["Comedy", "Horror", "Supernatural"], studios: ["Studio Pierrot"],
     episodeCount: 20, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Original", isFeatured: true,
     episodeSources: [
-      // English dub — 1080p from ghost-stories- collection
-      { startEp: 1, endEp: 20, collection: "ghost-stories-", fileTemplate: "Ghost Stories - S01E{ep:02}.mp4", audio: "dub" },
+      // English dub — ADV collection (1080p, works for eps 1-8, 10-20)
+      // ghost-stories- collection returns 500 for most episodes now.
+      // ep9 falls through to ghost-stories- as fallback.
+      {
+        startEp: 1, endEp: 20, collection: "ghost-stories-ADV", audio: "dub", episodeFiles: {
+          1: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 01 (35060C64).mp4",
+          2: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 02 (587DEF92).mp4",
+          3: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 03 (0327D1BD).mp4",
+          4: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 04 (5CC7BCB1).mp4",
+          5: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 05 (F590D623).mp4",
+          6: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 06 (6DA15E06).mp4",
+          7: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 07 (2F37D6D6).mp4",
+          8: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 08 (9AF097B2).mp4",
+          10: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 10 (9FA7DCC0).mp4",
+          11: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 11 (3B38E277).mp4",
+          12: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 12 (ABE40789).mp4",
+          13: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 13 (3961BF86).mp4",
+          14: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 14 (C90ECDEE).mp4",
+          15: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 15 (5CDEE988).mp4",
+          16: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 16 (F641519C).mp4",
+          17: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 17 (F23D49EB).mp4",
+          18: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 18 (0C9A9C8E).mp4",
+          19: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 19 (00940539).mp4",
+          20: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 20 (F6CEA932).mp4",
+        },
+      },
+      // Fallback for ep9 (ADV returns 500 for this one)
+      { startEp: 9, endEp: 9, collection: "ghost-stories-", fileName: "Ghost Stories - S01E09.mp4", audio: "dub" },
       // Japanese audio (sub) — Dropbox 480p DVD (Exiled-Destiny, user-provided)
       // Eps 1-19 available; ep 20 falls through to dub.
       {
@@ -1361,7 +1387,7 @@ export const TOP_10_DECADE: { malId: number; title: string; year: number; score:
   { malId: 55311, title: "Umamusume: Pretty Derby - Beginning of a New Era", year: 2024, score: 7.65, poster: "/posters/umamusume-movie.jpg", rank: 4 },
   { malId: -3, title: "Umamusume: Pretty Derby Specials", year: 2018, score: 7.20, poster: "/posters/umamusume-specials.jpg", rank: 5 },
   { malId: 57658, title: "Jujutsu Kaisen: Culling Game", year: 2026, score: 8.61, poster: "https://cdn.myanimelist.net/images/anime/1659/154920l.jpg", rank: 6 },
-  { malId: 60636, title: "Bleach: Thousand-Year Blood War - The Calamity", year: 2026, score: 0, poster: "/posters/bleach-tybw-cal.jpg", rank: 7 },
+  { malId: 60636, title: "Bleach: Thousand-Year Blood War - The Calamity", year: 2026, score: 0, poster: "/posters/bleach-tybw-cal-tv.jpg", rank: 7 },
   { malId: 30240, title: "Prison School (Uncensored)", year: 2015, score: 7.58, poster: "https://cdn.myanimelist.net/images/anime/1286/112161l.jpg", rank: 8 },
   { malId: 33, title: "Berserk", year: 1997, score: 8.61, poster: "https://cdn.myanimelist.net/images/anime/1384/119988l.jpg", rank: 9 },
   { malId: 1, title: "Cowboy Bebop", year: 1998, score: 8.75, poster: "https://cdn.myanimelist.net/images/anime/4/19644l.jpg", rank: 10 },
