@@ -55,7 +55,7 @@ export async function GET(request: Request) {
     await ensureSeeded();
     const now = new Date();
 
-    // Get all anime from the DB using a raw SQL query to avoid ORM issues
+    // Get all anime (v2) from the DB using a raw SQL query to avoid ORM issues
     const { createClient } = await import("@libsql/client");
     const libsql = createClient({
       url: process.env.DATABASE_URL!,
