@@ -119,7 +119,10 @@ export function parseVtt(text: string): SubtitleCue[] {
     const start = timeToSeconds(m[1]);
     const end = timeToSeconds(m[2]);
     const cueText = lines.slice(textStart).join("\n").replace(/<[^>]+>/g, "");
-    if (cueText.trim()) cues.push({ start, end, text: cueText });
+    // Filter out OpenSubtitles promo text
+    if (cueText.trim() && !/opensubtitles|do you want subtitles/i.test(cueText)) {
+      cues.push({ start, end, text: cueText });
+    }
   }
   return cues.sort((a, b) => a.start - b.start);
 }
@@ -817,16 +820,6 @@ export function VideoPlayer({
   // Fullscreen mirror — applied to BOTH the video and every overlay.
   const mirrorStyle = undefined; // Removed fullscreen flip — was causing upside-down video
 
-  // ----- Keyboard-shortcut hint: show once on first ready, then auto-hide -----
-  useEffect(() => {
-    if (hintShownRef.current) return;
-    if (loading || error || !videoUrl || isYoutube) return;
-    hintShownRef.current = true;
-    setShowKbHint(true);
-    const t = setTimeout(() => setShowKbHint(false), KB_HINT_AUTOHIDE_MS);
-    return () => clearTimeout(t);
-  }, [loading, error, videoUrl, isYoutube]);
-
   // ----- YouTube iframe branch -----
   if (isYoutube && videoUrl) {
     const ytId = (() => {
@@ -1002,45 +995,6 @@ export function VideoPlayer({
         </div>
       )}
 
-      {/* ===== Keyboard shortcuts hint ===== */}
-      {showKbHint && !loading && !error && videoUrl && (
-        <div
-          className="pointer-events-none absolute left-1/2 top-12 z-40 w-[92%] max-w-md -translate-x-1/2 fade-in"
-          style={{ transform: mirrorStyle ? `translateX(-50%) scaleX(-1)` : "translateX(-50%)" }}
-        >
-          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-lg bg-black/80 px-3 py-2 text-[10px] text-white/80">
-            <span className="font-bold uppercase tracking-wider text-[#f5c518]">
-              Shortcuts
-            </span>
-            <span className="flex items-center gap-1">
-              <Kbd>Space</Kbd> Play
-            </span>
-            <span className="flex items-center gap-1">
-              <Kbd>←</Kbd>
-              <Kbd>→</Kbd> Seek
-            </span>
-            <span className="flex items-center gap-1">
-              <Kbd>↑</Kbd>
-              <Kbd>↓</Kbd> Vol
-            </span>
-            <span className="flex items-center gap-1">
-              <Kbd>F</Kbd> Full
-            </span>
-            <span className="flex items-center gap-1">
-              <Kbd>M</Kbd> Mute
-            </span>
-            <span className="flex items-center gap-1">
-              <Kbd>C</Kbd> CC
-            </span>
-            <span className="flex items-center gap-1">
-              <Kbd>⇧</Kbd>
-              <Kbd>&lt;</Kbd>
-              <Kbd>&gt;</Kbd> Sub sync
-            </span>
-          </div>
-        </div>
-      )}
-
       {/* ===== Volume HUD ===== */}
       {showVolumeHud && (
         <div
@@ -1093,7 +1047,7 @@ export function VideoPlayer({
       {/* ===== Custom subtitle overlay ===== */}
       {showSubtitles && activeCue && (
         <div
-          className="pointer-events-none absolute inset-x-0 bottom-20 z-20 flex justify-center px-4"
+          className="pointer-events-none absolute inset-x-0 bottom-4 z-20 flex justify-center px-4"
           style={{ transform: mirrorStyle }}
         >
           <span
@@ -1119,7 +1073,7 @@ export function VideoPlayer({
         !loading &&
         videoUrl && (
           <div
-            className="pointer-events-none absolute inset-x-0 bottom-20 z-20 flex justify-center px-4"
+            className="pointer-events-none absolute inset-x-0 bottom-4 z-20 flex justify-center px-4"
             style={{ transform: mirrorStyle }}
           >
             <span className="rounded bg-black/70 px-3 py-1 text-center text-xs font-medium text-white">
