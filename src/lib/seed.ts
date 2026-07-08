@@ -48,9 +48,36 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2011, season: "spring", genres: ["Drama", "Sci-Fi", "Suspense"], studios: ["White Fox"],
     episodeCount: 24, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Visual novel", isFeatured: true,
     episodeSources: [
-      // Japanese audio (sub) — 3asq Upload Team BluRay 1080p (verified Japanese via ASR)
-      // eps 1-12, 15-24 are 1080p; eps 13-14 are 720p. All 24 episodes + 1 special.
-      { startEp: 1, endEp: 24, collection: "3asquploadteamsteinsgatebluray1080p", fileTemplate: "[3asq upload team] Steins;Gate - {ep:02} [BluRay-1080p].mp4", audio: "sub" },
+      // Japanese audio (sub) — Anitsu-Avalon BD 1080p dual-audio (verified Japanese via ASR)
+      // No burned-in subtitles, clean video. Each episode has a unique hash in the filename.
+      {
+        startEp: 1, endEp: 24, collection: "steins-gate_pt-br_dual-audio", audio: "sub", episodeFiles: {
+          1: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 01 [BD 1080p x264 Opus] [DUAL][7F27EECD].mp4",
+          2: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 02 [BD 1080p x264 Opus] [DUAL][BE49F56E].mp4",
+          3: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 03 [BD 1080p x264 Opus] [DUAL][03866CA0].mp4",
+          4: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 04 [BD 1080p x264 Opus] [DUAL][FDFE6A93].mp4",
+          5: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 05 [BD 1080p x264 Opus] [DUAL][67AEB7CA].mp4",
+          6: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 06 [BD 1080p x264 Opus] [DUAL][7F0361EE].mp4",
+          7: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 07 [BD 1080p x264 Opus] [DUAL][7F58F97D].mp4",
+          8: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 08 [BD 1080p x264 Opus] [DUAL][A49EE743].mp4",
+          9: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 09 [BD 1080p x264 Opus] [DUAL][49C8DC59].mp4",
+          10: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 10 [BD 1080p x264 Opus] [DUAL][B6C55BD3].mp4",
+          11: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 11 [BD 1080p x264 Opus] [DUAL][EAB6C83D].mp4",
+          12: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 12 [BD 1080p x264 Opus] [DUAL][E6326228].mp4",
+          13: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 13 [BD 1080p x264 Opus] [DUAL][5F58AECC].mp4",
+          14: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 14 [BD 1080p x264 Opus] [DUAL][791F0B78].mp4",
+          15: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 15 [BD 1080p x264 Opus] [DUAL][2D3CDE26].mp4",
+          16: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 16 [BD 1080p x264 Opus] [DUAL][DD5B5CD6].mp4",
+          17: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 17 [BD 1080p x264 Opus] [DUAL][22AC96B4].mp4",
+          18: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 18 [BD 1080p x264 Opus] [DUAL][4A5527AB].mp4",
+          19: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 19 [BD 1080p x264 Opus] [DUAL][2D6104DC].mp4",
+          20: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 20 [BD 1080p x264 Opus] [DUAL][468D9E71].mp4",
+          21: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 21 [BD 1080p x264 Opus] [DUAL][2D08F4CB].mp4",
+          22: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 22 [BD 1080p x264 Opus] [DUAL][E8A3C9E0].mp4",
+          23: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 23 [BD 1080p x264 Opus] [DUAL][32C40AE8].mp4",
+          24: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 24 [BD 1080p x264 Opus] [DUAL][884507A7].mp4",
+        },
+      },
       // English dub — anime-time-steins-gate collection (verified English via ASR)
       { startEp: 1, endEp: 24, collection: "anime-time-steins-gate", fileTemplate: "[Anime Time] Steins;Gate - {ep:02}.mp4", audio: "dub" },
     ], hasSub: true, hasDub: true,
