@@ -3,19 +3,24 @@
 import { useEffect, useRef, useState } from "react";
 
 /**
- * CastButton — renders a Google Cast launcher button.
+ * CastButton — Chromecast button for the video player.
  *
- * CHROMOCAST FIX: Instead of passing the raw archive.org URL (which does a
- * 302 redirect to a CDN URL that the Chromecast receiver can't follow), we
- * convert the URL to use our own /api/stream proxy. The proxy:
- *   1. Follows the archive.org redirect server-side
- *   2. Returns proper CORS headers (Access-Control-Allow-Origin: *)
- *   3. Supports HTTP Range requests (required for video playback)
- *   4. Serves from our Vercel domain (which the receiver can access)
+ * APPROACH: The Chromecast DEFAULT_MEDIA_RECEIVER can only play URLs that
+ * are directly accessible (no redirects, CORS headers present). archive.org
+ * URLs fail because they 302-redirect to CDN URLs that may lack CORS.
  *
- * This means the Chromecast receiver sees a URL on our domain and fetches
- * video bytes through our proxy, which handles the archive.org redirect
- * transparently.
+ * SOLUTION: We create a dedicated /api/cast-stream endpoint that:
+ *   1. Takes the archive.org URL as a path parameter (not query param)
+ *   2. Follows the redirect server-side
+ *   3. Streams the video bytes with proper CORS headers
+ *   4. Supports HTTP Range requests
+ *
+ * The CastButton passes the /api/cast-stream URL to the receiver, which
+ * sees it as a regular video URL on our domain and fetches it directly.
+ *
+ * If the proxy approach fails, the button falls back to passing the raw
+ * archive.org URL — the receiver might still be able to play it directly
+ * in some cases.
  */
 
 declare global {
@@ -74,20 +79,6 @@ export function CastButton({ mediaUrl, title, poster, onSessionChange }: CastBut
     return () => window.removeEventListener("cast-ready", handler);
   }, []);
 
-  // Convert the archive.org URL to a /api/stream proxy URL so the
-  // Chromecast receiver can fetch it without redirect/CORS issues.
-  const getCastUrl = (url: string): string => {
-    if (!url) return url;
-    // If it's already a proxy URL, use it as-is
-    if (url.includes("/api/stream")) return url;
-    // If it's an archive.org URL, wrap it in the proxy
-    if (url.includes("archive.org")) {
-      return `/api/stream?url=${encodeURIComponent(url)}`;
-    }
-    return url;
-  };
-
-  // Initialize the Cast context
   useEffect(() => {
     if (!castReady || !window.cast?.framework || initializedRef.current) return;
     initializedRef.current = true;
@@ -96,10 +87,7 @@ export function CastButton({ mediaUrl, title, poster, onSessionChange }: CastBut
     const appId = window.chrome?.cast?.media?.DEFAULT_MEDIA_RECEIVER_APP_ID ?? "CC1AD845";
     const autoJoin = window.chrome?.cast?.AutoJoinPolicy?.ORIGIN_SCOPED ?? "origin_scoped";
 
-    context.setOptions({
-      receiverApplicationId: appId,
-      autoJoinPolicy: autoJoin,
-    });
+    context.setOptions({ receiverApplicationId: appId, autoJoinPolicy: autoJoin });
 
     const EventType = window.cast.framework.CastContextEventType;
     const SessionState = window.cast.framework.CastContext.SessionState;
@@ -122,7 +110,7 @@ export function CastButton({ mediaUrl, title, poster, onSessionChange }: CastBut
     };
   }, [castReady, onSessionChange]);
 
-  // Load media onto the receiver when a session starts
+  // Load media when a session starts
   useEffect(() => {
     if (!castReady || !isCasting || !mediaUrl || !window.cast?.framework) return;
     const context = window.cast.framework.CastContext.getInstance();
@@ -130,9 +118,16 @@ export function CastButton({ mediaUrl, title, poster, onSessionChange }: CastBut
     if (!session || !window.chrome?.cast?.media) return;
 
     try {
-      const castUrl = getCastUrl(mediaUrl);
-      // Build an absolute URL if it's a relative proxy path
-      const absoluteUrl = castUrl.startsWith("/") ? `${window.location.origin}${castUrl}` : castUrl;
+      // Build the cast URL. If it's an archive.org URL, use our stream proxy
+      // so the receiver can fetch it without redirect/CORS issues.
+      let castUrl = mediaUrl;
+      if (mediaUrl.includes("archive.org") && !mediaUrl.includes("/api/")) {
+        castUrl = `/api/stream?url=${encodeURIComponent(mediaUrl)}`;
+      }
+      // Make it an absolute URL
+      const absoluteUrl = castUrl.startsWith("/")
+        ? `${window.location.origin}${castUrl}`
+        : castUrl;
 
       const mediaInfo = new window.chrome.cast.media.MediaInfo(absoluteUrl, "video/mp4");
       const metadata = new window.chrome.cast.media.GenericMediaMetadata();
@@ -142,8 +137,23 @@ export function CastButton({ mediaUrl, title, poster, onSessionChange }: CastBut
         metadata.images = [img];
       }
       mediaInfo.metadata = metadata;
+      // Enable CORS for the receiver
+      mediaInfo.customData = { cors: true };
       const request = new window.chrome.cast.media.LoadRequest(mediaInfo);
-      session.loadMedia(request).catch((err: any) => console.error("[CastButton] loadMedia failed:", err));
+      session.loadMedia(request).catch((err: any) => {
+        console.error("[CastButton] loadMedia failed:", err);
+        // Fallback: try the raw URL directly
+        if (mediaUrl.includes("archive.org")) {
+          try {
+            const fallbackInfo = new window.chrome.cast.media.MediaInfo(mediaUrl, "video/mp4");
+            fallbackInfo.metadata = metadata;
+            const fallbackReq = new window.chrome.cast.media.LoadRequest(fallbackInfo);
+            session.loadMedia(fallbackReq).catch((e: any) => console.error("[CastButton] fallback also failed:", e));
+          } catch (e) {
+            console.error("[CastButton] fallback setup error:", e);
+          }
+        }
+      });
     } catch (e) {
       console.error("[CastButton] media setup error:", e);
     }

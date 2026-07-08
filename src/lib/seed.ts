@@ -972,22 +972,21 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2018, season: "spring", genres: ["Comedy", "Sports", "Drama"], studios: ["P.A. Works"],
     episodeCount: 13, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Game", isFeatured: true,
     episodeSources: [
-      // YouTube sources — the YouTube player has built-in Chromecast support
-      // (the cast button appears in the YouTube player controls automatically).
-      // This avoids all archive.org redirect/CORS issues with Chromecast.
-      { startEp: 1, endEp: 1, collection: "youtube", fileName: "PZIy0Ct6KLo", audio: "sub" },
-      { startEp: 2, endEp: 2, collection: "youtube", fileName: "RJ8gqVIiTVA", audio: "sub" },
-      { startEp: 3, endEp: 3, collection: "youtube", fileName: "1enPJIOyguw", audio: "sub" },
-      { startEp: 4, endEp: 4, collection: "youtube", fileName: "oxH6WA6q0rY", audio: "sub" },
-      { startEp: 5, endEp: 5, collection: "youtube", fileName: "JHzJNmOKtc4", audio: "sub" },
-      { startEp: 6, endEp: 6, collection: "youtube", fileName: "nFT_ronuTqU", audio: "sub" },
-      { startEp: 7, endEp: 7, collection: "youtube", fileName: "Dr_4U4boKzE", audio: "sub" },
-      { startEp: 8, endEp: 8, collection: "youtube", fileName: "z8g06k_LIFM", audio: "sub" },
-      { startEp: 9, endEp: 9, collection: "youtube", fileName: "Ug8OjRpDspI", audio: "sub" },
-      { startEp: 10, endEp: 10, collection: "youtube", fileName: "sh1Zz52lz4I", audio: "sub" },
-      { startEp: 11, endEp: 11, collection: "youtube", fileName: "J-97OqTvr-k", audio: "sub" },
-      { startEp: 12, endEp: 12, collection: "youtube", fileName: "zcbS6RQIjq8", audio: "sub" },
-      { startEp: 13, endEp: 13, collection: "youtube", fileName: "4KfcB097aVo", audio: "sub" },
+      { startEp: 1, endEp: 13, collection: "uma-musume-s1-engsub", audio: "sub", episodeFiles: {
+        1: "[Okay-Subs] Uma Musume Pretty Derby - 01v2 (BD 1080p) [3C967D27].mp4",
+        2: "[Okay-Subs] Uma Musume Pretty Derby - 02v2 (BD 1080p) [1A81FD14].mp4",
+        3: "[Okay-Subs] Uma Musume Pretty Derby - 03v2 (BD 1080p) [C0D18371].mp4",
+        4: "[Okay-Subs] Uma Musume Pretty Derby - 04v2 (BD 1080p) [1E8710CA].mp4",
+        5: "[Okay-Subs] Uma Musume Pretty Derby - 05v2 (BD 1080p) [63B1AB7F].mp4",
+        6: "[Okay-Subs] Uma Musume Pretty Derby - 06v2 (BD 1080p) [28F1A8FD].mp4",
+        7: "[Okay-Subs] Uma Musume Pretty Derby - 07v2 (BD 1080p) [6D4CAF3A].mp4",
+        8: "[Okay-Subs] Uma Musume Pretty Derby - 08v2 (BD 1080p) [DABDB3AE].mp4",
+        9: "[Okay-Subs] Uma Musume Pretty Derby - 09v2 (BD 1080p) [153A9BC9].mp4",
+        10: "[Okay-Subs] Uma Musume Pretty Derby - 10v2 (BD 1080p) [54770AF4].mp4",
+        11: "[Okay-Subs] Uma Musume Pretty Derby - 11v2 (BD 1080p) [79B7244E].mp4",
+        12: "[Okay-Subs] Uma Musume Pretty Derby - 12v2 (BD 1080p) [E97733B4].mp4",
+        13: "[Okay-Subs] Uma Musume Pretty Derby - 13v2 (BD 1080p) [7F3DFF65].mp4",
+      }},
     ], hasSub: true, localSubtitlePattern: "/subtitles/35349_e{ep}.vtt",
   },
   // Uma Musume S2
