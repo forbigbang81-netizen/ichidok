@@ -133,9 +133,28 @@ export const SEED_ANIME: SeedAnime[] = [
     trailer: "e8YBesRKq_U", type: "TV", status: "Finished Airing", score: 8.98, scoredBy: 387868, rank: 15, popularity: 332, members: 715955,
     year: 2022, season: "fall", genres: ["Action", "Adventure", "Supernatural"], studios: ["Studio Pierrot"],
     episodeCount: 13, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    localSubtitlePattern: "/subtitles/41467_e{ep}.vtt",
+    // SUB: Japanese TV broadcast (720p, JP audio, ASR-verified). E12-13 are
+    // combined in one file — both map to the same combined video.
+    // DUB: existing English dub from BleachTYBW1-28 (480p).
     episodeSources: [
+      { startEp: 1, endEp: 13, collection: "bleach-sennen-kessen-hen-part-1-Japanese-TV", audio: "sub", episodeFiles: {
+        1: "BLEACH Sennen Kessen-hen - 01 (TVA 1280х720 x264 AAC).mp4",
+        2: "BLEACH Sennen Kessen-hen - 02 (TVA 1280х720 x264 AAC).mp4",
+        3: "BLEACH Sennen Kessen-hen - 03 (TSC 1280х720 x264 AAC).mp4",
+        4: "BLEACH Sennen Kessen-hen - 04 (TVA 1280х720 x264 AAC).mp4",
+        5: "BLEACH Sennen Kessen-hen - 05 (TSC 1280х720 x264 AAC).mp4",
+        6: "BLEACH Sennen Kessen-hen - 06 (TSC 1280х720 x264 AAC).mp4",
+        7: "BLEACH Sennen Kessen-hen - 07 (BS-TX 1280х720 x264 AAC).mp4",
+        8: "BLEACH Sennen Kessen-hen - 08 (BS-TX 1280x720 x264 AAC).mp4",
+        9: "BLEACH Sennen Kessen-hen - 09 (TX 1280x720 x264 AAC).mp4",
+        10: "BLEACH Sennen Kessen-hen - 10 (TX 1280x720 x264 AAC).mp4",
+        11: "BLEACH Sennen Kessen-hen - 11 (TX 1280x720 x264 AAC).mp4",
+        12: "BLEACH Sennen Kessen-hen - 12-13 END (BS-TX 1280x720 x264 AAC).mp4",
+        13: "BLEACH Sennen Kessen-hen - 12-13 END (BS-TX 1280x720 x264 AAC).mp4",
+      } },
       { startEp: 1, endEp: 13, collection: "BleachTYBW1-28", fileTemplate: "Bleach TYBW Episode 00{ep:02}.mp4", audio: "dub" },
-    ], hasDub: true,
+    ], hasSub: true, hasDub: true,
   },
   // Bleach TYBW Separation
   { malId: 53998, title: "Bleach: Thousand-Year Blood War - The Separation", titleEnglish: "Bleach: Thousand-Year Blood War - The Separation", titleJapanese: "BLEACH 千年血戦篇-訣別譚-",
@@ -144,9 +163,27 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.7, scoredBy: 234567, rank: 115, popularity: 250, members: 456789,
     year: 2023, season: "summer", genres: ["Action", "Adventure", "Supernatural"], studios: ["Studio Pierrot"],
     episodeCount: 13, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga",
+    localSubtitlePattern: "/subtitles/53998_e{ep}.vtt",
+    // SUB: Japanese TV broadcast (720p, JP audio). E12-13 combined.
+    // DUB: existing English dub from BleachTYBW1-28 (global E14-26).
     episodeSources: [
+      { startEp: 1, endEp: 13, collection: "httpsarchive.orgdetailsbleach-sennen-kessen-hen-part-2-japanese-tv", audio: "sub", episodeFiles: {
+        1: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 01 (TX 1280x720 x264 AAC).mp4",
+        2: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 02 (TX 1280x720 x264 AAC).mp4",
+        3: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 03 (TX 1280x720 x264 AAC).mp4",
+        4: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 04 (TX 1280x720 x264 AAC).mp4",
+        5: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 05 (TX 1280x720 x264 AAC).mp4",
+        6: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 06 (TX 1280x720 x264 AAC).mp4",
+        7: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 07 (BS-TX 1280x720 x264 AAC).mp4",
+        8: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 08 (TX 1280x720 x264 AAC).mp4",
+        9: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 09 (TX 1280x720 x264 AAC).mp4",
+        10: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 10 (TX 1280x720 x264 AAC).mp4",
+        11: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 11 (TX 1280x720 x264 AAC).mp4",
+        12: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 12-13 END (TX 1280x720 x264 AAC).mp4",
+        13: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 12-13 END (TX 1280x720 x264 AAC).mp4",
+      } },
       { startEp: 1, endEp: 13, collection: "BleachTYBW1-28", fileTemplate: "Bleach TYBW Episode 00{ep:02}.mp4", audio: "dub" },
-    ], hasDub: true,
+    ], hasSub: true, hasDub: true,
   },
   // Bleach TYBW Conflict (Cour 3)
   { malId: 56784, title: "Bleach: Thousand-Year Blood War - The Conflict", titleEnglish: "Bleach: Thousand-Year Blood War - The Conflict", titleJapanese: "BLEACH 千年血戦篇-相剋譚-",
@@ -155,10 +192,28 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.68, scoredBy: 163936, rank: 74, popularity: 923, members: 306368,
     year: 2024, season: "fall", genres: ["Action", "Adventure", "Supernatural"], studios: ["Pierrot Films"],
     episodeCount: 14, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga",
+    localSubtitlePattern: "/subtitles/56784_e{ep}.vtt",
+    // SUB: Japanese TV broadcast (720p, JP audio). E13-14 combined.
+    // DUB: existing English dub from BleachTYBW1-28 (global E27-39).
     episodeSources: [
-      { startEp: 1, endEp: 9, collection: "BleachTYBW1-28", fileTemplate: "Bleach TYBW Episode 00{ep:02}.mp4", audio: "dub" },
-      
-    ], hasDub: true,
+      { startEp: 1, endEp: 14, collection: "bleach-sennen-kessen-hen-part-3-japanese-tv-2024", audio: "sub", episodeFiles: {
+        1: "BLEACH Sennen Kessen-hen Soukoku-tan - 01 (TVA 1280x720 x264 AAC).mp4",
+        2: "BLEACH Sennen Kessen-hen Soukoku-tan - 02 (TX 1280x720 x264 AAC).mp4",
+        3: "BLEACH Sennen Kessen-hen Soukoku-tan - 03 (TX 1280x720 x264 AAC).mp4",
+        4: "BLEACH Sennen Kessen-hen Soukoku-tan - 04 (TX 1280x720 x264 AAC).mp4",
+        5: "BLEACH Sennen Kessen-hen Soukoku-tan - 05 (TX 1280x720 x264 AAC).mp4",
+        6: "BLEACH Sennen Kessen-hen Soukoku-tan - 06 (TX 1280x720 x264 AAC).mp4",
+        7: "BLEACH Sennen Kessen-hen Soukoku-tan - 07 (TX 1280x720 x264 AAC).mp4",
+        8: "BLEACH Sennen Kessen-hen Soukoku-tan - 08 (TX 1280x720 x264 AAC).mp4",
+        9: "BLEACH Sennen Kessen-hen Soukoku-tan - 09 (TX 1280x720 x264 AAC).mp4",
+        10: "BLEACH Sennen Kessen-hen Soukoku-tan - 10 (TX 1280x720 x264 AAC).mp4",
+        11: "BLEACH Sennen Kessen-hen Soukoku-tan - 11 (TX 1280x720 x264 AAC).mp4",
+        12: "BLEACH Sennen Kessen-hen Soukoku-tan - 12 (TVA 1280x720 x264 AAC).mp4",
+        13: "BLEACH Sennen Kessen-hen Soukoku-tan - 13-14 END (TVA 1280x720 x264 AAC).mp4",
+        14: "BLEACH Sennen Kessen-hen Soukoku-tan - 13-14 END (TVA 1280x720 x264 AAC).mp4",
+      } },
+      { startEp: 1, endEp: 14, collection: "BleachTYBW1-28", fileTemplate: "Bleach TYBW Episode 00{ep:02}.mp4", audio: "dub" },
+    ], hasSub: true, hasDub: true,
   },
   // Bleach TYBW Calamity (upcoming — July 2026)
   { malId: 60636, title: "Bleach: Thousand-Year Blood War - The Calamity", titleEnglish: "Bleach: Thousand-Year Blood War - The Calamity", titleJapanese: "BLEACH 千年血戦篇-禍相譚-",
