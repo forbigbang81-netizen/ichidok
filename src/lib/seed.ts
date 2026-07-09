@@ -144,7 +144,7 @@ export const SEED_ANIME: SeedAnime[] = [
     episodeCount: 366, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
     episodeSources: [{
       startEp: 1, endEp: 366, collection: "bl35ch-s35s0ns-{season}",
-      fileTemplate: "Bleach Temporada {season}/Bleach (Dub) Episode {seasonEp}.mp4", audio: "dub",
+      fileTemplate: "Bleach Temporada {season}/Bleach (Dub) Episode {ep}.mp4", audio: "dub",
       seasonMap: [
         { startEp: 1, endEp: 20, season: 1 }, { startEp: 21, endEp: 41, season: 2 }, { startEp: 42, endEp: 63, season: 3 },
         { startEp: 64, endEp: 91, season: 4 }, { startEp: 92, endEp: 109, season: 5 }, { startEp: 110, endEp: 131, season: 6 },
