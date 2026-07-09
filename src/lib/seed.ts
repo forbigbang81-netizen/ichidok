@@ -1214,6 +1214,17 @@ export const SEED_ANIME: SeedAnime[] = [
       },
     ], hasSub: true, hasDub: true,
   },
+  // Tomb Raider King (Dogulwang) — Currently airing, sub only
+  { malId: 63316, title: "Tomb Raider King", titleEnglish: "Tomb Raider King", titleJapanese: "도굴왕",
+    synopsis: "Undercover behind enemy lines, Jooheon's newest plan to torment TKBM will involve taking them down from the inside! Stealing their relics and causing infighting is just the tip of the iceberg.",
+    poster: "https://cdn.myanimelist.net/images/anime/1910/158471l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1910/158471l.jpg",
+    type: "TV", status: "Currently Airing", score: 6.80, scoredBy: 430, rank: 0, popularity: 5000, members: 5000,
+    year: 2026, season: "summer", genres: ["Action", "Adventure", "Fantasy"], studios: ["Studio Eek"],
+    episodeCount: 1, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Webtoon", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 1, collection: "tomb-raider-king-watch-anime-online-in-hd-animesuge-1-019942", fileName: "Tomb Raider King – Watch Anime Online in HD _ AnimeSuge (1).mp4", audio: "sub" },
+    ], hasSub: true, noSubtitles: true,
+  },
 ];
 
 /**
