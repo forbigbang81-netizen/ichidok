@@ -207,11 +207,10 @@ export const SEED_ANIME: SeedAnime[] = [
     localSubtitlePattern: "/subtitles/59978_e{ep}.vtt",
     // SUB (Japanese audio): SubsPlease 1080p rips — single-audio Japanese,
     // ASR-verified. All 10 episodes available.
-    // DUB: not yet available on archive.org. S2 aired Jan-Mar 2026 and the
-    // Crunchyroll English dub is still being released; no MP4 collection has
-    // been uploaded to archive.org yet. hasDub=false (player will not show
-    // the DUB toggle until a source is found).
+    // DUB (English dub): Yameii 1080p rips hosted on Dropbox (files numbered
+    // 29-38 corresponding to S2 E1-E10). ASR-verified English audio.
     episodeSources: [
+      // SUB source: SubsPlease 1080p (Japanese audio)
       { startEp: 1, endEp: 10, collection: "sousou-no-frieren_season-2.mkv", audio: "sub", episodeFiles: {
         1: "[SubsPlease] Sousou no Frieren S2 - 01 (1080p) [4277EF46].mkv.mp4",
         2: "[SubsPlease] Sousou no Frieren S2 - 02 (1080p) [03D4DE77].mkv.mp4",
@@ -224,7 +223,20 @@ export const SEED_ANIME: SeedAnime[] = [
         9: "[SubsPlease] Sousou no Frieren S2 - 09 (1080p) [A3A99C65].mkv.mp4",
         10: "[SubsPlease] Sousou no Frieren S2 - 10 (1080p) [7D35515E].mkv.mp4",
       } },
-    ], hasSub: true,
+      // DUB source: Yameii 1080p English dub on Dropbox (file numbers 29-38 = S2 E1-E10)
+      { startEp: 1, endEp: 10, collection: "dropbox", audio: "dub", episodeFiles: {
+        1: "https://www.dropbox.com/scl/fi/shs1lpt404jihoo1bc23y/AnimePahe_Sousou_no_Frieren_Eng_Dub_-_29_1080p_Yameii.mp4?rlkey=r8uvstmf6ua0vwwhlswt90dpn&st=897pk624&dl=1",
+        2: "https://www.dropbox.com/scl/fi/web4642urx5fm6b4ltfaj/AnimePahe_Sousou_no_Frieren_Eng_Dub_-_30_1080p_Yameii.mp4?rlkey=umcn3jpolgp8k6nnt93pefdg9&st=hx8k7uv3&dl=1",
+        3: "https://www.dropbox.com/scl/fi/xj9cdzysr1c223k4q1cmm/AnimePahe_Sousou_no_Frieren_Eng_Dub_-_31_1080p_Yameii.mp4?rlkey=p8lr0c7t7pbhgfxphzhknb551&st=wk89a2g5&dl=1",
+        4: "https://www.dropbox.com/scl/fi/o0ceil9hsdbhhdp9bamhh/AnimePahe_Sousou_no_Frieren_Eng_Dub_-_32_1080p_Yameii.mp4?rlkey=3n5x1ohyr8j9b3mcs65efi1yi&st=a2etnryw&dl=1",
+        5: "https://www.dropbox.com/scl/fi/734zeh385ujm41fctylyj/AnimePahe_Sousou_no_Frieren_Eng_Dub_-_33_1080p_Yameii.mp4?rlkey=zom3n257wwstrbfcjfi0t42km&st=1bwfjktm&dl=1",
+        6: "https://www.dropbox.com/scl/fi/fsr8dnmiwp83cr0hrj2k4/AnimePahe_Sousou_no_Frieren_Eng_Dub_-_34_1080p_Yameii.mp4?rlkey=9m27p2e9dwczbo6aft51la2z2&st=qevk807n&dl=1",
+        7: "https://www.dropbox.com/scl/fi/85jzmdcwt88jtumig6s71/AnimePahe_Sousou_no_Frieren_Eng_Dub_-_35_1080p_Yameii.mp4?rlkey=q0nr7m8kslaj2kiahva9j8jmw&st=oyvywrru&dl=1",
+        8: "https://www.dropbox.com/scl/fi/7gx1ebr0btkfeq7es2by7/AnimePahe_Sousou_no_Frieren_Eng_Dub_-_36_1080p_Yameii.mp4?rlkey=upl3rvf7yr1ijcq62qxwoe6b8&st=14hyvmiw&dl=1",
+        9: "https://www.dropbox.com/scl/fi/ruyruncukfrx9wqpfdc66/AnimePahe_Sousou_no_Frieren_Eng_Dub_-_37_1080p_Yameii.mp4?rlkey=r7y08hgjvlte436vb7kxqt7es&st=lvxtxdyz&dl=1",
+        10: "https://www.dropbox.com/scl/fi/m9fa53v36i24ytfktxlxb/AnimePahe_Sousou_no_Frieren_Eng_Dub_-_38_1080p_Yameii.mp4?rlkey=q4g1bgnc1ixs9897p1qdxwpo5&st=klpysg7w&dl=1",
+      } },
+    ], hasSub: true, hasDub: true,
   },
   // Frieren Golden Land Arc (upcoming)
   { malId: 63816, title: "Frieren: Beyond Journey's End - Golden Land Arc", titleEnglish: "Frieren: Beyond Journey's End - Golden Land Arc", titleJapanese: "葬送のフリーレン 黄金郵編",
