@@ -252,8 +252,41 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.5, scoredBy: 2022419, rank: 166, popularity: 11, members: 3068158,
     year: 2020, season: "fall", genres: ["Action", "Award Winning", "Supernatural"], studios: ["MAPPA"],
     episodeCount: 24, duration: "23 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
-    episodeSources: [{ startEp: 1, endEp: 24, collection: "jujutsu-kaisen-season-1-episode-17-eng.dub", fileTemplate: "JUJUTSU KAISEN Season 1 Episode {ep} eng.dub.mp4", audio: "dub" }],
-    hasDub: true,
+    localSubtitlePattern: "/subtitles/40748_e{ep}.vtt",
+    // SUB (Japanese audio): [AH] 1080p rips from jjk-s1-full collection —
+    // single-audio Japanese (language tag "jpn", ASR-verified). All 24 eps.
+    // DUB (English dub): existing jujutsu-kaisen-season-1-episode-17-eng.dub
+    // collection (all 24 episodes).
+    episodeSources: [
+      { startEp: 1, endEp: 24, collection: "jjk-s1-full", audio: "sub", episodeFiles: {
+        1: "[AH] Jujutsu Kaisen S1 - 01 (1080p).mkv.mp4",
+        2: "[AH] Jujutsu Kaisen S1 - 02 (1080p)v2.mkv.mp4",
+        3: "[AH] Jujutsu Kaisen S1 - 03 (1080p).mkv.mp4",
+        4: "[AH] Jujutsu Kaisen S1 - 04 (1080p)v2.mkv.mp4",
+        5: "[AH] Jujutsu Kaisen S1 - 05 (1080p).mkv.mp4",
+        6: "[AH] Jujutsu Kaisen S1 - 06 (1080p)v2.mkv.mp4",
+        7: "[AH] Jujutsu Kaisen S1 - 07 (1080p).mkv.mp4",
+        8: "[AH] Jujutsu Kaisen S1 - 08 (1080p)v2.mkv.mp4",
+        9: "[AH] Jujutsu Kaisen S1 - 09 (1080p)v2.mkv.mp4",
+        10: "[AH] Jujutsu Kaisen S1 - 10 (1080p).mkv.mp4",
+        11: "[AH] Jujutsu Kaisen S1 - 11 (1080p).mkv.mp4",
+        12: "[AH] Jujutsu Kaisen S1 - 12 (1080p).mkv.mp4",
+        13: "[AH] Jujutsu Kaisen S1 - 13 (1080p).mkv.mp4",
+        14: "[AH] Jujutsu Kaisen S1 - 14 (1080p).mkv.mp4",
+        15: "[AH] Jujutsu Kaisen S1 - 15 (1080p).mkv.mp4",
+        16: "[AH] Jujutsu Kaisen S1 - 16 (1080p).mkv.mp4",
+        17: "[AH] Jujutsu Kaisen S1 - 17 (1080p).mkv.mp4",
+        18: "[AH] Jujutsu Kaisen S1 - 18 (1080p).mkv.mp4",
+        19: "[AH] Jujutsu Kaisen S1 - 19 (1080p).mkv.mp4",
+        20: "[AH] Jujutsu Kaisen S1 - 20 (1080p).mkv.mp4",
+        21: "[AH] Jujutsu Kaisen S1 - 21 (1080p).mkv.mp4",
+        22: "[AH] Jujutsu Kaisen S1 - 22 (1080p).mkv.mp4",
+        23: "[AH] Jujutsu Kaisen S1 - 23 (1080p).mkv.mp4",
+        24: "[AH] Jujutsu Kaisen S1 - 24 (1080p).mkv.mp4",
+      } },
+      { startEp: 1, endEp: 24, collection: "jujutsu-kaisen-season-1-episode-17-eng.dub", fileTemplate: "JUJUTSU KAISEN Season 1 Episode {ep} eng.dub.mp4", audio: "dub" },
+    ],
+    hasSub: true, hasDub: true,
   },
   // JJK S2
   { malId: 51009, title: "Jujutsu Kaisen Season 2", titleEnglish: "Jujutsu Kaisen Season 2", titleJapanese: "呪術廻戦 第2期",
