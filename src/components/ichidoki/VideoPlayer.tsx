@@ -514,7 +514,7 @@ export function VideoPlayer({
 
   const adjustSubtitleOffset = useCallback((delta: number) => {
     setSubtitleOffset((prev) => {
-      const next = Math.max(-10, Math.min(10, Math.round((prev + delta) * 10) / 10));
+      const next = Math.max(-60, Math.min(60, Math.round((prev + delta) * 10) / 10));
       try {
         localStorage.setItem(
           `ichidoki-sub-offset-${malId}-${audioMode}`,
@@ -1612,9 +1612,17 @@ function SettingsMenu({
               <div className="flex items-center gap-1.5">
                 <button
                   type="button"
+                  onClick={() => onSubtitleOffset(-1)}
+                  className="flex-1 rounded-md bg-white/5 py-1.5 text-[11px] font-medium text-white/80 transition-colors active:bg-white/10"
+                  aria-label="Subtitles 1 second earlier"
+                >
+                  −1s
+                </button>
+                <button
+                  type="button"
                   onClick={() => onSubtitleOffset(-0.1)}
                   className="flex-1 rounded-md bg-white/5 py-1.5 text-[11px] font-medium text-white/80 transition-colors active:bg-white/10"
-                  aria-label="Subtitles earlier"
+                  aria-label="Subtitles 0.1 second earlier"
                 >
                   −0.1s
                 </button>
@@ -1630,9 +1638,17 @@ function SettingsMenu({
                   type="button"
                   onClick={() => onSubtitleOffset(0.1)}
                   className="flex-1 rounded-md bg-white/5 py-1.5 text-[11px] font-medium text-white/80 transition-colors active:bg-white/10"
-                  aria-label="Subtitles later"
+                  aria-label="Subtitles 0.1 second later"
                 >
                   +0.1s
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onSubtitleOffset(1)}
+                  className="flex-1 rounded-md bg-white/5 py-1.5 text-[11px] font-medium text-white/80 transition-colors active:bg-white/10"
+                  aria-label="Subtitles 1 second later"
+                >
+                  +1s
                 </button>
               </div>
               <p className="mt-1 text-[9px] text-white/30">
