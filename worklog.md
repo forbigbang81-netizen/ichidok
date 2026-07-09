@@ -759,3 +759,58 @@ Stage Summary:
 - Bug fix: resolveEpisodeUrl now iterates through all matching sources
   and substitutes {ep:NN} in collection names (enables per-episode
   archive.org items like AnimePahe).
+
+---
+Task ID: jjk-s1-sub-1080p
+Agent: main
+Task: Add sub for JJK season 1 in 1080p HD
+
+Work Log:
+JJK S1 (40748) — added Japanese audio (SUB) source in 1080p HD:
+- SUB source: [AH] 1080p rips from jjk-s1-full collection on archive.org
+  - All 24 episodes available, single-audio Japanese (language tag "jpn")
+  - ASR-verified Japanese audio on E1 (returned real JP text)
+  - Files have "v2" suffix for E2, E4, E6, E8, E9 (v2 releases) — all
+    mapped explicitly in episodeFiles
+- DUB source: unchanged — existing jujutsu-kaisen-season-1-episode-17-eng.dub
+  collection (all 24 episodes English dub)
+- hasSub: true, hasDub: true (player now shows SUB/DUB toggle)
+
+Subtitles: all 24 English VTT subtitles downloaded from OpenSubtitles,
+replacing the previous auto-generated placeholder files:
+- E1-9, E11-18: 1080p Multiple Subtitle ASS files (Crunchyroll-based,
+  converted to VTT with ASS dialogue filter)
+- E7: separately fetched correct S1 E7 subtitle (initial broad search
+  had matched an S2 E7 file "Crunchyroll Jujutsu Kaisen - 31 S2 - 07.ass"
+  due to "S2" appearing in the filename after the episode number)
+- E10: Netflix WEBRip SRT
+- E19-24: CrunchyRoll Official ASS files
+
+Subtitle matching logic:
+- Strict rejection of S02/S03/Season 2-9/Movie/Kaisen 0 files
+- Accepts S01EXX pattern OR plain " - NN" format (S1 numbering 1-24)
+- Score-based selection: prefer SRT > ASS, prefer CR/Netflix source
+
+localSubtitlePattern: /subtitles/40748_e{ep}.vtt
+
+Verification (via npx tsx scripts/verify_jjk_s1.ts):
+- E1 SUB -> [AH] 1080p (HTTP 200)
+- E7 SUB -> [AH] 1080p (HTTP 200)
+- E13 SUB -> [AH] 1080p (HTTP 200)
+- E24 SUB -> [AH] 1080p (HTTP 200)
+- E1 DUB -> existing English dub (HTTP 200)
+- All subtitle URLs return local VTT paths
+
+Production verification (ichidok.vercel.app):
+- E1/E7/E13/E24 SUB all return [AH] 1080p URLs, hasSub: true, hasDub: true
+- E1 DUB still returns existing English dub URL
+- All VTT files served with HTTP 200
+
+Commit: b896403 "JJK S1: add Japanese sub in 1080p HD + real English VTT subtitles"
+
+Stage Summary:
+- JJK S1 SUB player now plays Japanese audio in 1080p HD for all 24 episodes
+- JJK S1 DUB player unchanged — still plays English dub for all 24
+- All 24 English VTT subtitles replaced with real dialogue subs from
+  OpenSubtitles (was previously auto-generated placeholders)
+- hasSub: true, hasDub: true — player shows SUB/DUB toggle
