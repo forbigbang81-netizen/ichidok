@@ -672,3 +672,90 @@ Stage Summary:
 - DUB: 8 episodes (English dub, mixed 360p-1080p quality)
 - Eps 9-11 in DUB mode automatically fall through to SUB
 - Total catalog: 52 anime
+
+---
+Task ID: frieren-s1-sub-s2-sub
+Agent: main
+Task: Add Japanese sub to Frieren S1 + add dub to Frieren S2
+
+Work Log:
+Frieren S1 (52991) — added Japanese audio (SUB) sources:
+- SUB source 1: AnimePahe 1080p BD rips for E1-12 + E26 (13 episodes
+  total, JP audio verified via ASR — AnimePahe is JP-audio-only release
+  group). File pattern: anime-pahe-sousou-no-frieren-{ep:02}-bd-1080p-sev
+  / AnimePahe_Sousou_no_Frieren_-_{ep:02}_BD_1080p_SEV.mp4
+- SUB source 2: Vietnamese Muse Asia broadcast for E13-25 + E27-28 (15
+  episodes, JP audio verified via ASR — returned real Japanese text
+  "そうですか？何に？なんでもありません" etc). Files have hardcoded
+  Vietnamese subtitles visible on top of the English VTT subtitles, but
+  this is the only JP-audio source for these episodes. File pattern:
+  frieren-phap-su-tien-tang / "Frieren - Pháp sư tiễn táng - Tập {ep}.mp4"
+- DUB source: existing English dub MP4 derivatives (all 28 episodes,
+  ASR-verified English).
+- All 28 English VTT subtitles downloaded from OpenSubtitles (Netflix
+  WEBRip source: Frieren.Beyond.Journeys.End.S01EXX.JAPANESE.WEBRip.NF.en.srt).
+- localSubtitlePattern: /subtitles/52991_e{ep}.vtt
+- hasSub=true, hasDub=true
+
+Frieren S2 (59978) — added Japanese audio (SUB) source:
+- SUB source: SubsPlease 1080p rips for E1-10 (single-audio Japanese,
+  ASR-verified). File pattern: sousou-no-frieren_season-2.mkv /
+  [SubsPlease] Sousou no Frieren S2 - {ep:02} (1080p) [hash].mkv.mp4
+- DUB: NOT AVAILABLE on archive.org. S2 aired Jan-Mar 2026 and the
+  Crunchyroll English dub is still being released; no MP4 collection
+  has been uploaded yet. hasDub remains false.
+- All 10 English VTT subtitles downloaded from OpenSubtitles (Crunchyroll
+  WEB-DL source: Frieren S02EXX 1080p CR WEB-DL.srt for E1-3, E5-10;
+  E4 from SubsPlease HDTV-720p release).
+- localSubtitlePattern: /subtitles/59978_e{ep}.vtt
+- hasSub=true, hasDub=false
+- Removed 14 stale auto-generated S2 subtitle files (59978_e11 through
+  59978_e24) left over from before S2 had real sources.
+
+resolveEpisodeUrl enhancement:
+- Modified to iterate through ALL matching sources of the wanted audio
+  mode, instead of just the first match. This allows a second sub source
+  to cover episodes the first one is missing (e.g. AnimePahe E1-12 + E26,
+  then Vietnamese source for E13-25 + E27-28).
+- Also fixed buildResult to substitute {ep:NN} in the collection name
+  (was previously only substituted in the file template, not the
+  collection name). This was needed for AnimePahe's per-episode
+  archive.org item naming pattern.
+
+Verification (via npx tsx scripts/verify_frieren.ts):
+- S1 E1 SUB -> AnimePahe E01 (HTTP 200)
+- S1 E13 SUB -> Vietnamese Tập 13 (HTTP 200)
+- S1 E26 SUB -> AnimePahe E26 (HTTP 200)
+- S1 E28 SUB -> Vietnamese Tập 28 (HTTP 200)
+- S1 E1 DUB -> existing English dub (HTTP 200)
+- S2 E1 SUB -> SubsPlease E01 (HTTP 200)
+- S2 E10 SUB -> SubsPlease E10 (HTTP 200)
+- All subtitle URLs return local VTT paths
+- All hasSub/hasDub flags correct
+
+Commits:
+- 397848f "Frieren S1 SUB + S2 SUB: add JP-audio sources + real English VTT subs"
+- 027b8c0 "fix: substitute {ep:NN} in collection name during URL resolution"
+
+NOTE: Could not push to GitHub from this environment — no GitHub token
+available. User needs to push from their environment to deploy to Vercel:
+  git push origin main
+Then force re-seed + clear cache:
+  curl -X POST https://ichidok.vercel.app/api/seed
+  curl -X POST https://ichidok.vercel.app/api/clear-cache
+
+Stage Summary:
+- Frieren S1 SUB player now plays Japanese audio for ALL 28 episodes
+  (E1-12, E26 in 1080p BD quality from AnimePahe; E13-25, E27-28 in
+  lower quality with VN hardsubs from Vietnamese Muse Asia).
+- Frieren S1 DUB player unchanged — still plays English dub for all 28.
+- Frieren S2 SUB player now plays Japanese audio for ALL 10 episodes
+  (SubsPlease 1080p rips).
+- Frieren S2 DUB player NOT added — no English dub source exists on
+  archive.org yet (S2 aired Jan-Mar 2026, Crunchyroll dub still being
+  released).
+- All 28 S1 + 10 S2 English VTT subtitles downloaded from OpenSubtitles
+  with promo cues filtered out.
+- Bug fix: resolveEpisodeUrl now iterates through all matching sources
+  and substitutes {ep:NN} in collection names (enables per-episode
+  archive.org items like AnimePahe).
