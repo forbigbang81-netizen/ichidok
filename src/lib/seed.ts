@@ -190,9 +190,35 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2023, season: "summer", genres: ["Action", "Supernatural"], studios: ["MAPPA"],
     episodeCount: 23, duration: "23 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
     episodeSources: [
-      
-      { startEp: 1, endEp: 23, collection: "jujutsu-kaisen-s-02-e-21-1080p-bd-av-1-dual-audio.mkv", fileTemplate: "Jujutsu Kaisen - S02E{ep:02} [1080p BD AV1][Dual Audio].mkv.mp4", needsProxy: true, audio: "dub" },
-    ], hasDub: true,
+      // Japanese audio (sub) — dual-audio MKV remuxed to MP4 (first track is Japanese)
+      { startEp: 1, endEp: 23, collection: "jujutsu-kaisen-s-02-e-21-1080p-bd-av-1-dual-audio.mkv", fileTemplate: "Jujutsu Kaisen - S02E{ep:02} [1080p BD AV1][Dual Audio].mkv.mp4", needsProxy: true, audio: "sub" },
+      // English dub — jujutsu-kaisen-s2-dub collection (all 23 episodes)
+      { startEp: 1, endEp: 23, collection: "jujutsu-kaisen-s2-dub", audio: "dub", episodeFiles: {
+        1: "jujutsu kaisen s2 e1 dubbed.mp4",
+        2: "jujutsu kaisen s2 e2 dubbed.mp4",
+        3: "jujutsu kaisen s2 e3 dubbed.mp4",
+        4: "jujutsu kaisen s2 e4 dubbed.mp4",
+        5: "jujutsu kaisen s2 e5 dubbed.mp4",
+        6: "jujutsu kaisen s2 e6 dubbed.mp4",
+        7: "jujutsu kaisen s2 e7 dubbed.mp4",
+        8: "jujutsu kaisen s2 e8 dubbed.mp4",
+        9: "jujutsu kaisen s2 e9 dubbed.mp4",
+        10: "jujutsu kaisen s2 e10 dubbed.mp4",
+        11: "jujutsu kaisen s2 e11 dubbed.mp4",
+        12: "jujutsu kaisen s2 e12 dubbed.mp4",
+        13: "jujutsu kaisen s2 e13 dubbed.mp4",
+        14: "jujutsu kaisen s2 e14 dubbed.mp4",
+        15: "jujutsu kaisen s2 e15 dubbed.mp4",
+        16: "jujutsu kaisen s2 e16 dubbed.mp4",
+        17: "jujutsu kaisen s2 e17 dubbed.mp4",
+        18: "jujutsu kaisen s2 e18 dubbed.mp4",
+        19: "jujutsu kaisen s2 e19 dubbed.mp4",
+        20: "jujutsu kaisen s2 e20 dubbed.mp4",
+        21: "jujutsu kaisen s2 e21 dubbed.mp4",
+        22: "jujutsu kaisen s2 e22 dubbed.mp4",
+        23: "jujutsu kaisen s2 e23 dubbed.mp4",
+      }},
+    ], hasSub: true, hasDub: true,
   },
   // JJK Culling Game (upcoming)
   { malId: 57658, title: "Jujutsu Kaisen: The Culling Game Part 1", titleEnglish: "Jujutsu Kaisen: The Culling Game Part 1", titleJapanese: "呪術廻戦 死滅回遊 前編",
