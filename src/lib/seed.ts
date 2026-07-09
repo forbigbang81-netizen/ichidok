@@ -652,18 +652,49 @@ export const SEED_ANIME: SeedAnime[] = [
       }},
     ], hasDub: true,
   },
-  // The Apothecary Diaries S2 — English dub (user confirmed it had dub).
-  // The collection is titled "ENG Dubbed" and the user wants it kept as dub.
-  // No separate Japanese sub source found on archive.org for S2.
+  // The Apothecary Diaries S2 — dual source: Japanese sub (1080p) + English dub (480p)
   { malId: 58514, title: "The Apothecary Diaries Season 2", titleEnglish: "The Apothecary Diaries Season 2", titleJapanese: "薬屋のひとりごと 第2期",
     synopsis: "Maomao, a pharmacist in the imperial court, continues to solve mysteries and navigate palace politics in ancient China.",
     poster: "https://cdn.myanimelist.net/images/anime/1025/147458l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1025/147458l.jpg",
     type: "TV", status: "Finished Airing", score: 8.91, scoredBy: 300000, rank: 0, popularity: 200, members: 600000,
     year: 2025, season: "winter", genres: ["Drama", "Mystery", "Romance"], studios: ["OLM"],
     episodeCount: 24, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Light novel", isFeatured: true,
+    localSubtitlePattern: "/subtitles/58514_e{ep}.vtt",
+    // SUB (Japanese audio): Vietnamese Muse Asia broadcast from duoc-su-tu-su-08
+    // collection — 1080p HD (1920x1080), JP audio with hardcoded Vietnamese
+    // subtitles (ASR-verified Japanese audio). All 24 S2 episodes available
+    // (files named "Dược Sư Tự Sự Mùa 2 - NN.mp4").
+    // DUB (English dub): the-apothecary-diaries-s-2 collection — 480p English
+    // dub (lower quality but works for all 24 episodes).
     episodeSources: [
+      { startEp: 1, endEp: 24, collection: "duoc-su-tu-su-08", audio: "sub", episodeFiles: {
+        1: "Dược Sư Tự Sự Mùa 2 - 01.mp4",
+        2: "Dược Sư Tự Sự Mùa 2 - 02.mp4",
+        3: "Dược Sư Tự Sự Mùa 2 - 03.mp4",
+        4: "Dược Sư Tự Sự Mùa 2 - 04.mp4",
+        5: "Dược Sư Tự Sự Mùa 2 - 05.mp4",
+        6: "Dược Sư Tự Sự Mùa 2 - 06.mp4",
+        7: "Dược Sư Tự Sự Mùa 2 - 07.mp4",
+        8: "Dược Sư Tự Sự Mùa 2 - 08.mp4",
+        9: "Dược Sư Tự Sự Mùa 2 - 09.mp4",
+        10: "Dược Sư Tự Sự Mùa 2 - 10.mp4",
+        11: "Dược Sư Tự Sự Mùa 2 - 11.mp4",
+        12: "Dược Sư Tự Sự Mùa 2 - 12.mp4",
+        13: "Dược Sư Tự Sự Mùa 2 - 13.mp4",
+        14: "Dược Sư Tự Sự Mùa 2 - 14.mp4",
+        15: "Dược Sư Tự Sự Mùa 2 - 15.mp4",
+        16: "Dược Sư Tự Sự Mùa 2 - 16.mp4",
+        17: "Dược Sư Tự Sự Mùa 2 - 17.mp4",
+        18: "Dược Sư Tự Sự Mùa 2 - 18.mp4",
+        19: "Dược Sư Tự Sự Mùa 2 - 19.mp4",
+        20: "Dược Sư Tự Sự Mùa 2 - 20.mp4",
+        21: "Dược Sư Tự Sự Mùa 2 - 21.mp4",
+        22: "Dược Sư Tự Sự Mùa 2 - 22.mp4",
+        23: "Dược Sư Tự Sự Mùa 2 - 23.mp4",
+        24: "Dược Sư Tự Sự Mùa 2 - 24.mp4",
+      } },
       { startEp: 1, endEp: 24, collection: "the-apothecary-diaries-s-2", fileTemplate: "The Apothecary Diaries S2Ep{ep}.mp4", audio: "dub" },
-    ], hasDub: true,
+    ], hasSub: true, hasDub: true,
   },
   // Haikyuu!! S3 (Top 10 #7)
   { malId: 32935, title: "Haikyuu!! Karasuno vs Shiratorizawa", titleEnglish: "Haikyuu!! Third Season", titleJapanese: "ハイキュー!! 烏野高校 VS 白鳥沢学園高校",
