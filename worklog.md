@@ -814,3 +814,50 @@ Stage Summary:
 - All 24 English VTT subtitles replaced with real dialogue subs from
   OpenSubtitles (was previously auto-generated placeholders)
 - hasSub: true, hasDub: true — player shows SUB/DUB toggle
+
+---
+Task ID: apothecary-s2-sub-1080p
+Agent: main
+Task: Find sub for Apothecary Diaries season 2 in 1080p
+
+Work Log:
+Apothecary Diaries S2 (58514) — added Japanese audio (SUB) source in 1080p HD:
+- SUB source: Vietnamese Muse Asia broadcast from duoc-su-tu-su-08 collection
+  - True 1080p HD (1920x1080, ~1.1 Mbps) — significantly better quality than
+    the existing 480p English dub source
+  - Japanese audio (ASR-verified on E1 — returned JP text about medicine/poison
+    fitting Apothecary Diaries content)
+  - Hardcoded Vietnamese subtitles visible (same pattern as Frieren S1 E13-28)
+  - All 24 S2 episodes available (files named "Dược Sư Tự Sự Mùa 2 - NN.mp4")
+- DUB source: unchanged — existing the-apothecary-diaries-s-2 collection
+  (480p English dub, all 24 episodes)
+- hasSub: true, hasDub: true (player now shows SUB/DUB toggle)
+
+Subtitles: all 24 English VTT subtitles downloaded from OpenSubtitles:
+- E1: Netflix 1080p WEB-DL SRT
+- E2-3: 1080p WEB-DL ASS files
+- E4-8: Erai-raws WEBDL SRT files
+- E9-10, E12-13: ToonsHub WEBDL-1080p SRT
+- E11: Kusuriya 1080p Multiple Subtitle ASS (separately fetched — initial
+  broad search missed it due to plain "NN" numbering without S02 prefix;
+  found via kusuriya query and verified content "Episode 11: Reducing Two
+  to One" confirms correct S2 E11)
+- E14, E16-17, E19-24: VARYG/ToonsHub WEBDL-1080p SRT
+- E15, E18: Erai-raws WEBDL-720p SRT
+
+localSubtitlePattern: /subtitles/58514_e{ep}.vtt
+
+Production verification (ichidok.vercel.app):
+- E1/E11/E13/E24 SUB all return Vietnamese 1080p URLs, hasSub: true, hasDub: true
+- E1 DUB still returns existing 480p English dub URL
+- All VTT files served with HTTP 200
+
+Commit: 1ad70ba "Apothecary Diaries S2: add Japanese sub in 1080p HD + English VTT subtitles"
+
+Stage Summary:
+- Apothecary Diaries S2 SUB player now plays Japanese audio in true 1080p HD
+  for all 24 episodes (Vietnamese Muse Asia broadcast with VN hardsubs)
+- Apothecary Diaries S2 DUB player unchanged — still plays 480p English dub
+- All 24 English VTT subtitles downloaded from OpenSubtitles
+- hasSub: true, hasDub: true — player shows SUB/DUB toggle
+- SUB quality upgrade: 480p -> 1080p (4x resolution improvement)
