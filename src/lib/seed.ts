@@ -1221,9 +1221,10 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Currently Airing", score: 6.80, scoredBy: 430, rank: 0, popularity: 5000, members: 5000,
     year: 2026, season: "summer", genres: ["Action", "Adventure", "Fantasy"], studios: ["Studio Eek"],
     episodeCount: 1, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Webtoon", isFeatured: true,
+    localSubtitlePattern: "/subtitles/63316_e{ep}.vtt",
     episodeSources: [
       { startEp: 1, endEp: 1, collection: "tomb-raider-king-watch-anime-online-in-hd-animesuge-1-019942", fileName: "Tomb Raider King – Watch Anime Online in HD _ AnimeSuge (1).mp4", audio: "sub" },
-    ], hasSub: true, noSubtitles: true,
+    ], hasSub: true,
   },
 ];
 
