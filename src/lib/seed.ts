@@ -193,9 +193,21 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2024, season: "fall", genres: ["Action", "Adventure", "Supernatural"], studios: ["Pierrot Films"],
     episodeCount: 14, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga",
     localSubtitlePattern: "/subtitles/56784_e{ep}.vtt",
-    // SUB: Japanese TV broadcast (720p, JP audio). E13-14 combined.
+    // SUB source 1: AnimePahe 1080p Disney+ rips via Dropbox (E7-12).
+    // ASR-verified Japanese audio. File numbers 33-38 = Cour 3 E7-E12.
+    // SUB source 2: Japanese TV broadcast (720p, JP audio). E13-14 combined.
     // DUB: existing English dub from BleachTYBW1-28 (global E27-39).
     episodeSources: [
+      // 1080p SUB for E7-12 (Dropbox)
+      { startEp: 7, endEp: 12, collection: "dropbox", audio: "sub", episodeFiles: {
+        7: "https://www.dropbox.com/scl/fi/f1zocucutyiuurylxx2z1/AnimePahe_Bleach_-_Sennen_Kessen-hen_-_33_1080p_Disney_Plus.mp4?rlkey=kcmt9g42wjd97hjqnd1kn0juu&st=je1aolec&dl=1",
+        8: "https://www.dropbox.com/scl/fi/oxeaq3a0urnad7eapxebd/AnimePahe_Bleach_-_Sennen_Kessen-hen_-_34_1080p_Disney_Plus.mp4?rlkey=lie8j3i8g3jb6xszmqx0ytfi8&st=5f8sci7g&dl=1",
+        9: "https://www.dropbox.com/scl/fi/hpjdnceubhc010nbunqru/AnimePahe_Bleach_-_Sennen_Kessen-hen_-_35_1080p_Disney_Plus.mp4?rlkey=fsoyctdgl15ob14vv2ra7rcky&st=1bg4s98t&dl=1",
+        10: "https://www.dropbox.com/scl/fi/mp57ezncr01kj877mfxug/AnimePahe_Bleach_-_Sennen_Kessen-hen_-_36_1080p_Disney_Plus.mp4?rlkey=rtzbit9022zlprqsqq5ob7gq2&st=sjrnjmft&dl=1",
+        11: "https://www.dropbox.com/scl/fi/8wdhleggv2q249qe86mxy/AnimePahe_Bleach_-_Sennen_Kessen-hen_-_37_1080p_Disney_Plus.mp4?rlkey=gvy4d3ytbaa3b5mvy7e86yero&st=lrmcduab&dl=1",
+        12: "https://www.dropbox.com/scl/fi/sz3oc30j7r36drmuxxb7n/AnimePahe_Bleach_-_Sennen_Kessen-hen_-_38_1080p_Disney_Plus.mp4?rlkey=eqy2er1n1m4wc47mn81ofrhkt&st=boolzwm4&dl=1",
+      } },
+      // 720p SUB fallback for E1-6, E13-14 (Japanese TV broadcast)
       { startEp: 1, endEp: 14, collection: "bleach-sennen-kessen-hen-part-3-japanese-tv-2024", audio: "sub", episodeFiles: {
         1: "BLEACH Sennen Kessen-hen Soukoku-tan - 01 (TVA 1280x720 x264 AAC).mp4",
         2: "BLEACH Sennen Kessen-hen Soukoku-tan - 02 (TX 1280x720 x264 AAC).mp4",
