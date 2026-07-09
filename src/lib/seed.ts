@@ -1476,6 +1476,9 @@ export function resolveEpisodeUrl(seed: SeedAnime, episode: number, audioMode: "
 
   function buildResult(src: EpisodeSource, file: string) {
     let collectionName = src.collection;
+    // Substitute {ep:NN} or {ep} in the collection name (e.g. anime-pahe
+    // uses one archive.org item per episode, named with the episode number).
+    collectionName = collectionName.replace(/\{ep(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(episode); return pad ? s.padStart(Number(pad), "0") : s; });
     if (src.seasonMap) {
       const entry = src.seasonMap.find((m) => episode >= m.startEp && episode <= m.endEp);
       if (entry) { collectionName = collectionName.replace(/\{season(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(entry.season); return pad ? s.padStart(Number(pad), "0") : s; }); }
