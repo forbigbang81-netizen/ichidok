@@ -189,6 +189,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.7, scoredBy: 765432, rank: 110, popularity: 18, members: 1987654,
     year: 2023, season: "summer", genres: ["Action", "Supernatural"], studios: ["MAPPA"],
     episodeCount: 23, duration: "23 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    localSubtitlePattern: "/subtitles/51009_e{ep}.vtt",
     episodeSources: [
       // Japanese audio (sub) — dual-audio MKV remuxed to MP4 (first track is Japanese)
       { startEp: 1, endEp: 23, collection: "jujutsu-kaisen-s-02-e-21-1080p-bd-av-1-dual-audio.mkv", fileTemplate: "Jujutsu Kaisen - S02E{ep:02} [1080p BD AV1][Dual Audio].mkv.mp4", needsProxy: true, audio: "sub" },
