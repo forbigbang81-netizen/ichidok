@@ -33,12 +33,55 @@ export const SEED_ANIME: SeedAnime[] = [
     trailer: "ZEkwCGJ3o7M", type: "TV", status: "Finished Airing", score: 9.26, scoredBy: 906724, rank: 1, popularity: 103, members: 1470685,
     year: 2023, season: "fall", genres: ["Adventure", "Award Winning", "Drama", "Fantasy"], studios: ["Madhouse"],
     episodeCount: 28, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
-    // Archive.org MP4 derivatives only contain the English dub audio track (the JP audio
-    // from the original dual-audio MKV was dropped during derivative creation). So these
-    // files are DUB-only. hasDub=true so the player shows the DUB toggle.
-    // For SUB mode, no JP-audio MP4 source is currently available.
-    // The MKV has a "Signs & Songs" ASS track but no English dialogue subs.
-    episodeSources: [{ startEp: 1, endEp: 28, collection: "frieren-beyond-journeys-end_1080p_2024", fileTemplate: "Frieren-Beyond-Journey's-End_S01E{ep:02}.mp4", audio: "dub" }], hasDub: true,
+    localSubtitlePattern: "/subtitles/52991_e{ep}.vtt",
+    // SUB (Japanese audio): two sources for full 28-episode coverage.
+    //   - AnimePahe 1080p BD rips (E1-12 + E26): best quality, JP audio, no hardsubs.
+    //     (AnimePahe only uploaded these episodes to archive.org.)
+    //   - Vietnamese Muse Asia broadcast (E13-25 + E27-28): JP audio with
+    //     hardcoded Vietnamese subtitles — lower quality but covers the
+    //     episodes AnimePahe is missing. ASR-verified Japanese audio.
+    // DUB (English dub): frieren-beyond-journeys-end_1080p_2024 collection
+    //   MP4 derivatives are English-dub-only (the original dual-audio MKV
+    //   had English as the first AAC track, so the IA derivative encoder
+    //   kept English and dropped the JP Opus track). ASR-verified English.
+    episodeSources: [
+      // SUB source 1: AnimePahe 1080p BD (E1-12, E26) — JP audio
+      { startEp: 1, endEp: 28, collection: "anime-pahe-sousou-no-frieren-{ep:02}-bd-1080p-sev", audio: "sub", episodeFiles: {
+        1: "AnimePahe_Sousou_no_Frieren_-_01_BD_1080p_SEV.mp4",
+        2: "AnimePahe_Sousou_no_Frieren_-_02_BD_1080p_SEV.mp4",
+        3: "AnimePahe_Sousou_no_Frieren_-_03_BD_1080p_SEV.mp4",
+        4: "AnimePahe_Sousou_no_Frieren_-_04_BD_1080p_SEV.mp4",
+        5: "AnimePahe_Sousou_no_Frieren_-_05_BD_1080p_SEV.mp4",
+        6: "AnimePahe_Sousou_no_Frieren_-_06_BD_1080p_SEV.mp4",
+        7: "AnimePahe_Sousou_no_Frieren_-_07_BD_1080p_SEV.mp4",
+        8: "AnimePahe_Sousou_no_Frieren_-_08_BD_1080p_SEV.mp4",
+        9: "AnimePahe_Sousou_no_Frieren_-_09_BD_1080p_SEV.mp4",
+        10: "AnimePahe_Sousou_no_Frieren_-_10_BD_1080p_SEV.mp4",
+        11: "AnimePahe_Sousou_no_Frieren_-_11_BD_1080p_SEV.mp4",
+        12: "AnimePahe_Sousou_no_Frieren_-_12_BD_1080p_SEV.mp4",
+        26: "AnimePahe_Sousou_no_Frieren_-_26_BD_1080p_SEV.mp4",
+      } },
+      // SUB source 2: Vietnamese Muse Asia (E13-25, E27-28) — JP audio with VN hardsubs
+      { startEp: 1, endEp: 28, collection: "frieren-phap-su-tien-tang", audio: "sub", episodeFiles: {
+        13: "Frieren - Pháp sư tiễn táng - Tập 13.mp4",
+        14: "Frieren - Pháp sư tiễn táng - Tập 14.mp4",
+        15: "Frieren - Pháp sư tiễn táng - Tập 15.mp4",
+        16: "Frieren - Pháp sư tiễn táng - Tập 16.mp4",
+        17: "Frieren - Pháp sư tiễn táng - Tập 17.mp4",
+        18: "Frieren - Pháp sư tiễn táng - Tập 18.mp4",
+        19: "Frieren - Pháp sư tiễn táng - Tập 19.mp4",
+        20: "Frieren - Pháp sư tiễn táng - Tập 20.mp4",
+        21: "Frieren - Pháp sư tiễn táng - Tập 21.mp4",
+        22: "Frieren - Pháp sư tiễn táng - Tập 22.mp4",
+        23: "Frieren - Pháp sư tiễn táng - Tập 23.mp4",
+        24: "Frieren - Pháp sư tiễn táng - Tập 24.mp4",
+        25: "Frieren - Pháp sư tiễn táng - Tập 25.mp4",
+        27: "Frieren - Pháp sư tiễn táng - Tập 27.mp4",
+        28: "Frieren - Pháp sư tiễn táng - Tập 28.mp4",
+      } },
+      // DUB source: English dub MP4 derivatives (all 28 episodes)
+      { startEp: 1, endEp: 28, collection: "frieren-beyond-journeys-end_1080p_2024", fileTemplate: "Frieren-Beyond-Journey's-End_S01E{ep:02}.mp4", audio: "dub" },
+    ], hasSub: true, hasDub: true,
   },
   // Steins;Gate
   { malId: 9253, title: "Steins;Gate", titleEnglish: "Steins;Gate", titleJapanese: "STEINS;GATE",
@@ -161,9 +204,27 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.86, scoredBy: 87432, rank: 28, popularity: 121, members: 234567,
     year: 2026, season: "winter", genres: ["Adventure", "Drama", "Fantasy"], studios: ["Madhouse"],
     episodeCount: 10, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
-    // S2 (2026) episodes are not yet available on archive.org. Episode sources
-    // will be added once a streamable dual-audio or JP-audio MP4 collection is uploaded.
-    episodeSources: [],
+    localSubtitlePattern: "/subtitles/59978_e{ep}.vtt",
+    // SUB (Japanese audio): SubsPlease 1080p rips — single-audio Japanese,
+    // ASR-verified. All 10 episodes available.
+    // DUB: not yet available on archive.org. S2 aired Jan-Mar 2026 and the
+    // Crunchyroll English dub is still being released; no MP4 collection has
+    // been uploaded to archive.org yet. hasDub=false (player will not show
+    // the DUB toggle until a source is found).
+    episodeSources: [
+      { startEp: 1, endEp: 10, collection: "sousou-no-frieren_season-2.mkv", audio: "sub", episodeFiles: {
+        1: "[SubsPlease] Sousou no Frieren S2 - 01 (1080p) [4277EF46].mkv.mp4",
+        2: "[SubsPlease] Sousou no Frieren S2 - 02 (1080p) [03D4DE77].mkv.mp4",
+        3: "[SubsPlease] Sousou no Frieren S2 - 03 (1080p) [7556A22B].mkv.mp4",
+        4: "[SubsPlease] Sousou no Frieren S2 - 04 (1080p) [698A157A].mkv.mp4",
+        5: "[SubsPlease] Sousou no Frieren S2 - 05 (1080p) [6AAEC79A].mkv.mp4",
+        6: "[SubsPlease] Sousou no Frieren S2 - 06 (1080p) [31F231BC].mkv.mp4",
+        7: "[SubsPlease] Sousou no Frieren S2 - 07 (1080p) [56170200].mkv.mp4",
+        8: "[SubsPlease] Sousou no Frieren S2 - 08 (1080p) [C8B6130B].mkv.mp4",
+        9: "[SubsPlease] Sousou no Frieren S2 - 09 (1080p) [A3A99C65].mkv.mp4",
+        10: "[SubsPlease] Sousou no Frieren S2 - 10 (1080p) [7D35515E].mkv.mp4",
+      } },
+    ], hasSub: true,
   },
   // Frieren Golden Land Arc (upcoming)
   { malId: 63816, title: "Frieren: Beyond Journey's End - Golden Land Arc", titleEnglish: "Frieren: Beyond Journey's End - Golden Land Arc", titleJapanese: "葬送のフリーレン 黄金郵編",
@@ -1425,19 +1486,22 @@ export function resolveEpisodeUrl(seed: SeedAnime, episode: number, audioMode: "
     return { url: `https://archive.org/download/${collectionName}/${encodedFile}`, source: src.needsProxy ? "archive-mkv" : "archive", needsProxy: src.needsProxy ?? false, dualAudio: src.dualAudio ?? false, audio: src.audio ?? "sub" as const };
   }
 
-  // 1) Try the wanted audio mode first.
-  const preferred = matchingSources.find((src) => { const a = src.audio ?? "sub"; return a === wantedAudio || a === "both"; });
-  if (preferred) {
-    const file = tryResolve(preferred);
-    if (file) return buildResult(preferred, file);
+  // 1) Try the wanted audio mode first — iterate through ALL matching
+  //    sources so a second sub source can cover episodes the first one
+  //    doesn't have (e.g. AnimePahe E1-12 + E26, then Vietnamese source
+  //    for E13-25 + E27-28).
+  const preferredSources = matchingSources.filter((src) => { const a = src.audio ?? "sub"; return a === wantedAudio || a === "both"; });
+  for (const src of preferredSources) {
+    const file = tryResolve(src);
+    if (file) return buildResult(src, file);
   }
 
-  // 2) Fall through to the other audio mode if the wanted source doesn't
-  //    have this specific episode (e.g. dub is missing ep 9 — play sub instead).
-  const fallback = matchingSources.find((src) => { const a = src.audio ?? "sub"; return a === otherAudio || a === "both"; });
-  if (fallback) {
-    const file = tryResolve(fallback);
-    if (file) return buildResult(fallback, file);
+  // 2) Fall through to the other audio mode if no wanted-audio source has
+  //    this specific episode (e.g. dub is missing ep 9 — play sub instead).
+  const fallbackSources = matchingSources.filter((src) => { const a = src.audio ?? "sub"; return a === otherAudio || a === "both"; });
+  for (const src of fallbackSources) {
+    const file = tryResolve(src);
+    if (file) return buildResult(src, file);
   }
 
   return null;
