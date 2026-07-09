@@ -185,18 +185,26 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.0, scoredBy: 1270540, rank: 738, popularity: 33, members: 2224150,
     year: 2004, season: "fall", genres: ["Action", "Adventure", "Supernatural"], studios: ["Studio Pierrot"],
     episodeCount: 366, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
-    episodeSources: [{
-      startEp: 1, endEp: 366, collection: "bl35ch-s35s0ns-{season}",
-      fileTemplate: "Bleach Temporada {season}/Bleach (Dub) Episode {ep}.mp4", audio: "dub",
-      seasonMap: [
-        { startEp: 1, endEp: 20, season: 1 }, { startEp: 21, endEp: 41, season: 2 }, { startEp: 42, endEp: 63, season: 3 },
-        { startEp: 64, endEp: 91, season: 4 }, { startEp: 92, endEp: 109, season: 5 }, { startEp: 110, endEp: 131, season: 6 },
-        { startEp: 132, endEp: 151, season: 7 }, { startEp: 152, endEp: 167, season: 8 }, { startEp: 168, endEp: 189, season: 9 },
-        { startEp: 190, endEp: 205, season: 10 }, { startEp: 206, endEp: 212, season: 11 }, { startEp: 213, endEp: 229, season: 12 },
-        { startEp: 230, endEp: 265, season: 13 }, { startEp: 266, endEp: 316, season: 14 }, { startEp: 317, endEp: 342, season: 15 },
-        { startEp: 343, endEp: 366, season: 16 },
-      ],
-    }], hasDub: true,
+    // Primary DUB source: bl35ch-s35s0ns-{season} — but seasons 1, 4, 9, 14, 15
+    // have been removed from archive.org (404). resolveEpisodeUrl iterates
+    // through all matching dub sources, so the fallback below covers E1-63.
+    episodeSources: [
+      {
+        startEp: 1, endEp: 366, collection: "bl35ch-s35s0ns-{season}",
+        fileTemplate: "Bleach Temporada {season}/Bleach (Dub) Episode {ep}.mp4", audio: "dub",
+        seasonMap: [
+          { startEp: 1, endEp: 20, season: 1 }, { startEp: 21, endEp: 41, season: 2 }, { startEp: 42, endEp: 63, season: 3 },
+          { startEp: 64, endEp: 91, season: 4 }, { startEp: 92, endEp: 109, season: 5 }, { startEp: 110, endEp: 131, season: 6 },
+          { startEp: 132, endEp: 151, season: 7 }, { startEp: 152, endEp: 167, season: 8 }, { startEp: 168, endEp: 189, season: 9 },
+          { startEp: 190, endEp: 205, season: 10 }, { startEp: 206, endEp: 212, season: 11 }, { startEp: 213, endEp: 229, season: 12 },
+          { startEp: 230, endEp: 265, season: 13 }, { startEp: 266, endEp: 316, season: 14 }, { startEp: 317, endEp: 342, season: 15 },
+          { startEp: 343, endEp: 366, season: 16 },
+        ],
+      },
+      // Fallback DUB source: bleachenglish1-63 — covers E1-63 (fixes broken S1)
+      // ASR-verified English dub. Files named "Bleach Episode NN.mp4" (zero-padded).
+      { startEp: 1, endEp: 63, collection: "bleachenglish1-63", fileTemplate: "Bleach Episode {ep:02}.mp4", audio: "dub" },
+    ], hasDub: true,
   },
   // Frieren S2 (Season 2, aired Jan-Mar 2026 — 10 episodes)
   { malId: 59978, title: "Frieren: Beyond Journey's End Season 2", titleEnglish: "Frieren: Beyond Journey's End Season 2", titleJapanese: "葬送のフリーレン 第2クール",
