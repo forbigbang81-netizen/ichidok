@@ -861,3 +861,44 @@ Stage Summary:
 - All 24 English VTT subtitles downloaded from OpenSubtitles
 - hasSub: true, hasDub: true — player shows SUB/DUB toggle
 - SUB quality upgrade: 480p -> 1080p (4x resolution improvement)
+
+---
+Task ID: black-clover-s1-s2
+Agent: main
+Task: Add Black Clover Season 1 + Season 2 with dub episodes first
+
+Work Log:
+Black Clover (34572) — 170 episodes:
+- DUB E1-29: episode-09_202606 collection (English dub, ~215MB each,
+  good quality, ASR-verified English on E1)
+- DUB E86-170: black-clover_20260529 collection (English dub, ~130MB each,
+  ASR-verified English on E100)
+- SUB E126-150: kusagiri.web.id-blck-clver-129-720p (JP audio, 720p,
+  ASR-verified Japanese on E126)
+- SUB E151-170: kusagiri.web.id-blck-clver-151-720p (JP audio, 720p)
+- E30-85: NO SOURCE FOUND on archive.org — will show "no stream available"
+- hasSub: true, hasDub: true
+
+Black Clover 2nd Season (61967) — 2026, Not yet aired:
+- Placeholder entry with no episode sources
+- Will be filled in once the anime airs
+
+Added to SEASON_GROUPS as "Black Clover" franchise.
+Catalog now has 62 anime total.
+
+Production verified:
+- S1 E1 DUB -> episode-09_202606/Episode_01.mp4 ✓
+- S1 E100 DUB -> black-clover_20260529/Black Clover S1E100.mp4 ✓
+- S1 E170 DUB -> black-clover_20260529/Black Clover S1E170.mp4 ✓
+- S1 E130 SUB -> kusagiri E126-150 ✓
+- S1 E50 DUB -> null (no source for E30-85) ✓
+- S2 E1 -> null (not yet aired) ✓
+
+Commit: 3d21bd3 "Add Black Clover Season 1 + Season 2 (2026)"
+
+Stage Summary:
+- Black Clover S1 added with 114/170 episodes available in English dub
+  (E1-29 + E86-170), 45 episodes in Japanese sub (E126-170)
+- Gap: E30-85 (56 episodes) has no source on archive.org — if user has
+  Dropbox links for these, can be added
+- Black Clover S2 (2026) added as placeholder, not yet aired
