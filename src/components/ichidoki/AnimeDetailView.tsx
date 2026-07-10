@@ -414,11 +414,11 @@ export function AnimeDetailView() {
 
         {/* Genre chips */}
         {anime.genres.length > 0 && (
-          <div className="mt-3 flex flex-wrap gap-1.5">
+          <div className="mt-2.5 flex flex-wrap items-start gap-1.5">
             {anime.genres.slice(0, 6).map((g) => (
               <span
                 key={g}
-                className="rounded-full bg-[#111111] px-2.5 py-0.5 text-[10px] font-medium text-white/70"
+                className="rounded-full bg-[#111111] px-2.5 py-0.5 text-[10px] font-medium leading-relaxed text-white/70"
               >
                 {g}
               </span>
@@ -426,7 +426,7 @@ export function AnimeDetailView() {
           </div>
         )}
 
-        <p className="mt-3 text-xs text-white/50">
+        <p className="mt-2.5 text-xs text-white/50">
           {anime.status}
           {anime.studios?.length ? ` · ${anime.studios.join(", ")}` : ""}
         </p>

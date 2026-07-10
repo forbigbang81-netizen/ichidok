@@ -532,7 +532,7 @@ export const SEED_ANIME: SeedAnime[] = [
   { malId: 34572, title: "Black Clover", titleEnglish: "Black Clover", titleJapanese: "ブラッククローバー",
     synopsis: "Asta and Yuno were abandoned together at the same church and have been inseparable since. As children they promised that they would compete against each other to see who would become the next Wizard King.",
     poster: "https://cdn.myanimelist.net/images/anime/2/88336l.jpg", banner: "https://cdn.myanimelist.net/images/anime/2/88336l.jpg",
-    type: "TV", status: "Finished Airing", score: 8.18, scoredBy: 380000, rank: 400, popularity: 50, members: 1100000,
+    type: "TV", status: "Finished Airing", score: 8.14, scoredBy: 380000, rank: 400, popularity: 50, members: 1100000,
     year: 2017, season: "fall", genres: ["Action", "Comedy", "Fantasy"], studios: ["Studio Pierrot"],
     episodeCount: 170, duration: "23 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
     // DUB: E1-29 from episode-09_202606 (English dub, ~215MB each, good quality).
@@ -1801,5 +1801,5 @@ export const TOP_10_DECADE: { malId: number; title: string; year: number; score:
   { malId: 60636, title: "Bleach: Thousand-Year Blood War - The Calamity", year: 2026, score: 0, poster: "/posters/bleach-tybw-cal-tv.jpg", rank: 7 },
   { malId: 30240, title: "Prison School (Uncensored)", year: 2015, score: 7.58, poster: "https://cdn.myanimelist.net/images/anime/1286/112161l.jpg", rank: 8 },
   { malId: 33, title: "Berserk", year: 1997, score: 8.61, poster: "https://cdn.myanimelist.net/images/anime/1384/119988l.jpg", rank: 9 },
-  { malId: 1, title: "Cowboy Bebop", year: 1998, score: 8.75, poster: "https://cdn.myanimelist.net/images/anime/4/19644l.jpg", rank: 10 },
+  { malId: 34572, title: "Black Clover", year: 2017, score: 8.14, poster: "https://cdn.myanimelist.net/images/anime/2/88336l.jpg", rank: 10 },
 ];
