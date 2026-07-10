@@ -113,6 +113,23 @@ export async function GET(request: Request) {
       const v = upstream.headers.get(name);
       if (v) responseHeaders.set(name, v);
     }
+    // Override content-type for MKV files: browsers refuse to play
+    // video/x-matroska / application/octet-stream in <video>. Setting
+    // video/mp4 makes Chrome/Firefox attempt to play the underlying
+    // H.264+AAC streams (which MKV usually contains). If the codec is
+    // HEVC/Opus (e.g. YakuboEncodes) this may still fail, but for H.264
+    // dual-audio MKVs like Cowboy Bebop [DB] it works.
+    const ct = responseHeaders.get("content-type") ?? "";
+    if (
+      ct.includes("matroska") ||
+      ct.includes("x-matroska") ||
+      ct === "application/octet-stream"
+    ) {
+      const targetLower = target.toLowerCase();
+      if (targetLower.includes(".mkv") || targetLower.includes(".mkv.mp4")) {
+        responseHeaders.set("content-type", "video/mp4");
+      }
+    }
     if (upstream.status === 206 || request.headers.get("range")) {
       responseHeaders.set("Accept-Ranges", "bytes");
     }
