@@ -180,6 +180,7 @@ export function VideoPlayer({
   const seekingRef = useRef(false);
   const lastProgressEmitRef = useRef(0);
   const resumeAppliedRef = useRef(false);
+  const userWantsPlayRef = useRef(false);
   const audioSwitchPositionRef = useRef<number | null>(null);
   const ambientCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const hintShownRef = useRef(false);
@@ -342,8 +343,16 @@ export function VideoPlayer({
     const v = videoRef.current;
     if (!v) return;
 
-    const onPlay = () => setIsPlaying(true);
-    const onPause = () => setIsPlaying(false);
+    const onPlay = () => {
+      setIsPlaying(true);
+      userWantsPlayRef.current = true;
+    };
+    const onPause = () => {
+      setIsPlaying(false);
+      // Don't clear userWantsPlayRef here — the browser may auto-pause
+      // on buffering, and we want to retry when buffer is available.
+      // The flag is cleared when the user explicitly clicks pause in togglePlay.
+    };
     const onTime = () => {
       if (seekingRef.current) return;
       setCurrentTime(v.currentTime);
@@ -421,6 +430,11 @@ export function VideoPlayer({
     // `waiting` fires when playback stops because the next frame isn't
     // buffered yet. `stalled` fires when the browser is trying to fetch
     // data but isn't receiving any. Both indicate CDN throughput issues.
+    //
+    // Auto-retry: when the user tries to play but the video immediately
+    // stalls (common on slow connections or when on a call), we retry
+    // playback after a short delay. This prevents the "pause immediately
+    // after unpausing" loop.
     const startBuffer = () => {
       setIsBuffering(true);
       if (bufferTimerRef.current) clearTimeout(bufferTimerRef.current);
@@ -453,6 +467,16 @@ export function VideoPlayer({
       startBuffer();
     };
 
+    // Auto-retry: if the user intended to play but the video stalled,
+    // wait for canplay then retry. This fixes the "instant re-pause" loop
+    // that happens on slow connections (e.g., when on a call).
+    const onCanPlayRetry = () => {
+      stopBuffer();
+      if (userWantsPlayRef.current && v.paused) {
+        v.play().catch(() => {});
+      }
+    };
+
     v.addEventListener("play", onPlay);
     v.addEventListener("pause", onPause);
     v.addEventListener("timeupdate", onTime);
@@ -463,7 +487,8 @@ export function VideoPlayer({
     v.addEventListener("waiting", onWaiting);
     v.addEventListener("stalled", onStalled);
     v.addEventListener("playing", onPlayingEv);
-    v.addEventListener("canplay", onCanPlay);
+    v.addEventListener("canplay", onCanPlayRetry);
+    v.addEventListener("canplaythrough", onCanPlayRetry);
     v.addEventListener("loadstart", onLoadStart);
     return () => {
       v.removeEventListener("play", onPlay);
@@ -476,7 +501,8 @@ export function VideoPlayer({
       v.removeEventListener("waiting", onWaiting);
       v.removeEventListener("stalled", onStalled);
       v.removeEventListener("playing", onPlayingEv);
-      v.removeEventListener("canplay", onCanPlay);
+      v.removeEventListener("canplay", onCanPlayRetry);
+      v.removeEventListener("canplaythrough", onCanPlayRetry);
       v.removeEventListener("loadstart", onLoadStart);
       if (bufferTimerRef.current) {
         clearTimeout(bufferTimerRef.current);
@@ -603,8 +629,15 @@ export function VideoPlayer({
     const v = videoRef.current;
     if (!v) return;
     keepControlsAlive();
-    if (v.paused) v.play().catch(() => {});
-    else v.pause();
+    if (v.paused) {
+      // Set a flag so the canplay handler knows to auto-resume if the
+      // video immediately stalls (common on slow connections).
+      userWantsPlayRef.current = true;
+      v.play().catch(() => {});
+    } else {
+      userWantsPlayRef.current = false;
+      v.pause();
+    }
   }, [keepControlsAlive]);
 
   const skip = useCallback(
