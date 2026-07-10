@@ -851,6 +851,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.77, scoredBy: 400000, rank: 0, popularity: 400, members: 800000,
     year: 2016, season: "fall", genres: ["Award Winning", "Sports"], studios: ["Production I.G"],
     episodeCount: 10, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    localSubtitlePattern: "/subtitles/32935_e{ep}.vtt",
     episodeSources: [
       { startEp: 1, endEp: 10, collection: "haikyuu-karasuno-koukou-vs.-shiratorizawa-gakuen-koukou-dub-episode-4", fileTemplate: "Season 3/Haikyuu!! Karasuno Koukou vs. Shiratorizawa Gakuen Koukou (Dub) Episode {ep}.mp4", audio: "dub" },
     ], hasDub: true,
@@ -862,6 +863,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.47, scoredBy: 900000, rank: 0, popularity: 50, members: 1800000,
     year: 2014, season: "spring", genres: ["Award Winning", "Sports"], studios: ["Production I.G"],
     episodeCount: 25, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    localSubtitlePattern: "/subtitles/20583_e{ep}.vtt",
     episodeSources: [
       { startEp: 1, endEp: 25, collection: "haikyuu-dub-episode-23_20250823", fileTemplate: "Season 1/Haikyuu!! (Dub) Episode {ep}.mp4", audio: "dub" },
     ], hasDub: true,
@@ -873,6 +875,7 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.54, scoredBy: 700000, rank: 0, popularity: 80, members: 1400000,
     year: 2015, season: "fall", genres: ["Award Winning", "Sports"], studios: ["Production I.G"],
     episodeCount: 25, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga",
+    localSubtitlePattern: "/subtitles/28891_e{ep}.vtt",
     episodeSources: [
       { startEp: 1, endEp: 25, collection: "haikyuu-second-season-dub-episode-21", fileTemplate: "Season 2/Haikyuu!! Second Season (Dub) Episode {ep}.mp4", audio: "dub" },
     ], hasDub: true,
@@ -883,10 +886,18 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "/posters/haikyuu-to-the-top.jpg", banner: "/posters/haikyuu-to-the-top.jpg",
     type: "TV", status: "Finished Airing", score: 8.24, scoredBy: 500000, rank: 0, popularity: 120, members: 1000000,
     year: 2020, season: "winter", genres: ["Award Winning", "Sports"], studios: ["Production I.G"],
-    episodeCount: 13, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga",
+    episodeCount: 25, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga",
+    localSubtitlePattern: "/subtitles/38883_e{ep}.vtt",
+    // DUB: Part 1 (E1-13) from haikyuu-to-the-top-dub, Part 2 (E14-25) from haikyuu-to-the-top-2nd-season-dub
+    // SUB: E14-25 from DBS Anime Linkz (JP audio, 1080p HEVC, ASR-verified Japanese)
     episodeSources: [
-      { startEp: 1, endEp: 13, collection: "haikyuu-to-the-top-dub-episode-11", fileTemplate: "Season 4 - Part 1/Haikyuu!! To the Top (Dub) Episode {ep}.mp4", audio: "dub" },
-    ], hasDub: true,
+      // DUB Part 1 (E1-13)
+      { startEp: 1, endEp: 25, collection: "haikyuu-to-the-top-dub-episode-11", fileTemplate: "Season 4 - Part 1/Haikyuu!! To the Top (Dub) Episode {ep}.mp4", audio: "dub" },
+      // DUB Part 2 (E14-25)
+      { startEp: 14, endEp: 25, collection: "haikyuu-to-the-top-2nd-season-dub-episode-11", fileTemplate: "Season 4 - Part 2/Haikyuu!! To the Top 2nd Season (Dub) Episode {ep}.mp4", audio: "dub" },
+      // SUB E14-25 (JP audio, 1080p HEVC from DBS Anime Linkz)
+      { startEp: 14, endEp: 25, collection: "dbs-anime-linkz-haikyu-s-04-e-24-1080p-hevc-10bit-web-dl", audio: "sub", fileTemplate: "@DBS_ANIME_LINKZ_Haikyu!!_S04E{ep:02d}_1080p_HEVC_10bit_WEB_DL.mp4" },
+    ], hasSub: true, hasDub: true,
   },
   // The Apothecary Diaries S1 — dual source: Japanese sub + English dub
   // Japanese audio (sub): 720p for eps 1-18 (kusuriya-no-hitorigoto-eps-01-720p),
