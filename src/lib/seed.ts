@@ -528,6 +528,68 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 12, endEp: 12, collection: "smoking-behind-the-supermarket-with-you-e12-3874fb", fileName: "smoking behind the supermarket with you E12.mp4", audio: "sub" },
     ],
   },
+  // Black Clover
+  { malId: 34572, title: "Black Clover", titleEnglish: "Black Clover", titleJapanese: "ブラッククローバー",
+    synopsis: "Asta and Yuno were abandoned together at the same church and have been inseparable since. As children they promised that they would compete against each other to see who would become the next Wizard King.",
+    poster: "https://cdn.myanimelist.net/images/anime/2/88336l.jpg", banner: "https://cdn.myanimelist.net/images/anime/2/88336l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.18, scoredBy: 380000, rank: 400, popularity: 50, members: 1100000,
+    year: 2017, season: "fall", genres: ["Action", "Comedy", "Fantasy"], studios: ["Studio Pierrot"],
+    episodeCount: 170, duration: "23 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    // DUB: E1-29 from episode-09_202606 (English dub, ~215MB each, good quality).
+    //      E86-170 from black-clover_20260529 (English dub, ~130MB each).
+    //      E30-85: NO SOURCE FOUND — will show "no stream available".
+    // SUB: E126-170 from kusagiri collections (JP audio, 720p).
+    //      E105-153 from black-clover-3 (JP audio, 480p, overlaps with kusagiri).
+    episodeSources: [
+      // DUB E1-29
+      { startEp: 1, endEp: 170, collection: "episode-09_202606", audio: "dub", episodeFiles: {
+        1: "Episode_01.mp4", 2: "Episode_02.mp4", 3: "Episode_03.mp4", 4: "Episode_04.mp4", 5: "Episode_05.mp4",
+        6: "Episode_06.mp4", 7: "Episode_07.mp4", 8: "Episode_08.mp4", 9: "Episode_09.mp4", 10: "Episode_10.mp4",
+        11: "Episode_11.mp4", 12: "Episode_12.mp4", 13: "Episode_13.mp4", 14: "Episode_14.mp4", 15: "Episode_15.mp4",
+        16: "Episode_16.mp4", 17: "Episode_17.mp4", 18: "Episode_18.mp4", 19: "Episode_19.mp4", 20: "Episode_20.mp4",
+        21: "Episode_21.mp4", 22: "Episode_22.mp4", 23: "Episode_23.mp4", 24: "Episode_24.mp4", 25: "Episode_25.mp4",
+        26: "Episode_26.mp4", 27: "Episode_27.mp4", 28: "Episode_28.mp4", 29: "Episode_29.mp4",
+      } },
+      // DUB E86-170
+      { startEp: 86, endEp: 170, collection: "black-clover_20260529", fileTemplate: "Black Clover S1E{ep}.mp4", audio: "dub" },
+      // SUB E126-150 (JP audio, 720p)
+      { startEp: 126, endEp: 170, collection: "kusagiri.web.id-blck-clver-129-720p", audio: "sub", episodeFiles: {
+        126: "Kusagiri.web.id_BlckClver--126_720p.mp4", 127: "Kusagiri.web.id_BlckClver--127_720p.mp4",
+        128: "Kusagiri.web.id_BlckClver--128_720p.mp4", 129: "Kusagiri.web.id_BlckClver--129_720p.mp4",
+        130: "Kusagiri.web.id_BlckClver--130_720p.mp4", 131: "Kusagiri.web.id_BlckClver--131_720p.mp4",
+        132: "Kusagiri.web.id_BlckClver--132_720p.mp4", 133: "Kusagiri.web.id_BlckClver--133_720p.mp4",
+        134: "Kusagiri.web.id_BlckClver--134_720p.mp4", 135: "Kusagiri.web.id_BlckClver--135_720p.mp4",
+        136: "Kusagiri.web.id_BlckClver--136_720p.mp4", 137: "Kusagiri.web.id_BlckClver--137_720p.mp4",
+        138: "Kusagiri.web.id_BlckClver--138_720p.mp4", 139: "Kusagiri.web.id_BlckClver--139_720p.mp4",
+        140: "Kusagiri.web.id_BlckClver--140_720p.mp4", 141: "Kusagiri.web.id_BlckClver--141_720p.mp4",
+        142: "Kusagiri.web.id_BlckClver--142_720p.mp4", 143: "Kusagiri.web.id_BlckClver--143_720p.mp4",
+        144: "Kusagiri.web.id_BlckClver--144_720p.mp4", 145: "Kusagiri.web.id_BlckClver--145_720p.mp4",
+        146: "Kusagiri.web.id_BlckClver--146_720p.mp4", 147: "Kusagiri.web.id_BlckClver--147_720p.mp4",
+        148: "Kusagiri.web.id_BlckClver--148_720p.mp4", 149: "Kusagiri.web.id_BlckClver--149_720p.mp4",
+        150: "Kusagiri.web.id_BlckClver--150_720p.mp4",
+      } },
+      // SUB E151-170 (JP audio, 720p)
+      { startEp: 151, endEp: 170, collection: "kusagiri.web.id-blck-clver-151-720p", audio: "sub", episodeFiles: {
+        151: "Kusagiri.web.id_BlckClver--151_720p.mp4", 152: "Kusagiri.web.id_BlckClver--152_720p.mp4",
+        153: "Kusagiri.web.id_BlckClver--153_720p.mp4", 154: "Kusagiri.web.id_BlckClver--154_720p.mp4",
+        155: "Kusagiri.web.id_BlckClver--155_720p.mp4", 156: "Kusagiri.web.id_BlckClver--156_720p.mp4",
+        157: "Kusagiri.web.id_BlckClver--157_720p.mp4", 158: "Kusagiri.web.id_BlckClver--158_720p.mp4",
+        159: "Kusagiri.web.id_BlckClver--159_720p.mp4", 160: "Kusagiri.web.id_BlckClver--160_720p.mp4",
+        161: "Kusagiri.web.id_BlckClver--161_720p.mp4", 162: "Kusagiri.web.id_BlckClver--162_720p.mp4",
+        163: "Kusagiri.web.id_BlckClver--163_720p.mp4", 164: "Kusagiri.web.id_BlckClver--164_720p.mp4",
+        165: "Kusagiri.web.id_BlckClver--165_720p.mp4", 166: "Kusagiri.web.id_BlckClver--166_720p.mp4",
+        167: "Kusagiri.web.id_BlckClver--167_720p.mp4", 168: "Kusagiri.web.id_BlckClver--168_720p.mp4",
+        169: "Kusagiri.web.id_BlckClver--169_720p.mp4", 170: "Kusagiri.web.id_BlckClver--170_720p.mp4",
+      } },
+    ], hasSub: true, hasDub: true,
+  },
+  // Black Clover Season 2 (2026 — Not yet aired)
+  { malId: 61967, title: "Black Clover 2nd Season", titleEnglish: "Black Clover 2nd Season", titleJapanese: "ブラッククローバー 2nd Season",
+    synopsis: "The second season of Black Clover.", poster: "https://cdn.myanimelist.net/images/anime/1639/154074l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1639/154074l.jpg",
+    type: "TV", status: "Not yet aired", score: 0, scoredBy: 0, rank: 0, popularity: 500, members: 50000,
+    year: 2026, season: "fall", genres: ["Action", "Comedy", "Fantasy"], studios: ["Studio Pierrot"],
+    episodeCount: 0, duration: "23 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true, episodeSources: [],
+  },
   // Cowboy Bebop
   { malId: 1, title: "Cowboy Bebop", titleEnglish: "Cowboy Bebop", titleJapanese: "カウボーイビバップ",
     synopsis: "Crime is timeless. By the year 2071, humanity has expanded across the galaxy. Bounty hunters known as Cowboys chase criminals across the stars.",
@@ -1541,6 +1603,13 @@ export const SEASON_GROUPS: { franchise: string; seasons: { malId: number; label
       { malId: 53998, label: "Season 3 — TYBW Cour 2 (Separation)" },
       { malId: 56784, label: "Season 4 — TYBW Cour 3 (Conflict)" },
       { malId: 60636, label: "Season 5 — TYBW Cour 4 (Calamity)" },
+    ],
+  },
+  {
+    franchise: "Black Clover",
+    seasons: [
+      { malId: 34572, label: "Season 1" },
+      { malId: 61967, label: "Season 2 (2026)" },
     ],
   },
   {
