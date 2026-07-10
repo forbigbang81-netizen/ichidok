@@ -536,14 +536,17 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 1998, season: "spring", genres: ["Action", "Award Winning", "Sci-Fi"], studios: ["Sunrise"],
     episodeCount: 26, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Original", isFeatured: true,
     localSubtitlePattern: "/subtitles/1_e{ep}.vtt",
-    // SUB: dual-audio MKV (stream 2 = Japanese audio). needsProxy=true so it
-    // plays via /api/stream. The MP4 derivative only kept English audio.
-    // DUB: same dual-audio MKV, but the MP4 derivative (stream 1 = English).
+    // DUB: MP4 derivative from db-bebop-of-the-cowboys-1080p (H.264 video,
+    // English audio). All 26 episodes work in browser.
+    // SUB: NOT available. The MKV has Japanese audio (stream 2) but uses HEVC
+    // video in a Matroska container — browsers can't play MKV files. The MP4
+    // derivative only kept English audio (stream 1). Vercel doesn't have
+    // ffmpeg so /api/transcode can't remux on the fly. Need a JP-audio MP4
+    // source or Dropbox links to add SUB.
     episodeSources: [
-      { startEp: 1, endEp: 26, collection: "db-bebop-of-the-cowboys-1080p", fileTemplate: "[DB]Cowboy Bebop_-_{ep:02}_(Dual Audio_10bit_BD1080p_x265).mkv", needsProxy: true, audio: "sub" },
       { startEp: 1, endEp: 26, collection: "db-bebop-of-the-cowboys-1080p", fileTemplate: "[DB]Cowboy Bebop_-_{ep:02}_(Dual Audio_10bit_BD1080p_x265).mp4", audio: "dub" },
     ],
-    hasSub: true, hasDub: true,
+    hasDub: true,
   },
   // Cyberpunk Edgerunners
   { malId: 42310, title: "Cyberpunk: Edgerunners", titleEnglish: "Cyberpunk: Edgerunners", titleJapanese: "サイバーパンク エッジランナーズ",
