@@ -535,14 +535,14 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 7.48, scoredBy: 600000, rank: 0, popularity: 100, members: 1200000,
     year: 2014, season: "summer", genres: ["Action", "Adventure", "Drama", "Fantasy"], studios: ["White Fox"],
     episodeCount: 24, duration: "23 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
-    // SUB: AnimePahe BD 720p rips (JP audio, ASR-verified). E1-11 available.
-    // E12-24: NO SOURCE FOUND on archive.org (no individual episode uploads).
+    // SUB: AnimePahe BD 720p rips (JP audio, ASR-verified). All 24 episodes
+    // from anime-pahe-akame-ga-kill-16-bd-720p-fff_202506 collection.
     // No English dub source exists on archive.org at any quality.
-    // No 1080p source that can be streamed (only a 22GB RAR file exists).
+    // No 1080p streamable source exists (only a 22GB RAR file).
     episodeSources: [
-      { startEp: 1, endEp: 24, collection: "anime-pahe-akame-ga-kill-01-bd-720p-fff-1", audio: "sub", episodeFiles: {
-        1: "AnimePahe_Akame_ga_Kill_-_01_BD_720p_FFF[1].mp4",
-        2: "AnimePahe_Akame_ga_Kill_-_02_BD_720p_FFF[1].mp4",
+      { startEp: 1, endEp: 24, collection: "anime-pahe-akame-ga-kill-16-bd-720p-fff_202506", audio: "sub", episodeFiles: {
+        1: "AnimePahe_Akame_ga_Kill_-_01_BD_720p_FFF.mp4",
+        2: "AnimePahe_Akame_ga_Kill_-_02_BD_720p_FFF.mp4",
         3: "AnimePahe_Akame_ga_Kill_-_03_BD_720p_FFF.mp4",
         4: "AnimePahe_Akame_ga_Kill_-_04_BD_720p_FFF.mp4",
         5: "AnimePahe_Akame_ga_Kill_-_05_BD_720p_FFF.mp4",
@@ -552,6 +552,19 @@ export const SEED_ANIME: SeedAnime[] = [
         9: "AnimePahe_Akame_ga_Kill_-_09_BD_720p_FFF.mp4",
         10: "AnimePahe_Akame_ga_Kill_-_10_BD_720p_FFF.mp4",
         11: "AnimePahe_Akame_ga_Kill_-_11_BD_720p_FFF.mp4",
+        12: "AnimePahe_Akame_ga_Kill_-_12_BD_720p_FFF.mp4",
+        13: "AnimePahe_Akame_ga_Kill_-_13_BD_720p_FFF - Copy.mp4",
+        14: "AnimePahe_Akame_ga_Kill_-_14_BD_720p_FFF.mp4",
+        15: "AnimePahe_Akame_ga_Kill_-_15_BD_720p_FFF.mp4",
+        16: "AnimePahe_Akame_ga_Kill_-_16_BD_720p_FFF.mp4",
+        17: "AnimePahe_Akame_ga_Kill_-_17_BD_720p_FFF.mp4",
+        18: "AnimePahe_Akame_ga_Kill_-_18_BD_720p_FFF.mp4",
+        19: "AnimePahe_Akame_ga_Kill_-_19_BD_720p_FFF.mp4",
+        20: "AnimePahe_Akame_ga_Kill_-_20_BD_720p_FFF.mp4",
+        21: "AnimePahe_Akame_ga_Kill_-_21_BD_720p_FFF.mp4",
+        22: "AnimePahe_Akame_ga_Kill_-_22_BD_720p_FFF.mp4",
+        23: "AnimePahe_Akame_ga_Kill_-_23_BD_720p_FFF.mp4",
+        24: "AnimePahe_Akame_ga_Kill_-_24_BD_720p_FFF.mp4",
       } },
     ], hasSub: true,
   },
