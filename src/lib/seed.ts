@@ -528,6 +528,33 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 12, endEp: 12, collection: "smoking-behind-the-supermarket-with-you-e12-3874fb", fileName: "smoking behind the supermarket with you E12.mp4", audio: "sub" },
     ],
   },
+  // Akame ga Kill
+  { malId: 22199, title: "Akame ga Kill!", titleEnglish: "Akame ga Kill!", titleJapanese: "アカメが斬る！",
+    synopsis: "Tatsumi is a fighter who sets off to the Capital in search of a way to make money to assist his poverty-stricken village. After falling victim to a robbery by a woman and being rescued by a noble family, he discovers the dark truth about the Capital.",
+    poster: "https://cdn.myanimelist.net/images/anime/3/64213l.jpg", banner: "https://cdn.myanimelist.net/images/anime/3/64213l.jpg",
+    type: "TV", status: "Finished Airing", score: 7.48, scoredBy: 600000, rank: 0, popularity: 100, members: 1200000,
+    year: 2014, season: "summer", genres: ["Action", "Adventure", "Drama", "Fantasy"], studios: ["White Fox"],
+    episodeCount: 24, duration: "23 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    // SUB: AnimePahe BD 720p rips (JP audio, ASR-verified). E1-11 available.
+    // E12-24: NO SOURCE FOUND on archive.org (no individual episode uploads).
+    // No English dub source exists on archive.org at any quality.
+    // No 1080p source that can be streamed (only a 22GB RAR file exists).
+    episodeSources: [
+      { startEp: 1, endEp: 24, collection: "anime-pahe-akame-ga-kill-01-bd-720p-fff-1", audio: "sub", episodeFiles: {
+        1: "AnimePahe_Akame_ga_Kill_-_01_BD_720p_FFF[1].mp4",
+        2: "AnimePahe_Akame_ga_Kill_-_02_BD_720p_FFF[1].mp4",
+        3: "AnimePahe_Akame_ga_Kill_-_03_BD_720p_FFF.mp4",
+        4: "AnimePahe_Akame_ga_Kill_-_04_BD_720p_FFF.mp4",
+        5: "AnimePahe_Akame_ga_Kill_-_05_BD_720p_FFF.mp4",
+        6: "AnimePahe_Akame_ga_Kill_-_06_BD_720p_FFF.mp4",
+        7: "AnimePahe_Akame_ga_Kill_-_07_BD_720p_FFF.mp4",
+        8: "AnimePahe_Akame_ga_Kill_-_08_BD_720p_FFF.mp4",
+        9: "AnimePahe_Akame_ga_Kill_-_09_BD_720p_FFF.mp4",
+        10: "AnimePahe_Akame_ga_Kill_-_10_BD_720p_FFF.mp4",
+        11: "AnimePahe_Akame_ga_Kill_-_11_BD_720p_FFF.mp4",
+      } },
+    ], hasSub: true,
+  },
   // Black Clover
   { malId: 34572, title: "Black Clover", titleEnglish: "Black Clover", titleJapanese: "ブラッククローバー",
     synopsis: "Asta and Yuno were abandoned together at the same church and have been inseparable since. As children they promised that they would compete against each other to see who would become the next Wizard King.",

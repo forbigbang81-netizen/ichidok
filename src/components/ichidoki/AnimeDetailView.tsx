@@ -12,6 +12,7 @@ import {
   Users,
   Radio,
   Play,
+  Download,
 } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -189,6 +190,34 @@ export function AnimeDetailView() {
     setCountdownForEp(null);
     setNextEpCountdown(null);
     setSelectedEpisode(ep);
+  };
+
+  const handleDownload = async (ep: number) => {
+    try {
+      const audio = audioMode.toLowerCase();
+      const resp = await fetch(
+        `/api/auto-import?malId=${selectedMalId}&episode=${ep}&audio=${audio}`,
+      );
+      const data = await resp.json();
+      if (!data.url) {
+        toast.error("No stream available for this episode");
+        return;
+      }
+      // For archive.org/proxy URLs, open in a new tab which triggers download
+      // (browsers handle it as a download if Content-Disposition is set, or
+      // the user can right-click > Save Video As)
+      const a = document.createElement("a");
+      a.href = data.url;
+      a.download = `${anime.title} - Episode ${ep}.mp4`;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      toast.success(`Downloading Episode ${ep}...`);
+    } catch {
+      toast.error("Failed to start download");
+    }
   };
 
   const handleBookmarkToggle = async () => {
@@ -554,6 +583,20 @@ export function AnimeDetailView() {
                       {ep.title ?? `Episode ${ep.number}`}
                     </p>
                   </div>
+                  {/* Download button — outside the player, per-episode */}
+                  {hasStream && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDownload(ep.number);
+                      }}
+                      className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-white/40 transition-colors active:bg-white/10 hover:text-[#f5c518]"
+                      aria-label={`Download episode ${ep.number}`}
+                    >
+                      <Download className="h-4 w-4" />
+                    </button>
+                  )}
                 </button>
               );
             })}
