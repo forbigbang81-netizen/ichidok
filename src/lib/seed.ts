@@ -983,9 +983,14 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.68, scoredBy: 400000, rank: 0, popularity: 200, members: 800000,
     year: 1999, season: "summer", genres: ["Comedy"], studios: ["Studio Pierrot"],
     episodeCount: 43, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    // SUB (Japanese audio): Cartoons-and-Anime collection, 640x480 (4x3 aspect).
+    //   Was previously mislabeled as "dub" but ASR-verified as Japanese audio.
+    // DUB (English dub): great-teacher-onizuka-dub collection, 960x720 (higher
+    //   quality than the sub source). ASR-verified English on E1.
     episodeSources: [
-      { startEp: 1, endEp: 43, collection: "Cartoons-and-Anime", fileTemplate: "Great Teacher Onizuka (1999)/Great Teacher Onizuka S01E{ep:02} - 4x3.mp4", audio: "dub" },
-    ], hasDub: true,
+      { startEp: 1, endEp: 43, collection: "Cartoons-and-Anime", fileTemplate: "Great Teacher Onizuka (1999)/Great Teacher Onizuka S01E{ep:02} - 4x3.mp4", audio: "sub" },
+      { startEp: 1, endEp: 43, collection: "great-teacher-onizuka-dub", fileTemplate: "Great Teacher Onizuka/Great Teacher Onizuka (Dub) Episode {ep}.mp4", audio: "dub" },
+    ], hasSub: true, hasDub: true,
   },
   // Nadia: The Secret of Blue Water
   { malId: 1251, title: "Nadia: The Secret of Blue Water", titleEnglish: "Nadia: The Secret of Blue Water", titleJapanese: "ふしぎの海のナディア",
