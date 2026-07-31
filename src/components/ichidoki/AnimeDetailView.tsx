@@ -202,34 +202,49 @@ export function AnimeDetailView() {
     }
   };
 
-  const handleDownload = async (ep: number) => {
+  const [downloadPopupEp, setDownloadPopupEp] = useState<number | null>(null);
+  const [downloading, setDownloading] = useState(false);
+
+  const handleDownloadClick = (ep: number) => {
+    // Check if both sub and dub are available — if so, show popup
+    if (anime?.hasSub && anime?.hasDub) {
+      setDownloadPopupEp(ep);
+    } else if (anime?.hasSub) {
+      doDownload(ep, "sub");
+    } else if (anime?.hasDub) {
+      doDownload(ep, "dub");
+    } else {
+      toast.error("No download available for this episode");
+    }
+  };
+
+  const doDownload = async (ep: number, audio: "sub" | "dub") => {
+    setDownloadPopupEp(null);
+    setDownloading(true);
     try {
-      const audio = audioMode.toLowerCase();
       const resp = await fetch(
         `/api/auto-import?malId=${selectedMalId}&episode=${ep}&audio=${audio}`,
       );
       const data = await resp.json();
       if (!data.url) {
-        toast.error("No stream available for this episode");
+        toast.error(`No ${audio.toUpperCase()} stream available for E${ep}`);
         return;
       }
-      // Route the download through our /api/stream proxy with a
-      // download=1 param so the proxy sets Content-Disposition: attachment.
-      // This forces the browser to download the file directly instead of
-      // navigating to the archive.org page.
       const streamUrl = data.url.includes("/api/stream")
         ? data.url
         : `/api/stream?url=${encodeURIComponent(data.url)}`;
       const downloadUrl = `${streamUrl}${streamUrl.includes("?") ? "&" : "?"}download=1`;
       const a = document.createElement("a");
       a.href = downloadUrl;
-      a.download = `${anime.title} - Episode ${ep}.mp4`;
+      a.download = `${anime.title} - Episode ${ep} (${audio.toUpperCase()}).mp4`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      toast.success(`Downloading Episode ${ep}...`);
+      toast.success(`Downloading E${ep} ${audio.toUpperCase()}...`);
     } catch {
       toast.error("Failed to start download");
+    } finally {
+      setDownloading(false);
     }
   };
 
@@ -417,7 +432,7 @@ export function AnimeDetailView() {
             type="button"
             onClick={(e) => {
               e.stopPropagation();
-              handleDownload(ep.number);
+              handleDownloadClick(ep.number);
             }}
             className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-white/40 transition-colors active:bg-white/10 hover:text-[#f5c518]"
             aria-label={`Download episode ${ep.number}`}
@@ -859,6 +874,67 @@ export function AnimeDetailView() {
           </dl>
         )}
       </div>
+      )}
+
+      {/* ===== Download Sub/Dub popup ===== */}
+      {downloadPopupEp !== null && (
+        <div
+          className="fixed inset-0 z-50 grid place-items-center bg-black/80"
+          onClick={() => setDownloadPopupEp(null)}
+        >
+          <div
+            className="w-[300px] max-w-[85%] rounded-2xl bg-[#1a1a1a] p-5"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <p className="text-center text-sm font-bold text-white">
+              Download Episode {downloadPopupEp}
+            </p>
+            <p className="mt-1 text-center text-[11px] text-white/40">
+              Choose audio track
+            </p>
+            <div className="mt-4 flex flex-col gap-2">
+              {anime?.hasSub && (
+                <button
+                  type="button"
+                  disabled={downloading}
+                  onClick={() => doDownload(downloadPopupEp, "sub")}
+                  className="flex items-center justify-center gap-2 rounded-xl bg-[#f5c518] py-3 text-sm font-bold text-black transition-colors active:bg-[#e6b016] disabled:opacity-50"
+                >
+                  <Download className="h-4 w-4" />
+                  SUB (Japanese)
+                </button>
+              )}
+              {anime?.hasDub && (
+                <button
+                  type="button"
+                  disabled={downloading}
+                  onClick={() => doDownload(downloadPopupEp, "dub")}
+                  className="flex items-center justify-center gap-2 rounded-xl bg-white/10 py-3 text-sm font-bold text-white transition-colors active:bg-white/20 disabled:opacity-50"
+                >
+                  <Download className="h-4 w-4" />
+                  DUB (English)
+                </button>
+              )}
+            </div>
+            <button
+              type="button"
+              onClick={() => setDownloadPopupEp(null)}
+              className="mt-3 w-full text-center text-[11px] font-medium text-white/40 transition-colors active:text-white/60"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ===== Download loading overlay ===== */}
+      {downloading && (
+        <div className="fixed inset-0 z-50 grid place-items-center bg-black/80">
+          <div className="flex flex-col items-center gap-3">
+            <div className="h-10 w-10 animate-spin rounded-full border-2 border-white/20 border-t-[#f5c518]" />
+            <p className="text-sm font-medium text-white/70">Preparing download…</p>
+          </div>
+        </div>
       )}
     </div>
   );

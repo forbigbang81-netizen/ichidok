@@ -637,8 +637,8 @@ export const SEED_ANIME: SeedAnime[] = [
     ],
     // Video sources:
     // SUB: E1001-1085 from archive.org (Anime Time 1080p MP4, JP audio, ASR-verified)
-    //      E1-1000 and E1086-1171: wcoflix.tv (external link, Cloudflare protected)
-    // DUB: E1-1155 from wcoflix.tv (external link)
+    //      E1-1000 and E1086-1171: NO SOURCE (no streamable MP4 found)
+    // DUB: NO SOURCE (no streamable MP4 found)
     episodeSources: [
       // SUB: archive.org MP4 for Wano arc (E1001-1085)
       { startEp: 1001, endEp: 1085, collection: "20260622_20260622_0310", audio: "sub", episodeFiles: {
@@ -728,11 +728,7 @@ export const SEED_ANIME: SeedAnime[] = [
         1084: "[Anime Time] One Piece - 1084 - Time To Depart - The Land Of Wano And The Straw Hats.mp4",
         1085: "[Anime Time] One Piece - 1085 - The Last Curtain Luffy And Momonosuke's Vow_Land_Of_Wano_ACT_III_End.mp4",
       } },
-      // SUB/DUB: wcoflix for remaining episodes (external link)
-      { startEp: 1, endEp: 1000, collection: "wcoflix", audio: "sub", fileTemplate: "https://www.wcoflix.tv/one-piece-episode-{ep}-english-subbed" },
-      { startEp: 1086, endEp: 1171, collection: "wcoflix", audio: "sub", fileTemplate: "https://www.wcoflix.tv/one-piece-episode-{ep}-english-subbed" },
-      { startEp: 1, endEp: 1155, collection: "wcoflix", audio: "dub", fileTemplate: "https://www.wcoflix.tv/one-piece-episode-{ep}-english-dubbed" },
-    ], hasSub: true, hasDub: true,
+    ], hasSub: true,
   },
   // Black Clover
   { malId: 34572, title: "Black Clover", titleEnglish: "Black Clover", titleJapanese: "ブラッククローバー",
