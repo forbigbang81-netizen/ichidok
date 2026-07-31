@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   reactStrictMode: false,
-  serverExternalPackages: ["@libsql/client"],
+  serverExternalPackages: ["@libsql/client", "@sparticuz/chromium", "puppeteer-core"],
 };
 
 export default nextConfig;
