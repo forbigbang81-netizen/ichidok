@@ -79,7 +79,6 @@ async def get_browser():
                 "--disable-dev-shm-usage",
                 "--disable-blink-features=AutomationControlled",
                 "--disable-gpu",
-                "--single-process",
             ],
         )
         print(f"[browser] launched chromium", flush=True)
@@ -115,44 +114,83 @@ async def _resolve_with_browser(slug: str) -> str:
     page = await ctx.new_page()
 
     video_url = None
+    neptun_body = None
 
     async def on_response(resp):
-        nonlocal video_url
+        nonlocal video_url, neptun_body
+        url = resp.url
         ct = resp.headers.get("content-type", "")
-        if "video/mp4" in ct and "wcostream.com" in resp.url:
-            video_url = resp.url
+        # Capture the direct video stream (e02.wcostream.com or similar)
+        if "video/mp4" in ct and "wcostream" in url:
+            video_url = url
+            print(f"  [capture] video/mp4: {url[:100]}", flush=True)
+        # Also capture the neptun response which contains the final URL
+        # as a JSON string: "https://e02.wcostream.com/getvid?evid=..."
+        if "neptun.wcostream.com/getvid" in url:
+            try:
+                body = await resp.text()
+                if body and "getvid" in body:
+                    neptun_body = body
+                    print(f"  [capture] neptun response: {body[:100]}", flush=True)
+            except:
+                pass
 
     page.on("response", on_response)
 
     try:
         url = f"https://m.wcostream.tv/{slug}"
+        print(f"  [goto] {url}", flush=True)
         await page.goto(url, wait_until="domcontentloaded", timeout=60000)
-        await asyncio.sleep(12)
+        await asyncio.sleep(15)
 
         # Find embed iframe and interact with it
         iframe_el = await page.query_selector("iframe[src*='embed.wcostream']")
         if iframe_el:
             frame = await iframe_el.content_frame()
             if frame:
-                # Click the ad/play button to trigger video load
-                try:
-                    btn = await frame.query_selector("#b-reklam, .round-button")
-                    if btn:
-                        await btn.click()
-                        await asyncio.sleep(12)
-                except:
-                    pass
+                # Wait for the iframe to fully load
+                await asyncio.sleep(5)
+                
+                # Check if we got the video player or the announcement page
+                content = await frame.content()
+                if "Announcement" in content:
+                    print(f"  [info] got Announcement page, looking for skip button...", flush=True)
+                    # Try clicking the close/skip button on the announcement
+                    for selector in [".btn-close:not([disabled])", "#b-reklam", ".round-button", "button:not([disabled])"]:
+                        try:
+                            el = await frame.query_selector(selector)
+                            if el:
+                                await el.click()
+                                print(f"  [click] {selector} on announcement", flush=True)
+                                await asyncio.sleep(10)
+                                break
+                        except:
+                            pass
+                
+                # Click the play/ad button to trigger video load
+                for selector in ["#b-reklam", ".round-button", ".vjs-big-play-button", "button.vjs-big-play-button"]:
+                    try:
+                        btn = await frame.query_selector(selector)
+                        if btn:
+                            await btn.click()
+                            print(f"  [click] {selector} clicked", flush=True)
+                            await asyncio.sleep(12)
+                            break
+                    except:
+                        pass
+                
                 # Try to play the video element directly
                 try:
                     await frame.evaluate(
                         'document.querySelector("video")?.play()'
                     )
-                    await asyncio.sleep(8)
+                    print(f"  [play] video.play() called", flush=True)
+                    await asyncio.sleep(10)
                 except:
                     pass
 
         # Wait a bit more for the video URL to appear
-        for _ in range(5):
+        for i in range(10):
             if video_url:
                 break
             await asyncio.sleep(3)
@@ -161,6 +199,24 @@ async def _resolve_with_browser(slug: str) -> str:
         print(f"[error] {slug}: {e}", flush=True)
     finally:
         await ctx.close()
+
+    # If we got the neptun response but not the direct video URL,
+    # parse the URL from the neptun JSON body.
+    if not video_url and neptun_body:
+        try:
+            import json
+            parsed = json.loads(neptun_body)
+            if isinstance(parsed, str):
+                video_url = parsed
+            elif isinstance(parsed, dict):
+                video_url = parsed.get("url") or list(parsed.values())[0]
+            print(f"  [fallback] parsed from neptun: {video_url[:100]}", flush=True)
+        except:
+            import re
+            m = re.search(r'(https?://[^"\'\\]+getvid[^"\'\\]+)', neptun_body)
+            if m:
+                video_url = m.group(1).replace("\\/", "/")
+                print(f"  [fallback] regex from neptun: {video_url[:100]}", flush=True)
 
     if not video_url:
         raise RuntimeError(f"Failed to resolve video URL for {slug}")
