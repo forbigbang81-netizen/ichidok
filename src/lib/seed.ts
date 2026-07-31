@@ -1999,7 +1999,11 @@ export function resolveEpisodeUrl(seed: SeedAnime, episode: number, audioMode: "
   function tryResolve(src: EpisodeSource): string | null {
     // WCO resolver source: construct the slug from fileTemplate
     // (e.g. "one-piece-episode-{ep}-english-dubbed" → "one-piece-episode-422-english-dubbed")
+    // Skip if the resolver URL env var isn't set — this lets resolveEpisodeUrl
+    // fall through to the next source (e.g. archive.org) instead of returning
+    // an empty URL that the player can't play.
     if (src.sourceType === "wco_resolver") {
+      if (!process.env.NEXT_PUBLIC_WCO_RESOLVER_URL) return null;
       if (src.episodeFiles && src.episodeFiles[episode]) {
         return src.episodeFiles[episode];
       }
