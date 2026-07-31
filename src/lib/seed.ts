@@ -636,12 +636,11 @@ export const SEED_ANIME: SeedAnime[] = [
       1084,                                   // Wano finale filler
     ],
     // Video sources:
-    // SUB: E1-943 from archive.org (HorribleSubs 720p MKV, JP audio, needsProxy)
-    //      E1001-1085 from archive.org (Anime Time 1080p MP4, JP audio)
-    // DUB: NO SOURCE (no streamable MP4 found)
+    // SUB: E1001-1085 from archive.org (Anime Time 1080p MP4, JP audio)
+    //      E1-1000 and E1086-1171: NO SOURCE (MKV doesn't play in browsers,
+    //      wcoflix/wcoforever URLs expire and can't be proxied server-side)
+    // DUB: NO SOURCE
     episodeSources: [
-      // SUB: HorribleSubs MKV for E1-943 (720p, JP audio, via /api/stream proxy)
-      { startEp: 1, endEp: 943, collection: "one-piece-0001-1000-1999-horrible-subs", fileTemplate: "[HorribleSubs] One Piece (01-1000) [720p] (Batch)/[HorribleSubs] One Piece - {ep:02d} [720p].mkv", needsProxy: true, audio: "sub" },
       // SUB: archive.org MP4 for Wano arc (E1001-1085)
       { startEp: 1001, endEp: 1085, collection: "20260622_20260622_0310", audio: "sub", episodeFiles: {
         1001: "[Anime Time] One Piece - 1001 - A Risky Invitation A Plot To Eliminate Queen.mp4",
