@@ -148,7 +148,7 @@ export async function ensureSeeded(opts?: { force?: boolean }): Promise<void> {
                   await Promise.all(
                     epChunk.map((e) =>
                       db.episode.upsert({
-                        where: { animeId_number: { animeId: anime.id, number: e.number } },
+                        where: { animeId: anime.id, number: e.number },
                         create: {
                           animeId: anime.id,
                           number: e.number,
