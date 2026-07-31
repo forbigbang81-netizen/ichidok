@@ -159,7 +159,7 @@ export async function ensureSeeded(opts?: { force?: boolean }): Promise<void> {
                           title: e.title,
                           filler: e.filler,
                         },
-                      }).catch(() => {}),
+                      }).catch((e) => console.error("[seed] ep upsert fail:", e)),
                     ),
                   );
                 }
