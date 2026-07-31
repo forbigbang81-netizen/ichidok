@@ -64,6 +64,7 @@ export function AnimeDetailView() {
   >([]);
   const [broadcast, setBroadcast] = useState<BroadcastInfo | null>(null);
   const [activeTab, setActiveTab] = useState<DetailTab>("episodes");
+  const [selectedArcIndex, setSelectedArcIndex] = useState(0);
   useCountdownTick();
 
   // ----- Next-episode auto-play countdown -----
@@ -285,13 +286,38 @@ export function AnimeDetailView() {
     );
   }
 
-  const episodeList: Episode[] =
+  const allEpisodes: Episode[] =
     episodes.length > 0
       ? episodes
       : Array.from({ length: anime.episodeCount }, (_, i) => ({
           number: i + 1,
           title: `Episode ${i + 1}`,
         }));
+
+  // If the anime has arcs, filter episodes to only the selected arc
+  // and determine the arc list from episode titles
+  const arcNames = Array.from(new Set(allEpisodes.map((e) => e.title).filter((t) => t && !t.startsWith("Episode "))));
+  const hasArcs = arcNames.length > 1;
+
+  // Build arc list with episode ranges from the actual episode data
+  const arcList: { name: string; episodes: Episode[] }[] = [];
+  if (hasArcs) {
+    let currentArc = "";
+    for (const ep of allEpisodes) {
+      const arcName = ep.title ?? "Other";
+      if (arcName !== currentArc) {
+        currentArc = arcName;
+        arcList.push({ name: arcName, episodes: [] });
+      }
+      arcList[arcList.length - 1].episodes.push(ep);
+    }
+  }
+
+  // Clamp selected arc index
+  const effectiveArcIndex = Math.min(selectedArcIndex, Math.max(0, arcList.length - 1));
+  const episodeList: Episode[] = hasArcs
+    ? (arcList[effectiveArcIndex]?.episodes ?? allEpisodes)
+    : allEpisodes;
 
   // Render a single episode item (shared between flat list and arc groups)
   const renderEpisodeItem = (ep: Episode) => {
@@ -456,30 +482,32 @@ export function AnimeDetailView() {
         </div>
       </header>
 
-      {/* ===== Poster banner with gradient fade to black ===== */}
-      <div className="relative">
-        {/* Poster image — full width, aspect 16:9 */}
-        <div className="relative aspect-video w-full overflow-hidden">
-          <img
-            src={anime.banner || anime.poster}
-            alt={anime.title}
-            className="h-full w-full object-cover"
-          />
-          {/* Gradient overlay: transparent at top → black at bottom */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
-          {/* Title centered over the bottom of the poster */}
-          <div className="absolute inset-x-0 bottom-0 flex flex-col items-center pb-4">
-            <h1 className="px-4 text-center text-2xl font-bold leading-tight text-white drop-shadow-lg">
-              {anime.title}
-            </h1>
-            {anime.titleJapanese && (
-              <p className="mt-1 text-[11px] text-white/50">
-                {anime.titleJapanese}
-              </p>
-            )}
+      {/* ===== Poster banner with gradient fade to black (detail view only) ===== */}
+      {!isPlayerView && (
+        <div className="relative">
+          {/* Poster image — full width, aspect 16:9 */}
+          <div className="relative aspect-video w-full overflow-hidden">
+            <img
+              src={anime.banner || anime.poster}
+              alt={anime.title}
+              className="h-full w-full object-cover"
+            />
+            {/* Gradient overlay: transparent at top → black at bottom */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
+            {/* Title centered over the bottom of the poster */}
+            <div className="absolute inset-x-0 bottom-0 flex flex-col items-center pb-4">
+              <h1 className="px-4 text-center text-2xl font-bold leading-tight text-white drop-shadow-lg">
+                {anime.title}
+              </h1>
+              {anime.titleJapanese && (
+                <p className="mt-1 text-[11px] text-white/50">
+                  {anime.titleJapanese}
+                </p>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* ===== Video player (only in player view) OR Start Watching button (detail view) ===== */}
       {isPlayerView ? (
@@ -553,7 +581,8 @@ export function AnimeDetailView() {
         </div>
       )}
 
-      {/* ===== Anime info: score + info chips (title is now on the poster) ===== */}
+      {/* ===== Anime info: score + info chips (detail view only) ===== */}
+      {!isPlayerView && (
       <section className="px-4 pt-4">
         <div className="mt-2 flex flex-wrap items-center justify-center gap-3 text-[11px] text-white/60">
           {anime.score > 0 && (
@@ -628,8 +657,10 @@ export function AnimeDetailView() {
           </div>
         )}
       </section>
+      )}
 
-      {/* ===== Tabs — simple underline ===== */}
+      {/* ===== Tabs — simple underline (detail view only) ===== */}
+      {!isPlayerView && (
       <div className="mt-4 px-4">
         <UnderlineTabs
           tabs={tabs}
@@ -637,45 +668,38 @@ export function AnimeDetailView() {
           onChange={(t) => setActiveTab(t as DetailTab)}
         />
       </div>
+      )}
 
-      {/* ===== Tab content ===== */}
+      {/* ===== Tab content (detail view only) ===== */}
+      {!isPlayerView && (
       <div className="px-4 mt-4" key={activeTab}>
         {activeTab === "episodes" && (
-          <div className="flex flex-col gap-3">
-            {/* Group episodes by arc (title field) if multiple unique titles exist */}
-            {(() => {
-              const uniqueTitles = new Set(episodeList.map((e) => e.title));
-              const hasArcs = uniqueTitles.size > 1 && !Array.from(uniqueTitles).every((t) => t?.startsWith("Episode "));
-
-              if (!hasArcs) {
-                // Flat list (no arcs)
-                return episodeList.map((ep) => renderEpisodeItem(ep));
-              }
-
-              // Group by arc name
-              const arcGroups: { name: string; episodes: Episode[] }[] = [];
-              let currentArc = "";
-              for (const ep of episodeList) {
-                const arcName = ep.title ?? "Other";
-                if (arcName !== currentArc) {
-                  currentArc = arcName;
-                  arcGroups.push({ name: arcName, episodes: [] });
-                }
-                arcGroups[arcGroups.length - 1].episodes.push(ep);
-              }
-
-              return arcGroups.map((arc) => (
-                <div key={arc.name} className="flex flex-col gap-1.5">
-                  <div className="sticky top-0 z-10 flex items-center justify-between bg-black/90 py-1.5 backdrop-blur-sm">
-                    <h3 className="text-xs font-bold text-white/80">{arc.name}</h3>
-                    <span className="text-[10px] text-white/40">
-                      EP {arc.episodes[0].number}–{arc.episodes[arc.episodes.length - 1].number}
+          <div className="flex flex-col gap-2">
+            {/* Arc selector — horizontal scroll of arc names */}
+            {hasArcs && (
+              <div className="mb-2 flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: 'none' }}>
+                {arcList.map((arc, i) => (
+                  <button
+                    key={arc.name}
+                    type="button"
+                    onClick={() => setSelectedArcIndex(i)}
+                    className={cn(
+                      "whitespace-nowrap rounded-full px-3 py-1.5 text-[11px] font-bold transition-colors",
+                      i === effectiveArcIndex
+                        ? "bg-[#f5c518] text-black"
+                        : "bg-[#111111] text-white/60 active:bg-white/10",
+                    )}
+                  >
+                    {arc.name}
+                    <span className="ml-1 opacity-50">
+                      ({arc.episodes[0].number}–{arc.episodes[arc.episodes.length - 1].number})
                     </span>
-                  </div>
-                  {arc.episodes.map((ep) => renderEpisodeItem(ep))}
-                </div>
-              ));
-            })()}
+                  </button>
+                ))}
+              </div>
+            )}
+            {/* Episode list — only shows episodes within the selected arc */}
+            {episodeList.map((ep) => renderEpisodeItem(ep))}
           </div>
         )}
 
@@ -832,6 +856,7 @@ export function AnimeDetailView() {
           </dl>
         )}
       </div>
+      )}
     </div>
   );
 }
