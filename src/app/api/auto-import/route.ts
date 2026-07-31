@@ -126,58 +126,69 @@ export async function GET(request: Request) {
 
     const isYoutube = resolved.source === "youtube";
     const isWcoflix = resolved.source === "wcoflix";
+    const isWcoResolver = resolved.source === "wco_resolver";
     const sourceLabel =
       resolved.source === "youtube"
         ? "youtube"
         : isWcoflix
           ? "wcoflix"
-          : resolved.needsProxy
-            ? "archive-mkv"
-            : "archive";
+          : isWcoResolver
+            ? "wco_resolver"
+            : resolved.needsProxy
+              ? "archive-mkv"
+              : "archive";
 
     // Build the URL the player should consume. YouTube embeds go straight.
     // Wcoflix URLs are external pages (not video files) — the player shows
     // a "Watch on Wcoflix" button instead of trying to play inline.
     // MKV / proxy-needed files go through /api/stream.
+    // WCO resolver URLs are passed through as-is — the VideoPlayer calls
+    // the resolver endpoint client-side to get the actual short-lived
+    // video URL (tokens expire in ~60s so we can't cache or proxy them).
     const playerUrl = isYoutube
       ? resolved.url
       : isWcoflix
         ? resolved.url
-        : resolved.needsProxy
-          ? buildStreamProxy(resolved.url, request)
-          : resolved.url;
+        : isWcoResolver
+          ? resolved.url  // resolver endpoint URL — VideoPlayer fetches it
+          : resolved.needsProxy
+            ? buildStreamProxy(resolved.url, request)
+            : resolved.url;
 
-    // Persist into the imports cache so subsequent calls skip the seed.
-    const anime = await db.anime.findUnique({ where: { malId } });
-    if (anime) {
-      try {
-        await db.import.upsert({
-          where: {
-            malId, episode, audio,
-          },
-          create: {
-            animeId: anime.id,
-            malId,
-            episode,
-            audio,
-            url: resolved.url,
-            source: sourceLabel,
-            quality: "1080p",
-            hasSub,
-            hasDub,
-            subtitleUrl,
-            isTrailer: false,
-          },
-          update: {
-            url: resolved.url,
-            source: sourceLabel,
-            hasSub,
-            hasDub,
-            subtitleUrl,
-          },
-        });
-      } catch (e) {
-        console.error("[/api/auto-import] cache upsert failed:", e);
+    // Don't cache wco_resolver URLs — they're resolver endpoint URLs, not
+    // video URLs. The VideoPlayer calls the resolver fresh each time.
+    if (!isWcoResolver) {
+      const anime = await db.anime.findUnique({ where: { malId } });
+      if (anime) {
+        try {
+          await db.import.upsert({
+            where: {
+              malId, episode, audio,
+            },
+            create: {
+              animeId: anime.id,
+              malId,
+              episode,
+              audio,
+              url: resolved.url,
+              source: sourceLabel,
+              quality: "1080p",
+              hasSub,
+              hasDub,
+              subtitleUrl,
+              isTrailer: false,
+            },
+            update: {
+              url: resolved.url,
+              source: sourceLabel,
+              hasSub,
+              hasDub,
+              subtitleUrl,
+            },
+          });
+        } catch (e) {
+          console.error("[/api/auto-import] cache upsert failed:", e);
+        }
       }
     }
 

@@ -33,6 +33,12 @@ export interface EpisodeSource {
   // expressed with a single {ep}-template (e.g. DVD rips where each
   // episode file includes the episode title in the name).
   episodeFiles?: Record<number, string>;
+  // When sourceType is "wco_resolver", the collection field holds the
+  // slug pattern (e.g. "one-piece-episode-{ep}-english-dubbed"). At
+  // playback time the VideoPlayer calls an external resolver service
+  // (WCO_RESOLVER_URL env var) which runs Playwright to bypass
+  // Cloudflare and returns a short-lived direct video URL.
+  sourceType?: "archive" | "wco_resolver" | "external" | "youtube";
 }
 
 export const SEED_ANIME: SeedAnime[] = [
@@ -636,18 +642,28 @@ export const SEED_ANIME: SeedAnime[] = [
       1084,                                   // Wano finale filler
     ],
     // Video sources:
-    // DUB (1080p HIGH HD from archive.org "Dub, Edited" collections — Funimation
-    //      English dub, no intro/outro recaps. Available for:
+    // DUB (1080p HIGH HD via WCO resolver): E422-1155 — wcostream.tv 1080p
+    //      English dub. Resolved at playback time by an external VPS running
+    //      Playwright + stealth to bypass Cloudflare Turnstile. Requires
+    //      NEXT_PUBLIC_WCO_RESOLVER_URL env var to be set. If the resolver
+    //      is down or not configured, falls back to archive.org sources below.
+    // DUB (1080p HIGH HD from archive.org "Dub, Edited" collections):
     //      E1, E137-145,147, E506-513, E539-566, E995-1004.
     // DUB (SUB fallback): E1001-1085 — archive.org Anime Time 1080p MP4, JP audio
     //      (hasDub set on anime → resolveEpisodeUrl falls back to SUB when no
     //      actual DUB source exists for these episodes, so DUB toggle still
     //      plays the Wano arc episodes).
-    // E2-136, E148-505, E514-538, E567-994, E1005-1171: NO SOURCE (MKV doesn't
-    //      play in browsers; wcoflix/wcoforever/hianime/9anime are all
-    //      Cloudflare-protected so server-side scraping fails; archive.org
-    //      search returned only the episodes listed above).
+    // E2-136, E148-421, E1156-1171: NO SOURCE (wcostream doesn't have these
+    //      dubbed, archive.org only has the episodes listed above).
     episodeSources: [
+      // ===== DUB (English, 1080p HIGH HD) — wcostream via WCO resolver =====
+      // 732 episodes (E422-1155) available on m.wcostream.tv in 1080p.
+      // The resolver (deployed separately on Railway/Render) runs Playwright
+      // to bypass Cloudflare Turnstile and returns a short-lived direct
+      // video URL (~60s TTL). VideoPlayer calls the resolver client-side.
+      { startEp: 422, endEp: 1155, collection: "wco-resolver", audio: "dub",
+        sourceType: "wco_resolver",
+        fileTemplate: "one-piece-episode-{ep}-english-dubbed" },
       // ===== DUB (English, 1080p HIGH HD) — archive.org "Dub, Edited" =====
       // E1 — 193MB, 1920x1080, Funimation English dub
       { startEp: 1, endEp: 1, collection: "0001-dub-edited", audio: "dub", fileTemplate: "0001 Dub, Edited.mp4" },
@@ -1970,6 +1986,19 @@ export function resolveEpisodeUrl(seed: SeedAnime, episode: number, audioMode: "
   // doesn't include it), fall through to the other audio mode so the user
   // still gets a playable stream instead of a "no stream" error.
   function tryResolve(src: EpisodeSource): string | null {
+    // WCO resolver source: construct the slug from fileTemplate
+    // (e.g. "one-piece-episode-{ep}-english-dubbed" → "one-piece-episode-422-english-dubbed")
+    if (src.sourceType === "wco_resolver") {
+      if (src.episodeFiles && src.episodeFiles[episode]) {
+        return src.episodeFiles[episode];
+      }
+      if (src.fileTemplate) {
+        let slug = src.fileTemplate;
+        slug = slug.replace(/\{ep(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(episode); return pad ? s.padStart(Number(pad), "0") : s; });
+        return slug;
+      }
+      return null;
+    }
     if (src.episodeFiles && src.episodeFiles[episode]) {
       return src.episodeFiles[episode];
     }
@@ -1998,6 +2027,17 @@ export function resolveEpisodeUrl(seed: SeedAnime, episode: number, audioMode: "
     if (src.seasonMap) {
       const entry = src.seasonMap.find((m) => episode >= m.startEp && episode <= m.endEp);
       if (entry) { collectionName = collectionName.replace(/\{season(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(entry.season); return pad ? s.padStart(Number(pad), "0") : s; }); }
+    }
+    // WCO resolver: the "file" is the slug, the resolver URL is built from
+    // the WCO_RESOLVER_URL env var. The VideoPlayer handles fetching the
+    // resolver endpoint to get the actual short-lived video URL.
+    if (src.sourceType === "wco_resolver") {
+      const resolverBase = process.env.NEXT_PUBLIC_WCO_RESOLVER_URL || "";
+      const slug = file; // file holds the resolved slug
+      const resolverUrl = resolverBase
+        ? `${resolverBase}/resolve?slug=${encodeURIComponent(slug)}`
+        : "";
+      return { url: resolverUrl, source: "wco_resolver" as const, needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" as const };
     }
     if (collectionName === "youtube") { return { url: `https://www.youtube.com/embed/${file}`, source: "youtube", needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" as const }; }
     if (collectionName === "dropbox" || collectionName === "external") { return { url: file, source: "external", needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" as const }; }

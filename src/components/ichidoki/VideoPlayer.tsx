@@ -262,11 +262,14 @@ export function VideoPlayer({
   }, [keepControlsAlive]);
 
   // ----- Fetch video import -----
+  const [resolverLoading, setResolverLoading] = useState(false);
+  const [resolvedVideoUrl, setResolvedVideoUrl] = useState<string | null>(null);
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
     setError(null);
     setImportInfo(null);
+    setResolvedVideoUrl(null);
     setCues([]);
     setActiveCue("");
     // Reset buffering state from any previous source.
@@ -278,9 +281,42 @@ export function VideoPlayer({
     }
     resumeAppliedRef.current = false;
     fetchVideoImport(malId, episode, audioMode.toLowerCase() as "sub" | "dub")
-      .then((info) => {
+      .then(async (info) => {
         if (cancelled) return;
         setImportInfo(info);
+        // If this is a WCO resolver URL, fetch the actual video URL from
+        // the resolver endpoint. The resolver runs Playwright on a VPS to
+        // bypass Cloudflare and returns a short-lived direct video URL
+        // (tokens expire in ~60s, so we must resolve fresh each time).
+        if (info?.url && info.sourceType === "wco_resolver") {
+          setResolverLoading(true);
+          setLoading(true);
+          try {
+            const resp = await fetch(info.url);
+            const data = await resp.json();
+            if (cancelled) return;
+            if (data.url) {
+              setResolvedVideoUrl(data.url);
+              setLoading(false);
+            } else {
+              setError(
+                data.error
+                  ? `Resolver error: ${data.error}`
+                  : "Failed to resolve video URL. The resolver service may be down or starting up.",
+              );
+              setLoading(false);
+            }
+          } catch (e: any) {
+            if (cancelled) return;
+            setError(
+              `Could not reach the video resolver. If this is the first request, the resolver may be cold-starting (takes 30-60s). Error: ${e?.message ?? e}`,
+            );
+            setLoading(false);
+          } finally {
+            setResolverLoading(false);
+          }
+          return;
+        }
         setLoading(false);
         if (!info || !info.url) {
           // Auto-switch to the available audio mode
@@ -848,7 +884,9 @@ export function VideoPlayer({
 
   // ----- Render -----
   const isYoutube = !!importInfo?.isYoutube && !!importInfo?.url;
-  const videoUrl = importInfo?.url ?? null;
+  // Use resolved video URL (from WCO resolver) if available, otherwise use
+  // the import info's URL directly (archive.org, dropbox, etc).
+  const videoUrl = resolvedVideoUrl ?? importInfo?.url ?? null;
   const posterUrl = poster ?? "";
   // Fullscreen mirror — applied to BOTH the video and every overlay.
   const mirrorStyle = undefined; // Removed fullscreen flip — was causing upside-down video
@@ -984,7 +1022,11 @@ export function VideoPlayer({
                 }}
               />
             </div>
-            <p className="text-xs text-white/60">Resolving stream…</p>
+            <p className="text-xs text-white/60">
+              {resolverLoading
+                ? "Resolving 1080p stream via WCO resolver (takes 20-30s)…"
+                : "Resolving stream…"}
+            </p>
           </div>
         </div>
       )}
