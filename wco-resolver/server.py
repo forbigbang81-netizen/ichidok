@@ -36,10 +36,13 @@ CACHE_TTL = 40        # seconds — tokens expire in ~60s, keep 20s margin
 RESOLVE_TIMEOUT = 50  # seconds — max time to resolve one episode
 MAX_CONCURRENT = 2    # max concurrent browser tabs (memory-limited)
 
-# ─── Slug map ─────────────────────────────────────────────────────────────────
+# ─── Slug maps ───────────────────────────────────────────────────────────────
 SLUGS_PATH = Path(__file__).parent / "slugs.json"
+SLUGS_SUB_PATH = Path(__file__).parent / "slugs_sub.json"
 with open(SLUGS_PATH) as f:
-    SLUG_MAP = json.load(f)  # { "422": "one-piece-episode-422-english-dubbed", ... }
+    SLUG_MAP_DUB = json.load(f)  # { "422": "one-piece-episode-422-english-dubbed", ... }
+with open(SLUGS_SUB_PATH) as f:
+    SLUG_MAP_SUB = json.load(f)  # { "1156": "one-piece-episode-1156-english-subbed", ... }
 
 # ─── App ──────────────────────────────────────────────────────────────────────
 app = FastAPI(title="WCO Stream Resolver", version="1.0.0")
@@ -138,10 +141,10 @@ async def _resolve_with_browser(slug: str) -> str:
     page.on("response", on_response)
 
     try:
-        # Use wcoanimedub.tv (has all E1-1155 dubbed) instead of m.wcostream.tv
-        # (which only has E422-1155). The embed iframe points to the same
-        # embed.wcostream.com backend, so the video resolution flow is identical.
-        url = f"https://www.wcoanimedub.tv/{slug}"
+        # Use wcoanimedub.tv for dubbed episodes, wcoanimesub.tv for subbed.
+        # Both sites share the same embed.wcostream.com backend.
+        base_url = "https://www.wcoanimesub.tv" if slug.endswith("-english-subbed") or "subbed" in slug else "https://www.wcoanimedub.tv"
+        url = f"{base_url}/{slug}"
         print(f"  [goto] {url}", flush=True)
         await page.goto(url, wait_until="domcontentloaded", timeout=60000)
         await asyncio.sleep(15)
@@ -261,8 +264,10 @@ async def resolve_by_ep_endpoint(
     anime: str = Query("one-piece", description="Anime slug prefix"),
     audio: str = Query("dubbed", description="Audio type: dubbed or subbed"),
 ):
-    """Resolve by episode number using the slug map."""
-    slug = SLUG_MAP.get(str(ep))
+    """Resolve by episode number using the appropriate slug map."""
+    # Choose slug map based on audio type
+    slug_map = SLUG_MAP_SUB if audio == "subbed" or audio == "sub" else SLUG_MAP_DUB
+    slug = slug_map.get(str(ep))
     if not slug:
         # Try constructing from pattern
         slug = f"{anime}-episode-{ep}-english-{audio}"
@@ -276,15 +281,16 @@ async def health():
         "ok": True,
         "cache_size": len(_cache),
         "browser": "connected" if browser_ok else "disconnected",
-        "slugs_loaded": len(SLUG_MAP),
+        "slugs_dub": len(SLUG_MAP_DUB),
+        "slugs_sub": len(SLUG_MAP_SUB),
         "uptime": int(time.time()),
     }
 
 
 @app.get("/slugs")
-async def get_slugs():
-    """Return the full slug map."""
-    return SLUG_MAP
+async def get_slugs(audio: str = Query("dubbed", description="dubbed or subbed")):
+    """Return the slug map for the requested audio type."""
+    return SLUG_MAP_SUB if audio in ("subbed", "sub") else SLUG_MAP_DUB
 
 
 @app.get("/")

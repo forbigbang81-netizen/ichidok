@@ -328,9 +328,16 @@ export function VideoPlayer({
             setAudioMode("SUB");
             return;
           }
-          setError(
-            "No stream available for this episode yet. Try another episode or audio mode.",
-          );
+          // Check if this is a wco_resolver source with no resolver URL configured
+          if (info && !info.url && info.sourceType === "wco_resolver") {
+            setError(
+              "This episode requires the WCO video resolver service to play. The resolver is not configured yet. Once deployed, this episode will play in 1080p HD. Try the SUB mode for archive.org episodes (E1001-1085) which work without the resolver.",
+            );
+          } else {
+            setError(
+              "No stream available for this episode yet. Try another episode or audio mode.",
+            );
+          }
         }
       })
       .catch((e: Error) => {

@@ -736,6 +736,13 @@ export const SEED_ANIME: SeedAnime[] = [
         1003: "1003 Dub, Edited.mp4",
         1004: "1004 Dub, Edited.mp4",
       } },
+      // ===== SUB (Japanese audio, 1080p) — wcostream via WCO resolver =====
+      // 1168 episodes (E1-1171) available on wcoanimesub.tv in 1080p.
+      // Used as SUB source for episodes not covered by archive.org, AND
+      // as the primary source for Elbaf arc (E1156-1171) which has no dub yet.
+      { startEp: 1, endEp: 1171, collection: "wco-resolver-sub", audio: "sub",
+        sourceType: "wco_resolver",
+        fileTemplate: "one-piece-episode-{ep}-english-subbed" },
       // ===== SUB (Japanese audio, 1080p) — archive.org Anime Time =====
       // Wano arc E1001-1085 — also playable in DUB mode via SUB fallback
       // (hasDub=true → resolveEpisodeUrl falls through to SUB when no DUB
@@ -2038,8 +2045,9 @@ export function resolveEpisodeUrl(seed: SeedAnime, episode: number, audioMode: "
     // the actual short-lived video URL.
     if (src.sourceType === "wco_resolver") {
       const resolverBase = process.env.NEXT_PUBLIC_WCO_RESOLVER_URL || "";
+      const audioType = src.audio === "sub" ? "sub" : "dub";
       const resolverUrl = resolverBase
-        ? `${resolverBase}/resolve-by-ep?ep=${episode}`
+        ? `${resolverBase}/resolve-by-ep?ep=${episode}&audio=${audioType}`
         : "";
       return { url: resolverUrl, source: "wco_resolver" as const, needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" as const };
     }

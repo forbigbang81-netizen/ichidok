@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN playwright install chromium --with-deps
 
 # Copy application code
-COPY server.py slugs.json ./
+COPY server.py slugs.json slugs_sub.json ./
 
 # Expose port
 ENV PORT=8000

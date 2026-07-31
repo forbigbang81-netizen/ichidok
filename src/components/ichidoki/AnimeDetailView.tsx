@@ -542,6 +542,70 @@ export function AnimeDetailView() {
             onBack={back}
           />
 
+          {/* ===== Arc episode list below the player =====
+              Shows episodes from the current arc so the user can quickly
+              switch episodes without going back to the detail page. */}
+          {hasArcs && (
+            <div className="border-t border-white/10 bg-[#0a0a0a] px-4 py-3">
+              {/* Arc selector — horizontal scroll */}
+              <div className="mb-3 flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: 'none' }}>
+                {arcList.map((arc, i) => (
+                  <button
+                    key={arc.name}
+                    type="button"
+                    onClick={() => {
+                      setSelectedArcIndex(i);
+                      // Switch to the first episode of the selected arc
+                      const firstEp = arc.episodes[0];
+                      if (firstEp) handleSelectEpisode(firstEp.number);
+                    }}
+                    className={cn(
+                      "whitespace-nowrap rounded-full px-3 py-1.5 text-[11px] font-bold transition-colors",
+                      i === effectiveArcIndex
+                        ? "bg-[#f5c518] text-black"
+                        : "bg-[#111111] text-white/60 active:bg-white/10",
+                    )}
+                  >
+                    {arc.name}
+                    <span className="ml-1 opacity-50">
+                      ({arc.episodes[0].number}–{arc.episodes[arc.episodes.length - 1].number})
+                    </span>
+                  </button>
+                ))}
+              </div>
+              {/* Episode list — horizontal scroll of episode chips */}
+              <div className="flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: 'none' }}>
+                {episodeList.map((ep) => {
+                  const active = ep.number === selectedEpisode;
+                  const epHistory = continueWatching.find((h) => h.episode === ep.number);
+                  const epProgress = epHistory?.progress ?? 0;
+                  const isCompleted = epProgress > 90;
+                  return (
+                    <button
+                      key={ep.number}
+                      type="button"
+                      onClick={() => handleSelectEpisode(ep.number)}
+                      className={cn(
+                        "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-xs font-bold transition-colors",
+                        active
+                          ? "bg-[#f5c518] text-black"
+                          : isCompleted
+                            ? "bg-[#1a3a1a] text-white/70"
+                            : "bg-[#111111] text-white/60 active:bg-white/10",
+                      )}
+                      title={`Episode ${ep.number}${ep.filler ? " (Filler)" : ""}`}
+                    >
+                      {ep.number}
+                      {ep.filler && (
+                        <span className="absolute -mt-5 ml-7 text-[7px] text-white/30">F</span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           {/* ===== Next-episode auto-play prompt ===== */}
           {showNextEpOverlay && (
             <div className="absolute inset-0 z-50 grid place-items-center bg-black/90">
