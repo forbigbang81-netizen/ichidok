@@ -636,12 +636,90 @@ export const SEED_ANIME: SeedAnime[] = [
       1084,                                   // Wano finale filler
     ],
     // Video sources:
-    // SUB: E1001-1085 from archive.org (Anime Time 1080p MP4, JP audio)
-    //      E1-1000 and E1086-1171: NO SOURCE (MKV doesn't play in browsers,
-    //      wcoflix/wcoforever URLs expire and can't be proxied server-side)
-    // DUB: NO SOURCE
+    // DUB (1080p HIGH HD from archive.org "Dub, Edited" collections — Funimation
+    //      English dub, no intro/outro recaps. Available for:
+    //      E1, E137-145,147, E506-513, E539-566, E995-1004.
+    // DUB (SUB fallback): E1001-1085 — archive.org Anime Time 1080p MP4, JP audio
+    //      (hasDub set on anime → resolveEpisodeUrl falls back to SUB when no
+    //      actual DUB source exists for these episodes, so DUB toggle still
+    //      plays the Wano arc episodes).
+    // E2-136, E148-505, E514-538, E567-994, E1005-1171: NO SOURCE (MKV doesn't
+    //      play in browsers; wcoflix/wcoforever/hianime/9anime are all
+    //      Cloudflare-protected so server-side scraping fails; archive.org
+    //      search returned only the episodes listed above).
     episodeSources: [
-      // SUB: archive.org MP4 for Wano arc (E1001-1085)
+      // ===== DUB (English, 1080p HIGH HD) — archive.org "Dub, Edited" =====
+      // E1 — 193MB, 1920x1080, Funimation English dub
+      { startEp: 1, endEp: 1, collection: "0001-dub-edited", audio: "dub", fileTemplate: "0001 Dub, Edited.mp4" },
+      // E137-145, 147 — Funimation English dub, 1080p
+      { startEp: 137, endEp: 147, collection: "0153-dub-edited", audio: "dub", episodeFiles: {
+        137: "0137 Dub, Edited.mp4",
+        138: "0138 Dub, Edited.mp4",
+        139: "0139 Dub, Edited.mp4",
+        140: "0140 Dub, Edited.mp4",
+        141: "0141 Dub, Edited.mp4",
+        142: "0142 Dub, Edited.mp4",
+        143: "0143 Dub, Edited.mp4",
+        144: "0144 Dub, Edited.mp4",
+        145: "0145 Dub, Edited.mp4",
+        147: "0147 Dub, Edited.mp4",
+      } },
+      // E506-513 (E512 missing) — Funimation English dub, 1080p
+      { startEp: 506, endEp: 513, collection: "0508-dub-edited", audio: "dub", episodeFiles: {
+        506: "0506 Dub, Edited (1).mp4",
+        507: "0507 Dub, Edited.mp4",
+        508: "0508 Dub, Edited.mp4",
+        509: "0509 Dub, Edited.mp4",
+        510: "0510 Dub, Edited.mp4",
+        511: "0511 Dub, Edited.mp4",
+        513: "0513 Dub, Edited.mp4",
+      } },
+      // E539-566 (E542, E543 missing) — Funimation English dub, 1080p
+      { startEp: 539, endEp: 566, collection: "0557-dub-edited", audio: "dub", episodeFiles: {
+        539: "0539 Dub, Edited.mp4",
+        540: "0540 Dub, Edited.mp4",
+        541: "0541 Dub, Edited.mp4",
+        544: "0544 Dub, Edited.mp4",
+        545: "0545 Dub, Edited.mp4",
+        546: "0546 Dub, Edited.mp4",
+        547: "0547 Dub, Edited.mp4",
+        548: "0548 Dub, Edited.mp4",
+        549: "0549 Dub, Edited.mp4",
+        550: "0550 Dub, Edited.mp4",
+        551: "0551 Dub, Edited.mp4",
+        552: "0552 Dub, Edited.mp4",
+        553: "0553 Dub, Edited.mp4",
+        554: "0554 Dub, Edited.mp4",
+        555: "0555 Dub, Edited.mp4",
+        556: "0556 Dub, Edited.mp4",
+        557: "0557 Dub, Edited.mp4",
+        558: "0558 Dub, Edited.mp4",
+        559: "0559 Dub, Edited.mp4",
+        560: "0560 Dub, Edited.mp4",
+        561: "0561 Dub, Edited.mp4",
+        562: "0562 Dub, Edited.mp4",
+        563: "0563 Dub, Edited.mp4",
+        564: "0564 Dub, Edited.mp4",
+        565: "0565 Dub, Edited.mp4",
+        566: "0566 Dub, Edited.mp4",
+      } },
+      // E995-1004 — Funimation English dub, 1080p (~500MB each)
+      { startEp: 995, endEp: 1004, collection: "0995-dub-edited", audio: "dub", episodeFiles: {
+        995: "0995 Dub, Edited.mp4",
+        996: "0996 Dub, Edited.mp4",
+        997: "0997 Dub, Edited.mp4",
+        998: "0998 Dub, Edited.mp4",
+        999: "0999 Dub, Edited.mp4",
+        1000: "1000 Dub, Edited.mp4",
+        1001: "1001 Dub, Edited.mp4",
+        1002: "1002 Dub, Edited.mp4",
+        1003: "1003 Dub, Edited.mp4",
+        1004: "1004 Dub, Edited.mp4",
+      } },
+      // ===== SUB (Japanese audio, 1080p) — archive.org Anime Time =====
+      // Wano arc E1001-1085 — also playable in DUB mode via SUB fallback
+      // (hasDub=true → resolveEpisodeUrl falls through to SUB when no DUB
+      // source exists for a specific episode).
       { startEp: 1001, endEp: 1085, collection: "20260622_20260622_0310", audio: "sub", episodeFiles: {
         1001: "[Anime Time] One Piece - 1001 - A Risky Invitation A Plot To Eliminate Queen.mp4",
         1002: "[Anime Time] One Piece - 1002 - A New Rivalry Nami And Ulti.mp4",
