@@ -25,6 +25,7 @@ export async function GET(
 
     const anime = await db.anime.findFirst({
       where: { malId: malIdNum },
+      include: { episodes: includeEpisodes },
     });
 
     if (!anime) {
