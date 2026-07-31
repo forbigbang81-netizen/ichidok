@@ -855,101 +855,23 @@ export function VideoPlayer({
   // Fullscreen mirror — applied to BOTH the video and every overlay.
   const mirrorStyle = undefined; // Removed fullscreen flip — was causing upside-down video
 
-  // ----- Wcoflix: fetch video URL on-demand via /api/wco-stream -----
-  const [wcoflixVideoUrl, setWcoflixVideoUrl] = useState<string | null>(null);
-  const [wcoflixLoading, setWcoflixLoading] = useState(false);
-  const [wcoflixError, setWcoflixError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!isWcoflix || !videoUrl) {
-      setWcoflixVideoUrl(null);
-      setWcoflixError(null);
-      return;
-    }
-    let cancelled = false;
-    setWcoflixLoading(true);
-    setWcoflixError(null);
-    setWcoflixVideoUrl(null);
-
-    // Extract episode number from the wcoflix URL
-    const match = videoUrl.match(/episode-(\d+)/);
-    const epNum = match ? parseInt(match[1], 10) : 1;
-    const lang = videoUrl.includes("dubbed") ? "dub" : "sub";
-
-    fetch(`/api/wco-stream?episode=${epNum}&lang=${lang}`)
-      .then((r) => r.json())
-      .then((data) => {
-        if (cancelled) return;
-        if (data.ok && data.url) {
-          setWcoflixVideoUrl(data.url);
-        } else {
-          setWcoflixError(data.error || "Failed to load video");
-        }
-      })
-      .catch(() => {
-        if (!cancelled) setWcoflixError("Network error");
-      })
-      .finally(() => {
-        if (!cancelled) setWcoflixLoading(false);
-      });
-
-    return () => { cancelled = true; };
-  }, [isWcoflix, videoUrl]);
-
-  // ----- Wcoflix loading/error state -----
-  if (isWcoflix && !wcoflixVideoUrl) {
+  // ----- Wcoflix: display episode in an iframe via our proxy -----
+  if (isWcoflix && videoUrl) {
+    // Proxy the wcoflix page through /api/stream to bypass X-Frame-Options
+    const proxyUrl = `/api/stream?url=${encodeURIComponent(videoUrl)}`;
     return (
       <div className="relative aspect-video w-full overflow-hidden bg-black">
-        <img
-          src={posterUrl}
-          alt={title}
-          className="absolute inset-0 h-full w-full object-cover opacity-30"
+        <iframe
+          src={proxyUrl}
+          className="absolute inset-0 h-full w-full"
+          allowFullScreen
+          allow="autoplay; fullscreen; encrypted-media"
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+          title={`${title} — Episode`}
         />
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-          {wcoflixLoading ? (
-            <>
-              <div className="h-10 w-10 animate-spin rounded-full border-2 border-white/20 border-t-[#f5c518]" />
-              <p className="text-sm font-medium text-white/70">
-                Loading episode…
-              </p>
-            </>
-          ) : wcoflixError ? (
-            <>
-              <p className="text-sm font-medium text-white/70">
-                {wcoflixError}
-              </p>
-              <button
-                type="button"
-                onClick={() => {
-                  setWcoflixError(null);
-                  // Trigger re-fetch by toggling state
-                  setWcoflixLoading(true);
-                  const match = videoUrl?.match(/episode-(\d+)/);
-                  const epNum = match ? parseInt(match[1], 10) : 1;
-                  const lang = videoUrl?.includes("dubbed") ? "dub" : "sub";
-                  fetch(`/api/wco-stream?episode=${epNum}&lang=${lang}`)
-                    .then((r) => r.json())
-                    .then((data) => {
-                      setWcoflixLoading(false);
-                      if (data.ok && data.url) setWcoflixVideoUrl(data.url);
-                      else setWcoflixError(data.error || "Failed");
-                    })
-                    .catch(() => { setWcoflixLoading(false); setWcoflixError("Network error"); });
-                }}
-                className="rounded-lg bg-[#f5c518] px-4 py-2 text-xs font-bold text-black"
-              >
-                Try again
-              </button>
-            </>
-          ) : null}
-        </div>
       </div>
     );
   }
-
-  // When wcoflix video URL is fetched, use it as the video source
-  // by overriding the videoUrl for the rest of the render
-  const effectiveVideoUrl = isWcoflix ? wcoflixVideoUrl : videoUrl;
 
   // ----- YouTube iframe branch -----
   if (isYoutube && videoUrl) {
@@ -1030,10 +952,10 @@ export function VideoPlayer({
       />
 
       {/* ===== Video element ===== */}
-      {effectiveVideoUrl ? (
+      {videoUrl ? (
         <video
           ref={videoRef}
-          src={effectiveVideoUrl}
+          src={videoUrl}
           poster={posterUrl}
           playsInline
           preload="metadata"
