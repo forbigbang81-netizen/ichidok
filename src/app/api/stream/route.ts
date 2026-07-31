@@ -55,6 +55,7 @@ async function fetchWithRetry(
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const target = searchParams.get("url");
+  const isDownload = searchParams.get("download") === "1";
 
   if (!target) {
     return NextResponse.json(
@@ -73,9 +74,9 @@ export async function GET(request: Request) {
     );
   }
 
-  // Only allow archive.org (covers both archive.org/download/... and
-  // archive.org/embed/...).  This keeps the proxy scoped to MKV/CDN sources.
-  const allowed = ["archive.org"];
+  // Only allow archive.org and dropbox.com (covers both streaming and
+  // download proxying for all our video sources).
+  const allowed = ["archive.org", "www.dropbox.com", "dl.dropboxusercontent.com"];
   if (!allowed.includes(parsed.hostname)) {
     return NextResponse.json(
       { error: `Proxy only allows hosts: ${allowed.join(", ")}` },
@@ -132,6 +133,14 @@ export async function GET(request: Request) {
     }
     if (upstream.status === 206 || request.headers.get("range")) {
       responseHeaders.set("Accept-Ranges", "bytes");
+    }
+
+    // When download=1, set Content-Disposition: attachment so the browser
+    // downloads the file directly instead of navigating to it.
+    if (isDownload) {
+      const urlPath = parsed.pathname.split("/").pop() || "video.mp4";
+      const filename = decodeURIComponent(urlPath).replace(/[^\w.-]/g, "_");
+      responseHeaders.set("Content-Disposition", `attachment; filename="${filename}"`);
     }
 
     if (!upstream.body) {

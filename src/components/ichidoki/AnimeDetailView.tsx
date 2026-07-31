@@ -213,14 +213,17 @@ export function AnimeDetailView() {
         toast.error("No stream available for this episode");
         return;
       }
-      // For archive.org/proxy URLs, open in a new tab which triggers download
-      // (browsers handle it as a download if Content-Disposition is set, or
-      // the user can right-click > Save Video As)
+      // Route the download through our /api/stream proxy with a
+      // download=1 param so the proxy sets Content-Disposition: attachment.
+      // This forces the browser to download the file directly instead of
+      // navigating to the archive.org page.
+      const streamUrl = data.url.includes("/api/stream")
+        ? data.url
+        : `/api/stream?url=${encodeURIComponent(data.url)}`;
+      const downloadUrl = `${streamUrl}${streamUrl.includes("?") ? "&" : "?"}download=1`;
       const a = document.createElement("a");
-      a.href = data.url;
+      a.href = downloadUrl;
       a.download = `${anime.title} - Episode ${ep}.mp4`;
-      a.target = "_blank";
-      a.rel = "noopener noreferrer";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
