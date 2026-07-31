@@ -729,7 +729,7 @@ export const SEED_ANIME: SeedAnime[] = [
         1084: "[Anime Time] One Piece - 1084 - Time To Depart - The Land Of Wano And The Straw Hats.mp4",
         1085: "[Anime Time] One Piece - 1085 - The Last Curtain Luffy And Momonosuke's Vow_Land_Of_Wano_ACT_III_End.mp4",
       } },
-    ], hasSub: true,
+    ], hasSub: true, hasDub: true,
   },
   // Black Clover
   { malId: 34572, title: "Black Clover", titleEnglish: "Black Clover", titleJapanese: "ブラッククローバー",
