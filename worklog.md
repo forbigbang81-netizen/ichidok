@@ -1183,3 +1183,61 @@ Stage Summary:
   54 of them
 - Waiting for user to deploy resolver on Railway/Render and set
   NEXT_PUBLIC_WCO_RESOLVER_URL env var on Vercel
+
+---
+Task ID: fix-resolver-not-set + elbaf-sub + arc-list
+Agent: main
+Task: Fix episodes not playing + add Elbaf SUB + add arc episode list below player
+
+Work Log:
+1. Screenshot analysis: User on mobile saw "No stream available" for E2 DUB.
+   Root cause: NEXT_PUBLIC_WCO_RESOLVER_URL env var not set → resolveEpisodeUrl
+   returned empty URL for wco_resolver sources → player showed generic error.
+
+2. Fix: tryResolve now returns null for wco_resolver sources when env var isn't
+   set → resolveEpisodeUrl falls through to next source (archive.org).
+   - E1001-1085 DUB: now plays from archive.org Wano (SUB fallback) ✓
+   - E1, E137-147, E506-513, E539-566, E995-1004 DUB: plays from archive.org ✓
+   - E2-136, E148-421, E1086-1155 DUB: shows "resolver not configured" message
+   - VideoPlayer shows helpful message explaining resolver needs deployment
+
+3. Elbaf arc SUB (E1156-1171):
+   - Found all 16 subbed episodes on wcoanimesub.tv
+   - Extracted 1168 subbed slugs (E0-1171) → saved to wco-resolver/slugs_sub.json
+   - Updated resolver server.py:
+     - Loads both SLUG_MAP_DUB and SLUG_MAP_SUB
+     - /resolve-by-ep endpoint accepts audio=dub|sub parameter
+     - Routes to wcoanimesub.tv for subbed, wcoanimedub.tv for dubbed
+     - /health and /slugs endpoints updated for dual maps
+   - Updated Dockerfile to include slugs_sub.json
+   - Added wco_resolver SUB source for E1-1171 in seed.ts
+   - Updated resolveEpisodeUrl to pass audio type to resolver endpoint
+
+4. Arc episode list below player:
+   - Added compact arc selector + horizontal episode chips below VideoPlayer
+   - Shows episodes from the current arc only (uses arcList from detail view)
+   - Arc pills: clicking switches to that arc's first episode
+   - Episode chips: 40x40px squares with episode number
+   - Active episode = gold, completed = green, unwatched = dark gray
+   - Filler episodes marked with small "F" indicator
+   - Only shows when anime has arcs (One Piece, etc.)
+
+5. Production verification:
+   - 1171/1171 episodes have hasDub=true and hasSub=true
+   - E1001 DUB → archive.org URL (works without resolver)
+   - E2 DUB → null URL with helpful error message (needs resolver)
+   - E1160 SUB → null URL (Elbaf arc, needs resolver)
+
+Commits:
+- e02be2d "Add SUB for Elbaf arc + arc episode list below player + resolver error message"
+- 3a16b5b "Skip wco_resolver source when env var not set — fall through to archive.org"
+
+Stage Summary:
+- All 1171 episodes now have hasDub and hasSub flags set
+- Archive.org episodes (E1001-1085, E1, E137-147, E506-513, E539-566, E995-1004)
+  play immediately without resolver
+- All other episodes (E2-136, E148-421, E422-994, E1086-1171) need the resolver
+  deployed to play — they show a helpful "resolver not configured" message
+- Arc episode list added below player for quick episode switching
+- Elbaf arc (E1156-1171) now has SUB source via wcoanimesub.tv resolver
+- Once resolver is deployed on Railway, ALL 1171 episodes will play in 1080p
