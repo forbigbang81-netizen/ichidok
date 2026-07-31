@@ -855,20 +855,34 @@ export function VideoPlayer({
   // Fullscreen mirror — applied to BOTH the video and every overlay.
   const mirrorStyle = undefined; // Removed fullscreen flip — was causing upside-down video
 
-  // ----- Wcoflix: display episode in an iframe via our proxy -----
+// ----- Wcoflix: open in new tab (Cloudflare blocks iframe/proxy) -----
   if (isWcoflix && videoUrl) {
-    // Proxy the wcoflix page through /api/stream to bypass X-Frame-Options
-    const proxyUrl = `/api/stream?url=${encodeURIComponent(videoUrl)}`;
     return (
       <div className="relative aspect-video w-full overflow-hidden bg-black">
-        <iframe
-          src={proxyUrl}
-          className="absolute inset-0 h-full w-full"
-          allowFullScreen
-          allow="autoplay; fullscreen; encrypted-media"
-          sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-          title={`${title} — Episode`}
+        <img
+          src={posterUrl}
+          alt={title}
+          className="absolute inset-0 h-full w-full object-cover opacity-30"
         />
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 p-4">
+          <PlayCircle className="h-16 w-16 text-white/30" />
+          <p className="text-center text-sm font-medium text-white/70">
+            This episode is hosted on Wcoflix
+          </p>
+          <p className="text-center text-[11px] text-white/40">
+            Cloudflare protection prevents inline playback.
+            The episode will open in a new tab.
+          </p>
+          <a
+            href={videoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 rounded-xl bg-[#f5c518] px-6 py-3 text-sm font-bold text-black transition-colors hover:bg-[#e6b016]"
+          >
+            <PlayCircle className="h-4 w-4" />
+            Watch Episode {title.match(/Episode (\d+)/)?.[1] || ""}
+          </a>
+        </div>
       </div>
     );
   }
