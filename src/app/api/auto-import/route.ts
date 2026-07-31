@@ -125,20 +125,27 @@ export async function GET(request: Request) {
     }
 
     const isYoutube = resolved.source === "youtube";
+    const isWcoflix = resolved.source === "wcoflix";
     const sourceLabel =
       resolved.source === "youtube"
         ? "youtube"
-        : resolved.needsProxy
-          ? "archive-mkv"
-          : "archive";
+        : isWcoflix
+          ? "wcoflix"
+          : resolved.needsProxy
+            ? "archive-mkv"
+            : "archive";
 
     // Build the URL the player should consume. YouTube embeds go straight.
+    // Wcoflix URLs are external pages (not video files) — the player shows
+    // a "Watch on Wcoflix" button instead of trying to play inline.
     // MKV / proxy-needed files go through /api/stream.
     const playerUrl = isYoutube
       ? resolved.url
-      : resolved.needsProxy
-        ? buildStreamProxy(resolved.url, request)
-        : resolved.url;
+      : isWcoflix
+        ? resolved.url
+        : resolved.needsProxy
+          ? buildStreamProxy(resolved.url, request)
+          : resolved.url;
 
     // Persist into the imports cache so subsequent calls skip the seed.
     const anime = await db.anime.findUnique({ where: { malId } });

@@ -848,10 +848,42 @@ export function VideoPlayer({
 
   // ----- Render -----
   const isYoutube = !!importInfo?.isYoutube && !!importInfo?.url;
+  const isWcoflix = importInfo?.sourceType === "wcoflix" && !!importInfo?.url;
   const videoUrl = importInfo?.url ?? null;
   const posterUrl = poster ?? "";
   // Fullscreen mirror — applied to BOTH the video and every overlay.
   const mirrorStyle = undefined; // Removed fullscreen flip — was causing upside-down video
+
+  // ----- Wcoflix external link branch -----
+  if (isWcoflix && videoUrl) {
+    return (
+      <div className="relative aspect-video w-full overflow-hidden bg-black">
+        <img
+          src={posterUrl}
+          alt={title}
+          className="absolute inset-0 h-full w-full object-cover opacity-40"
+        />
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
+          <PlayCircle className="h-16 w-16 text-white/30" />
+          <p className="text-sm font-medium text-white/70">
+            This episode is available on Wcoflix
+          </p>
+          <a
+            href={videoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 rounded-xl bg-[#f5c518] px-6 py-3 text-sm font-bold text-black transition-colors hover:bg-[#e6b016]"
+          >
+            <PlayCircle className="h-4 w-4" />
+            Watch on Wcoflix
+          </a>
+          <p className="text-[10px] text-white/40">
+            Opens in a new tab
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   // ----- YouTube iframe branch -----
   if (isYoutube && videoUrl) {

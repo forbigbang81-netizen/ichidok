@@ -635,8 +635,13 @@ export const SEED_ANIME: SeedAnime[] = [
       1029, 1030,                             // Wano filler
       1084,                                   // Wano finale filler
     ],
-    // No video sources yet — episodes will be added when sources are found.
-    episodeSources: [],
+    // Video sources: wcoflix.tv (English subbed + dubbed)
+    // Video URLs are time-limited so we store the episode page URLs.
+    // The player shows a "Watch on Wcoflix" button that opens the episode.
+    episodeSources: [
+      { startEp: 1, endEp: 1171, collection: "wcoflix", audio: "sub", fileTemplate: "https://www.wcoflix.tv/one-piece-episode-{ep}-english-subbed" },
+      { startEp: 1, endEp: 1155, collection: "wcoflix", audio: "dub", fileTemplate: "https://www.wcoflix.tv/one-piece-episode-{ep}-english-dubbed" },
+    ], hasSub: true, hasDub: true,
   },
   // Black Clover
   { malId: 34572, title: "Black Clover", titleEnglish: "Black Clover", titleJapanese: "ブラッククローバー",
@@ -1842,6 +1847,7 @@ export function resolveEpisodeUrl(seed: SeedAnime, episode: number, audioMode: "
     }
     if (collectionName === "youtube") { return { url: `https://www.youtube.com/embed/${file}`, source: "youtube", needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" as const }; }
     if (collectionName === "dropbox" || collectionName === "external") { return { url: file, source: "external", needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" as const }; }
+    if (collectionName === "wcoflix") { return { url: file, source: "wcoflix", needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" as const }; }
     const encodedFile = encodeURIComponent(file).replace(/%2F/g, "/");
     return { url: `https://archive.org/download/${collectionName}/${encodedFile}`, source: src.needsProxy ? "archive-mkv" : "archive", needsProxy: src.needsProxy ?? false, dualAudio: src.dualAudio ?? false, audio: src.audio ?? "sub" as const };
   }
