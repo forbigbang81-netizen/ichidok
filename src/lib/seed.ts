@@ -657,11 +657,15 @@ export const SEED_ANIME: SeedAnime[] = [
     //      dubbed, archive.org only has the episodes listed above).
     episodeSources: [
       // ===== DUB (English, 1080p HIGH HD) — wcostream via WCO resolver =====
-      // 732 episodes (E422-1155) available on m.wcostream.tv in 1080p.
+      // 1155 episodes (E1-1155) available on wcoanimedub.tv in 1080p.
       // The resolver (deployed separately on Railway/Render) runs Playwright
       // to bypass Cloudflare Turnstile and returns a short-lived direct
       // video URL (~60s TTL). VideoPlayer calls the resolver client-side.
-      { startEp: 422, endEp: 1155, collection: "wco-resolver", audio: "dub",
+      // Uses /resolve-by-ep endpoint so the resolver looks up the correct
+      // slug from its internal map (E1-421 have non-standard slugs like
+      // "one-piece-episode-1-english-dubbed-2-2", E1029-1030 use
+      // "one-piece-specials-episode-N-english-dubbed" prefix).
+      { startEp: 1, endEp: 1155, collection: "wco-resolver", audio: "dub",
         sourceType: "wco_resolver",
         fileTemplate: "one-piece-episode-{ep}-english-dubbed" },
       // ===== DUB (English, 1080p HIGH HD) — archive.org "Dub, Edited" =====
@@ -2028,14 +2032,14 @@ export function resolveEpisodeUrl(seed: SeedAnime, episode: number, audioMode: "
       const entry = src.seasonMap.find((m) => episode >= m.startEp && episode <= m.endEp);
       if (entry) { collectionName = collectionName.replace(/\{season(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(entry.season); return pad ? s.padStart(Number(pad), "0") : s; }); }
     }
-    // WCO resolver: the "file" is the slug, the resolver URL is built from
-    // the WCO_RESOLVER_URL env var. The VideoPlayer handles fetching the
-    // resolver endpoint to get the actual short-lived video URL.
+    // WCO resolver: use /resolve-by-ep endpoint so the resolver looks up the
+    // correct slug from its internal map (handles non-standard slugs for
+    // E1-421 and E1029-1030). The VideoPlayer fetches this endpoint to get
+    // the actual short-lived video URL.
     if (src.sourceType === "wco_resolver") {
       const resolverBase = process.env.NEXT_PUBLIC_WCO_RESOLVER_URL || "";
-      const slug = file; // file holds the resolved slug
       const resolverUrl = resolverBase
-        ? `${resolverBase}/resolve?slug=${encodeURIComponent(slug)}`
+        ? `${resolverBase}/resolve-by-ep?ep=${episode}`
         : "";
       return { url: resolverUrl, source: "wco_resolver" as const, needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" as const };
     }

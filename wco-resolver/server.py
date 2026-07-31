@@ -138,7 +138,10 @@ async def _resolve_with_browser(slug: str) -> str:
     page.on("response", on_response)
 
     try:
-        url = f"https://m.wcostream.tv/{slug}"
+        # Use wcoanimedub.tv (has all E1-1155 dubbed) instead of m.wcostream.tv
+        # (which only has E422-1155). The embed iframe points to the same
+        # embed.wcostream.com backend, so the video resolution flow is identical.
+        url = f"https://www.wcoanimedub.tv/{slug}"
         print(f"  [goto] {url}", flush=True)
         await page.goto(url, wait_until="domcontentloaded", timeout=60000)
         await asyncio.sleep(15)
