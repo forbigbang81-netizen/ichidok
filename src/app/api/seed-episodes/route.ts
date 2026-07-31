@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { SEED_ANIME } from "@/lib/seed";
+import { SEED_ANIME, episodeHasSub, episodeHasDub } from "@/lib/seed";
 import { createClient } from "@libsql/client";
 
 export const dynamic = "force-dynamic";
@@ -41,12 +41,18 @@ export async function POST() {
       });
       
       const fillerSet = new Set(s.fillerEpisodes ?? []);
-      const episodes: { number: number; title: string | null; filler: boolean }[] = [];
+      const episodes: { number: number; title: string | null; filler: boolean; hasSub: boolean; hasDub: boolean }[] = [];
       
       if (s.arcs) {
         for (const arc of s.arcs) {
           for (let ep = arc.startEp; ep <= arc.endEp; ep++) {
-            episodes.push({ number: ep, title: arc.name, filler: fillerSet.has(ep) });
+            episodes.push({
+              number: ep,
+              title: arc.name,
+              filler: fillerSet.has(ep),
+              hasSub: episodeHasSub(s, ep),
+              hasDub: episodeHasDub(s, ep),
+            });
           }
         }
       }
@@ -55,13 +61,15 @@ export async function POST() {
       for (const e of episodes) {
         try {
           await client.execute({
-            sql: `INSERT INTO "Episode" ("id", "animeId", "number", "title", "filler", "recap", "createdAt") VALUES (?, ?, ?, ?, ?, 0, ?)`,
+            sql: `INSERT INTO "Episode" ("id", "animeId", "number", "title", "filler", "recap", "hasSub", "hasDub", "createdAt") VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?)`,
             args: [
               Math.random().toString(36).substring(2) + Date.now().toString(36),
               animeId,
               e.number,
               e.title,
               e.filler ? 1 : 0,
+              e.hasSub ? 1 : 0,
+              e.hasDub ? 1 : 0,
               new Date().toISOString(),
             ],
           });

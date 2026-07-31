@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { SEED_ANIME, type SeedAnime } from "@/lib/seed";
+import { SEED_ANIME, type SeedAnime, episodeHasSub, episodeHasDub } from "@/lib/seed";
 
 // Allow Vercel to cache GET responses at the edge for 5 minutes, with
 // stale-while-revalidate of 10 minutes. This makes the homepage cards load
@@ -122,7 +122,7 @@ export async function ensureSeeded(opts?: { force?: boolean }): Promise<void> {
               if (s.arcs || s.fillerEpisodes) {
                 const fillerSet = new Set(s.fillerEpisodes ?? []);
                 // Build episode list from arcs (if present) or episodeCount
-                const episodes: { number: number; title: string | null; filler: boolean }[] = [];
+                const episodes: { number: number; title: string | null; filler: boolean; hasSub: boolean; hasDub: boolean }[] = [];
                 if (s.arcs) {
                   for (const arc of s.arcs) {
                     for (let ep = arc.startEp; ep <= arc.endEp; ep++) {
@@ -130,6 +130,8 @@ export async function ensureSeeded(opts?: { force?: boolean }): Promise<void> {
                         number: ep,
                         title: arc.name,
                         filler: fillerSet.has(ep),
+                        hasSub: episodeHasSub(s, ep),
+                        hasDub: episodeHasDub(s, ep),
                       });
                     }
                   }
@@ -139,6 +141,8 @@ export async function ensureSeeded(opts?: { force?: boolean }): Promise<void> {
                       number: ep,
                       title: null,
                       filler: fillerSet.has(ep),
+                      hasSub: episodeHasSub(s, ep),
+                      hasDub: episodeHasDub(s, ep),
                     });
                   }
                 }
@@ -154,10 +158,14 @@ export async function ensureSeeded(opts?: { force?: boolean }): Promise<void> {
                           number: e.number,
                           title: e.title,
                           filler: e.filler,
+                          hasSub: e.hasSub,
+                          hasDub: e.hasDub,
                         },
                         update: {
                           title: e.title,
                           filler: e.filler,
+                          hasSub: e.hasSub,
+                          hasDub: e.hasDub,
                         },
                       }).catch((e) => console.error("[seed] ep upsert fail:", e)),
                     ),

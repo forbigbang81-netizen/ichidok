@@ -42,6 +42,8 @@ export async function GET(
           aired: e.aired ?? undefined,
           filler: e.filler,
           recap: e.recap,
+          hasSub: (e as { hasSub?: number | boolean | null }).hasSub === true || (e as { hasSub?: number | boolean | null }).hasSub === 1,
+          hasDub: (e as { hasDub?: number | boolean | null }).hasDub === true || (e as { hasDub?: number | boolean | null }).hasDub === 1,
         }))
       : [];
 
