@@ -902,3 +902,102 @@ Stage Summary:
 - Gap: E30-85 (56 episodes) has no source on archive.org — if user has
   Dropbox links for these, can be added
 - Black Clover S2 (2026) added as placeholder, not yet aired
+
+---
+Task ID: one-piece-dub-sources
+Agent: main
+Task: Find HIGH HD One Piece DUB sources on non-bot-protected sites + transfer Wano E1001-1085 to DUB player
+
+Work Log:
+- Tested 8 anime streaming sites for Cloudflare bot protection:
+  - animepahe.ru → DEAD (domain for sale, redirects to animepahe.su)
+  - gogoanime.hu → DEAD (DNS fails)
+  - gogoanime3.co → ERR_NAME_NOT_RESOLVED
+  - gogoanime.ai → ERR_CONNECTION_CLOSED
+  - aniwatch.to → 403 Forbidden (Cloudflare)
+  - 9animetv.to → 522 Connection timed out (Cloudflare)
+  - hianime.to → 522 (Cloudflare)
+  - kaido.to → 522 (Cloudflare)
+  - sflix.to → 522 (Cloudflare)
+  - animedao.to → redirects to spam domain
+  - animefox.to → DNS fails
+  - bilibili.tv → loads but "Oops!" region-locked
+  - animeflv.net → works (Spanish, not English)
+  - YouTube → only abridged/short clips (no full episodes due to copyright)
+  - Public anime APIs (amvstrm, consumet) → defunct or 301→Cloudflare
+
+- CONCLUSION: All major English anime streaming sites are Cloudflare-protected
+  and unreachable server-side. No non-bot-protected site with English dub found.
+
+- PIVOTED to deeper archive.org search → found 5 NEW "Dub, Edited" collections
+  with Funimation English dub in TRUE 1080p (1920x1080 verified):
+  - 0001-dub-edited: E1 (193MB)
+  - 0153-dub-edited: E137-145, 147 (10 eps, ~140MB each) [E146, E148-153 missing]
+  - 0508-dub-edited: E506-511, 513 (7 eps, 140-224MB) [E512 missing]
+  - 0557-dub-edited: E539-566 except E542, E543 (26 eps, 140-200MB)
+  - 0995-dub-edited: E995-1004 (10 eps, ~500MB each)
+
+- Also found One Pace fan-edit 1080p English dub (26 items) but skipped —
+  One Pace combines multiple OP episodes into single condensed files, so
+  1:1 mapping to OP episode numbers isn't possible.
+
+- Wano E1001-1085 SUB source preserved as DUB fallback (hasDub=true on anime
+  → resolveEpisodeUrl falls through to SUB when no actual DUB source exists).
+  Already in place from previous commit f366814.
+
+- Updated src/lib/seed.ts:
+  - Added 5 new DUB sources (54 new episodes total) before the existing SUB source
+  - Updated comment block to document what's available and what's still missing
+  - hasSub: true, hasDub: true (both set on anime)
+
+- DB schema migration:
+  - src/app/api/setup-db/route.ts: added "hasSub" BOOLEAN and "hasDub" BOOLEAN
+    columns to Episode table schema + ALTER TABLE migration for existing DB
+  - src/app/api/catalog/route.ts: now sets hasSub/hasDub per episode during
+    seeding using episodeHasSub/episodeHasDub functions
+  - src/app/api/seed-episodes/route.ts: same — sets hasSub/hasDub on every
+    created episode during bulk seed
+  - src/app/api/jikan/[malId]/route.ts: now returns hasSub/hasDub in episode
+    objects (was being stripped out before)
+
+- Production verification (ichidok.vercel.app):
+  - setup-db: migration applied (+Episode."hasSub", +Episode."hasDub")
+  - seed-episodes: 1171 episodes re-created with hasDub/hasSub flags
+  - jikan/37510: 135 episodes with hasDub=true, 85 with hasSub=true
+  - Verified per-episode:
+    - E1: hasDub=true (NEW! from 0001-dub-edited)
+    - E137: hasDub=true (NEW! from 0153-dub-edited)
+    - E146: hasDub=false (correctly missing)
+    - E506: hasDub=true (NEW! from 0508-dub-edited)
+    - E539: hasDub=true (NEW! from 0557-dub-edited)
+    - E542: hasDub=false (correctly missing)
+    - E995: hasDub=true (NEW! from 0995-dub-edited)
+    - E1001: hasDub=true + hasSub=true (DUB from 0995 + SUB from Wano collection)
+    - E1050: hasDub=true + hasSub=true (DUB via SUB fallback)
+    - E1085: hasDub=true + hasSub=true (DUB via SUB fallback)
+    - E1100: hasDub=false (correctly missing)
+    - E1170: hasDub=false (correctly missing)
+  - Direct archive.org URLs return HTTP 302 → video/mp4 (verified)
+  - Stream proxy /api/stream?url=... returns HTTP 200 with proper CORS headers
+
+Commits:
+- 026bc80 "One Piece: add 1080p HD English dub sources (E1, E137-147, E506-513, E539-566, E995-1004) from archive.org 'Dub, Edited' collections"
+- 26de6a8 "Add hasSub/hasDub columns to Episode table + populate during seeding"
+
+Stage Summary:
+- 54 NEW English dub episodes added to One Piece DUB player in TRUE 1080p HD
+  (1920x1080 verified) from archive.org "Dub, Edited" Funimation collections
+- Wano E1001-1085 already available in DUB player via SUB fallback (Japanese audio)
+- Total: 135 episodes playable in DUB mode (54 explicit DUB + 85 Wano via fallback
+  + 4 overlap where both DUB and SUB exist for E1001-1004)
+- 85 episodes playable in SUB mode (Wano arc only)
+- DB schema migrated to include hasSub/hasDub on Episode records
+- All four API routes (catalog, jikan, seed-episodes, setup-db) now properly
+  set and return these flags
+- Sites tested that are ALL bot-protected (Cloudflare 522/403):
+  aniwatch, hianime, kaido, sflix, 9animetv, gogoanime family, animepahe
+- Sites tested that are dead/redirecting: animepahe.ru, gogoanime.hu,
+  gogoanime3.co, gogoanime.ai, animedao.to, animefox.to
+- Sites tested that work but aren't English: animeflv.net (Spanish),
+  bilibili.tv (region-locked), YouTube (no full eps)
+- Sites with HIGH HD English dub that AREN'T bot-protected: archive.org only
