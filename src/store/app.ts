@@ -1,7 +1,7 @@
 "use client";
 import { create } from "zustand";
 
-export type View = "home" | "schedule" | "search" | "catalog" | "library" | "detail";
+export type View = "home" | "schedule" | "search" | "catalog" | "library" | "detail" | "player";
 
 export interface Anime {
   id: string; malId: number; title: string; titleEnglish?: string; titleJapanese?: string;
@@ -27,7 +27,7 @@ export function parseHash(): { view: View; malId: number | null; episode: number
   const parts = hash.split("/").filter(Boolean);
   if (parts.length === 0) return { view: "home", malId: null, episode: null };
   const view = (parts[0] as View) || "home";
-  if (!["home", "schedule", "search", "catalog", "library", "detail"].includes(view)) {
+  if (!["home", "schedule", "search", "catalog", "library", "detail", "player"].includes(view)) {
     return { view: "home", malId: null, episode: null };
   }
   const malId = parts[1] ? parseInt(parts[1], 10) : null;
@@ -55,6 +55,7 @@ interface AppState {
   catalogGenre: string | null;
   navigate: (v: View) => void;
   openAnime: (malId: number, episode?: number, position?: number | null) => void;
+  openPlayer: (malId: number, episode: number, position?: number | null) => void;
   back: () => void;
   setAudioMode: (a: "SUB" | "DUB") => void;
   setQuality: (q: string) => void;
@@ -102,6 +103,18 @@ export const useApp = create<AppState>((set, get) => ({
         window.history.replaceState(null, "", newUrl);
       }
       return { currentView: "detail", previousView: s.currentView, selectedMalId: malId, selectedEpisode: episode, resumePosition: resume };
+    });
+  },
+  openPlayer: (malId, episode, position = null) => {
+    set((s) => {
+      const hist = s.history.find((h) => h.malId === malId && h.episode === episode);
+      const resume = position ?? (hist && hist.position > 5 ? hist.position : null);
+      if (typeof window !== "undefined") {
+        const hash = buildHash("player", malId, episode > 1 ? episode : null);
+        const newUrl = `${window.location.pathname}${window.location.search}${hash}`;
+        window.history.replaceState(null, "", newUrl);
+      }
+      return { currentView: "player", previousView: s.currentView, selectedMalId: malId, selectedEpisode: episode, resumePosition: resume };
     });
   },
   back: () => {

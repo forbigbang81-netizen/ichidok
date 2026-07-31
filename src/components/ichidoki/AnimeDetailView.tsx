@@ -50,7 +50,11 @@ export function AnimeDetailView() {
     updateHistoryPosition,
     history,
     openAnime,
+    openPlayer,
+    currentView,
   } = useApp();
+
+  const isPlayerView = currentView === "player";
 
   const [anime, setAnime] = useState<Anime | null>(null);
   const [episodes, setEpisodes] = useState<Episode[]>([]);
@@ -190,6 +194,11 @@ export function AnimeDetailView() {
     setCountdownForEp(null);
     setNextEpCountdown(null);
     setSelectedEpisode(ep);
+    // If we're in detail view, open the player. If already in player view,
+    // just update the episode.
+    if (!isPlayerView) {
+      openPlayer(selectedMalId!, ep);
+    }
   };
 
   const handleDownload = async (ep: number) => {
@@ -472,63 +481,77 @@ export function AnimeDetailView() {
         </div>
       </div>
 
-      {/* ===== Video player — full-width, no rounded corners ===== */}
-      <div className="relative">
-        <VideoPlayer
-          malId={selectedMalId}
-          episode={selectedEpisode}
-          audioMode={audioMode}
-          poster={anime.banner || anime.poster}
-          title={`${anime.title} — Episode ${selectedEpisode}`}
-          resumePosition={resumePosition}
-          onProgress={handleProgress}
-          onEnded={handleEnded}
-          onBack={back}
-        />
+      {/* ===== Video player (only in player view) OR Start Watching button (detail view) ===== */}
+      {isPlayerView ? (
+        <div className="relative">
+          <VideoPlayer
+            malId={selectedMalId}
+            episode={selectedEpisode}
+            audioMode={audioMode}
+            poster={anime.banner || anime.poster}
+            title={`${anime.title} — Episode ${selectedEpisode}`}
+            resumePosition={resumePosition}
+            onProgress={handleProgress}
+            onEnded={handleEnded}
+            onBack={back}
+          />
 
-        {/* ===== Next-episode auto-play prompt ===== */}
-        {showNextEpOverlay && (
-          <div className="absolute inset-0 z-50 grid place-items-center bg-black/90">
-            <div className="flex w-[280px] max-w-[85%] flex-col items-center rounded-xl bg-[#111111] p-5 text-center">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#f5c518]">
-                Up Next
-              </span>
-              <p className="mt-2 text-lg font-bold text-white">
-                Episode {nextEpNumber}
-              </p>
-              <p className="mt-1 text-xs text-white/60">
-                Starting in{" "}
-                <span className="text-base font-bold tabular-nums text-[#f5c518]">
-                  {nextEpCountdown}
+          {/* ===== Next-episode auto-play prompt ===== */}
+          {showNextEpOverlay && (
+            <div className="absolute inset-0 z-50 grid place-items-center bg-black/90">
+              <div className="flex w-[280px] max-w-[85%] flex-col items-center rounded-xl bg-[#111111] p-5 text-center">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#f5c518]">
+                  Up Next
                 </span>
-                …
-              </p>
-              <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
-                <div
-                  className="h-full rounded-full bg-[#f5c518] transition-[width] duration-1000 ease-linear"
-                  style={{
-                    width: `${
-                      ((NEXT_EP_COUNTDOWN_FROM - (nextEpCountdown ?? 0)) /
-                        NEXT_EP_COUNTDOWN_FROM) *
-                      100
-                    }%`,
+                <p className="mt-2 text-lg font-bold text-white">
+                  Episode {nextEpNumber}
+                </p>
+                <p className="mt-1 text-xs text-white/60">
+                  Starting in{" "}
+                  <span className="text-base font-bold tabular-nums text-[#f5c518]">
+                    {nextEpCountdown}
+                  </span>
+                  …
+                </p>
+                <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                  <div
+                    className="h-full rounded-full bg-[#f5c518] transition-[width] duration-1000 ease-linear"
+                    style={{
+                      width: `${
+                        ((NEXT_EP_COUNTDOWN_FROM - (nextEpCountdown ?? 0)) /
+                          NEXT_EP_COUNTDOWN_FROM) *
+                        100
+                      }%`,
+                    }}
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCountdownForEp(null);
+                    setNextEpCountdown(null);
                   }}
-                />
+                  className="mt-4 rounded-full px-6 py-2 text-[11px] font-bold uppercase tracking-wider text-white/70 transition-colors hover:text-white"
+                >
+                  Cancel
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={() => {
-                  setCountdownForEp(null);
-                  setNextEpCountdown(null);
-                }}
-                className="mt-4 rounded-full px-6 py-2 text-[11px] font-bold uppercase tracking-wider text-white/70 transition-colors hover:text-white"
-              >
-                Cancel
-              </button>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      ) : (
+        /* ===== Start Watching button (Crunchyroll-style floating CTA) ===== */
+        <div className="px-4 py-3">
+          <button
+            type="button"
+            onClick={() => openPlayer(selectedMalId!, selectedEpisode, resumePosition)}
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#f5c518] py-3 text-sm font-bold text-black transition-colors active:bg-[#e6b016]"
+          >
+            <Play className="h-4 w-4 fill-black" />
+            Start Watching E{selectedEpisode}
+          </button>
+        </div>
+      )}
 
       {/* ===== Anime info: score + info chips (title is now on the poster) ===== */}
       <section className="px-4 pt-4">

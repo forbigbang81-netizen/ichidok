@@ -49,7 +49,7 @@ export default function Page() {
     window.scrollTo({ top: 0, behavior: "instant" });
   }, [currentView, selectedMalId, selectedEpisode]);
 
-  const isDetail = currentView === "detail";
+  const isDetail = currentView === "detail" || currentView === "player";
   const showHomeChrome = currentView === "home";
   const hasUnread = notifications.some((n) => !n.read);
 
@@ -108,6 +108,7 @@ export default function Page() {
           {currentView === "library" && <LibraryView />}
           {currentView === "schedule" && <ScheduleView />}
           {currentView === "detail" && <AnimeDetailView />}
+          {currentView === "player" && <AnimeDetailView />}
         </div>
       </main>
 
