@@ -636,10 +636,12 @@ export const SEED_ANIME: SeedAnime[] = [
       1084,                                   // Wano finale filler
     ],
     // Video sources:
-    // SUB: E1001-1085 from archive.org (Anime Time 1080p MP4, JP audio, ASR-verified)
-    //      E1-1000 and E1086-1171: NO SOURCE (no streamable MP4 found)
+    // SUB: E1-943 from archive.org (HorribleSubs 720p MKV, JP audio, needsProxy)
+    //      E1001-1085 from archive.org (Anime Time 1080p MP4, JP audio)
     // DUB: NO SOURCE (no streamable MP4 found)
     episodeSources: [
+      // SUB: HorribleSubs MKV for E1-943 (720p, JP audio, via /api/stream proxy)
+      { startEp: 1, endEp: 943, collection: "one-piece-0001-1000-1999-horrible-subs", fileTemplate: "[HorribleSubs] One Piece (01-1000) [720p] (Batch)/[HorribleSubs] One Piece - {ep:02d} [720p].mkv", needsProxy: true, audio: "sub" },
       // SUB: archive.org MP4 for Wano arc (E1001-1085)
       { startEp: 1001, endEp: 1085, collection: "20260622_20260622_0310", audio: "sub", episodeFiles: {
         1001: "[Anime Time] One Piece - 1001 - A Risky Invitation A Plot To Eliminate Queen.mp4",
@@ -737,23 +739,11 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.14, scoredBy: 380000, rank: 400, popularity: 50, members: 1100000,
     year: 2017, season: "fall", genres: ["Action", "Comedy", "Fantasy"], studios: ["Studio Pierrot"],
     episodeCount: 170, duration: "23 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
-    // DUB: E1-29 from episode-09_202606 (English dub, ~215MB each, good quality).
-    //      E86-170 from black-clover_20260529 (English dub, ~130MB each).
-    //      E30-85: NO SOURCE FOUND — will show "no stream available".
-    // SUB: E126-170 from kusagiri collections (JP audio, 720p).
-    //      E105-153 from black-clover-3 (JP audio, 480p, overlaps with kusagiri).
+    // DUB: E1-170 from wcoflix.tv (English dub, HD quality)
+    // SUB: E126-170 from kusagiri collections (JP audio, 720p)
     episodeSources: [
-      // DUB E1-29
-      { startEp: 1, endEp: 170, collection: "episode-09_202606", audio: "dub", episodeFiles: {
-        1: "Episode_01.mp4", 2: "Episode_02.mp4", 3: "Episode_03.mp4", 4: "Episode_04.mp4", 5: "Episode_05.mp4",
-        6: "Episode_06.mp4", 7: "Episode_07.mp4", 8: "Episode_08.mp4", 9: "Episode_09.mp4", 10: "Episode_10.mp4",
-        11: "Episode_11.mp4", 12: "Episode_12.mp4", 13: "Episode_13.mp4", 14: "Episode_14.mp4", 15: "Episode_15.mp4",
-        16: "Episode_16.mp4", 17: "Episode_17.mp4", 18: "Episode_18.mp4", 19: "Episode_19.mp4", 20: "Episode_20.mp4",
-        21: "Episode_21.mp4", 22: "Episode_22.mp4", 23: "Episode_23.mp4", 24: "Episode_24.mp4", 25: "Episode_25.mp4",
-        26: "Episode_26.mp4", 27: "Episode_27.mp4", 28: "Episode_28.mp4", 29: "Episode_29.mp4",
-      } },
-      // DUB E86-170
-      { startEp: 86, endEp: 170, collection: "black-clover_20260529", fileTemplate: "Black Clover S1E{ep}.mp4", audio: "dub" },
+      // DUB E1-170 from wcoflix (all episodes, English dubbed)
+      { startEp: 1, endEp: 170, collection: "wcoflix", audio: "dub", fileTemplate: "https://www.wcoflix.tv/black-clover-episode-{ep}-english-dubbed" },
       // SUB E126-150 (JP audio, 720p)
       { startEp: 126, endEp: 170, collection: "kusagiri.web.id-blck-clver-129-720p", audio: "sub", episodeFiles: {
         126: "Kusagiri.web.id_BlckClver--126_720p.mp4", 127: "Kusagiri.web.id_BlckClver--127_720p.mp4",
