@@ -1960,14 +1960,29 @@ export function episodeHasSub(seed: SeedAnime, episode: number): boolean {
   });
 }
 export function episodeHasDub(seed: SeedAnime, episode: number): boolean {
+  // If the anime is marked as hasDub, check if any source covers this episode.
+  // If a DUB source exists, use it. If not but hasDub is set, return true
+  // so the player shows the DUB toggle (resolveEpisodeUrl will fall back
+  // to the SUB source for playback).
   if (!seed.episodeSources) return false;
-  return seed.episodeSources.some((src) => {
+  const hasDubSource = seed.episodeSources.some((src) => {
     if (!(episode >= src.startEp && episode <= src.endEp)) return false;
     if (src.audio !== "dub" && src.audio !== "both") return false;
-    // If episodeFiles is set, verify the specific episode exists.
     if (src.episodeFiles && !src.episodeFiles[episode]) return false;
     return true;
   });
+  if (hasDubSource) return true;
+  // Fallback: if hasDub is set and a SUB source covers this episode,
+  // return true so the toggle appears (playback will use SUB fallback)
+  if (seed.hasDub) {
+    return seed.episodeSources.some((src) => {
+      if (!(episode >= src.startEp && episode <= src.endEp)) return false;
+      if (src.audio !== "sub" && src.audio !== "both") return false;
+      if (src.episodeFiles && !src.episodeFiles[episode]) return false;
+      return true;
+    });
+  }
+  return false;
 }
 
 export function resolveSubtitleUrl(seed: SeedAnime, episode: number): string | null {
