@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import puppeteer from "puppeteer-core";
+import chromium from "@sparticuz/chromium";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -6,12 +8,8 @@ export const maxDuration = 60;
 /**
  * GET /api/wco-stream?episode=1&lang=sub
  *
- * Uses Playwright to bypass Cloudflare on wcoflix.tv and extract
- * the direct video URL for a One Piece episode. The URL is returned
- * to the client which can use it in a <video> element.
- *
- * The video URLs are time-limited (expire in ~30 min) so they must
- * be fetched on-demand each time the user plays an episode.
+ * Uses puppeteer-core + @sparticuz/chromium (serverless-compatible)
+ * to bypass Cloudflare on wcoflix.tv and extract the direct video URL.
  */
 
 const WCOFLIX_BASE = "https://www.wcoflix.tv/one-piece-episode-";
@@ -28,44 +26,50 @@ export async function GET(request: Request) {
   const langSuffix = lang === "dub" ? "english-dubbed" : "english-subbed";
   const episodeUrl = `${WCOFLIX_BASE}${episode}-${langSuffix}`;
 
+  let browser = null;
   try {
-    // Dynamic import to avoid loading playwright at build time
-    const { chromium } = await import("playwright");
-
-    const browser = await chromium.launch({
-      headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    browser = await puppeteer.launch({
+      args: chromium.args,
+      executablePath: await chromium.executablePath(),
+      headless: chromium.headless,
     });
-    const context = await browser.newContext({
-      userAgent:
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-      viewport: { width: 1920, height: 1080 },
-    });
-    const page = await context.newPage();
 
-    await page.goto(episodeUrl, { waitUntil: "networkidle", timeout: 30000 });
-    await page.waitForTimeout(5000);
+    const page = await browser.newPage();
+    await page.setUserAgent(
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    );
 
+    // Navigate to the episode page
+    await page.goto(episodeUrl, { waitUntil: "networkidle2", timeout: 30000 });
+    await new Promise((r) => setTimeout(r, 5000));
+
+    // Find the embed iframe and extract video URL
     const frames = page.frames();
     let videoUrl: string | null = null;
 
-    for (const f of frames) {
-      if (f.url().includes("embed.wcostream")) {
+    for (const frame of frames) {
+      const frameUrl = frame.url();
+      if (frameUrl.includes("embed.wcostream")) {
+        // Close announcement overlay
         try {
-          await f.evaluate(() => {
+          await frame.evaluate(() => {
             const btn = document.getElementById("close-btn");
-            if (btn) { btn.disabled = false; btn.click(); }
+            if (btn) {
+              (btn as any).disabled = false;
+              btn.click();
+            }
             const a = document.getElementById("announcement");
             const b = document.getElementById("backdrop");
-            if (a) a.style.display = "none";
-            if (b) b.style.display = "none";
+            if (a) (a as HTMLElement).style.display = "none";
+            if (b) (b as HTMLElement).style.display = "none";
           });
         } catch {}
 
-        await f.waitForTimeout(5000);
+        await new Promise((r) => setTimeout(r, 5000));
 
+        // Extract video source
         try {
-          videoUrl = await f.evaluate(() => {
+          videoUrl = await frame.evaluate(() => {
             const v = document.querySelector("video");
             return v ? v.src : null;
           });
@@ -73,8 +77,6 @@ export async function GET(request: Request) {
         break;
       }
     }
-
-    await browser.close();
 
     if (videoUrl) {
       return NextResponse.json(
@@ -93,5 +95,9 @@ export async function GET(request: Request) {
       { ok: false, error: "Failed to fetch video", detail: String(err) },
       { status: 500 },
     );
+  } finally {
+    if (browser) {
+      try { await browser.close(); } catch {}
+    }
   }
 }
