@@ -417,8 +417,8 @@ export function AnimeDetailView() {
 
   return (
     <div className="fade-in flex flex-col pb-8">
-      {/* ===== Header — solid black, no glass ===== */}
-      <header className="sticky top-0 z-20 bg-black pt-safe">
+      {/* ===== Header — transparent over poster, becomes solid black on scroll ===== */}
+      <header className="sticky top-0 z-20 bg-black/80 backdrop-blur-md pt-safe">
         <div className="flex items-center gap-3 px-4 py-3">
           <button
             type="button"
@@ -429,7 +429,7 @@ export function AnimeDetailView() {
             <ArrowLeft className="h-5 w-5" />
           </button>
           <p className="flex-1 truncate text-sm font-medium text-white">
-            Details
+            {anime.title}
           </p>
           <button
             type="button"
@@ -446,6 +446,31 @@ export function AnimeDetailView() {
           </button>
         </div>
       </header>
+
+      {/* ===== Poster banner with gradient fade to black ===== */}
+      <div className="relative">
+        {/* Poster image — full width, aspect 16:9 */}
+        <div className="relative aspect-video w-full overflow-hidden">
+          <img
+            src={anime.banner || anime.poster}
+            alt={anime.title}
+            className="h-full w-full object-cover"
+          />
+          {/* Gradient overlay: transparent at top → black at bottom */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
+          {/* Title centered over the bottom of the poster */}
+          <div className="absolute inset-x-0 bottom-0 flex flex-col items-center pb-4">
+            <h1 className="px-4 text-center text-2xl font-bold leading-tight text-white drop-shadow-lg">
+              {anime.title}
+            </h1>
+            {anime.titleJapanese && (
+              <p className="mt-1 text-[11px] text-white/50">
+                {anime.titleJapanese}
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
 
       {/* ===== Video player — full-width, no rounded corners ===== */}
       <div className="relative">
@@ -505,17 +530,9 @@ export function AnimeDetailView() {
         )}
       </div>
 
-      {/* ===== Anime info: title + score + info chips ===== */}
+      {/* ===== Anime info: score + info chips (title is now on the poster) ===== */}
       <section className="px-4 pt-4">
-        <h1 className="text-xl font-bold leading-tight text-white">
-          {anime.title}
-        </h1>
-        {anime.titleJapanese && (
-          <p className="mt-0.5 text-[11px] text-white/40">
-            {anime.titleJapanese}
-          </p>
-        )}
-        <div className="mt-2 flex flex-wrap items-center gap-3 text-[11px] text-white/60">
+        <div className="mt-2 flex flex-wrap items-center justify-center gap-3 text-[11px] text-white/60">
           {anime.score > 0 && (
             <span className="flex items-center gap-1 font-bold text-[#f5c518]">
               <Star className="h-3 w-3 fill-[#f5c518]" />

@@ -588,7 +588,7 @@ export const SEED_ANIME: SeedAnime[] = [
   // One Piece — hero card with Crunchyroll-style wide banner
   { malId: 37510, title: "One Piece", titleEnglish: "One Piece", titleJapanese: "ONE PIECE",
     synopsis: "Monkey D. Luffy refuses to let anyone or anything stand in the way of his quest to become the king of all pirates. With a rubbery body and a crew of unlikely friends, Luffy sets sail for the Grand Line.",
-    poster: "https://cdn.myanimelist.net/images/anime/6/73245l.jpg", banner: "/posters/one-piece-hero.jpg",
+    poster: "/posters/one-piece-elbaf-poster.jpg", banner: "/posters/one-piece-hero.jpg",
     type: "TV", status: "Currently Airing", score: 8.71, scoredBy: 600000, rank: 0, popularity: 1, members: 5000000,
     year: 1999, season: "fall", genres: ["Action", "Adventure", "Comedy", "Fantasy"], studios: ["Toei Animation"],
     episodeCount: 1171, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
