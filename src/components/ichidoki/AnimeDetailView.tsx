@@ -284,6 +284,113 @@ export function AnimeDetailView() {
           title: `Episode ${i + 1}`,
         }));
 
+  // Render a single episode item (shared between flat list and arc groups)
+  const renderEpisodeItem = (ep: Episode) => {
+    const active = ep.number === selectedEpisode;
+    const watchedEps = continueWatching.map((h) => h.episode);
+    const latestAvailableEp =
+      watchedEps.length > 0 ? Math.max(...watchedEps) : 0;
+    const hasStream =
+      !isAiring || ep.number <= latestAvailableEp;
+    const epStatus = isAiring
+      ? getEpisodeAirStatus(
+          ep.number,
+          anime.episodeCount,
+          broadcast,
+          hasStream,
+          latestAvailableEp,
+        )
+      : null;
+    const epHistory = continueWatching.find(
+      (h) => h.episode === ep.number,
+    );
+    const epProgress = epHistory?.progress ?? 0;
+    const isCompleted = epProgress > 90;
+    return (
+      <button
+        key={ep.number}
+        type="button"
+        onClick={() => handleSelectEpisode(ep.number)}
+        className={cn(
+          "flex items-center gap-3 rounded-lg p-2 text-left transition-colors",
+          active ? "bg-white/5" : "active:bg-white/5",
+        )}
+      >
+        {/* Thumbnail — 16:9, small, left side */}
+        <div className="relative h-14 w-24 shrink-0 overflow-hidden rounded-md bg-[#111111]">
+          {episodeThumb && (
+            <img
+              src={episodeThumb}
+              alt=""
+              aria-hidden
+              loading="lazy"
+              className="h-full w-full object-cover"
+            />
+          )}
+          <div className="absolute inset-0 grid place-items-center bg-black/30">
+            <Play className="h-5 w-5 fill-white text-white" />
+          </div>
+          {/* Progress bar at bottom of thumbnail */}
+          {epProgress > 0 && (
+            <div className="absolute inset-x-0 bottom-0 h-1 bg-black/60">
+              <div
+                className={cn(
+                  "h-full",
+                  isCompleted ? "bg-green-500" : "bg-[#f5c518]",
+                )}
+                style={{ width: `${Math.min(100, epProgress)}%` }}
+              />
+            </div>
+          )}
+          {ep.filler && (
+            <span className="absolute left-0.5 top-0.5 rounded bg-red-500/85 px-1 text-[8px] font-bold text-white">
+              FILLER
+            </span>
+          )}
+        </div>
+        {/* Episode info */}
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold text-white">
+              EP {ep.number}
+            </span>
+            {epStatus && (
+              <span
+                className={cn(
+                  "rounded px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider",
+                  epStatus.type === "countdown"
+                    ? "bg-[#f5c518] text-black"
+                    : epStatus.type === "coming-soon"
+                      ? "bg-orange-500/20 text-orange-300"
+                      : "bg-green-500/20 text-green-300",
+                )}
+              >
+                {epStatus.label}
+              </span>
+            )}
+          </div>
+          <p className="mt-0.5 line-clamp-1 text-[11px] text-white/50">
+            {ep.title && !ep.title.startsWith("Episode ") ? ep.title : `Episode ${ep.number}`}
+          </p>
+        </div>
+        {/* Download button — outside the player, per-episode */}
+        {hasStream && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDownload(ep.number);
+            }}
+            className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-white/40 transition-colors active:bg-white/10 hover:text-[#f5c518]"
+            aria-label={`Download episode ${ep.number}`}
+          >
+            <Download className="h-4 w-4" />
+          </button>
+        )}
+      </button>
+    );
+  };
+
   // Available tabs (dynamic)
   const tabs: { key: DetailTab; label: string }[] = [
     { key: "episodes", label: "Episodes" },
@@ -494,112 +601,41 @@ export function AnimeDetailView() {
       {/* ===== Tab content ===== */}
       <div className="px-4 mt-4" key={activeTab}>
         {activeTab === "episodes" && (
-          <div className="flex flex-col gap-2">
-            {episodeList.map((ep) => {
-              const active = ep.number === selectedEpisode;
-              const watchedEps = continueWatching.map((h) => h.episode);
-              const latestAvailableEp =
-                watchedEps.length > 0 ? Math.max(...watchedEps) : 0;
-              const hasStream =
-                !isAiring || ep.number <= latestAvailableEp;
-              const epStatus = isAiring
-                ? getEpisodeAirStatus(
-                    ep.number,
-                    anime.episodeCount,
-                    broadcast,
-                    hasStream,
-                    latestAvailableEp,
-                  )
-                : null;
-              const epHistory = continueWatching.find(
-                (h) => h.episode === ep.number,
-              );
-              const epProgress = epHistory?.progress ?? 0;
-              const isCompleted = epProgress > 90;
-              return (
-                <button
-                  key={ep.number}
-                  type="button"
-                  onClick={() => handleSelectEpisode(ep.number)}
-                  className={cn(
-                    "flex items-center gap-3 rounded-lg p-2 text-left transition-colors",
-                    active ? "bg-white/5" : "active:bg-white/5",
-                  )}
-                >
-                  {/* Thumbnail — 16:9, small, left side */}
-                  <div className="relative h-14 w-24 shrink-0 overflow-hidden rounded-md bg-[#111111]">
-                    {episodeThumb && (
-                      <img
-                        src={episodeThumb}
-                        alt=""
-                        aria-hidden
-                        loading="lazy"
-                        className="h-full w-full object-cover"
-                      />
-                    )}
-                    <div className="absolute inset-0 grid place-items-center bg-black/30">
-                      <Play className="h-5 w-5 fill-white text-white" />
-                    </div>
-                    {/* Progress bar at bottom of thumbnail */}
-                    {epProgress > 0 && (
-                      <div className="absolute inset-x-0 bottom-0 h-1 bg-black/60">
-                        <div
-                          className={cn(
-                            "h-full",
-                            isCompleted ? "bg-green-500" : "bg-[#f5c518]",
-                          )}
-                          style={{ width: `${Math.min(100, epProgress)}%` }}
-                        />
-                      </div>
-                    )}
-                    {ep.filler && (
-                      <span className="absolute left-0.5 top-0.5 rounded bg-red-500/85 px-1 text-[8px] font-bold text-white">
-                        FILLER
-                      </span>
-                    )}
+          <div className="flex flex-col gap-3">
+            {/* Group episodes by arc (title field) if multiple unique titles exist */}
+            {(() => {
+              const uniqueTitles = new Set(episodeList.map((e) => e.title));
+              const hasArcs = uniqueTitles.size > 1 && !Array.from(uniqueTitles).every((t) => t?.startsWith("Episode "));
+
+              if (!hasArcs) {
+                // Flat list (no arcs)
+                return episodeList.map((ep) => renderEpisodeItem(ep));
+              }
+
+              // Group by arc name
+              const arcGroups: { name: string; episodes: Episode[] }[] = [];
+              let currentArc = "";
+              for (const ep of episodeList) {
+                const arcName = ep.title ?? "Other";
+                if (arcName !== currentArc) {
+                  currentArc = arcName;
+                  arcGroups.push({ name: arcName, episodes: [] });
+                }
+                arcGroups[arcGroups.length - 1].episodes.push(ep);
+              }
+
+              return arcGroups.map((arc) => (
+                <div key={arc.name} className="flex flex-col gap-1.5">
+                  <div className="sticky top-0 z-10 flex items-center justify-between bg-black/90 py-1.5 backdrop-blur-sm">
+                    <h3 className="text-xs font-bold text-white/80">{arc.name}</h3>
+                    <span className="text-[10px] text-white/40">
+                      EP {arc.episodes[0].number}–{arc.episodes[arc.episodes.length - 1].number}
+                    </span>
                   </div>
-                  {/* Episode info */}
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-white">
-                        EP {ep.number}
-                      </span>
-                      {epStatus && (
-                        <span
-                          className={cn(
-                            "rounded px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider",
-                            epStatus.type === "countdown"
-                              ? "bg-[#f5c518] text-black"
-                              : epStatus.type === "coming-soon"
-                                ? "bg-orange-500/20 text-orange-300"
-                                : "bg-green-500/20 text-green-300",
-                          )}
-                        >
-                          {epStatus.label}
-                        </span>
-                      )}
-                    </div>
-                    <p className="mt-0.5 line-clamp-1 text-[11px] text-white/50">
-                      {ep.title ?? `Episode ${ep.number}`}
-                    </p>
-                  </div>
-                  {/* Download button — outside the player, per-episode */}
-                  {hasStream && (
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleDownload(ep.number);
-                      }}
-                      className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-white/40 transition-colors active:bg-white/10 hover:text-[#f5c518]"
-                      aria-label={`Download episode ${ep.number}`}
-                    >
-                      <Download className="h-4 w-4" />
-                    </button>
-                  )}
-                </button>
-              );
-            })}
+                  {arc.episodes.map((ep) => renderEpisodeItem(ep))}
+                </div>
+              ));
+            })()}
           </div>
         )}
 

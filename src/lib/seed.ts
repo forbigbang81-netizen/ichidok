@@ -11,6 +11,16 @@ export interface SeedAnime {
   rating: string; source: string; isFeatured?: boolean;
   episodeSources?: EpisodeSource[]; hasDub?: boolean; hasSub?: boolean;
   subtitlePattern?: string; localSubtitlePattern?: string; noSubtitles?: boolean;
+  /** Arc definitions for organizing episodes into story arcs instead of a flat list. */
+  arcs?: ArcDefinition[];
+  /** Set of episode numbers that are filler. Used during seeding to mark episodes. */
+  fillerEpisodes?: number[];
+}
+
+export interface ArcDefinition {
+  name: string;
+  startEp: number;
+  endEp: number;
 }
 
 export interface EpisodeSource {
@@ -581,24 +591,83 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "https://cdn.myanimelist.net/images/anime/6/73245l.jpg", banner: "/posters/one-piece-hero.jpg",
     type: "TV", status: "Currently Airing", score: 8.71, scoredBy: 600000, rank: 0, popularity: 1, members: 5000000,
     year: 1999, season: "fall", genres: ["Action", "Adventure", "Comedy", "Fantasy"], studios: ["Toei Animation"],
-    episodeCount: 1122, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    episodeCount: 1171, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    // Arc structure — episodes divided into story arcs instead of a flat list
+    arcs: [
+      { name: "Romance Dawn", startEp: 1, endEp: 3 },
+      { name: "Orange Town", startEp: 4, endEp: 8 },
+      { name: "Syrup Village", startEp: 9, endEp: 18 },
+      { name: "Baratie", startEp: 19, endEp: 30 },
+      { name: "Arlong Park", startEp: 31, endEp: 44 },
+      { name: "Loguetown", startEp: 45, endEp: 53 },
+      { name: "Warship Island (Filler)", startEp: 54, endEp: 61 },
+      { name: "Reverse Mountain", startEp: 62, endEp: 63 },
+      { name: "Whisky Peak", startEp: 64, endEp: 67 },
+      { name: "Little Garden", startEp: 70, endEp: 77 },
+      { name: "Drum Island", startEp: 78, endEp: 91 },
+      { name: "Alabasta", startEp: 92, endEp: 130 },
+      { name: "Goat Island (Filler)", startEp: 136, endEp: 138 },
+      { name: "Ruluka (Filler)", startEp: 131, endEp: 135 },
+      { name: "Jaya", startEp: 144, endEp: 152 },
+      { name: "Skypiea", startEp: 153, endEp: 195 },
+      { name: "G-8 (Filler)", startEp: 196, endEp: 206 },
+      { name: "Long Ring Long Land", startEp: 207, endEp: 219 },
+      { name: "Ocean's Dream (Filler)", startEp: 220, endEp: 226 },
+      { name: "Foxy's Return", startEp: 227, endEp: 228 },
+      { name: "Water 7", startEp: 229, endEp: 263 },
+      { name: "Enies Lobby", startEp: 264, endEp: 312 },
+      { name: "Post-Enies Lobby", startEp: 313, endEp: 325 },
+      { name: "Ice Hunter (Filler)", startEp: 326, endEp: 335 },
+      { name: "Thriller Bark", startEp: 337, endEp: 381 },
+      { name: "Spa Island (Filler)", startEp: 382, endEp: 384 },
+      { name: "Sabaody Archipelago", startEp: 385, endEp: 405 },
+      { name: "Amazon Lily", startEp: 408, endEp: 417 },
+      { name: "Impel Down", startEp: 422, endEp: 452 },
+      { name: "Marineford", startEp: 457, endEp: 489 },
+      { name: "Post-War", startEp: 490, endEp: 516 },
+      { name: "Return to Sabaody", startEp: 517, endEp: 522 },
+      { name: "Fishman Island", startEp: 523, endEp: 541 },
+      { name: "Z's Ambition (Filler)", startEp: 575, endEp: 578 },
+      { name: "Punk Hazard", startEp: 579, endEp: 625 },
+      { name: "Caesar Retrieval (Filler)", startEp: 626, endEp: 628 },
+      { name: "Dressrosa", startEp: 629, endEp: 746 },
+      { name: "Zou", startEp: 751, endEp: 779 },
+      { name: "Marine Rookie (Filler)", startEp: 780, endEp: 782 },
+      { name: "Whole Cake Island", startEp: 783, endEp: 877 },
+      { name: "Levely", startEp: 878, endEp: 889 },
+      { name: "Wano Country", startEp: 890, endEp: 1085 },
+      { name: "Egghead", startEp: 1086, endEp: 1155 },
+      { name: "Elbaf", startEp: 1156, endEp: 1171 },
+    ],
+    // Filler episodes — marked with filler: true in the episode list
+    fillerEpisodes: [
+      54, 55, 56, 57, 58, 59, 60,          // Warship Island
+      98, 99, 102,                           // Alabasta filler
+      131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, // Ruluka + Goat Island
+      196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, // G-8
+      220, 221, 222, 223, 224, 225, 226,     // Ocean's Dream
+      279, 280, 281, 282, 283,               // Post-Enies Lobby filler
+      291, 292,                               // Spa Island preview
+      303,                                    // Standalone filler
+      317, 318, 319,                          // Pre-Thriller Bark filler
+      326, 327, 328, 329, 330, 331, 332, 333, 334, 335, // Ice Hunter
+      382, 383, 384,                          // Spa Island
+      406, 407,                               // Sabaody filler
+      426, 427, 428, 429,                     // Standalone filler
+      457, 458,                               // Marineford prelude recap
+      492,                                    // Standalone filler
+      542,                                    // Post-Fishman Island filler
+      575, 576, 577, 578,                     // Z's Ambition
+      590,                                    // Standalone filler
+      626, 627, 628,                          // Caesar Retrieval
+      747, 748, 749, 750,                     // Pre-Zou filler
+      780, 781, 782,                          // Marine Rookie
+      895, 896,                               // Wano filler
+      907,                                    // Standalone filler
+      1029, 1030,                             // Wano filler
+      1084,                                   // Wano finale filler
+    ],
     // No video sources yet — episodes will be added when sources are found.
-    // Arc structure (for future episode organization):
-    //   East Blue Saga (E1-61): Romance Dawn, Orange Town, Syrup Village,
-    //     Baratie, Arlong Park, Loguetown, Warship Island (filler)
-    //   Alabasta Saga (E62-130): Reverse Mountain, Whisky Peak, Little
-    //     Garden, Drum Island, Alabasta
-    //   Sky Island Saga (E131-206): Jaya, Skypiea, G-8 (filler)
-    //   Water 7 Saga (E207-325): Long Ring Long Land, Water 7, Enies Lobby,
-    //     Post-Enies Lobby
-    //   Thriller Bark Saga (E326-384): Thriller Bark
-    //   Summit War Saga (E385-516): Sabaody, Amazon Lily, Impel Down,
-    //     Marineford, Post-War
-    //   Fishman Island Saga (E517-574): Return to Sabaody, Fishman Island
-    //   Dressrosa Saga (E575-746): Punk Hazard, Dressrosa
-    //   Whole Cake Island Saga (E747-889): Zou, Whole Cake Island, Levely
-    //   Wano Country Saga (E890-1085): Wano
-    //   Egghead Arc (E1086-1122+): Egghead
     episodeSources: [],
   },
   // Black Clover

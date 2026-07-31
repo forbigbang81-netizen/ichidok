@@ -116,6 +116,54 @@ export async function ensureSeeded(opts?: { force?: boolean }): Promise<void> {
                 source: s.source,
                 isFeatured: s.isFeatured ?? false,
               },
+            }).then(async (anime) => {
+              // If the seed defines arcs or filler episodes, create Episode
+              // records with arc names as titles and filler flags.
+              if (s.arcs || s.fillerEpisodes) {
+                const fillerSet = new Set(s.fillerEpisodes ?? []);
+                // Build episode list from arcs (if present) or episodeCount
+                const episodes: { number: number; title: string | null; filler: boolean }[] = [];
+                if (s.arcs) {
+                  for (const arc of s.arcs) {
+                    for (let ep = arc.startEp; ep <= arc.endEp; ep++) {
+                      episodes.push({
+                        number: ep,
+                        title: arc.name,
+                        filler: fillerSet.has(ep),
+                      });
+                    }
+                  }
+                } else {
+                  for (let ep = 1; ep <= s.episodeCount; ep++) {
+                    episodes.push({
+                      number: ep,
+                      title: null,
+                      filler: fillerSet.has(ep),
+                    });
+                  }
+                }
+                // Upsert episodes in chunks to avoid overwhelming the DB
+                for (let j = 0; j < episodes.length; j += 20) {
+                  const epChunk = episodes.slice(j, j + 20);
+                  await Promise.all(
+                    epChunk.map((e) =>
+                      db.episode.upsert({
+                        where: { animeId_number: { animeId: anime.id, number: e.number } },
+                        create: {
+                          animeId: anime.id,
+                          number: e.number,
+                          title: e.title,
+                          filler: e.filler,
+                        },
+                        update: {
+                          title: e.title,
+                          filler: e.filler,
+                        },
+                      }).catch(() => {}),
+                    ),
+                  );
+                }
+              }
             }).catch((e) => {
               // Don't let a single row failure abort the whole seed.
               console.error(`[ensureSeeded] upsert failed for malId=${s.malId}:`, e);
