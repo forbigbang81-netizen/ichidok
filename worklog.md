@@ -1063,3 +1063,62 @@ Stage Summary:
   B. Open wcostream in new tab when user clicks play (leaves site temporarily)
   C. Accept current 135 DUB episodes from archive.org
 - Episode slug mapping saved for future VPS-based resolver
+
+---
+Task ID: wco-resolver-setup
+Agent: main
+Task: Set up VPS-based resolver for wcostream One Piece DUB episodes (Option A)
+
+Work Log:
+- Created /home/z/my-project/wco-resolver/ — complete resolver server:
+  - server.py: Python FastAPI server with Playwright + playwright-stealth
+  - requirements.txt: fastapi, uvicorn, playwright, playwright-stealth
+  - Dockerfile: Python 3.12 + Playwright Chromium for Railway/Render
+  - slugs.json: 732 episode→slug mappings (E422-1155)
+  - README.md: deployment instructions for Railway/Render/Fly.io
+
+- Resolver flow:
+  1. GET /resolve?slug=one-piece-episode-422-english-dubbed
+  2. Launches Playwright headless Chromium with stealth evasions
+  3. Navigates to m.wcostream.tv/{slug}
+  4. Waits 15s for Cloudflare bypass + page load
+  5. Finds embed iframe, detects Announcement pre-roll page
+  6. Clicks .btn-close to skip announcement
+  7. Clicks .vjs-big-play-button to start video
+  8. Captures e02.wcostream.com/getvid?evid=... from network responses
+  9. Returns { url, expiresAt } (40s cache TTL)
+  10. Caches result for 40s (tokens expire in ~60s)
+
+- Ichidok updates:
+  - EpisodeSource interface: added sourceType field
+  - seed.ts: added wco_resolver source for One Piece E422-1155 DUB
+    (slug pattern: one-piece-episode-{ep}-english-dubbed)
+  - resolveEpisodeUrl: handles wco_resolver → returns resolver endpoint URL
+  - auto-import route: passes resolver URL to client without DB caching
+  - VideoPlayer: detects wco_resolver sourceType, fetches resolver endpoint
+    client-side, shows "Resolving 1080p stream via WCO resolver (takes 20-30s)…"
+    loading message
+
+- Local testing:
+  - Resolver successfully resolved E422 → e16.wcostream.com video URL
+  - Video URL confirmed as video/mp4, 1080p, ~152MB
+  - Token expires in ~60s (expected behavior)
+  - Total resolution time: ~40s (first request, cold browser)
+
+- Deployment needed:
+  - User must deploy wco-resolver/ on Railway ($5/mo) or Render (free)
+  - Push wco-resolver/ folder to a GitHub repo
+  - Connect Railway/Render to the repo, auto-deploys with Dockerfile
+  - Set NEXT_PUBLIC_WCO_RESOLVER_URL env var on Vercel to resolver URL
+  - Test: curl https://resolver-url/resolve?slug=one-piece-episode-422-english-dubbed
+
+Commits:
+- 1b5251e "Add WCO resolver for 732 One Piece DUB episodes (E422-1155) in 1080p HD"
+- 15ae5d7 "Fix WCO resolver: handle Announcement pre-roll + click vjs-big-play-button"
+
+Stage Summary:
+- 732 One Piece DUB episodes (E422-1155) now have a wco_resolver source in seed
+- Resolver server built and tested locally — successfully resolves video URLs
+- Ichidok VideoPlayer updated to call resolver client-side
+- Waiting for user to deploy resolver on Railway/Render and set env var
+- Once deployed, all E422-1155 DUB episodes will play in 1080p HD inline
