@@ -227,12 +227,19 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 14, collection: "BleachTYBW1-28", fileTemplate: "Bleach TYBW Episode 00{ep:02}.mp4", audio: "dub" },
     ], hasSub: true, hasDub: true,
   },
-  // Bleach TYBW Calamity (upcoming — July 2026)
+  // Bleach TYBW Calamity (Cour 4 — airing July 2026)
   { malId: 60636, title: "Bleach: Thousand-Year Blood War - The Calamity", titleEnglish: "Bleach: Thousand-Year Blood War - The Calamity", titleJapanese: "BLEACH 千年血戦篇-禍相譚-",
     synopsis: "The final part of the Thousand-Year Blood War arc. Ichigo and his allies face Yhwach and the Quincy in their last battle.", poster: "/posters/bleach-tybw-cal-tv.jpg", banner: "/posters/bleach-tybw-cal-tv.jpg",
-    type: "TV", status: "Not yet aired", score: 0, scoredBy: 0, rank: 0, popularity: 380, members: 23456,
+    type: "TV", status: "Currently Airing", score: 0, scoredBy: 0, rank: 0, popularity: 380, members: 23456,
     year: 2026, season: "summer", genres: ["Action", "Adventure", "Supernatural"], studios: ["Pierrot Films"],
-    episodeCount: 12, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true, episodeSources: [],
+    episodeCount: 12, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    // SUB E1: 720p from archive.org (ASR-verified Japanese audio). More
+    // episodes will be added as they air and get uploaded.
+    episodeSources: [
+      { startEp: 1, endEp: 1, collection: "bleach-thousand-year-blood-war-part-iv-the-calamity-episode-1-1784992695", audio: "sub", episodeFiles: {
+        1: "Bleach_Thousand-Year_Blood_War_Part_IV_-_The_Calamity_Episode_1_1784992695.mp4",
+      } },
+    ], hasSub: true,
   },
   // Bleach TYBW Calamity Movie (Leaked) — Dropbox 720p, sub only
   { malId: -5, title: "Bleach: Thousand-Year Blood War - The Calamity (Leaked)", titleEnglish: "Bleach: Thousand-Year Blood War - The Calamity (Leaked)", titleJapanese: "BLEACH 千年血戦篇-禍相譚-",
@@ -567,6 +574,32 @@ export const SEED_ANIME: SeedAnime[] = [
         24: "AnimePahe_Akame_ga_Kill_-_24_BD_720p_FFF.mp4",
       } },
     ], hasSub: true,
+  },
+  // One Piece — hero card with Crunchyroll-style wide banner
+  { malId: 37510, title: "One Piece", titleEnglish: "One Piece", titleJapanese: "ONE PIECE",
+    synopsis: "Monkey D. Luffy refuses to let anyone or anything stand in the way of his quest to become the king of all pirates. With a rubbery body and a crew of unlikely friends, Luffy sets sail for the Grand Line.",
+    poster: "https://cdn.myanimelist.net/images/anime/6/73245l.jpg", banner: "/posters/one-piece-hero.jpg",
+    type: "TV", status: "Currently Airing", score: 8.71, scoredBy: 600000, rank: 0, popularity: 1, members: 5000000,
+    year: 1999, season: "fall", genres: ["Action", "Adventure", "Comedy", "Fantasy"], studios: ["Toei Animation"],
+    episodeCount: 1122, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    // No video sources yet — episodes will be added when sources are found.
+    // Arc structure (for future episode organization):
+    //   East Blue Saga (E1-61): Romance Dawn, Orange Town, Syrup Village,
+    //     Baratie, Arlong Park, Loguetown, Warship Island (filler)
+    //   Alabasta Saga (E62-130): Reverse Mountain, Whisky Peak, Little
+    //     Garden, Drum Island, Alabasta
+    //   Sky Island Saga (E131-206): Jaya, Skypiea, G-8 (filler)
+    //   Water 7 Saga (E207-325): Long Ring Long Land, Water 7, Enies Lobby,
+    //     Post-Enies Lobby
+    //   Thriller Bark Saga (E326-384): Thriller Bark
+    //   Summit War Saga (E385-516): Sabaody, Amazon Lily, Impel Down,
+    //     Marineford, Post-War
+    //   Fishman Island Saga (E517-574): Return to Sabaody, Fishman Island
+    //   Dressrosa Saga (E575-746): Punk Hazard, Dressrosa
+    //   Whole Cake Island Saga (E747-889): Zou, Whole Cake Island, Levely
+    //   Wano Country Saga (E890-1085): Wano
+    //   Egghead Arc (E1086-1122+): Egghead
+    episodeSources: [],
   },
   // Black Clover
   { malId: 34572, title: "Black Clover", titleEnglish: "Black Clover", titleJapanese: "ブラッククローバー",
