@@ -15558,7 +15558,7 @@ export function resolveEpisodeUrl(seed: SeedAnime, episode: number, audioMode: "
     // use /resolve-by-ep?ep=N&audio=dub (uses the resolver's internal slug
     // map, which handles non-standard slugs like One Piece E1-421).
     if (src.sourceType === "wco_resolver") {
-      const resolverBase = process.env.NEXT_PUBLIC_WCO_RESOLVER_URL || "";
+      const resolverBase = (process.env.NEXT_PUBLIC_WCO_RESOLVER_URL || "").replace(/\/$/, "");
       // If file looks like a full slug (contains "english-dubbed" or "english-subbed"),
       // use the direct /resolve?slug= endpoint. Otherwise use /resolve-by-ep.
       const isFullSlug = file.includes("english-dubbed") || file.includes("english-subbed");
