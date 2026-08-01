@@ -1,0 +1,12 @@
+{
+  "name": "wco-resolver",
+  "version": "1.0.0",
+  "description": "WCO Stream Resolver - bypasses Cloudflare to resolve wcostream video URLs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "playwright": "^1.49.0"
+  }
+}
