@@ -96,7 +96,7 @@ export function CardGrid({
   className?: string;
 }) {
   return (
-    <div className={cn("grid grid-cols-3 gap-2", className)}>
+    <div className={cn("grid grid-cols-3 gap-2 md:grid-cols-4 md:gap-3 lg:grid-cols-5 xl:grid-cols-6 xl:gap-4", className)}>
       {children}
     </div>
   );

@@ -118,7 +118,7 @@ export default function Page() {
 
       {/* Bottom nav — solid black, icon-only, gold active state */}
       {!isDetail && (
-        <nav className="pb-safe fixed bottom-0 left-1/2 z-40 w-full max-w-[480px] -translate-x-1/2 border-t border-white/5 bg-black">
+        <nav className="pb-safe fixed bottom-0 left-1/2 z-40 w-full max-w-[480px] md:max-w-[1200px] xl:max-w-[1400px] -translate-x-1/2 border-t border-white/5 bg-black">
           <div className="grid h-16 grid-cols-5">
             <NavBtn
               active={currentView === "home"}

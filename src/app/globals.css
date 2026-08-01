@@ -91,16 +91,30 @@ body {
 }
 
 /* ============================================================
-   Mobile shell — the canvas
+   Responsive shell — mobile-first, expands on desktop
    ============================================================ */
 .mobile-shell {
-  max-width: 480px;
+  max-width: 100%;
   margin: 0 auto;
   min-height: 100vh;
   min-height: 100dvh;
   position: relative;
   background: #000000;
   isolation: isolate;
+}
+
+/* On desktop (>= 768px), use a wider max-width */
+@media (min-width: 768px) {
+  .mobile-shell {
+    max-width: 1200px;
+  }
+}
+
+/* On large desktop (>= 1280px), use even wider */
+@media (min-width: 1280px) {
+  .mobile-shell {
+    max-width: 1400px;
+  }
 }
 
 /* ============================================================
