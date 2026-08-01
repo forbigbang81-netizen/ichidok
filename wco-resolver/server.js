@@ -67,7 +67,7 @@ async function getBrowser() {
   console.log(`[browser] launching chromium from ${executablePath}...`);
   browser = await puppeteer.launch({
     executablePath,
-    headless: "new",
+    headless: false,  // Non-headless mode — Cloudflare detects headless on Android
     args: [
       "--no-sandbox",
       "--disable-dev-shm-usage",
@@ -81,19 +81,16 @@ async function getBrowser() {
       "--use-mock-keychain",
       "--disable-features=IsolateOrigins,site-per-process",
       "--disable-site-isolation-trials",
-      "--disable-web-security",
-      "--allow-running-insecure-content",
-      "--disable-features=TranslateUI",
-      "--disable-features=Translate",
       "--lang=en-US,en",
       "--window-size=1920,1080",
       "--disable-infobars",
       "--disable-notifications",
+      "--start-maximized",
     ],
-    defaultViewport: { width: 1920, height: 1080 },
+    defaultViewport: null,  // Use the window's actual size
     ignoreDefaultArgs: ["--enable-automation"],
   });
-  console.log("[browser] launched chromium");
+  console.log("[browser] launched chromium (non-headless)");
   return browser;
 }
 
