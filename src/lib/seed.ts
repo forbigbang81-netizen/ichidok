@@ -1472,6 +1472,14 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2016, season: "spring", genres: ["Action", "Adventure", "Comedy", "Fantasy"], studios: ["Bones"],
     episodeCount: 13, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
     episodeSources: [
+      // WCO resolver DUB (all 13 episodes, HD) — fallback if archive.org fails
+      { startEp: 1, endEp: 13, collection: "wco-resolver", audio: "dub",
+        sourceType: "wco_resolver",
+        fileTemplate: "my-hero-academia-episode-{ep}-english-dubbed" },
+      // WCO resolver SUB (all 13 episodes, HD)
+      { startEp: 1, endEp: 13, collection: "wco-resolver", audio: "sub",
+        sourceType: "wco_resolver",
+        fileTemplate: "my-hero-academia-episode-{ep}-english-subbed" },
       { startEp: 1, endEp: 13, collection: "my-hero-episode-1-season-1-dub", audio: "dub", episodeFiles: {
         1: "My hero episode 1 season 1 - dub.mp4", 2: "my hero_episode 2 _season1.mp4", 3: "My hero_episode 3_season 1.mp4",
         4: "my hero_episode 4 _season1.mp4", 5: "my hero_episode 5 _season 1.mp4", 6: "my hero_episode 6 _season1.mp4",
@@ -1498,6 +1506,14 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2017, season: "spring", genres: ["Action", "Adventure", "Comedy", "Fantasy"], studios: ["Bones"],
     episodeCount: 25, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
     episodeSources: [
+      // WCO resolver DUB (all 25 episodes, HD)
+      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "dub",
+        sourceType: "wco_resolver",
+        fileTemplate: "my-hero-academia-season-2-episode-{ep}-english-dubbed" },
+      // WCO resolver SUB (all 25 episodes, HD)
+      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "sub",
+        sourceType: "wco_resolver",
+        fileTemplate: "my-hero-academia-season-2-episode-{ep}-english-subbed" },
       { startEp: 1, endEp: 25, collection: "myheroacademiaseasontwo", audio: "dub", episodeFiles: {
         1: "1ThatsTheIdeaOchaco2.mp4", 2: "2RoaringSportsFestival2.mp4", 3: "3InTheirOwnQuirkyWays2.mp4",
         4: "4StrategyStrategyStrategy2.mp4", 5: "5CavalryBattleFinale2.mp4", 6: "6TheBoyBornWithEverything2.mp4",
@@ -1534,6 +1550,14 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2018, season: "spring", genres: ["Action", "Adventure", "Comedy", "Fantasy"], studios: ["Bones"],
     episodeCount: 25, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
     episodeSources: [
+      // WCO resolver DUB (all 25 episodes, HD) — S3 had no archive.org dub
+      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "dub",
+        sourceType: "wco_resolver",
+        fileTemplate: "my-hero-academia-season-3-episode-{ep}-english-dubbed" },
+      // WCO resolver SUB (all 25 episodes, HD)
+      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "sub",
+        sourceType: "wco_resolver",
+        fileTemplate: "my-hero-academia-season-3-episode-{ep}-english-subbed" },
       { startEp: 1, endEp: 25, collection: "mha-s3-full", audio: "sub", episodeFiles: {
         1: "AnimePahe_Boku_no_Hero_Academia_-_039_BD_1080p_Yūrei.mp4", 2: "AnimePahe_Boku_no_Hero_Academia_-_040_BD_1080p_Yūrei.mp4",
         3: "AnimePahe_Boku_no_Hero_Academia_-_041_BD_1080p_Yūrei.mp4", 4: "AnimePahe_Boku_no_Hero_Academia_-_042_BD_1080p_Yūrei.mp4",
@@ -1549,7 +1573,7 @@ export const SEED_ANIME: SeedAnime[] = [
         23: "AnimePahe_Boku_no_Hero_Academia_-_061_BD_1080p_Yūrei.mp4", 24: "AnimePahe_Boku_no_Hero_Academia_-_062_BD_1080p_Yūrei.mp4",
         25: "AnimePahe_Boku_no_Hero_Academia_-_063_BD_1080p_Yūrei.mp4",
       }},
-    ], hasSub: true,
+    ], hasSub: true, hasDub: true,
   },
   // My Hero Academia S4 (sub only — no dub MP4 collection found)
   { malId: 38408, title: "My Hero Academia Season 4", titleEnglish: "My Hero Academia Season 4", titleJapanese: "僕のヒーローアカデミア 4thシーズン",
@@ -1559,6 +1583,14 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2019, season: "fall", genres: ["Action", "Adventure", "Comedy", "Fantasy"], studios: ["Bones"],
     episodeCount: 25, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
     episodeSources: [
+      // WCO resolver DUB (all 25 episodes, HD) — S4 had no archive.org dub
+      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "dub",
+        sourceType: "wco_resolver",
+        fileTemplate: "my-hero-academia-season-4-episode-{ep}-english-dubbed" },
+      // WCO resolver SUB (all 25 episodes, HD)
+      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "sub",
+        sourceType: "wco_resolver",
+        fileTemplate: "my-hero-academia-season-4-episode-{ep}-english-subbed" },
       { startEp: 1, endEp: 25, collection: "mha-s4-full", audio: "sub", episodeFiles: {
         1: "AnimePahe_Boku_no_Hero_Academia_-_064_BD_1080p_EMBER.mp4", 2: "AnimePahe_Boku_no_Hero_Academia_-_065_BD_1080p_EMBER.mp4",
         3: "AnimePahe_Boku_no_Hero_Academia_-_066_BD_1080p_EMBER.mp4", 4: "AnimePahe_Boku_no_Hero_Academia_-_067_BD_1080p_EMBER.mp4",
@@ -1574,7 +1606,7 @@ export const SEED_ANIME: SeedAnime[] = [
         23: "AnimePahe_Boku_no_Hero_Academia_-_086_BD_1080p_EMBER.mp4", 24: "AnimePahe_Boku_no_Hero_Academia_-_087_BD_1080p_EMBER.mp4",
         25: "AnimePahe_Boku_no_Hero_Academia_-_088_BD_1080p_EMBER.mp4",
       }},
-    ], hasSub: true,
+    ], hasSub: true, hasDub: true,
   },
   // My Hero Academia S5 (sub only — no dub MP4 collection found)
   { malId: 41587, title: "My Hero Academia Season 5", titleEnglish: "My Hero Academia Season 5", titleJapanese: "僕のヒーローアカデミア 5thシーズン",
@@ -1584,6 +1616,14 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2021, season: "spring", genres: ["Action", "Adventure", "Comedy", "Fantasy"], studios: ["Bones"],
     episodeCount: 25, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
     episodeSources: [
+      // WCO resolver DUB (all 25 episodes, HD) — S5 had no archive.org dub
+      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "dub",
+        sourceType: "wco_resolver",
+        fileTemplate: "my-hero-academia-season-5-episode-{ep}-english-dubbed" },
+      // WCO resolver SUB (all 25 episodes, HD)
+      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "sub",
+        sourceType: "wco_resolver",
+        fileTemplate: "my-hero-academia-season-5-episode-{ep}-english-subbed" },
       { startEp: 1, endEp: 25, collection: "mha-s5-full", audio: "sub", episodeFiles: {
         1: "AnimePahe_Boku_no_Hero_Academia_-_089_BD_1080p_EMBER.mp4", 2: "AnimePahe_Boku_no_Hero_Academia_-_090_BD_1080p_EMBER.mp4",
         3: "AnimePahe_Boku_no_Hero_Academia_-_091_BD_1080p_EMBER.mp4", 4: "AnimePahe_Boku_no_Hero_Academia_-_092_BD_1080p_EMBER.mp4",
@@ -1599,7 +1639,7 @@ export const SEED_ANIME: SeedAnime[] = [
         23: "AnimePahe_Boku_no_Hero_Academia_-_111_BD_1080p_EMBER.mp4", 24: "AnimePahe_Boku_no_Hero_Academia_-_112_BD_1080p_EMBER.mp4",
         25: "AnimePahe_Boku_no_Hero_Academia_-_113_BD_1080p_EMBER.mp4",
       }},
-    ], hasSub: true,
+    ], hasSub: true, hasDub: true,
   },
   // My Hero Academia S6 (sub + dub; dub missing ep 10)
   { malId: 49992, title: "My Hero Academia Season 6", titleEnglish: "My Hero Academia Season 6", titleJapanese: "僕のヒーローアカデミア 6thシーズン",
@@ -1609,6 +1649,14 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2022, season: "fall", genres: ["Action", "Adventure", "Comedy", "Fantasy"], studios: ["Bones"],
     episodeCount: 25, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
     episodeSources: [
+      // WCO resolver DUB (all 25 episodes, HD) — fills gap for ep 10
+      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "dub",
+        sourceType: "wco_resolver",
+        fileTemplate: "my-hero-academia-season-6-episode-{ep}-english-dubbed" },
+      // WCO resolver SUB (all 25 episodes, HD)
+      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "sub",
+        sourceType: "wco_resolver",
+        fileTemplate: "my-hero-academia-season-6-episode-{ep}-english-subbed" },
       { startEp: 1, endEp: 25, collection: "s-6.-e-8-league-of-villains-vs.-u.-a.-students", audio: "dub", episodeFiles: {
         1: "S6.E1 ∙ A Quiet Beginning.mp4", 2: "S6.E2 ∙ Mirko, the No. 5 Hero.mp4", 3: "S6.E3 ∙ One's Justice.mp4",
         4: "S6.E4 ∙ Inheritance.mp4", 5: "S6.E5 ∙ The Thrill of Destruction.mp4", 6: "S6.E6 ∙ Encounter, Part 2.mp4",
@@ -1647,6 +1695,14 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2024, season: "spring", genres: ["Action", "Adventure", "Comedy", "Fantasy"], studios: ["Bones"],
     episodeCount: 21, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
     episodeSources: [
+      // WCO resolver DUB (all 21 episodes, HD) — S7 had no archive.org dub
+      { startEp: 1, endEp: 21, collection: "wco-resolver", audio: "dub",
+        sourceType: "wco_resolver",
+        fileTemplate: "my-hero-academia-season-7-episode-{ep}-english-dubbed" },
+      // WCO resolver SUB (all 21 episodes, HD)
+      { startEp: 1, endEp: 21, collection: "wco-resolver", audio: "sub",
+        sourceType: "wco_resolver",
+        fileTemplate: "my-hero-academia-season-7-episode-{ep}-english-subbed" },
       { startEp: 1, endEp: 21, collection: "mha-s7-full", audio: "sub", episodeFiles: {
         1: "AnimePahe_Boku_no_Hero_Academia_-_139_1080p_SubsPlease.mp4", 2: "AnimePahe_Boku_no_Hero_Academia_-_140_1080p_SubsPlease.mp4",
         3: "AnimePahe_Boku_no_Hero_Academia_-_141_1080p_SubsPlease.mp4", 4: "AnimePahe_Boku_no_Hero_Academia_-_142_1080p_SubsPlease.mp4",
@@ -1660,7 +1716,7 @@ export const SEED_ANIME: SeedAnime[] = [
         19: "AnimePahe_Boku_no_Hero_Academia_-_157_1080p_SubsPlease.mp4", 20: "AnimePahe_Boku_no_Hero_Academia_-_158_1080p_SubsPlease.mp4",
         21: "AnimePahe_Boku_no_Hero_Academia_-_159_1080p_SubsPlease.mp4",
       }},
-    ], hasSub: true,
+    ], hasSub: true, hasDub: true,
   },
   // My Hero Academia S8 (Final Season) — sub + dub. Currently airing.
   // Sub: mha-final-season collection (1080p SubsPlease, Japanese audio, eps 160-170).
