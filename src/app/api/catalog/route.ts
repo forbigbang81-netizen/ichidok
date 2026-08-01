@@ -228,7 +228,10 @@ export async function GET(request: Request) {
     const status = searchParams.get("status");
     const year = searchParams.get("year");
     const sort = searchParams.get("sort") ?? "popularity";
-    const limit = Math.min(Number(searchParams.get("limit") ?? 100), 500);
+    // Default to 60 (was 100) for faster initial load. Max 200.
+    const limit = Math.min(Number(searchParams.get("limit") ?? 60), 200);
+    // Page number for pagination (0-indexed)
+    const page = Math.max(0, Number(searchParams.get("page") ?? 0));
 
     // Determine sort order — preset "top" forces score desc.
     const orderBy =
@@ -285,14 +288,18 @@ export async function GET(request: Request) {
     if (status) filtered = filtered.filter((a) => a.status === status);
     if (year) filtered = filtered.filter((a) => a.year === Number(year));
 
-    const results = filtered.slice(0, limit).map((a) =>
+    // Apply pagination: slice to page * limit, then take limit
+    const startIndex = page * limit;
+    const pagedFiltered = filtered.slice(startIndex, startIndex + limit);
+
+    const results = pagedFiltered.map((a) =>
       serializeAnime({
         id: a.id,
         malId: a.malId,
         title: a.title,
         titleEnglish: a.titleEnglish,
         titleJapanese: a.titleJapanese,
-        synopsis: a.synopsis ?? "",
+        synopsis: "",  // Strip synopsis from catalog (loaded on detail page)
         poster: a.poster ?? "",
         banner: a.banner ?? "",
         trailer: a.trailer ?? "",
