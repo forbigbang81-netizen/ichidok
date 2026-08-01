@@ -1,8 +1,7 @@
-FROM python:3.12-slim
-
-# Install system dependencies for Playwright
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/*
+# Use Microsoft's official Playwright image — Chromium is pre-installed
+# This avoids the OOM error from `playwright install chromium --with-deps`
+# on Render's free 512MB tier.
+FROM mcr.microsoft.com/playwright/python:v1.49.1-noble
 
 WORKDIR /app
 
@@ -10,10 +9,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install Playwright browsers
-RUN playwright install chromium --with-deps
-
-# Copy application code
+# Copy application code (Chromium is already in the base image)
 COPY server.py slugs.json slugs_sub.json ./
 
 # Expose port

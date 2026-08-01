@@ -65,6 +65,7 @@ export function AnimeDetailView() {
   const [broadcast, setBroadcast] = useState<BroadcastInfo | null>(null);
   const [activeTab, setActiveTab] = useState<DetailTab>("episodes");
   const [selectedArcIndex, setSelectedArcIndex] = useState(0);
+  const [epSearchQuery, setEpSearchQuery] = useState("");
   useCountdownTick();
 
   // ----- Next-episode auto-play countdown -----
@@ -542,11 +543,12 @@ export function AnimeDetailView() {
             onBack={back}
           />
 
-          {/* ===== Arc episode list below the player =====
-              Shows episodes from the current arc so the user can quickly
-              switch episodes without going back to the detail page. */}
+          {/* ===== Full episode list below the player =====
+              Same format as the detail page: arc selector, search bar,
+              and vertical episode list with thumbnails, filler tags,
+              progress bars, and download buttons. */}
           {hasArcs && (
-            <div className="border-t border-white/10 bg-[#0a0a0a] px-4 py-3">
+            <div className="border-t border-white/10 bg-[#0a0a0a] px-4 py-4">
               {/* Arc selector — horizontal scroll */}
               <div className="mb-3 flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: 'none' }}>
                 {arcList.map((arc, i) => (
@@ -555,6 +557,7 @@ export function AnimeDetailView() {
                     type="button"
                     onClick={() => {
                       setSelectedArcIndex(i);
+                      setEpSearchQuery("");
                       // Switch to the first episode of the selected arc
                       const firstEp = arc.episodes[0];
                       if (firstEp) handleSelectEpisode(firstEp.number);
@@ -573,9 +576,32 @@ export function AnimeDetailView() {
                   </button>
                 ))}
               </div>
-              {/* Episode list — horizontal scroll of episode chips */}
-              <div className="flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: 'none' }}>
-                {episodeList.map((ep) => {
+              {/* Search bar — filter episodes by number */}
+              <div className="relative mb-3">
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  value={epSearchQuery}
+                  onChange={(e) => setEpSearchQuery(e.target.value)}
+                  placeholder="Search episode number…"
+                  className="w-full rounded-lg border border-white/10 bg-[#111111] px-4 py-2.5 text-sm text-white placeholder-white/30 focus:border-[#f5c518] focus:outline-none"
+                />
+                {epSearchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => setEpSearchQuery("")}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+              {/* Episode list — vertical, same format as detail page */}
+              <div className="flex flex-col gap-1 max-h-[400px] overflow-y-auto">
+                {(epSearchQuery
+                  ? allEpisodes.filter((ep) => String(ep.number).includes(epSearchQuery.trim()))
+                  : episodeList
+                ).map((ep) => {
                   const active = ep.number === selectedEpisode;
                   const epHistory = continueWatching.find((h) => h.episode === ep.number);
                   const epProgress = epHistory?.progress ?? 0;
@@ -586,19 +612,69 @@ export function AnimeDetailView() {
                       type="button"
                       onClick={() => handleSelectEpisode(ep.number)}
                       className={cn(
-                        "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-xs font-bold transition-colors",
-                        active
-                          ? "bg-[#f5c518] text-black"
-                          : isCompleted
-                            ? "bg-[#1a3a1a] text-white/70"
-                            : "bg-[#111111] text-white/60 active:bg-white/10",
+                        "flex items-center gap-3 rounded-lg p-2 text-left transition-colors",
+                        active ? "bg-[#f5c518]/10 ring-1 ring-[#f5c518]/30" : "active:bg-white/5",
                       )}
-                      title={`Episode ${ep.number}${ep.filler ? " (Filler)" : ""}`}
                     >
-                      {ep.number}
-                      {ep.filler && (
-                        <span className="absolute -mt-5 ml-7 text-[7px] text-white/30">F</span>
-                      )}
+                      {/* Thumbnail */}
+                      <div className="relative h-14 w-24 shrink-0 overflow-hidden rounded-md bg-[#111111]">
+                        {episodeThumb && (
+                          <img
+                            src={episodeThumb}
+                            alt=""
+                            aria-hidden
+                            loading="lazy"
+                            className="h-full w-full object-cover"
+                          />
+                        )}
+                        <div className="absolute inset-0 grid place-items-center bg-black/30">
+                          <Play className="h-5 w-5 fill-white text-white" />
+                        </div>
+                        {/* Progress bar */}
+                        {epProgress > 0 && (
+                          <div className="absolute inset-x-0 bottom-0 h-1 bg-black/60">
+                            <div
+                              className={cn(
+                                "h-full",
+                                isCompleted ? "bg-green-500" : "bg-[#f5c518]",
+                              )}
+                              style={{ width: `${Math.min(100, epProgress)}%` }}
+                            />
+                          </div>
+                        )}
+                        {/* Filler tag */}
+                        {ep.filler && (
+                          <span className="absolute left-0.5 top-0.5 rounded bg-red-500/85 px-1 text-[8px] font-bold text-white">
+                            FILLER
+                          </span>
+                        )}
+                      </div>
+                      {/* Episode info */}
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-bold text-white">
+                            EP {ep.number}
+                          </span>
+                          {ep.filler && (
+                            <span className="rounded bg-red-500/20 px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-red-300">
+                              Filler
+                            </span>
+                          )}
+                          {active && (
+                            <span className="rounded bg-[#f5c518]/20 px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-[#f5c518]">
+                              Playing
+                            </span>
+                          )}
+                          {isCompleted && (
+                            <span className="rounded bg-green-500/20 px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-green-300">
+                              Watched
+                            </span>
+                          )}
+                        </div>
+                        <p className="mt-0.5 truncate text-[11px] text-white/50">
+                          {ep.title || `Episode ${ep.number}`}
+                        </p>
+                      </div>
                     </button>
                   );
                 })}
