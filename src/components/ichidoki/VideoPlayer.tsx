@@ -1427,13 +1427,59 @@ export function VideoPlayer({
               hasSubtitles={!!importInfo?.subtitleUrl && cues.length > 0}
             />
 
-            {/* Cast button — shows "coming soon" notification */}
+            {/* Cast button — uses native Casting API (works with Chromecast,
+                Apple AirPlay, DLNA, Roku, Smart TVs, etc.) */}
             {!isYoutube && videoUrl && (
               <button
                 type="button"
-                onClick={() => {
-                  toast("Chromecast feature coming soon!", {
-                    description: "We're working on bringing cast support to Ichidoki.",
+                onClick={async () => {
+                  const video = videoRef.current;
+                  if (!video) return;
+                  // Try native Casting API first (works on Chrome/Edge desktop
+                  // with Chromecast, and on iOS Safari with AirPlay)
+                  const anyVideo = video as any;
+                  if (anyVideo.requestCast && typeof anyVideo.requestCast === "function") {
+                    try {
+                      await anyVideo.requestCast();
+                      return;
+                    } catch (e) {
+                      console.log("[cast] requestCast failed, trying fallback");
+                    }
+                  }
+                  // Try Presentation API (for external displays/screens)
+                  if ("Presentation" in window) {
+                    try {
+                      const presentation = new (window as any).PresentationRequest([
+                        window.location.href,
+                      ]);
+                      await presentation.start();
+                      return;
+                    } catch (e) {
+                      console.log("[cast] Presentation API failed, trying fallback");
+                    }
+                  }
+                  // Try Remote Playback API (for casting to TVs, Roku, etc.)
+                  if (anyVideo.remote && anyVideo.remote.prompt) {
+                    try {
+                      await anyVideo.remote.prompt();
+                      return;
+                    } catch (e) {
+                      console.log("[cast] Remote Playback failed");
+                    }
+                  }
+                  // If we have the Google Cast SDK available, use it
+                  if (window.cast?.framework) {
+                    try {
+                      const context = window.cast.framework.CastContext.getInstance();
+                      await context.requestSession();
+                      return;
+                    } catch (e) {
+                      console.log("[cast] Cast SDK failed");
+                    }
+                  }
+                  // Fallback: show instructions
+                  toast("Cast to your TV", {
+                    description: "On desktop: Click the cast icon in your browser's address bar. On mobile: Use your device's screen mirroring or AirPlay.",
                   });
                   keepControlsAlive();
                 }}
