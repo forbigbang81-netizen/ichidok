@@ -273,7 +273,56 @@ const server = http.createServer(async (req, res) => {
       browser: browser ? (browser.connected ? "connected" : "disconnected") : "not_started",
       slugs_dub: Object.keys(SLUGS_DUB).length,
       slugs_sub: Object.keys(SLUGS_SUB).length,
+      chromium_path: findChromiumBinary(),
     }));
+    return;
+  }
+
+  if (pathname === "/debug") {
+    const slug = params.get("slug") || "one-piece-episode-2-english-dubbed-2-2";
+    try {
+      const b = await getBrowser();
+      const context = await b.createBrowserContext();
+      const page = await context.newPage();
+      await page.setUserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36");
+      await page.evaluateOnNewDocument(() => {
+        Object.defineProperty(navigator, "webdriver", { get: () => undefined });
+      });
+
+      const sites = [
+        "https://www.wcoforever.net",
+        "https://www.wcoanimedub.tv",
+        "https://www.wcoanimesub.tv",
+      ];
+
+      const results = [];
+      for (const site of sites) {
+        const url = `${site}/${slug}`;
+        try {
+          await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30000 });
+          await sleep(10000);
+          const title = await page.title();
+          const isCF = title.includes("Just a moment") || title.includes("Performing security");
+          const iframeEl = await page.$("iframe[src*='embed.wcostream']");
+          let iframeUrl = "";
+          if (iframeEl) {
+            const frame = await iframeEl.contentFrame();
+            if (frame) iframeUrl = frame.url().substring(0, 150);
+          }
+          results.push({ site, status: "ok", title: title.substring(0, 80), is_cloudflare: isCF, has_iframe: !!iframeEl, iframe_url: iframeUrl });
+          if (!isCF) break;
+        } catch (e) {
+          results.push({ site, status: "error", error: e.message.substring(0, 100) });
+        }
+      }
+
+      await context.close();
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ slug, results }));
+    } catch (e) {
+      res.writeHead(500, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: e.message }));
+    }
     return;
   }
 
