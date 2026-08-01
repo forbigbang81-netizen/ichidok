@@ -58,6 +58,7 @@ export function CatalogView() {
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
+  const [totalCount, setTotalCount] = useState(0);
 
   // Consume any pending genre sent from another view.
   useEffect(() => {
@@ -87,6 +88,7 @@ export function CatalogView() {
         setItems(r.results);
         setLimit(24);
         setHasMore(r.results.length >= 100);
+        setTotalCount(r.total || r.results.length);
       })
       .catch((e) => {
         console.error(e);
@@ -118,6 +120,7 @@ export function CatalogView() {
         setItems((prev) => [...prev, ...r.results]);
         setPage(nextPage);
         setHasMore(r.results.length >= 100);
+        setTotalCount(r.total || (items.length + r.results.length));
       })
       .catch((e) => console.error(e))
       .finally(() => setLoadingMore(false));
@@ -141,7 +144,7 @@ export function CatalogView() {
             Catalog
           </h1>
           <p className="mt-0.5 text-xs text-white/40">
-            {loading ? "Loading…" : `${items.length} titles`}
+            {loading ? "Loading…" : `${totalCount} titles`}
           </p>
         </div>
         <button
