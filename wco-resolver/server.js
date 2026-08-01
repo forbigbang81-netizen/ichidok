@@ -1,43 +1,73 @@
 /**
- * WCO Stream Resolver — Node.js version
- * Runs on Termux (Android) with residential IP to bypass Cloudflare.
- * Uses Playwright + stealth to resolve wcostream video URLs.
+ * WCO Stream Resolver — Node.js + puppeteer-core version
+ * Uses puppeteer-core which can launch any system Chromium binary.
+ * Works on Termux/Android where Playwright refuses to run.
  */
 
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const { URL } = require("url");
+const { execSync } = require("child_process");
 
-// Slug maps (loaded from JSON files)
+// Slug maps
 const SLUGS_DUB = JSON.parse(fs.readFileSync(path.join(__dirname, "slugs.json"), "utf8"));
 const SLUGS_SUB = JSON.parse(fs.readFileSync(path.join(__dirname, "slugs_sub.json"), "utf8"));
 
-// Cache: slug -> { url, expiresAt }
+// Cache
 const cache = new Map();
-const CACHE_TTL = 40; // seconds (tokens expire in ~60s)
+const CACHE_TTL = 40;
 
-// Browser instance (lazy-loaded)
 let browser = null;
-let playwright = null;
+let puppeteer = null;
 
-async function getBrowser() {
-  if (browser && browser.isConnected()) return browser;
-  playwright = require("playwright");
-
-  // On Termux/Android, Playwright can't install Chromium natively.
-  // Try multiple approaches to find a working Chromium binary:
-  const chromiumPaths = [
-    process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH,
-    "/data/data/com.termux/files/usr/bin/chromium-browser",
+function findChromiumBinary() {
+  // Try to find chromium binary on the system
+  const paths = [
+    process.env.PUPPETEER_EXECUTABLE_PATH,
     "/data/data/com.termux/files/usr/bin/chromium",
-    "/usr/bin/chromium-browser",
+    "/data/data/com.termux/files/usr/bin/chromium-browser",
     "/usr/bin/chromium",
+    "/usr/bin/chromium-browser",
     "/usr/bin/google-chrome",
+    "/usr/bin/google-chrome-stable",
   ].filter(Boolean);
 
-  let launchOptions = {
-    headless: true,
+  for (const p of paths) {
+    try {
+      if (fs.existsSync(p)) {
+        console.log(`[browser] found chromium at ${p}`);
+        return p;
+      }
+    } catch (e) {}
+  }
+
+  // Try `which` command
+  try {
+    const result = execSync("which chromium chromium-browser google-chrome 2>/dev/null", { encoding: "utf8" });
+    const found = result.trim().split("\n")[0];
+    if (found) {
+      console.log(`[browser] found chromium via which: ${found}`);
+      return found;
+    }
+  } catch (e) {}
+
+  return null;
+}
+
+async function getBrowser() {
+  if (browser && browser.connected) return browser;
+  puppeteer = require("puppeteer-core");
+
+  const executablePath = findChromiumBinary();
+  if (!executablePath) {
+    throw new Error("Chromium binary not found. Install with: pkg install chromium");
+  }
+
+  console.log(`[browser] launching chromium from ${executablePath}...`);
+  browser = await puppeteer.launch({
+    executablePath,
+    headless: "new",
     args: [
       "--no-sandbox",
       "--disable-dev-shm-usage",
@@ -45,29 +75,18 @@ async function getBrowser() {
       "--disable-gpu",
       "--disable-extensions",
       "--disable-dev-tools",
+      "--no-first-run",
+      "--no-default-browser-check",
+      "--password-store=basic",
+      "--use-mock-keychain",
     ],
-  };
-
-  // Try each path until one works
-  for (const exePath of chromiumPaths) {
-    try {
-      console.log(`[browser] trying ${exePath}...`);
-      browser = await playwright.chromium.launch({
-        ...launchOptions,
-        executablePath: exePath,
-      });
-      console.log(`[browser] launched chromium from ${exePath}`);
-      return browser;
-    } catch (e) {
-      console.log(`[browser] ${exePath} failed: ${e.message.substring(0, 80)}`);
-    }
-  }
-
-  // Fall back to default (Playwright's bundled Chromium)
-  console.log("[browser] trying default Playwright Chromium...");
-  browser = await playwright.chromium.launch(launchOptions);
-  console.log("[browser] launched default chromium");
+  });
+  console.log("[browser] launched chromium");
   return browser;
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function resolveSlug(slug) {
@@ -81,20 +100,22 @@ async function resolveSlug(slug) {
   }
 
   const b = await getBrowser();
-  const context = await b.newContext({
-    userAgent: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-    viewport: { width: 1920, height: 1080 },
-    locale: "en-US",
-  });
+  const context = await b.createBrowserContext();
 
-  // Apply stealth (simple version — hides webdriver flag)
-  await context.addInitScript(() => {
-    Object.defineProperty(navigator, "webdriver", { get: () => undefined });
-    Object.defineProperty(navigator, "plugins", { get: () => [1, 2, 3] });
-    Object.defineProperty(navigator, "languages", { get: () => ["en-US", "en"] });
-  });
+  // Set stealth-like properties
+  await context.overridePermissions("https://www.wcoforever.net", ["geolocation"]);
 
   const page = await context.newPage();
+
+  // Set user agent and hide webdriver
+  await page.setUserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36");
+  await page.evaluateOnNewDocument(() => {
+    Object.defineProperty(navigator, "webdriver", { get: () => undefined });
+    Object.defineProperty(navigator, "plugins", { get: () => [1, 2, 3, 4, 5] });
+    Object.defineProperty(navigator, "languages", { get: () => ["en-US", "en"] });
+    window.chrome = { runtime: {} };
+  });
+
   let videoUrl = null;
   let neptunBody = null;
 
@@ -143,7 +164,7 @@ async function resolveSlug(slug) {
     }
 
     if (loaded) {
-      // Find embed iframe and interact
+      // Find embed iframe
       const iframeEl = await page.$("iframe[src*='embed.wcostream']");
       if (iframeEl) {
         const frame = await iframeEl.contentFrame();
@@ -151,7 +172,7 @@ async function resolveSlug(slug) {
           await sleep(5000);
           const content = await frame.content();
 
-          // Skip announcement if present
+          // Skip announcement
           if (content.includes("Announcement")) {
             for (const sel of [".btn-close:not([disabled])", "#b-reklam", ".round-button"]) {
               try {
@@ -166,7 +187,7 @@ async function resolveSlug(slug) {
             }
           }
 
-          // Click play button
+          // Click play
           for (const sel of [".vjs-big-play-button", "#b-reklam", ".round-button"]) {
             try {
               const btn = await frame.$(sel);
@@ -179,7 +200,7 @@ async function resolveSlug(slug) {
             } catch (e) {}
           }
 
-          // Try video.play()
+          // video.play()
           try {
             await frame.evaluate('document.querySelector("video")?.play()');
             console.log("  [play] video.play() called");
@@ -200,7 +221,7 @@ async function resolveSlug(slug) {
     await context.close();
   }
 
-  // Fallback: parse from neptun response
+  // Fallback: parse from neptun
   if (!videoUrl && neptunBody) {
     try {
       const parsed = JSON.parse(neptunBody);
@@ -223,19 +244,13 @@ async function resolveSlug(slug) {
     throw new Error(`Failed to resolve video URL for ${slug}`);
   }
 
-  // Cache it
   cache.set(slug, { url: videoUrl, expiresAt: Date.now() / 1000 + CACHE_TTL });
   console.log(`[resolved] ${slug} → ${videoUrl.substring(0, 80)}...`);
   return videoUrl;
 }
 
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 // ─── HTTP Server ─────────────────────────────────────────────────────────────
 const server = http.createServer(async (req, res) => {
-  // CORS headers
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "*");
@@ -250,32 +265,27 @@ const server = http.createServer(async (req, res) => {
   const pathname = parsedUrl.pathname;
   const params = parsedUrl.searchParams;
 
-  // Health check
   if (pathname === "/health") {
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify({
       ok: true,
       cache_size: cache.size,
-      browser: browser ? (browser.isConnected() ? "connected" : "disconnected") : "not_started",
+      browser: browser ? (browser.connected ? "connected" : "disconnected") : "not_started",
       slugs_dub: Object.keys(SLUGS_DUB).length,
       slugs_sub: Object.keys(SLUGS_SUB).length,
     }));
     return;
   }
 
-  // Root
   if (pathname === "/") {
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify({
-      service: "WCO Stream Resolver (Node.js)",
+      service: "WCO Stream Resolver (puppeteer-core)",
       endpoints: ["/resolve", "/resolve-by-ep", "/health", "/slugs"],
-      episodes_dub: Object.keys(SLUGS_DUB).length,
-      episodes_sub: Object.keys(SLUGS_SUB).length,
     }));
     return;
   }
 
-  // Resolve by slug
   if (pathname === "/resolve") {
     const slug = params.get("slug");
     if (!slug) {
@@ -297,7 +307,6 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // Resolve by episode number
   if (pathname === "/resolve-by-ep") {
     const ep = params.get("ep");
     const audio = params.get("audio") || "dub";
@@ -325,7 +334,6 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // Get slugs
   if (pathname === "/slugs") {
     const audio = params.get("audio") || "dub";
     res.writeHead(200, { "Content-Type": "application/json" });
@@ -333,7 +341,6 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // 404
   res.writeHead(404, { "Content-Type": "application/json" });
   res.end(JSON.stringify({ error: "Not found" }));
 });
