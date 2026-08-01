@@ -1008,7 +1008,6 @@ export function VideoPlayer({
           poster={posterUrl}
           playsInline
           preload="metadata"
-          crossOrigin="anonymous"
           className="absolute inset-0 z-[1] h-full w-full bg-black"
           style={{ transform: mirrorStyle }}
         />

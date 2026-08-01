@@ -589,7 +589,11 @@ export const SEED_ANIME: SeedAnime[] = [
         23: "AnimePahe_Akame_ga_Kill_-_23_BD_720p_FFF.mp4",
         24: "AnimePahe_Akame_ga_Kill_-_24_BD_720p_FFF.mp4",
       } },
-    ], hasSub: true,
+      // DUB: Full HD via WCO resolver (all 24 episodes)
+      { startEp: 1, endEp: 24, collection: "wco-resolver", audio: "dub",
+        sourceType: "wco_resolver",
+        fileTemplate: "akame-ga-kill-episode-{ep}-english-dubbed" },
+    ], hasSub: true, hasDub: true,
   },
   // One Piece — hero card with Crunchyroll-style wide banner
   { malId: 37510, title: "One Piece", titleEnglish: "One Piece", titleJapanese: "ONE PIECE",
