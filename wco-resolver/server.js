@@ -24,7 +24,19 @@ let playwright = null;
 async function getBrowser() {
   if (browser && browser.isConnected()) return browser;
   playwright = require("playwright");
-  browser = await playwright.chromium.launch({
+
+  // On Termux/Android, Playwright can't install Chromium natively.
+  // Try multiple approaches to find a working Chromium binary:
+  const chromiumPaths = [
+    process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH,
+    "/data/data/com.termux/files/usr/bin/chromium-browser",
+    "/data/data/com.termux/files/usr/bin/chromium",
+    "/usr/bin/chromium-browser",
+    "/usr/bin/chromium",
+    "/usr/bin/google-chrome",
+  ].filter(Boolean);
+
+  let launchOptions = {
     headless: true,
     args: [
       "--no-sandbox",
@@ -32,9 +44,29 @@ async function getBrowser() {
       "--disable-blink-features=AutomationControlled",
       "--disable-gpu",
       "--disable-extensions",
+      "--disable-dev-tools",
     ],
-  });
-  console.log("[browser] launched chromium");
+  };
+
+  // Try each path until one works
+  for (const exePath of chromiumPaths) {
+    try {
+      console.log(`[browser] trying ${exePath}...`);
+      browser = await playwright.chromium.launch({
+        ...launchOptions,
+        executablePath: exePath,
+      });
+      console.log(`[browser] launched chromium from ${exePath}`);
+      return browser;
+    } catch (e) {
+      console.log(`[browser] ${exePath} failed: ${e.message.substring(0, 80)}`);
+    }
+  }
+
+  // Fall back to default (Playwright's bundled Chromium)
+  console.log("[browser] trying default Playwright Chromium...");
+  browser = await playwright.chromium.launch(launchOptions);
+  console.log("[browser] launched default chromium");
   return browser;
 }
 
