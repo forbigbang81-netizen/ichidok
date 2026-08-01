@@ -299,7 +299,13 @@ export function VideoPlayer({
             const data = await resp.json();
             if (cancelled) return;
             if (data.url) {
-              setResolvedVideoUrl(data.url);
+              // Route the resolved video URL through our stream proxy for CORS
+              // compatibility (console browsers like PS5/Xbox block cross-origin
+              // video without CORS headers).
+              const proxiedUrl = data.url.startsWith("http") && !data.url.startsWith(window.location.origin)
+                ? `/api/stream?url=${encodeURIComponent(data.url)}`
+                : data.url;
+              setResolvedVideoUrl(proxiedUrl);
               setLoading(false);
             } else {
               // Resolver returned an error — set fallback URL to watch on WCOStream
@@ -473,11 +479,18 @@ export function VideoPlayer({
       if (onProgress && v.duration) onProgress(v.duration, v.duration);
       onEnded?.();
     };
-    const onErr = () => {
-      setError(
-        (prev) =>
-          prev ?? "Video failed to load. The source may be unavailable.",
-      );
+    const onErr = (e: Event) => {
+      const v = e.target as HTMLVideoElement;
+      const errorCode = v?.error?.code;
+      let errorMsg = "Video failed to load. The source may be unavailable.";
+      if (errorCode === 4) {
+        errorMsg = "Video format not supported on this device. Try a different episode or use the 'Watch on WCOStream' button.";
+      } else if (errorCode === 2) {
+        errorMsg = "Network error loading video. Check your connection and try again.";
+      } else if (errorCode === 3) {
+        errorMsg = "Video decoding error. The source may be corrupted or unsupported.";
+      }
+      setError((prev) => prev ?? errorMsg);
     };
 
     // ----- Buffering overlay handlers -----
@@ -995,6 +1008,7 @@ export function VideoPlayer({
           poster={posterUrl}
           playsInline
           preload="metadata"
+          crossOrigin="anonymous"
           className="absolute inset-0 z-[1] h-full w-full bg-black"
           style={{ transform: mirrorStyle }}
         />

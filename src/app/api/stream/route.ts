@@ -76,7 +76,16 @@ export async function GET(request: Request) {
 
   // Only allow archive.org and dropbox.com (covers both streaming and
   // download proxying for all our video sources).
-  const allowed = ["archive.org", "www.dropbox.com", "dl.dropboxusercontent.com", "www.wcoflix.tv", "embed.wcostream.com", "m01.wcostream.com", "m02.wcostream.com"];
+  const allowed = [
+    "archive.org",
+    "www.dropbox.com",
+    "dl.dropboxusercontent.com",
+    "www.wcoflix.tv",
+    "embed.wcostream.com",
+    // WCO CDN servers (e01-e20)
+    ...Array.from({ length: 20 }, (_, i) => `e${String(i + 1).padStart(2, "0")}.wcostream.com`),
+    "neptun.wcostream.com",
+  ];
   if (!allowed.includes(parsed.hostname)) {
     return NextResponse.json(
       { error: `Proxy only allows hosts: ${allowed.join(", ")}` },
