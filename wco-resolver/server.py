@@ -143,13 +143,35 @@ async def _resolve_with_browser(slug: str) -> str:
     page.on("response", on_response)
 
     try:
-        # Use wcoanimedub.tv for dubbed episodes, wcoanimesub.tv for subbed.
-        # Both sites share the same embed.wcostream.com backend.
-        base_url = "https://www.wcoanimesub.tv" if slug.endswith("-english-subbed") or "subbed" in slug else "https://www.wcoanimedub.tv"
-        url = f"{base_url}/{slug}"
+        # Try multiple WCO sites in order — they all share the same
+        # embed.wcostream.com backend, so if one is down/CF-blocked, try next.
+        # wcoforever.net has the most complete catalog (all MHA seasons, etc.)
+        sites = [
+            "https://www.wcoforever.net",
+            "https://www.wcoanimedub.tv" if "subbed" not in slug else "https://www.wcoanimesub.tv",
+            "https://www.wcoanimesub.tv" if "subbed" in slug else "https://www.wcoanimedub.tv",
+        ]
+        # Deduplicate while preserving order
+        seen = set()
+        sites = [s for s in sites if not (s in seen or seen.add(s))]
+        url = f"{sites[0]}/{slug}"
         print(f"  [goto] {url}", flush=True)
         await page.goto(url, wait_until="domcontentloaded", timeout=60000)
         await asyncio.sleep(15)
+        # Check if Cloudflare blocked us — if so, try next site
+        title = await page.title()
+        if "Just a moment" in title or "Performing security" in title:
+            for alt_site in sites[1:]:
+                alt_url = f"{alt_site}/{slug}"
+                print(f"  [retry] {alt_url}", flush=True)
+                try:
+                    await page.goto(alt_url, wait_until="domcontentloaded", timeout=60000)
+                    await asyncio.sleep(15)
+                    title = await page.title()
+                    if "Just a moment" not in title and "Performing security" not in title:
+                        break
+                except:
+                    continue
 
         # Find embed iframe and interact with it
         iframe_el = await page.query_selector("iframe[src*='embed.wcostream']")
