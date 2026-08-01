@@ -906,6 +906,40 @@ export const SEED_ANIME: SeedAnime[] = [
     ],
     hasDub: true,
   },
+  // Code Geass: Lelouch of the Rebellion (Season 1)
+  { malId: 1575, title: "Code Geass: Lelouch of the Rebellion", titleEnglish: "Code Geass: Lelouch of the Rebellion", titleJapanese: "コードギアス 反逆のルルーシュ",
+    synopsis: "The Empire of Britannia has invaded Japan using giant robot weapons called Knightmare Frames. Japan is now referred to as Area 11, and its people the 11's. A Britannian who was living in Japan at the time, Lelouch, vowed to his Japanese friend Suzaku that he'd destroy Britannia.",
+    poster: "https://cdn.myanimelist.net/images/anime/5/50331l.jpg", banner: "https://cdn.myanimelist.net/images/anime/5/50331l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.71, scoredBy: 580000, rank: 0, popularity: 30, members: 1800000,
+    year: 2006, season: "fall", genres: ["Action", "Drama", "Sci-Fi", "Mecha"], studios: ["Sunrise"],
+    episodeCount: 25, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Original", isFeatured: true,
+    // DUB: 25 episodes from wcoanimedub.tv in HD (1080p). Slugs have -2 suffix.
+    // SUB: Not available on WCO sites (Code Geass only has dubbed on WCO).
+    // Uses /resolve?slug=... endpoint (direct slug lookup) since slugs follow
+    // a consistent pattern: code-geass-episode-{ep}-english-dubbed-2
+    episodeSources: [
+      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "dub",
+        sourceType: "wco_resolver",
+        fileTemplate: "code-geass-episode-{ep}-english-dubbed-2" },
+    ], hasDub: true,
+  },
+  // Code Geass: Lelouch of the Rebellion R2 (Season 2)
+  { malId: 2904, title: "Code Geass: Lelouch of the Rebellion R2", titleEnglish: "Code Geass: Lelouch of the Rebellion R2", titleJapanese: "コードギアス 反逆のルルーシュ R2",
+    synopsis: "A year has passed since the Black Rebellion, a failed uprising against the Holy Britannian Empire. Lelouch vi Britannia, who lost his memories after the rebellion, must once again become Zero to lead the Black Knights against Britannia.",
+    poster: "https://cdn.myanimelist.net/images/anime/9/9023l.jpg", banner: "https://cdn.myanimelist.net/images/anime/9/9023l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.68, scoredBy: 490000, rank: 0, popularity: 40, members: 1500000,
+    year: 2008, season: "spring", genres: ["Action", "Drama", "Sci-Fi", "Mecha"], studios: ["Sunrise"],
+    episodeCount: 25, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Original", isFeatured: true,
+    // DUB: 25 episodes from wcoanimedub.tv in HD (1080p). Slugs use -r2 prefix.
+    // SUB: Not available on WCO sites.
+    // Uses /resolve?slug=... endpoint (direct slug lookup) since slugs follow
+    // a consistent pattern: code-geass-r2-episode-{ep}-english-dubbed
+    episodeSources: [
+      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "dub",
+        sourceType: "wco_resolver",
+        fileTemplate: "code-geass-r2-episode-{ep}-english-dubbed" },
+    ], hasDub: true,
+  },
   // Cyberpunk Edgerunners
   { malId: 42310, title: "Cyberpunk: Edgerunners", titleEnglish: "Cyberpunk: Edgerunners", titleJapanese: "サイバーパンク エッジランナーズ",
     synopsis: "Dreams are doomed to die in Night City. David Martinez enters the dangerous world of edgerunners.",
@@ -1859,6 +1893,13 @@ export const SEED_ANIME: SeedAnime[] = [
  */
 export const SEASON_GROUPS: { franchise: string; seasons: { malId: number; label: string }[] }[] = [
   {
+    franchise: "Code Geass",
+    seasons: [
+      { malId: 1575, label: "Season 1 — Lelouch of the Rebellion" },
+      { malId: 2904, label: "Season 2 — Lelouch of the Rebellion R2" },
+    ],
+  },
+  {
     franchise: "Bleach: Thousand-Year Blood War",
     seasons: [
       { malId: 41467, label: "Cour 1 — Thousand-Year Blood War" },
@@ -2043,15 +2084,19 @@ export function resolveEpisodeUrl(seed: SeedAnime, episode: number, audioMode: "
       const entry = src.seasonMap.find((m) => episode >= m.startEp && episode <= m.endEp);
       if (entry) { collectionName = collectionName.replace(/\{season(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(entry.season); return pad ? s.padStart(Number(pad), "0") : s; }); }
     }
-    // WCO resolver: use /resolve-by-ep endpoint so the resolver looks up the
-    // correct slug from its internal map (handles non-standard slugs for
-    // E1-421 and E1029-1030). The VideoPlayer fetches this endpoint to get
-    // the actual short-lived video URL.
+    // WCO resolver: if the source has episodeFiles with a specific slug for
+    // this episode, use /resolve?slug=... (direct slug lookup). Otherwise,
+    // use /resolve-by-ep?ep=N&audio=dub (uses the resolver's internal slug
+    // map, which handles non-standard slugs like One Piece E1-421).
     if (src.sourceType === "wco_resolver") {
       const resolverBase = process.env.NEXT_PUBLIC_WCO_RESOLVER_URL || "";
-      const audioType = src.audio === "sub" ? "sub" : "dub";
+      // If file looks like a full slug (contains "english-dubbed" or "english-subbed"),
+      // use the direct /resolve?slug= endpoint. Otherwise use /resolve-by-ep.
+      const isFullSlug = file.includes("english-dubbed") || file.includes("english-subbed");
       const resolverUrl = resolverBase
-        ? `${resolverBase}/resolve-by-ep?ep=${episode}&audio=${audioType}`
+        ? isFullSlug
+          ? `${resolverBase}/resolve?slug=${encodeURIComponent(file)}`
+          : `${resolverBase}/resolve-by-ep?ep=${episode}&audio=${src.audio === "sub" ? "sub" : "dub"}`
         : "";
       return { url: resolverUrl, source: "wco_resolver" as const, needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" as const };
     }
