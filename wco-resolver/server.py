@@ -33,8 +33,8 @@ from playwright_stealth import Stealth
 # ─── Config ───────────────────────────────────────────────────────────────────
 PORT = int(os.environ.get("PORT", 8000))
 CACHE_TTL = 40        # seconds — tokens expire in ~60s, keep 20s margin
-RESOLVE_TIMEOUT = 50  # seconds — max time to resolve one episode
-MAX_CONCURRENT = 2    # max concurrent browser tabs (memory-limited)
+RESOLVE_TIMEOUT = 90  # seconds — max time to resolve one episode (increased for Render)
+MAX_CONCURRENT = 1    # max concurrent browser tabs (memory-limited on free tier)
 
 # ─── Slug maps ───────────────────────────────────────────────────────────────
 SLUGS_PATH = Path(__file__).parent / "slugs.json"
@@ -82,6 +82,7 @@ async def get_browser():
                 "--disable-dev-shm-usage",
                 "--disable-blink-features=AutomationControlled",
                 "--disable-gpu",
+                "--disable-extensions",
             ],
         )
         print(f"[browser] launched chromium", flush=True)
