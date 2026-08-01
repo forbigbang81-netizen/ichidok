@@ -22,15 +22,24 @@ let browser = null;
 let puppeteer = null;
 
 function findChromiumBinary() {
-  // Try to find chromium binary on the system
+  // Try to find chromium binary on the system (Windows, Mac, Linux, Termux)
   const paths = [
     process.env.PUPPETEER_EXECUTABLE_PATH,
-    "/data/data/com.termux/files/usr/bin/chromium",
-    "/data/data/com.termux/files/usr/bin/chromium-browser",
+    // Windows paths
+    "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
+    "C:\\Users\\user\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe",
+    // Mac paths
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "/Applications/Chromium.app/Contents/MacOS/Chromium",
+    // Linux paths
     "/usr/bin/chromium",
     "/usr/bin/chromium-browser",
     "/usr/bin/google-chrome",
     "/usr/bin/google-chrome-stable",
+    // Termux paths
+    "/data/data/com.termux/files/usr/bin/chromium",
+    "/data/data/com.termux/files/usr/bin/chromium-browser",
   ].filter(Boolean);
 
   for (const p of paths) {
@@ -42,7 +51,7 @@ function findChromiumBinary() {
     } catch (e) {}
   }
 
-  // Try `which` command
+  // Try `which` command (Linux/Mac only)
   try {
     const result = execSync("which chromium chromium-browser google-chrome 2>/dev/null", { encoding: "utf8" });
     const found = result.trim().split("\n")[0];
@@ -67,7 +76,7 @@ async function getBrowser() {
   console.log(`[browser] launching chromium from ${executablePath}...`);
   browser = await puppeteer.launch({
     executablePath,
-    headless: false,  // Non-headless mode — Cloudflare detects headless on Android
+    headless: "new",  // Headless mode — works on Windows/Mac/Linux
     args: [
       "--no-sandbox",
       "--disable-dev-shm-usage",
@@ -85,12 +94,11 @@ async function getBrowser() {
       "--window-size=1920,1080",
       "--disable-infobars",
       "--disable-notifications",
-      "--start-maximized",
     ],
-    defaultViewport: null,  // Use the window's actual size
+    defaultViewport: { width: 1920, height: 1080 },
     ignoreDefaultArgs: ["--enable-automation"],
   });
-  console.log("[browser] launched chromium (non-headless)");
+  console.log("[browser] launched chromium");
   return browser;
 }
 
@@ -116,8 +124,8 @@ async function resolveSlug(slug) {
 
   const page = await context.newPage();
 
-  // Set user agent to look like a real Android Chrome browser
-  await page.setUserAgent("Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36");
+  // Set user agent to look like a real Windows Chrome browser
+  await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36");
   await page.evaluateOnNewDocument(() => {
     // Hide webdriver
     Object.defineProperty(navigator, "webdriver", { get: () => undefined });
@@ -126,7 +134,7 @@ async function resolveSlug(slug) {
     // Set languages
     Object.defineProperty(navigator, "languages", { get: () => ["en-US", "en"] });
     // Set platform
-    Object.defineProperty(navigator, "platform", { get: () => "Linux armv8l" });
+    Object.defineProperty(navigator, "platform", { get: () => "Win32" });
     // Set hardware concurrency
     Object.defineProperty(navigator, "hardwareConcurrency", { get: () => 8 });
     // Set deviceMemory
