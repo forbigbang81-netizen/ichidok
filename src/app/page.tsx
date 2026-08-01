@@ -19,6 +19,7 @@ import { SearchView } from "@/components/ichidoki/SearchView";
 import { CatalogView } from "@/components/ichidoki/CatalogView";
 import { LibraryView } from "@/components/ichidoki/LibraryView";
 import { AnimeDetailView } from "@/components/ichidoki/AnimeDetailView";
+import { InstallPrompt } from "@/components/ichidoki/InstallPrompt";
 
 const TYPES = ["TV", "Movie", "Special", "OVA", "ONA"];
 
@@ -111,6 +112,9 @@ export default function Page() {
           {currentView === "player" && <AnimeDetailView />}
         </div>
       </main>
+
+      {/* PWA Install Prompt */}
+      <InstallPrompt />
 
       {/* Bottom nav — solid black, icon-only, gold active state */}
       {!isDetail && (
