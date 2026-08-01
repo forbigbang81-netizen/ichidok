@@ -263,7 +263,7 @@ async def resolve_endpoint(slug: str = Query(..., description="wcostream episode
 
 
 @app.get("/debug")
-async def debug_endpoint(slug: str = Query(..., description="slug to debug")):
+async def debug_endpoint(slug: str = Query(..., description="slug to debug"), site: str = Query("", description="site to use: wcoanimedub, wcoanimesub, or wcostream")):
     """Debug endpoint — returns page title, iframe URL, and content length."""
     try:
         browser = await get_browser()
@@ -275,10 +275,16 @@ async def debug_endpoint(slug: str = Query(..., description="slug to debug")):
         )
         await Stealth().apply_stealth_async(ctx)
         page = await ctx.new_page()
-        base_url = "https://www.wcoanimesub.tv" if "subbed" in slug else "https://www.wcoanimedub.tv"
+        # Choose site based on parameter or auto-detect from slug
+        if site == "wcostream":
+            base_url = "https://m.wcostream.tv"
+        elif site == "wcoanimesub":
+            base_url = "https://www.wcoanimesub.tv"
+        else:
+            base_url = "https://www.wcoanimesub.tv" if "subbed" in slug else "https://www.wcoanimedub.tv"
         url = f"{base_url}/{slug}"
         await page.goto(url, wait_until="domcontentloaded", timeout=60000)
-        await asyncio.sleep(10)
+        await asyncio.sleep(15)
         title = await page.title()
         # Check for Cloudflare
         is_cf = "Just a moment" in title or "Performing security" in title
