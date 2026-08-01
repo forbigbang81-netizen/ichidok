@@ -55,6 +55,9 @@ export function CatalogView() {
   );
   const [sortOpen, setSortOpen] = useState(false);
   const [limit, setLimit] = useState(24);
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
 
   // Consume any pending genre sent from another view.
   useEffect(() => {
@@ -68,9 +71,11 @@ export function CatalogView() {
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
+    setPage(0);
     const params: Record<string, string | number> = {
       sort,
-      limit: 200,
+      limit: 100,
+      page: 0,
     };
     if (type !== "All") params.type = type;
     if (status !== "All") params.status = status;
@@ -81,6 +86,7 @@ export function CatalogView() {
         if (cancelled) return;
         setItems(r.results);
         setLimit(24);
+        setHasMore(r.results.length >= 100);
       })
       .catch((e) => {
         console.error(e);
@@ -93,6 +99,29 @@ export function CatalogView() {
       cancelled = true;
     };
   }, [sort, type, status, genre]);
+
+  const loadMore = () => {
+    if (loadingMore || !hasMore) return;
+    setLoadingMore(true);
+    const nextPage = page + 1;
+    const params: Record<string, string | number> = {
+      sort,
+      limit: 100,
+      page: nextPage,
+    };
+    if (type !== "All") params.type = type;
+    if (status !== "All") params.status = status;
+    if (genre !== "All") params.genre = genre;
+    apiCatalog
+      .custom(params)
+      .then((r) => {
+        setItems((prev) => [...prev, ...r.results]);
+        setPage(nextPage);
+        setHasMore(r.results.length >= 100);
+      })
+      .catch((e) => console.error(e))
+      .finally(() => setLoadingMore(false));
+  };
 
   const visible = useMemo(() => items.slice(0, limit), [items, limit]);
 
@@ -259,7 +288,8 @@ export function CatalogView() {
               <AnimeCard key={a.malId} anime={a} />
             ))}
           </CardGrid>
-          {limit < items.length && (
+          {/* Load More button — shows more from current page, then fetches next page */}
+          {limit < items.length ? (
             <button
               type="button"
               onClick={() => setLimit((l) => l + 24)}
@@ -270,7 +300,16 @@ export function CatalogView() {
                 ({items.length - limit} left)
               </span>
             </button>
-          )}
+          ) : hasMore ? (
+            <button
+              type="button"
+              onClick={loadMore}
+              disabled={loadingMore}
+              className="mx-auto mt-2 rounded-lg border border-white/10 px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-white/5 disabled:opacity-50"
+            >
+              {loadingMore ? "Loading…" : "Load 100 More"}
+            </button>
+          ) : null}
         </>
       )}
     </div>

@@ -546,8 +546,9 @@ export function AnimeDetailView() {
           {/* ===== Full episode list below the player =====
               Same format as the detail page: arc selector, search bar,
               and vertical episode list with thumbnails, filler tags,
-              progress bars, and download buttons. */}
-          {hasArcs && (
+              progress bars, and download buttons.
+              Shows for ALL anime (not just those with arcs). */}
+          {allEpisodes.length > 0 && (
             <div className="border-t border-white/10 bg-[#0a0a0a] px-4 py-4">
               {/* Arc selector — horizontal scroll */}
               <div className="mb-3 flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: 'none' }}>

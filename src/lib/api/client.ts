@@ -34,30 +34,30 @@ export interface VideoImport {
 }
 
 export const apiCatalog = {
-  top: (limit = 25) =>
+  top: (limit = 30, page = 0) =>
     api<{ results: Anime[]; total: number }>(
-      `/api/catalog?type=top&limit=${limit}`,
+      `/api/catalog?type=top&limit=${limit}&page=${page}`,
     ),
-  season: (limit = 25) =>
+  season: (limit = 30, page = 0) =>
     api<{ results: Anime[]; total: number }>(
-      `/api/catalog?type=season&limit=${limit}`,
+      `/api/catalog?type=season&limit=${limit}&page=${page}`,
     ),
-  all: (limit = 25) =>
+  all: (limit = 100, page = 0) =>
     api<{ results: Anime[]; total: number }>(
-      `/api/catalog?type=all&limit=${limit}`,
+      `/api/catalog?type=all&limit=${limit}&page=${page}`,
     ),
-  upcoming: (limit = 25) =>
+  upcoming: (limit = 30, page = 0) =>
     api<{ results: Anime[]; total: number }>(
-      `/api/catalog?status=Not%20yet%20aired&sort=popularity&limit=${limit}`,
+      `/api/catalog?status=Not%20yet%20aired&sort=popularity&limit=${limit}&page=${page}`,
     ),
   custom: (params: Record<string, string | number>) => {
     const qs = new URLSearchParams();
     for (const [k, v] of Object.entries(params)) qs.set(k, String(v));
     return api<{ results: Anime[]; total: number }>(`/api/catalog?${qs.toString()}`);
   },
-  genre: (genre: string, limit = 25) =>
+  genre: (genre: string, limit = 30, page = 0) =>
     api<{ results: Anime[]; total: number }>(
-      `/api/catalog?genre=${encodeURIComponent(genre)}&limit=${limit}&sort=popularity`,
+      `/api/catalog?genre=${encodeURIComponent(genre)}&limit=${limit}&sort=popularity&page=${page}`,
     ),
 };
 
