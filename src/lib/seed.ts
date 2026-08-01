@@ -1940,6 +1940,202 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 1, collection: "tomb-raider-king-watch-anime-online-in-hd-animesuge-1-019942", fileName: "Tomb Raider King – Watch Anime Online in HD _ AnimeSuge (1).mp4", audio: "sub" },
     ], hasSub: true,
   },
+  // ===== Popular anime added from WCO alphabet list =====
+  // All use wco_resolver for both DUB and SUB (where available on WCO sites).
+  // Slug pattern: {slug}-episode-{ep}-english-{dubbed|subbed}
+
+  // Naruto
+  { malId: 20, title: "Naruto", titleEnglish: "Naruto", titleJapanese: "ナルト",
+    synopsis: "A young ninja named Naruto Uzumaki seeks recognition and dreams of becoming the Hokage, the leader of his village.",
+    poster: "https://cdn.myanimelist.net/images/anime/13/17405l.jpg", banner: "https://cdn.myanimelist.net/images/anime/13/17405l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.20, scoredBy: 900000, rank: 0, popularity: 10, members: 3000000,
+    year: 2002, season: "fall", genres: ["Action", "Adventure", "Martial Arts"], studios: ["Pierrot"],
+    episodeCount: 220, duration: "23 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 220, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "naruto-episode-{ep}-english-dubbed" },
+      { startEp: 1, endEp: 220, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "naruto-episode-{ep}-english-subbed" },
+    ], hasSub: true, hasDub: true,
+  },
+  // Naruto Shippuden
+  { malId: 1735, title: "Naruto: Shippuden", titleEnglish: "Naruto: Shippuden", titleJapanese: "ナルト 疾風伝",
+    synopsis: "Naruto Uzumaki, now an adolescent, returns to his village after two and a half years of training and faces the threat of the Akatsuki organization.",
+    poster: "https://cdn.myanimelist.net/images/anime/5/17407l.jpg", banner: "https://cdn.myanimelist.net/images/anime/5/17407l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.25, scoredBy: 800000, rank: 0, popularity: 20, members: 2500000,
+    year: 2007, season: "winter", genres: ["Action", "Adventure", "Martial Arts"], studios: ["Pierrot"],
+    episodeCount: 500, duration: "23 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 500, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "naruto-shippuden-episode-{ep}-english-dubbed" },
+      { startEp: 1, endEp: 500, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "naruto-shippuden-episode-{ep}-english-subbed" },
+    ], hasSub: true, hasDub: true,
+  },
+  // Demon Slayer (Kimetsu no Yaiba)
+  { malId: 38000, title: "Demon Slayer: Kimetsu no Yaiba", titleEnglish: "Demon Slayer: Kimetsu no Yaiba", titleJapanese: "鬼滅の刃",
+    synopsis: "A family is attacked by demons and only two members survive — Tanjiro and his sister Nezuko, who is turning into a demon slowly.",
+    poster: "https://cdn.myanimelist.net/images/anime/1286/99889l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1286/99889l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.54, scoredBy: 600000, rank: 0, popularity: 15, members: 2200000,
+    year: 2019, season: "spring", genres: ["Action", "Fantasy", "Historical"], studios: ["ufotable"],
+    episodeCount: 26, duration: "23 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 26, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "demon-slayer-kimetsu-no-yaiba-episode-{ep}-english-dubbed" },
+      { startEp: 1, endEp: 26, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "demon-slayer-kimetsu-no-yaiba-episode-{ep}-english-subbed" },
+    ], hasSub: true, hasDub: true,
+  },
+  // Attack on Titan (Shingeki no Kyojin)
+  { malId: 16498, title: "Attack on Titan", titleEnglish: "Attack on Titan", titleJapanese: "進撃の巨人",
+    synopsis: "Several hundred years ago, humans were nearly exterminated by Titans. A small percentage of humanity survived by enclosing themselves in a city protected by extremely high walls.",
+    poster: "https://cdn.myanimelist.net/images/anime/10/47347l.jpg", banner: "https://cdn.myanimelist.net/images/anime/10/47347l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.55, scoredBy: 1000000, rank: 0, popularity: 5, members: 3000000,
+    year: 2013, season: "spring", genres: ["Action", "Drama", "Fantasy"], studios: ["Wit Studio"],
+    episodeCount: 25, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-episode-{ep}-english-dubbed" },
+      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-episode-{ep}-english-subbed" },
+    ], hasSub: true, hasDub: true,
+  },
+  // Attack on Titan Season 2
+  { malId: 20958, title: "Attack on Titan Season 2", titleEnglish: "Attack on Titan Season 2", titleJapanese: "進撃の巨人 Season 2",
+    synopsis: "The second season of Attack on Titan continues the story of Eren Yeager and his fight against the Titans.",
+    poster: "https://cdn.myanimelist.net/images/anime/8/61021l.jpg", banner: "https://cdn.myanimelist.net/images/anime/8/61021l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.44, scoredBy: 600000, rank: 0, popularity: 50, members: 1800000,
+    year: 2017, season: "spring", genres: ["Action", "Drama", "Fantasy"], studios: ["Wit Studio"],
+    episodeCount: 12, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 12, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-season-2-episode-{ep}-english-dubbed" },
+      { startEp: 1, endEp: 12, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-season-2-episode-{ep}-english-subbed" },
+    ], hasSub: true, hasDub: true,
+  },
+  // Attack on Titan Season 3
+  { malId: 35760, title: "Attack on Titan Season 3", titleEnglish: "Attack on Titan Season 3", titleJapanese: "進撃の巨人 Season 3",
+    synopsis: "The third season of Attack on Titan explores the truth behind the walls and the history of the Titans.",
+    poster: "https://cdn.myanimelist.net/images/anime/1517/100633l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1517/100633l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.44, scoredBy: 500000, rank: 0, popularity: 70, members: 1600000,
+    year: 2018, season: "summer", genres: ["Action", "Drama", "Fantasy"], studios: ["Wit Studio"],
+    episodeCount: 22, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 22, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-season-3-episode-{ep}-english-dubbed" },
+      { startEp: 1, endEp: 22, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-season-3-episode-{ep}-english-subbed" },
+    ], hasSub: true, hasDub: true,
+  },
+  // Attack on Titan Final Season
+  { malId: 40028, title: "Attack on Titan Final Season", titleEnglish: "Attack on Titan Final Season", titleJapanese: "進撃の巨人 The Final Season",
+    synopsis: "The final season of Attack on Titan concludes the epic story of Eren Yeager and the war between Eldia and Marley.",
+    poster: "https://cdn.myanimelist.net/images/anime/1000/110531l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1000/110531l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.66, scoredBy: 500000, rank: 0, popularity: 60, members: 1500000,
+    year: 2020, season: "fall", genres: ["Action", "Drama", "Fantasy"], studios: ["MAPPA"],
+    episodeCount: 16, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 16, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-final-season-episode-{ep}-english-dubbed" },
+      { startEp: 1, endEp: 16, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-final-season-episode-{ep}-english-subbed" },
+    ], hasSub: true, hasDub: true,
+  },
+  // Chainsaw Man
+  { malId: 44511, title: "Chainsaw Man", titleEnglish: "Chainsaw Man", titleJapanese: "チェンソーマン",
+    synopsis: "Denji has a simple dream — to live a happy and peaceful life with the girl he likes. As a Devil Hunter, he hunts devils for money.",
+    poster: "https://cdn.myanimelist.net/images/anime/1806/126216l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1806/126216l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.56, scoredBy: 500000, rank: 0, popularity: 25, members: 2000000,
+    year: 2022, season: "fall", genres: ["Action", "Fantasy"], studios: ["MAPPA"],
+    episodeCount: 12, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 12, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chainsaw-man-episode-{ep}-english-dubbed" },
+      { startEp: 1, endEp: 12, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chainsaw-man-episode-{ep}-english-subbed" },
+    ], hasSub: true, hasDub: true,
+  },
+  // Death Note
+  { malId: 1535, title: "Death Note", titleEnglish: "Death Note", titleJapanese: "デスノート",
+    synopsis: "A high school student discovers a supernatural notebook that allows him to kill anyone by writing their name in it.",
+    poster: "https://cdn.myanimelist.net/images/anime/9/9453l.jpg", banner: "https://cdn.myanimelist.net/images/anime/9/9453l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.62, scoredBy: 1000000, rank: 0, popularity: 1, members: 3500000,
+    year: 2006, season: "fall", genres: ["Mystery", "Supernatural", "Thriller"], studios: ["Madhouse"],
+    episodeCount: 37, duration: "23 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 37, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "death-note-episode-{ep}-english-dubbed" },
+      { startEp: 1, endEp: 37, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "death-note-episode-{ep}-english-subbed" },
+    ], hasSub: true, hasDub: true,
+  },
+  // Fullmetal Alchemist: Brotherhood
+  { malId: 5114, title: "Fullmetal Alchemist: Brotherhood", titleEnglish: "Fullmetal Alchemist: Brotherhood", titleJapanese: "鋼の錬金術師 FULLMETAL ALCHEMIST",
+    synopsis: "Two brothers search for the Philosopher's Stone to restore their bodies after a failed attempt to bring their mother back to life.",
+    poster: "https://cdn.myanimelist.net/images/anime/1223/96541l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1223/96541l.jpg",
+    type: "TV", status: "Finished Airing", score: 9.10, scoredBy: 900000, rank: 1, popularity: 3, members: 3200000,
+    year: 2009, season: "spring", genres: ["Action", "Adventure", "Drama", "Fantasy"], studios: ["Bones"],
+    episodeCount: 64, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 64, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fullmetal-alchemist-brotherhood-episode-{ep}-english-dubbed" },
+      { startEp: 1, endEp: 64, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fullmetal-alchemist-brotherhood-episode-{ep}-english-subbed" },
+    ], hasSub: true, hasDub: true,
+  },
+  // Hunter x Hunter (2011)
+  { malId: 11061, title: "Hunter x Hunter (2011)", titleEnglish: "Hunter x Hunter (2011)", titleJapanese: "HUNTER×HUNTER",
+    synopsis: "Gon Freecss is a young boy who dreams of becoming a Hunter like his father, who left him when he was young.",
+    poster: "https://cdn.myanimelist.net/images/anime/11/33657l.jpg", banner: "https://cdn.myanimelist.net/images/anime/11/33657l.jpg",
+    type: "TV", status: "Finished Airing", score: 9.04, scoredBy: 900000, rank: 0, popularity: 7, members: 2800000,
+    year: 2011, season: "fall", genres: ["Action", "Adventure", "Fantasy"], studios: ["Madhouse"],
+    episodeCount: 148, duration: "23 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 148, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hunter-x-hunter-2011-episode-{ep}-english-dubbed" },
+      { startEp: 1, endEp: 148, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hunter-x-hunter-2011-episode-{ep}-english-subbed" },
+    ], hasSub: true, hasDub: true,
+  },
+  // One Punch Man
+  { malId: 30276, title: "One Punch Man", titleEnglish: "One Punch Man", titleJapanese: "ワンパンマン",
+    synopsis: "Saitama is a hero who can defeat any opponent with a single punch, but he's bored because the fights are too easy.",
+    poster: "https://cdn.myanimelist.net/images/anime/12/76049l.jpg", banner: "https://cdn.myanimelist.net/images/anime/12/76049l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.49, scoredBy: 700000, rank: 0, popularity: 12, members: 2400000,
+    year: 2015, season: "fall", genres: ["Action", "Comedy"], studios: ["Madhouse"],
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 12, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "one-punch-man-episode-{ep}-english-dubbed" },
+      { startEp: 1, endEp: 12, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "one-punch-man-episode-{ep}-english-subbed" },
+    ], hasSub: true, hasDub: true,
+  },
+  // Spy x Family
+  { malId: 50265, title: "Spy x Family", titleEnglish: "Spy x Family", titleJapanese: "SPY×FAMILY",
+    synopsis: "A spy on an undercover mission builds a fake family, not knowing his adopted daughter is a telepath and his wife is an assassin.",
+    poster: "https://cdn.myanimelist.net/images/anime/1441/122795l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1441/122795l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.53, scoredBy: 500000, rank: 0, popularity: 18, members: 2000000,
+    year: 2022, season: "spring", genres: ["Action", "Comedy"], studios: ["Wit Studio", "CloverWorks"],
+    episodeCount: 25, duration: "23 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "spy-x-family-episode-{ep}-english-dubbed" },
+      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "spy-x-family-episode-{ep}-english-subbed" },
+    ], hasSub: true, hasDub: true,
+  },
+  // Tokyo Ghoul
+  { malId: 22319, title: "Tokyo Ghoul", titleEnglish: "Tokyo Ghoul", titleJapanese: "東京喰種 トーキョーグール",
+    synopsis: "A college student is transformed into a half-ghoul after an encounter with a ghoul, and must navigate the dangerous world of ghouls.",
+    poster: "https://cdn.myanimelist.net/images/anime/5/64449l.jpg", banner: "https://cdn.myanimelist.net/images/anime/5/64449l.jpg",
+    type: "TV", status: "Finished Airing", score: 7.79, scoredBy: 700000, rank: 0, popularity: 9, members: 2500000,
+    year: 2014, season: "summer", genres: ["Action", "Horror", "Supernatural"], studios: ["Pierrot"],
+    episodeCount: 12, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 12, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tokyo-ghoul-episode-{ep}-english-dubbed" },
+      { startEp: 1, endEp: 12, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tokyo-ghoul-episode-{ep}-english-subbed" },
+    ], hasSub: true, hasDub: true,
+  },
+  // Vinland Saga
+  { malId: 37521, title: "Vinland Saga", titleEnglish: "Vinland Saga", titleJapanese: "ヴィンランド・サガ",
+    synopsis: "A young Viking warrior named Thorfinn seeks revenge against the man who killed his father.",
+    poster: "https://cdn.myanimelist.net/images/anime/1500/103005l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1500/103005l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.74, scoredBy: 400000, rank: 0, popularity: 40, members: 1500000,
+    year: 2019, season: "summer", genres: ["Action", "Adventure", "Drama"], studios: ["Wit Studio"],
+    episodeCount: 24, duration: "23 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 24, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "vinland-saga-episode-{ep}-english-dubbed" },
+      { startEp: 1, endEp: 24, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "vinland-saga-episode-{ep}-english-subbed" },
+    ], hasSub: true, hasDub: true,
+  },
+  // Violet Evergarden
+  { malId: 33352, title: "Violet Evergarden", titleEnglish: "Violet Evergarden", titleJapanese: "ヴァイオレット・エヴァーガーデン",
+    synopsis: "A former soldier learns to express emotions as a Auto Memory Doll, writing letters for people who can't write.",
+    poster: "https://cdn.myanimelist.net/images/anime/1795/95088l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1795/95088l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.67, scoredBy: 400000, rank: 0, popularity: 45, members: 1300000,
+    year: 2018, season: "winter", genres: ["Drama", "Fantasy"], studios: ["Kyoto Animation"],
+    episodeCount: 13, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Light Novel", isFeatured: true,
+    episodeSources: [
+      { startEp: 1, endEp: 13, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "violet-evergarden-episode-{ep}-english-dubbed" },
+      { startEp: 1, endEp: 13, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "violet-evergarden-episode-{ep}-english-subbed" },
+    ], hasSub: true, hasDub: true,
+  },
 ];
 
 /**
@@ -1953,6 +2149,22 @@ export const SEASON_GROUPS: { franchise: string; seasons: { malId: number; label
     seasons: [
       { malId: 1575, label: "Season 1 — Lelouch of the Rebellion" },
       { malId: 2904, label: "Season 2 — Lelouch of the Rebellion R2" },
+    ],
+  },
+  {
+    franchise: "Naruto",
+    seasons: [
+      { malId: 20, label: "Season 1 — Naruto" },
+      { malId: 1735, label: "Season 2 — Naruto Shippuden" },
+    ],
+  },
+  {
+    franchise: "Attack on Titan",
+    seasons: [
+      { malId: 16498, label: "Season 1" },
+      { malId: 20958, label: "Season 2" },
+      { malId: 35760, label: "Season 3" },
+      { malId: 40028, label: "Final Season" },
     ],
   },
   {
