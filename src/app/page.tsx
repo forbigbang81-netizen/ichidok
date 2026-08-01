@@ -10,7 +10,7 @@ import {
   Bell,
 } from "lucide-react";
 import { toast } from "sonner";
-import { useApp } from "@/store/app";
+import { useApp, parseHash } from "@/store/app";
 import { fetchHistory, fetchNotifications } from "@/lib/api/client";
 import { cn } from "@/lib/utils";
 import { HomeView } from "@/components/ichidoki/HomeView";
@@ -26,6 +26,8 @@ const TYPES = ["TV", "Movie", "Special", "OVA", "ONA"];
 export default function Page() {
   const currentView = useApp((s) => s.currentView);
   const navigate = useApp((s) => s.navigate);
+  const openPlayer = useApp((s) => s.openPlayer);
+  const openAnime = useApp((s) => s.openAnime);
   const selectedMalId = useApp((s) => s.selectedMalId);
   const selectedEpisode = useApp((s) => s.selectedEpisode);
   const notifications = useApp((s) => s.notifications);
@@ -45,6 +47,28 @@ export default function Page() {
       .then((hist) => setHistory(hist as any[]))
       .catch(() => {});
   }, [setNotifications, setHistory]);
+
+  // Listen for browser back/forward button (popstate) and sync the view.
+  // This fixes the bug where the back button didn't work after playing an episode.
+  useEffect(() => {
+    const onPopState = () => {
+      const hash = parseHash();
+      // If the hash has a view, navigate to it (without pushing history)
+      if (hash.view && hash.view !== currentView) {
+        navigate(hash.view);
+      }
+      // If there's a malId, open the anime detail/player
+      if (hash.malId !== null && hash.malId !== selectedMalId) {
+        if (hash.view === "player") {
+          openPlayer(hash.malId, hash.episode ?? 1);
+        } else if (hash.view === "detail") {
+          openAnime(hash.malId, hash.episode ?? 1);
+        }
+      }
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, [currentView, selectedMalId, navigate, openPlayer, openAnime]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });

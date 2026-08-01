@@ -87,7 +87,7 @@ export const useApp = create<AppState>((set, get) => ({
       if (typeof window !== "undefined") {
         const hash = buildHash(v, newState.selectedMalId, s.selectedEpisode);
         const newUrl = hash ? `${window.location.pathname}${window.location.search}${hash}` : `${window.location.pathname}${window.location.search}`;
-        window.history.replaceState(null, "", newUrl);
+        window.history.pushState(null, "", newUrl);
       }
       return newState;
     });
@@ -96,11 +96,11 @@ export const useApp = create<AppState>((set, get) => ({
     set((s) => {
       const hist = s.history.find((h) => h.malId === malId && h.episode === episode);
       const resume = position ?? (hist && hist.position > 5 ? hist.position : null);
-      // Update URL hash
+      // Push to browser history so back button works
       if (typeof window !== "undefined") {
         const hash = buildHash("detail", malId, episode > 1 ? episode : null);
         const newUrl = `${window.location.pathname}${window.location.search}${hash}`;
-        window.history.replaceState(null, "", newUrl);
+        window.history.pushState(null, "", newUrl);
       }
       return { currentView: "detail", previousView: s.currentView, selectedMalId: malId, selectedEpisode: episode, resumePosition: resume };
     });
@@ -109,10 +109,11 @@ export const useApp = create<AppState>((set, get) => ({
     set((s) => {
       const hist = s.history.find((h) => h.malId === malId && h.episode === episode);
       const resume = position ?? (hist && hist.position > 5 ? hist.position : null);
+      // Push to browser history so back button works
       if (typeof window !== "undefined") {
         const hash = buildHash("player", malId, episode > 1 ? episode : null);
         const newUrl = `${window.location.pathname}${window.location.search}${hash}`;
-        window.history.replaceState(null, "", newUrl);
+        window.history.pushState(null, "", newUrl);
       }
       return { currentView: "player", previousView: s.currentView, selectedMalId: malId, selectedEpisode: episode, resumePosition: resume };
     });
