@@ -79,7 +79,19 @@ async function getBrowser() {
       "--no-default-browser-check",
       "--password-store=basic",
       "--use-mock-keychain",
+      "--disable-features=IsolateOrigins,site-per-process",
+      "--disable-site-isolation-trials",
+      "--disable-web-security",
+      "--allow-running-insecure-content",
+      "--disable-features=TranslateUI",
+      "--disable-features=Translate",
+      "--lang=en-US,en",
+      "--window-size=1920,1080",
+      "--disable-infobars",
+      "--disable-notifications",
     ],
+    defaultViewport: { width: 1920, height: 1080 },
+    ignoreDefaultArgs: ["--enable-automation"],
   });
   console.log("[browser] launched chromium");
   return browser;
@@ -107,13 +119,29 @@ async function resolveSlug(slug) {
 
   const page = await context.newPage();
 
-  // Set user agent and hide webdriver
-  await page.setUserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36");
+  // Set user agent to look like a real Android Chrome browser
+  await page.setUserAgent("Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36");
   await page.evaluateOnNewDocument(() => {
+    // Hide webdriver
     Object.defineProperty(navigator, "webdriver", { get: () => undefined });
+    // Fake plugins
     Object.defineProperty(navigator, "plugins", { get: () => [1, 2, 3, 4, 5] });
+    // Set languages
     Object.defineProperty(navigator, "languages", { get: () => ["en-US", "en"] });
-    window.chrome = { runtime: {} };
+    // Set platform
+    Object.defineProperty(navigator, "platform", { get: () => "Linux armv8l" });
+    // Set hardware concurrency
+    Object.defineProperty(navigator, "hardwareConcurrency", { get: () => 8 });
+    // Set deviceMemory
+    Object.defineProperty(navigator, "deviceMemory", { get: () => 8 });
+    // Add window.chrome
+    window.chrome = { runtime: {}, loadTimes: () => {}, csi: () => {} };
+    // Override permissions
+    const originalQuery = window.navigator.permissions.query;
+    window.navigator.permissions.query = (parameters) =>
+      parameters.name === "notifications"
+        ? Promise.resolve({ state: Notification.permission })
+        : originalQuery(parameters);
   });
 
   let videoUrl = null;
