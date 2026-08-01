@@ -1165,11 +1165,12 @@ export function VideoPlayer({
       {/* ===== Custom subtitle overlay ===== */}
       {showSubtitles && activeCue && (
         <div
-          className="pointer-events-none absolute inset-x-0 bottom-4 z-20 flex justify-center px-4"
+          className="pointer-events-none absolute inset-x-0 bottom-4 z-20 flex justify-center px-4 md:bottom-8"
           style={{ transform: mirrorStyle }}
         >
           <span
-            className="max-w-[90%] text-center text-base font-medium leading-snug text-white"
+            className="max-w-[90%] text-center font-medium leading-snug text-white
+                       text-base md:text-2xl lg:text-3xl xl:text-4xl"
             style={{
               textShadow:
                 "0 0 3px #000, 0 0 6px #000, 0 2px 4px rgba(0,0,0,0.9)",
