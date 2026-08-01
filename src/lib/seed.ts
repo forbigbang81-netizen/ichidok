@@ -2143,7 +2143,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "18if-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "18if-episode-{ep}-english-subbed" },
@@ -2155,7 +2155,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "2-43-seiin-high-school-boys-volleyball-team-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "2-43-seiin-high-school-boys-volleyball-team-episode-{ep}-english-subbed" },
@@ -2167,7 +2167,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "2-5-dimensional-seduction-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "2-5-dimensional-seduction-episode-{ep}-english-subbed" },
@@ -2179,7 +2179,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "7-seeds-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "7-seeds-episode-{ep}-english-subbed" },
@@ -2191,7 +2191,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "86-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "86-episode-{ep}-english-subbed" },
@@ -2203,7 +2203,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "91-days-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "91-days-episode-{ep}-english-subbed" },
@@ -2215,7 +2215,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-centaur-s-life-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-centaur-s-life-episode-{ep}-english-subbed" },
@@ -2227,7 +2227,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-certain-magical-index-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-certain-magical-index-episode-{ep}-english-subbed" },
@@ -2239,7 +2239,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-certain-scientific-accelerator-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-certain-scientific-accelerator-episode-{ep}-english-subbed" },
@@ -2251,7 +2251,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-certain-scientific-railgun-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-certain-scientific-railgun-episode-{ep}-english-subbed" },
@@ -2263,7 +2263,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-condition-called-love-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-condition-called-love-episode-{ep}-english-subbed" },
@@ -2275,7 +2275,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-couple-of-cuckoos-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-couple-of-cuckoos-episode-{ep}-english-subbed" },
@@ -2287,7 +2287,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-galaxy-next-door-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-galaxy-next-door-episode-{ep}-english-subbed" },
@@ -2299,7 +2299,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-gatherers-adventure-in-isekai-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-gatherers-adventure-in-isekai-episode-{ep}-english-subbed" },
@@ -2311,7 +2311,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-gentle-nobles-vacation-recommendation-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-gentle-nobles-vacation-recommendation-episode-{ep}-english-subbed" },
@@ -2323,7 +2323,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-journey-through-another-world-raising-kids-while-adventuring-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "isekai-yururi-kikou-kosodateshinagara-boukensha-shimasu-episode-{ep}-english-subbed" },
@@ -2335,7 +2335,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-misanthrope-teaches-a-class-for-demi-humans-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-misanthrope-teaches-a-class-for-demi-humans-episode-{ep}-english-subbed" },
@@ -2347,7 +2347,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-place-further-than-the-universe-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-place-further-than-the-universe-episode-{ep}-english-subbed" },
@@ -2359,7 +2359,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-returners-magic-should-be-special-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-returners-magic-should-be-special-episode-{ep}-english-subbed" },
@@ -2371,7 +2371,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-sign-of-affection-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-sign-of-affection-episode-{ep}-english-subbed" },
@@ -2383,7 +2383,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-sister-s-all-you-need-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-sister-s-all-you-need-episode-{ep}-english-subbed" },
@@ -2395,7 +2395,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-star-brighter-than-the-sun-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-star-brighter-than-the-sun-episode-{ep}-english-subbed" },
@@ -2407,7 +2407,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-i-c-o-incarnation-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-i-c-o-incarnation-episode-{ep}-english-subbed" },
@@ -2419,7 +2419,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a3-season-autumn-winter-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a3-season-autumn-winter-english-subbed-episode-{ep}-english-subbed" },
@@ -2431,7 +2431,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a3-season-spring-summer-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a3-season-spring-summer-english-subbed-episode-{ep}-english-subbed" },
@@ -2443,7 +2443,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "acca-13-territory-inspection-dept-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "acca-13-ku-kansatsu-ka-english-subbed-episode-{ep}-english-subbed" },
@@ -2455,7 +2455,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "amaim-warrior-at-the-borderline-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kyoukai-senki-english-subbed-episode-{ep}-english-subbed" },
@@ -2467,7 +2467,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "absolute-duo-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "absolute-duo-english-subbed-episode-{ep}-english-subbed" },
@@ -2479,7 +2479,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "accel-world-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "accel-world-english-subbed-episode-{ep}-english-subbed" },
@@ -2491,7 +2491,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ace-attorney-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gyakuten-saiban-sono-shinjitsu-igi-ari-english-subbed-episode-{ep}-english-subbed" },
@@ -2503,7 +2503,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "actors-songs-connection-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "actors-songs-connection-episode-{ep}-english-subbed" },
@@ -2515,7 +2515,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "adachi-and-shimamura-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "adachi-to-shimamura-english-subbed-episode-{ep}-english-subbed" },
@@ -2527,7 +2527,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "aesthetica-of-a-rogue-hero-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "aesthetica-of-a-rogue-hero-episode-{ep}-english-subbed" },
@@ -2539,7 +2539,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "afro-samurai-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "afro-samurai-episode-{ep}-english-subbed" },
@@ -2551,7 +2551,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "afterschool-dice-club-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "afterschool-dice-club-episode-{ep}-english-subbed" },
@@ -2563,7 +2563,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "after-the-rain-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "koi-wa-ameagari-no-you-ni-english-subbed-episode-{ep}-english-subbed" },
@@ -2575,7 +2575,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "after-school-hanako-kun-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "houkago-shounen-hanako-kun-episode-{ep}-english-subbed" },
@@ -2587,7 +2587,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "afterlost-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shoumetsu-toshi-english-subbed-episode-{ep}-english-subbed" },
@@ -2599,7 +2599,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "agents-of-the-four-seasons-dance-of-spring-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "agents-of-the-four-seasons-dance-of-spring-episode-{ep}-english-subbed" },
@@ -2611,7 +2611,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "aggretsuko-2018-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "aggretsuko-2018-episode-{ep}-english-subbed" },
@@ -2623,7 +2623,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ahiru-no-sora-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ahiru-no-sora-english-subbed-episode-{ep}-english-subbed" },
@@ -2635,7 +2635,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "air-master-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "air-master-english-subbed-episode-{ep}-english-subbed" },
@@ -2647,7 +2647,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ajin-demi-human-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ajin-english-subbed-episode-{ep}-english-subbed" },
@@ -2659,7 +2659,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "akane-banashi-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "akane-banashi-episode-{ep}-english-subbed" },
@@ -2671,7 +2671,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "akebi-s-sailor-uniform-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "akebi-s-sailor-uniform-episode-{ep}-english-subbed" },
@@ -2683,7 +2683,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "akiba-maid-war-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "akiba-maid-sensou-english-subbed-episode-{ep}-english-subbed" },
@@ -2695,7 +2695,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "akiba-s-trip-the-animation-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "akiba-s-trip-the-animation-episode-{ep}-english-subbed" },
@@ -2707,7 +2707,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "akudama-drive-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "akudama-drive-english-subbed-episode-{ep}-english-subbed" },
@@ -2719,7 +2719,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "alderamin-on-the-sky-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "alderamin-on-the-sky-episode-{ep}-english-subbed" },
@@ -2731,7 +2731,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "aldnoah-zero-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "aldnoah-zero-episode-{ep}-english-subbed" },
@@ -2743,7 +2743,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "all-out-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "all-out-english-subbed-episode-{ep}-english-subbed" },
@@ -2755,7 +2755,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "alya-sometimes-hides-her-feelings-in-russian-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tokidoki-bosotto-russia-go-de-dereru-tonari-no-alya-san-episode-{ep}-english-subbed" },
@@ -2767,7 +2767,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "am-i-actually-the-strongest-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jitsu-wa-ore-saikyou-deshita-episode-{ep}-english-subbed" },
@@ -2779,7 +2779,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "amagi-brilliant-park-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "amagi-brilliant-park-english-subbed-episode-{ep}-english-subbed" },
@@ -2791,7 +2791,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ameku-m-d-doctor-detective-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ameku-takao-no-suiri-karte-episode-{ep}-english-subbed" },
@@ -2803,7 +2803,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "an-adventurers-daily-grind-at-age-29-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "an-adventurers-daily-grind-at-age-29-episode-{ep}-english-subbed" },
@@ -2815,7 +2815,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "an-archdemons-dilemma-how-to-love-your-elf-bride-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "maou-no-ore-ga-dorei-elf-wo-yome-ni-shitanda-ga-dou-medereba-ii-episode-{ep}-english-subbed" },
@@ -2827,7 +2827,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "an-observation-log-of-my-fiancee-who-calls-herself-a-villainess-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "an-observation-log-of-my-fiancee-who-calls-herself-a-villainess-episode-{ep}-english-subbed" },
@@ -2839,7 +2839,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "and-you-thought-there-is-never-a-girl-online-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "and-you-thought-there-is-never-a-girl-online-episode-{ep}-english-subbed" },
@@ -2851,7 +2851,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "angel-beats-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "angel-beats-episode-{ep}-english-subbed" },
@@ -2863,7 +2863,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "angels-of-death-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "satsuriku-no-tenshi-english-subbed-episode-{ep}-english-subbed" },
@@ -2875,7 +2875,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "anime-gataris-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "anime-gataris-episode-{ep}-english-subbed" },
@@ -2887,7 +2887,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "anne-shirley-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "anne-shirley-english-subbed-episode-{ep}-english-subbed" },
@@ -2899,7 +2899,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "anne-of-green-gables-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "akage-no-anne-english-subbed-episode-{ep}-english-subbed" },
@@ -2911,7 +2911,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "anohana-the-flower-we-saw-that-day-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "anohana-the-flower-we-saw-that-day-episode-{ep}-english-subbed" },
@@ -2923,7 +2923,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "anonymous-noise-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fukumenkei-noise-english-subbed-episode-{ep}-english-subbed" },
@@ -2935,7 +2935,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "another-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "another-episode-{ep}-english-subbed" },
@@ -2947,7 +2947,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "anyway-im-falling-in-love-with-you-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "anyway-im-falling-in-love-with-you-episode-{ep}-english-subbed" },
@@ -2959,7 +2959,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ao-ashi-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ao-ashi-english-subbed-episode-{ep}-english-subbed" },
@@ -2971,7 +2971,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ao-chan-can-t-study-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "midara-na-ao-chan-wa-benkyou-ga-dekinai-english-subbed-episode-{ep}-english-subbed" },
@@ -2983,7 +2983,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "aoharu-x-machinegun-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "aoharu-x-kikanjuu-english-subbed-episode-{ep}-english-subbed" },
@@ -2995,7 +2995,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "aokana-four-rhythm-across-the-blue-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "aokana-four-rhythm-across-the-blue-episode-{ep}-english-subbed" },
@@ -3007,7 +3007,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "aquarion-logos-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "aquarion-logos-english-subbed-episode-{ep}-english-subbed" },
@@ -3019,7 +3019,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "aria-the-natural-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "aria-the-natural-english-subbed-episode-{ep}-english-subbed" },
@@ -3031,7 +3031,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "aria-the-animation-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "aria-the-animation-episode-{ep}-english-subbed" },
@@ -3043,7 +3043,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "aria-the-origination-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "aria-the-origination-episode-{ep}-english-subbed" },
@@ -3055,7 +3055,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "aria-the-scarlet-ammo-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hidan-no-aria-english-subbed-episode-{ep}-english-subbed" },
@@ -3067,7 +3067,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "arifureta-from-commonplace-to-world-s-strongest-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "arifureta-shokugyou-de-sekai-saikyou-english-subbed-episode-{ep}-english-subbed" },
@@ -3079,7 +3079,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "armed-girl-s-machiavellism-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "busou-shoujo-machiavellianism-english-subbed-episode-{ep}-english-subbed" },
@@ -3091,7 +3091,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "arte-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "arte-english-subbed-episode-{ep}-english-subbed" },
@@ -3103,7 +3103,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ascendance-of-a-bookworm-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ascendance-of-a-bookworm-episode-{ep}-english-subbed" },
@@ -3115,7 +3115,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "assassins-pride-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "assassins-pride-english-subbed-episode-{ep}-english-subbed" },
@@ -3127,7 +3127,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "assault-lily-bouquet-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "assault-lily-bouquet-episode-{ep}-english-subbed" },
@@ -3139,7 +3139,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "asteroid-in-love-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "koisuru-asteroid-english-subbed-episode-{ep}-english-subbed" },
@@ -3151,7 +3151,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "astra-lost-in-space-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kanata-no-astra-english-subbed-episode-{ep}-english-subbed" },
@@ -3163,7 +3163,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-junior-high-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shingeki-kyojin-chuugakkou-english-subbed-episode-{ep}-english-subbed" },
@@ -3175,7 +3175,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ayaka-a-story-of-bonds-and-wounds-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ayaka-episode-{ep}-english-subbed" },
@@ -3187,7 +3187,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "azur-lane-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "azur-lane-english-subbed-episode-{ep}-english-subbed" },
@@ -3199,7 +3199,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "b-the-beginning-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "b-the-beginning-episode-{ep}-english-subbed" },
@@ -3211,7 +3211,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "b-the-beginning-succession-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "b-the-beginning-succession-english-subbed-episode-{ep}-english-subbed" },
@@ -3223,7 +3223,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "baki-dou-the-invincible-samurai-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "baki-dou-the-invincible-samurai-episode-{ep}-english-subbed" },
@@ -3235,7 +3235,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bna-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bna-episode-{ep}-english-subbed" },
@@ -3247,7 +3247,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "babylon-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "babylon-english-subbed-episode-{ep}-english-subbed" },
@@ -3259,7 +3259,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "back-arrow-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "back-arrow-english-subbed-episode-{ep}-english-subbed" },
@@ -3271,7 +3271,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "back-street-girls-gokudolls-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "back-street-girls-gokudolls-episode-{ep}-english-subbed" },
@@ -3283,7 +3283,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bad-girl-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bad-girl-english-subbed-episode-{ep}-english-subbed" },
@@ -3295,7 +3295,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "baka-and-test-summon-the-beasts-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "baka-and-test-summon-the-beasts-episode-{ep}-english-subbed" },
@@ -3307,7 +3307,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "baki-2018-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "baki-2018-english-subbed-episode-{ep}-english-subbed" },
@@ -3319,7 +3319,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hanma-baki-son-of-ogre-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hanma-baki-son-of-ogre-english-subbed-episode-{ep}-english-subbed" },
@@ -3331,7 +3331,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bakuman-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bakuman-english-subbed-episode-{ep}-english-subbed" },
@@ -3343,7 +3343,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bang-dream-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bang-dream-english-subbed-episode-{ep}-english-subbed" },
@@ -3355,7 +3355,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bananya-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bananya-english-subbed-episode-{ep}-english-subbed" },
@@ -3367,7 +3367,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "banished-from-the-hero-s-party-i-decided-to-live-a-quiet-life-in-the-countryside-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "banished-from-the-hero-s-party-i-decided-to-live-a-quiet-life-in-the-countryside-episode-{ep}-english-subbed" },
@@ -3379,7 +3379,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "barakamon-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "barakamon-episode-{ep}-english-subbed" },
@@ -3391,7 +3391,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bartender-glass-of-god-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bartender-kami-no-glass-episode-{ep}-english-subbed" },
@@ -3403,7 +3403,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "basilisk-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "basilisk-episode-{ep}-english-subbed" },
@@ -3415,7 +3415,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "basilisk-the-ouka-ninja-scrolls-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "basilisk-ouka-ninpouchou-english-subbed-episode-{ep}-english-subbed" },
@@ -3427,7 +3427,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "battle-angel-alita-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gunnm-english-subbed-episode-{ep}-english-subbed" },
@@ -3439,7 +3439,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "battle-game-in-5-seconds-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "deatte-5-byou-de-battle-english-subbed-episode-{ep}-english-subbed" },
@@ -3451,7 +3451,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beast-tamer-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yuusha-party-wo-tsuihou-sareta-beast-tamer-saikyoushu-no-nekomimi-shoujo-to-deau-english-subbed-episode-{ep}-english-subbed" },
@@ -3463,7 +3463,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beastars-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "beastars-episode-{ep}-english-subbed" },
@@ -3475,7 +3475,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beheneko-the-elf-girls-cat-is-secretly-an-s-ranked-monster-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "s-rank-monster-no-behemoth-dakedo-neko-to-machigawarete-elf-musume-no-pet-toshite-kurashitemasu-episode-{ep}-english-subbed" },
@@ -3487,7 +3487,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bem-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bem-english-subbed-episode-{ep}-english-subbed" },
@@ -3499,7 +3499,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "berserk-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "berserk-2016-english-subbed-episode-{ep}-english-subbed" },
@@ -3511,7 +3511,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "berserk-of-gluttony-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "boushoku-no-berserk-episode-{ep}-english-subbed" },
@@ -3523,7 +3523,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "betterman-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "betterman-english-subbed-episode-{ep}-english-subbed" },
@@ -3535,7 +3535,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beywarriors-cyborg-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "beywarriors-cyborg-english-subbed-episode-{ep}-english-subbed" },
@@ -3547,7 +3547,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beyblade-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bakuten-shoot-beyblade-english-subbed-episode-{ep}-english-subbed" },
@@ -3559,7 +3559,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beyblade-burst-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "beyblade-burst-english-subbed-episode-{ep}-english-subbed" },
@@ -3571,7 +3571,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beyblade-burst-dynamite-battle-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "beyblade-burst-dynamite-battle-episode-{ep}-english-subbed" },
@@ -3583,7 +3583,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beyblade-burst-god-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "beyblade-burst-god-english-subbed-episode-{ep}-english-subbed" },
@@ -3595,7 +3595,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beyblade-burst-rise-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "beyblade-burst-gachi-english-subbed-episode-{ep}-english-subbed" },
@@ -3607,7 +3607,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beyblade-burst-turbo-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "beyblade-burst-chouzetsu-english-subbed-episode-{ep}-english-subbed" },
@@ -3619,7 +3619,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beyblade-metal-fusion-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "beyblade-metal-fusion-episode-{ep}-english-subbed" },
@@ -3631,7 +3631,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beyblade-x-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "beyblade-x-episode-{ep}-english-subbed" },
@@ -3643,7 +3643,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bikini-warriors-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bikini-warriors-english-subbed-episode-{ep}-english-subbed" },
@@ -3655,7 +3655,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "biohazard-infinite-darkness-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "biohazard-infinite-darkness-english-subbed-episode-{ep}-english-subbed" },
@@ -3667,7 +3667,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "black-butler-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kuroshitsuji-english-subbed-episode-{ep}-english-subbed" },
@@ -3679,7 +3679,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "black-summoner-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kuro-no-shoukanshi-english-subbed-episode-{ep}-english-subbed" },
@@ -3691,7 +3691,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "black-torch-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "black-torch-episode-{ep}-english-subbed" },
@@ -3703,7 +3703,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "blade-runner-black-lotus-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "blade-runner-black-lotus-english-subbed-episode-{ep}-english-subbed" },
@@ -3715,7 +3715,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "blade-of-the-immortal-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mugen-no-juunin-immortal-english-subbed-episode-{ep}-english-subbed" },
@@ -3727,7 +3727,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "blood-blockade-battlefront-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kekkai-sensen-english-subbed-episode-{ep}-english-subbed" },
@@ -3739,7 +3739,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bloom-into-you-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yagate-kimi-ni-naru-english-subbed-episode-{ep}-english-subbed" },
@@ -3751,7 +3751,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "blue-box-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ao-no-hako-episode-{ep}-english-subbed" },
@@ -3763,7 +3763,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "blue-dragon-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "blue-dragon-english-subbed-episode-{ep}-english-subbed" },
@@ -3775,7 +3775,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "blue-exorcist-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "blue-exorcist-episode-{ep}-english-subbed" },
@@ -3787,7 +3787,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "blue-lock-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "blue-lock-english-subbed-episode-{ep}-english-subbed" },
@@ -3799,7 +3799,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "blue-period-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "blue-period-english-subbed-episode-{ep}-english-subbed" },
@@ -3811,7 +3811,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "blue-reflection-ray-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "blue-reflection-ray-english-subbed-episode-{ep}-english-subbed" },
@@ -3823,7 +3823,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hazure-skill-kinomi-master-skill-no-mi-tabetara-shinu-wo-mugen-ni-taberareru-you-ni-natta-ken-ni-tsuite-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hazure-skill-kinomi-master-skill-no-mi-tabetara-shinu-wo-mugen-ni-taberareru-you-ni-natta-ken-ni-tsuite-episode-{ep}-english-subbed" },
@@ -3835,7 +3835,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "boogiepop-and-others-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "boogiepop-wa-warawanai-2019-english-subbed-episode-{ep}-english-subbed" },
@@ -3847,7 +3847,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "boruto-naruto-next-generations-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "boruto-naruto-next-generations-english-subbed-episode-{ep}-english-subbed" },
@@ -3859,7 +3859,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bottom-tier-character-tomozaki-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jaku-chara-tomozaki-kun-english-subbed-episode-{ep}-english-subbed" },
@@ -3871,7 +3871,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "brave-witches-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "brave-witches-english-subbed-episode-{ep}-english-subbed" },
@@ -3883,7 +3883,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bright-samurai-soul-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bright-samurai-soul-english-subbed-episode-{ep}-english-subbed" },
@@ -3895,7 +3895,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "brothers-conflict-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "brothers-conflict-english-subbed-episode-{ep}-english-subbed" },
@@ -3907,7 +3907,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bucchigiri-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bucchigiri-english-subbed-episode-{ep}-english-subbed" },
@@ -3919,7 +3919,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "buddy-daddies-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "buddy-daddies-english-subbed-episode-{ep}-english-subbed" },
@@ -3931,7 +3931,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bullet-bullet-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bullet-bullet-english-subbed-episode-{ep}-english-subbed" },
@@ -3943,7 +3943,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bungo-stray-dogs-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bungou-stray-dogs-english-subbed-episode-{ep}-english-subbed" },
@@ -3955,7 +3955,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bungo-stray-dogs-wan-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bungo-stray-dogs-wan-episode-{ep}-english-subbed" },
@@ -3967,7 +3967,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bungo-and-alchemist-gears-of-judgement-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bungou-to-alchemist-shinpan-no-haguruma-english-subbed-episode-{ep}-english-subbed" },
@@ -3979,7 +3979,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "by-the-grace-of-the-gods-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kami-tachi-ni-hirowareta-otoko-english-subbed-episode-{ep}-english-subbed" },
@@ -3991,7 +3991,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bye-bye-earth-english-dubbed-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bye-bye-earth-english-subbed-episode-{ep}-english-subbed" },
@@ -4003,7 +4003,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cagaster-of-an-insect-cage-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cagaster-of-an-insect-cage-episode-{ep}-english-subbed" },
@@ -4015,7 +4015,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "call-of-the-night-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yofukashi-no-uta-english-subbed-episode-{ep}-english-subbed" },
@@ -4027,7 +4027,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "campfire-cooking-in-another-world-with-my-absurd-skill-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tondemo-skill-de-isekai-hourou-meshi-episode-{ep}-english-subbed" },
@@ -4039,7 +4039,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cannon-busters-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cannon-busters-english-subbed-episode-{ep}-english-subbed" },
@@ -4051,7 +4051,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cap-kakumei-bottleman-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cap-kakumei-bottleman-english-subbed-episode-{ep}-english-subbed" },
@@ -4063,7 +4063,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "captain-tsubasa-2018-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "captain-tsubasa-2018-english-subbed-episode-{ep}-english-subbed" },
@@ -4075,7 +4075,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cardcaptor-sakura-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cardcaptor-sakura-episode-{ep}-english-subbed" },
@@ -4087,7 +4087,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cardcaptor-sakura-clear-card-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cardcaptor-sakura-clear-card-hen-english-subbed-episode-{ep}-english-subbed" },
@@ -4099,7 +4099,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cardfight-vanguard-2018-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cardfight-vanguard-2018-english-subbed-episode-{ep}-english-subbed" },
@@ -4111,7 +4111,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cardfight-vanguard-g-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cardfight-vanguard-g-english-subbed-episode-{ep}-english-subbed" },
@@ -4123,7 +4123,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cardfight-vanguard-divinez-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cardfight-vanguard-divinez-english-subbed-episode-{ep}-english-subbed" },
@@ -4135,7 +4135,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cardfight-vanguard-overdress-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cardfight-vanguard-overdress-english-subbed-episode-{ep}-english-subbed" },
@@ -4147,7 +4147,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "carole-tuesday-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "carole-tuesday-english-subbed-episode-{ep}-english-subbed" },
@@ -4159,7 +4159,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "carried-by-the-wind-tsukikage-ran-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kazemakase-tsukikage-ran-english-subbed-episode-{ep}-english-subbed" },
@@ -4171,7 +4171,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "castle-town-dandelion-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "joukamachi-no-dandelion-english-subbed-episode-{ep}-english-subbed" },
@@ -4183,7 +4183,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cat-planet-cuties-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "asobi-ni-iku-yo-english-subbed-episode-{ep}-english-subbed" },
@@ -4195,7 +4195,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cats-eye-2025-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cat-s-eye-english-subbed-episode-{ep}-english-subbed" },
@@ -4207,7 +4207,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cautious-hero-the-hero-is-overpowered-but-overly-cautious-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shinchou-yuusha-kono-yuusha-ga-ore-tueee-kuse-ni-shinchou-sugiru-english-subbed-episode-{ep}-english-subbed" },
@@ -4219,7 +4219,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cells-at-work-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hataraku-saibou-english-subbed-episode-{ep}-english-subbed" },
@@ -4231,7 +4231,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cells-at-work-code-black-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hataraku-saibou-black-english-subbed-episode-{ep}-english-subbed" },
@@ -4243,7 +4243,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chain-chronicle-the-light-of-haecceitas-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chain-chronicle-haecceitas-no-hikari-english-subbed-episode-{ep}-english-subbed" },
@@ -4255,7 +4255,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chained-soldier-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chained-soldier-episode-{ep}-english-subbed" },
@@ -4267,7 +4267,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chainsmoker-cat-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chainsmoker-cat-episode-{ep}-english-subbed" },
@@ -4279,7 +4279,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "champignon-witch-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "champignon-witch-episode-{ep}-english-subbed" },
@@ -4291,7 +4291,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chaos-dragon-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chaos-dragon-sekiryuu-seneki-english-subbed-episode-{ep}-english-subbed" },
@@ -4303,7 +4303,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chaos-child-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chaos-child-english-subbed-episode-{ep}-english-subbed" },
@@ -4315,7 +4315,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "charger-girl-ju-den-chan-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fight-ippatsu-juuden-chan-english-subbed-episode-{ep}-english-subbed" },
@@ -4327,7 +4327,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "charlotte-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "charlotte-english-subbed-episode-{ep}-english-subbed" },
@@ -4339,7 +4339,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cherry-magic-thirty-years-of-virginity-can-make-you-a-wizard-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cherry-magic-thirty-years-of-virginity-can-make-you-a-wizard-episode-{ep}-english-subbed" },
@@ -4351,7 +4351,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rifle-is-beautiful-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rifle-is-beautiful-english-subbed-episode-{ep}-english-subbed" },
@@ -4363,7 +4363,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chihayafuru-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chihayafuru-english-subbed-episode-{ep}-english-subbed" },
@@ -4375,7 +4375,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "children-of-the-whales-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kujira-no-kora-wa-sajou-ni-utau-english-subbed-episode-{ep}-english-subbed" },
@@ -4387,7 +4387,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chillin-in-another-world-with-level-2-super-cheat-powers-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lv2-kara-cheat-datta-motoyuusha-kouho-no-mattari-isekai-life-episode-{ep}-english-subbed" },
@@ -4399,7 +4399,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chio-s-school-road-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chio-chan-no-tsuugakuro-english-subbed-episode-{ep}-english-subbed" },
@@ -4411,7 +4411,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chivalry-of-a-failed-knight-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rakudai-kishi-no-cavalry-english-subbed-episode-{ep}-english-subbed" },
@@ -4423,7 +4423,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chou-shounen-tanteidan-neo-english-dubbed-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chou-shounen-tanteidan-neo-english-subbed-episode-{ep}-english-subbed" },
@@ -4435,7 +4435,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chrome-shelled-regios-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chrome-shelled-regios-english-subbed-episode-{ep}-english-subbed" },
@@ -4447,7 +4447,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chronos-ruler-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jikan-no-shihaisha-english-subbed-episode-{ep}-english-subbed" },
@@ -4459,7 +4459,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chu-bra-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chu-bra-episode-{ep}-english-subbed" },
@@ -4471,7 +4471,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "citrus-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "citrus-english-subbed-episode-{ep}-english-subbed" },
@@ -4483,7 +4483,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "city-the-animation-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "city-the-animation-english-subbed-episode-{ep}-english-subbed" },
@@ -4495,7 +4495,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "clannad-after-story-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "clannad-after-story-english-subbed-episode-{ep}-english-subbed" },
@@ -4507,7 +4507,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "classroom-of-the-elite-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "classroom-of-the-elite-episode-{ep}-english-subbed" },
@@ -4519,7 +4519,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "clevatess-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "clevatess-episode-{ep}-english-subbed" },
@@ -4531,7 +4531,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "clockwork-planet-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "clockwork-planet-english-subbed-episode-{ep}-english-subbed" },
@@ -4543,7 +4543,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "code-geass-roze-of-the-recapture-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "code-geass-dakkan-no-roze-episode-{ep}-english-subbed" },
@@ -4555,7 +4555,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "code-realize-guardian-of-rebirth-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "code-realize-sousei-no-himegimi-english-subbed-episode-{ep}-english-subbed" },
@@ -4567,7 +4567,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "combatants-will-be-dispatched-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sentouin-hakenshimasu-english-subbed-episode-{ep}-english-subbed" },
@@ -4579,7 +4579,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "conception-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "conception-english-subbed-episode-{ep}-english-subbed" },
@@ -4591,7 +4591,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "concrete-revolutio-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "concrete-revolutio-choujin-gensou-english-subbed-episode-{ep}-english-subbed" },
@@ -4603,7 +4603,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "concrete-revolutio-choujin-gensou-the-last-song-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "concrete-revolutio-choujin-gensou-the-last-song-english-subbed-episode-{ep}-english-subbed" },
@@ -4615,7 +4615,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "convenience-store-boy-friends-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "convenience-store-boy-friends-english-subbed-episode-{ep}-english-subbed" },
@@ -4627,7 +4627,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cop-craft-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cop-craft-english-subbed-episode-{ep}-english-subbed" },
@@ -4639,7 +4639,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "corrector-yui-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "corrector-yui-english-subbed-episode-{ep}-english-subbed" },
@@ -4651,7 +4651,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cross-ange-rondo-of-angels-and-dragons-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cross-ange-rondo-of-angels-and-dragons-english-subbed-episode-{ep}-english-subbed" },
@@ -4663,7 +4663,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cultural-exchange-with-a-game-centre-girl-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cultural-exchange-with-a-game-centre-girl-english-subbed-episode-{ep}-english-subbed" },
@@ -4675,7 +4675,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cutie-honey-universe-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cutie-honey-universe-english-subbed-episode-{ep}-english-subbed" },
@@ -4687,7 +4687,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cyborg-009-vs-devilman-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cyborg-009-vs-devilman-episode-{ep}-english-subbed" },
@@ -4699,7 +4699,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cyborg-009-call-of-justice-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cyborg-009-call-of-justice-episode-{ep}-english-subbed" },
@@ -4711,7 +4711,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "d-frag-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "d-frag-english-subbed-episode-{ep}-english-subbed" },
@@ -4723,7 +4723,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "d-gray-man-hallow-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "d-gray-man-hallow-english-subbed-episode-{ep}-english-subbed" },
@@ -4735,7 +4735,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "d4dj-first-mix-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "d4dj-first-mix-english-subbed-episode-{ep}-english-subbed" },
@@ -4747,7 +4747,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "daemons-of-the-shadow-realm-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "daemons-of-the-shadow-realm-episode-{ep}-english-subbed" },
@@ -4759,7 +4759,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dagashi-kashi-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dagashi-kashi-english-subbed-episode-{ep}-english-subbed" },
@@ -4771,7 +4771,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "daimidaler-prince-vs-penguin-empire-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kenzen-robo-daimidaler-ova-english-subbed-episode-{ep}-english-subbed" },
@@ -4783,7 +4783,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dandadan-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dandadan-english-subbed-episode-{ep}-english-subbed" },
@@ -4795,7 +4795,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dance-in-the-vampire-bund-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dance-in-the-vampire-bund-english-subbed-episode-{ep}-english-subbed" },
@@ -4807,7 +4807,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dance-with-devils-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dance-with-devils-english-subbed-episode-{ep}-english-subbed" },
@@ -4819,7 +4819,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dances-with-the-dragons-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "saredo-tsumibito-wa-ryuu-to-odoru-english-subbed-episode-{ep}-english-subbed" },
@@ -4831,7 +4831,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dandelion-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dandelion-episode-{ep}-english-subbed" },
@@ -4843,7 +4843,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "danganronpa-3-the-end-of-hope-s-peak-high-school-despair-arc-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "danganronpa-3-the-end-of-kibougamine-gakuen-zetsubou-hen-english-subbed-episode-{ep}-english-subbed" },
@@ -4855,7 +4855,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "danganronpa-3-the-end-of-hope-s-peak-high-school-future-arc-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "danganronpa-3-the-end-of-kibougamine-gakuen-mirai-hen-english-subbed-episode-{ep}-english-subbed" },
@@ -4867,7 +4867,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "danganronpa-3-the-end-of-hope-s-peak-high-school-hope-arc-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "danganronpa-3-the-end-of-kibougamine-gakuen-kibou-hen-english-subbed-episode-{ep}-english-subbed" },
@@ -4879,7 +4879,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dark-gathering-english-dubbed-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dark-gathering-english-subbed-episode-{ep}-english-subbed" },
@@ -4891,7 +4891,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dark-moon-the-blood-altar-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dark-moon-the-blood-altar-episode-{ep}-english-subbed" },
@@ -4903,7 +4903,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "darling-in-the-franxx-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "darling-in-the-franxx-english-subbed-episode-{ep}-english-subbed" },
@@ -4915,7 +4915,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "darwin-s-game-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "darwin-s-game-english-subbed-episode-{ep}-english-subbed" },
@@ -4927,7 +4927,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "date-a-live-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "date-a-live-english-subbed-episode-{ep}-english-subbed" },
@@ -4939,7 +4939,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dead-account-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dead-account-episode-{ep}-english-subbed" },
@@ -4951,7 +4951,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dead-dead-demons-dededede-destruction-ona-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dead-dead-demons-dededede-destruction-ona-english-subbed-episode-{ep}-english-subbed" },
@@ -4963,7 +4963,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dead-mount-death-play-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dead-mount-death-play-english-subbed-episode-{ep}-english-subbed" },
@@ -4975,7 +4975,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dealing-with-mikadono-sisters-is-a-breeze-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dealing-with-mikadono-sisters-is-a-breeze-episode-{ep}-english-subbed" },
@@ -4987,7 +4987,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "death-parade-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "death-parade-episode-{ep}-english-subbed" },
@@ -4999,7 +4999,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "deca-dence-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "deca-dence-episode-{ep}-english-subbed" },
@@ -5011,7 +5011,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "deep-insanity-the-lost-child-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "deep-insanity-the-lost-child-english-subbed-episode-{ep}-english-subbed" },
@@ -5023,7 +5023,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dekin-no-mogura-the-earthbound-mole-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dekin-no-mogura-the-earthbound-mole-episode-{ep}-english-subbed" },
@@ -5035,7 +5035,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "delicious-in-dungeon-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "delicious-in-dungeon-episode-{ep}-english-subbed" },
@@ -5047,7 +5047,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "delicos-nursery-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "delicos-nursery-english-subbed-episode-{ep}-english-subbed" },
@@ -5059,7 +5059,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "demon-king-daimao-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ichiban-ushiro-no-daimaou-english-subbed-episode-{ep}-english-subbed" },
@@ -5071,7 +5071,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "demon-lord-2099-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "maou-2099-episode-{ep}-english-subbed" },
@@ -5083,7 +5083,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "demon-lord-retry-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "maou-sama-retry-english-subbed-episode-{ep}-english-subbed" },
@@ -5095,7 +5095,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "demon-slayer-mugen-train-arc-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "demon-slayer-mugen-train-arc-episode-{ep}-english-subbed" },
@@ -5107,7 +5107,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "detective-conan-the-culprit-hanzawa-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "meitantei-conan-hannin-no-hanzawa-san-episode-{ep}-english-subbed" },
@@ -5119,7 +5119,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "detective-conan-zeros-tea-time-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "meitantei-conan-zero-no-tea-time-english-subbed-episode-{ep}-english-subbed" },
@@ -5131,7 +5131,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "devil-hunter-yohko-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "devil-hunter-yohko-english-subbed-episode-{ep}-english-subbed" },
@@ -5143,7 +5143,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "devilman-crybaby-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "devilman-crybaby-english-subbed-episode-{ep}-english-subbed" },
@@ -5155,7 +5155,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "devils-line-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "devils-line-english-subbed-episode-{ep}-english-subbed" },
@@ -5167,7 +5167,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "diary-of-our-days-at-the-breakwater-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "houkago-teibou-nisshi-english-subbed-episode-{ep}-english-subbed" },
@@ -5179,7 +5179,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "didn-t-i-say-to-make-my-abilities-average-in-the-next-life-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "watashi-nouryoku-wa-heikinchi-de-tte-itta-yo-ne-english-subbed-episode-{ep}-english-subbed" },
@@ -5191,7 +5191,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "digimon-adventure-2020-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "digimon-adventure-2020-english-subbed-episode-{ep}-english-subbed" },
@@ -5203,7 +5203,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "digimon-fusion-digimon-xros-wars-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "digimon-fusion-digimon-xros-wars-episode-{ep}-english-subbed" },
@@ -5215,7 +5215,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "digimon-ghost-game-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "digimon-ghost-game-episode-{ep}-english-subbed" },
@@ -5227,7 +5227,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dimension-w-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dimension-w-english-subbed-episode-{ep}-english-subbed" },
@@ -5239,7 +5239,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dino-girl-gauko-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dino-girl-gauko-episode-{ep}-english-subbed" },
@@ -5251,7 +5251,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "disney-twisted-wonderland-the-animation-episode-of-heartslabyul-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "disney-twisted-wonderland-the-animation-episode-of-heartslabyul-episode-{ep}-english-subbed" },
@@ -5263,7 +5263,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "divine-gate-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "divine-gate-english-subbed-episode-{ep}-english-subbed" },
@@ -5275,7 +5275,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "domestic-girlfriend-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "domestic-na-kanojo-english-subbed-episode-{ep}-english-subbed" },
@@ -5287,7 +5287,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dont-hurt-me-my-healer-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kono-healer-mendokusai-english-subbed-episode-{ep}-english-subbed" },
@@ -5299,7 +5299,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dorei-ku-the-animation-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dorei-ku-the-animation-english-subbed-episode-{ep}-english-subbed" },
@@ -5311,7 +5311,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dorohedoro-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dorohedoro-episode-{ep}-english-subbed" },
@@ -5323,7 +5323,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dororo-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dororo-to-hyakkimaru-english-subbed-episode-{ep}-english-subbed" },
@@ -5335,7 +5335,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dota-dragon-s-blood-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dota-dragon-s-blood-english-subbed-episode-{ep}-english-subbed" },
@@ -5347,7 +5347,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "double-decker-doug-kirill-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "double-decker-doug-kirill-english-subbed-episode-{ep}-english-subbed" },
@@ -5359,7 +5359,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dr-stone-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dr-stone-episode-{ep}-english-subbed" },
@@ -5371,7 +5371,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dragon-ball-daima-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dragon-ball-daima-english-subbed-episode-{ep}-english-subbed" },
@@ -5383,7 +5383,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dragon-ball-movies-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dragon-ball-movies-episode-{ep}-english-subbed" },
@@ -5395,7 +5395,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dragon-ball-super-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dragon-ball-super-english-subbed-episode-{ep}-english-subbed" },
@@ -5407,7 +5407,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dragon-ball-kai-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dragon-ball-kai-english-subbed-episode-{ep}-english-subbed" },
@@ -5419,7 +5419,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dragon-goes-house-hunting-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dragon-ie-wo-kau-english-subbed-episode-{ep}-english-subbed" },
@@ -5431,7 +5431,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dragon-pilot-hisone-and-masotan-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dragon-pilot-hisone-and-masotan-episode-{ep}-english-subbed" },
@@ -5443,7 +5443,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dragon-s-dogma-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dragon-s-dogma-english-subbed-episode-{ep}-english-subbed" },
@@ -5455,7 +5455,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dragonar-academy-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "seikoku-no-dragonar-english-subbed-episode-{ep}-english-subbed" },
@@ -5467,7 +5467,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "draw-this-then-die-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "draw-this-then-die-episode-{ep}-english-subbed" },
@@ -5479,7 +5479,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "drifters-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "drifters-english-subbed-episode-{ep}-english-subbed" },
@@ -5491,7 +5491,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "drifting-dragons-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kuutei-dragons-english-subbed-episode-{ep}-english-subbed" },
@@ -5503,7 +5503,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dropout-idol-fruit-tart-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ochikobore-fruit-tart-english-subbed-episode-{ep}-english-subbed" },
@@ -5515,7 +5515,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dungeon-people-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dungeon-no-naka-no-hito-episode-{ep}-english-subbed" },
@@ -5527,7 +5527,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "durarara-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "durarara-english-subbed-episode-{ep}-english-subbed" },
@@ -5539,7 +5539,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "durarara-x2-ketsu-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "durarara-x2-ketsu-english-subbed-episode-{ep}-english-subbed" },
@@ -5551,7 +5551,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dusk-beyond-the-end-of-the-world-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dusk-beyond-the-end-of-the-world-episode-{ep}-english-subbed" },
@@ -5563,7 +5563,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "early-reins-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "early-reins-english-subbed-episode-{ep}-english-subbed" },
@@ -5575,7 +5575,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "eden-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "eden-english-subbed-episode-{ep}-english-subbed" },
@@ -5587,7 +5587,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "eden-of-the-east-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "eden-of-the-east-english-subbed-episode-{ep}-english-subbed" },
@@ -5599,7 +5599,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "edens-zero-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "edens-zero-english-subbed-episode-{ep}-english-subbed" },
@@ -5611,7 +5611,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "elfen-lied-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "elfen-lied-english-subbed-episode-{ep}-english-subbed" },
@@ -5623,7 +5623,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "emma-a-victorian-romance-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "eikoku-koi-monogatari-emma-english-subbed-episode-{ep}-english-subbed" },
@@ -5635,7 +5635,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "endride-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "endride-english-subbed-episode-{ep}-english-subbed" },
@@ -5647,7 +5647,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "endro-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "endro-english-subbed-episode-{ep}-english-subbed" },
@@ -5659,7 +5659,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "engage-kiss-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "engage-kiss-english-subbed-episode-{ep}-english-subbed" },
@@ -5671,7 +5671,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ensemble-stars-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ensemble-stars-english-subbed-episode-{ep}-english-subbed" },
@@ -5683,7 +5683,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "eureka-seven-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "eureka-seven-english-subbed-episode-{ep}-english-subbed" },
@@ -5695,7 +5695,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "even-given-the-worthless-appraiser-class-im-actually-the-strongest-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "even-given-the-worthless-appraiser-class-im-actually-the-strongest-episode-{ep}-english-subbed" },
@@ -5707,7 +5707,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "exception-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "exception-english-subbed-episode-{ep}-english-subbed" },
@@ -5719,7 +5719,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "flcl-alternative-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "flcl-alternative-english-subbed-episode-{ep}-english-subbed" },
@@ -5731,7 +5731,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "flcl-progressive-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "flcl-progressive-english-subbed-episode-{ep}-english-subbed" },
@@ -5743,7 +5743,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "flcl-shoegaze-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "flcl-shoegaze-english-subbed-episode-{ep}-english-subbed" },
@@ -5755,7 +5755,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "failure-frame-i-became-the-strongest-and-annihilated-everything-with-low-level-spells-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hazurewaku-no-joutai-ijou-skill-de-saikyou-ni-natta-ore-ga-subete-wo-juurin-suru-made-episode-{ep}-english-subbed" },
@@ -5767,7 +5767,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fairy-tail-100-years-quest-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fairy-tail-100-nen-quest-episode-{ep}-english-subbed" },
@@ -5779,7 +5779,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "farming-life-in-another-world-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "farming-life-in-another-world-episode-{ep}-english-subbed" },
@@ -5791,7 +5791,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fate-apocrypha-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fate-apocrypha-episode-{ep}-english-subbed" },
@@ -5803,7 +5803,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fate-extra-last-encore-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fate-extra-last-encore-episode-{ep}-english-subbed" },
@@ -5815,7 +5815,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fate-grand-order-absolute-demonic-front-babylonia-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fate-grand-order-zettai-majuu-sensen-babylonia-english-subbed-episode-{ep}-english-subbed" },
@@ -5827,7 +5827,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fate-zero-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fate-zero-episode-{ep}-english-subbed" },
@@ -5839,7 +5839,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fate-kaleid-liner-prisma-illya-2wei-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fate-kaleid-liner-prisma-illya-2wei-english-subbed-episode-{ep}-english-subbed" },
@@ -5851,7 +5851,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fate-stay-night-unlimited-blade-works-2014-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fate-stay-night-unlimited-blade-works-english-subbed-episode-{ep}-english-subbed" },
@@ -5863,7 +5863,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fate-strange-fake-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fate-strange-fake-episode-{ep}-english-subbed" },
@@ -5875,7 +5875,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fena-pirate-princess-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kaizoku-oujo-english-subbed-episode-{ep}-english-subbed" },
@@ -5887,7 +5887,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fire-force-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fire-force-episode-{ep}-english-subbed" },
@@ -5899,7 +5899,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "first-love-monster-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hatsukoi-monster-english-subbed-episode-{ep}-english-subbed" },
@@ -5911,7 +5911,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fist-of-the-north-star-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hokuto-no-ken-english-subbed-episode-{ep}-english-subbed" },
@@ -5923,7 +5923,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fist-of-the-north-star-hokuto-no-ken-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fist-of-the-north-star-hokuto-no-ken-episode-{ep}-english-subbed" },
@@ -5935,7 +5935,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "flip-flappers-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "flip-flappers-english-subbed-episode-{ep}-english-subbed" },
@@ -5947,7 +5947,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "flower-and-asura-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hana-wa-saku-shura-no-gotoku-episode-{ep}-english-subbed" },
@@ -5959,7 +5959,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "flowering-heart-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "flowering-heart-english-subbed-episode-{ep}-english-subbed" },
@@ -5971,7 +5971,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "flying-witch-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "flying-witch-english-subbed-episode-{ep}-english-subbed" },
@@ -5983,7 +5983,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "food-wars-shokugeki-no-soma-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "food-wars-shokugeki-no-soma-english-subbed-episode-{ep}-english-subbed" },
@@ -5995,7 +5995,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "from-bureaucrat-to-villainess-dads-been-reincarnated-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "akuyaku-reijou-tensei-ojisan-episode-{ep}-english-subbed" },
@@ -6007,7 +6007,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kimi-ni-todoke-from-me-to-you-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kimi-ni-todoke-from-me-to-you-episode-{ep}-english-subbed" },
@@ -6019,7 +6019,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "from-old-country-bumpkin-to-master-swordsman-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "from-old-country-bumpkin-to-master-swordsman-episode-{ep}-english-subbed" },
@@ -6031,7 +6031,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fruits-basket-2019-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fruits-basket-2019-episode-{ep}-english-subbed" },
@@ -6043,7 +6043,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "full-dive-the-ultimate-next-gen-full-dive-rpg-is-even-shittier-than-real-life-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kyuukyoku-shinka-shita-full-dive-rpg-ga-genjitsu-yori-mo-kusoge-dattara-english-subbed-episode-{ep}-english-subbed" },
@@ -6055,7 +6055,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fullmetal-alchemist-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fullmetal-alchemist-episode-{ep}-english-subbed" },
@@ -6067,7 +6067,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fullmetal-alchemist-brotherhood-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fullmetal-alchemist-brotherhood-episode-{ep}-english-subbed" },
@@ -6079,7 +6079,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "future-boy-conan-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mirai-shounen-conan-english-subbed-episode-{ep}-english-subbed" },
@@ -6091,7 +6091,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "future-card-buddyfight-ace-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "future-card-buddyfight-ace-english-subbed-episode-{ep}-english-subbed" },
@@ -6103,7 +6103,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "future-card-buddyfight-battsu-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "future-card-buddyfight-battsu-english-subbed-episode-{ep}-english-subbed" },
@@ -6115,7 +6115,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fuuka-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fuuka-english-subbed-episode-{ep}-english-subbed" },
@@ -6127,7 +6127,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ga-rei-zero-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ga-rei-zero-english-subbed-episode-{ep}-english-subbed" },
@@ -6139,7 +6139,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "galaxy-angel-x-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "galaxy-angel-x-english-subbed-episode-{ep}-english-subbed" },
@@ -6151,7 +6151,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gamera-rebirth-english-dubbed-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gamera-rebirth-english-subbed-episode-{ep}-english-subbed" },
@@ -6163,7 +6163,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gamers-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gamers-english-subbed-episode-{ep}-english-subbed" },
@@ -6175,7 +6175,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "garo-crimson-moon-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "garo-guren-no-tsuki-english-subbed-episode-{ep}-english-subbed" },
@@ -6187,7 +6187,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "garo-the-animation-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "garo-the-animation-english-subbed-episode-{ep}-english-subbed" },
@@ -6199,7 +6199,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "garo-vanishing-line-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "garo-vanishing-line-english-subbed-episode-{ep}-english-subbed" },
@@ -6211,7 +6211,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "garouden-the-way-of-the-lone-wolf-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "garouden-the-way-of-the-lone-wolf-english-subbed-episode-{ep}-english-subbed" },
@@ -6223,7 +6223,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gatchaman-crowds-insight-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gatchaman-crowds-insight-english-subbed-episode-{ep}-english-subbed" },
@@ -6235,7 +6235,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gekidol-actidol-project-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gekidol-english-subbed-episode-{ep}-english-subbed" },
@@ -6247,7 +6247,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "genshiken-2-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "genshiken-nidaime-english-subbed-episode-{ep}-english-subbed" },
@@ -6259,7 +6259,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "getter-robo-arc-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "getter-robo-arc-english-subbed-episode-{ep}-english-subbed" },
@@ -6271,7 +6271,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ghost-in-the-shell-sac-2045-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "koukaku-kidoutai-sac-2045-english-subbed-episode-{ep}-english-subbed" },
@@ -6283,7 +6283,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gintama-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gintama-english-subbed-episode-{ep}-english-subbed" },
@@ -6295,7 +6295,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gintama-mr-ginpachis-zany-class-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gintama-mr-ginpachis-zany-class-episode-{ep}-english-subbed" },
@@ -6307,7 +6307,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "girlfriend-girlfriend-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kanojo-mo-kanojo-english-subbed-episode-{ep}-english-subbed" },
@@ -6319,7 +6319,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "girl-s-frontline-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shao-nu-qian-xian-ren-xing-xiao-ju-chang-english-subbed-episode-{ep}-english-subbed" },
@@ -6331,7 +6331,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "given-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "given-english-subbed-episode-{ep}-english-subbed" },
@@ -6343,7 +6343,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "glass-fleet-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "glass-no-kantai-la-legende-du-vent-de-l-univers-english-subbed-episode-{ep}-english-subbed" },
@@ -6355,7 +6355,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gleipnir-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gleipnir-english-subbed-episode-{ep}-english-subbed" },
@@ -6367,7 +6367,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "smile-pretty-cure-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "smile-pretty-cure-episode-{ep}-english-subbed" },
@@ -6379,7 +6379,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "glitter-force-doki-doki-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "glitter-force-doki-doki-episode-{ep}-english-subbed" },
@@ -6391,7 +6391,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gnosia-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gnosia-episode-{ep}-english-subbed" },
@@ -6403,7 +6403,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "go-for-it-nakamura-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "go-for-it-nakamura-episode-{ep}-english-subbed" },
@@ -6415,7 +6415,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "go-go-loser-ranger-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sentai-daishikkaku-episode-{ep}-english-subbed" },
@@ -6427,7 +6427,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "goblin-slayer-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "goblin-slayer-english-subbed-episode-{ep}-english-subbed" },
@@ -6439,7 +6439,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "god-eater-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "god-eater-english-subbed-episode-{ep}-english-subbed" },
@@ -6451,7 +6451,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gods-game-we-play-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kami-wa-game-ni-ueteiru-episode-{ep}-english-subbed" },
@@ -6463,7 +6463,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "golden-kamuy-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "golden-kamuy-episode-{ep}-english-subbed" },
@@ -6475,7 +6475,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "golden-time-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "golden-time-english-subbed-episode-{ep}-english-subbed" },
@@ -6487,7 +6487,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "good-night-world-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "good-night-world-english-subbed-episode-{ep}-english-subbed" },
@@ -6499,7 +6499,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "goodbye-lara-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "goodbye-lara-episode-{ep}-english-subbed" },
@@ -6511,7 +6511,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "granblue-fantasy-the-animation-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "granblue-fantasy-the-animation-english-subbed-episode-{ep}-english-subbed" },
@@ -6523,7 +6523,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "great-pretender-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "great-pretender-english-subbed-episode-{ep}-english-subbed" },
@@ -6535,7 +6535,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "grimoire-of-zero-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "zero-kara-hajimeru-mahou-no-sho-english-subbed-episode-{ep}-english-subbed" },
@@ -6547,7 +6547,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "grow-up-show-sunflower-circus-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "grow-up-show-sunflower-circus-episode-{ep}-english-subbed" },
@@ -6559,7 +6559,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gundam-build-divers-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gundam-build-divers-english-subbed-episode-{ep}-english-subbed" },
@@ -6571,7 +6571,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gundam-build-fighters-try-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gundam-build-fighters-try-english-subbed-episode-{ep}-english-subbed" },
@@ -6583,7 +6583,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hakata-tonkotsu-ramens-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hakata-tonkotsu-ramens-english-subbed-episode-{ep}-english-subbed" },
@@ -6595,7 +6595,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hakumei-and-mikochi-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hakumei-to-mikochi-english-subbed-episode-{ep}-english-subbed" },
@@ -6607,7 +6607,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hamtaro-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tottoko-hamtarou-english-subbed-episode-{ep}-english-subbed" },
@@ -6619,7 +6619,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hana-kimi-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hana-kimi-episode-{ep}-english-subbed" },
@@ -6631,7 +6631,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hanaori-san-still-wants-to-fight-in-the-next-life-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hanaori-san-still-wants-to-fight-in-the-next-life-episode-{ep}-english-subbed" },
@@ -6643,7 +6643,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hand-shakers-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hand-shakers-english-subbed-episode-{ep}-english-subbed" },
@@ -6655,7 +6655,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "handa-kun-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "handa-kun-english-subbed-episode-{ep}-english-subbed" },
@@ -6667,7 +6667,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "handyman-saitou-in-another-world-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "benriya-saitou-san-isekai-ni-iku-episode-{ep}-english-subbed" },
@@ -6679,7 +6679,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "happy-sugar-life-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "happy-sugar-life-english-subbed-episode-{ep}-english-subbed" },
@@ -6691,7 +6691,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "happy-lesson-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "happy-lesson-tv-english-subbed-episode-{ep}-english-subbed" },
@@ -6703,7 +6703,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "happy-lesson-ova-english-dubbed-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "happy-lesson-ova-english-subbed-episode-{ep}-english-subbed" },
@@ -6715,7 +6715,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "harukana-receive-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "harukana-receive-english-subbed-episode-{ep}-english-subbed" },
@@ -6727,7 +6727,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hatena-illusion-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hatena-illusion-english-subbed-episode-{ep}-english-subbed" },
@@ -6739,7 +6739,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "haven-t-you-heard-i-m-sakamoto-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sakamoto-desu-ga-english-subbed-episode-{ep}-english-subbed" },
@@ -6751,7 +6751,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hayate-the-combat-butler-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hayate-no-gotoku-english-subbed-episode-{ep}-english-subbed" },
@@ -6763,7 +6763,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "headhunted-to-another-world-from-salaryman-to-big-four-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "salaryman-ga-isekai-ni-ittara-shitennou-ni-natta-hanashi-episode-{ep}-english-subbed" },
@@ -6775,7 +6775,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "heaven-official-s-blessing-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tian-guan-ci-fu-english-subbed-episode-{ep}-english-subbed" },
@@ -6787,7 +6787,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "heavenly-delusion-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tengoku-daimakyou-episode-{ep}-english-subbed" },
@@ -6799,7 +6799,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "heavy-object-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "heavy-object-english-subbed-episode-{ep}-english-subbed" },
@@ -6811,7 +6811,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "helck-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "helck-english-subbed-episode-{ep}-english-subbed" },
@@ -6823,7 +6823,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hell-mode-the-hardcore-gamer-dominates-in-another-world-with-garbage-balancing-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hell-mode-the-hardcore-gamer-dominates-in-another-world-with-garbage-balancing-episode-{ep}-english-subbed" },
@@ -6835,7 +6835,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hells-paradise-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hells-paradise-episode-{ep}-english-subbed" },
@@ -6847,7 +6847,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hero-mask-2019-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hero-mask-2019-episode-{ep}-english-subbed" },
@@ -6859,7 +6859,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hero-without-a-class-who-even-needs-skills-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hero-without-a-class-who-even-needs-skills-episode-{ep}-english-subbed" },
@@ -6871,7 +6871,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hetalia-the-world-twinkle-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hetalia-the-world-twinkle-english-subbed-episode-{ep}-english-subbed" },
@@ -6883,7 +6883,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "high-score-girl-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "high-score-girl-english-subbed-episode-{ep}-english-subbed" },
@@ -6895,7 +6895,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "higehiro-after-being-rejected-i-shaved-and-took-in-a-high-school-runaway-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hige-wo-soru-soshite-joshikousei-wo-hirou-english-subbed-episode-{ep}-english-subbed" },
@@ -6907,7 +6907,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "high-school-dxd-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "high-school-dxd-english-subbed-episode-{ep}-english-subbed" },
@@ -6919,7 +6919,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "high-school-dxd-born-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "high-school-dxd-born-english-subbed-episode-{ep}-english-subbed" },
@@ -6931,7 +6931,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "high-school-dxd-new-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "high-school-dxd-new-english-subbed-episode-{ep}-english-subbed" },
@@ -6943,7 +6943,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "high-rise-invasion-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tenkuu-shinpan-english-subbed-episode-{ep}-english-subbed" },
@@ -6955,7 +6955,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "highschool-of-the-dead-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "highschool-of-the-dead-english-subbed-episode-{ep}-english-subbed" },
@@ -6967,7 +6967,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "higurashi-when-they-cry-gou-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "higurashi-no-naku-koro-ni-2020-english-subbed-episode-{ep}-english-subbed" },
@@ -6979,7 +6979,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "himouto-umaru-chan-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "himouto-umaru-chan-english-subbed-episode-{ep}-english-subbed" },
@@ -6991,7 +6991,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "himouto-umaru-chan-s-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "himouto-umaru-chan-s-english-subbed-episode-{ep}-english-subbed" },
@@ -7003,7 +7003,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hina-logic-from-luck-and-logic-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hina-logi-from-luck-logic-english-subbed-episode-{ep}-english-subbed" },
@@ -7015,7 +7015,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hinamatsuri-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hinamatsuri-english-subbed-episode-{ep}-english-subbed" },
@@ -7027,7 +7027,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hinomaru-sumo-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hinomaruzumou-english-subbed-episode-{ep}-english-subbed" },
@@ -7039,7 +7039,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hitorijime-my-hero-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hitorijime-my-hero-english-subbed-episode-{ep}-english-subbed" },
@@ -7051,7 +7051,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hokkaido-gals-are-super-adorable-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dosanko-gal-wa-namara-menkoi-episode-{ep}-english-subbed" },
@@ -7063,7 +7063,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "honey-lemon-soda-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "honey-lemon-soda-english-subbed-episode-{ep}-english-subbed" },
@@ -7075,7 +7075,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "horimiya-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "horimiya-english-subbed-episode-{ep}-english-subbed" },
@@ -7087,7 +7087,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hortensia-saga-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hortensia-saga-english-subbed-episode-{ep}-english-subbed" },
@@ -7099,7 +7099,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "how-i-attended-an-all-guys-mixer-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "goukon-ni-ittara-onna-ga-inakatta-hanashi-episode-{ep}-english-subbed" },
@@ -7111,7 +7111,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "how-not-to-summon-a-demon-lord-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "isekai-maou-to-shoukan-shoujo-no-dorei-majutsu-english-subbed-episode-{ep}-english-subbed" },
@@ -7123,7 +7123,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "how-a-realist-hero-rebuilt-the-kingdom-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "genjitsu-shugi-yuusha-no-oukoku-saikenki-english-subbed-episode-{ep}-english-subbed" },
@@ -7135,7 +7135,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "how-clumsy-you-are-miss-ueno-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ueno-san-wa-bukiyou-english-subbed-episode-{ep}-english-subbed" },
@@ -7147,7 +7147,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hundred-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hundred-english-subbed-episode-{ep}-english-subbed" },
@@ -7159,7 +7159,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "i-got-a-cheat-skill-in-another-world-and-became-unrivaled-in-the-real-world-too-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "i-got-a-cheat-skill-in-another-world-and-became-unrivaled-in-the-real-world-too-episode-{ep}-english-subbed" },
@@ -7171,7 +7171,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "i-left-my-a-rank-party-to-help-my-former-students-reach-the-dungeon-depths-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-rank-party-wo-ridatsu-shita-ore-wa-moto-oshiego-tachi-to-meikyuu-shinbu-wo-mezasu-episode-{ep}-english-subbed" },
@@ -7183,7 +7183,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "i-may-be-a-guild-receptionist-but-ill-solo-any-boss-to-clock-out-on-time-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "guild-no-uketsukejou-desu-ga-zangyou-wa-iya-nanode-boss-wo-solo-toubatsu-shiyou-to-omoimasu-episode-{ep}-english-subbed" },
@@ -7195,7 +7195,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "i-parry-everything-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ore-wa-subete-wo-parry-suru-gyaku-kanchigai-no-sekai-saikyou-wa-boukensha-ni-naritai-episode-{ep}-english-subbed" },
@@ -7207,7 +7207,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "i-shall-survive-using-potions-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "potion-danomi-de-ikinobimasu-episode-{ep}-english-subbed" },
@@ -7219,7 +7219,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "i-want-to-end-this-love-game-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "i-want-to-end-this-love-game-episode-{ep}-english-subbed" },
@@ -7231,7 +7231,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "i-was-reincarnated-as-the-7th-prince-so-i-can-take-my-time-perfecting-my-magical-ability-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tensei-shitara-dainana-ouji-datta-node-kimama-ni-majutsu-wo-kiwamemasu-episode-{ep}-english-subbed" },
@@ -7243,7 +7243,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ill-become-a-villainess-who-goes-down-in-history-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rekishi-ni-nokoru-akujo-ni-naru-zo-episode-{ep}-english-subbed" },
@@ -7255,7 +7255,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "im-living-with-an-otaku-neet-kunoichi-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "neet-kunoichi-to-nazeka-dousei-hajimemashita-episode-{ep}-english-subbed" },
@@ -7267,7 +7267,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "im-quitting-heroing-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yuusha-yamemasu-english-subbed-episode-{ep}-english-subbed" },
@@ -7279,7 +7279,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "i-m-standing-on-a-million-lives-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "i-m-standing-on-a-million-lives-episode-{ep}-english-subbed" },
@@ -7291,7 +7291,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "im-in-love-with-the-villainess-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "watashi-no-oshi-wa-akuyaku-reijou-episode-{ep}-english-subbed" },
@@ -7303,7 +7303,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "im-the-villainess-so-im-taming-the-final-boss-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "akuyaku-reijo-nano-de-last-boss-wo-kattemimashita-english-subbed-episode-{ep}-english-subbed" },
@@ -7315,7 +7315,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "i-ve-been-killing-slimes-for-300-years-and-maxed-out-my-level-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "slime-taoshite-300-nen-shiranai-uchi-ni-level-max-ni-nattemashita-english-subbed-episode-{ep}-english-subbed" },
@@ -7327,7 +7327,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ive-somehow-gotten-stronger-when-i-improved-my-farm-related-skills-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "noumin-kanren-no-skill-bakka-agetetara-nazeka-tsuyoku-natta-english-subbed-episode-{ep}-english-subbed" },
@@ -7339,7 +7339,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "id-0-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "id-0-episode-{ep}-english-subbed" },
@@ -7351,7 +7351,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "id-invaded-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "id-invaded-english-subbed-episode-{ep}-english-subbed" },
@@ -7363,7 +7363,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ikebukuro-west-gate-park-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ikebukuro-west-gate-park-english-subbed-episode-{ep}-english-subbed" },
@@ -7375,7 +7375,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "in-another-world-with-my-smartphone-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "isekai-wa-smartphone-to-tomo-ni-english-subbed-episode-{ep}-english-subbed" },
@@ -7387,7 +7387,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "in-the-clear-moonlit-dusk-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "in-the-clear-moonlit-dusk-episode-{ep}-english-subbed" },
@@ -7399,7 +7399,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "in-the-land-of-leadale-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "leadale-no-daichi-nite-english-subbed-episode-{ep}-english-subbed" },
@@ -7411,7 +7411,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "in-spectre-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kyokou-suiri-english-subbed-episode-{ep}-english-subbed" },
@@ -7423,7 +7423,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "inazuma-eleven-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "inazuma-eleven-english-subbed-episode-{ep}-english-subbed" },
@@ -7435,7 +7435,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "infini-t-force-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "infini-t-force-english-subbed-episode-{ep}-english-subbed" },
@@ -7447,7 +7447,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "infinite-dendrogram-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "infinite-dendrogram-english-subbed-episode-{ep}-english-subbed" },
@@ -7459,7 +7459,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "infinite-stratos-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "infinite-stratos-english-subbed-episode-{ep}-english-subbed" },
@@ -7471,7 +7471,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ingress-the-animation-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ingress-the-animation-episode-{ep}-english-subbed" },
@@ -7483,7 +7483,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "insomniacs-after-school-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kimi-wa-houkago-insomnia-english-subbed-episode-{ep}-english-subbed" },
@@ -7495,7 +7495,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "interlude-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "interlude-english-subbed-episode-{ep}-english-subbed" },
@@ -7507,7 +7507,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "interspecies-reviewers-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ishuzoku-reviewers-english-subbed-episode-{ep}-english-subbed" },
@@ -7519,7 +7519,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "interviews-with-monster-girls-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "demi-chan-wa-kataritai-english-subbed-episode-{ep}-english-subbed" },
@@ -7531,7 +7531,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "inuyasha-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "inuyasha-episode-{ep}-english-subbed" },
@@ -7543,7 +7543,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "irina-the-vampire-cosmonaut-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tsuki-to-laika-to-nosferatu-english-subbed-episode-{ep}-english-subbed" },
@@ -7555,7 +7555,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "is-it-wrong-to-try-to-pick-up-girls-in-a-dungeon-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dungeon-ni-deai-wo-motomeru-no-wa-machigatteiru-darou-ka-english-subbed-episode-{ep}-english-subbed" },
@@ -7567,7 +7567,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "isekai-cheat-magician-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "isekai-cheat-magician-english-subbed-episode-{ep}-english-subbed" },
@@ -7579,7 +7579,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "isekai-office-worker-the-other-worlds-books-depend-on-the-bean-counter-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "isekai-office-worker-the-other-worlds-books-depend-on-the-bean-counter-episode-{ep}-english-subbed" },
@@ -7591,7 +7591,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "isekai-onsen-paradise-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "meitou-isekai-no-yu-kaitakuki-around-40-onsen-mania-no-tensei-saki-wa-nonbiri-onsen-tengoku-deshita-episode-{ep}-english-subbed" },
@@ -7603,7 +7603,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "isekai-quartet-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "isekai-quartet-english-subbed-episode-{ep}-english-subbed" },
@@ -7615,7 +7615,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ishura-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ishura-english-subbed-episode-{ep}-english-subbed" },
@@ -7627,7 +7627,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "izetta-the-last-witch-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shuumatsu-no-izetta-english-subbed-episode-{ep}-english-subbed" },
@@ -7639,7 +7639,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "jaadugar-a-witch-in-mongolia-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jaadugar-a-witch-in-mongolia-episode-{ep}-english-subbed" },
@@ -7651,7 +7651,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "jack-of-all-trades-party-of-none-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jack-of-all-trades-party-of-none-episode-{ep}-english-subbed" },
@@ -7663,7 +7663,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "japan-sinks-2020-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nihon-chinbotsu-2020-english-subbed-episode-{ep}-english-subbed" },
@@ -7675,7 +7675,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "jellyfish-cant-swim-in-the-night-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yoru-no-kurage-wa-oyogenai-episode-{ep}-english-subbed" },
@@ -7687,7 +7687,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "jojo-s-bizarre-adventure-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jojo-no-kimyou-na-bouken-english-subbed-episode-{ep}-english-subbed" },
@@ -7699,7 +7699,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "jojo-s-bizarre-adventure-diamond-is-unbreakable-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jojo-no-kimyou-na-bouken-diamond-wa-kudakenai-english-subbed-episode-{ep}-english-subbed" },
@@ -7711,7 +7711,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "jojo-s-bizarre-adventure-golden-wind-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jojo-no-kimyou-na-bouken-ougon-no-kaze-english-subbed-episode-{ep}-english-subbed" },
@@ -7723,7 +7723,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "jojo-s-bizarre-adventure-stardust-crusaders-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jojo-s-bizarre-adventure-stardust-crusaders-english-subbed-episode-{ep}-english-subbed" },
@@ -7735,7 +7735,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "jojo-s-bizarre-adventure-stone-ocean-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jojo-no-kimyou-na-bouken-stone-ocean-english-subbed-episode-{ep}-english-subbed" },
@@ -7747,7 +7747,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "joker-game-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "joker-game-english-subbed-episode-{ep}-english-subbed" },
@@ -7759,7 +7759,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "jormungand-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jormungand-english-subbed-episode-{ep}-english-subbed" },
@@ -7771,7 +7771,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "juni-taisen-zodiac-war-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "juuni-taisen-english-subbed-episode-{ep}-english-subbed" },
@@ -7783,7 +7783,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "junji-ito-collection-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ito-junji-collection-english-subbed-episode-{ep}-english-subbed" },
@@ -7795,7 +7795,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "just-because-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "just-because-english-subbed-episode-{ep}-english-subbed" },
@@ -7807,7 +7807,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "k-on-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "k-on-english-subbed-episode-{ep}-english-subbed" },
@@ -7819,7 +7819,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "k-return-of-kings-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "k-return-of-kings-english-subbed-episode-{ep}-english-subbed" },
@@ -7831,7 +7831,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kado-the-right-answer-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "seikaisuru-kado-english-subbed-episode-{ep}-english-subbed" },
@@ -7843,7 +7843,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kabaneri-of-the-iron-fortress-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "koutetsujou-no-kabaneri-english-subbed-episode-{ep}-english-subbed" },
@@ -7855,7 +7855,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kaguya-sama-love-is-war-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kaguya-sama-love-is-war-episode-{ep}-english-subbed" },
@@ -7867,7 +7867,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kaiji-ultimate-survivor-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gyakkyou-burai-kaiji-ultimate-survivor-english-subbed-episode-{ep}-english-subbed" },
@@ -7879,7 +7879,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kaiju-girl-caramelise-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kaiju-girl-caramelise-episode-{ep}-english-subbed" },
@@ -7891,7 +7891,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kaiju-no-8-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kaiju-no-8-episode-{ep}-english-subbed" },
@@ -7903,7 +7903,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kakegurui-twin-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kakegurui-twin-episode-{ep}-english-subbed" },
@@ -7915,7 +7915,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kakegurui-compulsive-gambler-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kakegurui-compulsive-gambler-episode-{ep}-english-subbed" },
@@ -7927,7 +7927,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kamisama-kiss-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kamisama-kiss-episode-{ep}-english-subbed" },
@@ -7939,7 +7939,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kandagawa-jet-girls-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kandagawa-jet-girls-english-subbed-episode-{ep}-english-subbed" },
@@ -7951,7 +7951,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "katana-maidens-toji-no-miko-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "toji-no-miko-english-subbed-episode-{ep}-english-subbed" },
@@ -7963,7 +7963,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kaya-chan-isnt-scary-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kaya-chan-isnt-scary-episode-{ep}-english-subbed" },
@@ -7975,7 +7975,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "keep-your-hands-off-eizouken-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "eizouken-ni-wa-te-wo-dasu-na-english-subbed-episode-{ep}-english-subbed" },
@@ -7987,7 +7987,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "keijo-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "keijo-english-subbed-episode-{ep}-english-subbed" },
@@ -7999,7 +7999,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kekkaishi-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kekkaishi-english-subbed-episode-{ep}-english-subbed" },
@@ -8011,7 +8011,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kemono-friends-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kemono-friends-english-subbed-episode-{ep}-english-subbed" },
@@ -8023,7 +8023,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kemono-jihen-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kemono-jihen-english-subbed-episode-{ep}-english-subbed" },
@@ -8035,7 +8035,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kemono-michi-rise-up-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hataage-kemono-michi-english-subbed-episode-{ep}-english-subbed" },
@@ -8047,7 +8047,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kengan-ashura-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kengan-ashura-english-subbed-episode-{ep}-english-subbed" },
@@ -8059,7 +8059,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kenka-banchou-otome-girl-beats-boys-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kenka-banchou-otome-girl-beats-boys-english-subbed-episode-{ep}-english-subbed" },
@@ -8071,7 +8071,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "key-the-metal-idol-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "key-the-metal-idol-english-subbed-episode-{ep}-english-subbed" },
@@ -8083,7 +8083,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kill-blue-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kill-blue-episode-{ep}-english-subbed" },
@@ -8095,7 +8095,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kill-la-kill-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kill-la-kill-english-subbed-episode-{ep}-english-subbed" },
@@ -8107,7 +8107,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "king-of-fighters-another-day-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "king-of-fighters-another-day-english-subbed-episode-{ep}-english-subbed" },
@@ -8119,7 +8119,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "king-s-raid-successors-of-the-will-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "king-s-raid-ishi-wo-tsugumono-tachi-english-subbed-episode-{ep}-english-subbed" },
@@ -8131,7 +8131,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kingdom-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kingdom-episode-{ep}-english-subbed" },
@@ -8143,7 +8143,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kino-s-journey-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kino-no-tabi-the-beautiful-world-english-subbed-episode-{ep}-english-subbed" },
@@ -8155,7 +8155,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kino-s-journey-the-beautiful-world-the-animated-series-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kino-no-tabi-the-beautiful-world-the-animated-series-english-subbed-episode-{ep}-english-subbed" },
@@ -8167,7 +8167,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kirio-fanclub-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kirio-fanclub-episode-{ep}-english-subbed" },
@@ -8179,7 +8179,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kiznaiver-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kiznaiver-english-subbed-episode-{ep}-english-subbed" },
@@ -8191,7 +8191,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "knight-s-magic-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "knight-s-magic-english-subbed-episode-{ep}-english-subbed" },
@@ -8203,7 +8203,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "knights-of-sidonia-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sidonia-no-kishi-knights-of-sidonia-english-subbed-episode-{ep}-english-subbed" },
@@ -8215,7 +8215,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "knights-of-the-zodiac-saint-seiya-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "knights-of-the-zodiac-saint-seiya-english-subbed-episode-{ep}-english-subbed" },
@@ -8227,7 +8227,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kochouki-wakaki-nobunaga-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kochouki-wakaki-nobunaga-english-subbed-episode-{ep}-english-subbed" },
@@ -8239,7 +8239,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kokkoku-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kokkoku-english-subbed-episode-{ep}-english-subbed" },
@@ -8251,7 +8251,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "komi-can-t-communicate-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "komi-san-wa-comyushou-desu-english-subbed-episode-{ep}-english-subbed" },
@@ -8263,7 +8263,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "konosuba-an-explosion-on-this-wonderful-world-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kono-subarashii-sekai-ni-bakuen-wo-episode-{ep}-english-subbed" },
@@ -8275,7 +8275,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "konohana-kitan-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "konohana-kitan-english-subbed-episode-{ep}-english-subbed" },
@@ -8287,7 +8287,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kotaro-lives-alone-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kotarou-wa-hitorigurashi-english-subbed-episode-{ep}-english-subbed" },
@@ -8299,7 +8299,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kowloon-generic-romance-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kowloon-generic-romance-english-subbed-episode-{ep}-english-subbed" },
@@ -8311,7 +8311,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kuma-kuma-kuma-bear-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kuma-kuma-kuma-bear-english-subbed-episode-{ep}-english-subbed" },
@@ -8323,7 +8323,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kuroko-s-basketball-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kuroko-s-basketball-english-subbed-episode-{ep}-english-subbed" },
@@ -8335,7 +8335,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kuromukuro-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kuromukuro-english-subbed-episode-{ep}-english-subbed" },
@@ -8347,7 +8347,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lbx-girls-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "soukou-musume-senki-english-subbed-episode-{ep}-english-subbed" },
@@ -8359,7 +8359,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ladies-versus-butlers-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ladies-versus-butlers-english-subbed-episode-{ep}-english-subbed" },
@@ -8371,7 +8371,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "laid-back-camp-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yuru-camp-english-subbed-episode-{ep}-english-subbed" },
@@ -8383,7 +8383,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "land-of-the-lustrous-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "houseki-no-kuni-english-subbed-episode-{ep}-english-subbed" },
@@ -8395,7 +8395,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "last-hope-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "last-hope-episode-{ep}-english-subbed" },
@@ -8407,7 +8407,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "laughing-under-the-clouds-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "donten-ni-warau-english-subbed-episode-{ep}-english-subbed" },
@@ -8419,7 +8419,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lazarus-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lazarus-english-subbed-episode-{ep}-english-subbed" },
@@ -8431,7 +8431,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "let-this-grieving-soul-retire-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "let-this-grieving-soul-retire-episode-{ep}-english-subbed" },
@@ -8443,7 +8443,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lets-play-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lets-play-episode-{ep}-english-subbed" },
@@ -8455,7 +8455,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "level-1-demon-lord-and-one-room-hero-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lv1-maou-to-one-room-yuusha-episode-{ep}-english-subbed" },
@@ -8467,7 +8467,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "leviathan-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "leviathan-english-subbed-episode-{ep}-english-subbed" },
@@ -8479,7 +8479,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "levius-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "levius-episode-{ep}-english-subbed" },
@@ -8491,7 +8491,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "liar-game-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "liar-game-episode-{ep}-english-subbed" },
@@ -8503,7 +8503,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "liar-liar-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "liar-liar-english-subbed-episode-{ep}-english-subbed" },
@@ -8515,7 +8515,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "life-lessons-with-uramichi-oniisan-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "uramichi-oniisan-english-subbed-episode-{ep}-english-subbed" },
@@ -8527,7 +8527,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "link-click-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "link-click-episode-{ep}-english-subbed" },
@@ -8539,7 +8539,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "listeners-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "listeners-english-subbed-episode-{ep}-english-subbed" },
@@ -8551,7 +8551,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "little-witch-academia-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "little-witch-academia-episode-{ep}-english-subbed" },
@@ -8563,7 +8563,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "log-horizon-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "log-horizon-english-subbed-episode-{ep}-english-subbed" },
@@ -8575,7 +8575,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "loner-life-in-another-world-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hitoribocchi-no-isekai-kouryaku-episode-{ep}-english-subbed" },
@@ -8587,7 +8587,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lookism-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lookism-episode-{ep}-english-subbed" },
@@ -8599,7 +8599,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lord-el-melloi-ii-s-case-files-rail-zeppelin-grace-note-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lord-el-melloi-ii-sei-no-jikenbo-rail-zeppelin-grace-note-english-subbed-episode-{ep}-english-subbed" },
@@ -8611,7 +8611,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lord-of-mysteries-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lord-of-mysteries-episode-{ep}-english-subbed" },
@@ -8623,7 +8623,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lost-song-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lost-song-english-subbed-episode-{ep}-english-subbed" },
@@ -8635,7 +8635,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "love-after-world-domination-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "koi-wa-sekai-seifuku-no-ato-de-english-subbed-episode-{ep}-english-subbed" },
@@ -8647,7 +8647,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "love-flops-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "renai-flops-english-subbed-episode-{ep}-english-subbed" },
@@ -8659,7 +8659,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "love-live-nijigasaki-high-school-idol-club-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "love-live-nijigasaki-gakuen-school-idol-doukoukai-english-subbed-episode-{ep}-english-subbed" },
@@ -8671,7 +8671,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "love-live-sunshine-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "love-live-sunshine-english-subbed-episode-{ep}-english-subbed" },
@@ -8683,7 +8683,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "love-live-superstar-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "love-live-superstar-english-subbed-episode-{ep}-english-subbed" },
@@ -8695,7 +8695,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "love-stage-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "love-stage-english-subbed-episode-{ep}-english-subbed" },
@@ -8707,7 +8707,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "love-through-a-prism-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "love-through-a-prism-episode-{ep}-english-subbed" },
@@ -8719,7 +8719,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "love-tyrant-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "renai-boukun-english-subbed-episode-{ep}-english-subbed" },
@@ -8731,7 +8731,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "love-of-kill-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "koroshi-ai-english-subbed-episode-{ep}-english-subbed" },
@@ -8743,7 +8743,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lovely-complex-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lovely-complex-episode-{ep}-english-subbed" },
@@ -8755,7 +8755,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lucifer-and-the-biscuit-hammer-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hoshi-no-samidare-episode-{ep}-english-subbed" },
@@ -8767,7 +8767,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "luck-logic-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "luck-logic-english-subbed-episode-{ep}-english-subbed" },
@@ -8779,7 +8779,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lupin-iii-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lupin-iii-english-subbed-episode-{ep}-english-subbed" },
@@ -8791,7 +8791,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lupin-iii-2015-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lupin-iii-2015-english-subbed-episode-{ep}-english-subbed" },
@@ -8803,7 +8803,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lupin-iii-part-vi-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lupin-iii-part-vi-english-subbed-episode-{ep}-english-subbed" },
@@ -8815,7 +8815,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lupin-iii-season-2-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lupin-iii-season-2-episode-{ep}-english-subbed" },
@@ -8827,7 +8827,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lycoris-recoil-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lycoris-recoil-english-subbed-episode-{ep}-english-subbed" },
@@ -8839,7 +8839,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mar-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mar-english-subbed-episode-{ep}-english-subbed" },
@@ -8851,7 +8851,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mf-ghost-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mf-ghost-episode-{ep}-english-subbed" },
@@ -8863,7 +8863,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mm-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mm-english-subbed-episode-{ep}-english-subbed" },
@@ -8875,7 +8875,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mad-bull-34-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mad-bull-34-episode-{ep}-english-subbed" },
@@ -8887,7 +8887,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "made-in-abyss-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "made-in-abyss-english-subbed-episode-{ep}-english-subbed" },
@@ -8899,7 +8899,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "maesetsu-opening-act-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "maesetsu-english-subbed-episode-{ep}-english-subbed" },
@@ -8911,7 +8911,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magi-adventure-of-sinbad-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "magi-sinbad-no-bouken-tv-english-subbed-episode-{ep}-english-subbed" },
@@ -8923,7 +8923,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magi-the-kingdom-of-magic-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "magi-the-kingdom-of-magic-english-subbed-episode-{ep}-english-subbed" },
@@ -8935,7 +8935,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magi-the-labyrinth-of-magic-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "magi-the-labyrinth-of-magic-english-subbed-episode-{ep}-english-subbed" },
@@ -8947,7 +8947,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magia-record-puella-magi-madoka-magica-side-story-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "magia-record-mahou-shoujo-madoka-magica-gaiden-english-subbed-episode-{ep}-english-subbed" },
@@ -8959,7 +8959,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magic-maker-isekai-mahou-no-tsukurikata-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "magic-maker-how-to-make-magic-in-another-world-episode-{ep}-english-subbed" },
@@ -8971,7 +8971,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magical-doremi-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ojama-doremi-english-subbed-episode-{ep}-english-subbed" },
@@ -8983,7 +8983,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magical-girl-pretty-sammy-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mahou-shoujo-pretty-sammy-english-subbed-episode-{ep}-english-subbed" },
@@ -8995,7 +8995,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magical-girl-raising-project-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mahou-shoujo-ikusei-keikaku-english-subbed-episode-{ep}-english-subbed" },
@@ -9007,7 +9007,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magical-girl-spec-ops-asuka-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mahou-shoujo-tokushusen-asuka-english-subbed-episode-{ep}-english-subbed" },
@@ -9019,7 +9019,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magical-sempai-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tejina-senpai-english-subbed-episode-{ep}-english-subbed" },
@@ -9031,7 +9031,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magical-warfare-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mahou-sensou-english-subbed-episode-{ep}-english-subbed" },
@@ -9043,7 +9043,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magilumiere-magical-girls-inc-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "magilumiere-magical-girls-inc-episode-{ep}-english-subbed" },
@@ -9055,7 +9055,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "maid-sama-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kaicho-wa-maid-sama-s-episode-{ep}-english-subbed" },
@@ -9067,7 +9067,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "make-my-day-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "make-my-day-english-subbed-episode-{ep}-english-subbed" },
@@ -9079,7 +9079,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "makeine-too-many-losing-heroines-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "make-heroine-ga-oosugiru-episode-{ep}-english-subbed" },
@@ -9091,7 +9091,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "maken-ki-two-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "maken-ki-two-english-subbed-episode-{ep}-english-subbed" },
@@ -9103,7 +9103,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "makina-sans-a-love-bot-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "makina-sans-a-love-bot-english-subbed-episode-{ep}-english-subbed" },
@@ -9115,7 +9115,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "management-of-a-novice-alchemist-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shinmai-renkinjutsushi-no-tenpo-keiei-english-subbed-episode-{ep}-english-subbed" },
@@ -9127,7 +9127,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "march-comes-in-like-a-lion-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "march-comes-in-like-a-lion-episode-{ep}-english-subbed" },
@@ -9139,7 +9139,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "maria-the-virgin-witch-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "maria-the-virgin-witch-junketsu-no-maria-english-subbed-episode-{ep}-english-subbed" },
@@ -9151,7 +9151,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "marriage-toxin-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "marriage-toxin-episode-{ep}-english-subbed" },
@@ -9163,7 +9163,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mars-red-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mars-red-english-subbed-episode-{ep}-english-subbed" },
@@ -9175,7 +9175,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "marvel-disk-wars-the-avengers-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "marvel-disk-wars-the-avengers-english-subbed-episode-{ep}-english-subbed" },
@@ -9187,7 +9187,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "masamune-kun-s-revenge-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "masamune-kun-no-revenge-english-subbed-episode-{ep}-english-subbed" },
@@ -9199,7 +9199,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mashle-english-dubbed-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mashle-english-subbed-episode-{ep}-english-subbed" },
@@ -9211,7 +9211,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "may-i-ask-for-one-final-thing-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "may-i-ask-for-one-final-thing-episode-{ep}-english-subbed" },
@@ -9223,7 +9223,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mayo-chiki-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mayo-chiki-english-subbed-episode-{ep}-english-subbed" },
@@ -9235,7 +9235,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mazinger-z-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mazinger-z-english-subbed-episode-{ep}-english-subbed" },
@@ -9247,7 +9247,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "medabots-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "medabots-english-subbed-episode-{ep}-english-subbed" },
@@ -9259,7 +9259,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "medaka-kuroiwa-is-impervious-to-my-charms-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kuroiwa-medaka-ni-watashi-no-kawaii-ga-tsuujinai-episode-{ep}-english-subbed" },
@@ -9271,7 +9271,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "medalist-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "medalist-episode-{ep}-english-subbed" },
@@ -9283,7 +9283,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "megalo-box-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "megalo-box-english-subbed-episode-{ep}-english-subbed" },
@@ -9295,7 +9295,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "megaman-star-force-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ryuusei-no-rockman-english-subbed-episode-{ep}-english-subbed" },
@@ -9307,7 +9307,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "meiji-tokyo-renka-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "meiji-tokyo-renka-english-subbed-episode-{ep}-english-subbed" },
@@ -9319,7 +9319,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "memories-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "memories-english-subbed-episode-{ep}-english-subbed" },
@@ -9331,7 +9331,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "metallic-rouge-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "metallic-rouge-english-subbed-episode-{ep}-english-subbed" },
@@ -9343,7 +9343,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tokyo-mew-mew-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tokyo-mew-mew-english-subbed-episode-{ep}-english-subbed" },
@@ -9355,7 +9355,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "midnight-occult-civil-servants-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mayonaka-no-occult-koumuin-english-subbed-episode-{ep}-english-subbed" },
@@ -9367,7 +9367,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mieruko-chan-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mieruko-chan-english-subbed-episode-{ep}-english-subbed" },
@@ -9379,7 +9379,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "migi-dali-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "migi-to-dali-episode-{ep}-english-subbed" },
@@ -9391,7 +9391,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mikagura-school-suite-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mikagura-school-suite-mikagura-gakuen-kumikyoku-english-subbed-episode-{ep}-english-subbed" },
@@ -9403,7 +9403,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "milky-subway-the-galactic-limited-express-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "milky-subway-the-galactic-limited-express-episode-{ep}-english-subbed" },
@@ -9415,7 +9415,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "miss-caretaker-of-sunohara-sou-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sunoharasou-no-kanrinin-san-english-subbed-episode-{ep}-english-subbed" },
@@ -9427,7 +9427,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "miss-kobayashi-s-dragon-maid-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kobayashi-san-chi-no-maid-dragon-english-subbed-episode-{ep}-english-subbed" },
@@ -9439,7 +9439,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "miss-kuroitsu-from-the-monster-development-department-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kaijin-kaihatsubu-no-kuroitsu-san-english-subbed-episode-{ep}-english-subbed" },
@@ -9451,7 +9451,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mission-yozakura-family-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mission-yozakura-family-episode-{ep}-english-subbed" },
@@ -9463,7 +9463,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mistin-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kasumin-english-subbed-episode-{ep}-english-subbed" },
@@ -9475,7 +9475,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mistress-kanan-is-devilishly-easy-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mistress-kanan-is-devilishly-easy-episode-{ep}-english-subbed" },
@@ -9487,7 +9487,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mitsuboshi-colors-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mitsuboshi-colors-english-subbed-episode-{ep}-english-subbed" },
@@ -9499,7 +9499,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mix-meisei-story-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mix-meisei-story-english-subbed-episode-{ep}-english-subbed" },
@@ -9511,7 +9511,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mob-psycho-100-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mob-psycho-100-english-subbed-episode-{ep}-english-subbed" },
@@ -9523,7 +9523,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-unicorn-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-unicorn-episode-{ep}-english-subbed" },
@@ -9535,7 +9535,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-unicorn-re-0096-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-unicorn-re-0096-english-subbed-episode-{ep}-english-subbed" },
@@ -9547,7 +9547,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-gquuuuuux-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-gquuuuuux-english-subbed-episode-{ep}-english-subbed" },
@@ -9559,7 +9559,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-iron-blooded-orphans-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-iron-blooded-orphans-english-subbed-episode-{ep}-english-subbed" },
@@ -9571,7 +9571,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-requiem-for-vengeance-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kidou-senshi-gundam-fukushuu-no-requiem-episode-{ep}-english-subbed" },
@@ -9583,7 +9583,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-the-origin-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-the-origin-english-subbed-episode-{ep}-english-subbed" },
@@ -9595,7 +9595,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-the-witch-from-mercury-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-the-witch-from-mercury-english-subbed-episode-{ep}-english-subbed" },
@@ -9607,7 +9607,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mono-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mono-english-subbed-episode-{ep}-english-subbed" },
@@ -9619,7 +9619,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mononoke-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mononoke-english-subbed-episode-{ep}-english-subbed" },
@@ -9631,7 +9631,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "monster-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "monster-english-subbed-episode-{ep}-english-subbed" },
@@ -9643,7 +9643,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "monster-girl-doctor-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "monster-musume-no-oishasan-english-subbed-episode-{ep}-english-subbed" },
@@ -9655,7 +9655,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "monster-hunter-stories-ride-on-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "monster-hunter-stories-ride-on-english-subbed-episode-{ep}-english-subbed" },
@@ -9667,7 +9667,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "monster-musume-everyday-life-with-monster-girls-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "monster-musume-no-iru-nichijou-english-subbed-episode-{ep}-english-subbed" },
@@ -9679,7 +9679,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gekkan-shoujo-nozaki-kun-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gekkan-shoujo-nozaki-kun-english-subbed-episode-{ep}-english-subbed" },
@@ -9691,7 +9691,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "moonlight-mile-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "moonlight-mile-english-subbed-episode-{ep}-english-subbed" },
@@ -9703,7 +9703,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "moriarty-the-patriot-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yuukoku-no-moriarty-english-subbed-episode-{ep}-english-subbed" },
@@ -9715,7 +9715,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mother-of-the-goddess-dormitory-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "megami-ryou-no-ryoubo-kun-english-subbed-episode-{ep}-english-subbed" },
@@ -9727,7 +9727,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "motto-to-love-ru-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "motto-to-love-ru-english-subbed-episode-{ep}-english-subbed" },
@@ -9739,7 +9739,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mr-osomatsu-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "osomatsu-san-english-subbed-episode-{ep}-english-subbed" },
@@ -9751,7 +9751,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mr-tonegawa-middle-management-blues-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mr-tonegawa-middle-management-blues-episode-{ep}-english-subbed" },
@@ -9763,7 +9763,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "muhyo-roji-s-bureau-of-supernatural-investigation-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "muhyo-to-rouji-no-mahouritsu-soudan-jimusho-english-subbed-episode-{ep}-english-subbed" },
@@ -9775,7 +9775,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "murai-in-love-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "murai-no-koi-episode-{ep}-english-subbed" },
@@ -9787,7 +9787,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mushoku-tensei-jobless-reincarnation-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mushoku-tensei-jobless-reincarnation-episode-{ep}-english-subbed" },
@@ -9799,7 +9799,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "muv-luv-alternative-total-eclipse-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "muv-luv-alternative-total-eclipse-english-subbed-episode-{ep}-english-subbed" },
@@ -9811,7 +9811,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-bride-is-a-mermaid-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "seto-no-hanayome-english-subbed-episode-{ep}-english-subbed" },
@@ -9823,7 +9823,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-clueless-first-friend-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jijou-wo-shiranai-tenkousei-ga-guigui-kuru-episode-{ep}-english-subbed" },
@@ -9835,7 +9835,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-dear-marie-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "boku-no-marie-english-subbed-episode-{ep}-english-subbed" },
@@ -9847,7 +9847,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-deer-friend-nokotan-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shikanoko-nokonoko-koshitantan-episode-{ep}-english-subbed" },
@@ -9859,7 +9859,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-dress-up-darling-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sono-bisque-doll-wa-koi-wo-suru-english-subbed-episode-{ep}-english-subbed" },
@@ -9871,7 +9871,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-first-girlfriend-is-a-gal-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hajimete-no-gal-english-subbed-episode-{ep}-english-subbed" },
@@ -9883,7 +9883,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-gift-lvl-9999-unlimited-gacha-backstabbed-in-a-backwater-dungeon-im-out-for-revenge-english-subbed-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "my-gift-lvl-9999-unlimited-gacha-backstabbed-in-a-backwater-dungeon-im-out-for-revenge-english-subbed-episode-{ep}-english-subbed" },
@@ -9895,7 +9895,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-girlfriend-is-shobitch-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "boku-no-kanojo-ga-majimesugiru-sho-bitch-na-ken-english-subbed-episode-{ep}-english-subbed" },
@@ -9907,7 +9907,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-happy-marriage-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "my-happy-marriage-episode-{ep}-english-subbed" },
@@ -9919,7 +9919,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-hero-academia-vigilantes-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "my-hero-academia-vigilantes-episode-{ep}-english-subbed" },
@@ -9931,7 +9931,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-home-hero-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "my-home-hero-english-subbed-episode-{ep}-english-subbed" },
@@ -9943,7 +9943,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-instant-death-ability-is-so-overpowered-no-one-in-this-other-world-stands-a-chance-against-me-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sokushi-cheat-ga-saikyou-sugite-isekai-no-yatsura-ga-marude-aite-ni-naranai-n-desu-ga-episode-{ep}-english-subbed" },
@@ -9955,7 +9955,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-love-story-with-yamada-kun-at-lv999-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yamada-kun-to-lv999-no-koi-wo-suru-episode-{ep}-english-subbed" },
@@ -9967,7 +9967,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-melody-kuromi-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "my-melody-kuromi-episode-{ep}-english-subbed" },
@@ -9979,7 +9979,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-next-life-as-a-villainess-all-routes-lead-to-doom-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "otome-game-no-hametsu-flag-shika-nai-akuyaku-reijou-ni-tensei-shiteshimatta-english-subbed-episode-{ep}-english-subbed" },
@@ -9991,7 +9991,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-roommate-is-a-cat-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "doukyonin-wa-hiza-tokidoki-atama-no-ue-english-subbed-episode-{ep}-english-subbed" },
@@ -10003,7 +10003,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-senpai-is-annoying-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "senpai-ga-uzai-kouhai-no-hanashi-english-subbed-episode-{ep}-english-subbed" },
@@ -10015,7 +10015,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-status-as-an-assassin-obviously-exceeds-the-heros-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "my-status-as-an-assassin-obviously-exceeds-the-heros-episode-{ep}-english-subbed" },
@@ -10027,7 +10027,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-teen-romantic-comedy-snafu-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yahari-ore-no-seishun-love-come-wa-machigatteiru-my-teen-romantic-comedy-snafu-english-subbed-episode-{ep}-english-subbed" },
@@ -10039,7 +10039,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-tiny-senpai-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "uchi-no-kaisha-no-chiisai-senpai-no-hanashi-episode-{ep}-english-subbed" },
@@ -10051,7 +10051,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-unique-skill-makes-me-op-even-at-level-1-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "level-1-dakedo-unique-skill-de-saikyou-desu-episode-{ep}-english-subbed" },
@@ -10063,7 +10063,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "myriad-colors-phantom-world-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "musaigen-no-phantom-world-english-subbed-episode-{ep}-english-subbed" },
@@ -10075,7 +10075,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mysteria-friends-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "manaria-friends-english-subbed-episode-{ep}-english-subbed" },
@@ -10087,7 +10087,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mysterious-joker-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mysterious-joker-kaitou-joker-english-subbed-episode-{ep}-english-subbed" },
@@ -10099,7 +10099,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "nagi-asu-a-lull-in-the-sea-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nagi-asu-a-lull-in-the-sea-episode-{ep}-english-subbed" },
@@ -10111,7 +10111,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "nanbaka-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nanbaka-english-subbed-episode-{ep}-english-subbed" },
@@ -10123,7 +10123,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "naruto-movies-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "naruto-movies-episode-{ep}-english-subbed" },
@@ -10135,7 +10135,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "naruto-shippuden-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "naruto-shippuden-english-subbed-episode-{ep}-english-subbed" },
@@ -10147,7 +10147,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "natsumes-book-of-friends-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "natsume-yuujinchou-english-subbed-episode-{ep}-english-subbed" },
@@ -10159,7 +10159,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "needy-girl-overdose-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "needy-girl-overdose-episode-{ep}-english-subbed" },
@@ -10171,7 +10171,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "nekopara-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nekopara-english-subbed-episode-{ep}-english-subbed" },
@@ -10183,7 +10183,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "new-game-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "new-game-english-subbed-episode-{ep}-english-subbed" },
@@ -10195,7 +10195,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "new-panty-stocking-with-garterbelt-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "new-panty-stocking-with-garterbelt-episode-{ep}-english-subbed" },
@@ -10207,7 +10207,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "new-saga-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "new-saga-english-subbed-episode-{ep}-english-subbed" },
@@ -10219,7 +10219,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "nichijou-my-ordinary-life-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nichijou-english-subbed-episode-{ep}-english-subbed" },
@@ -10231,7 +10231,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "nina-the-starry-bride-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hoshifuru-oukoku-no-nina-episode-{ep}-english-subbed" },
@@ -10243,7 +10243,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ningen-fushin-adventurers-who-dont-believe-in-humanity-will-save-the-world-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ningen-fushin-no-boukensha-tachi-ga-sekai-wo-sukuu-you-desu-episode-{ep}-english-subbed" },
@@ -10255,7 +10255,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ninja-kamui-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ninja-kamui-episode-{ep}-english-subbed" },
@@ -10267,7 +10267,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ninja-slayer-from-animation-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ninja-slayer-from-animation-english-subbed-episode-{ep}-english-subbed" },
@@ -10279,7 +10279,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ninja-vs-gokudo-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ninja-vs-gokudo-episode-{ep}-english-subbed" },
@@ -10291,7 +10291,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "nippon-sangoku-the-three-nations-of-the-crimson-sun-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nippon-sangoku-the-three-nations-of-the-crimson-sun-episode-{ep}-english-subbed" },
@@ -10303,7 +10303,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "no-game-no-life-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "no-game-no-life-episode-{ep}-english-subbed" },
@@ -10315,7 +10315,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "no-guns-life-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "no-guns-life-english-subbed-episode-{ep}-english-subbed" },
@@ -10327,7 +10327,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "no-longer-allowed-in-another-world-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "isekai-shikkaku-episode-{ep}-english-subbed" },
@@ -10339,7 +10339,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "noragami-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "noragami-english-subbed-episode-{ep}-english-subbed" },
@@ -10351,7 +10351,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "noragami-aragoto-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "noragami-aragoto-english-subbed-episode-{ep}-english-subbed" },
@@ -10363,7 +10363,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "nura-rise-of-the-yokai-clan-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nurarihyon-no-mago-english-subbed-episode-{ep}-english-subbed" },
@@ -10375,7 +10375,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "nurse-witch-komugi-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nurse-witch-komugi-chan-magikarte-english-subbed-episode-{ep}-english-subbed" },
@@ -10387,7 +10387,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "nyaight-of-the-living-cat-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nyaight-of-the-living-cat-english-subbed-episode-{ep}-english-subbed" },
@@ -10399,7 +10399,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "o-maidens-in-your-savage-season-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "araburu-kisetsu-no-otome-domo-yo-english-subbed-episode-{ep}-english-subbed" },
@@ -10411,7 +10411,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "occultic-nine-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "occultic-nine-english-subbed-episode-{ep}-english-subbed" },
@@ -10423,7 +10423,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "odd-taxi-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "odd-taxi-english-subbed-episode-{ep}-english-subbed" },
@@ -10435,7 +10435,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "oedo-fire-slayer-the-legend-of-phoenix-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "oedo-fire-slayer-the-legend-of-phoenix-episode-{ep}-english-subbed" },
@@ -10447,7 +10447,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "once-upon-a-witchs-death-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "once-upon-a-witchs-death-english-subbed-episode-{ep}-english-subbed" },
@@ -10459,7 +10459,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "oni-thunder-gods-tale-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "oni-thunder-gods-tale-english-subbed-episode-{ep}-english-subbed" },
@@ -10471,7 +10471,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "onigiri-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "onigiri-english-subbed-episode-{ep}-english-subbed" },
@@ -10483,7 +10483,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "onihei-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "onihei-english-subbed-episode-{ep}-english-subbed" },
@@ -10495,7 +10495,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "onmyo-kaiten-rebirth-verse-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "onmyo-kaiten-rebirth-verse-english-subbed-episode-{ep}-english-subbed" },
@@ -10507,7 +10507,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "onmyoji-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "onmyouji-episode-{ep}-english-subbed" },
@@ -10519,7 +10519,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ooku-the-inner-chambers-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ooku-the-inner-chambers-english-subbed-episode-{ep}-english-subbed" },
@@ -10531,7 +10531,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "orange-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "orange-english-subbed-episode-{ep}-english-subbed" },
@@ -10543,7 +10543,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "oshi-no-ko-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "oshi-no-ko-episode-{ep}-english-subbed" },
@@ -10555,7 +10555,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "otherside-picnic-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "urasekai-picnic-english-subbed-episode-{ep}-english-subbed" },
@@ -10567,7 +10567,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "our-last-crusade-or-the-rise-of-a-new-world-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kimi-to-boku-no-saigo-no-senjou-aruiwa-sekai-ga-hajimaru-seisen-english-subbed-episode-{ep}-english-subbed" },
@@ -10579,7 +10579,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ouran-high-school-host-club-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ouran-koukou-host-club-english-subbed-episode-{ep}-english-subbed" },
@@ -10591,7 +10591,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "outbreak-company-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "outbreak-company-english-subbed-episode-{ep}-english-subbed" },
@@ -10603,7 +10603,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "overlord-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "overlord-english-subbed-episode-{ep}-english-subbed" },
@@ -10615,7 +10615,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pandora-in-the-crimson-shell-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "koukaku-no-pandora-english-subbed-episode-{ep}-english-subbed" },
@@ -10627,7 +10627,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "parallel-world-pharmacy-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "isekai-yakkyoku-english-subbed-episode-{ep}-english-subbed" },
@@ -10639,7 +10639,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "parasyte-the-maxim-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "parasyte-the-maxim-english-subbed-episode-{ep}-english-subbed" },
@@ -10651,7 +10651,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pass-the-monster-meat-milady-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "pass-the-monster-meat-milady-episode-{ep}-english-subbed" },
@@ -10663,7 +10663,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "patlabor-the-mobile-police-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kidou-keisatsu-patlabor-english-subbed-episode-{ep}-english-subbed" },
@@ -10675,7 +10675,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "patlabor-the-mobile-police-the-tv-series-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kidou-keisatsu-patlabor-on-television-english-subbed-episode-{ep}-english-subbed" },
@@ -10687,7 +10687,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "petals-of-reincarnation-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "petals-of-reincarnation-episode-{ep}-english-subbed" },
@@ -10699,7 +10699,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "peter-grill-and-the-philosopher-s-time-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "peter-grill-to-kenja-no-jikan-english-subbed-episode-{ep}-english-subbed" },
@@ -10711,7 +10711,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "phantom-of-the-idol-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kami-kuzu-idol-english-subbed-episode-{ep}-english-subbed" },
@@ -10723,7 +10723,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "phantom-the-animation-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "phantom-the-animation-english-subbed-episode-{ep}-english-subbed" },
@@ -10735,7 +10735,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "piano-forest-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "piano-forest-episode-{ep}-english-subbed" },
@@ -10747,7 +10747,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "piano-the-melody-of-a-young-girl-s-heart-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "piano-english-subbed-episode-{ep}-english-subbed" },
@@ -10759,7 +10759,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "planetarian-the-reverie-of-a-little-planet-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "planetarian-chiisana-hoshi-no-yume-english-subbed-episode-{ep}-english-subbed" },
@@ -10771,7 +10771,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "platinum-end-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "platinum-end-english-subbed-episode-{ep}-english-subbed" },
@@ -10783,7 +10783,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "plunderer-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "plunderer-english-subbed-episode-{ep}-english-subbed" },
@@ -10795,7 +10795,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "plus-sized-elf-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "elf-san-wa-yaserarenai-episode-{ep}-english-subbed" },
@@ -10807,7 +10807,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pokemon-evolutions-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "pokemon-evolutions-english-subbed-episode-{ep}-english-subbed" },
@@ -10819,7 +10819,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pokemon-horizons-the-series-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "pokemon-horizons-the-series-episode-{ep}-english-subbed" },
@@ -10831,7 +10831,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-1-indigo-league-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-1-indigo-league-episode-{ep}-english-subbed" },
@@ -10843,7 +10843,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-19-xyz-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-19-xyz-english-subbed-episode-{ep}-english-subbed" },
@@ -10855,7 +10855,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-20-sun-moon-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-20-sun-moon-english-subbed-episode-{ep}-english-subbed" },
@@ -10867,7 +10867,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-23-pokemon-journeys-the-series-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-23-pokemon-journeys-the-series-episode-{ep}-english-subbed" },
@@ -10879,7 +10879,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-24-master-journeys-the-series-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-24-master-journeys-the-series-english-subbed-episode-{ep}-english-subbed" },
@@ -10891,7 +10891,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-25-ultimate-journeys-the-series-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-25-ultimate-journeys-the-series-english-subbed-episode-{ep}-english-subbed" },
@@ -10903,7 +10903,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pokemon-twilight-wings-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "pokemon-twilight-wings-english-subbed-episode-{ep}-english-subbed" },
@@ -10915,7 +10915,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pop-team-epic-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "poputepipikku-english-subbed-episode-{ep}-english-subbed" },
@@ -10927,7 +10927,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "possibly-the-greatest-alchemist-of-all-time-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "izure-saikyou-no-renkinjutsushi-episode-{ep}-english-subbed" },
@@ -10939,7 +10939,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pretty-boy-detective-club-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bishounen-tanteidan-english-subbed-episode-{ep}-english-subbed" },
@@ -10951,7 +10951,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "futari-wa-pretty-cure-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "futari-wa-pretty-cure-episode-{ep}-english-subbed" },
@@ -10963,7 +10963,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "prince-of-stride-alternative-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "prince-of-stride-alternative-english-subbed-episode-{ep}-english-subbed" },
@@ -10975,7 +10975,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "princess-knight-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ribbon-no-kishi-english-subbed-episode-{ep}-english-subbed" },
@@ -10987,7 +10987,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "princess-principal-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "princess-principal-english-subbed-episode-{ep}-english-subbed" },
@@ -10999,7 +10999,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "prison-school-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "prison-school-english-subbed-episode-{ep}-english-subbed" },
@@ -11011,7 +11011,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "problem-children-are-coming-from-another-world-aren-t-they-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mondaiji-tachi-ga-isekai-kara-kuru-sou-desu-yo-english-subbed-episode-{ep}-english-subbed" },
@@ -11023,7 +11023,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "psycho-pass-2-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "psycho-pass-2-english-subbed-episode-{ep}-english-subbed" },
@@ -11035,7 +11035,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "psycho-pass-3-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "psycho-pass-3-english-subbed-episode-{ep}-english-subbed" },
@@ -11047,7 +11047,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "puella-magi-madoka-magica-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mahou-shoujo-madoka-magica-english-subbed-episode-{ep}-english-subbed" },
@@ -11059,7 +11059,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "punirunes-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "punirunes-english-subbed-episode-{ep}-english-subbed" },
@@ -11071,7 +11071,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "puraore-pride-of-orange-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "puraore-pride-of-orange-english-subbed-episode-{ep}-english-subbed" },
@@ -11083,7 +11083,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "puzzle-dragons-x-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "puzzle-dragons-cross-english-subbed-episode-{ep}-english-subbed" },
@@ -11095,7 +11095,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "quality-assurance-in-another-world-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kono-sekai-wa-fukanzen-sugiru-episode-{ep}-english-subbed" },
@@ -11107,7 +11107,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rerided-derrida-who-leaps-through-time-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rerided-tokigoe-no-derrida-english-subbed-episode-{ep}-english-subbed" },
@@ -11119,7 +11119,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rwby-ice-queendom-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rwby-hyousetsu-teikoku-english-subbed-episode-{ep}-english-subbed" },
@@ -11131,7 +11131,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "radiant-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "radiant-english-subbed-episode-{ep}-english-subbed" },
@@ -11143,7 +11143,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rage-of-bahamut-genesis-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shingeki-no-bahamut-genesis-english-subbed-episode-{ep}-english-subbed" },
@@ -11155,7 +11155,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ragna-crimson-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ragna-crimson-english-subbed-episode-{ep}-english-subbed" },
@@ -11167,7 +11167,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rainbow-days-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nijiiro-days-english-subbed-episode-{ep}-english-subbed" },
@@ -11179,7 +11179,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ranking-of-kings-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ousama-ranking-english-subbed-episode-{ep}-english-subbed" },
@@ -11191,7 +11191,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ranma-%c2%bd-2024-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ranma-%c2%bd-2024-english-subbed-episode-{ep}-english-subbed" },
@@ -11203,7 +11203,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rascal-does-not-dream-of-bunny-girl-senpai-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rascal-does-not-dream-of-bunny-girl-senpai-episode-{ep}-english-subbed" },
@@ -11215,7 +11215,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rascal-does-not-dream-of-santa-claus-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rascal-does-not-dream-of-santa-claus-episode-{ep}-english-subbed" },
@@ -11227,7 +11227,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "raven-of-the-inner-palace-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "koukyuu-no-karasu-english-subbed-episode-{ep}-english-subbed" },
@@ -11239,7 +11239,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "re-main-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "re-main-english-subbed-episode-{ep}-english-subbed" },
@@ -11251,7 +11251,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "remonster-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "remonster-english-subbed-episode-{ep}-english-subbed" },
@@ -11263,7 +11263,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "re-zero-starting-life-in-another-world-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "re-zero-starting-life-in-another-world-episode-{ep}-english-subbed" },
@@ -11275,7 +11275,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "relife-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "relife-english-subbed-episode-{ep}-english-subbed" },
@@ -11287,7 +11287,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "3d-kanojo-real-girl-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "3d-kanojo-real-girl-episode-{ep}-english-subbed" },
@@ -11299,7 +11299,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "reborn-as-a-vending-machine-i-now-wander-the-dungeon-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "reborn-as-a-vending-machine-i-now-wander-the-dungeon-episode-{ep}-english-subbed" },
@@ -11311,7 +11311,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "record-of-grancrest-war-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "grancrest-senki-english-subbed-episode-{ep}-english-subbed" },
@@ -11323,7 +11323,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "record-of-ragnarok-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "record-of-ragnarok-episode-{ep}-english-subbed" },
@@ -11335,7 +11335,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "recovery-of-an-mmo-junkie-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "net-juu-no-susume-english-subbed-episode-{ep}-english-subbed" },
@@ -11347,7 +11347,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "regalia-the-three-sacred-stars-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "regalia-the-three-sacred-stars-english-subbed-episode-{ep}-english-subbed" },
@@ -11359,7 +11359,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "reign-of-the-seven-spellblades-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nanatsu-no-maken-ga-shihai-suru-episode-{ep}-english-subbed" },
@@ -11371,7 +11371,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "reincarnated-as-a-dragon-hatchling-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "reincarnated-as-a-dragon-hatchling-episode-{ep}-english-subbed" },
@@ -11383,7 +11383,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "reincarnated-as-a-sword-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tensei-shitara-ken-deshita-english-subbed-episode-{ep}-english-subbed" },
@@ -11395,7 +11395,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "release-the-spyce-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "release-the-spyce-english-subbed-episode-{ep}-english-subbed" },
@@ -11407,7 +11407,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "remake-our-life-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bokutachi-no-remake-english-subbed-episode-{ep}-english-subbed" },
@@ -11419,7 +11419,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rent-a-girlfriend-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rent-a-girlfriend-episode-{ep}-english-subbed" },
@@ -11431,7 +11431,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "requiem-of-the-rose-king-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "baraou-no-souretsu-english-subbed-episode-{ep}-english-subbed" },
@@ -11443,7 +11443,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "restaurant-to-another-world-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "isekai-shokudou-english-subbed-episode-{ep}-english-subbed" },
@@ -11455,7 +11455,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "revenger-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "revenger-english-subbed-episode-{ep}-english-subbed" },
@@ -11467,7 +11467,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "revisions-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "revisions-episode-{ep}-english-subbed" },
@@ -11479,7 +11479,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "revue-starlight-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shoujo-kageki-revue-starlight-english-subbed-episode-{ep}-english-subbed" },
@@ -11491,7 +11491,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rick-and-morty-the-anime-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rick-and-morty-the-anime-english-subbed-episode-{ep}-english-subbed" },
@@ -11503,7 +11503,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rilakkuma-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rilakkuma-episode-{ep}-english-subbed" },
@@ -11515,7 +11515,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rilakkuma-and-kaoru-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rilakkuma-to-kaoru-san-english-subbed-episode-{ep}-english-subbed" },
@@ -11527,7 +11527,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rinshi-ekoda-chan-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rinshi-ekoda-chan-english-subbed-episode-{ep}-english-subbed" },
@@ -11539,7 +11539,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rio-rainbow-gate-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rio-rainbow-gate-english-subbed-episode-{ep}-english-subbed" },
@@ -11551,7 +11551,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rising-impact-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rising-impact-english-subbed-episode-{ep}-english-subbed" },
@@ -11563,7 +11563,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "robihachi-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "robihachi-english-subbed-episode-{ep}-english-subbed" },
@@ -11575,7 +11575,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rock-is-a-ladys-modesty-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rock-is-a-ladys-modesty-episode-{ep}-english-subbed" },
@@ -11587,7 +11587,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rokka-braves-of-the-six-flowers-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rokka-no-yuusha-english-subbed-episode-{ep}-english-subbed" },
@@ -11599,7 +11599,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "roll-over-and-die-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "roll-over-and-die-episode-{ep}-english-subbed" },
@@ -11611,7 +11611,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "romantic-killer-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "romantic-killer-english-subbed-episode-{ep}-english-subbed" },
@@ -11623,7 +11623,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rooster-fighter-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rooster-fighter-episode-{ep}-english-subbed" },
@@ -11635,7 +11635,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rumble-garanndoll-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gyakuten-sekai-no-denchi-shoujo-english-subbed-episode-{ep}-english-subbed" },
@@ -11647,7 +11647,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "run-with-the-wind-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kaze-ga-tsuyoku-fuiteiru-english-subbed-episode-{ep}-english-subbed" },
@@ -11659,7 +11659,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rurouni-kenshin-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rurouni-kenshin-meiji-kenkaku-romantan-2023-english-subbed-episode-{ep}-english-subbed" },
@@ -11671,7 +11671,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sd-gundam-sangokuden-brave-battle-warriors-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sd-gundam-sangokuden-brave-battle-warriors-episode-{ep}-english-subbed" },
@@ -11683,7 +11683,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sk8-the-infinity-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sk8-the-infinity-english-subbed-episode-{ep}-english-subbed" },
@@ -11695,7 +11695,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ssss-dynazenon-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ssss-dynazenon-english-subbed-episode-{ep}-english-subbed" },
@@ -11707,7 +11707,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ssss-gridman-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ssss-gridman-english-subbed-episode-{ep}-english-subbed" },
@@ -11719,7 +11719,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sacrificial-princess-and-the-king-of-beasts-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "niehime-to-kemono-no-ou-english-subbed-episode-{ep}-english-subbed" },
@@ -11731,7 +11731,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "saga-of-tanya-the-evil-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "saga-of-tanya-the-evil-episode-{ep}-english-subbed" },
@@ -11743,7 +11743,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sailor-moon-crystal-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sailor-moon-crystal-english-subbed-episode-{ep}-english-subbed" },
@@ -11755,7 +11755,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sailor-moon-sailor-stars-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bishoujo-senshi-sailor-moon-sailor-stars-english-subbed-episode-{ep}-english-subbed" },
@@ -11767,7 +11767,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sailor-moon-supers-viz-dub-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sailor-moon-supers-viz-dub-episode-{ep}-english-subbed" },
@@ -11779,7 +11779,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "saint-cecilia-and-pastor-lawrence-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shiro-seijo-to-kuro-bokushi-episode-{ep}-english-subbed" },
@@ -11791,7 +11791,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "saint-seiya-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "saint-seiya-episode-{ep}-english-subbed" },
@@ -11803,7 +11803,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "saiyuki-reload-blast-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "saiyuuki-reload-blast-english-subbed-episode-{ep}-english-subbed" },
@@ -11815,7 +11815,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sakamoto-days-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sakamoto-days-english-subbed-episode-{ep}-english-subbed" },
@@ -11827,7 +11827,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sakura-quest-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sakura-quest-english-subbed-episode-{ep}-english-subbed" },
@@ -11839,7 +11839,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sakura-wars-the-animation-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shin-sakura-taisen-the-animation-english-subbed-episode-{ep}-english-subbed" },
@@ -11851,7 +11851,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "salaryman-s-club-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ryman-s-club-english-subbed-episode-{ep}-english-subbed" },
@@ -11863,7 +11863,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "samurai-7-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "samurai-7-episode-{ep}-english-subbed" },
@@ -11875,7 +11875,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "samurai-champloo-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "samurai-champloo-episode-{ep}-english-subbed" },
@@ -11887,7 +11887,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "samurai-warriors-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "samurai-warriors-sengoku-musou-english-subbed-episode-{ep}-english-subbed" },
@@ -11899,7 +11899,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sand-land-the-series-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sand-land-the-series-english-subbed-episode-{ep}-english-subbed" },
@@ -11911,7 +11911,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sanda-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sanda-episode-{ep}-english-subbed" },
@@ -11923,7 +11923,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sarazanmai-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sarazanmai-english-subbed-episode-{ep}-english-subbed" },
@@ -11935,7 +11935,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sasaki-and-miyano-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sasaki-to-miyano-english-subbed-episode-{ep}-english-subbed" },
@@ -11947,7 +11947,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sasaki-and-peeps-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sasaki-to-pii-chan-episode-{ep}-english-subbed" },
@@ -11959,7 +11959,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "saving-80000-gold-in-another-world-for-my-retirement-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rougo-ni-sonaete-isekai-de-8-manmai-no-kinka-wo-tamemasu-episode-{ep}-english-subbed" },
@@ -11971,7 +11971,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "scarlet-nexus-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "scarlet-nexus-english-subbed-episode-{ep}-english-subbed" },
@@ -11983,7 +11983,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "school-live-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gakkou-gurashi-school-live-english-subbed-episode-{ep}-english-subbed" },
@@ -11995,7 +11995,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "science-fell-in-love-so-i-tried-to-prove-it-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rikei-ga-koi-ni-ochita-no-de-shoumei-shitemita-english-subbed-episode-{ep}-english-subbed" },
@@ -12007,7 +12007,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "scissor-seven-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "scissor-seven-english-subbed-episode-{ep}-english-subbed" },
@@ -12019,7 +12019,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "scooped-up-by-an-s-ranked-adventurer-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "scooped-up-by-an-s-ranked-adventurer-episode-{ep}-english-subbed" },
@@ -12031,7 +12031,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "scott-pilgrim-takes-off-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "scott-pilgrim-takes-off-english-subbed-episode-{ep}-english-subbed" },
@@ -12043,7 +12043,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "scum-of-the-brave-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "scum-of-the-brave-episode-{ep}-english-subbed" },
@@ -12055,7 +12055,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "scum-s-wish-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kuzu-no-honkai-english-subbed-episode-{ep}-english-subbed" },
@@ -12067,7 +12067,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "secrets-of-the-silent-witch-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "secrets-of-the-silent-witch-english-subbed-episode-{ep}-english-subbed" },
@@ -12079,7 +12079,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sekirei-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sekirei-english-subbed-episode-{ep}-english-subbed" },
@@ -12091,7 +12091,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sekirei-pure-engagement-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sekirei-pure-engagement-english-subbed-episode-{ep}-english-subbed" },
@@ -12103,7 +12103,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "senran-kagura-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "senran-kagura-english-subbed-episode-{ep}-english-subbed" },
@@ -12115,7 +12115,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "senryu-girl-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "senryuu-shoujo-english-subbed-episode-{ep}-english-subbed" },
@@ -12127,7 +12127,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sentenced-to-be-a-hero-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sentenced-to-be-a-hero-episode-{ep}-english-subbed" },
@@ -12139,7 +12139,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "seraph-of-the-end-battle-in-nagoya-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "owari-no-seraph-nagoya-kessen-hen-english-subbed-episode-{ep}-english-subbed" },
@@ -12151,7 +12151,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "seraph-of-the-end-vampire-reign-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "owari-no-seraph-english-subbed-episode-{ep}-english-subbed" },
@@ -12163,7 +12163,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "serial-experiments-lain-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "serial-experiments-lain-episode-{ep}-english-subbed" },
@@ -12175,7 +12175,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "servamp-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "servamp-english-subbed-episode-{ep}-english-subbed" },
@@ -12187,7 +12187,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "seven-mortal-sins-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sin-nanatsu-no-taizai-english-subbed-episode-{ep}-english-subbed" },
@@ -12199,7 +12199,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shachibato-president-it-s-time-for-battle-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shachou-battle-no-jikan-desu-english-subbed-episode-{ep}-english-subbed" },
@@ -12211,7 +12211,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shadows-house-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shadows-house-english-subbed-episode-{ep}-english-subbed" },
@@ -12223,7 +12223,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shakugan-no-shana-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shakugan-no-shana-english-subbed-episode-{ep}-english-subbed" },
@@ -12235,7 +12235,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shaman-king-2021-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shaman-king-2021-english-subbed-episode-{ep}-english-subbed" },
@@ -12247,7 +12247,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shangri-la-frontier-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shangri-la-frontier-episode-{ep}-english-subbed" },
@@ -12259,7 +12259,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "she-professed-herself-pupil-of-the-wise-man-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kenja-no-deshi-wo-nanoru-kenja-english-subbed-episode-{ep}-english-subbed" },
@@ -12271,7 +12271,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shenmue-the-animation-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shenmue-the-animation-english-subbed-episode-{ep}-english-subbed" },
@@ -12283,7 +12283,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shiboyugi-playing-death-games-to-put-food-on-the-table-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shiboyugi-playing-death-games-to-put-food-on-the-table-episode-{ep}-english-subbed" },
@@ -12295,7 +12295,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shikimori-s-not-just-a-cutie-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kawaii-dake-ja-nai-shikimori-san-english-subbed-episode-{ep}-english-subbed" },
@@ -12307,7 +12307,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shikizakura-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shikizakura-english-subbed-episode-{ep}-english-subbed" },
@@ -12319,7 +12319,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shingu-secret-of-the-stellar-wars-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gakuen-senki-muryou-english-subbed-episode-{ep}-english-subbed" },
@@ -12331,7 +12331,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shirobako-white-box-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shirobako-english-subbed-episode-{ep}-english-subbed" },
@@ -12343,7 +12343,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shomin-sample-i-was-abducted-by-an-elite-all-girls-school-as-a-sample-commoner-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ore-ga-ojousama-gakkou-ni-shomin-sample-toshite-gets-sareta-ken-english-subbed-episode-{ep}-english-subbed" },
@@ -12355,7 +12355,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shonen-maid-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shounen-maid-english-subbed-episode-{ep}-english-subbed" },
@@ -12367,7 +12367,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shoot-goal-to-the-future-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shoot-goal-to-the-future-english-subbed-episode-{ep}-english-subbed" },
@@ -12379,7 +12379,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "show-by-rock-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "show-by-rock-episode-{ep}-english-subbed" },
@@ -12391,7 +12391,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "show-by-rock-short-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "show-by-rock-short-english-subbed-episode-{ep}-english-subbed" },
@@ -12403,7 +12403,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sirius-the-jaeger-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sirius-the-jaeger-episode-{ep}-english-subbed" },
@@ -12415,7 +12415,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "six-gates-faraway-mon-colle-knights-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rokumon-tengai-mon-colle-knights-english-subbed-episode-{ep}-english-subbed" },
@@ -12427,7 +12427,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "skate-leading-stars-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "skate-leading%e2%98%86stars-english-subbed-episode-{ep}-english-subbed" },
@@ -12439,7 +12439,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "skeleton-knight-in-another-world-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "skeleton-knight-in-another-world-episode-{ep}-english-subbed" },
@@ -12451,7 +12451,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "skip-beat-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "skip-beat-english-subbed-episode-{ep}-english-subbed" },
@@ -12463,7 +12463,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sky-wizards-academy-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kuusen-madoushi-kouhosei-no-kyoukan-english-subbed-episode-{ep}-english-subbed" },
@@ -12475,7 +12475,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "slam-dunk-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "slam-dunk-english-subbed-episode-{ep}-english-subbed" },
@@ -12487,7 +12487,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sleepy-princess-in-the-demon-castle-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "maoujou-de-oyasumi-english-subbed-episode-{ep}-english-subbed" },
@@ -12499,7 +12499,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "smile-down-the-runway-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "runway-de-waratte-english-subbed-episode-{ep}-english-subbed" },
@@ -12511,7 +12511,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "snowball-earth-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "snowball-earth-episode-{ep}-english-subbed" },
@@ -12523,7 +12523,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "so-i-m-a-spider-so-what-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kumo-desu-ga-nani-ka-english-subbed-episode-{ep}-english-subbed" },
@@ -12535,7 +12535,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sol-bianca-the-legacy-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sol-bianca-taiyou-no-fune-english-subbed-episode-{ep}-english-subbed" },
@@ -12547,7 +12547,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "solo-leveling-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "solo-leveling-episode-{ep}-english-subbed" },
@@ -12559,7 +12559,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "somali-and-the-forest-spirit-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "somali-to-mori-no-kamisama-english-subbed-episode-{ep}-english-subbed" },
@@ -12571,7 +12571,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sonny-boy-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sonny-boy-english-subbed-episode-{ep}-english-subbed" },
@@ -12583,7 +12583,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sorcerous-stabber-orphen-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "majutsushi-orphen-hagure-tabi-english-subbed-episode-{ep}-english-subbed" },
@@ -12595,7 +12595,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "soul-eater-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "soul-eater-english-subbed-episode-{ep}-english-subbed" },
@@ -12607,7 +12607,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sound-euphonium-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sound-euphonium-hibike-euphonium-english-subbed-episode-{ep}-english-subbed" },
@@ -12619,7 +12619,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "space-battleship-tiramisu-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "uchuu-senkan-tiramisu-english-subbed-episode-{ep}-english-subbed" },
@@ -12631,7 +12631,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "space-patrol-luluco-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "uchuu-patrol-luluco-english-subbed-episode-{ep}-english-subbed" },
@@ -12643,7 +12643,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "space-pirate-mito-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "uchuu-kaizoku-mito-no-daibouken-english-subbed-episode-{ep}-english-subbed" },
@@ -12655,7 +12655,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sparks-of-tomorrow-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sparks-of-tomorrow-episode-{ep}-english-subbed" },
@@ -12667,7 +12667,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "special-crime-investigation-unit-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "keishichou-tokumubu-tokushu-kyouakuhan-taisakushitsu-dainanaka-tokunana-english-subbed-episode-{ep}-english-subbed" },
@@ -12679,7 +12679,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "spice-and-wolf-merchant-meets-the-wise-wolf-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "spice-and-wolf-merchant-meets-the-wise-wolf-episode-{ep}-english-subbed" },
@@ -12691,7 +12691,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "spriggan-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "spriggan-english-subbed-episode-{ep}-english-subbed" },
@@ -12703,7 +12703,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "stand-my-heroes-piece-of-truth-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "stand-my-heroes-piece-of-truth-english-subbed-episode-{ep}-english-subbed" },
@@ -12715,7 +12715,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "star-wars-visions-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "star-wars-visions-english-subbed-episode-{ep}-english-subbed" },
@@ -12727,7 +12727,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "stars-align-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hoshiai-no-sora-english-subbed-episode-{ep}-english-subbed" },
@@ -12739,7 +12739,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "steel-ball-run-jojos-bizarre-adventure-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "steel-ball-run-jojos-bizarre-adventure-episode-{ep}-english-subbed" },
@@ -12751,7 +12751,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "steins-gate-0-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "steins-gate-0-english-subbed-episode-{ep}-english-subbed" },
@@ -12763,7 +12763,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "strange-dawn-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "strange-dawn-english-subbed-episode-{ep}-english-subbed" },
@@ -12775,7 +12775,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "strike-witches-501st-joint-fighter-wing-take-off-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "strike-witches-501-butai-hasshin-shimasu-english-subbed-episode-{ep}-english-subbed" },
@@ -12787,7 +12787,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "strike-witches-road-to-berlin-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "strike-witches-road-to-berlin-english-subbed-episode-{ep}-english-subbed" },
@@ -12799,7 +12799,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sugar-apple-fairy-tale-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sugar-apple-fairy-tale-english-subbed-episode-{ep}-english-subbed" },
@@ -12811,7 +12811,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "summer-time-rendering-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "summer-time-rendering-english-subbed-episode-{ep}-english-subbed" },
@@ -12823,7 +12823,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "super-crooks-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "super-crooks-english-subbed-episode-{ep}-english-subbed" },
@@ -12835,7 +12835,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "super-cub-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "super-cub-english-subbed-episode-{ep}-english-subbed" },
@@ -12847,7 +12847,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "super-gals-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "super-gals-kotobuki-ran-english-subbed-episode-{ep}-english-subbed" },
@@ -12859,7 +12859,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sweet-reincarnation-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "okashi-na-tensei-episode-{ep}-english-subbed" },
@@ -12871,7 +12871,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sword-art-online-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sword-art-online-english-subbed-episode-{ep}-english-subbed" },
@@ -12883,7 +12883,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sword-art-online-alternative-gun-gale-online-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sword-art-online-alternative-gun-gale-online-english-subbed-episode-{ep}-english-subbed" },
@@ -12895,7 +12895,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sword-art-online-ii-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sword-art-online-ii-english-subbed-episode-{ep}-english-subbed" },
@@ -12907,7 +12907,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sword-art-online-alicization-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sword-art-online-alicization-english-subbed-episode-{ep}-english-subbed" },
@@ -12919,7 +12919,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sword-gai-the-animation-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sword-gai-the-animation-episode-{ep}-english-subbed" },
@@ -12931,7 +12931,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sword-of-the-demon-hunter-kijin-gentosho-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sword-of-the-demon-hunter-kijin-gentosho-english-subbed-episode-{ep}-english-subbed" },
@@ -12943,7 +12943,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "synduality-noir-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "synduality-noir-english-subbed-episode-{ep}-english-subbed" },
@@ -12955,7 +12955,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "t-p-bon-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "t-p-bon-english-subbed-episode-{ep}-english-subbed" },
@@ -12967,7 +12967,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tamayomi-the-baseball-girls-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tamayomi-english-subbed-episode-{ep}-english-subbed" },
@@ -12979,7 +12979,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "taboo-tattoo-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "taboo-tattoo-english-subbed-episode-{ep}-english-subbed" },
@@ -12991,7 +12991,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tada-never-falls-in-love-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tada-kun-wa-koi-wo-shinai-english-subbed-episode-{ep}-english-subbed" },
@@ -13003,7 +13003,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "taisho-otome-fairy-tale-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "taishou-otome-otogibanashi-english-subbed-episode-{ep}-english-subbed" },
@@ -13015,7 +13015,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "takopis-original-sin-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "takopis-original-sin-episode-{ep}-english-subbed" },
@@ -13027,7 +13027,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "takt-op-destiny-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "takt-op-destiny-english-subbed-episode-{ep}-english-subbed" },
@@ -13039,7 +13039,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "takunomi-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "takunomi-english-subbed-episode-{ep}-english-subbed" },
@@ -13051,7 +13051,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "talentless-nana-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "munou-na-nana-english-subbed-episode-{ep}-english-subbed" },
@@ -13063,7 +13063,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tales-of-little-women-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ai-no-wakakusa-monogatari-english-subbed-episode-{ep}-english-subbed" },
@@ -13075,7 +13075,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tales-of-luminaria-the-fateful-crossroad-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tales-of-luminaria-the-fateful-crossroad-english-subbed-episode-{ep}-english-subbed" },
@@ -13087,7 +13087,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tales-of-wedding-rings-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kekkon-yubiwa-monogatari-episode-{ep}-english-subbed" },
@@ -13099,7 +13099,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tales-of-zestiria-the-x-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tales-of-zestiria-the-x-english-subbed-episode-{ep}-english-subbed" },
@@ -13111,7 +13111,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tamons-b-side-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tamons-b-side-episode-{ep}-english-subbed" },
@@ -13123,7 +13123,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tanaka-kun-is-always-listless-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tanaka-kun-wa-itsumo-kedaruge-english-subbed-episode-{ep}-english-subbed" },
@@ -13135,7 +13135,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tatsuki-fujimoto-17-26-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tatsuki-fujimoto-17-26-episode-{ep}-english-subbed" },
@@ -13147,7 +13147,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "teasing-master-takagi-san-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "karakai-jouzu-no-takagi-san-english-subbed-episode-{ep}-english-subbed" },
@@ -13159,7 +13159,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tekken-bloodline-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tekken-bloodline-english-subbed-episode-{ep}-english-subbed" },
@@ -13171,7 +13171,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tenpuru-no-one-can-live-on-loneliness-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "temple-episode-{ep}-english-subbed" },
@@ -13183,7 +13183,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tenchi-muyo-love-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tenchi-muyo-love-episode-{ep}-english-subbed" },
@@ -13195,7 +13195,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tenchi-muyo-war-on-geminar-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "isekai-no-seikishi-monogatari-english-subbed-episode-{ep}-english-subbed" },
@@ -13207,7 +13207,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tenjou-tenge-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tenjou-tenge-english-subbed-episode-{ep}-english-subbed" },
@@ -13219,7 +13219,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "teogonia-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "teogonia-english-subbed-episode-{ep}-english-subbed" },
@@ -13231,7 +13231,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "terminator-zero-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "terminator-zero-english-subbed-episode-{ep}-english-subbed" },
@@ -13243,7 +13243,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "terra-formars-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "terra-formars-english-subbed-episode-{ep}-english-subbed" },
@@ -13255,7 +13255,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "that-time-i-got-reincarnated-as-a-slime-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "that-time-i-got-reincarnated-as-a-slime-episode-{ep}-english-subbed" },
@@ -13267,7 +13267,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-ambition-of-oda-nobuna-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "oda-nobuna-no-yabou-english-subbed-episode-{ep}-english-subbed" },
@@ -13279,7 +13279,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-ancient-magus-bride-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mahoutsukai-no-yome-english-subbed-episode-{ep}-english-subbed" },
@@ -13291,7 +13291,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-angel-next-door-spoils-me-rotten-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-angel-next-door-spoils-me-rotten-episode-{ep}-english-subbed" },
@@ -13303,7 +13303,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-asterisk-war-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gakusen-toshi-asterisk-english-subbed-episode-{ep}-english-subbed" },
@@ -13315,7 +13315,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-banished-court-magician-aims-to-become-the-strongest-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-banished-court-magician-aims-to-become-the-strongest-episode-{ep}-english-subbed" },
@@ -13327,7 +13327,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-beginning-after-the-end-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-beginning-after-the-end-episode-{ep}-english-subbed" },
@@ -13339,7 +13339,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-brilliant-healers-new-life-in-the-shadows-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-brilliant-healers-new-life-in-the-shadows-episode-{ep}-english-subbed" },
@@ -13351,7 +13351,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-case-book-of-arne-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-case-book-of-arne-episode-{ep}-english-subbed" },
@@ -13363,7 +13363,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-case-study-of-vanitas-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "vanitas-no-carte-english-subbed-episode-{ep}-english-subbed" },
@@ -13375,7 +13375,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-daily-life-of-the-immortal-king-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-daily-life-of-the-immortal-king-episode-{ep}-english-subbed" },
@@ -13387,7 +13387,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-dangers-in-my-heart-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "boku-no-kokoro-no-yabai-yatsu-episode-{ep}-english-subbed" },
@@ -13399,7 +13399,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-dark-history-of-the-reincarnated-villainess-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-dark-history-of-the-reincarnated-villainess-episode-{ep}-english-subbed" },
@@ -13411,7 +13411,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-darwin-incident-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-darwin-incident-episode-{ep}-english-subbed" },
@@ -13423,7 +13423,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-dawn-of-the-witch-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mahoutsukai-reimeiki-english-subbed-episode-{ep}-english-subbed" },
@@ -13435,7 +13435,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-day-i-became-a-god-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kamisama-ni-natta-hi-english-subbed-episode-{ep}-english-subbed" },
@@ -13447,7 +13447,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-demon-girl-next-door-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "machikado-mazoku-the-demon-girl-next-door-english-subbed-episode-{ep}-english-subbed" },
@@ -13459,7 +13459,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-demon-kings-daughter-is-too-kind-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-demon-kings-daughter-is-too-kind-episode-{ep}-english-subbed" },
@@ -13471,7 +13471,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-demon-prince-of-momochi-house-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "momochi-san-chi-no-ayakashi-ouji-episode-{ep}-english-subbed" },
@@ -13483,7 +13483,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-demon-sword-master-of-excalibur-academy-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "seiken-gakuin-no-makentsukai-episode-{ep}-english-subbed" },
@@ -13495,7 +13495,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-detective-is-already-dead-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tantei-wa-mou-shindeiru-english-subbed-episode-{ep}-english-subbed" },
@@ -13507,7 +13507,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-dinner-table-detective-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-dinner-table-detective-english-subbed-episode-{ep}-english-subbed" },
@@ -13519,7 +13519,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-disappearance-of-nagato-yuki-chan-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nagato-yuki-chan-no-shoushitsu-english-subbed-episode-{ep}-english-subbed" },
@@ -13531,7 +13531,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-disastrous-life-of-saiki-k-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "saiki-kusuo-no-psi-nan-tv-english-subbed-episode-{ep}-english-subbed" },
@@ -13543,7 +13543,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-disastrous-life-of-saiki-k-reawakened-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-disastrous-life-of-saiki-k-reawakened-episode-{ep}-english-subbed" },
@@ -13555,7 +13555,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-dreaming-boy-is-a-realist-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yumemiru-danshi-wa-genjitsushugisha-episode-{ep}-english-subbed" },
@@ -13567,7 +13567,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-drops-of-god-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-drops-of-god-episode-{ep}-english-subbed" },
@@ -13579,7 +13579,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-duke-of-death-and-his-maid-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shinigami-bocchan-to-kuro-maid-english-subbed-episode-{ep}-english-subbed" },
@@ -13591,7 +13591,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-dungeon-of-black-company-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "meikyuu-black-company-english-subbed-episode-{ep}-english-subbed" },
@@ -13603,7 +13603,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-elusive-samurai-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nige-jouzu-no-wakagimi-episode-{ep}-english-subbed" },
@@ -13615,7 +13615,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-eminence-in-shadow-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kage-no-jitsuryokusha-ni-naritakute-english-subbed-episode-{ep}-english-subbed" },
@@ -13627,7 +13627,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-executioner-and-her-way-of-life-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shokei-shoujo-no-virgin-road-english-subbed-episode-{ep}-english-subbed" },
@@ -13639,7 +13639,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-exiled-heavy-knight-knows-how-to-game-the-system-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-exiled-heavy-knight-knows-how-to-game-the-system-episode-{ep}-english-subbed" },
@@ -13651,7 +13651,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-fable-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-fable-english-subbed-episode-{ep}-english-subbed" },
@@ -13663,7 +13663,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-faraway-paladin-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "saihate-no-paladin-english-subbed-episode-{ep}-english-subbed" },
@@ -13675,7 +13675,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-foolish-angel-dances-with-the-devil-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "oroka-na-tenshi-wa-akuma-to-odoru-episode-{ep}-english-subbed" },
@@ -13687,7 +13687,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-fragrant-flower-blooms-with-dignity-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-fragrant-flower-blooms-with-dignity-episode-{ep}-english-subbed" },
@@ -13699,7 +13699,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-fruit-of-evolution-before-i-knew-it-my-life-had-it-made-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shinka-no-mi-shiranai-uchi-ni-kachigumi-jinsei-english-subbed-episode-{ep}-english-subbed" },
@@ -13711,7 +13711,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-future-diary-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mirai-nikki-tv-english-subbed-episode-{ep}-english-subbed" },
@@ -13723,7 +13723,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-galaxy-railways-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-galaxy-railways-english-subbed-episode-{ep}-english-subbed" },
@@ -13735,7 +13735,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-genius-prince-s-guide-to-raising-a-nation-out-of-debt-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tensai-ouji-no-akaji-kokka-saisei-jutsu-english-subbed-episode-{ep}-english-subbed" },
@@ -13747,7 +13747,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-ghost-in-the-shell-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-ghost-in-the-shell-episode-{ep}-english-subbed" },
@@ -13759,7 +13759,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-girl-from-the-other-side-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "totsukuni-shoujo-2022-english-subbed-episode-{ep}-english-subbed" },
@@ -13771,7 +13771,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-god-of-high-school-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-god-of-high-school-english-subbed-episode-{ep}-english-subbed" },
@@ -13783,7 +13783,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-gorilla-gods-go-to-girl-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-gorilla-gods-go-to-girl-english-subbed-episode-{ep}-english-subbed" },
@@ -13795,7 +13795,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-great-cleric-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "seija-musou-salaryman-isekai-de-ikinokoru-tame-ni-ayumu-michi-episode-{ep}-english-subbed" },
@@ -13807,7 +13807,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-great-jahy-will-not-be-defeated-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jahy-sama-wa-kujikenai-english-subbed-episode-{ep}-english-subbed" },
@@ -13819,7 +13819,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-greatest-demon-lord-is-reborn-as-a-typical-nobody-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shijou-saikyou-no-daimaou-murabito-a-ni-tensei-suru-english-subbed-episode-{ep}-english-subbed" },
@@ -13831,7 +13831,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-grimm-variations-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "grimm-kumikyoku-episode-{ep}-english-subbed" },
@@ -13843,7 +13843,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-gymnastics-samurai-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "taisou-zamurai-english-subbed-episode-{ep}-english-subbed" },
@@ -13855,7 +13855,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-heike-story-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "heike-monogatari-english-subbed-episode-{ep}-english-subbed" },
@@ -13867,7 +13867,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-heroic-legend-of-arslan-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-heroic-legend-of-arslan-english-subbed-episode-{ep}-english-subbed" },
@@ -13879,7 +13879,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-hidden-dungeon-only-i-can-enter-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ore-dake-haireru-kakushi-dungeon-english-subbed-episode-{ep}-english-subbed" },
@@ -13891,7 +13891,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-ice-guy-and-his-cool-female-colleague-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "koori-zokusei-danshi-to-cool-na-douryou-joshi-episode-{ep}-english-subbed" },
@@ -13903,7 +13903,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-iceblade-sorcerer-shall-rule-the-world-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hyouken-no-majutsushi-ga-sekai-wo-suberu-episode-{ep}-english-subbed" },
@@ -13915,7 +13915,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-irregular-at-magic-high-school-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mahouka-koukou-no-rettousei-english-subbed-episode-{ep}-english-subbed" },
@@ -13927,7 +13927,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-irregular-at-magic-high-school-visitor-arc-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mahouka-koukou-no-rettousei-raihousha-hen-english-subbed-episode-{ep}-english-subbed" },
@@ -13939,7 +13939,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-kingdoms-of-ruin-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hametsu-no-oukoku-episode-{ep}-english-subbed" },
@@ -13951,7 +13951,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-klutzy-class-monitor-and-the-girl-with-the-short-skirt-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-klutzy-class-monitor-and-the-girl-with-the-short-skirt-episode-{ep}-english-subbed" },
@@ -13963,7 +13963,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-legend-of-heroes-trails-of-cold-steel-northern-war-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-legend-of-heroes-sen-no-kiseki-northern-war-episode-{ep}-english-subbed" },
@@ -13975,7 +13975,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-legend-of-the-legendary-heroes-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-legend-of-the-legendary-heroes-english-subbed-episode-{ep}-english-subbed" },
@@ -13987,7 +13987,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-maid-i-hired-recently-is-mysterious-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "saikin-yatotta-maid-ga-ayashii-english-subbed-episode-{ep}-english-subbed" },
@@ -13999,7 +13999,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-master-of-ragnarok-blesser-of-einherjar-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hyakuren-no-haou-to-seiyaku-no-valkyria-english-subbed-episode-{ep}-english-subbed" },
@@ -14011,7 +14011,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-millionaire-detective-balance-unlimited-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fugou-keiji-balance-unlimited-english-subbed-episode-{ep}-english-subbed" },
@@ -14023,7 +14023,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-misfit-of-demon-king-academy-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "maou-gakuin-no-futekigousha-shijou-saikyou-no-maou-no-shiso-tensei-shite-shison-tachi-no-gakkou-e-kayou-english-subbed-episode-{ep}-english-subbed" },
@@ -14035,7 +14035,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-morose-mononokean-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-morose-mononokean-episode-{ep}-english-subbed" },
@@ -14047,7 +14047,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-most-heretical-last-boss-queen-from-villainess-to-savior-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-most-heretical-last-boss-queen-from-villainess-to-savior-episode-{ep}-english-subbed" },
@@ -14059,7 +14059,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-orbital-children-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chikyuugai-shounen-shoujo-english-subbed-episode-{ep}-english-subbed" },
@@ -14071,7 +14071,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-ossan-newbie-adventurer-trained-to-death-by-the-most-powerful-party-became-invincible-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-ossan-newbie-adventurer-trained-to-death-by-the-most-powerful-party-became-invincible-episode-{ep}-english-subbed" },
@@ -14083,7 +14083,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-pet-girl-of-sakurasou-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sakurasou-no-pet-na-kanojo-english-subbed-episode-{ep}-english-subbed" },
@@ -14095,7 +14095,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-prince-of-tennis-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tennis-no-ouji-sama-english-subbed-episode-{ep}-english-subbed" },
@@ -14107,7 +14107,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-promised-neverland-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yakusoku-no-neverland-english-subbed-episode-{ep}-english-subbed" },
@@ -14119,7 +14119,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-quintessential-quintuplets-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-quintessential-quintuplets-episode-{ep}-english-subbed" },
@@ -14131,7 +14131,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-ramparts-of-ice-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-ramparts-of-ice-episode-{ep}-english-subbed" },
@@ -14143,7 +14143,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-red-ranger-becomes-an-adventurer-in-another-world-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sentai-red-isekai-de-boukensha-ni-naru-episode-{ep}-english-subbed" },
@@ -14155,7 +14155,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-reflection-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-reflection-english-subbed-episode-{ep}-english-subbed" },
@@ -14167,7 +14167,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-reincarnation-of-the-strongest-exorcist-in-another-world-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "saikyou-onmyouji-no-isekai-tenseiki-episode-{ep}-english-subbed" },
@@ -14179,7 +14179,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-rising-of-the-shield-hero-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tate-no-yuusha-no-nariagari-english-subbed-episode-{ep}-english-subbed" },
@@ -14191,7 +14191,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-rolling-girls-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-rolling-girls-english-subbed-episode-{ep}-english-subbed" },
@@ -14203,7 +14203,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-royal-tutor-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "oushitsu-kyoushi-haine-english-subbed-episode-{ep}-english-subbed" },
@@ -14215,7 +14215,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-sacred-blacksmith-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "seiken-no-blacksmith-english-subbed-episode-{ep}-english-subbed" },
@@ -14227,7 +14227,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-saint-s-magic-power-is-omnipotent-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "seijo-no-maryoku-wa-bannou-desu-english-subbed-episode-{ep}-english-subbed" },
@@ -14239,7 +14239,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-seven-deadly-sins-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-seven-deadly-sins-episode-{ep}-english-subbed" },
@@ -14251,7 +14251,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-seven-deadly-sins-four-knights-of-the-apocalypse-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nanatsu-no-taizai-mokushiroku-no-yonkishi-episode-{ep}-english-subbed" },
@@ -14263,7 +14263,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-seven-deadly-sins-signs-of-holy-war-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-seven-deadly-sins-signs-of-holy-war-episode-{ep}-english-subbed" },
@@ -14275,7 +14275,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-seven-heavenly-virtues-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nanatsu-no-bitoku-english-subbed-episode-{ep}-english-subbed" },
@@ -14287,7 +14287,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-shiunji-family-children-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-shiunji-family-children-english-subbed-episode-{ep}-english-subbed" },
@@ -14299,7 +14299,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-silver-guardian-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gin-no-guardian-english-subbed-episode-{ep}-english-subbed" },
@@ -14311,7 +14311,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-slime-diaries-that-time-i-got-reincarnated-as-a-slime-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-slime-diaries-that-time-i-got-reincarnated-as-a-slime-episode-{ep}-english-subbed" },
@@ -14323,7 +14323,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-story-of-saiunkoku-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "saiunkoku-monogatari-english-subbed-episode-{ep}-english-subbed" },
@@ -14335,7 +14335,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-strongest-sage-with-the-weakest-crest-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shikkaku-mon-no-saikyou-kenja-english-subbed-episode-{ep}-english-subbed" },
@@ -14347,7 +14347,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-summer-hikaru-died-english-subbed-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-summer-hikaru-died-english-subbed-episode-{ep}-english-subbed" },
@@ -14359,7 +14359,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-testament-of-sister-new-devil-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shinmai-maou-no-testament-english-subbed-episode-{ep}-english-subbed" },
@@ -14371,7 +14371,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-unaware-atelier-meister-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-unaware-atelier-meister-english-subbed-episode-{ep}-english-subbed" },
@@ -14383,7 +14383,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-unwanted-undead-adventurer-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nozomanu-fushi-no-boukensha-episode-{ep}-english-subbed" },
@@ -14395,7 +14395,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "vampire-dies-in-no-time-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kyuuketsuki-sugu-shinu-english-subbed-episode-{ep}-english-subbed" },
@@ -14407,7 +14407,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-vexations-of-a-shut-in-vampire-princess-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hikikomari-kyuuketsuki-no-monmon-episode-{ep}-english-subbed" },
@@ -14419,7 +14419,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-villainess-is-adored-by-the-prince-of-the-neighbor-kingdom-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-villainess-is-adored-by-the-prince-of-the-neighbor-kingdom-episode-{ep}-english-subbed" },
@@ -14431,7 +14431,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-wallflower-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yamato-nadeshiko-shichi-henge-english-subbed-episode-{ep}-english-subbed" },
@@ -14443,7 +14443,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-warrior-princess-and-the-barbaric-king-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-warrior-princess-and-the-barbaric-king-episode-{ep}-english-subbed" },
@@ -14455,7 +14455,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-water-magician-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-water-magician-english-subbed-episode-{ep}-english-subbed" },
@@ -14467,7 +14467,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-way-of-the-househusband-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gokushufudou-english-subbed-episode-{ep}-english-subbed" },
@@ -14479,7 +14479,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-weakest-tamer-began-a-journey-to-pick-up-trash-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "saijaku-tamer-wa-gomi-hiroi-no-tabi-wo-hajimemashita-episode-{ep}-english-subbed" },
@@ -14491,7 +14491,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-witch-and-the-beast-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "majo-to-yajuu-episode-{ep}-english-subbed" },
@@ -14503,7 +14503,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-world-ends-with-you-the-animation-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "subarashiki-kono-sekai-the-animation-english-subbed-episode-{ep}-english-subbed" },
@@ -14515,7 +14515,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-world-god-only-knows-four-girls-and-an-idol-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kami-nomi-zo-shiru-sekai-4-nin-to-idol-english-subbed-episode-{ep}-english-subbed" },
@@ -14527,7 +14527,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-world-s-finest-assassin-gets-reincarnated-in-another-world-as-an-aristocrat-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sekai-saikou-no-ansatsusha-isekai-kizoku-ni-tensei-suru-english-subbed-episode-{ep}-english-subbed" },
@@ -14539,7 +14539,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-wrong-way-to-use-healing-magic-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chiyu-mahou-no-machigatta-tsukaikata-episode-{ep}-english-subbed" },
@@ -14551,7 +14551,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-yakuzas-guide-to-babysitting-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kumichou-musume-to-sewagakari-english-subbed-episode-{ep}-english-subbed" },
@@ -14563,7 +14563,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "yami-shibai-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yami-shibai-episode-{ep}-english-subbed" },
@@ -14575,7 +14575,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "thermae-romae-novae-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "thermae-romae-novae-english-subbed-episode-{ep}-english-subbed" },
@@ -14587,7 +14587,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "though-i-am-an-inept-villainess-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "though-i-am-an-inept-villainess-episode-{ep}-english-subbed" },
@@ -14599,7 +14599,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "three-leaves-three-colors-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sansha-sanyou-english-subbed-episode-{ep}-english-subbed" },
@@ -14611,7 +14611,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "thunder-3-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "thunder-3-episode-{ep}-english-subbed" },
@@ -14623,7 +14623,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "thus-spoke-kishibe-rohan-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kishibe-rohan-wa-ugokanai-english-subbed-episode-{ep}-english-subbed" },
@@ -14635,7 +14635,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tico-and-friends-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nanatsu-no-umi-no-tico-english-subbed-episode-{ep}-english-subbed" },
@@ -14647,7 +14647,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tiger-bunny-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tiger-bunny-english-subbed-episode-{ep}-english-subbed" },
@@ -14659,7 +14659,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "to-be-hero-x-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "to-be-hero-x-english-subbed-episode-{ep}-english-subbed" },
@@ -14671,7 +14671,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "to-heart-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "to-heart-english-subbed-episode-{ep}-english-subbed" },
@@ -14683,7 +14683,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "to-love-ru-darkness-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "to-love-ru-darkness-english-subbed-episode-{ep}-english-subbed" },
@@ -14695,7 +14695,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "to-love-ru-darkness-2-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "to-love-ru-darkness-2nd-english-subbed-episode-{ep}-english-subbed" },
@@ -14707,7 +14707,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "to-love-ru-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "to-love-ru-english-subbed-episode-{ep}-english-subbed" },
@@ -14719,7 +14719,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "to-your-eternity-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fumetsu-no-anata-e-episode-{ep}-english-subbed" },
@@ -14731,7 +14731,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "to-the-abandoned-sacred-beasts-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "katsute-kami-datta-kemono-tachi-english-subbed-episode-{ep}-english-subbed" },
@@ -14743,7 +14743,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tojima-wants-to-be-a-kamen-rider-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tojima-wants-to-be-a-kamen-rider-episode-{ep}-english-subbed" },
@@ -14755,7 +14755,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tokyo-esp-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tokyo-esp-english-subbed-episode-{ep}-english-subbed" },
@@ -14767,7 +14767,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tokyo-revengers-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tokyo-revengers-english-subbed-episode-{ep}-english-subbed" },
@@ -14779,7 +14779,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tomo-chan-is-a-girl-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tomo-chan-wa-onnanoko-episode-{ep}-english-subbed" },
@@ -14791,7 +14791,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tomodachi-game-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tomodachi-game-episode-{ep}-english-subbed" },
@@ -14803,7 +14803,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tonbo-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ooi-tonbo-english-subbed-episode-{ep}-english-subbed" },
@@ -14815,7 +14815,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "toradora-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "toradora-english-subbed-episode-{ep}-english-subbed" },
@@ -14827,7 +14827,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tougen-anki-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tougen-anki-episode-{ep}-english-subbed" },
@@ -14839,7 +14839,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "touken-ranbu-hanamaru-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "touken-ranbu-hanamaru-english-subbed-episode-{ep}-english-subbed" },
@@ -14851,7 +14851,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tower-of-god-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kami-no-tou-english-subbed-episode-{ep}-english-subbed" },
@@ -14863,7 +14863,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "trapped-in-a-dating-sim-the-world-of-otome-games-is-tough-for-mobs-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "trapped-in-a-dating-sim-the-world-of-otome-games-is-tough-for-mobs-episode-{ep}-english-subbed" },
@@ -14875,7 +14875,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tribe-nine-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tribe-nine-english-subbed-episode-{ep}-english-subbed" },
@@ -14887,7 +14887,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "trickster-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "trickster-edogawa-ranpo-shounen-tanteidan-yori-english-subbed-episode-{ep}-english-subbed" },
@@ -14899,7 +14899,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "trigun-stampede-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "trigun-stampede-english-subbed-episode-{ep}-english-subbed" },
@@ -14911,7 +14911,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "trigun-stargaze-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "trigun-stargaze-episode-{ep}-english-subbed" },
@@ -14923,7 +14923,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "trillion-game-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "trillion-game-english-subbed-episode-{ep}-english-subbed" },
@@ -14935,7 +14935,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "trinity-seven-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "trinity-seven-episode-{ep}-english-subbed" },
@@ -14947,7 +14947,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "true-beauty-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yeosin-gangnim-episode-{ep}-english-subbed" },
@@ -14959,7 +14959,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tsugumomo-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tsugumomo-english-subbed-episode-{ep}-english-subbed" },
@@ -14971,7 +14971,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tsukigakirei-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tsuki-ga-kirei-english-subbed-episode-{ep}-english-subbed" },
@@ -14983,7 +14983,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tsukimichi-moonlight-fantasy-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tsukimichi-moonlight-fantasy-episode-{ep}-english-subbed" },
@@ -14995,7 +14995,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tsuredure-children-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tsurezure-children-english-subbed-episode-{ep}-english-subbed" },
@@ -15007,7 +15007,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tune-in-to-the-midnight-heart-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tune-in-to-the-midnight-heart-episode-{ep}-english-subbed" },
@@ -15019,7 +15019,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "twilight-out-of-focus-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tasogare-out-focus-episode-{ep}-english-subbed" },
@@ -15031,7 +15031,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "twin-star-exorcists-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sousei-no-onmyouji-english-subbed-episode-{ep}-english-subbed" },
@@ -15043,7 +15043,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tying-the-knot-with-an-amagami-sister-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "amagami-san-chi-no-enmusubi-episode-{ep}-english-subbed" },
@@ -15055,7 +15055,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "uq-holder-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "uq-holder-mahou-sensei-negima-2-english-subbed-episode-{ep}-english-subbed" },
@@ -15067,7 +15067,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ubel-blatt-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ubel-blatt-english-subbed-episode-{ep}-english-subbed" },
@@ -15079,7 +15079,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ultimate-otaku-teacher-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "denpa-kyoshi-english-subbed-episode-{ep}-english-subbed" },
@@ -15091,7 +15091,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ultraman-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ultraman-english-subbed-episode-{ep}-english-subbed" },
@@ -15103,7 +15103,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ultramarine-magmell-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gunjou-no-magmel-english-subbed-episode-{ep}-english-subbed" },
@@ -15115,7 +15115,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "un-go-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "un-go-english-subbed-episode-{ep}-english-subbed" },
@@ -15127,7 +15127,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "unbreakable-machine-doll-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "machine-doll-wa-kizutsukanai-english-subbed-episode-{ep}-english-subbed" },
@@ -15139,7 +15139,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "uncle-from-another-world-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "isekai-oji-san-episode-{ep}-english-subbed" },
@@ -15151,7 +15151,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "undead-unluck-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "undead-unluck-episode-{ep}-english-subbed" },
@@ -15163,7 +15163,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "urahara-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "urahara-english-subbed-episode-{ep}-english-subbed" },
@@ -15175,7 +15175,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "urusei-yatsura-2022-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "urusei-yatsura-2022-english-subbed-episode-{ep}-english-subbed" },
@@ -15187,7 +15187,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ushio-and-tora-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ushio-to-tora-english-subbed-episode-{ep}-english-subbed" },
@@ -15199,7 +15199,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "utawarerumono-mask-of-truth-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "utawarerumono-futari-no-hakuoro-english-subbed-episode-{ep}-english-subbed" },
@@ -15211,7 +15211,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "uzaki-chan-wants-to-hang-out-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "uzaki-chan-wa-asobitai-english-subbed-episode-{ep}-english-subbed" },
@@ -15223,7 +15223,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "vtuber-legend-how-i-went-viral-after-forgetting-to-turn-off-my-stream-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "vtuber-nandaga-haishin-kiri-wasuretara-densetsu-ni-natteta-episode-{ep}-english-subbed" },
@@ -15235,7 +15235,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "valkyrie-drive-mermaid-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "valkyrie-drive-mermaid-english-subbed-episode-{ep}-english-subbed" },
@@ -15247,7 +15247,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "vampire-dormitory-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "vampire-dormitory-english-subbed-episode-{ep}-english-subbed" },
@@ -15259,7 +15259,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "vampire-knight-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "vampire-knight-english-subbed-episode-{ep}-english-subbed" },
@@ -15271,7 +15271,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "vampire-knight-guilty-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "vampire-knight-guilty-english-subbed-episode-{ep}-english-subbed" },
@@ -15283,7 +15283,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "vampire-in-the-garden-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "vampire-in-the-garden-english-subbed-episode-{ep}-english-subbed" },
@@ -15295,7 +15295,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "vandread-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "vandread-english-subbed-episode-{ep}-english-subbed" },
@@ -15307,7 +15307,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "very-private-lesson-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kyoukasho-ni-nai-english-subbed-episode-{ep}-english-subbed" },
@@ -15319,7 +15319,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "viral-hit-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kenka-dokugaku-episode-{ep}-english-subbed" },
@@ -15331,7 +15331,7 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "", banner: "",
     type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
     year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 999, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "vivy-fluorite-eye-s-song-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "vivy-fluorite-eye-s-song-english-subbed-episode-{ep}-english-subbed" },
