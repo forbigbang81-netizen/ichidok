@@ -48,7 +48,7 @@ function buildHash(view: View, malId: number | null, episode: number | null): st
 interface AppState {
   currentView: View; previousView: View; selectedMalId: number | null; selectedEpisode: number;
   resumePosition: number | null; audioMode: "SUB" | "DUB"; selectedQuality: string;
-  selectedSpeed: number; fullscreenPlayer: boolean;
+  selectedSpeed: number; fullscreenPlayer: boolean; autoPlayNext: boolean;
   history: HistoryItem[]; bookmarks: number[];
   notifications: { id: string; title: string; body: string; type: string; read: boolean; createdAt: string }[];
   // Genre to pre-select when navigating to the Catalog view. Consumed on mount.
@@ -61,6 +61,7 @@ interface AppState {
   setQuality: (q: string) => void;
   setSpeed: (s: number) => void;
   toggleFullscreen: () => void;
+  setAutoPlayNext: (v: boolean) => void;
   toggleBookmark: (malId: number) => void;
   setBookmarks: (ids: number[]) => void;
   addHistory: (h: HistoryItem) => void;
@@ -78,7 +79,7 @@ export const useApp = create<AppState>((set, get) => ({
   currentView: initialHash.view, previousView: "home",
   selectedMalId: initialHash.malId, selectedEpisode: initialHash.episode ?? 1,
   resumePosition: null, audioMode: "DUB", selectedQuality: "1080p", selectedSpeed: 1,
-  fullscreenPlayer: false, history: [], bookmarks: [], notifications: [],
+  fullscreenPlayer: false, autoPlayNext: true, history: [], bookmarks: [], notifications: [],
   catalogGenre: null,
   navigate: (v) => {
     set((s) => {
@@ -141,6 +142,7 @@ export const useApp = create<AppState>((set, get) => ({
   setQuality: (q) => set({ selectedQuality: q }),
   setSpeed: (s) => set({ selectedSpeed: s }),
   toggleFullscreen: () => set((s) => ({ fullscreenPlayer: !s.fullscreenPlayer })),
+  setAutoPlayNext: (v) => set({ autoPlayNext: v }),
   toggleBookmark: (malId) => set((s) => ({ bookmarks: s.bookmarks.includes(malId) ? s.bookmarks.filter((b) => b !== malId) : [...s.bookmarks, malId] })),
   setBookmarks: (ids) => set({ bookmarks: ids }),
   addHistory: (h) => set((s) => {

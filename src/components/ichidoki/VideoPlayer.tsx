@@ -177,6 +177,10 @@ export function VideoPlayer({
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const hideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const autoPlayNext = useApp((s) => s.autoPlayNext);
+  const setAutoPlayNext = useApp((s) => s.setAutoPlayNext);
+  const selectedEpisode = useApp((s) => s.selectedEpisode);
+  const setSelectedEpisode = useApp((s) => s.setSelectedEpisode);
   const seekingRef = useRef(false);
   const lastProgressEmitRef = useRef(0);
   const resumeAppliedRef = useRef(false);
@@ -1837,27 +1841,27 @@ function SettingsMenu({
           )}
           <div className="border-t border-white/10 px-3 py-2">
             <p className="mb-1.5 text-[10px] font-medium uppercase tracking-wider text-white/40">
-              Display
+              Playback
             </p>
             <button
               type="button"
-              onClick={() => onMirror(!mirrored)}
+              onClick={() => setAutoPlayNext(!autoPlayNext)}
               className={cn(
                 "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-[11px] font-medium transition-colors",
-                mirrored ? "text-[#f5c518]" : "text-white/80",
+                autoPlayNext ? "text-[#f5c518]" : "text-white/80",
               )}
             >
-              <FlipHorizontal className="h-3.5 w-3.5" />
-              Mirror video
+              <PlayCircle className="h-3.5 w-3.5" />
+              Auto-play next episode
               <span
                 className={cn(
                   "ml-auto rounded-full px-1.5 py-0.5 text-[9px] font-bold",
-                  mirrored
+                  autoPlayNext
                     ? "bg-[#f5c518] text-black"
                     : "bg-white/10 text-white/60",
                 )}
               >
-                {mirrored ? "ON" : "OFF"}
+                {autoPlayNext ? "ON" : "OFF"}
               </span>
             </button>
           </div>

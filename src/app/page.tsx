@@ -202,7 +202,7 @@ function TypeTabs({
   }, [active, types]);
 
   return (
-    <div className="no-scrollbar flex gap-5 overflow-x-auto px-4 pb-2">
+    <div className="relative no-scrollbar flex gap-4 overflow-x-auto px-4 pb-2">
       {types.map((t, i) => {
         const isActive = t === active;
         return (
@@ -214,18 +214,17 @@ function TypeTabs({
             type="button"
             onClick={() => onChange(t)}
             className={cn(
-              "relative whitespace-nowrap py-1.5 text-sm font-medium transition-colors",
-              isActive ? "text-white" : "text-white/40",
+              "relative whitespace-nowrap py-1.5 text-sm font-semibold transition-colors",
+              isActive ? "text-[#f5c518]" : "text-white/40",
             )}
           >
             {t}
+            {isActive && (
+              <span className="absolute -bottom-0.5 left-0 right-0 h-0.5 rounded-full bg-[#f5c518]" />
+            )}
           </button>
         );
       })}
-      <span
-        className="absolute bottom-2 h-0.5 rounded-full bg-[#f5c518] transition-all duration-200 ease-out"
-        style={{ left: indicator.left + 16, width: indicator.width }}
-      />
     </div>
   );
 }

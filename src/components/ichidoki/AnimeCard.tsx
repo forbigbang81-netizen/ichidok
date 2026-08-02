@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Star, PlayCircle } from "lucide-react";
 import type { Anime, HistoryItem } from "@/store/app";
 import { useApp } from "@/store/app";
@@ -19,6 +20,10 @@ export function AnimeCard({ anime, className, badge, progress }: AnimeCardProps)
   const isNew = badge === "NEW" || anime.isNew;
   const score = anime.score ?? 0;
 
+  // Check if poster is a local path (starts with /) or external URL
+  const isLocal = anime.poster?.startsWith("/");
+  const posterUrl = anime.poster || "";
+
   return (
     <button
       type="button"
@@ -30,13 +35,24 @@ export function AnimeCard({ anime, className, badge, progress }: AnimeCardProps)
       )}
     >
       <div className="relative aspect-[2/3] w-full overflow-hidden rounded-lg bg-[#111111]">
-        {anime.poster ? (
-          <img
-            src={anime.poster}
-            alt={anime.title}
-            loading="lazy"
-            className="h-full w-full object-cover"
-          />
+        {posterUrl ? (
+          isLocal ? (
+            <Image
+              src={posterUrl}
+              alt={anime.title}
+              fill
+              sizes="(max-width: 768px) 33vw, (max-width: 1280px) 20vw, 16vw"
+              className="object-cover"
+              loading="lazy"
+            />
+          ) : (
+            <img
+              src={posterUrl}
+              alt={anime.title}
+              loading="lazy"
+              className="h-full w-full object-cover"
+            />
+          )
         ) : (
           <div className="grid h-full w-full place-items-center text-[10px] font-medium text-white/30">
             No Image
