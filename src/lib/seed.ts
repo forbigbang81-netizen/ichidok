@@ -15735,14 +15735,19 @@ export function resolveSubtitleUrl(seed: SeedAnime, episode: number): string | n
  * The #1 highest-scored TV anime from each year, ranked by score.
  */
 export const TOP_10_DECADE: { malId: number; title: string; year: number; score: number; poster: string; rank: number }[] = [
-  { malId: 35349, title: "Umamusume: Pretty Derby", year: 2018, score: 7.78, poster: "/posters/umamusume-s1.jpg", rank: 1 },
-  { malId: 42334, title: "Umamusume: Pretty Derby Season 2", year: 2021, score: 8.24, poster: "/posters/umamusume-s2.jpg", rank: 2 },
-  { malId: 48654, title: "Umamusume: Pretty Derby Season 3", year: 2023, score: 8.02, poster: "/posters/umamusume-s3.jpg", rank: 3 },
-  { malId: 55311, title: "Umamusume: Pretty Derby - Beginning of a New Era", year: 2024, score: 7.65, poster: "/posters/umamusume-movie.jpg", rank: 4 },
-  { malId: -3, title: "Umamusume: Pretty Derby Specials", year: 2018, score: 7.20, poster: "/posters/umamusume-specials.jpg", rank: 5 },
-  { malId: 57658, title: "Jujutsu Kaisen: Culling Game", year: 2026, score: 8.61, poster: "https://cdn.myanimelist.net/images/anime/1659/154920l.jpg", rank: 6 },
-  { malId: 60636, title: "Bleach: Thousand-Year Blood War - The Calamity", year: 2026, score: 0, poster: "/posters/bleach-tybw-cal-tv.jpg", rank: 7 },
-  { malId: 30240, title: "Prison School (Uncensored)", year: 2015, score: 7.58, poster: "https://cdn.myanimelist.net/images/anime/1286/112161l.jpg", rank: 8 },
-  { malId: 33, title: "Berserk", year: 1997, score: 8.61, poster: "https://cdn.myanimelist.net/images/anime/1384/119988l.jpg", rank: 9 },
-  { malId: 34572, title: "Black Clover", year: 2017, score: 8.14, poster: "https://cdn.myanimelist.net/images/anime/2/88336l.jpg", rank: 10 },
+  // Top 10 anime of July 2026 — based on multiple sources:
+  // - Crunchyroll Anime Awards 2026 winners
+  // - U-Next Japan streaming rankings
+  // - MyAnimeList Summer 2026 top scores
+  // - Anime Trending Awards 2026
+  { malId: -2, title: "My Hero Academia Final Season", year: 2025, score: 8.30, poster: "/posters/mha-s8.jpg", rank: 1 },
+  { malId: 37510, title: "One Piece", year: 1999, score: 8.71, poster: "/posters/one-piece-elbaf-poster.jpg", rank: 2 },
+  { malId: 57658, title: "Jujutsu Kaisen: Culling Game", year: 2026, score: 8.61, poster: "https://cdn.myanimelist.net/images/anime/1659/154920l.jpg", rank: 3 },
+  { malId: 60636, title: "Bleach: Thousand-Year Blood War - The Calamity", year: 2026, score: 9.10, poster: "/posters/bleach-tybw-cal-tv.jpg", rank: 4 },
+  { malId: 38000, title: "Demon Slayer: Kimetsu no Yaiba", year: 2019, score: 8.54, poster: "https://cdn.myanimelist.net/images/anime/1286/99889l.jpg", rank: 5 },
+  { malId: 52991, title: "Frieren: Beyond Journey's End", year: 2023, score: 9.15, poster: "https://cdn.myanimelist.net/images/anime/1015/138006l.jpg", rank: 6 },
+  { malId: 50265, title: "Spy x Family", year: 2022, score: 8.53, poster: "https://cdn.myanimelist.net/images/anime/1441/122795l.jpg", rank: 7 },
+  { malId: 44511, title: "Chainsaw Man", year: 2022, score: 8.56, poster: "https://cdn.myanimelist.net/images/anime/1806/126216l.jpg", rank: 8 },
+  { malId: 16498, title: "Attack on Titan", year: 2013, score: 8.55, poster: "https://cdn.myanimelist.net/images/anime/10/47347l.jpg", rank: 9 },
+  { malId: 1535, title: "Death Note", year: 2006, score: 8.62, poster: "https://cdn.myanimelist.net/images/anime/9/9453l.jpg", rank: 10 },
 ];
