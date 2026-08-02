@@ -804,6 +804,10 @@ export const SEED_ANIME: SeedAnime[] = [
     // E2-136, E148-421, E1156-1171: NO SOURCE (wcostream doesn't have these
     //      dubbed, archive.org only has the episodes listed above).
     episodeSources: [
+      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 1048, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "one-piece-dub" },
+      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 1171, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "one-piece" },
       // ===== DUB (English, 1080p HIGH HD) — wcostream via WCO resolver =====
       // 1155 episodes (E1-1155) available on wcoanimedub.tv in 1080p.
       // The resolver (deployed separately on Railway/Render) runs Playwright
