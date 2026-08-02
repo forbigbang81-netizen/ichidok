@@ -4,7 +4,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ArrowLeft,
   Captions,
-  ExternalLink,
   Maximize,
   Minimize,
   Pause,
@@ -265,14 +264,14 @@ export function VideoPlayer({
   // ----- Fetch video import -----
   const [resolverLoading, setResolverLoading] = useState(false);
   const [resolvedVideoUrl, setResolvedVideoUrl] = useState<string | null>(null);
-  const [fallbackWcoUrl, setFallbackWcoUrl] = useState<string | null>(null);
+  // WCO fallback removed
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
     setError(null);
     setImportInfo(null);
     setResolvedVideoUrl(null);
-    setFallbackWcoUrl(null);
+
     setCues([]);
     setActiveCue("");
     // Reset buffering state from any previous source.
@@ -309,8 +308,6 @@ export function VideoPlayer({
               setLoading(false);
             } else {
               // Resolver returned an error — set fallback URL to watch on WCOStream
-              const wcoBase = audioMode === "DUB" ? "https://www.wcoanimedub.tv" : "https://www.wcoanimesub.tv";
-              setFallbackWcoUrl(`${wcoBase}/one-piece-episode-${episode}-english-${audioMode === "DUB" ? "dubbed" : "subbed"}`);
               setError(
                 data.error
                   ? `Resolver error: ${data.error}. You can watch this episode on WCOStream directly.`
@@ -321,8 +318,6 @@ export function VideoPlayer({
           } catch (e: any) {
             if (cancelled) return;
             // Resolver unreachable — set fallback URL
-            const wcoBase = audioMode === "DUB" ? "https://www.wcoanimedub.tv" : "https://www.wcoanimesub.tv";
-            setFallbackWcoUrl(`${wcoBase}/one-piece-episode-${episode}-english-${audioMode === "DUB" ? "dubbed" : "subbed"}`);
             setError(
               `Resolver is cold-starting (takes 30-60s on free tier) or not deployed yet. You can watch this episode on WCOStream directly, or wait and try again.`,
             );
@@ -345,10 +340,8 @@ export function VideoPlayer({
           }
           // Check if this is a wco_resolver source with no resolver URL configured
           if (info && !info.url && info.sourceType === "wco_resolver") {
-            const wcoBase = audioMode === "DUB" ? "https://www.wcoanimedub.tv" : "https://www.wcoanimesub.tv";
-            setFallbackWcoUrl(`${wcoBase}/one-piece-episode-${episode}-english-${audioMode === "DUB" ? "dubbed" : "subbed"}`);
             setError(
-              "This episode needs the WCO resolver for inline playback. You can watch it on WCOStream directly, or deploy the free resolver for inline playback.",
+              "This episode is loading. Try switching between SUB and DUB.",
             );
           } else {
             setError(
@@ -484,7 +477,7 @@ export function VideoPlayer({
       const errorCode = v?.error?.code;
       let errorMsg = "Video failed to load. The source may be unavailable.";
       if (errorCode === 4) {
-        errorMsg = "Video format not supported on this device. Try a different episode or use the 'Watch on WCOStream' button.";
+        errorMsg = "Video format not supported. Try switching between SUB and DUB.";
       } else if (errorCode === 2) {
         errorMsg = "Network error loading video. Check your connection and try again.";
       } else if (errorCode === 3) {
@@ -1127,17 +1120,9 @@ export function VideoPlayer({
         <div className="absolute inset-0 z-40 grid place-items-center bg-black/90 p-6">
           <div className="flex max-w-xs flex-col items-center gap-3 rounded-lg bg-[#111111] p-5 text-center text-white">
             <p className="text-sm leading-relaxed">{error}</p>
-            {fallbackWcoUrl && (
-              <a
-                href={fallbackWcoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-2 flex items-center gap-2 rounded-xl bg-[#f5c518] px-5 py-2.5 text-sm font-bold text-black transition-colors active:bg-[#e6b016]"
-              >
-                <ExternalLink className="h-4 w-4" />
-                Watch on WCOStream
-              </a>
-            )}
+            <p className="mt-2 text-xs text-white/40">
+              Try switching between SUB and DUB, or select another episode.
+            </p>
           </div>
         </div>
       )}
