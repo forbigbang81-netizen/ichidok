@@ -266,7 +266,7 @@ export function VideoPlayer({
   }, [keepControlsAlive]);
 
   // ----- Fetch video import -----
-  const [resolverLoading, setResolverLoading] = useState(false);
+
   const [resolvedVideoUrl, setResolvedVideoUrl] = useState<string | null>(null);
   // WCO fallback removed
   useEffect(() => {
@@ -290,47 +290,6 @@ export function VideoPlayer({
       .then(async (info) => {
         if (cancelled) return;
         setImportInfo(info);
-        // If this is a WCO resolver URL, fetch the actual video URL from
-        // the resolver endpoint. The resolver runs Playwright on a VPS to
-        // bypass Cloudflare and returns a short-lived direct video URL
-        // (tokens expire in ~60s, so we must resolve fresh each time).
-        if (info?.url && info.sourceType === "wco_resolver") {
-          setResolverLoading(true);
-          setLoading(true);
-          try {
-            const resp = await fetch(info.url);
-            const data = await resp.json();
-            if (cancelled) return;
-            if (data.url) {
-              // Route the resolved video URL through our stream proxy for CORS
-              // compatibility (console browsers like PS5/Xbox block cross-origin
-              // video without CORS headers).
-              const proxiedUrl = data.url.startsWith("http") && !data.url.startsWith(window.location.origin)
-                ? `/api/stream?url=${encodeURIComponent(data.url)}`
-                : data.url;
-              setResolvedVideoUrl(proxiedUrl);
-              setLoading(false);
-            } else {
-              // Resolver returned an error — set fallback URL to watch on WCOStream
-              setError(
-                data.error
-                  ? `Resolver error: ${data.error}. You can watch this episode on WCOStream directly.`
-                  : "Resolver temporarily unavailable. You can watch this episode on WCOStream directly.",
-              );
-              setLoading(false);
-            }
-          } catch (e: any) {
-            if (cancelled) return;
-            // Resolver unreachable — set fallback URL
-            setError(
-              `Resolver is cold-starting (takes 30-60s on free tier) or not deployed yet. You can watch this episode on WCOStream directly, or wait and try again.`,
-            );
-            setLoading(false);
-          } finally {
-            setResolverLoading(false);
-          }
-          return;
-        }
         setLoading(false);
         if (!info || !info.url) {
           // Auto-switch to the available audio mode
@@ -342,14 +301,9 @@ export function VideoPlayer({
             setAudioMode("SUB");
             return;
           }
-          // Check if this is a wco_resolver source with no resolver URL configured
-          if (info && !info.url && info.sourceType === "wco_resolver") {
+          {
             setError(
-              "This episode is loading. Try switching between SUB and DUB.",
-            );
-          } else {
-            setError(
-              "No stream available for this episode yet. Try another episode or audio mode.",
+              "No stream available for this episode. Try switching between SUB and DUB, or select another episode.",
             );
           }
         }
@@ -913,7 +867,7 @@ export function VideoPlayer({
   // ----- Render -----
   const isYoutube = !!importInfo?.isYoutube && !!importInfo?.url;
   const isGdriveEmbed = importInfo?.sourceType === "gdriveplayer_embed";
-  // Use resolved video URL (from WCO resolver) if available, otherwise use
+  // Use resolved video URL if available, otherwise use
   // the import info's URL directly (archive.org, dropbox, etc).
   const videoUrl = resolvedVideoUrl ?? importInfo?.url ?? null;
   const posterUrl = poster ?? "";
@@ -1081,9 +1035,7 @@ export function VideoPlayer({
               />
             </div>
             <p className="text-xs text-white/60">
-              {resolverLoading
-                ? "Resolving 1080p stream via WCO resolver (takes 20-30s)…"
-                : "Resolving stream…"}
+              {"Loading…"}
             </p>
           </div>
         </div>

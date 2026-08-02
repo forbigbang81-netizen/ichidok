@@ -126,20 +126,17 @@ export async function GET(request: Request) {
 
     const isYoutube = resolved.source === "youtube";
     const isWcoflix = resolved.source === "wcoflix";
-    const isWcoResolver = resolved.source === "wco_resolver";
     const isGdriveEmbed = resolved.source === "gdriveplayer_embed";
     const sourceLabel =
       resolved.source === "youtube"
         ? "youtube"
         : isWcoflix
           ? "wcoflix"
-          : isWcoResolver
-            ? "wco_resolver"
-            : isGdriveEmbed
-              ? "gdriveplayer_embed"
-              : resolved.needsProxy
-                ? "archive-mkv"
-                : "archive";
+          : isGdriveEmbed
+            ? "gdriveplayer_embed"
+            : resolved.needsProxy
+              ? "archive-mkv"
+              : "archive";
 
     // Build the URL the player should consume.
     // GDrivePlayer embeds are iframe URLs — pass through directly.
@@ -147,24 +144,19 @@ export async function GET(request: Request) {
     // so browsers block cross-origin video loading. Route ALL archive.org
     // URLs through /api/stream proxy which adds CORS headers.
     // YouTube embeds go straight. Wcoflix/external URLs go straight.
-    // WCO resolver URLs are passed through (VideoPlayer fetches them).
     const playerUrl = isYoutube
       ? resolved.url
       : isWcoflix
         ? resolved.url
-        : isWcoResolver
-          ? resolved.url
-          : isGdriveEmbed
+        : isGdriveEmbed
             ? resolved.url
             : resolved.url.includes("archive.org")
             ? buildStreamProxy(resolved.url, request)
             : resolved.needsProxy
               ? buildStreamProxy(resolved.url, request)
               : resolved.url;
-
-    // Don't cache wco_resolver URLs — they're resolver endpoint URLs, not
     // video URLs. The VideoPlayer calls the resolver fresh each time.
-    if (!isWcoResolver && !isGdriveEmbed) {
+    if (!isGdriveEmbed) {
       const anime = await db.anime.findUnique({ where: { malId } });
       if (anime) {
         try {

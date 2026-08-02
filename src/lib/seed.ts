@@ -33,12 +33,10 @@ export interface EpisodeSource {
   // expressed with a single {ep}-template (e.g. DVD rips where each
   // episode file includes the episode title in the name).
   episodeFiles?: Record<number, string>;
-  // When sourceType is "wco_resolver", the collection field holds the
-  // slug pattern (e.g. "one-piece-episode-{ep}-english-dubbed"). At
-  // playback time the VideoPlayer calls an external resolver service
-  // (WCO_RESOLVER_URL env var) which runs Playwright to bypass
-  // Cloudflare and returns a short-lived direct video URL.
-  sourceType?: "archive" | "wco_resolver" | "external" | "youtube" | "gdriveplayer_embed";
+  // When sourceType is "gdriveplayer_embed", the collection field holds the
+  // slug for gdriveplayer.me (e.g. "one-piece-dub"). At playback time the
+  // VideoPlayer renders an iframe pointing to gdriveplayer's embed page.
+  sourceType?: "archive" | "external" | "youtube" | "gdriveplayer_embed";
 }
 
 export const SEED_ANIME: SeedAnime[] = [
@@ -731,10 +729,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 25, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "haikyuu" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 26, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kimetsu-no-yaiba" },
-      // WCO resolver DUB (1080p fallback)
-      { startEp: 1, endEp: 24, collection: "wco-resolver", audio: "dub",
-        sourceType: "wco_resolver",
-        fileTemplate: "akame-ga-kill-episode-{ep}-english-dubbed" },
       // ARCHIVE.ORG SUB (480p, works WITHOUT resolver!)
       { startEp: 1, endEp: 24, collection: "akame_202606", audio: "sub", fileTemplate: "Akame Subbed S1E{ep}.mp4" },
     ], hasSub: true, hasDub: true,
@@ -790,7 +784,6 @@ export const SEED_ANIME: SeedAnime[] = [
       1084,                                   // Wano finale filler
     ],
     // Video sources:
-    // DUB (1080p HIGH HD via WCO resolver): E422-1155 — wcostream.tv 1080p
     //      English dub. Resolved at playback time by an external VPS running
     //      Playwright + stealth to bypass Cloudflare Turnstile. Requires
     //      NEXT_PUBLIC_WCO_RESOLVER_URL env var to be set. If the resolver
@@ -801,14 +794,12 @@ export const SEED_ANIME: SeedAnime[] = [
     //      (hasDub set on anime → resolveEpisodeUrl falls back to SUB when no
     //      actual DUB source exists for these episodes, so DUB toggle still
     //      plays the Wano arc episodes).
-    // E2-136, E148-421, E1156-1171: NO SOURCE (wcostream doesn't have these
     //      dubbed, archive.org only has the episodes listed above).
     episodeSources: [
       // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 1048, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "one-piece-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 1171, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "one-piece" },
-      // ===== DUB (English, 1080p HIGH HD) — wcostream via WCO resolver =====
       // 1155 episodes (E1-1155) available on wcoanimedub.tv in 1080p.
       // The resolver (deployed separately on Railway/Render) runs Playwright
       // to bypass Cloudflare Turnstile and returns a short-lived direct
@@ -817,9 +808,6 @@ export const SEED_ANIME: SeedAnime[] = [
       // slug from its internal map (E1-421 have non-standard slugs like
       // "one-piece-episode-1-english-dubbed-2-2", E1029-1030 use
       // "one-piece-specials-episode-N-english-dubbed" prefix).
-      { startEp: 1, endEp: 1155, collection: "wco-resolver", audio: "dub",
-        sourceType: "wco_resolver",
-        fileTemplate: "one-piece-episode-{ep}-english-dubbed" },
       // ===== DUB (English, 1080p HIGH HD) — archive.org "Dub, Edited" =====
       // E1 — 193MB, 1920x1080, Funimation English dub
       { startEp: 1, endEp: 1, collection: "0001-dub-edited", audio: "dub", fileTemplate: "0001 Dub, Edited.mp4" },
@@ -888,13 +876,9 @@ export const SEED_ANIME: SeedAnime[] = [
         1003: "1003 Dub, Edited.mp4",
         1004: "1004 Dub, Edited.mp4",
       } },
-      // ===== SUB (Japanese audio, 1080p) — wcostream via WCO resolver =====
       // 1168 episodes (E1-1171) available on wcoanimesub.tv in 1080p.
       // Used as SUB source for episodes not covered by archive.org, AND
       // as the primary source for Elbaf arc (E1156-1171) which has no dub yet.
-      { startEp: 1, endEp: 1171, collection: "wco-resolver-sub", audio: "sub",
-        sourceType: "wco_resolver",
-        fileTemplate: "one-piece-episode-{ep}-english-subbed" },
       // ===== SUB (Japanese audio, 1080p) — archive.org Anime Time =====
       // Wano arc E1001-1085 — also playable in DUB mode via SUB fallback
       // (hasDub=true → resolveEpisodeUrl falls through to SUB when no DUB
@@ -1082,9 +1066,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "code-geass-lelouch-of-the-rebellion-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "code-geass-lelouch-of-the-rebellion" },
-      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "dub",
-        sourceType: "wco_resolver",
-        fileTemplate: "code-geass-episode-{ep}-english-dubbed-2" },
     ], hasDub: true,
   },
   // Code Geass: Lelouch of the Rebellion R2 (Season 2)
@@ -1103,9 +1084,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "code-geass-lelouch-of-the-rebellion-r2-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "code-geass-lelouch-of-the-rebellion-r2" },
-      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "dub",
-        sourceType: "wco_resolver",
-        fileTemplate: "code-geass-r2-episode-{ep}-english-dubbed" },
     ], hasDub: true,
   },
   // Cyberpunk Edgerunners
@@ -1716,14 +1694,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia" },
-      // WCO resolver DUB (all 13 episodes, HD) — fallback if archive.org fails
-      { startEp: 1, endEp: 13, collection: "wco-resolver", audio: "dub",
-        sourceType: "wco_resolver",
-        fileTemplate: "my-hero-academia-episode-{ep}-english-dubbed" },
-      // WCO resolver SUB (all 13 episodes, HD)
-      { startEp: 1, endEp: 13, collection: "wco-resolver", audio: "sub",
-        sourceType: "wco_resolver",
-        fileTemplate: "my-hero-academia-episode-{ep}-english-subbed" },
       { startEp: 1, endEp: 13, collection: "my-hero-episode-1-season-1-dub", audio: "dub", episodeFiles: {
         1: "My hero episode 1 season 1 - dub.mp4", 2: "my hero_episode 2 _season1.mp4", 3: "My hero_episode 3_season 1.mp4",
         4: "my hero_episode 4 _season1.mp4", 5: "my hero_episode 5 _season 1.mp4", 6: "my hero_episode 6 _season1.mp4",
@@ -1754,14 +1724,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-2-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-2" },
-      // WCO resolver DUB (all 25 episodes, HD)
-      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "dub",
-        sourceType: "wco_resolver",
-        fileTemplate: "my-hero-academia-season-2-episode-{ep}-english-dubbed" },
-      // WCO resolver SUB (all 25 episodes, HD)
-      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "sub",
-        sourceType: "wco_resolver",
-        fileTemplate: "my-hero-academia-season-2-episode-{ep}-english-subbed" },
       { startEp: 1, endEp: 25, collection: "myheroacademiaseasontwo", audio: "dub", episodeFiles: {
         1: "1ThatsTheIdeaOchaco2.mp4", 2: "2RoaringSportsFestival2.mp4", 3: "3InTheirOwnQuirkyWays2.mp4",
         4: "4StrategyStrategyStrategy2.mp4", 5: "5CavalryBattleFinale2.mp4", 6: "6TheBoyBornWithEverything2.mp4",
@@ -1802,14 +1764,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-3-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-3" },
-      // WCO resolver DUB (all 25 episodes, HD) — S3 had no archive.org dub
-      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "dub",
-        sourceType: "wco_resolver",
-        fileTemplate: "my-hero-academia-season-3-episode-{ep}-english-dubbed" },
-      // WCO resolver SUB (all 25 episodes, HD)
-      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "sub",
-        sourceType: "wco_resolver",
-        fileTemplate: "my-hero-academia-season-3-episode-{ep}-english-subbed" },
       { startEp: 1, endEp: 25, collection: "mha-s3-full", audio: "sub", episodeFiles: {
         1: "AnimePahe_Boku_no_Hero_Academia_-_039_BD_1080p_Yūrei.mp4", 2: "AnimePahe_Boku_no_Hero_Academia_-_040_BD_1080p_Yūrei.mp4",
         3: "AnimePahe_Boku_no_Hero_Academia_-_041_BD_1080p_Yūrei.mp4", 4: "AnimePahe_Boku_no_Hero_Academia_-_042_BD_1080p_Yūrei.mp4",
@@ -1839,14 +1793,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-4-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-4" },
-      // WCO resolver DUB (all 25 episodes, HD) — S4 had no archive.org dub
-      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "dub",
-        sourceType: "wco_resolver",
-        fileTemplate: "my-hero-academia-season-4-episode-{ep}-english-dubbed" },
-      // WCO resolver SUB (all 25 episodes, HD)
-      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "sub",
-        sourceType: "wco_resolver",
-        fileTemplate: "my-hero-academia-season-4-episode-{ep}-english-subbed" },
       { startEp: 1, endEp: 25, collection: "mha-s4-full", audio: "sub", episodeFiles: {
         1: "AnimePahe_Boku_no_Hero_Academia_-_064_BD_1080p_EMBER.mp4", 2: "AnimePahe_Boku_no_Hero_Academia_-_065_BD_1080p_EMBER.mp4",
         3: "AnimePahe_Boku_no_Hero_Academia_-_066_BD_1080p_EMBER.mp4", 4: "AnimePahe_Boku_no_Hero_Academia_-_067_BD_1080p_EMBER.mp4",
@@ -1876,14 +1822,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-5-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-5" },
-      // WCO resolver DUB (all 25 episodes, HD) — S5 had no archive.org dub
-      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "dub",
-        sourceType: "wco_resolver",
-        fileTemplate: "my-hero-academia-season-5-episode-{ep}-english-dubbed" },
-      // WCO resolver SUB (all 25 episodes, HD)
-      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "sub",
-        sourceType: "wco_resolver",
-        fileTemplate: "my-hero-academia-season-5-episode-{ep}-english-subbed" },
       { startEp: 1, endEp: 25, collection: "mha-s5-full", audio: "sub", episodeFiles: {
         1: "AnimePahe_Boku_no_Hero_Academia_-_089_BD_1080p_EMBER.mp4", 2: "AnimePahe_Boku_no_Hero_Academia_-_090_BD_1080p_EMBER.mp4",
         3: "AnimePahe_Boku_no_Hero_Academia_-_091_BD_1080p_EMBER.mp4", 4: "AnimePahe_Boku_no_Hero_Academia_-_092_BD_1080p_EMBER.mp4",
@@ -1913,14 +1851,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-6-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-6" },
-      // WCO resolver DUB (all 25 episodes, HD) — fills gap for ep 10
-      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "dub",
-        sourceType: "wco_resolver",
-        fileTemplate: "my-hero-academia-season-6-episode-{ep}-english-dubbed" },
-      // WCO resolver SUB (all 25 episodes, HD)
-      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "sub",
-        sourceType: "wco_resolver",
-        fileTemplate: "my-hero-academia-season-6-episode-{ep}-english-subbed" },
       { startEp: 1, endEp: 25, collection: "s-6.-e-8-league-of-villains-vs.-u.-a.-students", audio: "dub", episodeFiles: {
         1: "S6.E1 ∙ A Quiet Beginning.mp4", 2: "S6.E2 ∙ Mirko, the No. 5 Hero.mp4", 3: "S6.E3 ∙ One's Justice.mp4",
         4: "S6.E4 ∙ Inheritance.mp4", 5: "S6.E5 ∙ The Thrill of Destruction.mp4", 6: "S6.E6 ∙ Encounter, Part 2.mp4",
@@ -1963,14 +1893,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-7-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-7" },
-      // WCO resolver DUB (all 21 episodes, HD) — S7 had no archive.org dub
-      { startEp: 1, endEp: 21, collection: "wco-resolver", audio: "dub",
-        sourceType: "wco_resolver",
-        fileTemplate: "my-hero-academia-season-7-episode-{ep}-english-dubbed" },
-      // WCO resolver SUB (all 21 episodes, HD)
-      { startEp: 1, endEp: 21, collection: "wco-resolver", audio: "sub",
-        sourceType: "wco_resolver",
-        fileTemplate: "my-hero-academia-season-7-episode-{ep}-english-subbed" },
       { startEp: 1, endEp: 21, collection: "mha-s7-full", audio: "sub", episodeFiles: {
         1: "AnimePahe_Boku_no_Hero_Academia_-_139_1080p_SubsPlease.mp4", 2: "AnimePahe_Boku_no_Hero_Academia_-_140_1080p_SubsPlease.mp4",
         3: "AnimePahe_Boku_no_Hero_Academia_-_141_1080p_SubsPlease.mp4", 4: "AnimePahe_Boku_no_Hero_Academia_-_142_1080p_SubsPlease.mp4",
@@ -2240,8 +2162,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 1, collection: "tomb-raider-king-watch-anime-online-in-hd-animesuge-1-019942", fileName: "Tomb Raider King – Watch Anime Online in HD _ AnimeSuge (1).mp4", audio: "sub" },
     ], hasSub: true,
   },
-  // ===== Popular anime added from WCO alphabet list =====
-  // All use wco_resolver for both DUB and SUB (where available on WCO sites).
   // Slug pattern: {slug}-episode-{ep}-english-{dubbed|subbed}
 
   // Naruto
@@ -2256,8 +2176,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "naruto-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "naruto" },
-      { startEp: 1, endEp: 220, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "naruto-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 220, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "naruto-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
   },
   // Naruto Shippuden
@@ -2272,8 +2190,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "naruto-shippuden-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "naruto-shippuden" },
-      { startEp: 1, endEp: 500, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "naruto-shippuden-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 500, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "naruto-shippuden-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
   },
   // Demon Slayer (Kimetsu no Yaiba)
@@ -2288,8 +2204,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "demon-slayer-kimetsu-no-yaiba-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "demon-slayer-kimetsu-no-yaiba" },
-      { startEp: 1, endEp: 26, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "demon-slayer-kimetsu-no-yaiba-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 26, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "demon-slayer-kimetsu-no-yaiba-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
   },
   // Attack on Titan (Shingeki no Kyojin)
@@ -2306,9 +2220,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "attack-on-titan" },
       // ARCHIVE.ORG DUB (1080p, works WITHOUT resolver!)
       { startEp: 1, endEp: 25, collection: "shingeki-no-kyojin_aot", audio: "dub", fileTemplate: "season-1_DUB-1080p/Attack_on_Titan-E{ep}-1080p.mp4" },
-      // WCO resolver (fallback if archive.org fails)
-      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
   },
   // Attack on Titan Season 2
@@ -2325,8 +2236,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "attack-on-titan-season-2" },
       // ARCHIVE.ORG DUB (1080p, works WITHOUT resolver!)
       { startEp: 1, endEp: 12, collection: "shingeki-no-kyojin_aot", audio: "dub", fileTemplate: "season-2_DUB-1080p/Attack_on_Titan_Season_2-E{ep}-1080p.mp4" },
-      { startEp: 1, endEp: 12, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-season-2-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 12, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-season-2-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
   },
   // Attack on Titan Season 3
@@ -2343,8 +2252,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "attack-on-titan-season-3" },
       // ARCHIVE.ORG DUB (1080p, works WITHOUT resolver!)
       { startEp: 1, endEp: 22, collection: "shingeki-no-kyojin_aot", audio: "dub", fileTemplate: "season-3_DUB-1080p/Attack_on_Titan_Season_3-E{ep}-1080p.mp4" },
-      { startEp: 1, endEp: 22, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-season-3-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 22, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-season-3-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
   },
   // Attack on Titan Final Season
@@ -2378,9 +2285,6 @@ export const SEED_ANIME: SeedAnime[] = [
       // ARCHIVE.ORG DUB Part 3 / Final Chapters (1080p TVRip, E28-29)
       { startEp: 28, endEp: 28, collection: "attack-on-titan-the-final-chapters-ep.-1.-tvrip.-1080p", audio: "dub", fileName: "EP.1.TVRip.1080p.mp4" },
       { startEp: 29, endEp: 29, collection: "attack-on-titan-the-final-chapters-ep.-2.-tvrip.-1080p", audio: "dub", fileName: "EP.2.TVRip.1080p.mp4" },
-      // WCO resolver (fallback for any missing episodes)
-      { startEp: 1, endEp: 29, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-final-season-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 29, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-final-season-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
   },
   // Chainsaw Man
@@ -2397,8 +2301,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "chainsaw-man" },
       // ARCHIVE.ORG SUB (720p/1080p, works WITHOUT resolver!)
       { startEp: 1, endEp: 12, collection: "chainsaw-man-sub", audio: "sub", fileTemplate: "Chainsaw Man {ep:02}.mp4" },
-      { startEp: 1, endEp: 12, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chainsaw-man-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 12, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chainsaw-man-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
   },
   // Death Note
@@ -2413,8 +2315,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "death-note-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "death-note" },
-      { startEp: 1, endEp: 37, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "death-note-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 37, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "death-note-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
   },
   // Fullmetal Alchemist: Brotherhood
@@ -2429,8 +2329,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "fullmetal-alchemist-brotherhood-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "fullmetal-alchemist-brotherhood" },
-      { startEp: 1, endEp: 64, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fullmetal-alchemist-brotherhood-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 64, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fullmetal-alchemist-brotherhood-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
   },
   // Hunter x Hunter (2011)
@@ -2445,8 +2343,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hunter-x-hunter-2011-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hunter-x-hunter-2011" },
-      { startEp: 1, endEp: 148, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hunter-x-hunter-2011-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 148, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hunter-x-hunter-2011-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
   },
   // One Punch Man
@@ -2461,8 +2357,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "one-punch-man-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "one-punch-man" },
-      { startEp: 1, endEp: 12, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "one-punch-man-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 12, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "one-punch-man-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
   },
   // Spy x Family
@@ -2477,8 +2371,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "spy-x-family-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "spy-x-family" },
-      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "spy-x-family-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "spy-x-family-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
   },
   // Tokyo Ghoul
@@ -2493,8 +2385,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tokyo-ghoul-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tokyo-ghoul" },
-      { startEp: 1, endEp: 12, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tokyo-ghoul-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 12, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tokyo-ghoul-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
   },
   // Vinland Saga
@@ -2511,8 +2401,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "vinland-saga" },
       // ARCHIVE.ORG SUB (480p, works WITHOUT resolver!)
       { startEp: 1, endEp: 24, collection: "anime-time-steins-gate", audio: "sub", fileTemplate: "[Anime Time] Steins;Gate - {ep:02}.mp4" },
-      { startEp: 1, endEp: 24, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "vinland-saga-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 24, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "vinland-saga-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
   },
   // Violet Evergarden
@@ -2527,8 +2415,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "violet-evergarden-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "violet-evergarden" },
-      { startEp: 1, endEp: 13, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "violet-evergarden-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 13, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "violet-evergarden-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
   },
 
@@ -2544,8 +2430,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "18if-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "18if" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "18if-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "18if-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // 2.43: Seiin High School Boys Volleyball Team
@@ -2560,8 +2444,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "243-seiin-high-school-boys-volleyball-team-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "243-seiin-high-school-boys-volleyball-team" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "2-43-seiin-high-school-boys-volleyball-team-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "2-43-seiin-high-school-boys-volleyball-team-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Soul Eater Not!
@@ -2588,8 +2470,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "25-dimensional-seduction-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "25-dimensional-seduction" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "2-5-dimensional-seduction-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "2-5-dimensional-seduction-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // 7 Seeds
@@ -2604,8 +2484,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "7-seeds-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "7-seeds" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "7-seeds-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "7-seeds-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // 86 Eighty-Six
@@ -2620,8 +2498,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "86-eighty-six-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "86-eighty-six" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "86-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "86-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // 91 Days
@@ -2636,8 +2512,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "91-days-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "91-days" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "91-days-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "91-days-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // A Centaur’s Life
@@ -2652,8 +2526,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "a-centaurs-life-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "a-centaurs-life" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-centaur-s-life-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-centaur-s-life-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // A Certain Magical Index
@@ -2668,8 +2540,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "a-certain-magical-index-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "a-certain-magical-index" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-certain-magical-index-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-certain-magical-index-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // A Certain Scientific Accelerator
@@ -2684,8 +2554,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "a-certain-scientific-accelerator-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "a-certain-scientific-accelerator" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-certain-scientific-accelerator-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-certain-scientific-accelerator-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // A Certain Scientific Railgun
@@ -2700,8 +2568,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "a-certain-scientific-railgun-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "a-certain-scientific-railgun" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-certain-scientific-railgun-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-certain-scientific-railgun-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // A Condition Called Love
@@ -2716,8 +2582,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "a-condition-called-love-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "a-condition-called-love" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-condition-called-love-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-condition-called-love-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // A Couple of Cuckoos
@@ -2732,8 +2596,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "a-couple-of-cuckoos-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "a-couple-of-cuckoos" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-couple-of-cuckoos-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-couple-of-cuckoos-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // A Galaxy Next Door
@@ -2748,8 +2610,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "a-galaxy-next-door-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "a-galaxy-next-door" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-galaxy-next-door-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-galaxy-next-door-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // A Gatherer's Adventure in Isekai
@@ -2764,8 +2624,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "a-gatherers-adventure-in-isekai-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "a-gatherers-adventure-in-isekai" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-gatherers-adventure-in-isekai-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-gatherers-adventure-in-isekai-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // A Gentle Noble's Vacation Recommendation
@@ -2780,8 +2638,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "a-gentle-nobles-vacation-recommendation-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "a-gentle-nobles-vacation-recommendation" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-gentle-nobles-vacation-recommendation-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-gentle-nobles-vacation-recommendation-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // A Journey Through Another World: Raising Kids While Adventuring
@@ -2796,8 +2652,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "a-journey-through-another-world-raising-kids-while-adventuring-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "a-journey-through-another-world-raising-kids-while-adventuring" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-journey-through-another-world-raising-kids-while-adventuring-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "isekai-yururi-kikou-kosodateshinagara-boukensha-shimasu-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // A Misanthrope Teaches a Class for Demi-Humans
@@ -2812,8 +2666,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "a-misanthrope-teaches-a-class-for-demi-humans-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "a-misanthrope-teaches-a-class-for-demi-humans" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-misanthrope-teaches-a-class-for-demi-humans-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-misanthrope-teaches-a-class-for-demi-humans-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // A Place Further Than The Universe
@@ -2828,8 +2680,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "a-place-further-than-the-universe-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "a-place-further-than-the-universe" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-place-further-than-the-universe-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-place-further-than-the-universe-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // A Returner's Magic Should Be Special
@@ -2844,8 +2694,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "a-returners-magic-should-be-special-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "a-returners-magic-should-be-special" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-returners-magic-should-be-special-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-returners-magic-should-be-special-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // A Sign of Affection
@@ -2860,8 +2708,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "a-sign-of-affection-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "a-sign-of-affection" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-sign-of-affection-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-sign-of-affection-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // A Sister’s All You Need
@@ -2876,8 +2722,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "a-sisters-all-you-need-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "a-sisters-all-you-need" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-sister-s-all-you-need-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-sister-s-all-you-need-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // A Star Brighter Than the Sun
@@ -2892,8 +2736,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "a-star-brighter-than-the-sun-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "a-star-brighter-than-the-sun" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-star-brighter-than-the-sun-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-star-brighter-than-the-sun-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // A.I.C.O.: Incarnation
@@ -2908,8 +2750,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "aico-incarnation-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "aico-incarnation" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a-i-c-o-incarnation-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-i-c-o-incarnation-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // A3! Season Autumn &amp; Winter
@@ -2924,8 +2764,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "a3-season-autumn-amp-winter-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "a3-season-autumn-amp-winter" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a3-season-autumn-winter-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a3-season-autumn-winter-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // A3! Season Spring &amp; Summer
@@ -2940,8 +2778,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "a3-season-spring-amp-summer-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "a3-season-spring-amp-summer" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "a3-season-spring-summer-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a3-season-spring-summer-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // ACCA: 13-Territory Inspection Dept.
@@ -2956,8 +2792,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "acca-13-territory-inspection-dept-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "acca-13-territory-inspection-dept" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "acca-13-territory-inspection-dept-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "acca-13-ku-kansatsu-ka-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // AMAIM Warrior at the Borderline
@@ -2972,8 +2806,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "amaim-warrior-at-the-borderline-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "amaim-warrior-at-the-borderline" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "amaim-warrior-at-the-borderline-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kyoukai-senki-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Absolute Duo
@@ -2988,8 +2820,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "absolute-duo-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "absolute-duo" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "absolute-duo-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "absolute-duo-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Accel World
@@ -3004,8 +2834,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "accel-world-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "accel-world" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "accel-world-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "accel-world-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ace Attorney
@@ -3020,8 +2848,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ace-attorney-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ace-attorney" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ace-attorney-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gyakuten-saiban-sono-shinjitsu-igi-ari-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Actors: Songs Connection
@@ -3036,8 +2862,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "actors-songs-connection-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "actors-songs-connection" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "actors-songs-connection-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "actors-songs-connection-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Adachi and Shimamura
@@ -3052,8 +2876,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "adachi-and-shimamura-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "adachi-and-shimamura" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "adachi-and-shimamura-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "adachi-to-shimamura-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Aesthetica of a Rogue Hero
@@ -3068,8 +2890,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "aesthetica-of-a-rogue-hero-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "aesthetica-of-a-rogue-hero" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "aesthetica-of-a-rogue-hero-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "aesthetica-of-a-rogue-hero-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Afro Samurai
@@ -3084,8 +2904,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "afro-samurai-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "afro-samurai" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "afro-samurai-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "afro-samurai-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // After School Dice Club
@@ -3100,8 +2918,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "after-school-dice-club-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "after-school-dice-club" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "afterschool-dice-club-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "afterschool-dice-club-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // After the Rain
@@ -3116,8 +2932,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "after-the-rain-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "after-the-rain" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "after-the-rain-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "koi-wa-ameagari-no-you-ni-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // After-School Hanako-kun
@@ -3132,8 +2946,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "after-school-hanako-kun-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "after-school-hanako-kun" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "after-school-hanako-kun-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "houkago-shounen-hanako-kun-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Afterlost
@@ -3148,8 +2960,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "afterlost-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "afterlost" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "afterlost-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shoumetsu-toshi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Agents of the Four Seasons: Dance of Spring
@@ -3164,8 +2974,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "agents-of-the-four-seasons-dance-of-spring-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "agents-of-the-four-seasons-dance-of-spring" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "agents-of-the-four-seasons-dance-of-spring-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "agents-of-the-four-seasons-dance-of-spring-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Aggretsuko
@@ -3180,8 +2988,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "aggretsuko-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "aggretsuko" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "aggretsuko-2018-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "aggretsuko-2018-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ahiru no Sora
@@ -3196,8 +3002,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ahiru-no-sora-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ahiru-no-sora" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ahiru-no-sora-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ahiru-no-sora-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Air Master
@@ -3212,8 +3016,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "air-master-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "air-master" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "air-master-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "air-master-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ajin: Demi-Human
@@ -3228,8 +3030,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ajin-demi-human-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ajin-demi-human" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ajin-demi-human-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ajin-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Akane-banashi
@@ -3244,8 +3044,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "akane-banashi-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "akane-banashi" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "akane-banashi-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "akane-banashi-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Akebi's Sailor Uniform
@@ -3260,8 +3058,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "akebis-sailor-uniform-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "akebis-sailor-uniform" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "akebi-s-sailor-uniform-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "akebi-s-sailor-uniform-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Akiba Maid War
@@ -3276,8 +3072,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "akiba-maid-war-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "akiba-maid-war" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "akiba-maid-war-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "akiba-maid-sensou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Akiba's Trip The Animation
@@ -3292,8 +3086,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "akibas-trip-the-animation-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "akibas-trip-the-animation" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "akiba-s-trip-the-animation-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "akiba-s-trip-the-animation-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Akudama Drive
@@ -3308,8 +3100,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "akudama-drive-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "akudama-drive" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "akudama-drive-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "akudama-drive-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Alderamin on the Sky
@@ -3324,8 +3114,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "alderamin-on-the-sky-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "alderamin-on-the-sky" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "alderamin-on-the-sky-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "alderamin-on-the-sky-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Aldnoah.Zero
@@ -3340,8 +3128,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "aldnoahzero-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "aldnoahzero" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "aldnoah-zero-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "aldnoah-zero-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // All Out!!
@@ -3356,8 +3142,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "all-out-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "all-out" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "all-out-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "all-out-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Alya Sometimes Hides Her Feelings in Russian
@@ -3372,8 +3156,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "alya-sometimes-hides-her-feelings-in-russian-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "alya-sometimes-hides-her-feelings-in-russian" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "alya-sometimes-hides-her-feelings-in-russian-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tokidoki-bosotto-russia-go-de-dereru-tonari-no-alya-san-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Am I Actually the Strongest?
@@ -3388,8 +3170,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "am-i-actually-the-strongest-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "am-i-actually-the-strongest" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "am-i-actually-the-strongest-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jitsu-wa-ore-saikyou-deshita-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Amagi Brilliant Park
@@ -3404,8 +3184,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "amagi-brilliant-park-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "amagi-brilliant-park" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "amagi-brilliant-park-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "amagi-brilliant-park-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ameku M.D.: Doctor Detective
@@ -3420,8 +3198,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ameku-md-doctor-detective-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ameku-md-doctor-detective" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ameku-m-d-doctor-detective-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ameku-takao-no-suiri-karte-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // An Adventurer's Daily Grind at Age 29
@@ -3436,8 +3212,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "an-adventurers-daily-grind-at-age-29-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "an-adventurers-daily-grind-at-age-29" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "an-adventurers-daily-grind-at-age-29-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "an-adventurers-daily-grind-at-age-29-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // An Archdemon's Dilemma: How to Love Your Elf Bride
@@ -3452,8 +3226,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "an-archdemons-dilemma-how-to-love-your-elf-bride-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "an-archdemons-dilemma-how-to-love-your-elf-bride" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "an-archdemons-dilemma-how-to-love-your-elf-bride-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "maou-no-ore-ga-dorei-elf-wo-yome-ni-shitanda-ga-dou-medereba-ii-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // An Observation Log of My Fiancée Who Calls Herself a Villainess
@@ -3468,8 +3240,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "an-observation-log-of-my-fiance-who-calls-herself-a-villainess-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "an-observation-log-of-my-fiance-who-calls-herself-a-villainess" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "an-observation-log-of-my-fiancee-who-calls-herself-a-villainess-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "an-observation-log-of-my-fiancee-who-calls-herself-a-villainess-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // And you thought there is never a girl online?
@@ -3484,8 +3254,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "and-you-thought-there-is-never-a-girl-online-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "and-you-thought-there-is-never-a-girl-online" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "and-you-thought-there-is-never-a-girl-online-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "and-you-thought-there-is-never-a-girl-online-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Angel Beats!
@@ -3500,8 +3268,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "angel-beats-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "angel-beats" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "angel-beats-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "angel-beats-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Angels of Death
@@ -3516,8 +3282,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "angels-of-death-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "angels-of-death" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "angels-of-death-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "satsuriku-no-tenshi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Anime-Gataris
@@ -3532,8 +3296,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "anime-gataris-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "anime-gataris" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "anime-gataris-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "anime-gataris-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Anne Shirley
@@ -3548,8 +3310,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "anne-shirley-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "anne-shirley" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "anne-shirley-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "anne-shirley-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Anne of Green Gables
@@ -3564,8 +3324,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "anne-of-green-gables-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "anne-of-green-gables" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "anne-of-green-gables-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "akage-no-anne-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Anohana: The Flower We Saw That Day
@@ -3580,8 +3338,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "anohana-the-flower-we-saw-that-day-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "anohana-the-flower-we-saw-that-day" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "anohana-the-flower-we-saw-that-day-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "anohana-the-flower-we-saw-that-day-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Anonymous Noise
@@ -3596,8 +3352,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "anonymous-noise-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "anonymous-noise" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "anonymous-noise-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fukumenkei-noise-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Another
@@ -3612,8 +3366,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "another-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "another" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "another-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "another-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Anyway, I'm Falling in Love with You.
@@ -3628,8 +3380,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "anyway-im-falling-in-love-with-you-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "anyway-im-falling-in-love-with-you" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "anyway-im-falling-in-love-with-you-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "anyway-im-falling-in-love-with-you-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ao Ashi
@@ -3644,8 +3394,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ao-ashi-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ao-ashi" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ao-ashi-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ao-ashi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ao-chan Can't Study!
@@ -3660,8 +3408,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ao-chan-cant-study-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ao-chan-cant-study" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ao-chan-can-t-study-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "midara-na-ao-chan-wa-benkyou-ga-dekinai-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Aoharu x Machinegun
@@ -3676,8 +3422,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "aoharu-x-machinegun-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "aoharu-x-machinegun" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "aoharu-x-machinegun-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "aoharu-x-kikanjuu-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Aokana Four Rhythm Across the Blue
@@ -3692,8 +3436,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "aokana-four-rhythm-across-the-blue-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "aokana-four-rhythm-across-the-blue" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "aokana-four-rhythm-across-the-blue-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "aokana-four-rhythm-across-the-blue-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Aquarion Logos
@@ -3708,8 +3450,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "aquarion-logos-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "aquarion-logos" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "aquarion-logos-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "aquarion-logos-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Aria The Natural
@@ -3724,8 +3464,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "aria-the-natural-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "aria-the-natural" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "aria-the-natural-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "aria-the-natural-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Aria the Animation
@@ -3740,8 +3478,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "aria-the-animation-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "aria-the-animation" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "aria-the-animation-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "aria-the-animation-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Aria the Origination
@@ -3756,8 +3492,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "aria-the-origination-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "aria-the-origination" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "aria-the-origination-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "aria-the-origination-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Aria the Scarlet Ammo
@@ -3772,8 +3506,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "aria-the-scarlet-ammo-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "aria-the-scarlet-ammo" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "aria-the-scarlet-ammo-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hidan-no-aria-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Arifureta: From Commonplace to World's Strongest
@@ -3788,8 +3520,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "arifureta-from-commonplace-to-worlds-strongest-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "arifureta-from-commonplace-to-worlds-strongest" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "arifureta-from-commonplace-to-world-s-strongest-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "arifureta-shokugyou-de-sekai-saikyou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Armed Girl's Machiavellism
@@ -3804,8 +3534,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "armed-girls-machiavellism-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "armed-girls-machiavellism" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "armed-girl-s-machiavellism-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "busou-shoujo-machiavellianism-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Arte
@@ -3820,8 +3548,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "arte-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "arte" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "arte-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "arte-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ascendance of a Bookworm
@@ -3836,8 +3562,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ascendance-of-a-bookworm-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ascendance-of-a-bookworm" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ascendance-of-a-bookworm-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ascendance-of-a-bookworm-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Assassins Pride
@@ -3852,8 +3576,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "assassins-pride-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "assassins-pride" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "assassins-pride-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "assassins-pride-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Assault Lily: Bouquet
@@ -3868,8 +3590,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "assault-lily-bouquet-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "assault-lily-bouquet" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "assault-lily-bouquet-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "assault-lily-bouquet-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Asteroid in Love
@@ -3884,8 +3604,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "asteroid-in-love-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "asteroid-in-love" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "asteroid-in-love-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "koisuru-asteroid-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Astra Lost in Space
@@ -3900,8 +3618,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "astra-lost-in-space-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "astra-lost-in-space" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "astra-lost-in-space-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kanata-no-astra-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Attack on Titan: Junior High
@@ -3916,8 +3632,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "attack-on-titan-junior-high-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "attack-on-titan-junior-high" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-junior-high-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shingeki-kyojin-chuugakkou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ayaka: A Story of Bonds and Wounds
@@ -3932,8 +3646,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ayaka-a-story-of-bonds-and-wounds-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ayaka-a-story-of-bonds-and-wounds" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ayaka-a-story-of-bonds-and-wounds-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ayaka-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Azur Lane the Animation
@@ -3948,8 +3660,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "azur-lane-the-animation-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "azur-lane-the-animation" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "azur-lane-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "azur-lane-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // B: The Beginning
@@ -3964,8 +3674,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "b-the-beginning-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "b-the-beginning" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "b-the-beginning-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "b-the-beginning-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // B: The Beginning Succession
@@ -3980,8 +3688,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "b-the-beginning-succession-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "b-the-beginning-succession" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "b-the-beginning-succession-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "b-the-beginning-succession-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // BAKI-DOU: The Invincible Samurai
@@ -3996,8 +3702,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "baki-dou-the-invincible-samurai-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "baki-dou-the-invincible-samurai" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "baki-dou-the-invincible-samurai-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "baki-dou-the-invincible-samurai-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // BNA: Brand New Animal
@@ -4012,8 +3716,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bna-brand-new-animal-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bna-brand-new-animal" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bna-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bna-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Babylon
@@ -4028,8 +3730,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "babylon-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "babylon" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "babylon-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "babylon-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Back Arrow
@@ -4044,8 +3744,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "back-arrow-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "back-arrow" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "back-arrow-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "back-arrow-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Back Street Girls: Gokudolls
@@ -4060,8 +3758,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "back-street-girls-gokudolls-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "back-street-girls-gokudolls" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "back-street-girls-gokudolls-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "back-street-girls-gokudolls-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Bad Girl
@@ -4076,8 +3772,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bad-girl-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bad-girl" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bad-girl-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bad-girl-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Baka and Test: Summon the Beasts
@@ -4092,8 +3786,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "baka-and-test-summon-the-beasts-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "baka-and-test-summon-the-beasts" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "baka-and-test-summon-the-beasts-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "baka-and-test-summon-the-beasts-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Baki (2018)
@@ -4108,8 +3800,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "baki-2018-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "baki-2018" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "baki-2018-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "baki-2018-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Baki Hanma
@@ -4124,8 +3814,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "baki-hanma-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "baki-hanma" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hanma-baki-son-of-ogre-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hanma-baki-son-of-ogre-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Bakuman
@@ -4140,8 +3828,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bakuman-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bakuman" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bakuman-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bakuman-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // BanG Dream!
@@ -4156,8 +3842,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bang-dream-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bang-dream" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bang-dream-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bang-dream-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Bananya
@@ -4172,8 +3856,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bananya-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bananya" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bananya-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bananya-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Banished from the Hero's Party, I Decided to Live a Quiet Life in the Countryside
@@ -4188,8 +3870,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "banished-from-the-heros-party-i-decided-to-live-a-quiet-life-in-the-countryside-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "banished-from-the-heros-party-i-decided-to-live-a-quiet-life-in-the-countryside" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "banished-from-the-hero-s-party-i-decided-to-live-a-quiet-life-in-the-countryside-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "banished-from-the-hero-s-party-i-decided-to-live-a-quiet-life-in-the-countryside-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Barakamon
@@ -4204,8 +3884,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "barakamon-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "barakamon" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "barakamon-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "barakamon-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Bartender Glass of God
@@ -4220,8 +3898,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bartender-glass-of-god-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bartender-glass-of-god" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bartender-glass-of-god-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bartender-kami-no-glass-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Basilisk
@@ -4236,8 +3912,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "basilisk-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "basilisk" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "basilisk-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "basilisk-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Basilisk: The Ouka Ninja Scrolls
@@ -4252,8 +3926,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "basilisk-the-ouka-ninja-scrolls-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "basilisk-the-ouka-ninja-scrolls" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "basilisk-the-ouka-ninja-scrolls-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "basilisk-ouka-ninpouchou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Battle Angel Alita
@@ -4268,8 +3940,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "battle-angel-alita-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "battle-angel-alita" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "battle-angel-alita-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gunnm-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Battle Game in 5 Seconds
@@ -4284,8 +3954,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "battle-game-in-5-seconds-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "battle-game-in-5-seconds" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "battle-game-in-5-seconds-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "deatte-5-byou-de-battle-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Beast Tamer
@@ -4300,8 +3968,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "beast-tamer-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "beast-tamer" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beast-tamer-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yuusha-party-wo-tsuihou-sareta-beast-tamer-saikyoushu-no-nekomimi-shoujo-to-deau-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Beastars
@@ -4316,8 +3982,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "beastars-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "beastars" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beastars-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "beastars-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Beheneko: The Elf-Girl's Cat is Secretly an S-Ranked Monster!
@@ -4332,8 +3996,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "beheneko-the-elf-girls-cat-is-secretly-an-s-ranked-monster-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "beheneko-the-elf-girls-cat-is-secretly-an-s-ranked-monster" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beheneko-the-elf-girls-cat-is-secretly-an-s-ranked-monster-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "s-rank-monster-no-behemoth-dakedo-neko-to-machigawarete-elf-musume-no-pet-toshite-kurashitemasu-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Bem
@@ -4348,8 +4010,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bem-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bem" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bem-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bem-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Berserk (2016)
@@ -4364,8 +4024,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "berserk-2016-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "berserk-2016" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "berserk-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "berserk-2016-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Berserk of Gluttony
@@ -4380,8 +4038,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "berserk-of-gluttony-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "berserk-of-gluttony" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "berserk-of-gluttony-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "boushoku-no-berserk-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Betterman
@@ -4396,8 +4052,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "betterman-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "betterman" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "betterman-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "betterman-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // BeyWarriors: Cyborg
@@ -4412,8 +4066,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "beywarriors-cyborg-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "beywarriors-cyborg" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beywarriors-cyborg-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "beywarriors-cyborg-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Beyblade
@@ -4428,8 +4080,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "beyblade-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "beyblade" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beyblade-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bakuten-shoot-beyblade-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Beyblade Burst
@@ -4444,8 +4094,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "beyblade-burst-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "beyblade-burst" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beyblade-burst-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "beyblade-burst-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Beyblade Burst Dynamite Battle
@@ -4460,8 +4108,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "beyblade-burst-dynamite-battle-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "beyblade-burst-dynamite-battle" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beyblade-burst-dynamite-battle-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "beyblade-burst-dynamite-battle-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Beyblade Burst God
@@ -4476,8 +4122,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "beyblade-burst-god-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "beyblade-burst-god" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beyblade-burst-god-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "beyblade-burst-god-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Beyblade Burst Rise
@@ -4492,8 +4136,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "beyblade-burst-rise-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "beyblade-burst-rise" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beyblade-burst-rise-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "beyblade-burst-gachi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Beyblade Burst Turbo
@@ -4508,8 +4150,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "beyblade-burst-turbo-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "beyblade-burst-turbo" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beyblade-burst-turbo-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "beyblade-burst-chouzetsu-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Beyblade Metal Fusion
@@ -4524,8 +4164,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "beyblade-metal-fusion-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "beyblade-metal-fusion" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beyblade-metal-fusion-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "beyblade-metal-fusion-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Beyblade X
@@ -4540,8 +4178,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "beyblade-x-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "beyblade-x" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "beyblade-x-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "beyblade-x-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Bikini Warriors
@@ -4556,8 +4192,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bikini-warriors-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bikini-warriors" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bikini-warriors-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bikini-warriors-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Biohazard: Infinite Darkness
@@ -4572,8 +4206,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "biohazard-infinite-darkness-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "biohazard-infinite-darkness" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "biohazard-infinite-darkness-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "biohazard-infinite-darkness-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Black Butler
@@ -4588,8 +4220,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "black-butler-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "black-butler" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "black-butler-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kuroshitsuji-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Black Summoner
@@ -4604,8 +4234,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "black-summoner-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "black-summoner" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "black-summoner-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kuro-no-shoukanshi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Black Torch
@@ -4620,8 +4248,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "black-torch-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "black-torch" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "black-torch-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "black-torch-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Blade Runner: Black Lotus
@@ -4636,8 +4262,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "blade-runner-black-lotus-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "blade-runner-black-lotus" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "blade-runner-black-lotus-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "blade-runner-black-lotus-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Blade of the Immortal
@@ -4652,8 +4276,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "blade-of-the-immortal-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "blade-of-the-immortal" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "blade-of-the-immortal-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mugen-no-juunin-immortal-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Blood Blockade Battlefront
@@ -4668,8 +4290,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "blood-blockade-battlefront-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "blood-blockade-battlefront" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "blood-blockade-battlefront-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kekkai-sensen-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Bloom Into You
@@ -4684,8 +4304,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bloom-into-you-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bloom-into-you" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bloom-into-you-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yagate-kimi-ni-naru-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Blue Box
@@ -4700,8 +4318,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "blue-box-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "blue-box" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "blue-box-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ao-no-hako-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Blue Dragon
@@ -4716,8 +4332,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "blue-dragon-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "blue-dragon" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "blue-dragon-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "blue-dragon-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Blue Exorcist
@@ -4732,8 +4346,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "blue-exorcist-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "blue-exorcist" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "blue-exorcist-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "blue-exorcist-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Blue Lock
@@ -4748,8 +4360,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "blue-lock-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "blue-lock" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "blue-lock-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "blue-lock-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Blue Period
@@ -4764,8 +4374,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "blue-period-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "blue-period" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "blue-period-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "blue-period-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Blue Reflection Ray
@@ -4780,8 +4388,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "blue-reflection-ray-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "blue-reflection-ray" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "blue-reflection-ray-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "blue-reflection-ray-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Bogus Skill 'Fruitmaster' : About That Time I Became Able to Eat Unlimited Numbers of Skill Fruits (...
@@ -4796,8 +4402,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bogus-skill-fruitmaster-about-that-time-i-became-able-to-eat-unlimited-numbers-of-skill-fruits-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bogus-skill-fruitmaster-about-that-time-i-became-able-to-eat-unlimited-numbers-of-skill-fruits" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hazure-skill-kinomi-master-skill-no-mi-tabetara-shinu-wo-mugen-ni-taberareru-you-ni-natta-ken-ni-tsuite-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hazure-skill-kinomi-master-skill-no-mi-tabetara-shinu-wo-mugen-ni-taberareru-you-ni-natta-ken-ni-tsuite-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Boogiepop and Others
@@ -4812,8 +4416,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "boogiepop-and-others-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "boogiepop-and-others" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "boogiepop-and-others-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "boogiepop-wa-warawanai-2019-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Boruto: Naruto Next Generations
@@ -4828,8 +4430,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "boruto-naruto-next-generations-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "boruto-naruto-next-generations" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "boruto-naruto-next-generations-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "boruto-naruto-next-generations-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Bottom-Tier Character Tomozaki
@@ -4844,8 +4444,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bottom-tier-character-tomozaki-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bottom-tier-character-tomozaki" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bottom-tier-character-tomozaki-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jaku-chara-tomozaki-kun-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Brave Witches
@@ -4860,8 +4458,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "brave-witches-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "brave-witches" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "brave-witches-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "brave-witches-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Bright: Samurai Soul
@@ -4876,8 +4472,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bright-samurai-soul-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bright-samurai-soul" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bright-samurai-soul-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bright-samurai-soul-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Brothers Conflict
@@ -4892,8 +4486,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "brothers-conflict-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "brothers-conflict" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "brothers-conflict-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "brothers-conflict-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Bucchigiri?!
@@ -4908,8 +4500,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bucchigiri-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bucchigiri" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bucchigiri-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bucchigiri-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Buddy Daddies
@@ -4924,8 +4514,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "buddy-daddies-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "buddy-daddies" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "buddy-daddies-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "buddy-daddies-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Bullet/Bullet
@@ -4940,8 +4528,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bulletbullet-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bulletbullet" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bullet-bullet-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bullet-bullet-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Bungo Stray Dogs
@@ -4956,8 +4542,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bungo-stray-dogs-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bungo-stray-dogs" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bungo-stray-dogs-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bungou-stray-dogs-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Bungo Stray Dogs Wan!
@@ -4972,8 +4556,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bungo-stray-dogs-wan-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bungo-stray-dogs-wan" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bungo-stray-dogs-wan-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bungo-stray-dogs-wan-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Bungo and Alchemist -Gears of Judgement-
@@ -4988,8 +4570,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bungo-and-alchemist-gears-of-judgement-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bungo-and-alchemist-gears-of-judgement" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bungo-and-alchemist-gears-of-judgement-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bungou-to-alchemist-shinpan-no-haguruma-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // By the Grace of the Gods
@@ -5004,8 +4584,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "by-the-grace-of-the-gods-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "by-the-grace-of-the-gods" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "by-the-grace-of-the-gods-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kami-tachi-ni-hirowareta-otoko-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Bye Bye, Earth
@@ -5020,8 +4598,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bye-bye-earth-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bye-bye-earth" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "bye-bye-earth-english-dubbed-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bye-bye-earth-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Cagaster of an Insect Cage
@@ -5036,8 +4612,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cagaster-of-an-insect-cage-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cagaster-of-an-insect-cage" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cagaster-of-an-insect-cage-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cagaster-of-an-insect-cage-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Call of the Night
@@ -5052,8 +4626,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "call-of-the-night-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "call-of-the-night" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "call-of-the-night-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yofukashi-no-uta-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Campfire Cooking in Another World with My Absurd Skill
@@ -5068,8 +4640,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "campfire-cooking-in-another-world-with-my-absurd-skill-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "campfire-cooking-in-another-world-with-my-absurd-skill" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "campfire-cooking-in-another-world-with-my-absurd-skill-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tondemo-skill-de-isekai-hourou-meshi-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Cannon Busters
@@ -5084,8 +4654,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cannon-busters-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cannon-busters" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cannon-busters-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cannon-busters-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Cap Revolution Bottleman
@@ -5100,8 +4668,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cap-revolution-bottleman-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cap-revolution-bottleman" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cap-kakumei-bottleman-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cap-kakumei-bottleman-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Captain Tsubasa (2018)
@@ -5116,8 +4682,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "captain-tsubasa-2018-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "captain-tsubasa-2018" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "captain-tsubasa-2018-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "captain-tsubasa-2018-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Cardcaptor Sakura
@@ -5132,8 +4696,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cardcaptor-sakura-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cardcaptor-sakura" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cardcaptor-sakura-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cardcaptor-sakura-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Cardcaptor Sakura: Clear Card
@@ -5148,8 +4710,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cardcaptor-sakura-clear-card-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cardcaptor-sakura-clear-card" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cardcaptor-sakura-clear-card-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cardcaptor-sakura-clear-card-hen-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Cardfight!! Vanguard (2018)
@@ -5164,8 +4724,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cardfight-vanguard-2018-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cardfight-vanguard-2018" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cardfight-vanguard-2018-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cardfight-vanguard-2018-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Cardfight!! Vanguard G
@@ -5180,8 +4738,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cardfight-vanguard-g-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cardfight-vanguard-g" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cardfight-vanguard-g-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cardfight-vanguard-g-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Cardfight!! Vanguard: Divinez
@@ -5196,8 +4752,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cardfight-vanguard-divinez-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cardfight-vanguard-divinez" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cardfight-vanguard-divinez-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cardfight-vanguard-divinez-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Cardfight!! Vanguard: overDress
@@ -5212,8 +4766,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cardfight-vanguard-overdress-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cardfight-vanguard-overdress" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cardfight-vanguard-overdress-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cardfight-vanguard-overdress-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Carole &amp; Tuesday
@@ -5228,8 +4780,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "carole-amp-tuesday-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "carole-amp-tuesday" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "carole-tuesday-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "carole-tuesday-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Carried by the Wind: Tsukikage Ran
@@ -5244,8 +4794,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "carried-by-the-wind-tsukikage-ran-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "carried-by-the-wind-tsukikage-ran" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "carried-by-the-wind-tsukikage-ran-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kazemakase-tsukikage-ran-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Castle Town Dandelion
@@ -5260,8 +4808,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "castle-town-dandelion-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "castle-town-dandelion" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "castle-town-dandelion-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "joukamachi-no-dandelion-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Cat Planet Cuties
@@ -5276,8 +4822,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cat-planet-cuties-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cat-planet-cuties" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cat-planet-cuties-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "asobi-ni-iku-yo-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Cat's Eye
@@ -5292,8 +4836,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cats-eye-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cats-eye" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cats-eye-2025-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cat-s-eye-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Cautious Hero: The Hero Is Overpowered but Overly Cautious
@@ -5308,8 +4850,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cautious-hero-the-hero-is-overpowered-but-overly-cautious-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cautious-hero-the-hero-is-overpowered-but-overly-cautious" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cautious-hero-the-hero-is-overpowered-but-overly-cautious-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shinchou-yuusha-kono-yuusha-ga-ore-tueee-kuse-ni-shinchou-sugiru-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Cells at Work!
@@ -5324,8 +4864,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cells-at-work-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cells-at-work" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cells-at-work-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hataraku-saibou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Cells at Work! CODE BLACK!
@@ -5340,8 +4878,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cells-at-work-code-black-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cells-at-work-code-black" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cells-at-work-code-black-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hataraku-saibou-black-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Chain Chronicle: The Light of Haecceitas
@@ -5356,8 +4892,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "chain-chronicle-the-light-of-haecceitas-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "chain-chronicle-the-light-of-haecceitas" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chain-chronicle-the-light-of-haecceitas-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chain-chronicle-haecceitas-no-hikari-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Chained Soldier
@@ -5372,8 +4906,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "chained-soldier-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "chained-soldier" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chained-soldier-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chained-soldier-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Chainsmoker Cat
@@ -5388,8 +4920,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "chainsmoker-cat-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "chainsmoker-cat" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chainsmoker-cat-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chainsmoker-cat-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Champignon Witch
@@ -5404,8 +4934,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "champignon-witch-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "champignon-witch" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "champignon-witch-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "champignon-witch-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Chaos Dragon
@@ -5420,8 +4948,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "chaos-dragon-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "chaos-dragon" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chaos-dragon-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chaos-dragon-sekiryuu-seneki-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Chaos;Child
@@ -5436,8 +4962,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "chaoschild-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "chaoschild" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chaos-child-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chaos-child-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Charger Girl Ju-den Chan
@@ -5452,8 +4976,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "charger-girl-ju-den-chan-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "charger-girl-ju-den-chan" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "charger-girl-ju-den-chan-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fight-ippatsu-juuden-chan-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Charlotte
@@ -5468,8 +4990,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "charlotte-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "charlotte" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "charlotte-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "charlotte-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Cherry Magic! Thirty Years of Virginity Can Make You a Wizard?!
@@ -5484,8 +5004,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cherry-magic-thirty-years-of-virginity-can-make-you-a-wizard-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cherry-magic-thirty-years-of-virginity-can-make-you-a-wizard" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cherry-magic-thirty-years-of-virginity-can-make-you-a-wizard-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cherry-magic-thirty-years-of-virginity-can-make-you-a-wizard-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Chidori RSC
@@ -5500,8 +5018,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "chidori-rsc-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "chidori-rsc" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rifle-is-beautiful-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rifle-is-beautiful-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Chihayafuru
@@ -5516,8 +5032,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "chihayafuru-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "chihayafuru" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chihayafuru-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chihayafuru-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Children of the Whales
@@ -5532,8 +5046,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "children-of-the-whales-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "children-of-the-whales" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "children-of-the-whales-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kujira-no-kora-wa-sajou-ni-utau-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Chillin' in Another World with Level 2 Super Cheat Powers
@@ -5548,8 +5060,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "chillin-in-another-world-with-level-2-super-cheat-powers-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "chillin-in-another-world-with-level-2-super-cheat-powers" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chillin-in-another-world-with-level-2-super-cheat-powers-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lv2-kara-cheat-datta-motoyuusha-kouho-no-mattari-isekai-life-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Chio's School Road
@@ -5564,8 +5074,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "chios-school-road-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "chios-school-road" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chio-s-school-road-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chio-chan-no-tsuugakuro-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Chivalry of a Failed Knight
@@ -5580,8 +5088,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "chivalry-of-a-failed-knight-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "chivalry-of-a-failed-knight" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chivalry-of-a-failed-knight-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rakudai-kishi-no-cavalry-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Chou Shounen Tanteidan Neo
@@ -5596,8 +5102,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "chou-shounen-tanteidan-neo-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "chou-shounen-tanteidan-neo" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chou-shounen-tanteidan-neo-english-dubbed-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chou-shounen-tanteidan-neo-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Chrome Shelled Regios
@@ -5612,8 +5116,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "chrome-shelled-regios-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "chrome-shelled-regios" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chrome-shelled-regios-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chrome-shelled-regios-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Chronos Ruler
@@ -5628,8 +5130,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "chronos-ruler-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "chronos-ruler" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chronos-ruler-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jikan-no-shihaisha-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Chu-Bra!!
@@ -5644,8 +5144,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "chu-bra-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "chu-bra" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chu-bra-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chu-bra-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Citrus
@@ -5660,8 +5158,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "citrus-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "citrus" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "citrus-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "citrus-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // City The Animation
@@ -5676,8 +5172,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "city-the-animation-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "city-the-animation" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "city-the-animation-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "city-the-animation-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Clannad After Story
@@ -5692,8 +5186,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "clannad-after-story-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "clannad-after-story" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "clannad-after-story-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "clannad-after-story-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Classroom of the Elite
@@ -5708,8 +5200,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "classroom-of-the-elite-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "classroom-of-the-elite" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "classroom-of-the-elite-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "classroom-of-the-elite-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Clevatess
@@ -5724,8 +5214,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "clevatess-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "clevatess" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "clevatess-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "clevatess-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Clockwork Planet
@@ -5740,8 +5228,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "clockwork-planet-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "clockwork-planet" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "clockwork-planet-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "clockwork-planet-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Code Geass: Rozé of the Recapture
@@ -5756,8 +5242,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "code-geass-roz-of-the-recapture-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "code-geass-roz-of-the-recapture" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "code-geass-roze-of-the-recapture-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "code-geass-dakkan-no-roze-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Code:Realize ~Guardian of Rebirth~
@@ -5772,8 +5256,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "coderealize-guardian-of-rebirth-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "coderealize-guardian-of-rebirth" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "code-realize-guardian-of-rebirth-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "code-realize-sousei-no-himegimi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Combatants Will Be Dispatched!
@@ -5788,8 +5270,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "combatants-will-be-dispatched-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "combatants-will-be-dispatched" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "combatants-will-be-dispatched-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sentouin-hakenshimasu-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Conception
@@ -5804,8 +5284,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "conception-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "conception" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "conception-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "conception-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Concrete Revolutio
@@ -5820,8 +5298,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "concrete-revolutio-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "concrete-revolutio" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "concrete-revolutio-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "concrete-revolutio-choujin-gensou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Concrete Revolutio The Last Song
@@ -5836,8 +5312,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "concrete-revolutio-the-last-song-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "concrete-revolutio-the-last-song" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "concrete-revolutio-choujin-gensou-the-last-song-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "concrete-revolutio-choujin-gensou-the-last-song-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Convenience Store Boy Friends
@@ -5852,8 +5326,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "convenience-store-boy-friends-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "convenience-store-boy-friends" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "convenience-store-boy-friends-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "convenience-store-boy-friends-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Cop Craft
@@ -5868,8 +5340,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cop-craft-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cop-craft" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cop-craft-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cop-craft-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Corrector Yui
@@ -5884,8 +5354,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "corrector-yui-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "corrector-yui" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "corrector-yui-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "corrector-yui-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Cross Ange: Rondo of Angels and Dragons
@@ -5900,8 +5368,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cross-ange-rondo-of-angels-and-dragons-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cross-ange-rondo-of-angels-and-dragons" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cross-ange-rondo-of-angels-and-dragons-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cross-ange-rondo-of-angels-and-dragons-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Cultural Exchange With a Game Centre Girl
@@ -5916,8 +5382,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cultural-exchange-with-a-game-centre-girl-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cultural-exchange-with-a-game-centre-girl" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cultural-exchange-with-a-game-centre-girl-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cultural-exchange-with-a-game-centre-girl-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Cutie Honey Universe
@@ -5932,8 +5396,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cutie-honey-universe-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cutie-honey-universe" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cutie-honey-universe-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cutie-honey-universe-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Cyborg 009 VS Devilman
@@ -5948,8 +5410,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cyborg-009-vs-devilman-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cyborg-009-vs-devilman" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cyborg-009-vs-devilman-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cyborg-009-vs-devilman-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Cyborg 009: Call of Justice
@@ -5964,8 +5424,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cyborg-009-call-of-justice-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cyborg-009-call-of-justice" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "cyborg-009-call-of-justice-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "cyborg-009-call-of-justice-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // D-Frag!
@@ -5980,8 +5438,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "d-frag-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "d-frag" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "d-frag-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "d-frag-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // D.Gray-man Hallow
@@ -5996,8 +5452,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dgray-man-hallow-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dgray-man-hallow" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "d-gray-man-hallow-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "d-gray-man-hallow-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // D4DJ First Mix
@@ -6012,8 +5466,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "d4dj-first-mix-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "d4dj-first-mix" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "d4dj-first-mix-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "d4dj-first-mix-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Daemons of the Shadow Realm
@@ -6028,8 +5480,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "daemons-of-the-shadow-realm-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "daemons-of-the-shadow-realm" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "daemons-of-the-shadow-realm-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "daemons-of-the-shadow-realm-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dagashi Kashi
@@ -6044,8 +5494,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dagashi-kashi-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dagashi-kashi" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dagashi-kashi-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dagashi-kashi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Daimidaler: Prince vs. Penguin Empire
@@ -6060,8 +5508,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "daimidaler-prince-vs-penguin-empire-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "daimidaler-prince-vs-penguin-empire" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "daimidaler-prince-vs-penguin-empire-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kenzen-robo-daimidaler-ova-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dan Da Dan
@@ -6076,8 +5522,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dan-da-dan-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dan-da-dan" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dandadan-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dandadan-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dance in the Vampire Bund
@@ -6092,8 +5536,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dance-in-the-vampire-bund-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dance-in-the-vampire-bund" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dance-in-the-vampire-bund-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dance-in-the-vampire-bund-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dance with Devils
@@ -6108,8 +5550,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dance-with-devils-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dance-with-devils" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dance-with-devils-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dance-with-devils-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dances with the Dragons
@@ -6124,8 +5564,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dances-with-the-dragons-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dances-with-the-dragons" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dances-with-the-dragons-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "saredo-tsumibito-wa-ryuu-to-odoru-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dandelion
@@ -6140,8 +5578,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dandelion-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dandelion" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dandelion-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dandelion-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Danganronpa 3: The End of Hope's Peak High School - Despair Arc
@@ -6156,8 +5592,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "danganronpa-3-the-end-of-hopes-peak-high-school--despair-arc-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "danganronpa-3-the-end-of-hopes-peak-high-school--despair-arc" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "danganronpa-3-the-end-of-hope-s-peak-high-school-despair-arc-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "danganronpa-3-the-end-of-kibougamine-gakuen-zetsubou-hen-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Danganronpa 3: The End of Hope's Peak High School - Future Arc
@@ -6172,8 +5606,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "danganronpa-3-the-end-of-hopes-peak-high-school--future-arc-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "danganronpa-3-the-end-of-hopes-peak-high-school--future-arc" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "danganronpa-3-the-end-of-hope-s-peak-high-school-future-arc-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "danganronpa-3-the-end-of-kibougamine-gakuen-mirai-hen-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Danganronpa 3: The End of Hope's Peak High School - Hope Arc
@@ -6188,8 +5620,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "danganronpa-3-the-end-of-hopes-peak-high-school--hope-arc-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "danganronpa-3-the-end-of-hopes-peak-high-school--hope-arc" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "danganronpa-3-the-end-of-hope-s-peak-high-school-hope-arc-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "danganronpa-3-the-end-of-kibougamine-gakuen-kibou-hen-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dark Gathering
@@ -6204,8 +5634,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dark-gathering-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dark-gathering" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dark-gathering-english-dubbed-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dark-gathering-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dark Moon: The Blood Altar
@@ -6220,8 +5648,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dark-moon-the-blood-altar-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dark-moon-the-blood-altar" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dark-moon-the-blood-altar-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dark-moon-the-blood-altar-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Darling in the FranXX
@@ -6236,8 +5662,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "darling-in-the-franxx-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "darling-in-the-franxx" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "darling-in-the-franxx-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "darling-in-the-franxx-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Darwin's Game
@@ -6252,8 +5676,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "darwins-game-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "darwins-game" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "darwin-s-game-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "darwin-s-game-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Date A Live
@@ -6268,8 +5690,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "date-a-live-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "date-a-live" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "date-a-live-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "date-a-live-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dead Account
@@ -6284,8 +5704,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dead-account-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dead-account" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dead-account-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dead-account-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dead Dead Demons Dededede Destruction
@@ -6300,8 +5718,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dead-dead-demons-dededede-destruction-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dead-dead-demons-dededede-destruction" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dead-dead-demons-dededede-destruction-ona-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dead-dead-demons-dededede-destruction-ona-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dead Mount Death Play
@@ -6316,8 +5732,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dead-mount-death-play-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dead-mount-death-play" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dead-mount-death-play-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dead-mount-death-play-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dealing with Mikadono Sisters Is a Breeze
@@ -6332,8 +5746,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dealing-with-mikadono-sisters-is-a-breeze-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dealing-with-mikadono-sisters-is-a-breeze" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dealing-with-mikadono-sisters-is-a-breeze-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dealing-with-mikadono-sisters-is-a-breeze-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Death Parade
@@ -6348,8 +5760,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "death-parade-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "death-parade" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "death-parade-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "death-parade-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Deca-Dence
@@ -6364,8 +5774,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "deca-dence-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "deca-dence" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "deca-dence-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "deca-dence-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Deep Insanity: The Lost Child
@@ -6380,8 +5788,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "deep-insanity-the-lost-child-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "deep-insanity-the-lost-child" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "deep-insanity-the-lost-child-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "deep-insanity-the-lost-child-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dekin no Mogura: The Earthbound Mole
@@ -6396,8 +5802,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dekin-no-mogura-the-earthbound-mole-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dekin-no-mogura-the-earthbound-mole" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dekin-no-mogura-the-earthbound-mole-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dekin-no-mogura-the-earthbound-mole-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Delicious in Dungeon
@@ -6412,8 +5816,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "delicious-in-dungeon-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "delicious-in-dungeon" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "delicious-in-dungeon-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "delicious-in-dungeon-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Delico's Nursery
@@ -6428,8 +5830,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "delicos-nursery-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "delicos-nursery" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "delicos-nursery-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "delicos-nursery-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Demon King Daimao
@@ -6444,8 +5844,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "demon-king-daimao-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "demon-king-daimao" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "demon-king-daimao-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ichiban-ushiro-no-daimaou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Demon Lord 2099
@@ -6460,8 +5858,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "demon-lord-2099-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "demon-lord-2099" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "demon-lord-2099-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "maou-2099-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Demon Lord, Retry!
@@ -6476,8 +5872,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "demon-lord-retry-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "demon-lord-retry" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "demon-lord-retry-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "maou-sama-retry-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Demon Slayer: Mugen Train Arc
@@ -6492,8 +5886,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "demon-slayer-mugen-train-arc-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "demon-slayer-mugen-train-arc" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "demon-slayer-mugen-train-arc-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "demon-slayer-mugen-train-arc-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Detective Conan: The Culprit Hanzawa
@@ -6508,8 +5900,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "detective-conan-the-culprit-hanzawa-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "detective-conan-the-culprit-hanzawa" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "detective-conan-the-culprit-hanzawa-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "meitantei-conan-hannin-no-hanzawa-san-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Detective Conan: Zero's Tea Time
@@ -6524,8 +5914,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "detective-conan-zeros-tea-time-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "detective-conan-zeros-tea-time" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "detective-conan-zeros-tea-time-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "meitantei-conan-zero-no-tea-time-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Devil Hunter Yohko
@@ -6540,8 +5928,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "devil-hunter-yohko-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "devil-hunter-yohko" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "devil-hunter-yohko-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "devil-hunter-yohko-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Devilman: Crybaby
@@ -6556,8 +5942,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "devilman-crybaby-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "devilman-crybaby" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "devilman-crybaby-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "devilman-crybaby-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Devils Line
@@ -6572,8 +5956,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "devils-line-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "devils-line" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "devils-line-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "devils-line-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Diary of Our Days at the Breakwater
@@ -6588,8 +5970,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "diary-of-our-days-at-the-breakwater-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "diary-of-our-days-at-the-breakwater" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "diary-of-our-days-at-the-breakwater-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "houkago-teibou-nisshi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Didn't I Say to Make My Abilities Average in the Next Life?!
@@ -6604,8 +5984,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "didnt-i-say-to-make-my-abilities-average-in-the-next-life-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "didnt-i-say-to-make-my-abilities-average-in-the-next-life" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "didn-t-i-say-to-make-my-abilities-average-in-the-next-life-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "watashi-nouryoku-wa-heikinchi-de-tte-itta-yo-ne-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Digimon Adventure (2020)
@@ -6620,8 +5998,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "digimon-adventure-2020-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "digimon-adventure-2020" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "digimon-adventure-2020-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "digimon-adventure-2020-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Digimon Fusion
@@ -6636,8 +6012,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "digimon-fusion-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "digimon-fusion" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "digimon-fusion-digimon-xros-wars-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "digimon-fusion-digimon-xros-wars-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Digimon Ghost Game
@@ -6652,8 +6026,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "digimon-ghost-game-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "digimon-ghost-game" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "digimon-ghost-game-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "digimon-ghost-game-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dimension W
@@ -6668,8 +6040,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dimension-w-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dimension-w" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dimension-w-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dimension-w-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dino Girl Gauko
@@ -6684,8 +6054,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dino-girl-gauko-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dino-girl-gauko" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dino-girl-gauko-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dino-girl-gauko-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Disney Twisted-Wonderland The Animation: Episode of Heartslabyul
@@ -6700,8 +6068,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "disney-twisted-wonderland-the-animation-episode-of-heartslabyul-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "disney-twisted-wonderland-the-animation-episode-of-heartslabyul" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "disney-twisted-wonderland-the-animation-episode-of-heartslabyul-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "disney-twisted-wonderland-the-animation-episode-of-heartslabyul-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Divine Gate
@@ -6716,8 +6082,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "divine-gate-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "divine-gate" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "divine-gate-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "divine-gate-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Domestic Girlfriend
@@ -6732,8 +6096,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "domestic-girlfriend-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "domestic-girlfriend" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "domestic-girlfriend-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "domestic-na-kanojo-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Don't Hurt Me, My Healer!
@@ -6748,8 +6110,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dont-hurt-me-my-healer-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dont-hurt-me-my-healer" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dont-hurt-me-my-healer-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kono-healer-mendokusai-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dorei-ku The Animation
@@ -6764,8 +6124,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dorei-ku-the-animation-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dorei-ku-the-animation" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dorei-ku-the-animation-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dorei-ku-the-animation-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dorohedoro
@@ -6780,8 +6138,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dorohedoro-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dorohedoro" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dorohedoro-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dorohedoro-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dororo
@@ -6796,8 +6152,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dororo-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dororo" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dororo-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dororo-to-hyakkimaru-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dota: Dragon's Blood
@@ -6812,8 +6166,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dota-dragons-blood-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dota-dragons-blood" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dota-dragon-s-blood-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dota-dragon-s-blood-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Double Decker! Doug &amp; Kirill
@@ -6828,8 +6180,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "double-decker-doug-amp-kirill-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "double-decker-doug-amp-kirill" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "double-decker-doug-kirill-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "double-decker-doug-kirill-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dr. Stone
@@ -6844,8 +6194,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dr-stone-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dr-stone" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dr-stone-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dr-stone-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dragon Ball Daima
@@ -6860,8 +6208,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dragon-ball-daima-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dragon-ball-daima" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dragon-ball-daima-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dragon-ball-daima-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dragon Ball Movies
@@ -6876,8 +6222,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dragon-ball-movies-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dragon-ball-movies" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dragon-ball-movies-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dragon-ball-movies-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dragon Ball Super
@@ -6892,8 +6236,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dragon-ball-super-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dragon-ball-super" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dragon-ball-super-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dragon-ball-super-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dragon Ball Z Kai
@@ -6908,8 +6250,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dragon-ball-z-kai-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dragon-ball-z-kai" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dragon-ball-kai-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dragon-ball-kai-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dragon Goes House-Hunting
@@ -6924,8 +6264,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dragon-goes-house-hunting-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dragon-goes-house-hunting" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dragon-goes-house-hunting-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dragon-ie-wo-kau-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dragon Pilot: Hisone and Masotan
@@ -6940,8 +6278,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dragon-pilot-hisone-and-masotan-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dragon-pilot-hisone-and-masotan" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dragon-pilot-hisone-and-masotan-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dragon-pilot-hisone-and-masotan-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dragon's Dogma
@@ -6956,8 +6292,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dragons-dogma-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dragons-dogma" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dragon-s-dogma-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dragon-s-dogma-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dragonar Academy
@@ -6972,8 +6306,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dragonar-academy-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dragonar-academy" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dragonar-academy-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "seikoku-no-dragonar-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Draw This, Then Die!
@@ -6988,8 +6320,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "draw-this-then-die-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "draw-this-then-die" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "draw-this-then-die-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "draw-this-then-die-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Drifters
@@ -7004,8 +6334,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "drifters-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "drifters" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "drifters-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "drifters-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Drifting Dragons
@@ -7020,8 +6348,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "drifting-dragons-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "drifting-dragons" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "drifting-dragons-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kuutei-dragons-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dropout Idol Fruit Tart
@@ -7036,8 +6362,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dropout-idol-fruit-tart-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dropout-idol-fruit-tart" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dropout-idol-fruit-tart-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ochikobore-fruit-tart-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dungeon People
@@ -7052,8 +6376,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dungeon-people-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dungeon-people" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dungeon-people-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dungeon-no-naka-no-hito-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Durarara!!
@@ -7068,8 +6390,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "durarara-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "durarara" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "durarara-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "durarara-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Durarara!!x2 Ketsu
@@ -7084,8 +6404,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "durararax2-ketsu-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "durararax2-ketsu" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "durarara-x2-ketsu-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "durarara-x2-ketsu-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Dusk Beyond the End of the World
@@ -7100,8 +6418,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "dusk-beyond-the-end-of-the-world-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "dusk-beyond-the-end-of-the-world" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "dusk-beyond-the-end-of-the-world-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dusk-beyond-the-end-of-the-world-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Early Reins
@@ -7116,8 +6432,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "early-reins-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "early-reins" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "early-reins-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "early-reins-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Eden
@@ -7132,8 +6446,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "eden-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "eden" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "eden-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "eden-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Eden of the East
@@ -7148,8 +6460,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "eden-of-the-east-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "eden-of-the-east" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "eden-of-the-east-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "eden-of-the-east-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Edens Zero
@@ -7164,8 +6474,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "edens-zero-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "edens-zero" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "edens-zero-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "edens-zero-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Elfen Lied
@@ -7180,8 +6488,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "elfen-lied-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "elfen-lied" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "elfen-lied-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "elfen-lied-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Emma: A Victorian Romance
@@ -7196,8 +6502,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "emma-a-victorian-romance-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "emma-a-victorian-romance" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "emma-a-victorian-romance-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "eikoku-koi-monogatari-emma-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Endride
@@ -7212,8 +6516,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "endride-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "endride" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "endride-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "endride-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Endro!
@@ -7228,8 +6530,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "endro-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "endro" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "endro-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "endro-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Engage Kiss
@@ -7244,8 +6544,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "engage-kiss-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "engage-kiss" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "engage-kiss-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "engage-kiss-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ensemble Stars
@@ -7260,8 +6558,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ensemble-stars-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ensemble-stars" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ensemble-stars-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ensemble-stars-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Eureka Seven
@@ -7276,8 +6572,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "eureka-seven-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "eureka-seven" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "eureka-seven-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "eureka-seven-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Even Given the Worthless 'Appraiser' Class, I’m Actually the Strongest
@@ -7292,8 +6586,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "even-given-the-worthless-appraiser-class-im-actually-the-strongest-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "even-given-the-worthless-appraiser-class-im-actually-the-strongest" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "even-given-the-worthless-appraiser-class-im-actually-the-strongest-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "even-given-the-worthless-appraiser-class-im-actually-the-strongest-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Exception
@@ -7308,8 +6600,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "exception-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "exception" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "exception-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "exception-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // FLCL Alternative
@@ -7324,8 +6614,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "flcl-alternative-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "flcl-alternative" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "flcl-alternative-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "flcl-alternative-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // FLCL Progressive
@@ -7340,8 +6628,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "flcl-progressive-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "flcl-progressive" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "flcl-progressive-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "flcl-progressive-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // FLCL: Shoegaze
@@ -7356,8 +6642,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "flcl-shoegaze-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "flcl-shoegaze" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "flcl-shoegaze-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "flcl-shoegaze-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Failure Frame: I Became the Strongest and Annihilated Everything With Low-Level Spells
@@ -7372,8 +6656,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "failure-frame-i-became-the-strongest-and-annihilated-everything-with-low-level-spells-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "failure-frame-i-became-the-strongest-and-annihilated-everything-with-low-level-spells" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "failure-frame-i-became-the-strongest-and-annihilated-everything-with-low-level-spells-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hazurewaku-no-joutai-ijou-skill-de-saikyou-ni-natta-ore-ga-subete-wo-juurin-suru-made-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Fairy Tail: 100 Years Quest
@@ -7388,8 +6670,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "fairy-tail-100-years-quest-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "fairy-tail-100-years-quest" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fairy-tail-100-years-quest-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fairy-tail-100-nen-quest-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Farming Life in Another World
@@ -7404,8 +6684,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "farming-life-in-another-world-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "farming-life-in-another-world" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "farming-life-in-another-world-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "farming-life-in-another-world-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Fate/Apocrypha
@@ -7420,8 +6698,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "fateapocrypha-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "fateapocrypha" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fate-apocrypha-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fate-apocrypha-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Fate/Extra: Last Encore
@@ -7436,8 +6712,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "fateextra-last-encore-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "fateextra-last-encore" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fate-extra-last-encore-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fate-extra-last-encore-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Fate/Grand Order: Absolute Demonic Front - Babylonia
@@ -7452,8 +6726,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "fategrand-order-absolute-demonic-front--babylonia-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "fategrand-order-absolute-demonic-front--babylonia" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fate-grand-order-absolute-demonic-front-babylonia-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fate-grand-order-zettai-majuu-sensen-babylonia-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Fate/Zero
@@ -7468,8 +6740,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "fatezero-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "fatezero" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fate-zero-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fate-zero-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Fate/kaleid liner Prisma Illya 2wei!
@@ -7484,8 +6754,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "fatekaleid-liner-prisma-illya-2wei-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "fatekaleid-liner-prisma-illya-2wei" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fate-kaleid-liner-prisma-illya-2wei-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fate-kaleid-liner-prisma-illya-2wei-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Fate/stay night [Unlimited Blade Works]
@@ -7500,8 +6768,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "fatestay-night-unlimited-blade-works-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "fatestay-night-unlimited-blade-works" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fate-stay-night-unlimited-blade-works-2014-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fate-stay-night-unlimited-blade-works-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Fate/strange Fake
@@ -7516,8 +6782,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "fatestrange-fake-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "fatestrange-fake" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fate-strange-fake-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fate-strange-fake-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Fena: Pirate Princess
@@ -7532,8 +6796,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "fena-pirate-princess-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "fena-pirate-princess" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fena-pirate-princess-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kaizoku-oujo-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Fire Force
@@ -7548,8 +6810,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "fire-force-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "fire-force" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fire-force-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fire-force-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // First Love Monster
@@ -7564,8 +6824,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "first-love-monster-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "first-love-monster" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "first-love-monster-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hatsukoi-monster-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Fist of the North Star
@@ -7580,8 +6838,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "fist-of-the-north-star-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "fist-of-the-north-star" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fist-of-the-north-star-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hokuto-no-ken-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Fist of the North Star: HOKUTO NO KEN
@@ -7596,8 +6852,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "fist-of-the-north-star-hokuto-no-ken-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "fist-of-the-north-star-hokuto-no-ken" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fist-of-the-north-star-hokuto-no-ken-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fist-of-the-north-star-hokuto-no-ken-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Flip Flappers
@@ -7612,8 +6866,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "flip-flappers-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "flip-flappers" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "flip-flappers-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "flip-flappers-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Flower and Asura
@@ -7628,8 +6880,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "flower-and-asura-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "flower-and-asura" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "flower-and-asura-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hana-wa-saku-shura-no-gotoku-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Flowering Heart
@@ -7644,8 +6894,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "flowering-heart-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "flowering-heart" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "flowering-heart-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "flowering-heart-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Flying Witch
@@ -7660,8 +6908,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "flying-witch-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "flying-witch" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "flying-witch-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "flying-witch-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Food Wars! Shokugeki no Soma
@@ -7676,8 +6922,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "food-wars-shokugeki-no-soma-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "food-wars-shokugeki-no-soma" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "food-wars-shokugeki-no-soma-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "food-wars-shokugeki-no-soma-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // From Bureaucrat to Villainess: Dad's Been Reincarnated!
@@ -7692,8 +6936,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "from-bureaucrat-to-villainess-dads-been-reincarnated-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "from-bureaucrat-to-villainess-dads-been-reincarnated" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "from-bureaucrat-to-villainess-dads-been-reincarnated-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "akuyaku-reijou-tensei-ojisan-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // From Me to You
@@ -7708,8 +6950,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "from-me-to-you-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "from-me-to-you" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kimi-ni-todoke-from-me-to-you-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kimi-ni-todoke-from-me-to-you-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // From Old Country Bumpkin to Master Swordsman
@@ -7724,8 +6964,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "from-old-country-bumpkin-to-master-swordsman-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "from-old-country-bumpkin-to-master-swordsman" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "from-old-country-bumpkin-to-master-swordsman-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "from-old-country-bumpkin-to-master-swordsman-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Fruits Basket 2019
@@ -7740,8 +6978,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "fruits-basket-2019-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "fruits-basket-2019" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fruits-basket-2019-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fruits-basket-2019-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Full Dive: The Ultimate Next-Gen Full Dive RPG Is Even Shittier than Real Life!
@@ -7756,8 +6992,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "full-dive-the-ultimate-next-gen-full-dive-rpg-is-even-shittier-than-real-life-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "full-dive-the-ultimate-next-gen-full-dive-rpg-is-even-shittier-than-real-life" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "full-dive-the-ultimate-next-gen-full-dive-rpg-is-even-shittier-than-real-life-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kyuukyoku-shinka-shita-full-dive-rpg-ga-genjitsu-yori-mo-kusoge-dattara-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Fullmetal Alchemist
@@ -7772,8 +7006,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "fullmetal-alchemist-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "fullmetal-alchemist" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fullmetal-alchemist-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fullmetal-alchemist-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Fullmetal Alchemist Brotherhood
@@ -7788,8 +7020,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "fullmetal-alchemist-brotherhood-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "fullmetal-alchemist-brotherhood" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fullmetal-alchemist-brotherhood-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fullmetal-alchemist-brotherhood-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Future Boy Conan
@@ -7804,8 +7034,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "future-boy-conan-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "future-boy-conan" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "future-boy-conan-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mirai-shounen-conan-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Future Card Buddyfight Ace
@@ -7820,8 +7048,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "future-card-buddyfight-ace-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "future-card-buddyfight-ace" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "future-card-buddyfight-ace-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "future-card-buddyfight-ace-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Future Card Buddyfight Battsu
@@ -7836,8 +7062,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "future-card-buddyfight-battsu-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "future-card-buddyfight-battsu" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "future-card-buddyfight-battsu-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "future-card-buddyfight-battsu-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Fuuka
@@ -7852,8 +7076,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "fuuka-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "fuuka" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "fuuka-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fuuka-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ga-Rei-Zero
@@ -7868,8 +7090,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ga-rei-zero-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ga-rei-zero" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ga-rei-zero-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ga-rei-zero-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Galaxy Angel X
@@ -7884,8 +7104,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "galaxy-angel-x-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "galaxy-angel-x" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "galaxy-angel-x-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "galaxy-angel-x-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Gamera: Rebirth
@@ -7900,8 +7118,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "gamera-rebirth-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "gamera-rebirth" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gamera-rebirth-english-dubbed-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gamera-rebirth-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Gamers!
@@ -7916,8 +7132,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "gamers-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "gamers" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gamers-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gamers-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Garo: Crimson Moon
@@ -7932,8 +7146,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "garo-crimson-moon-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "garo-crimson-moon" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "garo-crimson-moon-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "garo-guren-no-tsuki-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Garo: The Animation
@@ -7948,8 +7160,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "garo-the-animation-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "garo-the-animation" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "garo-the-animation-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "garo-the-animation-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Garo: Vanishing Line
@@ -7964,8 +7174,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "garo-vanishing-line-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "garo-vanishing-line" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "garo-vanishing-line-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "garo-vanishing-line-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Garouden: The Way of the Lone Wolf
@@ -7980,8 +7188,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "garouden-the-way-of-the-lone-wolf-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "garouden-the-way-of-the-lone-wolf" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "garouden-the-way-of-the-lone-wolf-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "garouden-the-way-of-the-lone-wolf-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Gatchaman Crowds Insight
@@ -7996,8 +7202,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "gatchaman-crowds-insight-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "gatchaman-crowds-insight" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gatchaman-crowds-insight-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gatchaman-crowds-insight-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Gekidol
@@ -8012,8 +7216,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "gekidol-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "gekidol" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gekidol-actidol-project-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gekidol-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Genshiken 2
@@ -8028,8 +7230,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "genshiken-2-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "genshiken-2" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "genshiken-2-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "genshiken-nidaime-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Getter Robo Arc
@@ -8044,8 +7244,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "getter-robo-arc-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "getter-robo-arc" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "getter-robo-arc-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "getter-robo-arc-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ghost in the Shell: SAC_2045
@@ -8060,8 +7258,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ghost-in-the-shell-sac2045-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ghost-in-the-shell-sac2045" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ghost-in-the-shell-sac-2045-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "koukaku-kidoutai-sac-2045-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Gintama
@@ -8076,8 +7272,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "gintama-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "gintama" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gintama-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gintama-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Gintama - Mr. Ginpachi's Zany Class
@@ -8092,8 +7286,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "gintama--mr-ginpachis-zany-class-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "gintama--mr-ginpachis-zany-class" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gintama-mr-ginpachis-zany-class-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gintama-mr-ginpachis-zany-class-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Girlfriend, Girlfriend
@@ -8108,8 +7300,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "girlfriend-girlfriend-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "girlfriend-girlfriend" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "girlfriend-girlfriend-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kanojo-mo-kanojo-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Girls' Frontline
@@ -8124,8 +7314,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "girls-frontline-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "girls-frontline" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "girl-s-frontline-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shao-nu-qian-xian-ren-xing-xiao-ju-chang-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Given
@@ -8140,8 +7328,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "given-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "given" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "given-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "given-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Glass Fleet
@@ -8156,8 +7342,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "glass-fleet-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "glass-fleet" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "glass-fleet-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "glass-no-kantai-la-legende-du-vent-de-l-univers-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Gleipnir
@@ -8172,8 +7356,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "gleipnir-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "gleipnir" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gleipnir-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gleipnir-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Glitter Force
@@ -8188,8 +7370,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "glitter-force-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "glitter-force" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "smile-pretty-cure-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "smile-pretty-cure-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Glitter Force Doki Doki
@@ -8204,8 +7384,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "glitter-force-doki-doki-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "glitter-force-doki-doki" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "glitter-force-doki-doki-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "glitter-force-doki-doki-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Gnosia
@@ -8220,8 +7398,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "gnosia-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "gnosia" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gnosia-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gnosia-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Go For It, Nakamura!
@@ -8236,8 +7412,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "go-for-it-nakamura-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "go-for-it-nakamura" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "go-for-it-nakamura-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "go-for-it-nakamura-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Go! Go! Loser Ranger!
@@ -8252,8 +7426,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "go-go-loser-ranger-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "go-go-loser-ranger" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "go-go-loser-ranger-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sentai-daishikkaku-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Goblin Slayer
@@ -8268,8 +7440,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "goblin-slayer-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "goblin-slayer" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "goblin-slayer-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "goblin-slayer-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // God Eater
@@ -8284,8 +7454,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "god-eater-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "god-eater" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "god-eater-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "god-eater-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Gods' Game We Play
@@ -8300,8 +7468,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "gods-game-we-play-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "gods-game-we-play" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gods-game-we-play-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kami-wa-game-ni-ueteiru-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Golden Kamuy
@@ -8316,8 +7482,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "golden-kamuy-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "golden-kamuy" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "golden-kamuy-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "golden-kamuy-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Golden Time
@@ -8332,8 +7496,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "golden-time-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "golden-time" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "golden-time-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "golden-time-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Good Night World
@@ -8348,8 +7510,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "good-night-world-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "good-night-world" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "good-night-world-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "good-night-world-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Goodbye, Lara
@@ -8364,8 +7524,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "goodbye-lara-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "goodbye-lara" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "goodbye-lara-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "goodbye-lara-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Granblue Fantasy The Animation
@@ -8380,8 +7538,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "granblue-fantasy-the-animation-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "granblue-fantasy-the-animation" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "granblue-fantasy-the-animation-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "granblue-fantasy-the-animation-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Great Pretender
@@ -8396,8 +7552,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "great-pretender-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "great-pretender" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "great-pretender-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "great-pretender-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Grimoire of Zero
@@ -8412,8 +7566,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "grimoire-of-zero-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "grimoire-of-zero" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "grimoire-of-zero-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "zero-kara-hajimeru-mahou-no-sho-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Grow Up Show: Sunflower Circus
@@ -8428,8 +7580,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "grow-up-show-sunflower-circus-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "grow-up-show-sunflower-circus" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "grow-up-show-sunflower-circus-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "grow-up-show-sunflower-circus-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Gundam Build Divers
@@ -8444,8 +7594,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "gundam-build-divers-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "gundam-build-divers" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gundam-build-divers-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gundam-build-divers-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Gundam Build Fighters Try
@@ -8460,8 +7608,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "gundam-build-fighters-try-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "gundam-build-fighters-try" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gundam-build-fighters-try-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gundam-build-fighters-try-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Hakata Tonkotsu Ramens
@@ -8476,8 +7622,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hakata-tonkotsu-ramens-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hakata-tonkotsu-ramens" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hakata-tonkotsu-ramens-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hakata-tonkotsu-ramens-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Hakumei and Mikochi
@@ -8492,8 +7636,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hakumei-and-mikochi-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hakumei-and-mikochi" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hakumei-and-mikochi-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hakumei-to-mikochi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Hamtaro
@@ -8508,8 +7650,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hamtaro-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hamtaro" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hamtaro-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tottoko-hamtarou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Hana-Kimi
@@ -8524,8 +7664,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hana-kimi-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hana-kimi" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hana-kimi-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hana-kimi-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Hanaori-san Still Wants to Fight in the Next Life
@@ -8540,8 +7678,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hanaori-san-still-wants-to-fight-in-the-next-life-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hanaori-san-still-wants-to-fight-in-the-next-life" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hanaori-san-still-wants-to-fight-in-the-next-life-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hanaori-san-still-wants-to-fight-in-the-next-life-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Hand Shakers
@@ -8556,8 +7692,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hand-shakers-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hand-shakers" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hand-shakers-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hand-shakers-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Handa-kun
@@ -8572,8 +7706,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "handa-kun-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "handa-kun" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "handa-kun-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "handa-kun-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Handyman Saitou in Another World
@@ -8588,8 +7720,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "handyman-saitou-in-another-world-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "handyman-saitou-in-another-world" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "handyman-saitou-in-another-world-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "benriya-saitou-san-isekai-ni-iku-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Happy Sugar Life
@@ -8604,8 +7734,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "happy-sugar-life-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "happy-sugar-life" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "happy-sugar-life-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "happy-sugar-life-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Happy☆Lesson
@@ -8620,8 +7748,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "happylesson-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "happylesson" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "happy-lesson-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "happy-lesson-tv-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Happy☆Lesson Ova
@@ -8636,8 +7762,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "happylesson-ova-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "happylesson-ova" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "happy-lesson-ova-english-dubbed-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "happy-lesson-ova-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Harukana Receive
@@ -8652,8 +7776,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "harukana-receive-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "harukana-receive" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "harukana-receive-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "harukana-receive-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Hatena Illusion
@@ -8668,8 +7790,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hatena-illusion-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hatena-illusion" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hatena-illusion-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hatena-illusion-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Haven't You Heard? I'm Sakamoto
@@ -8684,8 +7804,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "havent-you-heard-im-sakamoto-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "havent-you-heard-im-sakamoto" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "haven-t-you-heard-i-m-sakamoto-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sakamoto-desu-ga-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Hayate the Combat Butler
@@ -8700,8 +7818,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hayate-the-combat-butler-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hayate-the-combat-butler" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hayate-the-combat-butler-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hayate-no-gotoku-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Headhunted to Another World: From Salaryman to Big Four!
@@ -8716,8 +7832,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "headhunted-to-another-world-from-salaryman-to-big-four-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "headhunted-to-another-world-from-salaryman-to-big-four" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "headhunted-to-another-world-from-salaryman-to-big-four-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "salaryman-ga-isekai-ni-ittara-shitennou-ni-natta-hanashi-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Heaven Official's Blessing
@@ -8732,8 +7846,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "heaven-officials-blessing-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "heaven-officials-blessing" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "heaven-official-s-blessing-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tian-guan-ci-fu-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Heavenly Delusion
@@ -8748,8 +7860,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "heavenly-delusion-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "heavenly-delusion" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "heavenly-delusion-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tengoku-daimakyou-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Heavy Object
@@ -8764,8 +7874,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "heavy-object-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "heavy-object" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "heavy-object-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "heavy-object-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Helck
@@ -8780,8 +7888,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "helck-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "helck" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "helck-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "helck-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Hell Mode: The Hardcore Gamer Dominates in Another World with Garbage Balancing
@@ -8796,8 +7902,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hell-mode-the-hardcore-gamer-dominates-in-another-world-with-garbage-balancing-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hell-mode-the-hardcore-gamer-dominates-in-another-world-with-garbage-balancing" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hell-mode-the-hardcore-gamer-dominates-in-another-world-with-garbage-balancing-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hell-mode-the-hardcore-gamer-dominates-in-another-world-with-garbage-balancing-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Hell's Paradise
@@ -8812,8 +7916,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hells-paradise-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hells-paradise" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hells-paradise-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hells-paradise-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Hero Mask
@@ -8828,8 +7930,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hero-mask-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hero-mask" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hero-mask-2019-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hero-mask-2019-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Hero Without a Class: Who Even Needs Skills?!
@@ -8844,8 +7944,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hero-without-a-class-who-even-needs-skills-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hero-without-a-class-who-even-needs-skills" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hero-without-a-class-who-even-needs-skills-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hero-without-a-class-who-even-needs-skills-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Hetalia: The World Twinkle
@@ -8860,8 +7958,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hetalia-the-world-twinkle-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hetalia-the-world-twinkle" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hetalia-the-world-twinkle-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hetalia-the-world-twinkle-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Hi Score Girl
@@ -8876,8 +7972,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hi-score-girl-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hi-score-girl" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "high-score-girl-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "high-score-girl-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Higehiro: After Being Rejected, I Shaved and Took in a High School Runaway
@@ -8892,8 +7986,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "higehiro-after-being-rejected-i-shaved-and-took-in-a-high-school-runaway-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "higehiro-after-being-rejected-i-shaved-and-took-in-a-high-school-runaway" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "higehiro-after-being-rejected-i-shaved-and-took-in-a-high-school-runaway-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hige-wo-soru-soshite-joshikousei-wo-hirou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // High School DxD
@@ -8916,8 +8008,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 25, endEp: 37, collection: "high-school-dxd-born-s3", audio: "sub", fileTemplate: "High School DxD S3 {ep:02}.mp4" },
       // ARCHIVE.ORG S4 (720p SUB, works WITHOUT resolver!)
       { startEp: 38, endEp: 50, collection: "high-school-dxd-hero-s4", audio: "sub", fileTemplate: "High School DxD S4 {ep:02}.mp4" },
-      // WCO resolver (DUB fallback)
-      { startEp: 1, endEp: 48, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "high-school-dxd-episode-{ep}-english-dubbed" },
     ], hasDub: true, hasSub: true,
   },
   // High School DxD BorN
@@ -8932,8 +8022,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "high-school-dxd-born-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "high-school-dxd-born" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "high-school-dxd-born-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "high-school-dxd-born-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // High School DxD New
@@ -8948,8 +8036,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "high-school-dxd-new-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "high-school-dxd-new" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "high-school-dxd-new-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "high-school-dxd-new-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // High-Rise Invasion
@@ -8964,8 +8050,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "high-rise-invasion-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "high-rise-invasion" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "high-rise-invasion-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tenkuu-shinpan-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Highschool of the Dead
@@ -8980,8 +8064,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "highschool-of-the-dead-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "highschool-of-the-dead" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "highschool-of-the-dead-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "highschool-of-the-dead-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Higurashi: When They Cry – Gou
@@ -8996,8 +8078,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "higurashi-when-they-cry-gou-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "higurashi-when-they-cry-gou" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "higurashi-when-they-cry-gou-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "higurashi-no-naku-koro-ni-2020-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Himouto! Umaru-chan
@@ -9012,8 +8092,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "himouto-umaru-chan-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "himouto-umaru-chan" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "himouto-umaru-chan-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "himouto-umaru-chan-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Himouto! Umaru-chan S
@@ -9028,8 +8106,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "himouto-umaru-chan-s-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "himouto-umaru-chan-s" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "himouto-umaru-chan-s-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "himouto-umaru-chan-s-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Hina Logic - From Luck and Logic
@@ -9044,8 +8120,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hina-logic--from-luck-and-logic-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hina-logic--from-luck-and-logic" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hina-logic-from-luck-and-logic-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hina-logi-from-luck-logic-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Hinamatsuri
@@ -9060,8 +8134,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hinamatsuri-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hinamatsuri" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hinamatsuri-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hinamatsuri-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Hinomaru Sumo
@@ -9076,8 +8148,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hinomaru-sumo-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hinomaru-sumo" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hinomaru-sumo-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hinomaruzumou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Hitorijime My Hero
@@ -9092,8 +8162,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hitorijime-my-hero-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hitorijime-my-hero" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hitorijime-my-hero-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hitorijime-my-hero-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Hokkaido Gals Are Super Adorable!
@@ -9108,8 +8176,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hokkaido-gals-are-super-adorable-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hokkaido-gals-are-super-adorable" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hokkaido-gals-are-super-adorable-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dosanko-gal-wa-namara-menkoi-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Honey Lemon Soda
@@ -9124,8 +8190,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "honey-lemon-soda-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "honey-lemon-soda" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "honey-lemon-soda-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "honey-lemon-soda-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Horimiya
@@ -9140,8 +8204,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "horimiya-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "horimiya" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "horimiya-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "horimiya-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Hortensia Saga
@@ -9156,8 +8218,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hortensia-saga-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hortensia-saga" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hortensia-saga-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hortensia-saga-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // How I Attended an All-Guy's Mixer
@@ -9172,8 +8232,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "how-i-attended-an-all-guys-mixer-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "how-i-attended-an-all-guys-mixer" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "how-i-attended-an-all-guys-mixer-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "goukon-ni-ittara-onna-ga-inakatta-hanashi-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // How Not to Summon a Demon Lord
@@ -9188,8 +8246,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "how-not-to-summon-a-demon-lord-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "how-not-to-summon-a-demon-lord" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "how-not-to-summon-a-demon-lord-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "isekai-maou-to-shoukan-shoujo-no-dorei-majutsu-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // How a Realist Hero Rebuilt the Kingdom
@@ -9204,8 +8260,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "how-a-realist-hero-rebuilt-the-kingdom-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "how-a-realist-hero-rebuilt-the-kingdom" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "how-a-realist-hero-rebuilt-the-kingdom-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "genjitsu-shugi-yuusha-no-oukoku-saikenki-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // How clumsy you are, Miss Ueno.
@@ -9220,8 +8274,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "how-clumsy-you-are-miss-ueno-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "how-clumsy-you-are-miss-ueno" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "how-clumsy-you-are-miss-ueno-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ueno-san-wa-bukiyou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Hundred
@@ -9236,8 +8288,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hundred-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hundred" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "hundred-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hundred-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // I Got a Cheat Skill in Another World and Became Unrivaled in The Real World, Too
@@ -9252,8 +8302,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "i-got-a-cheat-skill-in-another-world-and-became-unrivaled-in-the-real-world-too-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "i-got-a-cheat-skill-in-another-world-and-became-unrivaled-in-the-real-world-too" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "i-got-a-cheat-skill-in-another-world-and-became-unrivaled-in-the-real-world-too-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "i-got-a-cheat-skill-in-another-world-and-became-unrivaled-in-the-real-world-too-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // I Left My A-Rank Party to Help My Former Students Reach the Dungeon Depths!
@@ -9268,8 +8316,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "i-left-my-a-rank-party-to-help-my-former-students-reach-the-dungeon-depths-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "i-left-my-a-rank-party-to-help-my-former-students-reach-the-dungeon-depths" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "i-left-my-a-rank-party-to-help-my-former-students-reach-the-dungeon-depths-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "a-rank-party-wo-ridatsu-shita-ore-wa-moto-oshiego-tachi-to-meikyuu-shinbu-wo-mezasu-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // I May Be a Guild Receptionist, but I'll Solo Any Boss to Clock Out on Time
@@ -9284,8 +8330,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "i-may-be-a-guild-receptionist-but-ill-solo-any-boss-to-clock-out-on-time-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "i-may-be-a-guild-receptionist-but-ill-solo-any-boss-to-clock-out-on-time" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "i-may-be-a-guild-receptionist-but-ill-solo-any-boss-to-clock-out-on-time-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "guild-no-uketsukejou-desu-ga-zangyou-wa-iya-nanode-boss-wo-solo-toubatsu-shiyou-to-omoimasu-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // I Parry Everything
@@ -9300,8 +8344,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "i-parry-everything-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "i-parry-everything" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "i-parry-everything-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ore-wa-subete-wo-parry-suru-gyaku-kanchigai-no-sekai-saikyou-wa-boukensha-ni-naritai-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // I Shall Survive Using Potions!
@@ -9316,8 +8358,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "i-shall-survive-using-potions-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "i-shall-survive-using-potions" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "i-shall-survive-using-potions-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "potion-danomi-de-ikinobimasu-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // I Want to End this Love Game
@@ -9332,8 +8372,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "i-want-to-end-this-love-game-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "i-want-to-end-this-love-game" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "i-want-to-end-this-love-game-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "i-want-to-end-this-love-game-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // I Was Reincarnated as the 7th Prince so I Can Take My Time Perfecting My Magical Ability
@@ -9348,8 +8386,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "i-was-reincarnated-as-the-7th-prince-so-i-can-take-my-time-perfecting-my-magical-ability-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "i-was-reincarnated-as-the-7th-prince-so-i-can-take-my-time-perfecting-my-magical-ability" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "i-was-reincarnated-as-the-7th-prince-so-i-can-take-my-time-perfecting-my-magical-ability-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tensei-shitara-dainana-ouji-datta-node-kimama-ni-majutsu-wo-kiwamemasu-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // I'll Become a Villainess Who Goes Down in History
@@ -9364,8 +8400,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ill-become-a-villainess-who-goes-down-in-history-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ill-become-a-villainess-who-goes-down-in-history" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ill-become-a-villainess-who-goes-down-in-history-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rekishi-ni-nokoru-akujo-ni-naru-zo-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // I'm Living with an Otaku NEET Kunoichi!?
@@ -9380,8 +8414,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "im-living-with-an-otaku-neet-kunoichi-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "im-living-with-an-otaku-neet-kunoichi" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "im-living-with-an-otaku-neet-kunoichi-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "neet-kunoichi-to-nazeka-dousei-hajimemashita-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // I'm Quitting Heroing
@@ -9396,8 +8428,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "im-quitting-heroing-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "im-quitting-heroing" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "im-quitting-heroing-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yuusha-yamemasu-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // I'm Standing on a Million Lives
@@ -9412,8 +8442,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "im-standing-on-a-million-lives-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "im-standing-on-a-million-lives" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "i-m-standing-on-a-million-lives-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "i-m-standing-on-a-million-lives-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // I'm in Love with the Villainess
@@ -9428,8 +8456,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "im-in-love-with-the-villainess-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "im-in-love-with-the-villainess" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "im-in-love-with-the-villainess-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "watashi-no-oshi-wa-akuyaku-reijou-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // I'm the Villainess, So I'm Taming the Final Boss
@@ -9444,8 +8470,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "im-the-villainess-so-im-taming-the-final-boss-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "im-the-villainess-so-im-taming-the-final-boss" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "im-the-villainess-so-im-taming-the-final-boss-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "akuyaku-reijo-nano-de-last-boss-wo-kattemimashita-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // I've Been Killing Slimes for 300 Years and Maxed Out My Level
@@ -9460,8 +8484,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ive-been-killing-slimes-for-300-years-and-maxed-out-my-level-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ive-been-killing-slimes-for-300-years-and-maxed-out-my-level" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "i-ve-been-killing-slimes-for-300-years-and-maxed-out-my-level-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "slime-taoshite-300-nen-shiranai-uchi-ni-level-max-ni-nattemashita-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // I've Somehow Gotten Stronger When I Improved My Farm-Related Skills
@@ -9476,8 +8498,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ive-somehow-gotten-stronger-when-i-improved-my-farm-related-skills-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ive-somehow-gotten-stronger-when-i-improved-my-farm-related-skills" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ive-somehow-gotten-stronger-when-i-improved-my-farm-related-skills-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "noumin-kanren-no-skill-bakka-agetetara-nazeka-tsuyoku-natta-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // ID-0
@@ -9492,8 +8512,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "id-0-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "id-0" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "id-0-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "id-0-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // ID:Invaded
@@ -9508,8 +8526,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "idinvaded-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "idinvaded" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "id-invaded-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "id-invaded-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ikebukuro West Gate Park
@@ -9524,8 +8540,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ikebukuro-west-gate-park-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ikebukuro-west-gate-park" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ikebukuro-west-gate-park-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ikebukuro-west-gate-park-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // In Another World With My Smartphone
@@ -9540,8 +8554,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "in-another-world-with-my-smartphone-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "in-another-world-with-my-smartphone" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "in-another-world-with-my-smartphone-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "isekai-wa-smartphone-to-tomo-ni-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // In the Clear Moonlit Dusk
@@ -9556,8 +8568,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "in-the-clear-moonlit-dusk-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "in-the-clear-moonlit-dusk" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "in-the-clear-moonlit-dusk-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "in-the-clear-moonlit-dusk-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // In the Land of Leadale
@@ -9572,8 +8582,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "in-the-land-of-leadale-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "in-the-land-of-leadale" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "in-the-land-of-leadale-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "leadale-no-daichi-nite-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // In/Spectre
@@ -9588,8 +8596,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "inspectre-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "inspectre" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "in-spectre-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kyokou-suiri-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Inazuma Eleven
@@ -9604,8 +8610,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "inazuma-eleven-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "inazuma-eleven" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "inazuma-eleven-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "inazuma-eleven-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Infini-T Force
@@ -9620,8 +8624,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "infini-t-force-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "infini-t-force" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "infini-t-force-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "infini-t-force-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Infinite Dendrogram
@@ -9636,8 +8638,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "infinite-dendrogram-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "infinite-dendrogram" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "infinite-dendrogram-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "infinite-dendrogram-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Infinite Stratos
@@ -9652,8 +8652,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "infinite-stratos-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "infinite-stratos" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "infinite-stratos-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "infinite-stratos-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ingress the Animation
@@ -9668,8 +8666,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ingress-the-animation-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ingress-the-animation" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ingress-the-animation-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ingress-the-animation-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Insomniacs After School
@@ -9684,8 +8680,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "insomniacs-after-school-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "insomniacs-after-school" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "insomniacs-after-school-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kimi-wa-houkago-insomnia-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Interlude
@@ -9700,8 +8694,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "interlude-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "interlude" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "interlude-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "interlude-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Interspecies Reviewers
@@ -9716,8 +8708,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "interspecies-reviewers-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "interspecies-reviewers" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "interspecies-reviewers-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ishuzoku-reviewers-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Interviews With Monster Girls
@@ -9732,8 +8722,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "interviews-with-monster-girls-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "interviews-with-monster-girls" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "interviews-with-monster-girls-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "demi-chan-wa-kataritai-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Inuyasha
@@ -9748,8 +8736,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "inuyasha-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "inuyasha" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "inuyasha-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "inuyasha-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Irina: The Vampire Cosmonaut
@@ -9764,8 +8750,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "irina-the-vampire-cosmonaut-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "irina-the-vampire-cosmonaut" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "irina-the-vampire-cosmonaut-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tsuki-to-laika-to-nosferatu-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Is It Wrong to Try to Pick Up Girls in a Dungeon?
@@ -9780,8 +8764,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "is-it-wrong-to-try-to-pick-up-girls-in-a-dungeon-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "is-it-wrong-to-try-to-pick-up-girls-in-a-dungeon" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "is-it-wrong-to-try-to-pick-up-girls-in-a-dungeon-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "dungeon-ni-deai-wo-motomeru-no-wa-machigatteiru-darou-ka-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Isekai Cheat Magician
@@ -9796,8 +8778,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "isekai-cheat-magician-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "isekai-cheat-magician" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "isekai-cheat-magician-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "isekai-cheat-magician-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Isekai Office Worker: The Other World's Books Depend on the Bean Counter
@@ -9812,8 +8792,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "isekai-office-worker-the-other-worlds-books-depend-on-the-bean-counter-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "isekai-office-worker-the-other-worlds-books-depend-on-the-bean-counter" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "isekai-office-worker-the-other-worlds-books-depend-on-the-bean-counter-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "isekai-office-worker-the-other-worlds-books-depend-on-the-bean-counter-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Isekai Onsen Paradise
@@ -9828,8 +8806,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "isekai-onsen-paradise-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "isekai-onsen-paradise" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "isekai-onsen-paradise-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "meitou-isekai-no-yu-kaitakuki-around-40-onsen-mania-no-tensei-saki-wa-nonbiri-onsen-tengoku-deshita-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Isekai Quartet
@@ -9844,8 +8820,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "isekai-quartet-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "isekai-quartet" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "isekai-quartet-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "isekai-quartet-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ishura
@@ -9860,8 +8834,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ishura-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ishura" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ishura-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ishura-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Izetta: The Last Witch
@@ -9876,8 +8848,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "izetta-the-last-witch-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "izetta-the-last-witch" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "izetta-the-last-witch-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shuumatsu-no-izetta-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Jaadugar: A Witch in Mongolia
@@ -9892,8 +8862,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "jaadugar-a-witch-in-mongolia-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "jaadugar-a-witch-in-mongolia" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "jaadugar-a-witch-in-mongolia-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jaadugar-a-witch-in-mongolia-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Jack-of-All-Trades, Party of None
@@ -9908,8 +8876,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "jack-of-all-trades-party-of-none-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "jack-of-all-trades-party-of-none" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "jack-of-all-trades-party-of-none-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jack-of-all-trades-party-of-none-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Japan Sinks: 2020
@@ -9924,8 +8890,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "japan-sinks-2020-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "japan-sinks-2020" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "japan-sinks-2020-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nihon-chinbotsu-2020-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Jellyfish Can't Swim in the Night
@@ -9940,8 +8904,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "jellyfish-cant-swim-in-the-night-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "jellyfish-cant-swim-in-the-night" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "jellyfish-cant-swim-in-the-night-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yoru-no-kurage-wa-oyogenai-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // JoJo's Bizarre Adventure
@@ -9956,8 +8918,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "jojos-bizarre-adventure-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "jojos-bizarre-adventure" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "jojo-s-bizarre-adventure-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jojo-no-kimyou-na-bouken-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // JoJo's Bizarre Adventure: Diamond Is Unbreakable
@@ -9972,8 +8932,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "jojos-bizarre-adventure-diamond-is-unbreakable-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "jojos-bizarre-adventure-diamond-is-unbreakable" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "jojo-s-bizarre-adventure-diamond-is-unbreakable-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jojo-no-kimyou-na-bouken-diamond-wa-kudakenai-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // JoJo's Bizarre Adventure: Golden Wind
@@ -9988,8 +8946,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "jojos-bizarre-adventure-golden-wind-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "jojos-bizarre-adventure-golden-wind" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "jojo-s-bizarre-adventure-golden-wind-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jojo-no-kimyou-na-bouken-ougon-no-kaze-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // JoJo's Bizarre Adventure: Stardust Crusaders
@@ -10004,8 +8960,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "jojos-bizarre-adventure-stardust-crusaders-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "jojos-bizarre-adventure-stardust-crusaders" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "jojo-s-bizarre-adventure-stardust-crusaders-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jojo-s-bizarre-adventure-stardust-crusaders-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // JoJo's Bizarre Adventure: Stone Ocean
@@ -10020,8 +8974,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "jojos-bizarre-adventure-stone-ocean-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "jojos-bizarre-adventure-stone-ocean" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "jojo-s-bizarre-adventure-stone-ocean-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jojo-no-kimyou-na-bouken-stone-ocean-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Joker Game
@@ -10036,8 +8988,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "joker-game-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "joker-game" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "joker-game-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "joker-game-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Jormungand
@@ -10052,8 +9002,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "jormungand-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "jormungand" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "jormungand-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jormungand-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Juni Taisen: Zodiac War
@@ -10068,8 +9016,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "juni-taisen-zodiac-war-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "juni-taisen-zodiac-war" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "juni-taisen-zodiac-war-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "juuni-taisen-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Junji Ito Collection
@@ -10084,8 +9030,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "junji-ito-collection-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "junji-ito-collection" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "junji-ito-collection-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ito-junji-collection-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Just Because!
@@ -10100,8 +9044,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "just-because-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "just-because" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "just-because-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "just-because-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // K-On!
@@ -10116,8 +9058,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "k-on-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "k-on" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "k-on-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "k-on-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // K: Return of Kings
@@ -10132,8 +9072,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "k-return-of-kings-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "k-return-of-kings" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "k-return-of-kings-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "k-return-of-kings-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // KADO: The Right Answer
@@ -10148,8 +9086,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kado-the-right-answer-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kado-the-right-answer" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kado-the-right-answer-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "seikaisuru-kado-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kabaneri of the Iron Fortress
@@ -10164,8 +9100,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kabaneri-of-the-iron-fortress-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kabaneri-of-the-iron-fortress" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kabaneri-of-the-iron-fortress-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "koutetsujou-no-kabaneri-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kaguya-sama: Love is War
@@ -10180,8 +9114,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kaguya-sama-love-is-war-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kaguya-sama-love-is-war" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kaguya-sama-love-is-war-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kaguya-sama-love-is-war-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kaiji: Ultimate Survivor
@@ -10196,8 +9128,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kaiji-ultimate-survivor-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kaiji-ultimate-survivor" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kaiji-ultimate-survivor-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gyakkyou-burai-kaiji-ultimate-survivor-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kaiju Girl Caramelise
@@ -10212,8 +9142,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kaiju-girl-caramelise-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kaiju-girl-caramelise" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kaiju-girl-caramelise-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kaiju-girl-caramelise-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kaiju No. 8
@@ -10228,8 +9156,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kaiju-no-8-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kaiju-no-8" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kaiju-no-8-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kaiju-no-8-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kakegurui Twin
@@ -10244,8 +9170,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kakegurui-twin-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kakegurui-twin" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kakegurui-twin-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kakegurui-twin-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kakegurui: Compulsive Gambler
@@ -10260,8 +9184,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kakegurui-compulsive-gambler-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kakegurui-compulsive-gambler" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kakegurui-compulsive-gambler-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kakegurui-compulsive-gambler-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kamisama Kiss
@@ -10276,8 +9198,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kamisama-kiss-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kamisama-kiss" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kamisama-kiss-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kamisama-kiss-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kandagawa Jet Girls
@@ -10292,8 +9212,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kandagawa-jet-girls-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kandagawa-jet-girls" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kandagawa-jet-girls-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kandagawa-jet-girls-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Katana Maidens: Toji no Miko
@@ -10308,8 +9226,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "katana-maidens-toji-no-miko-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "katana-maidens-toji-no-miko" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "katana-maidens-toji-no-miko-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "toji-no-miko-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kaya-chan Isn't Scary
@@ -10324,8 +9240,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kaya-chan-isnt-scary-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kaya-chan-isnt-scary" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kaya-chan-isnt-scary-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kaya-chan-isnt-scary-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Keep Your Hands Off Eizouken!
@@ -10340,8 +9254,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "keep-your-hands-off-eizouken-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "keep-your-hands-off-eizouken" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "keep-your-hands-off-eizouken-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "eizouken-ni-wa-te-wo-dasu-na-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Keijo!!!!!!!!
@@ -10356,8 +9268,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "keijo-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "keijo" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "keijo-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "keijo-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kekkaishi
@@ -10372,8 +9282,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kekkaishi-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kekkaishi" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kekkaishi-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kekkaishi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kemono Friends
@@ -10388,8 +9296,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kemono-friends-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kemono-friends" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kemono-friends-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kemono-friends-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kemono Jihen
@@ -10404,8 +9310,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kemono-jihen-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kemono-jihen" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kemono-jihen-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kemono-jihen-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kemono Michi: Rise Up
@@ -10420,8 +9324,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kemono-michi-rise-up-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kemono-michi-rise-up" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kemono-michi-rise-up-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hataage-kemono-michi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kengan Ashura
@@ -10436,8 +9338,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kengan-ashura-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kengan-ashura" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kengan-ashura-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kengan-ashura-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kenka Bancho Otome -Girl Beats Boys-
@@ -10452,8 +9352,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kenka-bancho-otome-girl-beats-boys-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kenka-bancho-otome-girl-beats-boys" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kenka-banchou-otome-girl-beats-boys-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kenka-banchou-otome-girl-beats-boys-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Key the Metal Idol
@@ -10468,8 +9366,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "key-the-metal-idol-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "key-the-metal-idol" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "key-the-metal-idol-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "key-the-metal-idol-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kill Blue
@@ -10484,8 +9380,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kill-blue-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kill-blue" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kill-blue-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kill-blue-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kill la Kill
@@ -10500,8 +9394,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kill-la-kill-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kill-la-kill" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kill-la-kill-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kill-la-kill-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // King of Fighters: Another Day
@@ -10516,8 +9408,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "king-of-fighters-another-day-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "king-of-fighters-another-day" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "king-of-fighters-another-day-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "king-of-fighters-another-day-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // King's Raid: Successors of the Will
@@ -10532,8 +9422,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kings-raid-successors-of-the-will-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kings-raid-successors-of-the-will" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "king-s-raid-successors-of-the-will-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "king-s-raid-ishi-wo-tsugumono-tachi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kingdom
@@ -10548,8 +9436,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kingdom-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kingdom" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kingdom-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kingdom-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kino's Journey
@@ -10564,8 +9450,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kinos-journey-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kinos-journey" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kino-s-journey-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kino-no-tabi-the-beautiful-world-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kino's Journey -the Beautiful World- the Animated Series
@@ -10580,8 +9464,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kinos-journey-the-beautiful-world-the-animated-series-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kinos-journey-the-beautiful-world-the-animated-series" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kino-s-journey-the-beautiful-world-the-animated-series-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kino-no-tabi-the-beautiful-world-the-animated-series-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kirio Fanclub
@@ -10596,8 +9478,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kirio-fanclub-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kirio-fanclub" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kirio-fanclub-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kirio-fanclub-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kiznaiver
@@ -10612,8 +9492,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kiznaiver-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kiznaiver" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kiznaiver-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kiznaiver-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Knight's &amp; Magic
@@ -10628,8 +9506,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "knights-amp-magic-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "knights-amp-magic" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "knight-s-magic-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "knight-s-magic-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Knights of Sidonia
@@ -10644,8 +9520,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "knights-of-sidonia-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "knights-of-sidonia" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "knights-of-sidonia-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sidonia-no-kishi-knights-of-sidonia-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Knights of the Zodiac: Saint Seiya
@@ -10660,8 +9534,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "knights-of-the-zodiac-saint-seiya-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "knights-of-the-zodiac-saint-seiya" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "knights-of-the-zodiac-saint-seiya-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "knights-of-the-zodiac-saint-seiya-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kochouki: Wakaki Nobunaga
@@ -10676,8 +9548,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kochouki-wakaki-nobunaga-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kochouki-wakaki-nobunaga" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kochouki-wakaki-nobunaga-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kochouki-wakaki-nobunaga-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kokkoku
@@ -10692,8 +9562,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kokkoku-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kokkoku" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kokkoku-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kokkoku-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Komi Can't Communicate
@@ -10708,8 +9576,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "komi-cant-communicate-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "komi-cant-communicate" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "komi-can-t-communicate-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "komi-san-wa-comyushou-desu-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // KonoSuba: God's Blessing on This Wonderful World!
@@ -10728,9 +9594,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 10, collection: "konosuba-1", audio: "sub", fileTemplate: "K-{ep:02}.mp4" },
       // ARCHIVE.ORG S2 (1080p DUB, works WITHOUT resolver!)
       { startEp: 11, endEp: 20, collection: "konosuba-s2-eng-dub", audio: "dub", fileTemplate: "KonoSuba Gods Blessing on This Wonderful World 2 Eng Dub Ep - {ep:02}.mp4" },
-      // WCO resolver (fallback)
-      { startEp: 1, endEp: 20, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "konosuba-gods-blessing-on-this-wonderful-world-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kono-subarashii-sekai-ni-bakuen-wo-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Konohana Kitan
@@ -10745,8 +9608,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "konohana-kitan-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "konohana-kitan" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "konohana-kitan-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "konohana-kitan-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kotaro Lives Alone
@@ -10761,8 +9622,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kotaro-lives-alone-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kotaro-lives-alone" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kotaro-lives-alone-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kotarou-wa-hitorigurashi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kowloon Generic Romance
@@ -10777,8 +9636,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kowloon-generic-romance-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kowloon-generic-romance" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kowloon-generic-romance-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kowloon-generic-romance-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kuma Kuma Kuma Bear
@@ -10793,8 +9650,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kuma-kuma-kuma-bear-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kuma-kuma-kuma-bear" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kuma-kuma-kuma-bear-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kuma-kuma-kuma-bear-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kuroko's Basketball
@@ -10809,8 +9664,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kurokos-basketball-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kurokos-basketball" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kuroko-s-basketball-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kuroko-s-basketball-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Kuromukuro
@@ -10825,8 +9678,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "kuromukuro-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kuromukuro" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "kuromukuro-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kuromukuro-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // LBX Girls
@@ -10841,8 +9692,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "lbx-girls-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "lbx-girls" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lbx-girls-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "soukou-musume-senki-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ladies Versus Butlers
@@ -10857,8 +9706,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ladies-versus-butlers-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ladies-versus-butlers" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ladies-versus-butlers-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ladies-versus-butlers-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Laid-Back Camp
@@ -10873,8 +9720,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "laid-back-camp-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "laid-back-camp" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "laid-back-camp-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yuru-camp-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Land of the Lustrous
@@ -10889,8 +9734,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "land-of-the-lustrous-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "land-of-the-lustrous" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "land-of-the-lustrous-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "houseki-no-kuni-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Last Hope
@@ -10905,8 +9748,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "last-hope-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "last-hope" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "last-hope-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "last-hope-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Laughing Under the Clouds
@@ -10921,8 +9762,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "laughing-under-the-clouds-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "laughing-under-the-clouds" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "laughing-under-the-clouds-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "donten-ni-warau-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Lazarus
@@ -10937,8 +9776,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "lazarus-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "lazarus" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lazarus-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lazarus-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Let This Grieving Soul Retire
@@ -10953,8 +9790,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "let-this-grieving-soul-retire-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "let-this-grieving-soul-retire" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "let-this-grieving-soul-retire-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "let-this-grieving-soul-retire-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Let's Play
@@ -10969,8 +9804,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "lets-play-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "lets-play" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lets-play-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lets-play-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Level 1 Demon Lord and One Room Hero
@@ -10985,8 +9818,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "level-1-demon-lord-and-one-room-hero-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "level-1-demon-lord-and-one-room-hero" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "level-1-demon-lord-and-one-room-hero-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lv1-maou-to-one-room-yuusha-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Leviathan
@@ -11001,8 +9832,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "leviathan-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "leviathan" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "leviathan-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "leviathan-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Levius
@@ -11017,8 +9846,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "levius-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "levius" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "levius-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "levius-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Liar Game
@@ -11033,8 +9860,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "liar-game-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "liar-game" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "liar-game-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "liar-game-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Liar Liar
@@ -11049,8 +9874,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "liar-liar-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "liar-liar" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "liar-liar-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "liar-liar-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Life Lessons with Uramichi-Oniisan
@@ -11065,8 +9888,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "life-lessons-with-uramichi-oniisan-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "life-lessons-with-uramichi-oniisan" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "life-lessons-with-uramichi-oniisan-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "uramichi-oniisan-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Link Click
@@ -11081,8 +9902,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "link-click-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "link-click" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "link-click-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "link-click-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Listeners
@@ -11097,8 +9916,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "listeners-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "listeners" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "listeners-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "listeners-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Little Witch Academia
@@ -11113,8 +9930,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "little-witch-academia-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "little-witch-academia" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "little-witch-academia-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "little-witch-academia-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Log Horizon
@@ -11129,8 +9944,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "log-horizon-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "log-horizon" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "log-horizon-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "log-horizon-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Loner Life in Another World
@@ -11145,8 +9958,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "loner-life-in-another-world-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "loner-life-in-another-world" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "loner-life-in-another-world-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hitoribocchi-no-isekai-kouryaku-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Lookism
@@ -11161,8 +9972,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "lookism-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "lookism" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lookism-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lookism-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Lord El-Melloi II's Case Files: Rail Zeppelin Grace Note
@@ -11177,8 +9986,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "lord-el-melloi-iis-case-files-rail-zeppelin-grace-note-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "lord-el-melloi-iis-case-files-rail-zeppelin-grace-note" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lord-el-melloi-ii-s-case-files-rail-zeppelin-grace-note-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lord-el-melloi-ii-sei-no-jikenbo-rail-zeppelin-grace-note-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Lord of Mysteries
@@ -11193,8 +10000,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "lord-of-mysteries-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "lord-of-mysteries" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lord-of-mysteries-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lord-of-mysteries-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Lost Song
@@ -11209,8 +10014,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "lost-song-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "lost-song" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lost-song-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lost-song-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Love After World Domination
@@ -11225,8 +10028,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "love-after-world-domination-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "love-after-world-domination" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "love-after-world-domination-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "koi-wa-sekai-seifuku-no-ato-de-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Love Flops
@@ -11241,8 +10042,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "love-flops-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "love-flops" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "love-flops-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "renai-flops-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Love Live! Nijigasaki High School Idol Club
@@ -11257,8 +10056,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "love-live-nijigasaki-high-school-idol-club-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "love-live-nijigasaki-high-school-idol-club" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "love-live-nijigasaki-high-school-idol-club-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "love-live-nijigasaki-gakuen-school-idol-doukoukai-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Love Live! Sunshine!!
@@ -11273,8 +10070,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "love-live-sunshine-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "love-live-sunshine" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "love-live-sunshine-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "love-live-sunshine-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Love Live! Superstar!!
@@ -11289,8 +10084,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "love-live-superstar-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "love-live-superstar" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "love-live-superstar-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "love-live-superstar-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Love Stage!!
@@ -11305,8 +10098,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "love-stage-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "love-stage" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "love-stage-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "love-stage-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Love Through a Prism
@@ -11321,8 +10112,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "love-through-a-prism-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "love-through-a-prism" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "love-through-a-prism-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "love-through-a-prism-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Love Tyrant
@@ -11337,8 +10126,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "love-tyrant-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "love-tyrant" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "love-tyrant-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "renai-boukun-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Love of Kill
@@ -11353,8 +10140,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "love-of-kill-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "love-of-kill" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "love-of-kill-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "koroshi-ai-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Lovely Complex
@@ -11369,8 +10154,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "lovely-complex-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "lovely-complex" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lovely-complex-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lovely-complex-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Lucifer and the Biscuit Hammer
@@ -11385,8 +10168,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "lucifer-and-the-biscuit-hammer-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "lucifer-and-the-biscuit-hammer" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lucifer-and-the-biscuit-hammer-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hoshi-no-samidare-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Luck &amp; Logic
@@ -11401,8 +10182,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "luck-amp-logic-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "luck-amp-logic" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "luck-logic-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "luck-logic-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Lupin III
@@ -11417,8 +10196,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "lupin-iii-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "lupin-iii" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lupin-iii-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lupin-iii-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Lupin III (2015)
@@ -11433,8 +10210,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "lupin-iii-2015-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "lupin-iii-2015" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lupin-iii-2015-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lupin-iii-2015-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Lupin III Part VI
@@ -11449,8 +10224,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "lupin-iii-part-vi-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "lupin-iii-part-vi" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lupin-iii-part-vi-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lupin-iii-part-vi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Lupin III Season 2
@@ -11465,8 +10238,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "lupin-iii-season-2-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "lupin-iii-season-2" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lupin-iii-season-2-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lupin-iii-season-2-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Lycoris Recoil
@@ -11481,8 +10252,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "lycoris-recoil-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "lycoris-recoil" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "lycoris-recoil-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "lycoris-recoil-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // MAR
@@ -11497,8 +10266,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mar-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mar" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mar-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mar-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // MF Ghost
@@ -11513,8 +10280,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mf-ghost-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mf-ghost" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mf-ghost-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mf-ghost-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // MM!
@@ -11525,8 +10290,6 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2020, season: "unknown", genres: [], studios: [],
     episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
     episodeSources: [
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mm-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mm-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mad Bull 34
@@ -11541,8 +10304,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mad-bull-34-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mad-bull-34" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mad-bull-34-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mad-bull-34-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Made in Abyss
@@ -11557,8 +10318,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "made-in-abyss-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "made-in-abyss" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "made-in-abyss-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "made-in-abyss-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Maesetsu! Opening Act
@@ -11573,8 +10332,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "maesetsu-opening-act-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "maesetsu-opening-act" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "maesetsu-opening-act-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "maesetsu-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Magi: Adventure of Sinbad
@@ -11589,8 +10346,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "magi-adventure-of-sinbad-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "magi-adventure-of-sinbad" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magi-adventure-of-sinbad-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "magi-sinbad-no-bouken-tv-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Magi: The Kingdom of Magic
@@ -11605,8 +10360,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "magi-the-kingdom-of-magic-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "magi-the-kingdom-of-magic" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magi-the-kingdom-of-magic-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "magi-the-kingdom-of-magic-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Magi: The Labyrinth of Magic
@@ -11621,8 +10374,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "magi-the-labyrinth-of-magic-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "magi-the-labyrinth-of-magic" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magi-the-labyrinth-of-magic-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "magi-the-labyrinth-of-magic-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Magia Record: Puella Magi Madoka Magica Side Story
@@ -11637,8 +10388,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "magia-record-puella-magi-madoka-magica-side-story-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "magia-record-puella-magi-madoka-magica-side-story" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magia-record-puella-magi-madoka-magica-side-story-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "magia-record-mahou-shoujo-madoka-magica-gaiden-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Magic Maker: How to Make Magic in Another World
@@ -11653,8 +10402,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "magic-maker-how-to-make-magic-in-another-world-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "magic-maker-how-to-make-magic-in-another-world" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magic-maker-isekai-mahou-no-tsukurikata-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "magic-maker-how-to-make-magic-in-another-world-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Magical DoReMi
@@ -11669,8 +10416,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "magical-doremi-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "magical-doremi" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magical-doremi-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ojama-doremi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Magical Girl Pretty Sammy
@@ -11685,8 +10430,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "magical-girl-pretty-sammy-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "magical-girl-pretty-sammy" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magical-girl-pretty-sammy-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mahou-shoujo-pretty-sammy-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Magical Girl Raising Project
@@ -11701,8 +10444,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "magical-girl-raising-project-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "magical-girl-raising-project" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magical-girl-raising-project-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mahou-shoujo-ikusei-keikaku-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Magical Girl Spec-Ops Asuka
@@ -11717,8 +10458,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "magical-girl-spec-ops-asuka-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "magical-girl-spec-ops-asuka" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magical-girl-spec-ops-asuka-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mahou-shoujo-tokushusen-asuka-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Magical Sempai
@@ -11733,8 +10472,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "magical-sempai-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "magical-sempai" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magical-sempai-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tejina-senpai-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Magical Warfare
@@ -11749,8 +10486,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "magical-warfare-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "magical-warfare" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magical-warfare-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mahou-sensou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Magilumiere Magical Girls Inc.
@@ -11765,8 +10500,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "magilumiere-magical-girls-inc-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "magilumiere-magical-girls-inc" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "magilumiere-magical-girls-inc-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "magilumiere-magical-girls-inc-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Maid Sama!
@@ -11781,8 +10514,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "maid-sama-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "maid-sama" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "maid-sama-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kaicho-wa-maid-sama-s-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Make My Day
@@ -11797,8 +10528,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "make-my-day-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "make-my-day" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "make-my-day-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "make-my-day-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Makeine: Too Many Losing Heroines!
@@ -11813,8 +10542,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "makeine-too-many-losing-heroines-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "makeine-too-many-losing-heroines" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "makeine-too-many-losing-heroines-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "make-heroine-ga-oosugiru-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Maken-Ki! Two
@@ -11829,8 +10556,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "maken-ki-two-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "maken-ki-two" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "maken-ki-two-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "maken-ki-two-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Makina-san's a Love Bot?!
@@ -11845,8 +10570,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "makina-sans-a-love-bot-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "makina-sans-a-love-bot" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "makina-sans-a-love-bot-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "makina-sans-a-love-bot-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Management of a Novice Alchemist
@@ -11861,8 +10584,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "management-of-a-novice-alchemist-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "management-of-a-novice-alchemist" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "management-of-a-novice-alchemist-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shinmai-renkinjutsushi-no-tenpo-keiei-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // March Comes In Like a Lion
@@ -11877,8 +10598,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "march-comes-in-like-a-lion-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "march-comes-in-like-a-lion" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "march-comes-in-like-a-lion-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "march-comes-in-like-a-lion-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Maria the Virgin Witch
@@ -11893,8 +10612,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "maria-the-virgin-witch-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "maria-the-virgin-witch" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "maria-the-virgin-witch-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "maria-the-virgin-witch-junketsu-no-maria-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Marriage Toxin
@@ -11909,8 +10626,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "marriage-toxin-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "marriage-toxin" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "marriage-toxin-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "marriage-toxin-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mars Red
@@ -11925,8 +10640,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mars-red-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mars-red" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mars-red-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mars-red-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Marvel Disk Wars: The Avengers
@@ -11941,8 +10654,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "marvel-disk-wars-the-avengers-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "marvel-disk-wars-the-avengers" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "marvel-disk-wars-the-avengers-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "marvel-disk-wars-the-avengers-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Masamune-kun's Revenge
@@ -11957,8 +10668,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "masamune-kuns-revenge-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "masamune-kuns-revenge" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "masamune-kun-s-revenge-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "masamune-kun-no-revenge-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mashle: Magic and Muscles
@@ -11973,8 +10682,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mashle-magic-and-muscles-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mashle-magic-and-muscles" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mashle-english-dubbed-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mashle-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // May I Ask for One Final Thing?
@@ -11989,8 +10696,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "may-i-ask-for-one-final-thing-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "may-i-ask-for-one-final-thing" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "may-i-ask-for-one-final-thing-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "may-i-ask-for-one-final-thing-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mayo Chiki!
@@ -12005,8 +10710,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mayo-chiki-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mayo-chiki" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mayo-chiki-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mayo-chiki-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mazinger Z
@@ -12021,8 +10724,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mazinger-z-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mazinger-z" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mazinger-z-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mazinger-z-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Medabots
@@ -12037,8 +10738,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "medabots-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "medabots" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "medabots-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "medabots-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Medaka Kuroiwa is Impervious to My Charms
@@ -12053,8 +10752,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "medaka-kuroiwa-is-impervious-to-my-charms-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "medaka-kuroiwa-is-impervious-to-my-charms" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "medaka-kuroiwa-is-impervious-to-my-charms-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kuroiwa-medaka-ni-watashi-no-kawaii-ga-tsuujinai-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Medalist
@@ -12069,8 +10766,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "medalist-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "medalist" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "medalist-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "medalist-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Megalo Box
@@ -12085,8 +10780,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "megalo-box-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "megalo-box" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "megalo-box-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "megalo-box-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Megaman Star Force
@@ -12101,8 +10794,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "megaman-star-force-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "megaman-star-force" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "megaman-star-force-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ryuusei-no-rockman-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Meiji Tokyo Renka
@@ -12117,8 +10808,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "meiji-tokyo-renka-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "meiji-tokyo-renka" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "meiji-tokyo-renka-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "meiji-tokyo-renka-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Memories
@@ -12133,8 +10822,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "memories-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "memories" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "memories-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "memories-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Metallic Rouge
@@ -12149,8 +10836,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "metallic-rouge-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "metallic-rouge" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "metallic-rouge-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "metallic-rouge-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mew Mew Power
@@ -12165,8 +10850,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mew-mew-power-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mew-mew-power" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tokyo-mew-mew-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tokyo-mew-mew-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Midnight Occult Civil Servants
@@ -12181,8 +10864,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "midnight-occult-civil-servants-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "midnight-occult-civil-servants" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "midnight-occult-civil-servants-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mayonaka-no-occult-koumuin-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mieruko-chan
@@ -12197,8 +10878,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mieruko-chan-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mieruko-chan" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mieruko-chan-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mieruko-chan-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Migi &amp; Dali
@@ -12213,8 +10892,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "migi-amp-dali-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "migi-amp-dali" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "migi-dali-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "migi-to-dali-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mikagura School Suite
@@ -12229,8 +10906,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mikagura-school-suite-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mikagura-school-suite" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mikagura-school-suite-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mikagura-school-suite-mikagura-gakuen-kumikyoku-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Milky☆Subway: The Galactic Limited Express
@@ -12245,8 +10920,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "milkysubway-the-galactic-limited-express-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "milkysubway-the-galactic-limited-express" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "milky-subway-the-galactic-limited-express-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "milky-subway-the-galactic-limited-express-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Miss Caretaker of Sunohara-sou
@@ -12261,8 +10934,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "miss-caretaker-of-sunohara-sou-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "miss-caretaker-of-sunohara-sou" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "miss-caretaker-of-sunohara-sou-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sunoharasou-no-kanrinin-san-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Miss Kobayashi's Dragon Maid
@@ -12277,8 +10948,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "miss-kobayashis-dragon-maid-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "miss-kobayashis-dragon-maid" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "miss-kobayashi-s-dragon-maid-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kobayashi-san-chi-no-maid-dragon-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Miss Kuroitsu from the Monster Development Department
@@ -12293,8 +10962,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "miss-kuroitsu-from-the-monster-development-department-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "miss-kuroitsu-from-the-monster-development-department" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "miss-kuroitsu-from-the-monster-development-department-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kaijin-kaihatsubu-no-kuroitsu-san-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mission: Yozakura Family
@@ -12309,8 +10976,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mission-yozakura-family-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mission-yozakura-family" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mission-yozakura-family-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mission-yozakura-family-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mistin
@@ -12325,8 +10990,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mistin-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mistin" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mistin-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kasumin-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mistress Kanan is Devilishly Easy
@@ -12341,8 +11004,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mistress-kanan-is-devilishly-easy-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mistress-kanan-is-devilishly-easy" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mistress-kanan-is-devilishly-easy-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mistress-kanan-is-devilishly-easy-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mitsuboshi Colors
@@ -12357,8 +11018,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mitsuboshi-colors-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mitsuboshi-colors" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mitsuboshi-colors-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mitsuboshi-colors-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mix: Meisei Story
@@ -12373,8 +11032,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mix-meisei-story-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mix-meisei-story" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mix-meisei-story-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mix-meisei-story-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mob Psycho 100
@@ -12389,8 +11046,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mob-psycho-100-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mob-psycho-100" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mob-psycho-100-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mob-psycho-100-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mobile Suit Gundam Unicorn
@@ -12405,8 +11060,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mobile-suit-gundam-unicorn-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mobile-suit-gundam-unicorn" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-unicorn-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-unicorn-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mobile Suit Gundam Unicorn RE:0096
@@ -12421,8 +11074,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mobile-suit-gundam-unicorn-re0096-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mobile-suit-gundam-unicorn-re0096" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-unicorn-re-0096-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-unicorn-re-0096-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mobile Suit Gundam: GQuuuuuuX
@@ -12437,8 +11088,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mobile-suit-gundam-gquuuuuux-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mobile-suit-gundam-gquuuuuux" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-gquuuuuux-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-gquuuuuux-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mobile Suit Gundam: Iron-Blooded Orphans
@@ -12453,8 +11102,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mobile-suit-gundam-iron-blooded-orphans-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mobile-suit-gundam-iron-blooded-orphans" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-iron-blooded-orphans-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-iron-blooded-orphans-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mobile Suit Gundam: Requiem for Vengeance
@@ -12469,8 +11116,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mobile-suit-gundam-requiem-for-vengeance-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mobile-suit-gundam-requiem-for-vengeance" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-requiem-for-vengeance-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kidou-senshi-gundam-fukushuu-no-requiem-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mobile Suit Gundam: The Origin
@@ -12485,8 +11130,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mobile-suit-gundam-the-origin-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mobile-suit-gundam-the-origin" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-the-origin-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-the-origin-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mobile Suit Gundam: The Witch from Mercury
@@ -12501,8 +11144,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mobile-suit-gundam-the-witch-from-mercury-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mobile-suit-gundam-the-witch-from-mercury" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-the-witch-from-mercury-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mobile-suit-gundam-the-witch-from-mercury-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mono
@@ -12517,8 +11158,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mono-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mono" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mono-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mono-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mononoke
@@ -12533,8 +11172,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mononoke-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mononoke" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mononoke-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mononoke-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Monster
@@ -12549,8 +11186,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "monster-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "monster" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "monster-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "monster-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Monster Girl Doctor
@@ -12565,8 +11200,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "monster-girl-doctor-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "monster-girl-doctor" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "monster-girl-doctor-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "monster-musume-no-oishasan-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Monster Hunter Stories: Ride On
@@ -12581,8 +11214,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "monster-hunter-stories-ride-on-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "monster-hunter-stories-ride-on" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "monster-hunter-stories-ride-on-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "monster-hunter-stories-ride-on-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Monster Musume: Everyday Life with Monster Girls
@@ -12597,8 +11228,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "monster-musume-everyday-life-with-monster-girls-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "monster-musume-everyday-life-with-monster-girls" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "monster-musume-everyday-life-with-monster-girls-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "monster-musume-no-iru-nichijou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Monthly Girls' Nozaki-kun
@@ -12613,8 +11242,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "monthly-girls-nozaki-kun-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "monthly-girls-nozaki-kun" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "gekkan-shoujo-nozaki-kun-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gekkan-shoujo-nozaki-kun-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Moonlight Mile
@@ -12629,8 +11256,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "moonlight-mile-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "moonlight-mile" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "moonlight-mile-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "moonlight-mile-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Moriarty the Patriot
@@ -12645,8 +11270,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "moriarty-the-patriot-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "moriarty-the-patriot" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "moriarty-the-patriot-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yuukoku-no-moriarty-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mother of the Goddess' Dormitory
@@ -12661,8 +11284,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mother-of-the-goddess-dormitory-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mother-of-the-goddess-dormitory" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mother-of-the-goddess-dormitory-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "megami-ryou-no-ryoubo-kun-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Motto To LOVE-Ru
@@ -12677,8 +11298,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "motto-to-love-ru-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "motto-to-love-ru" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "motto-to-love-ru-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "motto-to-love-ru-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mr. Osomatsu
@@ -12693,8 +11312,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mr-osomatsu-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mr-osomatsu" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mr-osomatsu-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "osomatsu-san-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mr. Tonegawa: Middle Management Blues
@@ -12709,8 +11326,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mr-tonegawa-middle-management-blues-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mr-tonegawa-middle-management-blues" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mr-tonegawa-middle-management-blues-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mr-tonegawa-middle-management-blues-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Muhyo &amp; Roji's Bureau of Supernatural Investigation
@@ -12725,8 +11340,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "muhyo-amp-rojis-bureau-of-supernatural-investigation-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "muhyo-amp-rojis-bureau-of-supernatural-investigation" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "muhyo-roji-s-bureau-of-supernatural-investigation-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "muhyo-to-rouji-no-mahouritsu-soudan-jimusho-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Murai in Love
@@ -12741,8 +11354,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "murai-in-love-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "murai-in-love" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "murai-in-love-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "murai-no-koi-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mushoku Tensei: Jobless Reincarnation
@@ -12757,8 +11368,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mushoku-tensei-jobless-reincarnation-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mushoku-tensei-jobless-reincarnation" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mushoku-tensei-jobless-reincarnation-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mushoku-tensei-jobless-reincarnation-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Muv-Luv Alternative: Total Eclipse
@@ -12773,8 +11382,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "muv-luv-alternative-total-eclipse-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "muv-luv-alternative-total-eclipse" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "muv-luv-alternative-total-eclipse-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "muv-luv-alternative-total-eclipse-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // My Bride is a Mermaid
@@ -12789,8 +11396,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-bride-is-a-mermaid-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-bride-is-a-mermaid" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-bride-is-a-mermaid-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "seto-no-hanayome-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // My Clueless First Friend
@@ -12805,8 +11410,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-clueless-first-friend-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-clueless-first-friend" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-clueless-first-friend-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jijou-wo-shiranai-tenkousei-ga-guigui-kuru-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // My Dear Marie
@@ -12821,8 +11424,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-dear-marie-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-dear-marie" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-dear-marie-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "boku-no-marie-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // My Deer Friend Nokotan
@@ -12837,8 +11438,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-deer-friend-nokotan-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-deer-friend-nokotan" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-deer-friend-nokotan-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shikanoko-nokonoko-koshitantan-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // My Dress-Up Darling
@@ -12853,8 +11452,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-dress-up-darling-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-dress-up-darling" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-dress-up-darling-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sono-bisque-doll-wa-koi-wo-suru-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // My First Girlfriend is a Gal
@@ -12869,8 +11466,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-first-girlfriend-is-a-gal-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-first-girlfriend-is-a-gal" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-first-girlfriend-is-a-gal-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hajimete-no-gal-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // My Gift Lvl 9999 Unlimited Gacha: Backstabbed in a Backwater Dungeon, I'm Out for Revenge!
@@ -12885,8 +11480,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-gift-lvl-9999-unlimited-gacha-backstabbed-in-a-backwater-dungeon-im-out-for-revenge-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-gift-lvl-9999-unlimited-gacha-backstabbed-in-a-backwater-dungeon-im-out-for-revenge" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-gift-lvl-9999-unlimited-gacha-backstabbed-in-a-backwater-dungeon-im-out-for-revenge-english-subbed-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "my-gift-lvl-9999-unlimited-gacha-backstabbed-in-a-backwater-dungeon-im-out-for-revenge-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // My Girlfriend is Shobitch
@@ -12901,8 +11494,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-girlfriend-is-shobitch-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-girlfriend-is-shobitch" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-girlfriend-is-shobitch-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "boku-no-kanojo-ga-majimesugiru-sho-bitch-na-ken-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // My Happy Marriage
@@ -12917,8 +11508,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-happy-marriage-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-happy-marriage" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-happy-marriage-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "my-happy-marriage-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // My Hero Academia: Vigilantes
@@ -12933,8 +11522,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-vigilantes-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-vigilantes" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-hero-academia-vigilantes-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "my-hero-academia-vigilantes-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // My Home Hero
@@ -12949,8 +11536,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-home-hero-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-home-hero" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-home-hero-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "my-home-hero-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // My Instant Death Ability is So Overpowered, No One in This Other World Stands a Chance Against Me!
@@ -12965,8 +11550,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-instant-death-ability-is-so-overpowered-no-one-in-this-other-world-stands-a-chance-against-me-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-instant-death-ability-is-so-overpowered-no-one-in-this-other-world-stands-a-chance-against-me" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-instant-death-ability-is-so-overpowered-no-one-in-this-other-world-stands-a-chance-against-me-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sokushi-cheat-ga-saikyou-sugite-isekai-no-yatsura-ga-marude-aite-ni-naranai-n-desu-ga-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // My Love Story with Yamada-kun at Lv999
@@ -12981,8 +11564,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-love-story-with-yamada-kun-at-lv999-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-love-story-with-yamada-kun-at-lv999" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-love-story-with-yamada-kun-at-lv999-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yamada-kun-to-lv999-no-koi-wo-suru-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // My Melody &amp; Kuromi
@@ -12997,8 +11578,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-melody-amp-kuromi-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-melody-amp-kuromi" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-melody-kuromi-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "my-melody-kuromi-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // My Next Life as a Villainess: All Routes Lead to Doom!
@@ -13013,8 +11592,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-next-life-as-a-villainess-all-routes-lead-to-doom-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-next-life-as-a-villainess-all-routes-lead-to-doom" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-next-life-as-a-villainess-all-routes-lead-to-doom-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "otome-game-no-hametsu-flag-shika-nai-akuyaku-reijou-ni-tensei-shiteshimatta-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // My Roommate is a Cat
@@ -13029,8 +11606,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-roommate-is-a-cat-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-roommate-is-a-cat" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-roommate-is-a-cat-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "doukyonin-wa-hiza-tokidoki-atama-no-ue-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // My Senpai is Annoying
@@ -13045,8 +11620,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-senpai-is-annoying-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-senpai-is-annoying" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-senpai-is-annoying-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "senpai-ga-uzai-kouhai-no-hanashi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // My Status as an Assassin Obviously Exceeds the Hero's
@@ -13061,8 +11634,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-status-as-an-assassin-obviously-exceeds-the-heros-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-status-as-an-assassin-obviously-exceeds-the-heros" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-status-as-an-assassin-obviously-exceeds-the-heros-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "my-status-as-an-assassin-obviously-exceeds-the-heros-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // My Teen Romantic Comedy SNAFU
@@ -13077,8 +11648,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-teen-romantic-comedy-snafu-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-teen-romantic-comedy-snafu" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-teen-romantic-comedy-snafu-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yahari-ore-no-seishun-love-come-wa-machigatteiru-my-teen-romantic-comedy-snafu-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // My Tiny Senpai
@@ -13093,8 +11662,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-tiny-senpai-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-tiny-senpai" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-tiny-senpai-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "uchi-no-kaisha-no-chiisai-senpai-no-hanashi-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // My Unique Skill Makes Me OP Even at Level 1
@@ -13109,8 +11676,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-unique-skill-makes-me-op-even-at-level-1-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-unique-skill-makes-me-op-even-at-level-1" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "my-unique-skill-makes-me-op-even-at-level-1-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "level-1-dakedo-unique-skill-de-saikyou-desu-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Myriad Colors Phantom World
@@ -13125,8 +11690,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "myriad-colors-phantom-world-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "myriad-colors-phantom-world" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "myriad-colors-phantom-world-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "musaigen-no-phantom-world-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mysteria Friends
@@ -13141,8 +11704,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mysteria-friends-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mysteria-friends" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mysteria-friends-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "manaria-friends-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Mysterious Joker
@@ -13157,8 +11718,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "mysterious-joker-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "mysterious-joker" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "mysterious-joker-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mysterious-joker-kaitou-joker-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Nagi-Asu: A Lull in the Sea
@@ -13173,8 +11732,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "nagi-asu-a-lull-in-the-sea-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "nagi-asu-a-lull-in-the-sea" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "nagi-asu-a-lull-in-the-sea-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nagi-asu-a-lull-in-the-sea-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Nanbaka
@@ -13189,8 +11746,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "nanbaka-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "nanbaka" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "nanbaka-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nanbaka-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Naruto Movies
@@ -13205,8 +11760,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "naruto-movies-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "naruto-movies" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "naruto-movies-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "naruto-movies-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Naruto Shippuden
@@ -13221,8 +11774,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "naruto-shippuden-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "naruto-shippuden" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "naruto-shippuden-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "naruto-shippuden-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Natsume's Book of Friends
@@ -13237,8 +11788,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "natsumes-book-of-friends-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "natsumes-book-of-friends" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "natsumes-book-of-friends-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "natsume-yuujinchou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Needy Girl Overdose
@@ -13253,8 +11802,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "needy-girl-overdose-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "needy-girl-overdose" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "needy-girl-overdose-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "needy-girl-overdose-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Nekopara
@@ -13269,8 +11816,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "nekopara-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "nekopara" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "nekopara-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nekopara-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // New Game!
@@ -13285,8 +11830,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "new-game-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "new-game" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "new-game-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "new-game-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // New Panty &amp; Stocking with Garterbelt
@@ -13301,8 +11844,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "new-panty-amp-stocking-with-garterbelt-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "new-panty-amp-stocking-with-garterbelt" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "new-panty-stocking-with-garterbelt-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "new-panty-stocking-with-garterbelt-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // New Saga
@@ -13317,8 +11858,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "new-saga-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "new-saga" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "new-saga-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "new-saga-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Nichijou - My Ordinary Life
@@ -13333,8 +11872,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "nichijou--my-ordinary-life-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "nichijou--my-ordinary-life" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "nichijou-my-ordinary-life-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nichijou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Nina the Starry Bride
@@ -13349,8 +11886,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "nina-the-starry-bride-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "nina-the-starry-bride" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "nina-the-starry-bride-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hoshifuru-oukoku-no-nina-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ningen Fushin: Adventurers Who Don't Believe in Humanity Will Save the World
@@ -13365,8 +11900,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ningen-fushin-adventurers-who-dont-believe-in-humanity-will-save-the-world-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ningen-fushin-adventurers-who-dont-believe-in-humanity-will-save-the-world" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ningen-fushin-adventurers-who-dont-believe-in-humanity-will-save-the-world-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ningen-fushin-no-boukensha-tachi-ga-sekai-wo-sukuu-you-desu-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ninja Kamui
@@ -13381,8 +11914,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ninja-kamui-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ninja-kamui" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ninja-kamui-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ninja-kamui-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ninja Slayer From Animation
@@ -13397,8 +11928,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ninja-slayer-from-animation-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ninja-slayer-from-animation" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ninja-slayer-from-animation-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ninja-slayer-from-animation-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ninja vs. Gokudo
@@ -13413,8 +11942,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ninja-vs-gokudo-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ninja-vs-gokudo" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ninja-vs-gokudo-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ninja-vs-gokudo-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Nippon Sangoku: The Three Nations of the Crimson Sun
@@ -13429,8 +11956,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "nippon-sangoku-the-three-nations-of-the-crimson-sun-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "nippon-sangoku-the-three-nations-of-the-crimson-sun" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "nippon-sangoku-the-three-nations-of-the-crimson-sun-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nippon-sangoku-the-three-nations-of-the-crimson-sun-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // No Game, No Life
@@ -13445,8 +11970,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "no-game-no-life-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "no-game-no-life" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "no-game-no-life-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "no-game-no-life-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // No Guns Life
@@ -13461,8 +11984,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "no-guns-life-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "no-guns-life" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "no-guns-life-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "no-guns-life-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // No Longer Allowed in Another World
@@ -13477,8 +11998,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "no-longer-allowed-in-another-world-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "no-longer-allowed-in-another-world" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "no-longer-allowed-in-another-world-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "isekai-shikkaku-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Noragami
@@ -13493,8 +12012,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "noragami-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "noragami" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "noragami-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "noragami-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Noragami Aragoto
@@ -13509,8 +12026,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "noragami-aragoto-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "noragami-aragoto" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "noragami-aragoto-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "noragami-aragoto-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Nura: Rise of the Yokai Clan
@@ -13525,8 +12040,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "nura-rise-of-the-yokai-clan-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "nura-rise-of-the-yokai-clan" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "nura-rise-of-the-yokai-clan-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nurarihyon-no-mago-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Nurse Witch Komugi
@@ -13541,8 +12054,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "nurse-witch-komugi-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "nurse-witch-komugi" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "nurse-witch-komugi-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nurse-witch-komugi-chan-magikarte-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Nyaight of the Living Cat
@@ -13557,8 +12068,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "nyaight-of-the-living-cat-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "nyaight-of-the-living-cat" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "nyaight-of-the-living-cat-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nyaight-of-the-living-cat-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // O Maidens in Your Savage Season
@@ -13573,8 +12082,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "o-maidens-in-your-savage-season-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "o-maidens-in-your-savage-season" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "o-maidens-in-your-savage-season-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "araburu-kisetsu-no-otome-domo-yo-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Occultic;Nine
@@ -13589,8 +12096,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "occulticnine-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "occulticnine" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "occultic-nine-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "occultic-nine-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Odd Taxi
@@ -13605,8 +12110,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "odd-taxi-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "odd-taxi" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "odd-taxi-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "odd-taxi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Oedo Fire Slayer: The Legend of Phoenix
@@ -13621,8 +12124,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "oedo-fire-slayer-the-legend-of-phoenix-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "oedo-fire-slayer-the-legend-of-phoenix" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "oedo-fire-slayer-the-legend-of-phoenix-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "oedo-fire-slayer-the-legend-of-phoenix-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Once Upon a Witch's Death
@@ -13637,8 +12138,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "once-upon-a-witchs-death-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "once-upon-a-witchs-death" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "once-upon-a-witchs-death-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "once-upon-a-witchs-death-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Oni: Thunder God's Tale
@@ -13653,8 +12152,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "oni-thunder-gods-tale-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "oni-thunder-gods-tale" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "oni-thunder-gods-tale-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "oni-thunder-gods-tale-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Onigiri
@@ -13669,8 +12166,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "onigiri-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "onigiri" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "onigiri-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "onigiri-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Onihei
@@ -13685,8 +12180,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "onihei-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "onihei" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "onihei-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "onihei-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Onmyo Kaiten Re:Birth Verse
@@ -13701,8 +12194,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "onmyo-kaiten-rebirth-verse-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "onmyo-kaiten-rebirth-verse" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "onmyo-kaiten-rebirth-verse-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "onmyo-kaiten-rebirth-verse-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Onmyoji
@@ -13717,8 +12208,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "onmyoji-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "onmyoji" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "onmyoji-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "onmyouji-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ooku: The Inner Chambers
@@ -13733,8 +12222,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ooku-the-inner-chambers-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ooku-the-inner-chambers" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ooku-the-inner-chambers-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ooku-the-inner-chambers-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Orange
@@ -13749,8 +12236,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "orange-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "orange" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "orange-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "orange-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Oshi No Ko
@@ -13765,8 +12250,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "oshi-no-ko-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "oshi-no-ko" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "oshi-no-ko-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "oshi-no-ko-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Otherside Picnic
@@ -13781,8 +12264,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "otherside-picnic-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "otherside-picnic" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "otherside-picnic-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "urasekai-picnic-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Our Last Crusade or the Rise of a New World
@@ -13797,8 +12278,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "our-last-crusade-or-the-rise-of-a-new-world-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "our-last-crusade-or-the-rise-of-a-new-world" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "our-last-crusade-or-the-rise-of-a-new-world-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kimi-to-boku-no-saigo-no-senjou-aruiwa-sekai-ga-hajimaru-seisen-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ouran High School Host Club
@@ -13813,8 +12292,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ouran-high-school-host-club-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ouran-high-school-host-club" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ouran-high-school-host-club-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ouran-koukou-host-club-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Outbreak Company
@@ -13829,8 +12306,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "outbreak-company-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "outbreak-company" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "outbreak-company-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "outbreak-company-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Overlord
@@ -13847,9 +12322,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "overlord" },
       // ARCHIVE.ORG S2 (720p SUB, works WITHOUT resolver!)
       { startEp: 14, endEp: 26, collection: "OverlordSeason2", audio: "sub", fileTemplate: "{ep:02}.mp4" },
-      // WCO resolver (fallback for S1 + S3)
-      { startEp: 1, endEp: 39, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "overlord-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 39, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "overlord-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Pandora in the Crimson Shell
@@ -13864,8 +12336,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "pandora-in-the-crimson-shell-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "pandora-in-the-crimson-shell" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pandora-in-the-crimson-shell-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "koukaku-no-pandora-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Parallel World Pharmacy
@@ -13880,8 +12350,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "parallel-world-pharmacy-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "parallel-world-pharmacy" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "parallel-world-pharmacy-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "isekai-yakkyoku-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Parasyte: The Maxim
@@ -13896,8 +12364,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "parasyte-the-maxim-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "parasyte-the-maxim" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "parasyte-the-maxim-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "parasyte-the-maxim-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Pass the Monster Meat, Milady!
@@ -13912,8 +12378,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "pass-the-monster-meat-milady-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "pass-the-monster-meat-milady" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pass-the-monster-meat-milady-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "pass-the-monster-meat-milady-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Patlabor: The Mobile Police
@@ -13928,8 +12392,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "patlabor-the-mobile-police-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "patlabor-the-mobile-police" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "patlabor-the-mobile-police-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kidou-keisatsu-patlabor-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Patlabor: The Mobile Police - The TV Series
@@ -13944,8 +12406,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "patlabor-the-mobile-police--the-tv-series-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "patlabor-the-mobile-police--the-tv-series" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "patlabor-the-mobile-police-the-tv-series-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kidou-keisatsu-patlabor-on-television-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Petals of Reincarnation
@@ -13960,8 +12420,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "petals-of-reincarnation-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "petals-of-reincarnation" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "petals-of-reincarnation-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "petals-of-reincarnation-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Peter Grill and the Philosopher's Time
@@ -13976,8 +12434,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "peter-grill-and-the-philosophers-time-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "peter-grill-and-the-philosophers-time" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "peter-grill-and-the-philosopher-s-time-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "peter-grill-to-kenja-no-jikan-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Phantom of the Idol
@@ -13992,8 +12448,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "phantom-of-the-idol-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "phantom-of-the-idol" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "phantom-of-the-idol-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kami-kuzu-idol-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Phantom: The Animation
@@ -14008,8 +12462,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "phantom-the-animation-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "phantom-the-animation" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "phantom-the-animation-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "phantom-the-animation-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Piano Forest
@@ -14024,8 +12476,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "piano-forest-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "piano-forest" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "piano-forest-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "piano-forest-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Piano: The Melody of a Young Girl's Heart
@@ -14040,8 +12490,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "piano-the-melody-of-a-young-girls-heart-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "piano-the-melody-of-a-young-girls-heart" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "piano-the-melody-of-a-young-girl-s-heart-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "piano-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Planetarian: The Reverie of a Little Planet
@@ -14056,8 +12504,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "planetarian-the-reverie-of-a-little-planet-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "planetarian-the-reverie-of-a-little-planet" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "planetarian-the-reverie-of-a-little-planet-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "planetarian-chiisana-hoshi-no-yume-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Platinum End
@@ -14072,8 +12518,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "platinum-end-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "platinum-end" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "platinum-end-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "platinum-end-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Plunderer
@@ -14088,8 +12532,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "plunderer-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "plunderer" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "plunderer-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "plunderer-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Plus-Sized Elf
@@ -14104,8 +12546,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "plus-sized-elf-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "plus-sized-elf" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "plus-sized-elf-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "elf-san-wa-yaserarenai-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Pokemon Evolutions
@@ -14120,8 +12560,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "pokemon-evolutions-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "pokemon-evolutions" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pokemon-evolutions-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "pokemon-evolutions-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Pokemon Horizons: The Series
@@ -14136,8 +12574,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "pokemon-horizons-the-series-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "pokemon-horizons-the-series" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pokemon-horizons-the-series-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "pokemon-horizons-the-series-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Pokemon Season 1 Indigo League
@@ -14152,8 +12588,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "pokemon-season-1-indigo-league-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "pokemon-season-1-indigo-league" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-1-indigo-league-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-1-indigo-league-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Pokemon Season 19 XYZ
@@ -14168,8 +12602,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "pokemon-season-19-xyz-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "pokemon-season-19-xyz" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-19-xyz-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-19-xyz-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Pokemon Season 20 Sun &amp; Moon
@@ -14184,8 +12616,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "pokemon-season-20-sun-amp-moon-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "pokemon-season-20-sun-amp-moon" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-20-sun-moon-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-20-sun-moon-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Pokemon Season 23 Pokemon Journeys: The Series
@@ -14200,8 +12630,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "pokemon-season-23-pokemon-journeys-the-series-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "pokemon-season-23-pokemon-journeys-the-series" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-23-pokemon-journeys-the-series-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-23-pokemon-journeys-the-series-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Pokemon Season 24 Master Journeys: The Series
@@ -14216,8 +12644,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "pokemon-season-24-master-journeys-the-series-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "pokemon-season-24-master-journeys-the-series" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-24-master-journeys-the-series-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-24-master-journeys-the-series-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Pokemon Season 25 Ultimate Journeys: The Series
@@ -14232,8 +12658,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "pokemon-season-25-ultimate-journeys-the-series-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "pokemon-season-25-ultimate-journeys-the-series" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-25-ultimate-journeys-the-series-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "pokemon-season-25-ultimate-journeys-the-series-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Pokemon: Twilight Wings
@@ -14248,8 +12672,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "pokemon-twilight-wings-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "pokemon-twilight-wings" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pokemon-twilight-wings-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "pokemon-twilight-wings-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Pop Team Epic
@@ -14264,8 +12686,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "pop-team-epic-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "pop-team-epic" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pop-team-epic-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "poputepipikku-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Possibly the Greatest Alchemist of All Time
@@ -14280,8 +12700,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "possibly-the-greatest-alchemist-of-all-time-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "possibly-the-greatest-alchemist-of-all-time" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "possibly-the-greatest-alchemist-of-all-time-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "izure-saikyou-no-renkinjutsushi-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Pretty Boy Detective Club
@@ -14296,8 +12714,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "pretty-boy-detective-club-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "pretty-boy-detective-club" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "pretty-boy-detective-club-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bishounen-tanteidan-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Pretty Cure
@@ -14312,8 +12728,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "pretty-cure-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "pretty-cure" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "futari-wa-pretty-cure-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "futari-wa-pretty-cure-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Prince of Stride: Alternative
@@ -14328,8 +12742,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "prince-of-stride-alternative-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "prince-of-stride-alternative" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "prince-of-stride-alternative-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "prince-of-stride-alternative-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Princess Knight
@@ -14344,8 +12756,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "princess-knight-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "princess-knight" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "princess-knight-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ribbon-no-kishi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Princess Principal
@@ -14360,8 +12770,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "princess-principal-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "princess-principal" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "princess-principal-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "princess-principal-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Prison School
@@ -14376,8 +12784,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "prison-school-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "prison-school" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "prison-school-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "prison-school-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Problem Children Are Coming from Another World, Aren't They?
@@ -14392,8 +12798,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "problem-children-are-coming-from-another-world-arent-they-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "problem-children-are-coming-from-another-world-arent-they" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "problem-children-are-coming-from-another-world-aren-t-they-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mondaiji-tachi-ga-isekai-kara-kuru-sou-desu-yo-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Psycho-Pass 2
@@ -14408,8 +12812,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "psycho-pass-2-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "psycho-pass-2" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "psycho-pass-2-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "psycho-pass-2-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Psycho-Pass 3
@@ -14424,8 +12826,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "psycho-pass-3-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "psycho-pass-3" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "psycho-pass-3-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "psycho-pass-3-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Puella Magi Madoka Magica
@@ -14440,8 +12840,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "puella-magi-madoka-magica-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "puella-magi-madoka-magica" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "puella-magi-madoka-magica-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mahou-shoujo-madoka-magica-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Punirunes
@@ -14456,8 +12854,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "punirunes-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "punirunes" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "punirunes-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "punirunes-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // PuraOra! PRIDE OF ORANGE
@@ -14472,8 +12868,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "puraora-pride-of-orange-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "puraora-pride-of-orange" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "puraore-pride-of-orange-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "puraore-pride-of-orange-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Puzzle &amp; Dragons X
@@ -14488,8 +12882,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "puzzle-amp-dragons-x-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "puzzle-amp-dragons-x" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "puzzle-dragons-x-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "puzzle-dragons-cross-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Quality Assurance in Another World
@@ -14504,8 +12896,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "quality-assurance-in-another-world-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "quality-assurance-in-another-world" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "quality-assurance-in-another-world-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kono-sekai-wa-fukanzen-sugiru-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // RErideD: Derrida, who leaps through time
@@ -14520,8 +12910,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "rerided-derrida-who-leaps-through-time-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "rerided-derrida-who-leaps-through-time" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rerided-derrida-who-leaps-through-time-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rerided-tokigoe-no-derrida-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // RWBY: Ice Queendom
@@ -14536,8 +12924,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "rwby-ice-queendom-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "rwby-ice-queendom" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rwby-ice-queendom-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rwby-hyousetsu-teikoku-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Radiant
@@ -14552,8 +12938,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "radiant-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "radiant" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "radiant-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "radiant-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Rage of Bahamut: Genesis
@@ -14568,8 +12952,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "rage-of-bahamut-genesis-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "rage-of-bahamut-genesis" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rage-of-bahamut-genesis-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shingeki-no-bahamut-genesis-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ragna Crimson
@@ -14584,8 +12966,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ragna-crimson-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ragna-crimson" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ragna-crimson-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ragna-crimson-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Rainbow Days
@@ -14600,8 +12980,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "rainbow-days-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "rainbow-days" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rainbow-days-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nijiiro-days-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ranking of Kings
@@ -14616,8 +12994,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ranking-of-kings-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ranking-of-kings" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ranking-of-kings-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ousama-ranking-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ranma ½ (2024)
@@ -14632,8 +13008,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ranma-2024-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ranma-2024" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ranma-%c2%bd-2024-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ranma-%c2%bd-2024-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Rascal Does Not Dream of Bunny Girl Senpai
@@ -14648,8 +13022,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "rascal-does-not-dream-of-bunny-girl-senpai-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "rascal-does-not-dream-of-bunny-girl-senpai" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rascal-does-not-dream-of-bunny-girl-senpai-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rascal-does-not-dream-of-bunny-girl-senpai-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Rascal Does Not Dream of Santa Claus
@@ -14664,8 +13036,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "rascal-does-not-dream-of-santa-claus-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "rascal-does-not-dream-of-santa-claus" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rascal-does-not-dream-of-santa-claus-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rascal-does-not-dream-of-santa-claus-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Raven of the Inner Palace
@@ -14680,8 +13050,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "raven-of-the-inner-palace-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "raven-of-the-inner-palace" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "raven-of-the-inner-palace-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "koukyuu-no-karasu-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Re-Main
@@ -14696,8 +13064,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "re-main-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "re-main" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "re-main-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "re-main-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Re:Monster
@@ -14712,8 +13078,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "remonster-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "remonster" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "remonster-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "remonster-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Re:ZERO -Starting Life in Another World-
@@ -14728,8 +13092,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "rezero-starting-life-in-another-world-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "rezero-starting-life-in-another-world" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "re-zero-starting-life-in-another-world-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "re-zero-starting-life-in-another-world-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // ReLIFE
@@ -14744,8 +13106,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "relife-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "relife" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "relife-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "relife-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Real Girl
@@ -14760,8 +13120,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "real-girl-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "real-girl" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "3d-kanojo-real-girl-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "3d-kanojo-real-girl-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Reborn as a Vending Machine, I Now Wander the Dungeon
@@ -14776,8 +13134,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "reborn-as-a-vending-machine-i-now-wander-the-dungeon-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "reborn-as-a-vending-machine-i-now-wander-the-dungeon" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "reborn-as-a-vending-machine-i-now-wander-the-dungeon-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "reborn-as-a-vending-machine-i-now-wander-the-dungeon-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Record of Grancrest War
@@ -14792,8 +13148,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "record-of-grancrest-war-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "record-of-grancrest-war" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "record-of-grancrest-war-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "grancrest-senki-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Record of Ragnarok
@@ -14808,8 +13162,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "record-of-ragnarok-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "record-of-ragnarok" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "record-of-ragnarok-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "record-of-ragnarok-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Recovery of an MMO Junkie
@@ -14824,8 +13176,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "recovery-of-an-mmo-junkie-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "recovery-of-an-mmo-junkie" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "recovery-of-an-mmo-junkie-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "net-juu-no-susume-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Regalia: The Three Sacred Stars
@@ -14840,8 +13190,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "regalia-the-three-sacred-stars-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "regalia-the-three-sacred-stars" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "regalia-the-three-sacred-stars-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "regalia-the-three-sacred-stars-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Reign of the Seven Spellblades
@@ -14856,8 +13204,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "reign-of-the-seven-spellblades-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "reign-of-the-seven-spellblades" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "reign-of-the-seven-spellblades-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nanatsu-no-maken-ga-shihai-suru-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Reincarnated as a Dragon Hatchling
@@ -14872,8 +13218,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "reincarnated-as-a-dragon-hatchling-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "reincarnated-as-a-dragon-hatchling" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "reincarnated-as-a-dragon-hatchling-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "reincarnated-as-a-dragon-hatchling-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Reincarnated as a Sword
@@ -14888,8 +13232,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "reincarnated-as-a-sword-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "reincarnated-as-a-sword" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "reincarnated-as-a-sword-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tensei-shitara-ken-deshita-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Release the Spyce
@@ -14904,8 +13246,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "release-the-spyce-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "release-the-spyce" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "release-the-spyce-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "release-the-spyce-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Remake Our Life!
@@ -14920,8 +13260,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "remake-our-life-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "remake-our-life" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "remake-our-life-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bokutachi-no-remake-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Rent-a-Girlfriend
@@ -14936,8 +13274,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "rent-a-girlfriend-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "rent-a-girlfriend" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rent-a-girlfriend-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rent-a-girlfriend-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Requiem of the Rose King
@@ -14952,8 +13288,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "requiem-of-the-rose-king-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "requiem-of-the-rose-king" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "requiem-of-the-rose-king-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "baraou-no-souretsu-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Restaurant to Another World
@@ -14968,8 +13302,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "restaurant-to-another-world-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "restaurant-to-another-world" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "restaurant-to-another-world-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "isekai-shokudou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Revenger
@@ -14984,8 +13316,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "revenger-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "revenger" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "revenger-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "revenger-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Revisions
@@ -15000,8 +13330,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "revisions-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "revisions" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "revisions-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "revisions-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Revue Starlight
@@ -15016,8 +13344,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "revue-starlight-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "revue-starlight" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "revue-starlight-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shoujo-kageki-revue-starlight-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Rick and Morty: The Anime
@@ -15032,8 +13358,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "rick-and-morty-the-anime-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "rick-and-morty-the-anime" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rick-and-morty-the-anime-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rick-and-morty-the-anime-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Rilakkuma
@@ -15048,8 +13372,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "rilakkuma-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "rilakkuma" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rilakkuma-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rilakkuma-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Rilakkuma and Kaoru
@@ -15064,8 +13386,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "rilakkuma-and-kaoru-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "rilakkuma-and-kaoru" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rilakkuma-and-kaoru-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rilakkuma-to-kaoru-san-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Rinshi!! Ekodachan
@@ -15080,8 +13400,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "rinshi-ekodachan-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "rinshi-ekodachan" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rinshi-ekoda-chan-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rinshi-ekoda-chan-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Rio - Rainbow Gate!: Reshuffle
@@ -15096,8 +13414,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "rio--rainbow-gate-reshuffle-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "rio--rainbow-gate-reshuffle" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rio-rainbow-gate-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rio-rainbow-gate-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Rising Impact
@@ -15112,8 +13428,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "rising-impact-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "rising-impact" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rising-impact-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rising-impact-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // RobiHachi
@@ -15128,8 +13442,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "robihachi-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "robihachi" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "robihachi-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "robihachi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Rock Is a Lady's Modesty
@@ -15144,8 +13456,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "rock-is-a-ladys-modesty-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "rock-is-a-ladys-modesty" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rock-is-a-ladys-modesty-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rock-is-a-ladys-modesty-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Rokka: Braves of the Six Flowers
@@ -15160,8 +13470,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "rokka-braves-of-the-six-flowers-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "rokka-braves-of-the-six-flowers" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rokka-braves-of-the-six-flowers-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rokka-no-yuusha-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Roll Over and Die
@@ -15176,8 +13484,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "roll-over-and-die-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "roll-over-and-die" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "roll-over-and-die-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "roll-over-and-die-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Romantic Killer
@@ -15192,8 +13498,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "romantic-killer-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "romantic-killer" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "romantic-killer-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "romantic-killer-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Rooster Fighter
@@ -15208,8 +13512,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "rooster-fighter-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "rooster-fighter" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rooster-fighter-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rooster-fighter-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Rumble Garanndoll
@@ -15224,8 +13526,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "rumble-garanndoll-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "rumble-garanndoll" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rumble-garanndoll-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gyakuten-sekai-no-denchi-shoujo-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Run with the Wind
@@ -15240,8 +13540,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "run-with-the-wind-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "run-with-the-wind" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "run-with-the-wind-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kaze-ga-tsuyoku-fuiteiru-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Rurouni Kenshin
@@ -15256,8 +13554,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "rurouni-kenshin-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "rurouni-kenshin" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "rurouni-kenshin-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rurouni-kenshin-meiji-kenkaku-romantan-2023-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // SD Gundam Sangokuden Brave Battle Warriors
@@ -15272,8 +13568,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sd-gundam-sangokuden-brave-battle-warriors-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sd-gundam-sangokuden-brave-battle-warriors" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sd-gundam-sangokuden-brave-battle-warriors-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sd-gundam-sangokuden-brave-battle-warriors-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // SK8 the Infinity
@@ -15288,8 +13582,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sk8-the-infinity-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sk8-the-infinity" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sk8-the-infinity-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sk8-the-infinity-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // SSSS.Dynazenon
@@ -15304,8 +13596,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ssssdynazenon-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ssssdynazenon" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ssss-dynazenon-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ssss-dynazenon-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // SSSS.Gridman
@@ -15320,8 +13610,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ssssgridman-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ssssgridman" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ssss-gridman-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ssss-gridman-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sacrificial Princess and the King of Beasts
@@ -15336,8 +13624,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sacrificial-princess-and-the-king-of-beasts-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sacrificial-princess-and-the-king-of-beasts" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sacrificial-princess-and-the-king-of-beasts-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "niehime-to-kemono-no-ou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Saga of Tanya the Evil
@@ -15352,8 +13638,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "saga-of-tanya-the-evil-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "saga-of-tanya-the-evil" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "saga-of-tanya-the-evil-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "saga-of-tanya-the-evil-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sailor Moon Crystal
@@ -15368,8 +13652,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sailor-moon-crystal-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sailor-moon-crystal" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sailor-moon-crystal-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sailor-moon-crystal-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sailor Moon Sailor Stars
@@ -15384,8 +13666,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sailor-moon-sailor-stars-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sailor-moon-sailor-stars" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sailor-moon-sailor-stars-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "bishoujo-senshi-sailor-moon-sailor-stars-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sailor Moon SuperS (Viz Dub)
@@ -15400,8 +13680,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sailor-moon-supers-viz-dub-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sailor-moon-supers-viz-dub" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sailor-moon-supers-viz-dub-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sailor-moon-supers-viz-dub-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Saint Cecilia and Pastor Lawrence
@@ -15416,8 +13694,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "saint-cecilia-and-pastor-lawrence-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "saint-cecilia-and-pastor-lawrence" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "saint-cecilia-and-pastor-lawrence-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shiro-seijo-to-kuro-bokushi-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Saint Seiya: Knights of the Zodiac
@@ -15432,8 +13708,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "saint-seiya-knights-of-the-zodiac-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "saint-seiya-knights-of-the-zodiac" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "saint-seiya-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "saint-seiya-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Saiyuki Reload Blast
@@ -15448,8 +13722,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "saiyuki-reload-blast-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "saiyuki-reload-blast" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "saiyuki-reload-blast-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "saiyuuki-reload-blast-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sakamoto Days
@@ -15464,8 +13736,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sakamoto-days-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sakamoto-days" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sakamoto-days-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sakamoto-days-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sakura Quest
@@ -15480,8 +13750,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sakura-quest-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sakura-quest" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sakura-quest-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sakura-quest-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sakura Wars the Animation
@@ -15496,8 +13764,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sakura-wars-the-animation-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sakura-wars-the-animation" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sakura-wars-the-animation-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shin-sakura-taisen-the-animation-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Salaryman's Club
@@ -15512,8 +13778,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "salarymans-club-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "salarymans-club" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "salaryman-s-club-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ryman-s-club-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Samurai 7
@@ -15528,8 +13792,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "samurai-7-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "samurai-7" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "samurai-7-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "samurai-7-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Samurai Champloo
@@ -15544,8 +13806,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "samurai-champloo-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "samurai-champloo" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "samurai-champloo-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "samurai-champloo-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Samurai Warriors
@@ -15560,8 +13820,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "samurai-warriors-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "samurai-warriors" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "samurai-warriors-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "samurai-warriors-sengoku-musou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sand Land: The Series
@@ -15576,8 +13834,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sand-land-the-series-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sand-land-the-series" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sand-land-the-series-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sand-land-the-series-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sanda
@@ -15592,8 +13848,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sanda-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sanda" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sanda-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sanda-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sarazanmai
@@ -15608,8 +13862,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sarazanmai-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sarazanmai" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sarazanmai-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sarazanmai-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sasaki and Miyano
@@ -15624,8 +13876,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sasaki-and-miyano-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sasaki-and-miyano" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sasaki-and-miyano-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sasaki-to-miyano-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sasaki and Peeps
@@ -15640,8 +13890,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sasaki-and-peeps-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sasaki-and-peeps" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sasaki-and-peeps-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sasaki-to-pii-chan-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Saving 80,000 Gold in Another World for My Retirement
@@ -15656,8 +13904,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "saving-80000-gold-in-another-world-for-my-retirement-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "saving-80000-gold-in-another-world-for-my-retirement" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "saving-80000-gold-in-another-world-for-my-retirement-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rougo-ni-sonaete-isekai-de-8-manmai-no-kinka-wo-tamemasu-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Scarlet Nexus
@@ -15672,8 +13918,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "scarlet-nexus-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "scarlet-nexus" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "scarlet-nexus-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "scarlet-nexus-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // School-Live!
@@ -15688,8 +13932,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "school-live-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "school-live" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "school-live-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gakkou-gurashi-school-live-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Science Fell in Love, So I Tried to Prove It
@@ -15704,8 +13946,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "science-fell-in-love-so-i-tried-to-prove-it-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "science-fell-in-love-so-i-tried-to-prove-it" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "science-fell-in-love-so-i-tried-to-prove-it-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rikei-ga-koi-ni-ochita-no-de-shoumei-shitemita-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Scissor Seven
@@ -15720,8 +13960,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "scissor-seven-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "scissor-seven" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "scissor-seven-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "scissor-seven-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Scooped Up by an S-Ranked Adventurer
@@ -15736,8 +13974,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "scooped-up-by-an-s-ranked-adventurer-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "scooped-up-by-an-s-ranked-adventurer" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "scooped-up-by-an-s-ranked-adventurer-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "scooped-up-by-an-s-ranked-adventurer-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Scott Pilgrim Takes Off
@@ -15752,8 +13988,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "scott-pilgrim-takes-off-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "scott-pilgrim-takes-off" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "scott-pilgrim-takes-off-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "scott-pilgrim-takes-off-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Scum of the Brave
@@ -15768,8 +14002,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "scum-of-the-brave-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "scum-of-the-brave" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "scum-of-the-brave-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "scum-of-the-brave-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Scum's Wish
@@ -15784,8 +14016,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "scums-wish-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "scums-wish" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "scum-s-wish-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kuzu-no-honkai-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Secrets of the Silent Witch
@@ -15800,8 +14030,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "secrets-of-the-silent-witch-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "secrets-of-the-silent-witch" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "secrets-of-the-silent-witch-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "secrets-of-the-silent-witch-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sekirei
@@ -15816,8 +14044,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sekirei-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sekirei" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sekirei-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sekirei-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sekirei: Pure Engagement
@@ -15832,8 +14058,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sekirei-pure-engagement-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sekirei-pure-engagement" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sekirei-pure-engagement-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sekirei-pure-engagement-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Senran Kagura: Ninja Flash
@@ -15848,8 +14072,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "senran-kagura-ninja-flash-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "senran-kagura-ninja-flash" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "senran-kagura-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "senran-kagura-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Senryu Girl
@@ -15864,8 +14086,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "senryu-girl-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "senryu-girl" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "senryu-girl-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "senryuu-shoujo-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sentenced to Be a Hero
@@ -15880,8 +14100,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sentenced-to-be-a-hero-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sentenced-to-be-a-hero" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sentenced-to-be-a-hero-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sentenced-to-be-a-hero-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Seraph of the End: Battle in Nagoya
@@ -15896,8 +14114,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "seraph-of-the-end-battle-in-nagoya-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "seraph-of-the-end-battle-in-nagoya" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "seraph-of-the-end-battle-in-nagoya-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "owari-no-seraph-nagoya-kessen-hen-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Seraph of the End: Vampire Reign
@@ -15912,8 +14128,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "seraph-of-the-end-vampire-reign-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "seraph-of-the-end-vampire-reign" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "seraph-of-the-end-vampire-reign-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "owari-no-seraph-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Serial Experiments Lain
@@ -15928,8 +14142,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "serial-experiments-lain-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "serial-experiments-lain" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "serial-experiments-lain-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "serial-experiments-lain-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Servamp
@@ -15944,8 +14156,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "servamp-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "servamp" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "servamp-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "servamp-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Seven Mortal Sins
@@ -15960,8 +14170,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "seven-mortal-sins-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "seven-mortal-sins" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "seven-mortal-sins-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sin-nanatsu-no-taizai-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Shachibato! President, It's Time for Battle!
@@ -15976,8 +14184,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "shachibato-president-its-time-for-battle-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "shachibato-president-its-time-for-battle" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shachibato-president-it-s-time-for-battle-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shachou-battle-no-jikan-desu-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Shadows House
@@ -15992,8 +14198,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "shadows-house-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "shadows-house" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shadows-house-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shadows-house-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Shakugan no Shana: Season I
@@ -16008,8 +14212,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "shakugan-no-shana-season-i-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "shakugan-no-shana-season-i" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shakugan-no-shana-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shakugan-no-shana-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Shaman King (2021)
@@ -16024,8 +14226,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "shaman-king-2021-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "shaman-king-2021" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shaman-king-2021-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shaman-king-2021-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Shangri-La Frontier
@@ -16040,8 +14240,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "shangri-la-frontier-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "shangri-la-frontier" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shangri-la-frontier-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shangri-la-frontier-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // She Professed Herself Pupil of the Wise Man
@@ -16056,8 +14254,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "she-professed-herself-pupil-of-the-wise-man-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "she-professed-herself-pupil-of-the-wise-man" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "she-professed-herself-pupil-of-the-wise-man-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kenja-no-deshi-wo-nanoru-kenja-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Shenmue the Animation
@@ -16072,8 +14268,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "shenmue-the-animation-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "shenmue-the-animation" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shenmue-the-animation-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shenmue-the-animation-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Shiboyugi: Playing Death Games to Put Food on the Table
@@ -16088,8 +14282,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "shiboyugi-playing-death-games-to-put-food-on-the-table-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "shiboyugi-playing-death-games-to-put-food-on-the-table" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shiboyugi-playing-death-games-to-put-food-on-the-table-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shiboyugi-playing-death-games-to-put-food-on-the-table-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Shikimori's Not Just a Cutie
@@ -16104,8 +14296,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "shikimoris-not-just-a-cutie-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "shikimoris-not-just-a-cutie" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shikimori-s-not-just-a-cutie-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kawaii-dake-ja-nai-shikimori-san-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Shikizakura
@@ -16120,8 +14310,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "shikizakura-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "shikizakura" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shikizakura-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shikizakura-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Shingu: Secret of the Stellar Wars
@@ -16136,8 +14324,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "shingu-secret-of-the-stellar-wars-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "shingu-secret-of-the-stellar-wars" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shingu-secret-of-the-stellar-wars-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gakuen-senki-muryou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Shirobako
@@ -16152,8 +14338,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "shirobako-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "shirobako" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shirobako-white-box-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shirobako-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Shomin Sample
@@ -16168,8 +14352,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "shomin-sample-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "shomin-sample" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shomin-sample-i-was-abducted-by-an-elite-all-girls-school-as-a-sample-commoner-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ore-ga-ojousama-gakkou-ni-shomin-sample-toshite-gets-sareta-ken-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Shonen Maid
@@ -16184,8 +14366,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "shonen-maid-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "shonen-maid" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shonen-maid-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shounen-maid-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Shoot! Goal to the Future
@@ -16200,8 +14380,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "shoot-goal-to-the-future-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "shoot-goal-to-the-future" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "shoot-goal-to-the-future-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shoot-goal-to-the-future-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Show By Rock!!
@@ -16216,8 +14394,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "show-by-rock-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "show-by-rock" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "show-by-rock-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "show-by-rock-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Show By Rock!! Short!!
@@ -16232,8 +14408,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "show-by-rock-short-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "show-by-rock-short" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "show-by-rock-short-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "show-by-rock-short-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sirius the Jaeger
@@ -16248,8 +14422,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sirius-the-jaeger-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sirius-the-jaeger" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sirius-the-jaeger-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sirius-the-jaeger-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Six Gates Faraway Mon Colle Knights
@@ -16264,8 +14436,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "six-gates-faraway-mon-colle-knights-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "six-gates-faraway-mon-colle-knights" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "six-gates-faraway-mon-colle-knights-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "rokumon-tengai-mon-colle-knights-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Skate-Leading Stars
@@ -16280,8 +14450,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "skate-leading-stars-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "skate-leading-stars" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "skate-leading-stars-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "skate-leading%e2%98%86stars-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Skeleton Knight in Another World
@@ -16296,8 +14464,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "skeleton-knight-in-another-world-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "skeleton-knight-in-another-world" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "skeleton-knight-in-another-world-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "skeleton-knight-in-another-world-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Skip Beat!
@@ -16312,8 +14478,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "skip-beat-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "skip-beat" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "skip-beat-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "skip-beat-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sky Wizards Academy
@@ -16328,8 +14492,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sky-wizards-academy-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sky-wizards-academy" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sky-wizards-academy-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kuusen-madoushi-kouhosei-no-kyoukan-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Slam Dunk
@@ -16344,8 +14506,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "slam-dunk-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "slam-dunk" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "slam-dunk-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "slam-dunk-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sleepy Princess in the Demon Castle
@@ -16360,8 +14520,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sleepy-princess-in-the-demon-castle-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sleepy-princess-in-the-demon-castle" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sleepy-princess-in-the-demon-castle-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "maoujou-de-oyasumi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Smile Down the Runway
@@ -16376,8 +14534,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "smile-down-the-runway-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "smile-down-the-runway" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "smile-down-the-runway-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "runway-de-waratte-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Snowball Earth
@@ -16392,8 +14548,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "snowball-earth-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "snowball-earth" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "snowball-earth-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "snowball-earth-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // So I'm a Spider, So What?
@@ -16408,8 +14562,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "so-im-a-spider-so-what-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "so-im-a-spider-so-what" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "so-i-m-a-spider-so-what-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kumo-desu-ga-nani-ka-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sol Bianca: The Legacy
@@ -16424,8 +14576,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sol-bianca-the-legacy-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sol-bianca-the-legacy" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sol-bianca-the-legacy-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sol-bianca-taiyou-no-fune-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Solo Leveling
@@ -16440,8 +14590,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "solo-leveling-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "solo-leveling" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "solo-leveling-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "solo-leveling-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Somali and the Forest Spirit
@@ -16456,8 +14604,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "somali-and-the-forest-spirit-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "somali-and-the-forest-spirit" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "somali-and-the-forest-spirit-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "somali-to-mori-no-kamisama-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sonny Boy
@@ -16472,8 +14618,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sonny-boy-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sonny-boy" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sonny-boy-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sonny-boy-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sorcerous Stabber Orphen
@@ -16488,8 +14632,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sorcerous-stabber-orphen-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sorcerous-stabber-orphen" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sorcerous-stabber-orphen-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "majutsushi-orphen-hagure-tabi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Soul Eater
@@ -16612,7 +14754,6 @@ export const SEED_ANIME: SeedAnime[] = [
         50: "5.90A Soul Eater - Episode 50 (SUB) 1280x720 - Sink or Swim! The Men Who Transcend the Gods.mp4",
         51: "6.00A Soul Eater (FINALE) - Episode 51 (SUB) 1280x720 - The Word Is Bravery!.mp4",
       } },
-      // WCO resolver removed — archive.org has all 51 episodes in DUB + SUB
     ], hasDub: true, hasSub: true,
   },
   // Sound! Euphonium
@@ -16627,8 +14768,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sound-euphonium-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sound-euphonium" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sound-euphonium-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sound-euphonium-hibike-euphonium-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Space Battleship Tiramisu
@@ -16643,8 +14782,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "space-battleship-tiramisu-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "space-battleship-tiramisu" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "space-battleship-tiramisu-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "uchuu-senkan-tiramisu-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Space Patrol Luluco
@@ -16659,8 +14796,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "space-patrol-luluco-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "space-patrol-luluco" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "space-patrol-luluco-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "uchuu-patrol-luluco-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Space Pirate Mito
@@ -16675,8 +14810,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "space-pirate-mito-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "space-pirate-mito" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "space-pirate-mito-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "uchuu-kaizoku-mito-no-daibouken-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sparks of Tomorrow
@@ -16691,8 +14824,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sparks-of-tomorrow-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sparks-of-tomorrow" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sparks-of-tomorrow-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sparks-of-tomorrow-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Special 7: Special Crime Investigation Unit
@@ -16707,8 +14838,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "special-7-special-crime-investigation-unit-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "special-7-special-crime-investigation-unit" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "special-crime-investigation-unit-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "keishichou-tokumubu-tokushu-kyouakuhan-taisakushitsu-dainanaka-tokunana-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Spice and Wolf: Merchant Meets the Wise Wolf
@@ -16723,8 +14852,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "spice-and-wolf-merchant-meets-the-wise-wolf-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "spice-and-wolf-merchant-meets-the-wise-wolf" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "spice-and-wolf-merchant-meets-the-wise-wolf-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "spice-and-wolf-merchant-meets-the-wise-wolf-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Spriggan
@@ -16739,8 +14866,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "spriggan-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "spriggan" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "spriggan-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "spriggan-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Stand My Heroes: Piece of Truth
@@ -16755,8 +14880,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "stand-my-heroes-piece-of-truth-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "stand-my-heroes-piece-of-truth" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "stand-my-heroes-piece-of-truth-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "stand-my-heroes-piece-of-truth-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Star Wars: Visions
@@ -16771,8 +14894,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "star-wars-visions-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "star-wars-visions" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "star-wars-visions-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "star-wars-visions-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Stars Align
@@ -16787,8 +14908,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "stars-align-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "stars-align" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "stars-align-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hoshiai-no-sora-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Steel Ball Run: JoJo's Bizarre Adventure
@@ -16803,8 +14922,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "steel-ball-run-jojos-bizarre-adventure-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "steel-ball-run-jojos-bizarre-adventure" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "steel-ball-run-jojos-bizarre-adventure-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "steel-ball-run-jojos-bizarre-adventure-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Steins;Gate 0
@@ -16819,8 +14936,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "steinsgate-0-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "steinsgate-0" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "steins-gate-0-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "steins-gate-0-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Strange Dawn
@@ -16835,8 +14950,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "strange-dawn-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "strange-dawn" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "strange-dawn-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "strange-dawn-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Strike Witches: 501st Joint Fighter Wing Take Off!
@@ -16851,8 +14964,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "strike-witches-501st-joint-fighter-wing-take-off-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "strike-witches-501st-joint-fighter-wing-take-off" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "strike-witches-501st-joint-fighter-wing-take-off-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "strike-witches-501-butai-hasshin-shimasu-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Strike Witches: Road to Berlin
@@ -16867,8 +14978,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "strike-witches-road-to-berlin-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "strike-witches-road-to-berlin" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "strike-witches-road-to-berlin-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "strike-witches-road-to-berlin-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sugar Apple Fairy Tale
@@ -16883,8 +14992,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sugar-apple-fairy-tale-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sugar-apple-fairy-tale" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sugar-apple-fairy-tale-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sugar-apple-fairy-tale-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Summer Time Rendering
@@ -16899,8 +15006,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "summer-time-rendering-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "summer-time-rendering" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "summer-time-rendering-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "summer-time-rendering-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Super Crooks
@@ -16915,8 +15020,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "super-crooks-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "super-crooks" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "super-crooks-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "super-crooks-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Super Cub
@@ -16931,8 +15034,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "super-cub-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "super-cub" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "super-cub-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "super-cub-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Super GALS!
@@ -16947,8 +15048,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "super-gals-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "super-gals" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "super-gals-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "super-gals-kotobuki-ran-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sweet Reincarnation
@@ -16963,8 +15062,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sweet-reincarnation-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sweet-reincarnation" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sweet-reincarnation-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "okashi-na-tensei-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sword Art Online
@@ -16979,8 +15076,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sword-art-online-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sword-art-online" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sword-art-online-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sword-art-online-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sword Art Online Alternative: Gun Gale Online
@@ -16995,8 +15090,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sword-art-online-alternative-gun-gale-online-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sword-art-online-alternative-gun-gale-online" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sword-art-online-alternative-gun-gale-online-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sword-art-online-alternative-gun-gale-online-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sword Art Online II
@@ -17011,8 +15104,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sword-art-online-ii-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sword-art-online-ii" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sword-art-online-ii-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sword-art-online-ii-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sword Art Online: Alicization
@@ -17027,8 +15118,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sword-art-online-alicization-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sword-art-online-alicization" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sword-art-online-alicization-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sword-art-online-alicization-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sword Gai: The Animation
@@ -17043,8 +15132,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sword-gai-the-animation-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sword-gai-the-animation" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sword-gai-the-animation-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sword-gai-the-animation-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Sword of the Demon Hunter: Kijin Gentosho
@@ -17059,8 +15146,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sword-of-the-demon-hunter-kijin-gentosho-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sword-of-the-demon-hunter-kijin-gentosho" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "sword-of-the-demon-hunter-kijin-gentosho-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sword-of-the-demon-hunter-kijin-gentosho-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Synduality: Noir
@@ -17075,8 +15160,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "synduality-noir-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "synduality-noir" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "synduality-noir-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "synduality-noir-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // T.P BON
@@ -17091,8 +15174,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tp-bon-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tp-bon" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "t-p-bon-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "t-p-bon-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // TAMAYOMI: The Baseball Girls
@@ -17107,8 +15188,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tamayomi-the-baseball-girls-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tamayomi-the-baseball-girls" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tamayomi-the-baseball-girls-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tamayomi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Taboo Tattoo
@@ -17123,8 +15202,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "taboo-tattoo-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "taboo-tattoo" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "taboo-tattoo-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "taboo-tattoo-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tada Never Falls in Love
@@ -17139,8 +15216,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tada-never-falls-in-love-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tada-never-falls-in-love" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tada-never-falls-in-love-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tada-kun-wa-koi-wo-shinai-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Taisho Otome Fairy Tale
@@ -17155,8 +15230,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "taisho-otome-fairy-tale-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "taisho-otome-fairy-tale" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "taisho-otome-fairy-tale-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "taishou-otome-otogibanashi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Takopi's Original Sin
@@ -17171,8 +15244,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "takopis-original-sin-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "takopis-original-sin" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "takopis-original-sin-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "takopis-original-sin-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Takt Op. Destiny
@@ -17187,8 +15258,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "takt-op-destiny-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "takt-op-destiny" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "takt-op-destiny-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "takt-op-destiny-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Takunomi
@@ -17203,8 +15272,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "takunomi-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "takunomi" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "takunomi-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "takunomi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Talentless Nana
@@ -17219,8 +15286,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "talentless-nana-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "talentless-nana" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "talentless-nana-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "munou-na-nana-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tales of Little Women
@@ -17235,8 +15300,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tales-of-little-women-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tales-of-little-women" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tales-of-little-women-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ai-no-wakakusa-monogatari-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tales of Luminaria: The Fateful Crossroad
@@ -17251,8 +15314,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tales-of-luminaria-the-fateful-crossroad-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tales-of-luminaria-the-fateful-crossroad" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tales-of-luminaria-the-fateful-crossroad-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tales-of-luminaria-the-fateful-crossroad-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tales of Wedding Rings
@@ -17267,8 +15328,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tales-of-wedding-rings-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tales-of-wedding-rings" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tales-of-wedding-rings-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kekkon-yubiwa-monogatari-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tales of Zestiria the X
@@ -17283,8 +15342,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tales-of-zestiria-the-x-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tales-of-zestiria-the-x" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tales-of-zestiria-the-x-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tales-of-zestiria-the-x-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tamon's B-Side
@@ -17299,8 +15356,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tamons-b-side-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tamons-b-side" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tamons-b-side-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tamons-b-side-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tanaka-kun is Always Listless
@@ -17315,8 +15370,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tanaka-kun-is-always-listless-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tanaka-kun-is-always-listless" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tanaka-kun-is-always-listless-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tanaka-kun-wa-itsumo-kedaruge-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tatsuki Fujimoto 17-26
@@ -17331,8 +15384,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tatsuki-fujimoto-17-26-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tatsuki-fujimoto-17-26" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tatsuki-fujimoto-17-26-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tatsuki-fujimoto-17-26-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Teasing Master Takagi-san
@@ -17347,8 +15398,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "teasing-master-takagi-san-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "teasing-master-takagi-san" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "teasing-master-takagi-san-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "karakai-jouzu-no-takagi-san-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tekken: Bloodline
@@ -17363,8 +15412,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tekken-bloodline-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tekken-bloodline" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tekken-bloodline-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tekken-bloodline-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // TenPuru: No One Can Live on Loneliness
@@ -17379,8 +15426,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tenpuru-no-one-can-live-on-loneliness-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tenpuru-no-one-can-live-on-loneliness" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tenpuru-no-one-can-live-on-loneliness-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "temple-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tenchi Muyo! In Love
@@ -17395,8 +15440,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tenchi-muyo-in-love-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tenchi-muyo-in-love" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tenchi-muyo-love-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tenchi-muyo-love-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tenchi Muyo! War on Geminar
@@ -17411,8 +15454,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tenchi-muyo-war-on-geminar-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tenchi-muyo-war-on-geminar" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tenchi-muyo-war-on-geminar-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "isekai-no-seikishi-monogatari-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tenjho Tenge
@@ -17427,8 +15468,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tenjho-tenge-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tenjho-tenge" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tenjou-tenge-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tenjou-tenge-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Teogonia
@@ -17443,8 +15482,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "teogonia-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "teogonia" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "teogonia-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "teogonia-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Terminator Zero
@@ -17459,8 +15496,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "terminator-zero-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "terminator-zero" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "terminator-zero-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "terminator-zero-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Terra Formars
@@ -17475,8 +15510,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "terra-formars-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "terra-formars" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "terra-formars-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "terra-formars-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // That Time I Got Reincarnated as a Slime
@@ -17491,8 +15524,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "that-time-i-got-reincarnated-as-a-slime-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "that-time-i-got-reincarnated-as-a-slime" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "that-time-i-got-reincarnated-as-a-slime-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "that-time-i-got-reincarnated-as-a-slime-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Ambition of Oda Nobuna
@@ -17507,8 +15538,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-ambition-of-oda-nobuna-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-ambition-of-oda-nobuna" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-ambition-of-oda-nobuna-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "oda-nobuna-no-yabou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Ancient Magus' Bride
@@ -17523,8 +15552,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-ancient-magus-bride-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-ancient-magus-bride" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-ancient-magus-bride-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mahoutsukai-no-yome-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Angel Next Door Spoils Me Rotten
@@ -17539,8 +15566,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-angel-next-door-spoils-me-rotten-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-angel-next-door-spoils-me-rotten" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-angel-next-door-spoils-me-rotten-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-angel-next-door-spoils-me-rotten-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Asterisk War
@@ -17555,8 +15580,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-asterisk-war-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-asterisk-war" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-asterisk-war-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gakusen-toshi-asterisk-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Banished Court Magician Aims to Become the Strongest
@@ -17571,8 +15594,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-banished-court-magician-aims-to-become-the-strongest-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-banished-court-magician-aims-to-become-the-strongest" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-banished-court-magician-aims-to-become-the-strongest-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-banished-court-magician-aims-to-become-the-strongest-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Beginning After the End
@@ -17587,8 +15608,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-beginning-after-the-end-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-beginning-after-the-end" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-beginning-after-the-end-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-beginning-after-the-end-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Brilliant Healer's New Life in the Shadows
@@ -17603,8 +15622,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-brilliant-healers-new-life-in-the-shadows-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-brilliant-healers-new-life-in-the-shadows" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-brilliant-healers-new-life-in-the-shadows-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-brilliant-healers-new-life-in-the-shadows-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Case Book of Arne
@@ -17619,8 +15636,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-case-book-of-arne-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-case-book-of-arne" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-case-book-of-arne-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-case-book-of-arne-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Case Study of Vanitas
@@ -17635,8 +15650,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-case-study-of-vanitas-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-case-study-of-vanitas" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-case-study-of-vanitas-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "vanitas-no-carte-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Daily Life of the Immortal King
@@ -17651,8 +15664,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-daily-life-of-the-immortal-king-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-daily-life-of-the-immortal-king" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-daily-life-of-the-immortal-king-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-daily-life-of-the-immortal-king-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Dangers in My Heart
@@ -17667,8 +15678,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-dangers-in-my-heart-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-dangers-in-my-heart" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-dangers-in-my-heart-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "boku-no-kokoro-no-yabai-yatsu-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Dark History of the Reincarnated Villainess
@@ -17683,8 +15692,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-dark-history-of-the-reincarnated-villainess-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-dark-history-of-the-reincarnated-villainess" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-dark-history-of-the-reincarnated-villainess-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-dark-history-of-the-reincarnated-villainess-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Darwin Incident
@@ -17699,8 +15706,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-darwin-incident-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-darwin-incident" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-darwin-incident-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-darwin-incident-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Dawn of the Witch
@@ -17715,8 +15720,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-dawn-of-the-witch-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-dawn-of-the-witch" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-dawn-of-the-witch-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mahoutsukai-reimeiki-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Day I Became a God
@@ -17731,8 +15734,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-day-i-became-a-god-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-day-i-became-a-god" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-day-i-became-a-god-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kamisama-ni-natta-hi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Demon Girl Next Door
@@ -17747,8 +15748,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-demon-girl-next-door-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-demon-girl-next-door" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-demon-girl-next-door-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "machikado-mazoku-the-demon-girl-next-door-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Demon King's Daughter Is Too Kind!!
@@ -17763,8 +15762,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-demon-kings-daughter-is-too-kind-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-demon-kings-daughter-is-too-kind" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-demon-kings-daughter-is-too-kind-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-demon-kings-daughter-is-too-kind-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Demon Prince of Momochi House
@@ -17779,8 +15776,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-demon-prince-of-momochi-house-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-demon-prince-of-momochi-house" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-demon-prince-of-momochi-house-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "momochi-san-chi-no-ayakashi-ouji-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Demon Sword Master of Excalibur Academy
@@ -17795,8 +15790,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-demon-sword-master-of-excalibur-academy-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-demon-sword-master-of-excalibur-academy" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-demon-sword-master-of-excalibur-academy-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "seiken-gakuin-no-makentsukai-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Detective Is Already Dead
@@ -17811,8 +15804,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-detective-is-already-dead-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-detective-is-already-dead" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-detective-is-already-dead-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tantei-wa-mou-shindeiru-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Dinner Table Detective
@@ -17827,8 +15818,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-dinner-table-detective-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-dinner-table-detective" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-dinner-table-detective-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-dinner-table-detective-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Disappearance of Nagato Yuki-chan
@@ -17843,8 +15832,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-disappearance-of-nagato-yuki-chan-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-disappearance-of-nagato-yuki-chan" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-disappearance-of-nagato-yuki-chan-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nagato-yuki-chan-no-shoushitsu-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Disastrous Life of Saiki K.
@@ -17859,8 +15846,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-disastrous-life-of-saiki-k-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-disastrous-life-of-saiki-k" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-disastrous-life-of-saiki-k-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "saiki-kusuo-no-psi-nan-tv-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Disastrous Life of Saiki K.: Reawakened
@@ -17875,8 +15860,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-disastrous-life-of-saiki-k-reawakened-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-disastrous-life-of-saiki-k-reawakened" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-disastrous-life-of-saiki-k-reawakened-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-disastrous-life-of-saiki-k-reawakened-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Dreaming Boy is a Realist
@@ -17891,8 +15874,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-dreaming-boy-is-a-realist-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-dreaming-boy-is-a-realist" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-dreaming-boy-is-a-realist-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yumemiru-danshi-wa-genjitsushugisha-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Drops of God
@@ -17907,8 +15888,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-drops-of-god-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-drops-of-god" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-drops-of-god-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-drops-of-god-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Duke of Death and His Maid
@@ -17923,8 +15902,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-duke-of-death-and-his-maid-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-duke-of-death-and-his-maid" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-duke-of-death-and-his-maid-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shinigami-bocchan-to-kuro-maid-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Dungeon of Black Company
@@ -17939,8 +15916,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-dungeon-of-black-company-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-dungeon-of-black-company" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-dungeon-of-black-company-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "meikyuu-black-company-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Elusive Samurai
@@ -17955,8 +15930,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-elusive-samurai-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-elusive-samurai" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-elusive-samurai-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nige-jouzu-no-wakagimi-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Eminence in Shadow
@@ -17971,8 +15944,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-eminence-in-shadow-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-eminence-in-shadow" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-eminence-in-shadow-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kage-no-jitsuryokusha-ni-naritakute-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Executioner and Her Way of Life
@@ -17987,8 +15958,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-executioner-and-her-way-of-life-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-executioner-and-her-way-of-life" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-executioner-and-her-way-of-life-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shokei-shoujo-no-virgin-road-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Exiled Heavy Knight Knows How to Game the System
@@ -18003,8 +15972,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-exiled-heavy-knight-knows-how-to-game-the-system-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-exiled-heavy-knight-knows-how-to-game-the-system" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-exiled-heavy-knight-knows-how-to-game-the-system-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-exiled-heavy-knight-knows-how-to-game-the-system-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Fable
@@ -18019,8 +15986,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-fable-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-fable" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-fable-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-fable-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Faraway Paladin
@@ -18035,8 +16000,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-faraway-paladin-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-faraway-paladin" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-faraway-paladin-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "saihate-no-paladin-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Foolish Angel Dances with the Devil
@@ -18051,8 +16014,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-foolish-angel-dances-with-the-devil-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-foolish-angel-dances-with-the-devil" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-foolish-angel-dances-with-the-devil-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "oroka-na-tenshi-wa-akuma-to-odoru-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Fragrant Flower Blooms with Dignity
@@ -18067,8 +16028,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-fragrant-flower-blooms-with-dignity-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-fragrant-flower-blooms-with-dignity" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-fragrant-flower-blooms-with-dignity-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-fragrant-flower-blooms-with-dignity-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Fruit of Evolution: Before I Knew It, My Life Had It Made
@@ -18083,8 +16042,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-fruit-of-evolution-before-i-knew-it-my-life-had-it-made-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-fruit-of-evolution-before-i-knew-it-my-life-had-it-made" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-fruit-of-evolution-before-i-knew-it-my-life-had-it-made-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shinka-no-mi-shiranai-uchi-ni-kachigumi-jinsei-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Future Diary
@@ -18099,8 +16056,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-future-diary-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-future-diary" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-future-diary-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mirai-nikki-tv-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Galaxy Railways
@@ -18115,8 +16070,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-galaxy-railways-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-galaxy-railways" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-galaxy-railways-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-galaxy-railways-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Genius Prince's Guide to Raising a Nation Out of Debt
@@ -18131,8 +16084,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-genius-princes-guide-to-raising-a-nation-out-of-debt-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-genius-princes-guide-to-raising-a-nation-out-of-debt" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-genius-prince-s-guide-to-raising-a-nation-out-of-debt-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tensai-ouji-no-akaji-kokka-saisei-jutsu-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Ghost in the Shell
@@ -18147,8 +16098,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-ghost-in-the-shell-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-ghost-in-the-shell" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-ghost-in-the-shell-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-ghost-in-the-shell-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Girl From the Other Side
@@ -18163,8 +16112,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-girl-from-the-other-side-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-girl-from-the-other-side" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-girl-from-the-other-side-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "totsukuni-shoujo-2022-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The God of High School
@@ -18179,8 +16126,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-god-of-high-school-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-god-of-high-school" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-god-of-high-school-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-god-of-high-school-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Gorilla God's Go-To Girl
@@ -18195,8 +16140,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-gorilla-gods-go-to-girl-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-gorilla-gods-go-to-girl" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-gorilla-gods-go-to-girl-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-gorilla-gods-go-to-girl-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Great Cleric
@@ -18211,8 +16154,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-great-cleric-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-great-cleric" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-great-cleric-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "seija-musou-salaryman-isekai-de-ikinokoru-tame-ni-ayumu-michi-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Great Jahy Will Not Be Defeated!
@@ -18227,8 +16168,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-great-jahy-will-not-be-defeated-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-great-jahy-will-not-be-defeated" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-great-jahy-will-not-be-defeated-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "jahy-sama-wa-kujikenai-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Greatest Demon Lord Is Reborn as a Typical Nobody
@@ -18243,8 +16182,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-greatest-demon-lord-is-reborn-as-a-typical-nobody-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-greatest-demon-lord-is-reborn-as-a-typical-nobody" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-greatest-demon-lord-is-reborn-as-a-typical-nobody-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shijou-saikyou-no-daimaou-murabito-a-ni-tensei-suru-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Grimm Variations
@@ -18259,8 +16196,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-grimm-variations-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-grimm-variations" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-grimm-variations-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "grimm-kumikyoku-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Gymnastics Samurai
@@ -18275,8 +16210,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-gymnastics-samurai-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-gymnastics-samurai" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-gymnastics-samurai-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "taisou-zamurai-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Heike Story
@@ -18291,8 +16224,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-heike-story-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-heike-story" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-heike-story-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "heike-monogatari-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Heroic Legend of Arslan
@@ -18307,8 +16238,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-heroic-legend-of-arslan-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-heroic-legend-of-arslan" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-heroic-legend-of-arslan-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-heroic-legend-of-arslan-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Hidden Dungeon Only I Can Enter
@@ -18323,8 +16252,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-hidden-dungeon-only-i-can-enter-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-hidden-dungeon-only-i-can-enter" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-hidden-dungeon-only-i-can-enter-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ore-dake-haireru-kakushi-dungeon-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Ice Guy and His Cool Female Colleague
@@ -18339,8 +16266,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-ice-guy-and-his-cool-female-colleague-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-ice-guy-and-his-cool-female-colleague" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-ice-guy-and-his-cool-female-colleague-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "koori-zokusei-danshi-to-cool-na-douryou-joshi-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Iceblade Sorcerer Shall Rule the World
@@ -18355,8 +16280,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-iceblade-sorcerer-shall-rule-the-world-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-iceblade-sorcerer-shall-rule-the-world" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-iceblade-sorcerer-shall-rule-the-world-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hyouken-no-majutsushi-ga-sekai-wo-suberu-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Irregular at Magic High School
@@ -18371,8 +16294,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-irregular-at-magic-high-school-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-irregular-at-magic-high-school" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-irregular-at-magic-high-school-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mahouka-koukou-no-rettousei-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Irregular at Magic High School: Visitor Arc
@@ -18387,8 +16308,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-irregular-at-magic-high-school-visitor-arc-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-irregular-at-magic-high-school-visitor-arc" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-irregular-at-magic-high-school-visitor-arc-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "mahouka-koukou-no-rettousei-raihousha-hen-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Kingdoms of Ruin
@@ -18403,8 +16322,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-kingdoms-of-ruin-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-kingdoms-of-ruin" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-kingdoms-of-ruin-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hametsu-no-oukoku-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Klutzy Class Monitor and the Girl with the Short Skirt
@@ -18419,8 +16336,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-klutzy-class-monitor-and-the-girl-with-the-short-skirt-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-klutzy-class-monitor-and-the-girl-with-the-short-skirt" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-klutzy-class-monitor-and-the-girl-with-the-short-skirt-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-klutzy-class-monitor-and-the-girl-with-the-short-skirt-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Legend of Heroes: Trails of Cold Steel - Northern War
@@ -18435,8 +16350,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-legend-of-heroes-trails-of-cold-steel--northern-war-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-legend-of-heroes-trails-of-cold-steel--northern-war" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-legend-of-heroes-trails-of-cold-steel-northern-war-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-legend-of-heroes-sen-no-kiseki-northern-war-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Legend of the Legendary Heroes
@@ -18451,8 +16364,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-legend-of-the-legendary-heroes-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-legend-of-the-legendary-heroes" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-legend-of-the-legendary-heroes-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-legend-of-the-legendary-heroes-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Maid I Hired Recently Is Mysterious
@@ -18467,8 +16378,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-maid-i-hired-recently-is-mysterious-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-maid-i-hired-recently-is-mysterious" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-maid-i-hired-recently-is-mysterious-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "saikin-yatotta-maid-ga-ayashii-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Master of Ragnarok &amp; Blesser of Einherjar
@@ -18483,8 +16392,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-master-of-ragnarok-amp-blesser-of-einherjar-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-master-of-ragnarok-amp-blesser-of-einherjar" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-master-of-ragnarok-blesser-of-einherjar-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hyakuren-no-haou-to-seiyaku-no-valkyria-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Millionaire Detective – Balance: Unlimited
@@ -18499,8 +16406,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-millionaire-detective-balance-unlimited-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-millionaire-detective-balance-unlimited" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-millionaire-detective-balance-unlimited-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fugou-keiji-balance-unlimited-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Misfit of Demon King Academy
@@ -18515,8 +16420,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-misfit-of-demon-king-academy-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-misfit-of-demon-king-academy" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-misfit-of-demon-king-academy-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "maou-gakuin-no-futekigousha-shijou-saikyou-no-maou-no-shiso-tensei-shite-shison-tachi-no-gakkou-e-kayou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Morose Mononokean
@@ -18531,8 +16434,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-morose-mononokean-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-morose-mononokean" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-morose-mononokean-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-morose-mononokean-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Most Heretical Last Boss Queen: From Villainess to Savior
@@ -18547,8 +16448,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-most-heretical-last-boss-queen-from-villainess-to-savior-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-most-heretical-last-boss-queen-from-villainess-to-savior" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-most-heretical-last-boss-queen-from-villainess-to-savior-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-most-heretical-last-boss-queen-from-villainess-to-savior-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Orbital Children
@@ -18563,8 +16462,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-orbital-children-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-orbital-children" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-orbital-children-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chikyuugai-shounen-shoujo-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Ossan Newbie Adventurer, Trained to Death by the Most Powerful Party, Became Invincible
@@ -18579,8 +16476,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-ossan-newbie-adventurer-trained-to-death-by-the-most-powerful-party-became-invincible-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-ossan-newbie-adventurer-trained-to-death-by-the-most-powerful-party-became-invincible" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-ossan-newbie-adventurer-trained-to-death-by-the-most-powerful-party-became-invincible-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-ossan-newbie-adventurer-trained-to-death-by-the-most-powerful-party-became-invincible-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Pet Girl of Sakurasou
@@ -18595,8 +16490,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-pet-girl-of-sakurasou-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-pet-girl-of-sakurasou" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-pet-girl-of-sakurasou-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sakurasou-no-pet-na-kanojo-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Prince of Tennis
@@ -18611,8 +16504,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-prince-of-tennis-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-prince-of-tennis" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-prince-of-tennis-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tennis-no-ouji-sama-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Promised Neverland
@@ -18627,8 +16518,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-promised-neverland-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-promised-neverland" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-promised-neverland-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yakusoku-no-neverland-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Quintessential Quintuplets
@@ -18643,8 +16532,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-quintessential-quintuplets-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-quintessential-quintuplets" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-quintessential-quintuplets-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-quintessential-quintuplets-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Ramparts of Ice
@@ -18659,8 +16546,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-ramparts-of-ice-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-ramparts-of-ice" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-ramparts-of-ice-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-ramparts-of-ice-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Red Ranger Becomes an Adventurer in Another World
@@ -18675,8 +16560,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-red-ranger-becomes-an-adventurer-in-another-world-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-red-ranger-becomes-an-adventurer-in-another-world" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-red-ranger-becomes-an-adventurer-in-another-world-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sentai-red-isekai-de-boukensha-ni-naru-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Reflection
@@ -18691,8 +16574,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-reflection-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-reflection" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-reflection-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-reflection-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Reincarnation of the Strongest Exorcist in Another World
@@ -18707,8 +16588,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-reincarnation-of-the-strongest-exorcist-in-another-world-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-reincarnation-of-the-strongest-exorcist-in-another-world" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-reincarnation-of-the-strongest-exorcist-in-another-world-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "saikyou-onmyouji-no-isekai-tenseiki-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Rising of the Shield Hero
@@ -18723,8 +16602,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-rising-of-the-shield-hero-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-rising-of-the-shield-hero" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-rising-of-the-shield-hero-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tate-no-yuusha-no-nariagari-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Rolling Girls
@@ -18739,8 +16616,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-rolling-girls-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-rolling-girls" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-rolling-girls-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-rolling-girls-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Royal Tutor
@@ -18755,8 +16630,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-royal-tutor-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-royal-tutor" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-royal-tutor-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "oushitsu-kyoushi-haine-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Sacred Blacksmith
@@ -18771,8 +16644,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-sacred-blacksmith-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-sacred-blacksmith" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-sacred-blacksmith-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "seiken-no-blacksmith-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Saint's Magic Power is Omnipotent
@@ -18787,8 +16658,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-saints-magic-power-is-omnipotent-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-saints-magic-power-is-omnipotent" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-saint-s-magic-power-is-omnipotent-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "seijo-no-maryoku-wa-bannou-desu-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Seven Deadly Sins
@@ -18803,8 +16672,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-seven-deadly-sins-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-seven-deadly-sins" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-seven-deadly-sins-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-seven-deadly-sins-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Seven Deadly Sins: Four Knights of the Apocalypse
@@ -18819,8 +16686,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-seven-deadly-sins-four-knights-of-the-apocalypse-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-seven-deadly-sins-four-knights-of-the-apocalypse" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-seven-deadly-sins-four-knights-of-the-apocalypse-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nanatsu-no-taizai-mokushiroku-no-yonkishi-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Seven Deadly Sins: Signs of Holy War
@@ -18835,8 +16700,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-seven-deadly-sins-signs-of-holy-war-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-seven-deadly-sins-signs-of-holy-war" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-seven-deadly-sins-signs-of-holy-war-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-seven-deadly-sins-signs-of-holy-war-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Seven Heavenly Virtues
@@ -18851,8 +16714,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-seven-heavenly-virtues-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-seven-heavenly-virtues" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-seven-heavenly-virtues-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nanatsu-no-bitoku-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Shiunji Family Children
@@ -18867,8 +16728,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-shiunji-family-children-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-shiunji-family-children" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-shiunji-family-children-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-shiunji-family-children-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Silver Guardian
@@ -18883,8 +16742,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-silver-guardian-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-silver-guardian" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-silver-guardian-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gin-no-guardian-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Slime Diaries: That Time I Got Reincarnated as a Slime
@@ -18899,8 +16756,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-slime-diaries-that-time-i-got-reincarnated-as-a-slime-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-slime-diaries-that-time-i-got-reincarnated-as-a-slime" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-slime-diaries-that-time-i-got-reincarnated-as-a-slime-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-slime-diaries-that-time-i-got-reincarnated-as-a-slime-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Story of Saiunkoku
@@ -18915,8 +16770,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-story-of-saiunkoku-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-story-of-saiunkoku" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-story-of-saiunkoku-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "saiunkoku-monogatari-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Strongest Sage with the Weakest Crest
@@ -18931,8 +16784,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-strongest-sage-with-the-weakest-crest-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-strongest-sage-with-the-weakest-crest" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-strongest-sage-with-the-weakest-crest-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shikkaku-mon-no-saikyou-kenja-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Summer Hikaru Died
@@ -18947,8 +16798,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-summer-hikaru-died-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-summer-hikaru-died" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-summer-hikaru-died-english-subbed-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-summer-hikaru-died-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Testament of Sister New Devil
@@ -18963,8 +16812,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-testament-of-sister-new-devil-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-testament-of-sister-new-devil" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-testament-of-sister-new-devil-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "shinmai-maou-no-testament-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Unaware Atelier Meister
@@ -18979,8 +16826,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-unaware-atelier-meister-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-unaware-atelier-meister" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-unaware-atelier-meister-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-unaware-atelier-meister-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Unwanted Undead Adventurer
@@ -18995,8 +16840,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-unwanted-undead-adventurer-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-unwanted-undead-adventurer" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-unwanted-undead-adventurer-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nozomanu-fushi-no-boukensha-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Vampire Dies in No Time
@@ -19011,8 +16854,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-vampire-dies-in-no-time-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-vampire-dies-in-no-time" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "vampire-dies-in-no-time-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kyuuketsuki-sugu-shinu-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Vexations of a Shut-In Vampire Princess
@@ -19027,8 +16868,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-vexations-of-a-shut-in-vampire-princess-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-vexations-of-a-shut-in-vampire-princess" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-vexations-of-a-shut-in-vampire-princess-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "hikikomari-kyuuketsuki-no-monmon-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Villainess Is Adored by the Prince of the Neighbor Kingdom
@@ -19043,8 +16882,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-villainess-is-adored-by-the-prince-of-the-neighbor-kingdom-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-villainess-is-adored-by-the-prince-of-the-neighbor-kingdom" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-villainess-is-adored-by-the-prince-of-the-neighbor-kingdom-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-villainess-is-adored-by-the-prince-of-the-neighbor-kingdom-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Wallflower
@@ -19059,8 +16896,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-wallflower-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-wallflower" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-wallflower-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yamato-nadeshiko-shichi-henge-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Warrior Princess and the Barbaric King
@@ -19075,8 +16910,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-warrior-princess-and-the-barbaric-king-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-warrior-princess-and-the-barbaric-king" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-warrior-princess-and-the-barbaric-king-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-warrior-princess-and-the-barbaric-king-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Water Magician
@@ -19091,8 +16924,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-water-magician-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-water-magician" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-water-magician-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "the-water-magician-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Way of the Househusband
@@ -19107,8 +16938,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-way-of-the-househusband-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-way-of-the-househusband" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-way-of-the-househusband-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gokushufudou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Weakest Tamer Began a Journey to Pick Up Trash
@@ -19123,8 +16952,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-weakest-tamer-began-a-journey-to-pick-up-trash-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-weakest-tamer-began-a-journey-to-pick-up-trash" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-weakest-tamer-began-a-journey-to-pick-up-trash-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "saijaku-tamer-wa-gomi-hiroi-no-tabi-wo-hajimemashita-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Witch and the Beast
@@ -19139,8 +16966,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-witch-and-the-beast-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-witch-and-the-beast" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-witch-and-the-beast-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "majo-to-yajuu-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The World Ends with You The Animation
@@ -19155,8 +16980,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-world-ends-with-you-the-animation-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-world-ends-with-you-the-animation" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-world-ends-with-you-the-animation-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "subarashiki-kono-sekai-the-animation-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The World God Only Knows: Four Girls and an Idol
@@ -19171,8 +16994,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-world-god-only-knows-four-girls-and-an-idol-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-world-god-only-knows-four-girls-and-an-idol" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-world-god-only-knows-four-girls-and-an-idol-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kami-nomi-zo-shiru-sekai-4-nin-to-idol-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The World's Finest Assassin Gets Reincarnated in Another World as an Aristocrat
@@ -19187,8 +17008,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-worlds-finest-assassin-gets-reincarnated-in-another-world-as-an-aristocrat-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-worlds-finest-assassin-gets-reincarnated-in-another-world-as-an-aristocrat" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-world-s-finest-assassin-gets-reincarnated-in-another-world-as-an-aristocrat-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sekai-saikou-no-ansatsusha-isekai-kizoku-ni-tensei-suru-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Wrong Way to Use Healing Magic
@@ -19203,8 +17022,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-wrong-way-to-use-healing-magic-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-wrong-way-to-use-healing-magic" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-wrong-way-to-use-healing-magic-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chiyu-mahou-no-machigatta-tsukaikata-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // The Yakuza's Guide to Babysitting
@@ -19219,8 +17036,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-yakuzas-guide-to-babysitting-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-yakuzas-guide-to-babysitting" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "the-yakuzas-guide-to-babysitting-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kumichou-musume-to-sewagakari-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Theatre of Darkness: Yamishibai
@@ -19235,8 +17050,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "theatre-of-darkness-yamishibai-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "theatre-of-darkness-yamishibai" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "yami-shibai-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yami-shibai-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Thermae Romae Novae
@@ -19251,8 +17064,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "thermae-romae-novae-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "thermae-romae-novae" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "thermae-romae-novae-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "thermae-romae-novae-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Though I Am an Inept Villainess
@@ -19267,8 +17078,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "though-i-am-an-inept-villainess-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "though-i-am-an-inept-villainess" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "though-i-am-an-inept-villainess-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "though-i-am-an-inept-villainess-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Three Leaves, Three Colors
@@ -19283,8 +17092,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "three-leaves-three-colors-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "three-leaves-three-colors" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "three-leaves-three-colors-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sansha-sanyou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Thunder 3
@@ -19299,8 +17106,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "thunder-3-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "thunder-3" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "thunder-3-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "thunder-3-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Thus Spoke Kishibe Rohan
@@ -19315,8 +17120,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "thus-spoke-kishibe-rohan-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "thus-spoke-kishibe-rohan" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "thus-spoke-kishibe-rohan-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kishibe-rohan-wa-ugokanai-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tico and Friends
@@ -19331,8 +17134,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tico-and-friends-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tico-and-friends" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tico-and-friends-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "nanatsu-no-umi-no-tico-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tiger &amp; Bunny
@@ -19347,8 +17148,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tiger-amp-bunny-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tiger-amp-bunny" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tiger-bunny-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tiger-bunny-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // To Be Hero X
@@ -19363,8 +17162,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "to-be-hero-x-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "to-be-hero-x" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "to-be-hero-x-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "to-be-hero-x-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // To Heart
@@ -19379,8 +17176,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "to-heart-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "to-heart" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "to-heart-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "to-heart-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // To LOVE Ru Darkness
@@ -19395,8 +17190,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "to-love-ru-darkness-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "to-love-ru-darkness" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "to-love-ru-darkness-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "to-love-ru-darkness-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // To LOVE Ru Darkness 2
@@ -19411,8 +17204,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "to-love-ru-darkness-2-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "to-love-ru-darkness-2" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "to-love-ru-darkness-2-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "to-love-ru-darkness-2nd-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // To Love Ru
@@ -19427,8 +17218,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "to-love-ru-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "to-love-ru" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "to-love-ru-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "to-love-ru-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // To Your Eternity
@@ -19443,8 +17232,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "to-your-eternity-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "to-your-eternity" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "to-your-eternity-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "fumetsu-no-anata-e-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // To the Abandoned Sacred Beasts
@@ -19459,8 +17246,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "to-the-abandoned-sacred-beasts-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "to-the-abandoned-sacred-beasts" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "to-the-abandoned-sacred-beasts-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "katsute-kami-datta-kemono-tachi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tojima Wants to Be a Kamen Rider
@@ -19475,8 +17260,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tojima-wants-to-be-a-kamen-rider-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tojima-wants-to-be-a-kamen-rider" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tojima-wants-to-be-a-kamen-rider-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tojima-wants-to-be-a-kamen-rider-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tokyo ESP
@@ -19491,8 +17274,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tokyo-esp-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tokyo-esp" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tokyo-esp-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tokyo-esp-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tokyo Revengers
@@ -19507,8 +17288,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tokyo-revengers-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tokyo-revengers" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tokyo-revengers-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tokyo-revengers-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tomo-chan Is a Girl!
@@ -19523,8 +17302,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tomo-chan-is-a-girl-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tomo-chan-is-a-girl" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tomo-chan-is-a-girl-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tomo-chan-wa-onnanoko-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tomodachi Game
@@ -19539,8 +17316,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tomodachi-game-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tomodachi-game" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tomodachi-game-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tomodachi-game-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tonbo!
@@ -19555,8 +17330,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tonbo-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tonbo" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tonbo-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ooi-tonbo-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Toradora!
@@ -19571,8 +17344,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "toradora-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "toradora" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "toradora-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "toradora-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tougen Anki
@@ -19587,8 +17358,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tougen-anki-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tougen-anki" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tougen-anki-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tougen-anki-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Touken Ranbu - Hanamaru
@@ -19603,8 +17372,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "touken-ranbu--hanamaru-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "touken-ranbu--hanamaru" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "touken-ranbu-hanamaru-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "touken-ranbu-hanamaru-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tower of God
@@ -19619,8 +17386,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tower-of-god-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tower-of-god" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tower-of-god-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kami-no-tou-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Trapped in a Dating Sim: The World of Otome Games is Tough for Mobs
@@ -19635,8 +17400,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "trapped-in-a-dating-sim-the-world-of-otome-games-is-tough-for-mobs-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "trapped-in-a-dating-sim-the-world-of-otome-games-is-tough-for-mobs" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "trapped-in-a-dating-sim-the-world-of-otome-games-is-tough-for-mobs-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "trapped-in-a-dating-sim-the-world-of-otome-games-is-tough-for-mobs-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tribe Nine
@@ -19651,8 +17414,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tribe-nine-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tribe-nine" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tribe-nine-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tribe-nine-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Trickster
@@ -19667,8 +17428,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "trickster-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "trickster" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "trickster-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "trickster-edogawa-ranpo-shounen-tanteidan-yori-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Trigun Stampede
@@ -19683,8 +17442,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "trigun-stampede-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "trigun-stampede" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "trigun-stampede-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "trigun-stampede-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Trigun Stargaze
@@ -19699,8 +17456,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "trigun-stargaze-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "trigun-stargaze" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "trigun-stargaze-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "trigun-stargaze-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Trillion Game
@@ -19715,8 +17470,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "trillion-game-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "trillion-game" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "trillion-game-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "trillion-game-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Trinity Seven
@@ -19731,8 +17484,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "trinity-seven-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "trinity-seven" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "trinity-seven-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "trinity-seven-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // True Beauty
@@ -19747,8 +17498,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "true-beauty-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "true-beauty" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "true-beauty-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "yeosin-gangnim-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tsugumomo
@@ -19763,8 +17512,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tsugumomo-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tsugumomo" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tsugumomo-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tsugumomo-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tsukigakirei
@@ -19779,8 +17526,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tsukigakirei-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tsukigakirei" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tsukigakirei-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tsuki-ga-kirei-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tsukimichi: Moonlight Fantasy
@@ -19795,8 +17540,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tsukimichi-moonlight-fantasy-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tsukimichi-moonlight-fantasy" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tsukimichi-moonlight-fantasy-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tsukimichi-moonlight-fantasy-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tsuredure Children
@@ -19811,8 +17554,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tsuredure-children-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tsuredure-children" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tsuredure-children-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tsurezure-children-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tune In to the Midnight Heart
@@ -19827,8 +17568,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tune-in-to-the-midnight-heart-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tune-in-to-the-midnight-heart" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tune-in-to-the-midnight-heart-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tune-in-to-the-midnight-heart-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Twilight Out of Focus
@@ -19843,8 +17582,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "twilight-out-of-focus-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "twilight-out-of-focus" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "twilight-out-of-focus-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "tasogare-out-focus-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Twin Star Exorcists
@@ -19859,8 +17596,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "twin-star-exorcists-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "twin-star-exorcists" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "twin-star-exorcists-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "sousei-no-onmyouji-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Tying the Knot with an Amagami Sister
@@ -19875,8 +17610,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tying-the-knot-with-an-amagami-sister-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tying-the-knot-with-an-amagami-sister" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "tying-the-knot-with-an-amagami-sister-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "amagami-san-chi-no-enmusubi-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // UQ Holder!
@@ -19891,8 +17624,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "uq-holder-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "uq-holder" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "uq-holder-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "uq-holder-mahou-sensei-negima-2-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ubel Blatt
@@ -19907,8 +17638,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ubel-blatt-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ubel-blatt" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ubel-blatt-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ubel-blatt-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ultimate Otaku Teacher
@@ -19923,8 +17652,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ultimate-otaku-teacher-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ultimate-otaku-teacher" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ultimate-otaku-teacher-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "denpa-kyoshi-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ultraman
@@ -19939,8 +17666,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ultraman-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ultraman" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ultraman-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ultraman-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ultramarine Magmell
@@ -19955,8 +17680,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ultramarine-magmell-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ultramarine-magmell" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ultramarine-magmell-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "gunjou-no-magmel-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Un-Go
@@ -19971,8 +17694,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "un-go-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "un-go" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "un-go-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "un-go-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Unbreakable Machine-Doll
@@ -19987,8 +17708,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "unbreakable-machine-doll-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "unbreakable-machine-doll" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "unbreakable-machine-doll-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "machine-doll-wa-kizutsukanai-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Uncle from Another World
@@ -20003,8 +17722,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "uncle-from-another-world-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "uncle-from-another-world" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "uncle-from-another-world-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "isekai-oji-san-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Undead Unluck
@@ -20019,8 +17736,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "undead-unluck-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "undead-unluck" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "undead-unluck-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "undead-unluck-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Urahara
@@ -20035,8 +17750,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "urahara-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "urahara" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "urahara-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "urahara-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Urusei Yatsura (2022)
@@ -20051,8 +17764,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "urusei-yatsura-2022-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "urusei-yatsura-2022" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "urusei-yatsura-2022-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "urusei-yatsura-2022-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Ushio &amp; Tora (2015)
@@ -20067,8 +17778,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ushio-amp-tora-2015-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ushio-amp-tora-2015" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "ushio-and-tora-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "ushio-to-tora-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Utawarerumono: Mask of Truth
@@ -20083,8 +17792,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "utawarerumono-mask-of-truth-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "utawarerumono-mask-of-truth" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "utawarerumono-mask-of-truth-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "utawarerumono-futari-no-hakuoro-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Uzaki-chan Wants to Hang Out!
@@ -20099,8 +17806,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "uzaki-chan-wants-to-hang-out-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "uzaki-chan-wants-to-hang-out" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "uzaki-chan-wants-to-hang-out-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "uzaki-chan-wa-asobitai-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // VTuber Legend: How I Went Viral after Forgetting to Turn Off My Stream
@@ -20115,8 +17820,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "vtuber-legend-how-i-went-viral-after-forgetting-to-turn-off-my-stream-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "vtuber-legend-how-i-went-viral-after-forgetting-to-turn-off-my-stream" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "vtuber-legend-how-i-went-viral-after-forgetting-to-turn-off-my-stream-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "vtuber-nandaga-haishin-kiri-wasuretara-densetsu-ni-natteta-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Valkyrie Drive: Mermaid
@@ -20131,8 +17834,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "valkyrie-drive-mermaid-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "valkyrie-drive-mermaid" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "valkyrie-drive-mermaid-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "valkyrie-drive-mermaid-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Vampire Dormitory
@@ -20147,8 +17848,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "vampire-dormitory-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "vampire-dormitory" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "vampire-dormitory-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "vampire-dormitory-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Vampire Knight
@@ -20163,8 +17862,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "vampire-knight-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "vampire-knight" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "vampire-knight-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "vampire-knight-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Vampire Knight Guilty
@@ -20179,8 +17876,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "vampire-knight-guilty-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "vampire-knight-guilty" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "vampire-knight-guilty-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "vampire-knight-guilty-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Vampire in the Garden
@@ -20195,8 +17890,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "vampire-in-the-garden-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "vampire-in-the-garden" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "vampire-in-the-garden-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "vampire-in-the-garden-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Vandread
@@ -20211,8 +17904,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "vandread-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "vandread" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "vandread-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "vandread-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Very Private Lesson
@@ -20227,8 +17918,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "very-private-lesson-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "very-private-lesson" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "very-private-lesson-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kyoukasho-ni-nai-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Viral Hit
@@ -20243,8 +17932,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "viral-hit-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "viral-hit" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "viral-hit-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kenka-dokugaku-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Vivy -Fluorite Eye's Song-
@@ -20259,8 +17946,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "vivy-fluorite-eyes-song-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "vivy-fluorite-eyes-song" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "vivy-fluorite-eye-s-song-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "vivy-fluorite-eye-s-song-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
 ];
@@ -20440,23 +18125,6 @@ export function resolveEpisodeUrl(seed: SeedAnime, episode: number, audioMode: "
   // doesn't include it), fall through to the other audio mode so the user
   // still gets a playable stream instead of a "no stream" error.
   function tryResolve(src: EpisodeSource): string | null {
-    // WCO resolver source: construct the slug from fileTemplate
-    // (e.g. "one-piece-episode-{ep}-english-dubbed" → "one-piece-episode-422-english-dubbed")
-    // Skip if the resolver URL env var isn't set — this lets resolveEpisodeUrl
-    // fall through to the next source (e.g. archive.org) instead of returning
-    // an empty URL that the player can't play.
-    if (src.sourceType === "wco_resolver") {
-      if (!process.env.NEXT_PUBLIC_WCO_RESOLVER_URL) return null;
-      if (src.episodeFiles && src.episodeFiles[episode]) {
-        return src.episodeFiles[episode];
-      }
-      if (src.fileTemplate) {
-        let slug = src.fileTemplate;
-        slug = slug.replace(/\{ep(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(episode); return pad ? s.padStart(Number(pad), "0") : s; });
-        return slug;
-      }
-      return null;
-    }
     // GDrivePlayer embed: return the slug (fileTemplate is the slug)
     if (src.sourceType === "gdriveplayer_embed") {
       if (src.fileTemplate) return src.fileTemplate;
@@ -20491,26 +18159,10 @@ export function resolveEpisodeUrl(seed: SeedAnime, episode: number, audioMode: "
       const entry = src.seasonMap.find((m) => episode >= m.startEp && episode <= m.endEp);
       if (entry) { collectionName = collectionName.replace(/\{season(?::(\d+))?\}/g, (_, pad?: string) => { const s = String(entry.season); return pad ? s.padStart(Number(pad), "0") : s; }); }
     }
-    // WCO resolver: if the source has episodeFiles with a specific slug for
-    // this episode, use /resolve?slug=... (direct slug lookup). Otherwise,
-    // use /resolve-by-ep?ep=N&audio=dub (uses the resolver's internal slug
-    // map, which handles non-standard slugs like One Piece E1-421).
-    if (src.sourceType === "wco_resolver") {
-      const resolverBase = (process.env.NEXT_PUBLIC_WCO_RESOLVER_URL || "").replace(/\/$/, "");
-      // If file looks like a full slug (contains "english-dubbed" or "english-subbed"),
-      // use the direct /resolve?slug= endpoint. Otherwise use /resolve-by-ep.
-      const isFullSlug = file.includes("english-dubbed") || file.includes("english-subbed");
-      const resolverUrl = resolverBase
-        ? isFullSlug
-          ? `${resolverBase}/resolve?slug=${encodeURIComponent(file)}`
-          : `${resolverBase}/resolve-by-ep?ep=${episode}&audio=${src.audio === "sub" ? "sub" : "dub"}`
-        : "";
-      return { url: resolverUrl, source: "wco_resolver" as const, needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" as const };
-    }
+    // GDrivePlayer embed: construct the embed URL
     if (src.sourceType === "gdriveplayer_embed") {
-      const resolverBase = process.env.NEXT_PUBLIC_WCO_RESOLVER_URL || "";
       const embedUrl = `https://database.gdriveplayer.me/embed.php?type=anime&slug=${encodeURIComponent(file)}&episode=${episode}`;
-      return { url: embedUrl, source: "gdriveplayer_embed" as const, needsProxy: false, dualAudio: false, audio: src.audio ?? "dub" as const };
+      return { url: embedUrl, source: "gdriveplayer_embed" as const, needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" as const };
     }
     if (collectionName === "youtube") { return { url: `https://www.youtube.com/embed/${file}`, source: "youtube", needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" as const }; }
     if (collectionName === "dropbox" || collectionName === "external") { return { url: file, source: "external", needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" as const }; }
@@ -20551,29 +18203,13 @@ export function episodeHasSub(seed: SeedAnime, episode: number): boolean {
   });
 }
 export function episodeHasDub(seed: SeedAnime, episode: number): boolean {
-  // If the anime is marked as hasDub, check if any source covers this episode.
-  // If a DUB source exists, use it. If not but hasDub is set, return true
-  // so the player shows the DUB toggle (resolveEpisodeUrl will fall back
-  // to the SUB source for playback).
   if (!seed.episodeSources) return false;
-  const hasDubSource = seed.episodeSources.some((src) => {
+  return seed.episodeSources.some((src) => {
     if (!(episode >= src.startEp && episode <= src.endEp)) return false;
     if (src.audio !== "dub" && src.audio !== "both") return false;
     if (src.episodeFiles && !src.episodeFiles[episode]) return false;
     return true;
-  });
-  if (hasDubSource) return true;
-  // Fallback: if hasDub is set and a SUB source covers this episode,
-  // return true so the toggle appears (playback will use SUB fallback)
-  if (seed.hasDub) {
-    return seed.episodeSources.some((src) => {
-      if (!(episode >= src.startEp && episode <= src.endEp)) return false;
-      if (src.audio !== "sub" && src.audio !== "both") return false;
-      if (src.episodeFiles && !src.episodeFiles[episode]) return false;
-      return true;
-    });
-  }
-  return false;
+  }) || !!seed.hasDub;
 }
 
 export function resolveSubtitleUrl(seed: SeedAnime, episode: number): string | null {
