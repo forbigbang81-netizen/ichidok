@@ -1992,6 +1992,9 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2013, season: "spring", genres: ["Action", "Drama", "Fantasy"], studios: ["Wit Studio"],
     episodeCount: 25, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
     episodeSources: [
+      // ARCHIVE.ORG DUB (1080p, works WITHOUT resolver!)
+      { startEp: 1, endEp: 25, collection: "shingeki-no-kyojin_aot", audio: "dub", fileTemplate: "season-1_DUB-1080p/Attack_on_Titan-E{ep}-1080p.mp4" },
+      // WCO resolver (fallback if archive.org fails)
       { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 25, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
@@ -2004,6 +2007,8 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2017, season: "spring", genres: ["Action", "Drama", "Fantasy"], studios: ["Wit Studio"],
     episodeCount: 12, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
     episodeSources: [
+      // ARCHIVE.ORG DUB (1080p, works WITHOUT resolver!)
+      { startEp: 1, endEp: 12, collection: "shingeki-no-kyojin_aot", audio: "dub", fileTemplate: "season-2_DUB-1080p/Attack_on_Titan_Season_2-E{ep}-1080p.mp4" },
       { startEp: 1, endEp: 12, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-season-2-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 12, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-season-2-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
@@ -2016,6 +2021,8 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2018, season: "summer", genres: ["Action", "Drama", "Fantasy"], studios: ["Wit Studio"],
     episodeCount: 22, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
     episodeSources: [
+      // ARCHIVE.ORG DUB (1080p, works WITHOUT resolver!)
+      { startEp: 1, endEp: 22, collection: "shingeki-no-kyojin_aot", audio: "dub", fileTemplate: "season-3_DUB-1080p/Attack_on_Titan_Season_3-E{ep}-1080p.mp4" },
       { startEp: 1, endEp: 22, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-season-3-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 22, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-season-3-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
@@ -2028,6 +2035,8 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2020, season: "fall", genres: ["Action", "Drama", "Fantasy"], studios: ["MAPPA"],
     episodeCount: 16, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
     episodeSources: [
+      // ARCHIVE.ORG DUB (1080p, works WITHOUT resolver!)
+      { startEp: 1, endEp: 16, collection: "shingeki-no-kyojin_aot", audio: "dub", fileTemplate: "season-finale-pt-1_DUB-1080p/Attack_on_Titan_Final_Season,_Part_1-E{ep}-1080p.mp4" },
       { startEp: 1, endEp: 16, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-final-season-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 16, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-final-season-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
@@ -2040,6 +2049,8 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2022, season: "fall", genres: ["Action", "Fantasy"], studios: ["MAPPA"],
     episodeCount: 12, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
     episodeSources: [
+      // ARCHIVE.ORG SUB (720p/1080p, works WITHOUT resolver!)
+      { startEp: 1, endEp: 12, collection: "chainsaw-man-sub", audio: "sub", fileTemplate: "Chainsaw Man {ep:02}.mp4" },
       { startEp: 1, endEp: 12, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "chainsaw-man-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 12, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "chainsaw-man-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
