@@ -595,6 +595,74 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 24, collection: "gdriveplayer", audio: "dub",
         sourceType: "gdriveplayer_embed",
         fileTemplate: "akame-ga-kill-dub" },
+      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 1048, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "one-piece-dub" },
+      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 1171, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "one-piece" },
+      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 220, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "naruto-dub" },
+      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 220, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "naruto" },
+      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 500, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "naruto-shippuden" },
+      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 25, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "shingeki-no-kyojin-dub" },
+      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 37, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "death-note-dub" },
+      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 37, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "death-note" },
+      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 64, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "fullmetal-alchemist-brotherhood-dub" },
+      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 64, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "fullmetal-alchemist-brotherhood" },
+      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 62, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hunter-x-hunter-dub" },
+      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 148, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hunter-x-hunter-2011" },
+      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 12, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "one-punch-man" },
+      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 12, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "spy-x-family" },
+      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 12, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tokyo-ghoul-dub" },
+      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 12, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tokyo-ghoul" },
+      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 24, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "vinland-saga-dub" },
+      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 24, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "vinland-saga" },
+      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 14, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "violet-evergarden-dub" },
+      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 14, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "violet-evergarden" },
+      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 12, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "chainsaw-man" },
+      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 25, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "code-geass-lelouch-of-the-rebellion-dub" },
+      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 25, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "code-geass-lelouch-of-the-rebellion" },
+      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 13, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "boku-no-hero-academia-dub" },
+      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 12, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "high-school-dxd-dub" },
+      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 366, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bleach-dub" },
+      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 366, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bleach" },
+      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 25, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sword-art-online-dub" },
+      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 25, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sword-art-online" },
+      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 26, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cowboy-bebop-dub" },
+      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 26, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cowboy-bebop" },
+      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 13, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "overlord" },
+      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 25, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "haikyuu" },
+      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 26, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kimetsu-no-yaiba" },
       // WCO resolver DUB (1080p fallback)
       { startEp: 1, endEp: 24, collection: "wco-resolver", audio: "dub",
         sourceType: "wco_resolver",
@@ -15839,19 +15907,19 @@ export function resolveSubtitleUrl(seed: SeedAnime, episode: number): string | n
  * The #1 highest-scored TV anime from each year, ranked by score.
  */
 export const TOP_10_DECADE: { malId: number; title: string; year: number; score: number; poster: string; rank: number }[] = [
-  // Top 10 anime of July 2026 — based on multiple sources:
-  // - Crunchyroll Anime Awards 2026 winners
-  // - U-Next Japan streaming rankings
-  // - MyAnimeList Summer 2026 top scores
-  // - Anime Trending Awards 2026
-  { malId: -2, title: "My Hero Academia Final Season", year: 2025, score: 8.30, poster: "/posters/mha-s8.jpg", rank: 1 },
-  { malId: 37510, title: "One Piece", year: 1999, score: 8.71, poster: "/posters/one-piece-elbaf-poster.jpg", rank: 2 },
-  { malId: 57658, title: "Jujutsu Kaisen: Culling Game", year: 2026, score: 8.61, poster: "https://cdn.myanimelist.net/images/anime/1659/154920l.jpg", rank: 3 },
-  { malId: 60636, title: "Bleach: Thousand-Year Blood War - The Calamity", year: 2026, score: 9.10, poster: "/posters/bleach-tybw-cal-tv.jpg", rank: 4 },
-  { malId: 38000, title: "Demon Slayer: Kimetsu no Yaiba", year: 2019, score: 8.54, poster: "https://cdn.myanimelist.net/images/anime/1286/99889l.jpg", rank: 5 },
-  { malId: 52991, title: "Frieren: Beyond Journey's End", year: 2023, score: 9.15, poster: "https://cdn.myanimelist.net/images/anime/1015/138006l.jpg", rank: 6 },
-  { malId: 50265, title: "Spy x Family", year: 2022, score: 8.53, poster: "https://cdn.myanimelist.net/images/anime/1441/122795l.jpg", rank: 7 },
-  { malId: 44511, title: "Chainsaw Man", year: 2022, score: 8.56, poster: "https://cdn.myanimelist.net/images/anime/1806/126216l.jpg", rank: 8 },
+  // Top 10 anime right now (August 2026) — based on:
+  // - MAL Summer 2026 top scores
+  // - Crunchyroll Anime Awards 2026
+  // - Anime Trending weekly rankings
+  // - U-Next Japan streaming data
+  { malId: 37510, title: "One Piece", year: 1999, score: 8.71, poster: "/posters/one-piece-elbaf-poster.jpg", rank: 1 },
+  { malId: 52991, title: "Frieren: Beyond Journey's End", year: 2023, score: 9.15, poster: "https://cdn.myanimelist.net/images/anime/1015/138006l.jpg", rank: 2 },
+  { malId: 60636, title: "Bleach: TYBW - The Calamity", year: 2026, score: 9.10, poster: "/posters/bleach-tybw-cal-tv.jpg", rank: 3 },
+  { malId: 57658, title: "Jujutsu Kaisen: Culling Game", year: 2026, score: 8.61, poster: "https://cdn.myanimelist.net/images/anime/1659/154920l.jpg", rank: 4 },
+  { malId: -2, title: "My Hero Academia Final Season", year: 2025, score: 8.30, poster: "/posters/mha-s8.jpg", rank: 5 },
+  { malId: 38000, title: "Demon Slayer: Kimetsu no Yaiba", year: 2019, score: 8.54, poster: "https://cdn.myanimelist.net/images/anime/1286/99889l.jpg", rank: 6 },
+  { malId: 44511, title: "Chainsaw Man", year: 2022, score: 8.56, poster: "https://cdn.myanimelist.net/images/anime/1806/126216l.jpg", rank: 7 },
+  { malId: 50265, title: "Spy x Family", year: 2022, score: 8.53, poster: "https://cdn.myanimelist.net/images/anime/1441/122795l.jpg", rank: 8 },
   { malId: 16498, title: "Attack on Titan", year: 2013, score: 8.55, poster: "https://cdn.myanimelist.net/images/anime/10/47347l.jpg", rank: 9 },
   { malId: 1535, title: "Death Note", year: 2006, score: 8.62, poster: "https://cdn.myanimelist.net/images/anime/9/9453l.jpg", rank: 10 },
 ];

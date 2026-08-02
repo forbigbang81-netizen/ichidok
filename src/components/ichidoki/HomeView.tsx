@@ -87,9 +87,9 @@ export function HomeView({ activeType }: { activeType: string }) {
       }
       try {
         const [topRes, seasonRes, allRes] = await Promise.all([
-          apiCatalog.top(25).catch(() => ({ results: [] as Anime[] })),
-          apiCatalog.season(25).catch(() => ({ results: [] as Anime[] })),
-          apiCatalog.all(50).catch(() => ({ results: [] as Anime[] })),
+          apiCatalog.top(15).catch(() => ({ results: [] as Anime[] })),
+          apiCatalog.season(15).catch(() => ({ results: [] as Anime[] })),
+          apiCatalog.all(30).catch(() => ({ results: [] as Anime[] })),
         ]);
         if (cancelled) return;
         setTop(topRes.results);

@@ -1,6 +1,17 @@
 import type { Anime, Episode } from "@/store/app";
 
+// Client-side cache for GET requests (5 minute TTL)
+const cache = new Map<string, { data: unknown; expires: number }>();
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
 async function api<T>(path: string, init?: RequestInit): Promise<T> {
+  // Check client-side cache for GET requests
+  if (!init || init.method === "GET" || !init.method) {
+    const cached = cache.get(path);
+    if (cached && cached.expires > Date.now()) {
+      return cached.data as T;
+    }
+  }
   const r = await fetch(path, init);
   if (!r.ok) {
     let msg = `HTTP ${r.status}`;
@@ -10,7 +21,12 @@ async function api<T>(path: string, init?: RequestInit): Promise<T> {
     } catch {}
     throw new Error(msg);
   }
-  return r.json() as Promise<T>;
+  const data = await r.json() as T;
+  // Cache successful GET responses
+  if (!init || init.method === "GET" || !init.method) {
+    cache.set(path, { data, expires: Date.now() + CACHE_TTL });
+  }
+  return data;
 }
 
 export interface VideoImport {
