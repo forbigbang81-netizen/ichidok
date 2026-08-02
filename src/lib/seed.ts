@@ -2081,6 +2081,8 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2006, season: "fall", genres: ["Mystery", "Supernatural", "Thriller"], studios: ["Madhouse"],
     episodeCount: 37, duration: "23 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
     episodeSources: [
+      // ARCHIVE.ORG SUB (480p, works WITHOUT resolver!)
+      { startEp: 1, endEp: 37, collection: "death-note-complete-2006-2007", audio: "sub", fileTemplate: "E{ep:02} - .mp4" },
       { startEp: 1, endEp: 37, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "death-note-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 37, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "death-note-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
@@ -2153,6 +2155,8 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2019, season: "summer", genres: ["Action", "Adventure", "Drama"], studios: ["Wit Studio"],
     episodeCount: 24, duration: "23 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
     episodeSources: [
+      // ARCHIVE.ORG SUB (480p, works WITHOUT resolver!)
+      { startEp: 1, endEp: 24, collection: "anime-time-steins-gate", audio: "sub", fileTemplate: "[Anime Time] Steins;Gate - {ep:02}.mp4" },
       { startEp: 1, endEp: 24, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "vinland-saga-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 24, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "vinland-saga-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
@@ -6935,15 +6939,23 @@ export const SEED_ANIME: SeedAnime[] = [
     ], hasDub: true, hasSub: true,
   },
   // High School DxD
-  { malId: -497, title: "High School DxD", titleEnglish: "High School DxD", titleJapanese: "",
-    synopsis: "Watch High School DxD online in HD.",
-    poster: "", banner: "",
-    type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
-    year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+  { malId: -497, title: "High School DxD", titleEnglish: "High School DxD", titleJapanese: "ハイスクールD×D",
+    synopsis: "Kuoh Academy is a former all-girls school that has recently turned co-ed, but it has a secret. Unknown to normal humans, angels, fallen angels, and devils comprise part of the student population.",
+    poster: "https://cdn.myanimelist.net/images/anime/12/47447l.jpg", banner: "https://cdn.myanimelist.net/images/anime/12/47447l.jpg",
+    type: "TV", status: "Finished Airing", score: 7.25, scoredBy: 300000, rank: 0, popularity: 150, members: 800000,
+    year: 2012, season: "winter", genres: ["Action", "Comedy", "Fantasy", "Ecchi"], studios: ["TNK"],
+    episodeCount: 48, duration: "24 min per ep", rating: "R+ - Mild Nudity", source: "Light Novel", isFeatured: true,
     episodeSources: [
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "high-school-dxd-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "high-school-dxd-english-subbed-episode-{ep}-english-subbed" },
+      // ARCHIVE.ORG S1 (480p SUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 12, collection: "dxd-01-locura-anime", audio: "sub", fileTemplate: "DXD{ep:02}(Locura Anime).mp4" },
+      // ARCHIVE.ORG S2 (720p SUB, works WITHOUT resolver!)
+      { startEp: 13, endEp: 24, collection: "high-school-dxd-new-s2", audio: "sub", fileTemplate: "High School DxD S2 {ep:02}.mp4" },
+      // ARCHIVE.ORG S3 (720p SUB, works WITHOUT resolver!)
+      { startEp: 25, endEp: 37, collection: "high-school-dxd-born-s3", audio: "sub", fileTemplate: "High School DxD S3 {ep:02}.mp4" },
+      // ARCHIVE.ORG S4 (720p SUB, works WITHOUT resolver!)
+      { startEp: 38, endEp: 50, collection: "high-school-dxd-hero-s4", audio: "sub", fileTemplate: "High School DxD S4 {ep:02}.mp4" },
+      // WCO resolver (DUB fallback)
+      { startEp: 1, endEp: 48, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "high-school-dxd-episode-{ep}-english-dubbed" },
     ], hasDub: true, hasSub: true,
   },
   // High School DxD BorN
@@ -8290,15 +8302,20 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "komi-san-wa-comyushou-desu-english-subbed-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
-  // KonoSuba: An Explosion on This Wonderful World!
-  { malId: -610, title: "KonoSuba: An Explosion on This Wonderful World!", titleEnglish: "KonoSuba: An Explosion on This Wonderful World!", titleJapanese: "",
-    synopsis: "Watch KonoSuba: An Explosion on This Wonderful World! online in HD.",
-    poster: "", banner: "",
-    type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
-    year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+  // KonoSuba: God's Blessing on This Wonderful World!
+  { malId: -610, title: "KonoSuba: God's Blessing on This Wonderful World!", titleEnglish: "KonoSuba: God's Blessing on This Wonderful World!", titleJapanese: "この素晴らしい世界に祝福を!",
+    synopsis: "Kazuma Satou is a shut-in who loves games, and when he dies in a traffic accident, he is given the option to be reincarnated in a fantasy world.",
+    poster: "https://cdn.myanimelist.net/images/anime/8/77831l.jpg", banner: "https://cdn.myanimelist.net/images/anime/8/77831l.jpg",
+    type: "TV", status: "Finished Airing", score: 8.14, scoredBy: 400000, rank: 0, popularity: 80, members: 900000,
+    year: 2016, season: "winter", genres: ["Adventure", "Comedy", "Fantasy"], studios: ["Studio Deen"],
+    episodeCount: 20, duration: "24 min per ep", rating: "PG-13 - Teens 13 or older", source: "Light Novel", isFeatured: true,
     episodeSources: [
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "konosuba-an-explosion-on-this-wonderful-world-episode-{ep}-english-dubbed" },
+      // ARCHIVE.ORG S1 (480p SUB, works WITHOUT resolver!)
+      { startEp: 1, endEp: 10, collection: "konosuba-1", audio: "sub", fileTemplate: "K-{ep:02}.mp4" },
+      // ARCHIVE.ORG S2 (1080p DUB, works WITHOUT resolver!)
+      { startEp: 11, endEp: 20, collection: "konosuba-s2-eng-dub", audio: "dub", fileTemplate: "KonoSuba Gods Blessing on This Wonderful World 2 Eng Dub Ep {ep:02}.mp4" },
+      // WCO resolver (fallback)
+      { startEp: 1, endEp: 20, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "konosuba-gods-blessing-on-this-wonderful-world-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kono-subarashii-sekai-ni-bakuen-wo-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
@@ -10631,15 +10648,18 @@ export const SEED_ANIME: SeedAnime[] = [
     ], hasDub: true, hasSub: true,
   },
   // Overlord
-  { malId: -805, title: "Overlord", titleEnglish: "Overlord", titleJapanese: "",
-    synopsis: "Watch Overlord online in HD.",
-    poster: "", banner: "",
-    type: "TV", status: "Finished Airing", score: 0, scoredBy: 0, rank: 0, popularity: 9999, members: 0,
-    year: 2020, season: "unknown", genres: [], studios: [],
-    episodeCount: 12, duration: "24 min per ep", rating: "PG-13", source: "Unknown",
+  { malId: -805, title: "Overlord", titleEnglish: "Overlord", titleJapanese: "オーバーロード",
+    synopsis: "The story begins when a popular MMORPG called Yggdrasil shuts down, and a powerful wizard named Momonga stays logged in until the last moment, only to find himself transported into the game world.",
+    poster: "https://cdn.myanimelist.net/images/anime/7/88019l.jpg", banner: "https://cdn.myanimelist.net/images/anime/7/88019l.jpg",
+    type: "TV", status: "Finished Airing", score: 7.85, scoredBy: 400000, rank: 0, popularity: 100, members: 900000,
+    year: 2015, season: "summer", genres: ["Action", "Adventure", "Fantasy"], studios: ["Madhouse"],
+    episodeCount: 39, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Light Novel", isFeatured: true,
     episodeSources: [
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "overlord-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "overlord-english-subbed-episode-{ep}-english-subbed" },
+      // ARCHIVE.ORG S2 (720p SUB, works WITHOUT resolver!)
+      { startEp: 14, endEp: 26, collection: "OverlordSeason2", audio: "sub", fileTemplate: "{ep:02}.mp4" },
+      // WCO resolver (fallback for S1 + S3)
+      { startEp: 1, endEp: 39, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "overlord-episode-{ep}-english-dubbed" },
+      { startEp: 1, endEp: 39, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "overlord-episode-{ep}-english-subbed" },
     ], hasDub: true, hasSub: true,
   },
   // Pandora in the Crimson Shell
