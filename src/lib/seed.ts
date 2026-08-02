@@ -2033,12 +2033,30 @@ export const SEED_ANIME: SeedAnime[] = [
     poster: "https://cdn.myanimelist.net/images/anime/1000/110531l.jpg", banner: "https://cdn.myanimelist.net/images/anime/1000/110531l.jpg",
     type: "TV", status: "Finished Airing", score: 8.66, scoredBy: 500000, rank: 0, popularity: 60, members: 1500000,
     year: 2020, season: "fall", genres: ["Action", "Drama", "Fantasy"], studios: ["MAPPA"],
-    episodeCount: 16, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
+    episodeCount: 28, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
     episodeSources: [
-      // ARCHIVE.ORG DUB (1080p, works WITHOUT resolver!)
+      // ARCHIVE.ORG DUB Part 1 (1080p, E1-16, works WITHOUT resolver!)
       { startEp: 1, endEp: 16, collection: "shingeki-no-kyojin_aot", audio: "dub", fileTemplate: "season-finale-pt-1_DUB-1080p/Attack_on_Titan_Final_Season,_Part_1-E{ep}-1080p.mp4" },
-      { startEp: 1, endEp: 16, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-final-season-episode-{ep}-english-dubbed" },
-      { startEp: 1, endEp: 16, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-final-season-episode-{ep}-english-subbed" },
+      // ARCHIVE.ORG DUB Part 2 (1080p UNCUT, E17-26, from CHRONOLOGY collection)
+      // CHRONOLOGY E66-75 mapped to S4 E17-26
+      { startEp: 17, endEp: 26, collection: "attack-on-titan-chronology-final-season-pt2-uncut", audio: "dub", episodeFiles: {
+        17: "Attack on Titan CHRONOLOGY Episode 66 UNCUT.mp4",
+        18: "Attack on Titan CHRONOLOGY Episode 67 UNCUT.mp4",
+        19: "Attack on Titan CHRONOLOGY Episode 68 UNCUT.mp4",
+        20: "Attack on Titan CHRONOLOGY Episode 69 UNCUT.mp4",
+        21: "Attack on Titan CHRONOLOGY Episode 70 UNCUT.mp4",
+        22: "Attack on Titan CHRONOLOGY Episode 71 UNCUT.mp4",
+        23: "Attack on Titan CHRONOLOGY Episode 72 UNCUT.mp4",
+        24: "Attack on Titan CHRONOLOGY Episode 73 UNCUT.mp4",
+        25: "Attack on Titan CHRONOLOGY Episode 74 UNCUT.mp4",
+        26: "Attack on Titan CHRONOLOGY Episode 75 UNCUT.mp4",
+      } },
+      // ARCHIVE.ORG DUB Part 3 / Final Chapters (1080p TVRip, E28-29)
+      { startEp: 28, endEp: 28, collection: "attack-on-titan-the-final-chapters-ep.-1.-tvrip.-1080p", audio: "dub", fileName: "EP.1.TVRip.1080p.mp4" },
+      { startEp: 29, endEp: 29, collection: "attack-on-titan-the-final-chapters-ep.-2.-tvrip.-1080p", audio: "dub", fileName: "EP.2.TVRip.1080p.mp4" },
+      // WCO resolver (fallback for any missing episodes)
+      { startEp: 1, endEp: 29, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-final-season-episode-{ep}-english-dubbed" },
+      { startEp: 1, endEp: 29, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "attack-on-titan-final-season-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
   },
   // Chainsaw Man
