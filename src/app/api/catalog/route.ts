@@ -245,7 +245,35 @@ export async function GET(request: Request) {
               ? ({ rank: "asc" } as const)
               : ({ popularity: "asc" } as const);
 
-    const animes = await db.anime.findMany({ orderBy });
+    // Optimize: only fetch the columns we need (skip synopsis, banner, trailer)
+    // This reduces the data transferred from the DB significantly
+    const animes = await db.anime.findMany({
+      orderBy,
+      select: {
+        id: true,
+        malId: true,
+        title: true,
+        titleEnglish: true,
+        titleJapanese: true,
+        poster: true,
+        type: true,
+        status: true,
+        score: true,
+        scoredBy: true,
+        rank: true,
+        popularity: true,
+        members: true,
+        year: true,
+        season: true,
+        genres: true,
+        studios: true,
+        episodeCount: true,
+        duration: true,
+        rating: true,
+        source: true,
+        isFeatured: true,
+      },
+    });
 
     let filtered = animes;
 
@@ -299,10 +327,10 @@ export async function GET(request: Request) {
         title: a.title,
         titleEnglish: a.titleEnglish,
         titleJapanese: a.titleJapanese,
-        synopsis: "",  // Strip synopsis from catalog (loaded on detail page)
+        synopsis: "",  // Not fetched (stripped for performance)
         poster: a.poster ?? "",
-        banner: a.banner ?? "",
-        trailer: a.trailer ?? "",
+        banner: "",    // Not fetched (stripped for performance)
+        trailer: "",   // Not fetched (stripped for performance)
         type: a.type,
         status: a.status ?? "",
         score: a.score,
@@ -326,15 +354,12 @@ export async function GET(request: Request) {
       {
         total: filtered.length,
         results,
-        // Keep `anime` as a back-compat alias.
         anime: results,
       },
       {
         headers: {
-          // Cache at the edge for 5 min, serve stale while revalidating for 10 min.
-          // Browser caches also get a short TTL so back-button navigations
-          // and repeated catalog mounts don't re-hit the DB.
-          "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
+          // Cache at the edge for 10 min (was 5 min), stale for 30 min
+          "Cache-Control": "public, s-maxage=600, stale-while-revalidate=1800",
         },
       },
     );
