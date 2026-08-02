@@ -138,25 +138,23 @@ export async function GET(request: Request) {
               ? "archive-mkv"
               : "archive";
 
-    // Build the URL the player should consume. YouTube embeds go straight.
-    // Wcoflix URLs are external pages (not video files) — the player shows
-    // a "Watch on Wcoflix" button instead of trying to play inline.
-    // MKV / proxy-needed files go through /api/stream.
-    // WCO resolver URLs are passed through as-is — the VideoPlayer calls
-    // the resolver endpoint client-side to get the actual short-lived
-    // video URL (tokens expire in ~60s so we can't cache or proxy them).
-    // Note: archive.org URLs are served directly — they work in browsers
-    // without CORS. For consoles (PS5/Xbox), the VideoPlayer routes
-    // resolved URLs through /api/stream proxy client-side.
+    // Build the URL the player should consume.
+    // Archive.org CDN (dn*.us.archive.org) does NOT send CORS headers,
+    // so browsers block cross-origin video loading. Route ALL archive.org
+    // URLs through /api/stream proxy which adds CORS headers.
+    // YouTube embeds go straight. Wcoflix/external URLs go straight.
+    // WCO resolver URLs are passed through (VideoPlayer fetches them).
     const playerUrl = isYoutube
       ? resolved.url
       : isWcoflix
         ? resolved.url
         : isWcoResolver
-          ? resolved.url  // resolver endpoint URL — VideoPlayer fetches it
-          : resolved.needsProxy
+          ? resolved.url
+          : resolved.url.includes("archive.org")
             ? buildStreamProxy(resolved.url, request)
-            : resolved.url;
+            : resolved.needsProxy
+              ? buildStreamProxy(resolved.url, request)
+              : resolved.url;
 
     // Don't cache wco_resolver URLs — they're resolver endpoint URLs, not
     // video URLs. The VideoPlayer calls the resolver fresh each time.

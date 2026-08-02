@@ -120,12 +120,19 @@ export const useApp = create<AppState>((set, get) => ({
   },
   back: () => {
     set((s) => {
-      const newState = { currentView: s.previousView, selectedMalId: s.previousView === "detail" ? s.selectedMalId : null, resumePosition: null as number | null };
+      // If we're in the player, go to detail. If in detail, go home.
+      // This ensures: player → back → detail → back → home
+      const targetView = s.currentView === "player" ? "detail" : (s.previousView || "home");
+      const newState = {
+        currentView: targetView,
+        selectedMalId: targetView === "detail" ? s.selectedMalId : null,
+        resumePosition: null as number | null,
+      };
       // Update URL hash
       if (typeof window !== "undefined") {
         const hash = buildHash(newState.currentView, newState.selectedMalId, s.selectedEpisode);
         const newUrl = hash ? `${window.location.pathname}${window.location.search}${hash}` : `${window.location.pathname}${window.location.search}`;
-        window.history.replaceState(null, "", newUrl);
+        window.history.back();
       }
       return newState;
     });

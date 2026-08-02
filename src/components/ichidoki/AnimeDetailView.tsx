@@ -859,6 +859,26 @@ export function AnimeDetailView() {
             )}
             {/* Episode list — only shows episodes within the selected arc */}
             {episodeList.map((ep) => renderEpisodeItem(ep))}
+
+            {/* Next Season button — shows if this anime has a next season */}
+            {seasons.length > 1 && (() => {
+              const currentIdx = seasons.findIndex((s) => s.malId === selectedMalId);
+              const nextSeason = currentIdx >= 0 && currentIdx < seasons.length - 1 ? seasons[currentIdx + 1] : null;
+              if (!nextSeason) return null;
+              return (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCountdownForEp(null);
+                    setNextEpCountdown(null);
+                    openAnime(nextSeason.malId, 1);
+                  }}
+                  className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-[#f5c518]/30 bg-[#f5c518]/10 py-3 text-sm font-bold text-[#f5c518] transition-colors active:bg-[#f5c518]/20"
+                >
+                  Next Season: {nextSeason.label}
+                </button>
+              );
+            })()}
           </div>
         )}
 
