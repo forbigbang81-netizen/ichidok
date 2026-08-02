@@ -2081,8 +2081,6 @@ export const SEED_ANIME: SeedAnime[] = [
     year: 2006, season: "fall", genres: ["Mystery", "Supernatural", "Thriller"], studios: ["Madhouse"],
     episodeCount: 37, duration: "23 min per ep", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
     episodeSources: [
-      // ARCHIVE.ORG SUB (480p, works WITHOUT resolver!)
-      { startEp: 1, endEp: 37, collection: "death-note-complete-2006-2007", audio: "sub", fileTemplate: "E{ep:02} - .mp4" },
       { startEp: 1, endEp: 37, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "death-note-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 37, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "death-note-episode-{ep}-english-subbed" },
     ], hasSub: true, hasDub: true,
@@ -8313,7 +8311,7 @@ export const SEED_ANIME: SeedAnime[] = [
       // ARCHIVE.ORG S1 (480p SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 10, collection: "konosuba-1", audio: "sub", fileTemplate: "K-{ep:02}.mp4" },
       // ARCHIVE.ORG S2 (1080p DUB, works WITHOUT resolver!)
-      { startEp: 11, endEp: 20, collection: "konosuba-s2-eng-dub", audio: "dub", fileTemplate: "KonoSuba Gods Blessing on This Wonderful World 2 Eng Dub Ep {ep:02}.mp4" },
+      { startEp: 11, endEp: 20, collection: "konosuba-s2-eng-dub", audio: "dub", fileTemplate: "KonoSuba Gods Blessing on This Wonderful World 2 Eng Dub Ep - {ep:02}.mp4" },
       // WCO resolver (fallback)
       { startEp: 1, endEp: 20, collection: "wco-resolver", audio: "dub", sourceType: "wco_resolver", fileTemplate: "konosuba-gods-blessing-on-this-wonderful-world-episode-{ep}-english-dubbed" },
       { startEp: 1, endEp: 999, collection: "wco-resolver", audio: "sub", sourceType: "wco_resolver", fileTemplate: "kono-subarashii-sekai-ni-bakuen-wo-episode-{ep}-english-subbed" },
