@@ -127,6 +127,7 @@ export async function GET(request: Request) {
     const isYoutube = resolved.source === "youtube";
     const isWcoflix = resolved.source === "wcoflix";
     const isWcoResolver = resolved.source === "wco_resolver";
+    const isGdriveEmbed = resolved.source === "gdriveplayer_embed";
     const sourceLabel =
       resolved.source === "youtube"
         ? "youtube"
@@ -134,11 +135,14 @@ export async function GET(request: Request) {
           ? "wcoflix"
           : isWcoResolver
             ? "wco_resolver"
-            : resolved.needsProxy
-              ? "archive-mkv"
-              : "archive";
+            : isGdriveEmbed
+              ? "gdriveplayer_embed"
+              : resolved.needsProxy
+                ? "archive-mkv"
+                : "archive";
 
     // Build the URL the player should consume.
+    // GDrivePlayer embeds are iframe URLs — pass through directly.
     // Archive.org CDN (dn*.us.archive.org) does NOT send CORS headers,
     // so browsers block cross-origin video loading. Route ALL archive.org
     // URLs through /api/stream proxy which adds CORS headers.
@@ -150,7 +154,9 @@ export async function GET(request: Request) {
         ? resolved.url
         : isWcoResolver
           ? resolved.url
-          : resolved.url.includes("archive.org")
+          : isGdriveEmbed
+            ? resolved.url
+            : resolved.url.includes("archive.org")
             ? buildStreamProxy(resolved.url, request)
             : resolved.needsProxy
               ? buildStreamProxy(resolved.url, request)
@@ -158,7 +164,7 @@ export async function GET(request: Request) {
 
     // Don't cache wco_resolver URLs — they're resolver endpoint URLs, not
     // video URLs. The VideoPlayer calls the resolver fresh each time.
-    if (!isWcoResolver) {
+    if (!isWcoResolver && !isGdriveEmbed) {
       const anime = await db.anime.findUnique({ where: { malId } });
       if (anime) {
         try {

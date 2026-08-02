@@ -38,7 +38,7 @@ export interface EpisodeSource {
   // playback time the VideoPlayer calls an external resolver service
   // (WCO_RESOLVER_URL env var) which runs Playwright to bypass
   // Cloudflare and returns a short-lived direct video URL.
-  sourceType?: "archive" | "wco_resolver" | "external" | "youtube";
+  sourceType?: "archive" | "wco_resolver" | "external" | "youtube" | "gdriveplayer_embed";
 }
 
 export const SEED_ANIME: SeedAnime[] = [
@@ -591,6 +591,10 @@ export const SEED_ANIME: SeedAnime[] = [
       } },
       // ARCHIVE.ORG DUB (480p, works WITHOUT resolver!)
       { startEp: 1, endEp: 24, collection: "akame_202606", audio: "dub", fileTemplate: "Akame S1E{ep}.mp4" },
+      // GDRIVEPLAYER embed (DUB, iframes the gdriveplayer JW Player)
+      { startEp: 1, endEp: 24, collection: "gdriveplayer", audio: "dub",
+        sourceType: "gdriveplayer_embed",
+        fileTemplate: "akame-ga-kill-dub" },
       // WCO resolver DUB (1080p fallback)
       { startEp: 1, endEp: 24, collection: "wco-resolver", audio: "dub",
         sourceType: "wco_resolver",
@@ -15686,6 +15690,11 @@ export function resolveEpisodeUrl(seed: SeedAnime, episode: number, audioMode: "
       }
       return null;
     }
+    // GDrivePlayer embed: return the slug (fileTemplate is the slug)
+    if (src.sourceType === "gdriveplayer_embed") {
+      if (src.fileTemplate) return src.fileTemplate;
+      return null;
+    }
     if (src.episodeFiles && src.episodeFiles[episode]) {
       return src.episodeFiles[episode];
     }
@@ -15730,6 +15739,11 @@ export function resolveEpisodeUrl(seed: SeedAnime, episode: number, audioMode: "
           : `${resolverBase}/resolve-by-ep?ep=${episode}&audio=${src.audio === "sub" ? "sub" : "dub"}`
         : "";
       return { url: resolverUrl, source: "wco_resolver" as const, needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" as const };
+    }
+    if (src.sourceType === "gdriveplayer_embed") {
+      const resolverBase = process.env.NEXT_PUBLIC_WCO_RESOLVER_URL || "";
+      const embedUrl = `https://database.gdriveplayer.me/embed.php?type=anime&slug=${encodeURIComponent(file)}&episode=${episode}`;
+      return { url: embedUrl, source: "gdriveplayer_embed" as const, needsProxy: false, dualAudio: false, audio: src.audio ?? "dub" as const };
     }
     if (collectionName === "youtube") { return { url: `https://www.youtube.com/embed/${file}`, source: "youtube", needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" as const }; }
     if (collectionName === "dropbox" || collectionName === "external") { return { url: file, source: "external", needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" as const }; }

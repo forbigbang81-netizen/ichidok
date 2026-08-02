@@ -915,12 +915,42 @@ export function VideoPlayer({
 
   // ----- Render -----
   const isYoutube = !!importInfo?.isYoutube && !!importInfo?.url;
+  const isGdriveEmbed = importInfo?.sourceType === "gdriveplayer_embed";
   // Use resolved video URL (from WCO resolver) if available, otherwise use
   // the import info's URL directly (archive.org, dropbox, etc).
   const videoUrl = resolvedVideoUrl ?? importInfo?.url ?? null;
   const posterUrl = poster ?? "";
   // Fullscreen mirror — applied to BOTH the video and every overlay.
   const mirrorStyle = undefined; // Removed fullscreen flip — was causing upside-down video
+
+  // ----- GDrivePlayer iframe branch -----
+  if (isGdriveEmbed && videoUrl) {
+    return (
+      <div
+        ref={containerRef}
+        className="relative aspect-video w-full select-none overflow-hidden bg-black"
+      >
+        <iframe
+          src={videoUrl}
+          className="absolute inset-0 h-full w-full"
+          allowFullScreen
+          allow="autoplay; fullscreen; encrypted-media"
+          frameBorder="0"
+          scrolling="no"
+        />
+        {/* Back button overlay */}
+        {onBack && (
+          <button
+            type="button"
+            onClick={onBack}
+            className="absolute left-3 top-3 z-50 grid h-8 w-8 place-items-center rounded-full bg-black/60 text-white"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </button>
+        )}
+      </div>
+    );
+  }
 
   // ----- YouTube iframe branch -----
   if (isYoutube && videoUrl) {
