@@ -63,42 +63,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "frieren-beyond-journeys-end-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "frieren-beyond-journeys-end" },
-      // SUB source 1: AnimePahe 1080p BD (E1-12, E26) — JP audio
-      { startEp: 1, endEp: 28, collection: "anime-pahe-sousou-no-frieren-{ep:02}-bd-1080p-sev", audio: "sub", episodeFiles: {
-        1: "AnimePahe_Sousou_no_Frieren_-_01_BD_1080p_SEV.mp4",
-        2: "AnimePahe_Sousou_no_Frieren_-_02_BD_1080p_SEV.mp4",
-        3: "AnimePahe_Sousou_no_Frieren_-_03_BD_1080p_SEV.mp4",
-        4: "AnimePahe_Sousou_no_Frieren_-_04_BD_1080p_SEV.mp4",
-        5: "AnimePahe_Sousou_no_Frieren_-_05_BD_1080p_SEV.mp4",
-        6: "AnimePahe_Sousou_no_Frieren_-_06_BD_1080p_SEV.mp4",
-        7: "AnimePahe_Sousou_no_Frieren_-_07_BD_1080p_SEV.mp4",
-        8: "AnimePahe_Sousou_no_Frieren_-_08_BD_1080p_SEV.mp4",
-        9: "AnimePahe_Sousou_no_Frieren_-_09_BD_1080p_SEV.mp4",
-        10: "AnimePahe_Sousou_no_Frieren_-_10_BD_1080p_SEV.mp4",
-        11: "AnimePahe_Sousou_no_Frieren_-_11_BD_1080p_SEV.mp4",
-        12: "AnimePahe_Sousou_no_Frieren_-_12_BD_1080p_SEV.mp4",
-        26: "AnimePahe_Sousou_no_Frieren_-_26_BD_1080p_SEV.mp4",
-      } },
-      // SUB source 2: Vietnamese Muse Asia (E13-25, E27-28) — JP audio with VN hardsubs
-      { startEp: 1, endEp: 28, collection: "frieren-phap-su-tien-tang", audio: "sub", episodeFiles: {
-        13: "Frieren - Pháp sư tiễn táng - Tập 13.mp4",
-        14: "Frieren - Pháp sư tiễn táng - Tập 14.mp4",
-        15: "Frieren - Pháp sư tiễn táng - Tập 15.mp4",
-        16: "Frieren - Pháp sư tiễn táng - Tập 16.mp4",
-        17: "Frieren - Pháp sư tiễn táng - Tập 17.mp4",
-        18: "Frieren - Pháp sư tiễn táng - Tập 18.mp4",
-        19: "Frieren - Pháp sư tiễn táng - Tập 19.mp4",
-        20: "Frieren - Pháp sư tiễn táng - Tập 20.mp4",
-        21: "Frieren - Pháp sư tiễn táng - Tập 21.mp4",
-        22: "Frieren - Pháp sư tiễn táng - Tập 22.mp4",
-        23: "Frieren - Pháp sư tiễn táng - Tập 23.mp4",
-        24: "Frieren - Pháp sư tiễn táng - Tập 24.mp4",
-        25: "Frieren - Pháp sư tiễn táng - Tập 25.mp4",
-        27: "Frieren - Pháp sư tiễn táng - Tập 27.mp4",
-        28: "Frieren - Pháp sư tiễn táng - Tập 28.mp4",
-      } },
-      // DUB source: English dub MP4 derivatives (all 28 episodes)
-      { startEp: 1, endEp: 28, collection: "frieren-beyond-journeys-end_1080p_2024", fileTemplate: "Frieren-Beyond-Journey's-End_S01E{ep:02}.mp4", audio: "dub" },
     ], hasSub: true, hasDub: true,
   },
   // Steins;Gate
@@ -114,38 +78,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "steinsgate-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "steinsgate" },
-      // Japanese audio (sub) — Anitsu-Avalon BD 1080p dual-audio (verified Japanese via ASR)
-      // No burned-in subtitles, clean video. Each episode has a unique hash in the filename.
-      {
-        startEp: 1, endEp: 24, collection: "steins-gate_pt-br_dual-audio", audio: "sub", episodeFiles: {
-          1: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 01 [BD 1080p x264 Opus] [DUAL][7F27EECD].mp4",
-          2: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 02 [BD 1080p x264 Opus] [DUAL][BE49F56E].mp4",
-          3: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 03 [BD 1080p x264 Opus] [DUAL][03866CA0].mp4",
-          4: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 04 [BD 1080p x264 Opus] [DUAL][FDFE6A93].mp4",
-          5: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 05 [BD 1080p x264 Opus] [DUAL][67AEB7CA].mp4",
-          6: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 06 [BD 1080p x264 Opus] [DUAL][7F0361EE].mp4",
-          7: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 07 [BD 1080p x264 Opus] [DUAL][7F58F97D].mp4",
-          8: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 08 [BD 1080p x264 Opus] [DUAL][A49EE743].mp4",
-          9: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 09 [BD 1080p x264 Opus] [DUAL][49C8DC59].mp4",
-          10: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 10 [BD 1080p x264 Opus] [DUAL][B6C55BD3].mp4",
-          11: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 11 [BD 1080p x264 Opus] [DUAL][EAB6C83D].mp4",
-          12: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 12 [BD 1080p x264 Opus] [DUAL][E6326228].mp4",
-          13: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 13 [BD 1080p x264 Opus] [DUAL][5F58AECC].mp4",
-          14: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 14 [BD 1080p x264 Opus] [DUAL][791F0B78].mp4",
-          15: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 15 [BD 1080p x264 Opus] [DUAL][2D3CDE26].mp4",
-          16: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 16 [BD 1080p x264 Opus] [DUAL][DD5B5CD6].mp4",
-          17: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 17 [BD 1080p x264 Opus] [DUAL][22AC96B4].mp4",
-          18: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 18 [BD 1080p x264 Opus] [DUAL][4A5527AB].mp4",
-          19: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 19 [BD 1080p x264 Opus] [DUAL][2D6104DC].mp4",
-          20: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 20 [BD 1080p x264 Opus] [DUAL][468D9E71].mp4",
-          21: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 21 [BD 1080p x264 Opus] [DUAL][2D08F4CB].mp4",
-          22: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 22 [BD 1080p x264 Opus] [DUAL][E8A3C9E0].mp4",
-          23: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 23 [BD 1080p x264 Opus] [DUAL][32C40AE8].mp4",
-          24: "[Anitsu-Avalon] Steins;Gate - [BD 1080p x264 Opus] [DUAL]/[Anitsu] Steins;Gate - 24 [BD 1080p x264 Opus] [DUAL][884507A7].mp4",
-        },
-      },
-      // English dub — anime-time-steins-gate collection (verified English via ASR)
-      { startEp: 1, endEp: 24, collection: "anime-time-steins-gate", fileTemplate: "[Anime Time] Steins;Gate - {ep:02}.mp4", audio: "dub" },
     ], hasSub: true, hasDub: true,
   },
   // Bleach TYBW
@@ -164,22 +96,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bleach-thousand-year-blood-war-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bleach-thousand-year-blood-war" },
-      { startEp: 1, endEp: 13, collection: "bleach-sennen-kessen-hen-part-1-Japanese-TV", audio: "sub", episodeFiles: {
-        1: "BLEACH Sennen Kessen-hen - 01 (TVA 1280х720 x264 AAC).mp4",
-        2: "BLEACH Sennen Kessen-hen - 02 (TVA 1280х720 x264 AAC).mp4",
-        3: "BLEACH Sennen Kessen-hen - 03 (TSC 1280х720 x264 AAC).mp4",
-        4: "BLEACH Sennen Kessen-hen - 04 (TVA 1280х720 x264 AAC).mp4",
-        5: "BLEACH Sennen Kessen-hen - 05 (TSC 1280х720 x264 AAC).mp4",
-        6: "BLEACH Sennen Kessen-hen - 06 (TSC 1280х720 x264 AAC).mp4",
-        7: "BLEACH Sennen Kessen-hen - 07 (BS-TX 1280х720 x264 AAC).mp4",
-        8: "BLEACH Sennen Kessen-hen - 08 (BS-TX 1280x720 x264 AAC).mp4",
-        9: "BLEACH Sennen Kessen-hen - 09 (TX 1280x720 x264 AAC).mp4",
-        10: "BLEACH Sennen Kessen-hen - 10 (TX 1280x720 x264 AAC).mp4",
-        11: "BLEACH Sennen Kessen-hen - 11 (TX 1280x720 x264 AAC).mp4",
-        12: "BLEACH Sennen Kessen-hen - 12-13 END (BS-TX 1280x720 x264 AAC).mp4",
-        13: "BLEACH Sennen Kessen-hen - 12-13 END (BS-TX 1280x720 x264 AAC).mp4",
-      } },
-      { startEp: 1, endEp: 13, collection: "BleachTYBW1-28", fileTemplate: "Bleach TYBW Episode 00{ep:02}.mp4", audio: "dub" },
     ], hasSub: true, hasDub: true,
   },
   // Bleach TYBW Separation
@@ -197,22 +113,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bleach-thousand-year-blood-war--the-separation-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bleach-thousand-year-blood-war--the-separation" },
-      { startEp: 1, endEp: 13, collection: "httpsarchive.orgdetailsbleach-sennen-kessen-hen-part-2-japanese-tv", audio: "sub", episodeFiles: {
-        1: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 01 (TX 1280x720 x264 AAC).mp4",
-        2: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 02 (TX 1280x720 x264 AAC).mp4",
-        3: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 03 (TX 1280x720 x264 AAC).mp4",
-        4: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 04 (TX 1280x720 x264 AAC).mp4",
-        5: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 05 (TX 1280x720 x264 AAC).mp4",
-        6: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 06 (TX 1280x720 x264 AAC).mp4",
-        7: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 07 (BS-TX 1280x720 x264 AAC).mp4",
-        8: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 08 (TX 1280x720 x264 AAC).mp4",
-        9: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 09 (TX 1280x720 x264 AAC).mp4",
-        10: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 10 (TX 1280x720 x264 AAC).mp4",
-        11: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 11 (TX 1280x720 x264 AAC).mp4",
-        12: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 12-13 END (TX 1280x720 x264 AAC).mp4",
-        13: "BLEACH Sennen Kessen-hen Ketsubetsu-tan - 12-13 END (TX 1280x720 x264 AAC).mp4",
-      } },
-      { startEp: 1, endEp: 13, collection: "BleachTYBW1-28", fileTemplate: "Bleach TYBW Episode 00{ep:02}.mp4", audio: "dub" },
     ], hasSub: true, hasDub: true,
   },
   // Bleach TYBW Conflict (Cour 3)
@@ -241,24 +141,6 @@ export const SEED_ANIME: SeedAnime[] = [
         11: "https://www.dropbox.com/scl/fi/8wdhleggv2q249qe86mxy/AnimePahe_Bleach_-_Sennen_Kessen-hen_-_37_1080p_Disney_Plus.mp4?rlkey=gvy4d3ytbaa3b5mvy7e86yero&st=lrmcduab&dl=1",
         12: "https://www.dropbox.com/scl/fi/sz3oc30j7r36drmuxxb7n/AnimePahe_Bleach_-_Sennen_Kessen-hen_-_38_1080p_Disney_Plus.mp4?rlkey=eqy2er1n1m4wc47mn81ofrhkt&st=boolzwm4&dl=1",
       } },
-      // 720p SUB fallback for E1-6, E13-14 (Japanese TV broadcast)
-      { startEp: 1, endEp: 14, collection: "bleach-sennen-kessen-hen-part-3-japanese-tv-2024", audio: "sub", episodeFiles: {
-        1: "BLEACH Sennen Kessen-hen Soukoku-tan - 01 (TVA 1280x720 x264 AAC).mp4",
-        2: "BLEACH Sennen Kessen-hen Soukoku-tan - 02 (TX 1280x720 x264 AAC).mp4",
-        3: "BLEACH Sennen Kessen-hen Soukoku-tan - 03 (TX 1280x720 x264 AAC).mp4",
-        4: "BLEACH Sennen Kessen-hen Soukoku-tan - 04 (TX 1280x720 x264 AAC).mp4",
-        5: "BLEACH Sennen Kessen-hen Soukoku-tan - 05 (TX 1280x720 x264 AAC).mp4",
-        6: "BLEACH Sennen Kessen-hen Soukoku-tan - 06 (TX 1280x720 x264 AAC).mp4",
-        7: "BLEACH Sennen Kessen-hen Soukoku-tan - 07 (TX 1280x720 x264 AAC).mp4",
-        8: "BLEACH Sennen Kessen-hen Soukoku-tan - 08 (TX 1280x720 x264 AAC).mp4",
-        9: "BLEACH Sennen Kessen-hen Soukoku-tan - 09 (TX 1280x720 x264 AAC).mp4",
-        10: "BLEACH Sennen Kessen-hen Soukoku-tan - 10 (TX 1280x720 x264 AAC).mp4",
-        11: "BLEACH Sennen Kessen-hen Soukoku-tan - 11 (TX 1280x720 x264 AAC).mp4",
-        12: "BLEACH Sennen Kessen-hen Soukoku-tan - 12 (TVA 1280x720 x264 AAC).mp4",
-        13: "BLEACH Sennen Kessen-hen Soukoku-tan - 13-14 END (TVA 1280x720 x264 AAC).mp4",
-        14: "BLEACH Sennen Kessen-hen Soukoku-tan - 13-14 END (TVA 1280x720 x264 AAC).mp4",
-      } },
-      { startEp: 1, endEp: 14, collection: "BleachTYBW1-28", fileTemplate: "Bleach TYBW Episode 00{ep:02}.mp4", audio: "dub" },
     ], hasSub: true, hasDub: true,
   },
   // Bleach TYBW Calamity (Cour 4 — airing July 2026)
@@ -274,10 +156,7 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bleach-thousand-year-blood-war--the-calamity-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bleach-thousand-year-blood-war--the-calamity" },
-      { startEp: 1, endEp: 1, collection: "bleach-thousand-year-blood-war-part-iv-the-calamity-episode-1-1784992695", audio: "sub", episodeFiles: {
-        1: "Bleach_Thousand-Year_Blood_War_Part_IV_-_The_Calamity_Episode_1_1784992695.mp4",
-      } },
-    ], hasSub: true,
+    ], hasSub: true, hasDub: true,
   },
   // Bleach TYBW Calamity Movie (Leaked) — Dropbox 720p, sub only
   { malId: -5, title: "Bleach: Thousand-Year Blood War - The Calamity (Leaked)", titleEnglish: "Bleach: Thousand-Year Blood War - The Calamity (Leaked)", titleJapanese: "BLEACH 千年血戦篇-禍相譚-",
@@ -311,20 +190,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bleach-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bleach" },
-      // Fallback DUB: bleachenglish1-63 — covers E1-63 (ASR-verified English dub)
-      { startEp: 1, endEp: 63, collection: "bleachenglish1-63", fileTemplate: "Bleach Episode {ep:02}.mp4", audio: "dub" },
-      // Primary DUB: bl35ch-s35s0ns — one source per working season block
-      { startEp: 21, endEp: 63, collection: "bl35ch-s35s0ns-2", fileTemplate: "Bleach Temporada 2/Bleach (Dub) Episode {ep}.mp4", audio: "dub" },
-      { startEp: 42, endEp: 63, collection: "bl35ch-s35s0ns-3", fileTemplate: "Bleach Temporada 3/Bleach (Dub) Episode {ep}.mp4", audio: "dub" },
-      { startEp: 92, endEp: 109, collection: "bl35ch-s35s0ns-5", fileTemplate: "Bleach Temporada 5/Bleach (Dub) Episode {ep}.mp4", audio: "dub" },
-      { startEp: 110, endEp: 131, collection: "bl35ch-s35s0ns-6", fileTemplate: "Bleach Temporada 6/Bleach (Dub) Episode {ep}.mp4", audio: "dub" },
-      { startEp: 132, endEp: 151, collection: "bl35ch-s35s0ns-7", fileTemplate: "Bleach Temporada 7/Bleach (Dub) Episode {ep}.mp4", audio: "dub" },
-      { startEp: 152, endEp: 167, collection: "bl35ch-s35s0ns-8", fileTemplate: "Bleach Temporada 8/Bleach (Dub) Episode {ep}.mp4", audio: "dub" },
-      { startEp: 190, endEp: 205, collection: "bl35ch-s35s0ns-10", fileTemplate: "Bleach Temporada 10/Bleach (Dub) Episode {ep}.mp4", audio: "dub" },
-      { startEp: 206, endEp: 212, collection: "bl35ch-s35s0ns-11", fileTemplate: "Bleach Temporada 11/Bleach (Dub) Episode {ep}.mp4", audio: "dub" },
-      { startEp: 213, endEp: 229, collection: "bl35ch-s35s0ns-12", fileTemplate: "Bleach Temporada 12/Bleach (Dub) Episode {ep}.mp4", audio: "dub" },
-      { startEp: 230, endEp: 265, collection: "bl35ch-s35s0ns-13", fileTemplate: "Bleach Temporada 13/Bleach (Dub) Episode {ep}.mp4", audio: "dub" },
-      { startEp: 343, endEp: 366, collection: "bl35ch-s35s0ns-16", fileTemplate: "Bleach Temporada 16/Bleach (Dub) Episode {ep}.mp4", audio: "dub" },
     ], hasDub: true,
   },
   // Frieren S2 (Season 2, aired Jan-Mar 2026 — 10 episodes)
@@ -343,32 +208,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "frieren-beyond-journeys-end-season-2-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "frieren-beyond-journeys-end-season-2" },
-      // SUB source: SubsPlease 1080p (Japanese audio)
-      { startEp: 1, endEp: 10, collection: "sousou-no-frieren_season-2.mkv", audio: "sub", episodeFiles: {
-        1: "[SubsPlease] Sousou no Frieren S2 - 01 (1080p) [4277EF46].mkv.mp4",
-        2: "[SubsPlease] Sousou no Frieren S2 - 02 (1080p) [03D4DE77].mkv.mp4",
-        3: "[SubsPlease] Sousou no Frieren S2 - 03 (1080p) [7556A22B].mkv.mp4",
-        4: "[SubsPlease] Sousou no Frieren S2 - 04 (1080p) [698A157A].mkv.mp4",
-        5: "[SubsPlease] Sousou no Frieren S2 - 05 (1080p) [6AAEC79A].mkv.mp4",
-        6: "[SubsPlease] Sousou no Frieren S2 - 06 (1080p) [31F231BC].mkv.mp4",
-        7: "[SubsPlease] Sousou no Frieren S2 - 07 (1080p) [56170200].mkv.mp4",
-        8: "[SubsPlease] Sousou no Frieren S2 - 08 (1080p) [C8B6130B].mkv.mp4",
-        9: "[SubsPlease] Sousou no Frieren S2 - 09 (1080p) [A3A99C65].mkv.mp4",
-        10: "[SubsPlease] Sousou no Frieren S2 - 10 (1080p) [7D35515E].mkv.mp4",
-      } },
-      // DUB source: Yameii 1080p English dub on Dropbox (file numbers 29-38 = S2 E1-E10)
-      { startEp: 1, endEp: 10, collection: "dropbox", audio: "dub", episodeFiles: {
-        1: "https://www.dropbox.com/scl/fi/shs1lpt404jihoo1bc23y/AnimePahe_Sousou_no_Frieren_Eng_Dub_-_29_1080p_Yameii.mp4?rlkey=r8uvstmf6ua0vwwhlswt90dpn&st=897pk624&dl=1",
-        2: "https://www.dropbox.com/scl/fi/web4642urx5fm6b4ltfaj/AnimePahe_Sousou_no_Frieren_Eng_Dub_-_30_1080p_Yameii.mp4?rlkey=umcn3jpolgp8k6nnt93pefdg9&st=hx8k7uv3&dl=1",
-        3: "https://www.dropbox.com/scl/fi/xj9cdzysr1c223k4q1cmm/AnimePahe_Sousou_no_Frieren_Eng_Dub_-_31_1080p_Yameii.mp4?rlkey=p8lr0c7t7pbhgfxphzhknb551&st=wk89a2g5&dl=1",
-        4: "https://www.dropbox.com/scl/fi/o0ceil9hsdbhhdp9bamhh/AnimePahe_Sousou_no_Frieren_Eng_Dub_-_32_1080p_Yameii.mp4?rlkey=3n5x1ohyr8j9b3mcs65efi1yi&st=a2etnryw&dl=1",
-        5: "https://www.dropbox.com/scl/fi/734zeh385ujm41fctylyj/AnimePahe_Sousou_no_Frieren_Eng_Dub_-_33_1080p_Yameii.mp4?rlkey=zom3n257wwstrbfcjfi0t42km&st=1bwfjktm&dl=1",
-        6: "https://www.dropbox.com/scl/fi/fsr8dnmiwp83cr0hrj2k4/AnimePahe_Sousou_no_Frieren_Eng_Dub_-_34_1080p_Yameii.mp4?rlkey=9m27p2e9dwczbo6aft51la2z2&st=qevk807n&dl=1",
-        7: "https://www.dropbox.com/scl/fi/85jzmdcwt88jtumig6s71/AnimePahe_Sousou_no_Frieren_Eng_Dub_-_35_1080p_Yameii.mp4?rlkey=q0nr7m8kslaj2kiahva9j8jmw&st=oyvywrru&dl=1",
-        8: "https://www.dropbox.com/scl/fi/7gx1ebr0btkfeq7es2by7/AnimePahe_Sousou_no_Frieren_Eng_Dub_-_36_1080p_Yameii.mp4?rlkey=upl3rvf7yr1ijcq62qxwoe6b8&st=14hyvmiw&dl=1",
-        9: "https://www.dropbox.com/scl/fi/ruyruncukfrx9wqpfdc66/AnimePahe_Sousou_no_Frieren_Eng_Dub_-_37_1080p_Yameii.mp4?rlkey=r7y08hgjvlte436vb7kxqt7es&st=lvxtxdyz&dl=1",
-        10: "https://www.dropbox.com/scl/fi/m9fa53v36i24ytfktxlxb/AnimePahe_Sousou_no_Frieren_Eng_Dub_-_38_1080p_Yameii.mp4?rlkey=q4g1bgnc1ixs9897p1qdxwpo5&st=klpysg7w&dl=1",
-      } },
     ], hasSub: true, hasDub: true,
   },
   // Frieren Golden Land Arc (upcoming)
@@ -395,35 +234,7 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "jujutsu-kaisen-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "jujutsu-kaisen" },
-      { startEp: 1, endEp: 24, collection: "jjk-s1-full", audio: "sub", episodeFiles: {
-        1: "[AH] Jujutsu Kaisen S1 - 01 (1080p).mkv.mp4",
-        2: "[AH] Jujutsu Kaisen S1 - 02 (1080p)v2.mkv.mp4",
-        3: "[AH] Jujutsu Kaisen S1 - 03 (1080p).mkv.mp4",
-        4: "[AH] Jujutsu Kaisen S1 - 04 (1080p)v2.mkv.mp4",
-        5: "[AH] Jujutsu Kaisen S1 - 05 (1080p).mkv.mp4",
-        6: "[AH] Jujutsu Kaisen S1 - 06 (1080p)v2.mkv.mp4",
-        7: "[AH] Jujutsu Kaisen S1 - 07 (1080p).mkv.mp4",
-        8: "[AH] Jujutsu Kaisen S1 - 08 (1080p)v2.mkv.mp4",
-        9: "[AH] Jujutsu Kaisen S1 - 09 (1080p)v2.mkv.mp4",
-        10: "[AH] Jujutsu Kaisen S1 - 10 (1080p).mkv.mp4",
-        11: "[AH] Jujutsu Kaisen S1 - 11 (1080p).mkv.mp4",
-        12: "[AH] Jujutsu Kaisen S1 - 12 (1080p).mkv.mp4",
-        13: "[AH] Jujutsu Kaisen S1 - 13 (1080p).mkv.mp4",
-        14: "[AH] Jujutsu Kaisen S1 - 14 (1080p).mkv.mp4",
-        15: "[AH] Jujutsu Kaisen S1 - 15 (1080p).mkv.mp4",
-        16: "[AH] Jujutsu Kaisen S1 - 16 (1080p).mkv.mp4",
-        17: "[AH] Jujutsu Kaisen S1 - 17 (1080p).mkv.mp4",
-        18: "[AH] Jujutsu Kaisen S1 - 18 (1080p).mkv.mp4",
-        19: "[AH] Jujutsu Kaisen S1 - 19 (1080p).mkv.mp4",
-        20: "[AH] Jujutsu Kaisen S1 - 20 (1080p).mkv.mp4",
-        21: "[AH] Jujutsu Kaisen S1 - 21 (1080p).mkv.mp4",
-        22: "[AH] Jujutsu Kaisen S1 - 22 (1080p).mkv.mp4",
-        23: "[AH] Jujutsu Kaisen S1 - 23 (1080p).mkv.mp4",
-        24: "[AH] Jujutsu Kaisen S1 - 24 (1080p).mkv.mp4",
-      } },
-      { startEp: 1, endEp: 24, collection: "jujutsu-kaisen-season-1-episode-17-eng.dub", fileTemplate: "JUJUTSU KAISEN Season 1 Episode {ep} eng.dub.mp4", audio: "dub" },
-    ],
-    hasSub: true, hasDub: true,
+    ], hasSub: true, hasDub: true,
   },
   // JJK S2
   { malId: 51009, title: "Jujutsu Kaisen Season 2", titleEnglish: "Jujutsu Kaisen Season 2", titleJapanese: "呪術廻戦 第2期",
@@ -438,34 +249,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "jujutsu-kaisen-season-2-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "jujutsu-kaisen-season-2" },
-      // Japanese audio (sub) — dual-audio MKV remuxed to MP4 (first track is Japanese)
-      { startEp: 1, endEp: 23, collection: "jujutsu-kaisen-s-02-e-21-1080p-bd-av-1-dual-audio.mkv", fileTemplate: "Jujutsu Kaisen - S02E{ep:02} [1080p BD AV1][Dual Audio].mkv.mp4", needsProxy: true, audio: "sub" },
-      // English dub — jujutsu-kaisen-s2-dub collection (all 23 episodes)
-      { startEp: 1, endEp: 23, collection: "jujutsu-kaisen-s2-dub", audio: "dub", episodeFiles: {
-        1: "jujutsu kaisen s2 e1 dubbed.mp4",
-        2: "jujutsu kaisen s2 e2 dubbed.mp4",
-        3: "jujutsu kaisen s2 e3 dubbed.mp4",
-        4: "jujutsu kaisen s2 e4 dubbed.mp4",
-        5: "jujutsu kaisen s2 e5 dubbed.mp4",
-        6: "jujutsu kaisen s2 e6 dubbed.mp4",
-        7: "jujutsu kaisen s2 e7 dubbed.mp4",
-        8: "jujutsu kaisen s2 e8 dubbed.mp4",
-        9: "jujutsu kaisen s2 e9 dubbed.mp4",
-        10: "jujutsu kaisen s2 e10 dubbed.mp4",
-        11: "jujutsu kaisen s2 e11 dubbed.mp4",
-        12: "jujutsu kaisen s2 e12 dubbed.mp4",
-        13: "jujutsu kaisen s2 e13 dubbed.mp4",
-        14: "jujutsu kaisen s2 e14 dubbed.mp4",
-        15: "jujutsu kaisen s2 e15 dubbed.mp4",
-        16: "jujutsu kaisen s2 e16 dubbed.mp4",
-        17: "jujutsu kaisen s2 e17 dubbed.mp4",
-        18: "jujutsu kaisen s2 e18 dubbed.mp4",
-        19: "jujutsu kaisen s2 e19 dubbed.mp4",
-        20: "jujutsu kaisen s2 e20 dubbed.mp4",
-        21: "jujutsu kaisen s2 e21 dubbed.mp4",
-        22: "jujutsu kaisen s2 e22 dubbed.mp4",
-        23: "jujutsu kaisen s2 e23 dubbed.mp4",
-      }},
     ], hasSub: true, hasDub: true,
   },
   // JJK Culling Game (upcoming)
@@ -479,38 +262,7 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "jujutsu-kaisen-the-culling-game-part-1-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "jujutsu-kaisen-the-culling-game-part-1" },
-      // English dub — all 12 episodes from jujutsu-kaisen-s3-dub collection
-      { startEp: 1, endEp: 12, collection: "jujutsu-kaisen-s3-dub", audio: "dub", episodeFiles: {
-        1: "jujutsu kaisen s3 e1 dubbed.mp4",
-        2: "jujutsu kaisen s3 e2 dubbed.mp4",
-        3: "jujutsu kaisen s3 e3 dubbed.mp4",
-        4: "jujutsu kaisen s3 e4 dubbed.mp4",
-        5: "jujutsu kaisen s3 e5 dubbed.mp4",
-        6: "jujutsu kaisen s3 e6 dubbed.mp4",
-        7: "jujutsu kaisen s3 e7 dubbed.mp4",
-        8: "jujutsu kaisen s3 e8 dubbed.mp4",
-        9: "jujutsu kaisen s3 e9 dubbed.mp4",
-        10: "jujutsu kaisen s3 e10 dubbed.mp4",
-        11: "jujutsu kaisen s3 e11 dubbed.mp4",
-        12: "jujutsu kaisen s3 e12 dubbed.mp4",
-      }},
-      // English sub — episodes 1-5 from archive.org, eps 6-12 from Dropbox (1080p SubsPlease)
-      { startEp: 1, endEp: 1, collection: "jujutsu-kaisen-the-culling-game-part-1-episode-1-english-sub-1", fileName: "Jujutsu Kaisen The Culling Game Part 1 Episode 1 English Sub_1.mp4", audio: "sub" },
-      { startEp: 2, endEp: 2, collection: "jujutsu-kaisen-the-culling-game-part-1-episode-1-english-sub-1", fileName: "Jujutsu Kaisen The Culling Game Part 1 Episode 2 English Subbed.mp4", audio: "sub" },
-      { startEp: 3, endEp: 3, collection: "jujutsu-kaisen-the-culling-game-part-1-episode-3-english-sub", fileName: "Jujutsu Kaisen The Culling Game Part 1 Episode 3 English Sub.mp4", audio: "sub" },
-      { startEp: 4, endEp: 4, collection: "jujutsu-kaisen_202606", fileName: "[SubsPlease] Jujutsu Kaisen - 51 (1080p) [84C776B4].mkv.mp4", audio: "sub" },
-      { startEp: 5, endEp: 5, collection: "jujutsu-kaisen-the-culling-game-part-1-episode-5-english-sub", fileName: "Jujutsu Kaisen The Culling Game Part 1 Episode 5 English Sub.mp4", audio: "sub" },
-      // Eps 6-12 from Dropbox (1080p SubsPlease, user-provided)
-      { startEp: 6, endEp: 12, collection: "dropbox", audio: "sub", episodeFiles: {
-        6: "https://www.dropbox.com/scl/fi/bmddgg7we45845izvvoaz/AnimePahe_Jujutsu_Kaisen_-_53_1080p_SubsPlease.mp4?rlkey=4qykhow0p0kmrdjp82012g1ge&st=1jil4cc0&dl=1",
-        7: "https://www.dropbox.com/scl/fi/ldskvlu3d58i3m448kzfp/AnimePahe_Jujutsu_Kaisen_-_54_1080p_SubsPlease.mp4?rlkey=zg9meoc3tx7fk3j5u0gr3ga6l&st=1v02lpir&dl=1",
-        8: "https://www.dropbox.com/scl/fi/9v6apy3nzx31krjjyofps/AnimePahe_Jujutsu_Kaisen_-_55_1080p_SubsPlease.mp4?rlkey=ogmpt3xirufpr7xv0bz9ynkeq&st=em4jnfwo&dl=1",
-        9: "https://www.dropbox.com/scl/fi/aodj07k4l0au7lulrxmud/AnimePahe_Jujutsu_Kaisen_-_56_1080p_SubsPlease.mp4?rlkey=tf238e94govkx7xjs1g0osnn2&st=2zyyzi3u&dl=1",
-        10: "https://www.dropbox.com/scl/fi/r2zkl9om1ti7og7t4a1d4/AnimePahe_Jujutsu_Kaisen_-_57_1080p_SubsPlease.mp4?rlkey=zo8l6wwl8u0w2rpnsun2pgahu&st=sn2bfn6a&dl=1",
-        11: "https://www.dropbox.com/scl/fi/000cn94c2zq185q15rdjt/AnimePahe_Jujutsu_Kaisen_-_58_1080p_SubsPlease.mp4?rlkey=0cxi26y1b4v0ahw31xdv7lwu2&st=nhz6vqoz&dl=1",
-        12: "https://www.dropbox.com/scl/fi/tj91umf4ipjhj6e1bhiuj/AnimePahe_Jujutsu_Kaisen_-_59_1080p_SubsPlease.mp4?rlkey=6eff7qhwnyahnj1nh4ssmo6bd&st=krb6vci6&dl=1",
-      }},
-    ], hasSub: true, hasDub: true, noSubtitles: true,
+    ], hasSub: true, hasDub: true,
   },
   // Chainsaw Man
   { malId: 44511, title: "Chainsaw Man", titleEnglish: "Chainsaw Man", titleJapanese: "チェンソーマン",
@@ -527,18 +279,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "chainsaw-man-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "chainsaw-man" },
-                                                                              { startEp: 1, endEp: 1, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/01. Dog & Chainsaw.mp4", audio: "dub" },
-      { startEp: 2, endEp: 2, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/02. Arrival in Tokyo.mp4", audio: "dub" },
-      { startEp: 3, endEp: 3, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/03. Meowy's Whereabouts.mp4", audio: "dub" },
-      { startEp: 4, endEp: 4, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/04. Rescue.mp4", audio: "dub" },
-      { startEp: 5, endEp: 5, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/05. Gun Devil.mp4", audio: "dub" },
-      { startEp: 6, endEp: 6, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/06. Kill Denji.mp4", audio: "dub" },
-      { startEp: 7, endEp: 7, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/07. The Taste of a Kiss.mp4", audio: "dub" },
-      { startEp: 8, endEp: 8, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/08. Gunfire.mp4", audio: "dub" },
-      { startEp: 9, endEp: 9, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/09. From Kyoto.mp4", audio: "dub" },
-      { startEp: 10, endEp: 10, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/10. Bruised & Battered.mp4", audio: "dub" },
-      { startEp: 11, endEp: 11, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/11. Mission Start.mp4", audio: "dub" },
-      { startEp: 12, endEp: 12, collection: "10.-bruised-battered", fileName: "Chainsaw Man Season 1/12. Katana vs. Chainsaw.mp4", audio: "dub" },
     ], hasDub: true,
   },
   // Chainsaw Man Movie: Reze Arc
@@ -557,7 +297,6 @@ export const SEED_ANIME: SeedAnime[] = [
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "chainsaw-man-the-movie-reze-arc" },
       { startEp: 1, endEp: 1, collection: "dropbox", fileName: "https://www.dropbox.com/scl/fi/gxa0w7njajt3a91nobcis/AnimePahe_Chainsaw_Man_Movie_-_Reze-hen_-_01_804p_FLE.mp4?rlkey=3dklwl2fb3vro231z1h8tytma&st=tmzmq2vw&dl=1", audio: "sub" },
-      { startEp: 1, endEp: 1, collection: "sam-chainsaw-man-the-movie-reze-arc-2025-web-1080p-eac-3-c-24-c-4-dd-1.-1080", fileName: "[sam] Chainsaw Man - The Movie Reze Arc (2025) [WEB 1080p EAC-3] [C24C4DD1].1080.mp4", audio: "dub" },
     ], hasDub: true,
   },
   // Gachiakuta
@@ -572,9 +311,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "gachiakuta-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "gachiakuta" },
-      { startEp: 1, endEp: 1, collection: "gachiakuta.-s-01-e-01.-the.-sphere.-1080p.-cr.-web-dl.-dual.-aac-2.0.-h.-264-varyg.-720", fileName: "Gachiakuta.S01E01.The.Sphere.1080p.CR.WEB-DL.DUAL.AAC2.0.H.264-VARYG.720.mp4", audio: "dub" },
-      { startEp: 2, endEp: 12, collection: "gachiakuta-02-720p-x-265-samehadaku.-care", fileTemplate: "Gachiakuta-{ep:02}-720p-[x265]-SAMEHADAKU.CARE.mp4", audio: "dub" },
-      { startEp: 2, endEp: 24, collection: "gachiakuta_202601", fileTemplate: "Gachiakuta Dubbed/ep {ep:02}.mp4", audio: "dub" },
     ],
   },
   // Gachiakuta S2 (upcoming)
@@ -599,18 +335,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "smoking-behind-the-supermarket-with-you-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "smoking-behind-the-supermarket-with-you" },
-      { startEp: 1, endEp: 1, collection: "smoking-behind-the-supermarket-with-you-e1-ae27fe", fileName: "smoking behind the supermarket with you E1.mp4", audio: "sub" },
-      { startEp: 2, endEp: 2, collection: "smoking-behind-the-supermarket-with-you-e2-0b8faa", fileName: "smoking behind the supermarket with you E2.mp4", audio: "sub" },
-      { startEp: 3, endEp: 3, collection: "smoking-behind-the-supermarket-with-you-e3-53f07a", fileName: "smoking behind the supermarket with you E3.mp4", audio: "sub" },
-      { startEp: 4, endEp: 4, collection: "smoking-behind-the-supermarket-with-you-e4-9cbc99", fileName: "smoking behind the supermarket with you E4.mp4", audio: "sub" },
-      { startEp: 5, endEp: 5, collection: "smoking-behind-the-supermarket-with-you-e5-8f67e4", fileName: "smoking behind the supermarket with you E5.mp4", audio: "sub" },
-      { startEp: 6, endEp: 6, collection: "smoking-behind-the-supermarket-with-you-e6-7488be", fileName: "smoking behind the supermarket with you E6.mp4", audio: "sub" },
-      { startEp: 7, endEp: 7, collection: "smoking-behind-the-supermarket-with-you-e7-7dd743", fileName: "smoking behind the supermarket with you E7.mp4", audio: "sub" },
-      { startEp: 8, endEp: 8, collection: "smoking-behind-the-supermarket-with-you-e8-79ae59", fileName: "smoking behind the supermarket with you E8.mp4", audio: "sub" },
-      { startEp: 9, endEp: 9, collection: "smoking-behind-the-supermarket-with-you-e9-6c187a", fileName: "smoking behind the supermarket with you E9.mp4", audio: "sub" },
-      { startEp: 10, endEp: 10, collection: "smoking-behind-the-supermarket-with-you-e10-50fe59", fileName: "smoking behind the supermarket with you E10.mp4", audio: "sub" },
-      { startEp: 11, endEp: 11, collection: "smoking-behind-the-supermarket-with-you-e11-ff90a6", fileName: "smoking behind the supermarket with you E11.mp4", audio: "sub" },
-      { startEp: 12, endEp: 12, collection: "smoking-behind-the-supermarket-with-you-e12-3874fb", fileName: "smoking behind the supermarket with you E12.mp4", audio: "sub" },
     ],
   },
   // Akame ga Kill
@@ -629,108 +353,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "akame-ga-kill-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "akame-ga-kill" },
-      { startEp: 1, endEp: 24, collection: "anime-pahe-akame-ga-kill-16-bd-720p-fff_202506", audio: "sub", episodeFiles: {
-        1: "AnimePahe_Akame_ga_Kill_-_01_BD_720p_FFF.mp4",
-        2: "AnimePahe_Akame_ga_Kill_-_02_BD_720p_FFF.mp4",
-        3: "AnimePahe_Akame_ga_Kill_-_03_BD_720p_FFF.mp4",
-        4: "AnimePahe_Akame_ga_Kill_-_04_BD_720p_FFF.mp4",
-        5: "AnimePahe_Akame_ga_Kill_-_05_BD_720p_FFF.mp4",
-        6: "AnimePahe_Akame_ga_Kill_-_06_BD_720p_FFF.mp4",
-        7: "AnimePahe_Akame_ga_Kill_-_07_BD_720p_FFF.mp4",
-        8: "AnimePahe_Akame_ga_Kill_-_08_BD_720p_FFF.mp4",
-        9: "AnimePahe_Akame_ga_Kill_-_09_BD_720p_FFF.mp4",
-        10: "AnimePahe_Akame_ga_Kill_-_10_BD_720p_FFF.mp4",
-        11: "AnimePahe_Akame_ga_Kill_-_11_BD_720p_FFF.mp4",
-        12: "AnimePahe_Akame_ga_Kill_-_12_BD_720p_FFF.mp4",
-        13: "AnimePahe_Akame_ga_Kill_-_13_BD_720p_FFF - Copy.mp4",
-        14: "AnimePahe_Akame_ga_Kill_-_14_BD_720p_FFF.mp4",
-        15: "AnimePahe_Akame_ga_Kill_-_15_BD_720p_FFF.mp4",
-        16: "AnimePahe_Akame_ga_Kill_-_16_BD_720p_FFF.mp4",
-        17: "AnimePahe_Akame_ga_Kill_-_17_BD_720p_FFF.mp4",
-        18: "AnimePahe_Akame_ga_Kill_-_18_BD_720p_FFF.mp4",
-        19: "AnimePahe_Akame_ga_Kill_-_19_BD_720p_FFF.mp4",
-        20: "AnimePahe_Akame_ga_Kill_-_20_BD_720p_FFF.mp4",
-        21: "AnimePahe_Akame_ga_Kill_-_21_BD_720p_FFF.mp4",
-        22: "AnimePahe_Akame_ga_Kill_-_22_BD_720p_FFF.mp4",
-        23: "AnimePahe_Akame_ga_Kill_-_23_BD_720p_FFF.mp4",
-        24: "AnimePahe_Akame_ga_Kill_-_24_BD_720p_FFF.mp4",
-      } },
-      // ARCHIVE.ORG DUB (480p, works WITHOUT resolver!)
-      { startEp: 1, endEp: 24, collection: "akame_202606", audio: "dub", fileTemplate: "Akame S1E{ep}.mp4" },
-      // GDRIVEPLAYER embed (DUB, iframes the gdriveplayer JW Player)
-      { startEp: 1, endEp: 24, collection: "gdriveplayer", audio: "dub",
-        sourceType: "gdriveplayer_embed",
-        fileTemplate: "akame-ga-kill-dub" },
-      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 1048, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "one-piece-dub" },
-      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 1171, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "one-piece" },
-      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 220, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "naruto-dub" },
-      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 220, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "naruto" },
-      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 500, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "naruto-shippuden" },
-      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 25, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "shingeki-no-kyojin-dub" },
-      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 37, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "death-note-dub" },
-      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 37, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "death-note" },
-      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 64, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "fullmetal-alchemist-brotherhood-dub" },
-      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 64, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "fullmetal-alchemist-brotherhood" },
-      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 62, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "hunter-x-hunter-dub" },
-      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 148, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "hunter-x-hunter-2011" },
-      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 12, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "one-punch-man" },
-      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 12, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "spy-x-family" },
-      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 12, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tokyo-ghoul-dub" },
-      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 12, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tokyo-ghoul" },
-      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 24, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "vinland-saga-dub" },
-      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 24, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "vinland-saga" },
-      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 14, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "violet-evergarden-dub" },
-      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 14, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "violet-evergarden" },
-      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 12, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "chainsaw-man" },
-      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 25, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "code-geass-lelouch-of-the-rebellion-dub" },
-      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 25, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "code-geass-lelouch-of-the-rebellion" },
-      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 13, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "boku-no-hero-academia-dub" },
-      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 12, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "high-school-dxd-dub" },
-      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 366, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "bleach-dub" },
-      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 366, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "bleach" },
-      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 25, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "sword-art-online-dub" },
-      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 25, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "sword-art-online" },
-      // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 26, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cowboy-bebop-dub" },
-      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 26, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cowboy-bebop" },
-      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 13, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "overlord" },
-      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 25, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "haikyuu" },
-      // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 26, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kimetsu-no-yaiba" },
-      // ARCHIVE.ORG SUB (480p, works WITHOUT resolver!)
-      { startEp: 1, endEp: 24, collection: "akame_202606", audio: "sub", fileTemplate: "Akame Subbed S1E{ep}.mp4" },
     ], hasSub: true, hasDub: true,
   },
   // One Piece — hero card with Crunchyroll-style wide banner
@@ -797,165 +419,6 @@ export const SEED_ANIME: SeedAnime[] = [
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 1171, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "one-piece" },
       // ===== DUB (English, 1080p HIGH HD) — archive.org "Dub, Edited" =====
-      // E1 — 193MB, 1920x1080, Funimation English dub
-      { startEp: 1, endEp: 1, collection: "0001-dub-edited", audio: "dub", fileTemplate: "0001 Dub, Edited.mp4" },
-      // E137-145, 147 — Funimation English dub, 1080p
-      { startEp: 137, endEp: 147, collection: "0153-dub-edited", audio: "dub", episodeFiles: {
-        137: "0137 Dub, Edited.mp4",
-        138: "0138 Dub, Edited.mp4",
-        139: "0139 Dub, Edited.mp4",
-        140: "0140 Dub, Edited.mp4",
-        141: "0141 Dub, Edited.mp4",
-        142: "0142 Dub, Edited.mp4",
-        143: "0143 Dub, Edited.mp4",
-        144: "0144 Dub, Edited.mp4",
-        145: "0145 Dub, Edited.mp4",
-        147: "0147 Dub, Edited.mp4",
-      } },
-      // E506-513 (E512 missing) — Funimation English dub, 1080p
-      { startEp: 506, endEp: 513, collection: "0508-dub-edited", audio: "dub", episodeFiles: {
-        506: "0506 Dub, Edited (1).mp4",
-        507: "0507 Dub, Edited.mp4",
-        508: "0508 Dub, Edited.mp4",
-        509: "0509 Dub, Edited.mp4",
-        510: "0510 Dub, Edited.mp4",
-        511: "0511 Dub, Edited.mp4",
-        513: "0513 Dub, Edited.mp4",
-      } },
-      // E539-566 (E542, E543 missing) — Funimation English dub, 1080p
-      { startEp: 539, endEp: 566, collection: "0557-dub-edited", audio: "dub", episodeFiles: {
-        539: "0539 Dub, Edited.mp4",
-        540: "0540 Dub, Edited.mp4",
-        541: "0541 Dub, Edited.mp4",
-        544: "0544 Dub, Edited.mp4",
-        545: "0545 Dub, Edited.mp4",
-        546: "0546 Dub, Edited.mp4",
-        547: "0547 Dub, Edited.mp4",
-        548: "0548 Dub, Edited.mp4",
-        549: "0549 Dub, Edited.mp4",
-        550: "0550 Dub, Edited.mp4",
-        551: "0551 Dub, Edited.mp4",
-        552: "0552 Dub, Edited.mp4",
-        553: "0553 Dub, Edited.mp4",
-        554: "0554 Dub, Edited.mp4",
-        555: "0555 Dub, Edited.mp4",
-        556: "0556 Dub, Edited.mp4",
-        557: "0557 Dub, Edited.mp4",
-        558: "0558 Dub, Edited.mp4",
-        559: "0559 Dub, Edited.mp4",
-        560: "0560 Dub, Edited.mp4",
-        561: "0561 Dub, Edited.mp4",
-        562: "0562 Dub, Edited.mp4",
-        563: "0563 Dub, Edited.mp4",
-        564: "0564 Dub, Edited.mp4",
-        565: "0565 Dub, Edited.mp4",
-        566: "0566 Dub, Edited.mp4",
-      } },
-      // E995-1004 — Funimation English dub, 1080p (~500MB each)
-      { startEp: 995, endEp: 1004, collection: "0995-dub-edited", audio: "dub", episodeFiles: {
-        995: "0995 Dub, Edited.mp4",
-        996: "0996 Dub, Edited.mp4",
-        997: "0997 Dub, Edited.mp4",
-        998: "0998 Dub, Edited.mp4",
-        999: "0999 Dub, Edited.mp4",
-        1000: "1000 Dub, Edited.mp4",
-        1001: "1001 Dub, Edited.mp4",
-        1002: "1002 Dub, Edited.mp4",
-        1003: "1003 Dub, Edited.mp4",
-        1004: "1004 Dub, Edited.mp4",
-      } },
-      // SUB source for episodes not covered by archive.org.
-      // ===== SUB (Japanese audio, 1080p) — archive.org Anime Time =====
-      // Wano arc E1001-1085 — also playable in DUB mode via SUB fallback
-      // (hasDub=true → resolveEpisodeUrl falls through to SUB when no DUB
-      // source exists for a specific episode).
-      { startEp: 1001, endEp: 1085, collection: "20260622_20260622_0310", audio: "sub", episodeFiles: {
-        1001: "[Anime Time] One Piece - 1001 - A Risky Invitation A Plot To Eliminate Queen.mp4",
-        1002: "[Anime Time] One Piece - 1002 - A New Rivalry Nami And Ulti.mp4",
-        1003: "[Anime Time] One Piece - 1003 - A Heroic Blade Akazaya Vs Kaido Again Once More.mp4",
-        1004: "[Anime Time] One Piece - 1004 - An Inherited Technique Unleashing Oden's Secret Swordplay.mp4",
-        1005: "[Anime Time] One Piece - 1005 - The Power Of Ice Oni A New Version Of The Plague Rounds.mp4",
-        1006: "[Anime Time] One Piece - 1006 - I Won't Forgive Him Chopper's Determination.mp4",
-        1007: "[Anime Time] One Piece - 1007 - Zoro's Pursuit Ice Oni Tag.mp4",
-        1008: "[Anime Time] One Piece - 1008 - Nami Surrenders Ulti's Fierce Headbutt.mp4",
-        1009: "[Anime Time] One Piece - 1009 - Sasaki's Onslaught Armored Division Vs Yamato.mp4",
-        1010: "[Anime Time] One Piece - 1010 - Eliminate The Ice Oni Chopper's Fire Trick.mp4",
-        1011: "[Anime Time] One Piece - 1011 - It's Not Okay The Spider Lures Sanji.mp4",
-        1012: "[Anime Time] One Piece - 1012 - A Turnaround Move The Flames Of Marco The Phoenix.mp4",
-        1013: "[Anime Time] One Piece - 1013 - Yamato's Past The Man Who Came For An Emperor Of The Sea.mp4",
-        1014: "[Anime Time] One Piece - 1014 - Marco's Tears The Bond Of The Whitebeard Pirates.mp4",
-        1015: "[Anime Time] One Piece - 1015 - Straw Hat Luffy The Man Who Will Become The King Of The Pirates.mp4",
-        1016: "[Anime Time] One Piece - 1016 - The Battle Of The Monsters The Three Stubborn Captains.mp4",
-        1017: "[Anime Time] One Piece - 1017 - A Barrage Of Powerful Techniques The Fierce Attacks Of The Worst Generation.mp4",
-        1018: "[Anime Time] One Piece - 1018 - Kaido Laughs The Emperors Of The Sea Vs New Generation.mp4",
-        1019: "[Anime Time] One Piece - 1019 - Otama's Secret Plan Operation Kibi Dango.mp4",
-        1020: "[Anime Time] One Piece - 1020 - Sanji's Scream An Sos Echoes Over The Island.mp4",
-        1021: "[Anime Time] One Piece - 1021 - Spank Strikes Sanji's Woman-Trouble.mp4",
-        1022: "[Anime Time] One Piece - 1022 - No Regrets Luffy And Boss A Master-Disciple Bond.mp4",
-        1023: "[Anime Time] One Piece - 1023 - All Set Chopperphage Nebulizer.mp4",
-        1024: "[Anime Time] One Piece - 1024 - Oden Appears The Confused Hearts Of The Akazaya Members.mp4",
-        1025: "[Anime Time] One Piece - 1025 - The Worst Generation Gets Wiped Out! The Emperors' Deadly Attack!.mp4",
-        1026: "[Anime Time] One Piece - 1026 - The Supernovas Strike Back! The Mission to Tear Apart the Emperors!.mp4",
-        1027: "[Anime Time] One Piece - 1027 - Defend Luffy! Zoro and Law's Sword Technique!.mp4",
-        1028: "[Anime Time] One Piece - 1028 - Surpass the Emperor Of The Sea! Luffy Strikes Back With An Iron Fist!.mp4",
-        1029: "[Anime Time] One Piece - 1029 - A Faint Memory! Luffy and Red-Haired's Daughter Uta!.mp4",
-        1030: "[Anime Time] One Piece - 1030 - A Pledge for the Next Genesis! Luffy and Uta!.mp4",
-        1031: "[Anime Time] One Piece - 1031 - Nami Screams - A Deadly Death Race!.mp4",
-        1032: "[Anime Time] One Piece - 1032 - The Dawn of the Land of Wano - The All-Out Battle Heats Up!.mp4",
-        1033: "[Anime Time] One Piece - 1033 - The Conclusion! Luffy, Accelerating Fist of the Conqueror.mp4",
-        1034: "[Anime Time] One Piece - 1034 - Luffy Defeated! The Straw Hats in Jeopardy!.mp4",
-        1035: "[Anime Time] One Piece - 1035 - The Animal Kingdom Pirates Trample Down! The End of the Kozuki Clan!.mp4",
-        1036: "[Anime Time] One Piece - 1036 - Fight Against the Dark Night The Commander-in-Chief of the Land of Wano Sounds Off.mp4",
-        1037: "[Anime Time] One Piece - 1037 - Believe in Luffy! The Alliance's Counterattack Begins!.mp4",
-        1038: "[Anime Time] One Piece - 1038 - Nami's Lethal Attack! Otama's Desperate Challenge!.mp4",
-        1039: "[Anime Time] One Piece - 1039 - A Dramatic Increase Of Allies! Straw Hats Fight Back!.mp4",
-        1040: "[Anime Time] One Piece - 1040 - The Pride Of A Helmsman - The Enraged Jimbei!.mp4",
-        1041: "[Anime Time] One Piece - 1041 - Showdown Battles Of The Monsters! Yamato And Franky.mp4",
-        1042: "[Anime Time] One Piece - 1042 - The Predator's Trap - Black Maria's Temptation.mp4",
-        1043: "[Anime Time] One Piece - 1043 - Slash the Nightmare - Brook Draws His Freezing Sword!.mp4",
-        1044: "[Anime Time] One Piece - 1044 - Clutch! A Demon Incarnate, Robin!.mp4",
-        1045: "[Anime Time] One Piece - 1045 - A Spell! Kid And Zoro Facing Threats!.mp4",
-        1046: "[Anime Time] One Piece - 1046 - Taking A Chance! The Two Arms Go Into Battle!.mp4",
-        1047: "[Anime Time] One Piece - 1047 - Ascend To The Dawn! A Pink Dragon Gets Agitated.mp4",
-        1048: "[Anime Time] One Piece - 1048 - For the Future! Yamato and the Great Swordsmen's Pledge.mp4",
-        1049: "[Anime Time] One Piece - 1049 - Luffy Soars! Revenge Against The King Of The Beasts.mp4",
-        1050: "[Anime Time] One Piece - 1050 - Two Dragons Face Off! Momonosuke's Determination!.mp4",
-        1051: "[Anime Time] One Piece - 1051 - A Legend All Over Again! Luffy's Fist Roars In The Sky!.mp4",
-        1052: "[Anime Time] One Piece - 1052 - The Situation Has Grown Tense! The End Of Onigashima!.mp4",
-        1053: "[Anime Time] One Piece - 1053 - Sanji's Mutation The Two Arms In Crisis!.mp4",
-        1054: "[Anime Time] One Piece - 1054 - Death To Your Partner! Killer's Deadly Gamble!.mp4",
-        1055: "[Anime Time] One Piece - 1055 - A Shadowy Figure Pulls The Strings! Onigashima In Flames.mp4",
-        1056: "[Anime Time] One Piece - 1056 - A Countercharge Law And Kid's Return-Attack Combination.mp4",
-        1057: "[Anime Time] One Piece - 1057 - For Luffy - Sanji And Zoro's Oath.mp4",
-        1058: "[Anime Time] One Piece - 1058 - The Onslaught Of Kazenbo - Orochi's Evil Clutches Close In.mp4",
-        1059: "[Anime Time] One Piece - 1059 - Zoro Faces Adversity - A Monster! King The Wildfire.mp4",
-        1060: "[Anime Time] One Piece - 1060 - The Secret Of Enma! The Cursed Sword Entrusted To Zoro.mp4",
-        1061: "[Anime Time] One Piece - 1061 - The Strike Of An Ifrit! Sanji Vs. Queen.mp4",
-        1062: "[Anime Time] One Piece - 1062 - The Three-Sword Style Of The Conqueror Zoro Vs King.mp4",
-        1063: "[Anime Time] One Piece - 1063 - Luffy Is On The Move A Turning Point To A New Era.mp4",
-        1064: "[Anime Time] One Piece - 1064 - Drunken Dragon Bagua The Lawless Dragon Closing In On Luffy.mp4",
-        1065: "[Anime Time] One Piece - 1065 - The Destruction Of The Alliance Fire Up The Will Of The New Generation.mp4",
-        1066: "[Anime Time] One Piece - 1066 - Here Comes Main Act Powerful Techniques Of Shockwave And Magnetism.mp4",
-        1067: "[Anime Time] One Piece - 1067 - To The New Era Settled The Determination Of The Brats.mp4",
-        1068: "[Anime Time] One Piece - 1068 - Moon Princess Echoes The Final Phase Of The Land Of Wano.mp4",
-        1069: "[Anime Time] One Piece - 1069 - There Is Only One Winner - Luffy Vs Kaido.mp4",
-        1070: "[Anime Time] One Piece - 1070 - Luffy Is Defeated The Determination Of Those Left Behind.mp4",
-        1071: "[Anime Time] One Piece - 1071 - Luffy's Peak - Attaine Fifth Gear.mp4",
-        1072: "[Anime Time] One Piece - 1072 - The Ridiculous Power Fifth Gear In Full Play.mp4",
-        1073: "[Anime Time] One Piece - 1073 - No Way Out A Hellish Scene On Onigashima.mp4",
-        1074: "[Anime Time] One Piece - 1074 - I Trust Momo - Luffy's Final Powerful Technique.mp4",
-        1075: "[Anime Time] One Piece - 1075 - 20 Years Worth Of Prayers Take Back The Land Of Wano.mp4",
-        1076: "[Anime Time] One Piece - 1076 - The World That Luffy Wants.mp4",
-        1077: "[Anime Time] One Piece - 1077 - The Curtain Falls The Winner Straw Hat Luffy.mp4",
-        1078: "[Anime Time] One Piece - 1078 - He Returns The Shogun Of The Land Of Wano Kozuki Momonosuke.mp4",
-        1079: "[Anime Time] One Piece - 1079 - The Morning Comes Luffy And The Others Rest.mp4",
-        1080: "[Anime Time] One Piece - 1080 - A Celebration Banquet The New Emperors Of The Sea.mp4",
-        1081: "[Anime Time] One Piece - 1081 - The World Will Burn The Onslaught Of A Navy Admiral.mp4",
-        1082: "[Anime Time] One Piece - 1082 - The Coming Of The New Era The Red-Haired's Imperial Rage.mp4",
-        1083: "[Anime Time] One Piece - 1083 - The World That Moves On A New Organization Cross Guild.mp4",
-        1084: "[Anime Time] One Piece - 1084 - Time To Depart - The Land Of Wano And The Straw Hats.mp4",
-        1085: "[Anime Time] One Piece - 1085 - The Last Curtain Luffy And Momonosuke's Vow_Land_Of_Wano_ACT_III_End.mp4",
-      } },
     ], hasSub: true, hasDub: true,
   },
   // Black Clover
@@ -972,35 +435,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "black-clover-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "black-clover" },
-      // SUB E126-150 (JP audio, 720p)
-      { startEp: 126, endEp: 170, collection: "kusagiri.web.id-blck-clver-129-720p", audio: "sub", episodeFiles: {
-        126: "Kusagiri.web.id_BlckClver--126_720p.mp4", 127: "Kusagiri.web.id_BlckClver--127_720p.mp4",
-        128: "Kusagiri.web.id_BlckClver--128_720p.mp4", 129: "Kusagiri.web.id_BlckClver--129_720p.mp4",
-        130: "Kusagiri.web.id_BlckClver--130_720p.mp4", 131: "Kusagiri.web.id_BlckClver--131_720p.mp4",
-        132: "Kusagiri.web.id_BlckClver--132_720p.mp4", 133: "Kusagiri.web.id_BlckClver--133_720p.mp4",
-        134: "Kusagiri.web.id_BlckClver--134_720p.mp4", 135: "Kusagiri.web.id_BlckClver--135_720p.mp4",
-        136: "Kusagiri.web.id_BlckClver--136_720p.mp4", 137: "Kusagiri.web.id_BlckClver--137_720p.mp4",
-        138: "Kusagiri.web.id_BlckClver--138_720p.mp4", 139: "Kusagiri.web.id_BlckClver--139_720p.mp4",
-        140: "Kusagiri.web.id_BlckClver--140_720p.mp4", 141: "Kusagiri.web.id_BlckClver--141_720p.mp4",
-        142: "Kusagiri.web.id_BlckClver--142_720p.mp4", 143: "Kusagiri.web.id_BlckClver--143_720p.mp4",
-        144: "Kusagiri.web.id_BlckClver--144_720p.mp4", 145: "Kusagiri.web.id_BlckClver--145_720p.mp4",
-        146: "Kusagiri.web.id_BlckClver--146_720p.mp4", 147: "Kusagiri.web.id_BlckClver--147_720p.mp4",
-        148: "Kusagiri.web.id_BlckClver--148_720p.mp4", 149: "Kusagiri.web.id_BlckClver--149_720p.mp4",
-        150: "Kusagiri.web.id_BlckClver--150_720p.mp4",
-      } },
-      // SUB E151-170 (JP audio, 720p)
-      { startEp: 151, endEp: 170, collection: "kusagiri.web.id-blck-clver-151-720p", audio: "sub", episodeFiles: {
-        151: "Kusagiri.web.id_BlckClver--151_720p.mp4", 152: "Kusagiri.web.id_BlckClver--152_720p.mp4",
-        153: "Kusagiri.web.id_BlckClver--153_720p.mp4", 154: "Kusagiri.web.id_BlckClver--154_720p.mp4",
-        155: "Kusagiri.web.id_BlckClver--155_720p.mp4", 156: "Kusagiri.web.id_BlckClver--156_720p.mp4",
-        157: "Kusagiri.web.id_BlckClver--157_720p.mp4", 158: "Kusagiri.web.id_BlckClver--158_720p.mp4",
-        159: "Kusagiri.web.id_BlckClver--159_720p.mp4", 160: "Kusagiri.web.id_BlckClver--160_720p.mp4",
-        161: "Kusagiri.web.id_BlckClver--161_720p.mp4", 162: "Kusagiri.web.id_BlckClver--162_720p.mp4",
-        163: "Kusagiri.web.id_BlckClver--163_720p.mp4", 164: "Kusagiri.web.id_BlckClver--164_720p.mp4",
-        165: "Kusagiri.web.id_BlckClver--165_720p.mp4", 166: "Kusagiri.web.id_BlckClver--166_720p.mp4",
-        167: "Kusagiri.web.id_BlckClver--167_720p.mp4", 168: "Kusagiri.web.id_BlckClver--168_720p.mp4",
-        169: "Kusagiri.web.id_BlckClver--169_720p.mp4", 170: "Kusagiri.web.id_BlckClver--170_720p.mp4",
-      } },
     ], hasSub: true, hasDub: true,
   },
   // Black Clover Season 2 (2026 — Not yet aired)
@@ -1030,7 +464,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "cowboy-bebop-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "cowboy-bebop" },
-      { startEp: 1, endEp: 26, collection: "db-bebop-of-the-cowboys-1080p", fileTemplate: "[DB]Cowboy Bebop_-_{ep:02}_(Dual Audio_10bit_BD1080p_x265).mp4", audio: "dub" },
     ],
     hasDub: true,
   },
@@ -1117,7 +550,13 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.48, scoredBy: 1500000, rank: 180, popularity: 8, members: 2200000,
     year: 1995, season: "fall", genres: ["Award Winning", "Action", "Drama", "Suspense"], studios: ["Gainax"],
     episodeCount: 26, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Original", isFeatured: true,
-    episodeSources: [{ startEp: 1, endEp: 26, collection: "neon-genesis-evangelion-dual-audio", fileTemplate: "Neon Genesis Evangelion - {ep:02} - Angel Attacks.mp4", audio: "dub" }],
+    episodeSources: [
+      // GDRIVEPLAYER embed (DUB)
+      { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "neon-genesis-evangelion-dub" },
+      // GDRIVEPLAYER embed (SUB)
+      { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "neon-genesis-evangelion" },
+    ],
+    hasSub: true,
     hasDub: true,
   },
   // End of Evangelion
@@ -1127,7 +566,13 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "Movie", status: "Finished Airing", score: 8.57, scoredBy: 400000, rank: 50, popularity: 200, members: 600000,
     year: 1997, season: null, genres: ["Award Winning", "Action", "Drama", "Suspense"], studios: ["Gainax"],
     episodeCount: 1, duration: "1 hr 26 min", rating: "R - 17+ (violence & profanity)", source: "Original", isFeatured: true,
-    episodeSources: [{ startEp: 1, endEp: 1, collection: "eva-complete-series-movies-bd-1080p", fileName: "Neon Genesis Evangelion - The End of Evangelion (1995) [1080p x265 HEVC 10bit BluRay Dual Audio AAC 5.1] [Prof].mp4", audio: "dub" }],
+    episodeSources: [
+      // GDRIVEPLAYER embed (DUB)
+      { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-end-of-evangelion-dub" },
+      // GDRIVEPLAYER embed (SUB)
+      { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-end-of-evangelion" },
+    ],
+    hasSub: true,
     hasDub: true,
   },
   // Eva 1.0
@@ -1137,7 +582,14 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "Movie", status: "Finished Airing", score: 8.0, scoredBy: 350000, rank: 350, popularity: 300, members: 500000,
     year: 2007, season: null, genres: ["Action", "Award Winning", "Drama", "Sci-Fi"], studios: ["Gainax"],
     episodeCount: 1, duration: "1 hr 41 min", rating: "R - 17+ (violence & profanity)", source: "Original", isFeatured: true,
-    episodeSources: [{ startEp: 1, endEp: 1, collection: "eva-complete-series-movies-bd-1080p", fileName: "Evangelion_1.11_You_Are_(Not)_Alone_(2009)_[1080p,BluRay,x264,DTS-ES]_-_THORA/Evangelion_1.11_You_Are_(Not)_Alone_(2009)_[1080p,BluRay,x264,DTS-ES]_-_THORA.mp4", audio: "sub" }],
+    episodeSources: [
+      // GDRIVEPLAYER embed (DUB)
+      { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "evangelion-1-0-you-are-not-alone-dub" },
+      // GDRIVEPLAYER embed (SUB)
+      { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "evangelion-1-0-you-are-not-alone" },
+    ],
+    hasSub: true,
+    hasDub: true,
   },
   // Eva 3.0+1.0
   { malId: 3786, title: "Evangelion: 3.0+1.0 Thrice Upon a Time", titleEnglish: "Evangelion: 3.0+1.0 Thrice Upon a Time", titleJapanese: "シン・エヴァンゲリオン劇場版:||",
@@ -1146,7 +598,14 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "Movie", status: "Finished Airing", score: 8.58, scoredBy: 300000, rank: 45, popularity: 400, members: 400000,
     year: 2021, season: null, genres: ["Action", "Award Winning", "Drama", "Sci-Fi"], studios: ["Studio Khara"],
     episodeCount: 1, duration: "2 hr 35 min", rating: "R - 17+ (violence & profanity)", source: "Original", isFeatured: true,
-    episodeSources: [{ startEp: 1, endEp: 1, collection: "eva-complete-series-movies-bd-1080p", fileName: "Evangelion.3.0+1.01.Thrice.Upon.a.Time.2021.1080p.AMZN.WEB-DL.DD+.5.1.H.264-RMB.mp4", audio: "sub" }],
+    episodeSources: [
+      // GDRIVEPLAYER embed (DUB)
+      { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "evangelion-3-0-1-0-thrice-upon-a-time-dub" },
+      // GDRIVEPLAYER embed (SUB)
+      { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "evangelion-3-0-1-0-thrice-upon-a-time" },
+    ],
+    hasSub: true,
+    hasDub: true,
   },
   // A Silent Voice
   { malId: 28851, title: "A Silent Voice", titleEnglish: "A Silent Voice", titleJapanese: "聲の形",
@@ -1155,11 +614,12 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "Movie", status: "Finished Airing", score: 8.93, scoredBy: 600000, rank: 10, popularity: 40, members: 900000,
     year: 2016, season: null, genres: ["Award Winning", "Drama", "Romance"], studios: ["Kyoto Animation"],
     episodeCount: 1, duration: "2 hr 10 min", rating: "R - 17+ (violence & profanity)", source: "Manga", isFeatured: true,
-    // The MP4 derivative only contains the English dub audio (stream 1 = eng).
-    // The MKV has both English and Japanese audio, but browsers can't play MKV.
-    // So this file is DUB-only. hasDub=true so the player shows the DUB toggle.
-    // For SUB mode, no JP-audio MP4 source is currently available.
-    episodeSources: [{ startEp: 1, endEp: 1, collection: "db-a-silent-voice-dual-audio-10bit-bd-1080p-x-265", fileName: "[DB]A Silent Voice_-_(Dual Audio_10bit_BD1080p_x265).mp4", audio: "dub" }], hasDub: true,
+    episodeSources: [
+      // GDRIVEPLAYER embed (DUB)
+      { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "a-silent-voice-dub" },
+      // GDRIVEPLAYER embed (SUB)
+      { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "a-silent-voice" },
+    ], hasSub: true, hasDub: true,
   },
   // Your Name
   { malId: 32281, title: "Your Name", titleEnglish: "Your Name.", titleJapanese: "君の名は。",
@@ -1168,7 +628,13 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "Movie", status: "Finished Airing", score: 8.82, scoredBy: 1000000, rank: 14, popularity: 7, members: 2000000,
     year: 2016, season: null, genres: ["Award Winning", "Drama", "Supernatural"], studios: ["CoMix Wave Films"],
     episodeCount: 1, duration: "1 hr 46 min", rating: "PG-13 - Teens 13 or older", source: "Original", isFeatured: true,
-    episodeSources: [{ startEp: 1, endEp: 1, collection: "your.-name.-2016.-1.8-gb.-1080p.-dual.-audio.-hin-eng.-vegamovies.-nl", fileName: "Your.Name.(2016).1.8GB.1080p.Dual.Audio.(Hin-Eng).Vegamovies.NL.mp4", audio: "dub" }],
+    episodeSources: [
+      // GDRIVEPLAYER embed (DUB)
+      { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "your-name-dub" },
+      // GDRIVEPLAYER embed (SUB)
+      { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "kimi-no-na-wa" },
+    ],
+    hasSub: true,
     hasDub: true,
   },
   // 100 Girlfriends S1
@@ -1260,21 +726,7 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "prison-school-uncensored-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "prison-school-uncensored" },
-      { startEp: 1, endEp: 12, collection: "reaktor-prison-school-ova-uncensored-v2-1080pbdx26510-bitdual-audio_202302", audio: "dub", episodeFiles: {
-        1: "[Reaktor] Prison School - E01 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
-        2: "[Reaktor] Prison School - E02 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
-        3: "[Reaktor] Prison School - E03 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
-        4: "[Reaktor] Prison School - E04 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
-        5: "[Reaktor] Prison School - E05 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
-        6: "[Reaktor] Prison School - E06 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
-        7: "[Reaktor] Prison School - E07 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
-        8: "[Reaktor] Prison School - E08 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
-        9: "[Reaktor] Prison School - E09 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
-        10: "[Reaktor] Prison School - E10 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
-        11: "[Reaktor] Prison School - E11 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
-        12: "[Reaktor] Prison School - E12 Uncensored v2 [1080p][x265][10-bit][Dual-Audio].mp4",
-      }},
-    ], hasDub: true,
+    ], hasSub: true, hasDub: true,
   },
   // The Apothecary Diaries S2 — dual source: Japanese sub (1080p) + English dub (480p)
   { malId: 58514, title: "The Apothecary Diaries Season 2", titleEnglish: "The Apothecary Diaries Season 2", titleJapanese: "薬屋のひとりごと 第2期",
@@ -1295,33 +747,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-apothecary-diaries-season-2-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-apothecary-diaries-season-2" },
-      { startEp: 1, endEp: 24, collection: "duoc-su-tu-su-08", audio: "sub", episodeFiles: {
-        1: "Dược Sư Tự Sự Mùa 2 - 01.mp4",
-        2: "Dược Sư Tự Sự Mùa 2 - 02.mp4",
-        3: "Dược Sư Tự Sự Mùa 2 - 03.mp4",
-        4: "Dược Sư Tự Sự Mùa 2 - 04.mp4",
-        5: "Dược Sư Tự Sự Mùa 2 - 05.mp4",
-        6: "Dược Sư Tự Sự Mùa 2 - 06.mp4",
-        7: "Dược Sư Tự Sự Mùa 2 - 07.mp4",
-        8: "Dược Sư Tự Sự Mùa 2 - 08.mp4",
-        9: "Dược Sư Tự Sự Mùa 2 - 09.mp4",
-        10: "Dược Sư Tự Sự Mùa 2 - 10.mp4",
-        11: "Dược Sư Tự Sự Mùa 2 - 11.mp4",
-        12: "Dược Sư Tự Sự Mùa 2 - 12.mp4",
-        13: "Dược Sư Tự Sự Mùa 2 - 13.mp4",
-        14: "Dược Sư Tự Sự Mùa 2 - 14.mp4",
-        15: "Dược Sư Tự Sự Mùa 2 - 15.mp4",
-        16: "Dược Sư Tự Sự Mùa 2 - 16.mp4",
-        17: "Dược Sư Tự Sự Mùa 2 - 17.mp4",
-        18: "Dược Sư Tự Sự Mùa 2 - 18.mp4",
-        19: "Dược Sư Tự Sự Mùa 2 - 19.mp4",
-        20: "Dược Sư Tự Sự Mùa 2 - 20.mp4",
-        21: "Dược Sư Tự Sự Mùa 2 - 21.mp4",
-        22: "Dược Sư Tự Sự Mùa 2 - 22.mp4",
-        23: "Dược Sư Tự Sự Mùa 2 - 23.mp4",
-        24: "Dược Sư Tự Sự Mùa 2 - 24.mp4",
-      } },
-      { startEp: 1, endEp: 24, collection: "the-apothecary-diaries-s-2", fileTemplate: "The Apothecary Diaries S2Ep{ep}.mp4", audio: "dub" },
     ], hasSub: true, hasDub: true,
   },
   // Haikyuu!! S3 (Top 10 #7)
@@ -1337,7 +762,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "haikyuu-karasuno-vs-shiratorizawa-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "haikyuu-karasuno-vs-shiratorizawa" },
-      { startEp: 1, endEp: 10, collection: "haikyuu-karasuno-koukou-vs.-shiratorizawa-gakuen-koukou-dub-episode-4", fileTemplate: "Season 3/Haikyuu!! Karasuno Koukou vs. Shiratorizawa Gakuen Koukou (Dub) Episode {ep}.mp4", audio: "dub" },
     ], hasDub: true,
   },
   // Haikyuu!! S1
@@ -1353,7 +777,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "haikyuu-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "haikyuu" },
-      { startEp: 1, endEp: 25, collection: "haikyuu-dub-episode-23_20250823", fileTemplate: "Season 1/Haikyuu!! (Dub) Episode {ep}.mp4", audio: "dub" },
     ], hasDub: true,
   },
   // Haikyuu!! S2 — correct malId is 28891 (20584 is a different anime)
@@ -1369,7 +792,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "haikyuu-second-season-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "haikyuu-second-season" },
-      { startEp: 1, endEp: 25, collection: "haikyuu-second-season-dub-episode-21", fileTemplate: "Season 2/Haikyuu!! Second Season (Dub) Episode {ep}.mp4", audio: "dub" },
     ], hasDub: true,
   },
   // Haikyuu!! S4 — To the Top (correct malId 38883; 38500 was a music video)
@@ -1387,12 +809,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "haikyuu-to-the-top-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "haikyuu-to-the-top" },
-      // DUB Part 1 (E1-13)
-      { startEp: 1, endEp: 25, collection: "haikyuu-to-the-top-dub-episode-11", fileTemplate: "Season 4 - Part 1/Haikyuu!! To the Top (Dub) Episode {ep}.mp4", audio: "dub" },
-      // DUB Part 2 (E14-25)
-      { startEp: 14, endEp: 25, collection: "haikyuu-to-the-top-2nd-season-dub-episode-11", fileTemplate: "Season 4 - Part 2/Haikyuu!! To the Top 2nd Season (Dub) Episode {ep}.mp4", audio: "dub" },
-      // SUB E14-25 (JP audio, 1080p HEVC from DBS Anime Linkz)
-      { startEp: 14, endEp: 25, collection: "dbs-anime-linkz-haikyu-s-04-e-24-1080p-hevc-10bit-web-dl", audio: "sub", fileTemplate: "@DBS_ANIME_LINKZ_Haikyu!!_S04E{ep:02d}_1080p_HEVC_10bit_WEB_DL.mp4" },
     ], hasSub: true, hasDub: true,
   },
   // The Apothecary Diaries S1 — dual source: Japanese sub + English dub
@@ -1412,17 +828,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "the-apothecary-diaries-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "the-apothecary-diaries" },
-      // Japanese audio (sub) — 720p for eps 1-18
-      { startEp: 1, endEp: 18, collection: "kusuriya-no-hitorigoto-eps-01-720p", fileTemplate: "Kusuriya no Hitorigoto_eps{ep:02}_720p.mp4", audio: "sub" },
-      // Japanese audio (sub) — 360p Meownime release for eps 19-24 (720p collection only has 18 eps)
-      { startEp: 19, endEp: 24, collection: "S25IMjAyNA", audio: "sub", episodeFiles: {
-        19: "Meownime_KnH--19_360p.mp4", 20: "Meownime_KnH--20_360p.mp4",
-        21: "Meownime_KnH--21_360p.mp4", 22: "Meownime_KnH--22_360p.mp4",
-        23: "Meownime_KnH--23_360p.mp4", 24: "Meownime_KnH--24_End_360p.mp4",
-      }},
-      // English dub — AnimePahe BD 720p release (all 24 eps)
-      { startEp: 1, endEp: 1, collection: "anime-pahe-kusuriya-no-hitorigoto-eng-dub-01-bd-720p-sam.mp-4-kw", fileName: "AnimePahe_Kusuriya_no_Hitorigoto_Eng_Dub_-_01_BD_720p_sam.mp4 Kw.mp4", audio: "dub" },
-      { startEp: 2, endEp: 24, collection: "anime-pahe-kusuriya-no-hitorigoto-eng-dub-01-bd-720p-sam.mp-4-kw", fileTemplate: "AnimePahe_Kusuriya_no_Hitorigoto_Eng_Dub_-_{ep:02}_BD_720p_sam.mp4", audio: "dub" },
     ], hasSub: true, hasDub: true,
   },
   // Fushigi Yuugi
@@ -1437,7 +842,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "fushigi-yuugi-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "fushigi-yuugi" },
-      { startEp: 1, endEp: 52, collection: "Cartoons-and-Anime", fileTemplate: "Fushigi Yugi (1995)/Fushigi Yuugi - 4x3 - S01E{ep:02}.mp4", audio: "dub" },
     ], hasDub: true,
   },
   // Great Teacher Onizuka
@@ -1456,8 +860,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "great-teacher-onizuka-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "great-teacher-onizuka" },
-      { startEp: 1, endEp: 43, collection: "Cartoons-and-Anime", fileTemplate: "Great Teacher Onizuka (1999)/Great Teacher Onizuka S01E{ep:02} - 4x3.mp4", audio: "sub" },
-      { startEp: 1, endEp: 43, collection: "great-teacher-onizuka-dub", fileTemplate: "Great Teacher Onizuka/Great Teacher Onizuka (Dub) Episode {ep}.mp4", audio: "dub" },
     ], hasSub: true, hasDub: true,
   },
   // Nadia: The Secret of Blue Water
@@ -1472,44 +874,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "nadia-the-secret-of-blue-water-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "nadia-the-secret-of-blue-water" },
-      { startEp: 1, endEp: 1, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E01 - The Girl at the Eiffel Tower.mp4", audio: "dub" },
-      { startEp: 2, endEp: 2, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E02 - The Little Fugitive.mp4", audio: "dub" },
-      { startEp: 3, endEp: 3, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E03 - The Riddle of the Giant Sea Monsters.mp4", audio: "dub" },
-      { startEp: 4, endEp: 4, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E04 - Nautilus, the Fantastic Submarine.mp4", audio: "dub" },
-      { startEp: 5, endEp: 5, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E05 - Marie`s Island.mp4", audio: "dub" },
-      { startEp: 6, endEp: 6, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E06 - Infiltration of the Secret Base.mp4", audio: "dub" },
-      { startEp: 7, endEp: 7, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E07 - The Tower of Babel.mp4", audio: "dub" },
-      { startEp: 8, endEp: 8, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E08 - Mission to Rescue Nadia.mp4", audio: "dub" },
-      { startEp: 9, endEp: 9, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E09 - Nemo`s Secret.mp4", audio: "dub" },
-      { startEp: 10, endEp: 10, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E10 - A Crowning Performance by the Gratan.mp4", audio: "dub" },
-      { startEp: 11, endEp: 11, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E11 - New Recruits for the Nautilus.mp4", audio: "dub" },
-      { startEp: 12, endEp: 12, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E12 - Grandis and Her First Love.mp4", audio: "dub" },
-      { startEp: 13, endEp: 13, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E13 - Run Marie Run!.mp4", audio: "dub" },
-      { startEp: 14, endEp: 14, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E14 - The Valley of Dinicthys.mp4", audio: "dub" },
-      { startEp: 15, endEp: 15, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E15 - The Nautilus Faces Its Biggest Crisis.mp4", audio: "dub" },
-      { startEp: 16, endEp: 16, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E16 - The Mystery of the Lost Continent.mp4", audio: "dub" },
-      { startEp: 17, endEp: 17, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E17 - Jean`s New Invention.mp4", audio: "dub" },
-      { startEp: 18, endEp: 18, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E18 - Nautilus vs Nautilus.mp4", audio: "dub" },
-      { startEp: 19, endEp: 19, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E19 - Nemo`s Best Friend.mp4", audio: "dub" },
-      { startEp: 20, endEp: 20, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E20 - Jean Makes a Mistake.mp4", audio: "dub" },
-      { startEp: 21, endEp: 21, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E21 - Farewell Nautilus.mp4", audio: "dub" },
-      { startEp: 22, endEp: 22, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E22 - Electra the Traitor.mp4", audio: "dub" },
-      { startEp: 23, endEp: 23, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E23 - Young Drifters.mp4", audio: "dub" },
-      { startEp: 24, endEp: 24, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E24 - Lincoln Island.mp4", audio: "dub" },
-      { startEp: 25, endEp: 25, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E25 - The First kiss.mp4", audio: "dub" },
-      { startEp: 26, endEp: 26, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E26 - King, the Lonely Lion.mp4", audio: "dub" },
-      { startEp: 27, endEp: 27, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E27 - The Island of the Witch.mp4", audio: "dub" },
-      { startEp: 28, endEp: 28, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E28 - The Floating Island.mp4", audio: "dub" },
-      { startEp: 29, endEp: 29, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E29 - King vs King.mp4", audio: "dub" },
-      { startEp: 30, endEp: 30, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E30 - Labyrinth in the Earth.mp4", audio: "dub" },
-      { startEp: 31, endEp: 31, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E31 - Farewell, Red Noah.mp4", audio: "dub" },
-      { startEp: 32, endEp: 32, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E32 - Nadia`s Love.mp4", audio: "dub" },
-      { startEp: 33, endEp: 33, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E33 - King`s Rescue.mp4", audio: "dub" },
-      { startEp: 35, endEp: 35, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E35 - The Secret of Blue Water.mp4", audio: "dub" },
-      { startEp: 36, endEp: 36, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E36 - The New Nautilus.mp4", audio: "dub" },
-      { startEp: 37, endEp: 37, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E37 - Emperor Neo.mp4", audio: "dub" },
-      { startEp: 38, endEp: 38, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E38 - To the Sky.mp4", audio: "dub" },
-      { startEp: 39, endEp: 39, collection: "Cartoons-and-Anime", fileName: "Nadia - The Secret of Blue Water (1990)/Nadia - The Secret of Blue Water S01E39 - Successor of the Stars.mp4", audio: "dub" },
     ], hasDub: true,
   },
   // Shinzo
@@ -1524,7 +888,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "shinzo-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "shinzo" },
-      { startEp: 1, endEp: 32, collection: "Cartoons-and-Anime", fileTemplate: "Shinzo (2000)/Shinzo - S01E{ep:02} - 4x3.mp4", audio: "dub" },
     ], hasDub: true,
   },
   // Slayers — dual source: Japanese sub (Cartoons-and-Anime) + English dub
@@ -1542,41 +905,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "slayers-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "slayers" },
-      // Japanese audio (sub) — from the Cartoons-and-Anime TV rip collection.
-      { startEp: 1, endEp: 26, collection: "Cartoons-and-Anime", fileTemplate: "Slayers/Slayers - S01E{ep:02} - 4x3.mp4", audio: "sub" },
-      // English dub — from The-Slayers-Season-1 collection.
-      // Each episode file has the episode title baked into the filename.
-      {
-        startEp: 1, endEp: 26, collection: "The-Slayers-Season-1", audio: "dub",
-        episodeFiles: {
-          1: "(1) (NSSB) Slayers Episode 1 Angry Lina's Furious Dragon Slave!.mp4",
-          2: "(2) (NSSB) Slayers Episode 2 Bad! Mummy Men Aren't My Type!.mp4",
-          3: "(NSSB) Slayers Episode 3 Crash! Red and White and Suspicious All Over!.mp4",
-          4: "(NSSB) Slayers Episode 4 Dash! Run for It! My Magic Doesn't Work!.mp4",
-          5: "(NSSB) Slayers Episode 5 Escape! Noonsa, the Flaming Fish Man!.mp4",
-          6: "(NSSB) Slayers Episode 6  Focus! Rezo's the Real Enemy!.mp4",
-          7: "(NSSB) Slayers Episode 7 Give Up! But Just Before We Do, the Sure Kill Sword Appears!.mp4",
-          8: "(NSSB) Slayers Episode 8 Help! Shabranigdu is Reborn!.mp4",
-          9: "(NSSB) Slayers Episode 9 Impact! The Eve of the Great Life or Death Struggle!.mp4",
-          10: "(NSSB) Slayers Episode 10 Jackpot! The Great Life or Death Gamble!.mp4",
-          11: "(NSSB) Slayers Episode 11 Knockout! The Seyruun Family Feud!.mp4",
-          12: "(NSSB) Slayers Episode 12 Lovely! Amelia's Magic Training!.mp4",
-          13: "(NSSB) Slayers Episode 13 Money! Knock Out Those Bounty Hunters!.mp4",
-          14: "(NSSB) Slayers Episode 14 Navigation! An Invitation to Sairaag!.mp4",
-          15: "(NSSB) Slayers Episode 15 Oh No! Lina's Wedding Rhapsody.mp4",
-          16: "(NSSB) Slayers Episode 16 Passion! Shall We Give Our Lives for the Stage.mp4",
-          17: "(NSSB) Slayers Episode 17 Question He's Proposing to THAT Girl.mp4",
-          18: "(NSSB) Slayers Episode 18 Return! The Red Priest is Back!.mp4",
-          19: "(NSSB) Slayers Episode 19 Shock! Sairaag Falls!.mp4",
-          20: "(NSSB) Slayers Episode 20 Trouble! Rahanimu, the Furious Fish Man!.mp4",
-          21: "(NSSB) Slayers Episode 21 Upset! Gourry vs. Zangulus!.mp4",
-          22: "(NSSB) Slayers Episode 22 Vice! The One Who Was Left Behind!.mp4",
-          23: "(NSSB) Slayers Episode 23 Warning! Eris' Wrath!.mp4",
-          24: "(NSSB) Slayers Episode 24 X-DAY! The Demon Beast Is Reborn!.mp4",
-          25: "(NSSB) Slayers Episode 25 Yes A Final Hope The Blessed Blade.mp4",
-          26: "(NSSB) Slayers Episode 26 Zap! Victory is Always Mine!.mp4",
-        },
-      },
     ], hasSub: true, hasDub: true, noSubtitles: true,
   },
   // Berserk (1997) — dual source: Japanese sub + English dub
@@ -1598,41 +926,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "berserk-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "berserk" },
-      // Japanese audio (sub) — from the Cartoons-and-Anime TV rip collection.
-      { startEp: 1, endEp: 25, collection: "Cartoons-and-Anime", fileTemplate: "Berserk (1997)/Berserk - S01E{ep:02} - 4x3.mp4", audio: "sub" },
-      // English dub — from the berserk-1997-complete Blu-Ray rip (English is
-      // the default audio track in the source MKV; the MP4 was encoded from it).
-      // Each episode has its title in the filename, so we use episodeFiles.
-      {
-        startEp: 1, endEp: 25, collection: "berserk-1997-complete", audio: "dub",
-        episodeFiles: {
-          1: "Berserk (1997) S1E01 - The Black Swordsman.mp4",
-          2: "Berserk (1997) S1E02 - The Band of the Hawk.mp4",
-          3: "Berserk (1997) S1E03 - First Battle.mp4",
-          4: "Berserk (1997) S1E04 - The Hand of God.mp4",
-          5: "Berserk (1997) S1E05 - Sword and the Wind.mp4",
-          6: "Berserk (1997) S1E06 - Zodd the Immortal.mp4",
-          7: "Berserk (1997) S1E07 - The Sword Master.mp4",
-          8: "Berserk (1997) S1E08 - Conspiracy.mp4",
-          9: "Berserk (1997) S1E09 - Assassination.mp4",
-          10: "Berserk (1997) S1E10 - Nobleman.mp4",
-          11: "Berserk (1997) S1E11 - Battle Engagement.mp4",
-          12: "Berserk (1997) S1E12 - Two People.mp4",
-          13: "Berserk (1997) S1E13 - Suicidal Act.mp4",
-          14: "Berserk (1997) S1E14 - Campfire of Dreams.mp4",
-          15: "Berserk (1997) S1E15 - The Decisive Battle.mp4",
-          16: "Berserk (1997) S1E16 - The Conqueror.mp4",
-          17: "Berserk (1997) S1E17 - Moment of Glory.mp4",
-          18: "Berserk (1997) S1E18 - Tombstone of Flames.mp4",
-          19: "Berserk (1997) S1E19 - Parting.mp4",
-          20: "Berserk (1997) S1E20 - The Spark.mp4",
-          21: "Berserk (1997) S1E21 - Confession.mp4",
-          22: "Berserk (1997) S1E22 - The Infiltration.mp4",
-          23: "Berserk (1997) S1E23 - Eve of the Feast.mp4",
-          24: "Berserk (1997) S1E24 - Eclipse.mp4",
-          25: "Berserk (1997) S1E25 - Perpetual Time.mp4",
-        },
-      },
     ], hasSub: true, hasDub: true,
   },
   // Megas XLR — not on MAL (Cartoon Network show). Use a sentinel
@@ -1653,7 +946,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "megas-xlr-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "megas-xlr" },
-      { startEp: 1, endEp: 26, collection: "Cartoons-and-Anime", fileTemplate: "Megas XLR (2004)/Megas XLR - S01E{ep:02} - 4x3.mp4", audio: "dub" },
     ], hasDub: true,
   },
   // ===== My Hero Academia (all 7 seasons) =====
@@ -1674,22 +966,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia" },
-      { startEp: 1, endEp: 13, collection: "my-hero-episode-1-season-1-dub", audio: "dub", episodeFiles: {
-        1: "My hero episode 1 season 1 - dub.mp4", 2: "my hero_episode 2 _season1.mp4", 3: "My hero_episode 3_season 1.mp4",
-        4: "my hero_episode 4 _season1.mp4", 5: "my hero_episode 5 _season 1.mp4", 6: "my hero_episode 6 _season1.mp4",
-        7: "my hero_episode 7 _season1.mp4", 8: "my hero_episode 8_season1.mp4", 9: "My hero_episode 9_season 1.mp4",
-        10: "My hero_episode10_season 1.mp4", 11: "my hero_episode 11 _season1.mp4", 12: "my hero_episode 12 _season1.mp4",
-        13: "My hero_episode 13_season 1.mp4",
-      }},
-      { startEp: 1, endEp: 13, collection: "mha-s1-full", audio: "sub", episodeFiles: {
-        1: "AnimePahe_Boku_no_Hero_Academia_-_001_BD_1080p_Nep_Blanc.mp4", 2: "AnimePahe_Boku_no_Hero_Academia_-_002_BD_1080p_Nep_Blanc.mp4",
-        3: "AnimePahe_Boku_no_Hero_Academia_-_003_BD_1080p_Nep_Blanc.mp4", 4: "AnimePahe_Boku_no_Hero_Academia_-_004_BD_1080p_Nep_Blanc.mp4",
-        5: "AnimePahe_Boku_no_Hero_Academia_-_005_BD_1080p_Nep_Blanc.mp4", 6: "AnimePahe_Boku_no_Hero_Academia_-_006_BD_1080p_Nep_Blanc.mp4",
-        7: "AnimePahe_Boku_no_Hero_Academia_-_007_BD_1080p_Nep_Blanc.mp4", 8: "AnimePahe_Boku_no_Hero_Academia_-_008_BD_1080p_Nep_Blanc.mp4",
-        9: "AnimePahe_Boku_no_Hero_Academia_-_009_BD_1080p_Nep_Blanc.mp4", 10: "AnimePahe_Boku_no_Hero_Academia_-_010_BD_1080p_Nep_Blanc.mp4",
-        11: "AnimePahe_Boku_no_Hero_Academia_-_011_BD_1080p_Nep_Blanc.mp4", 12: "AnimePahe_Boku_no_Hero_Academia_-_012_BD_1080p_Nep_Blanc.mp4",
-        13: "AnimePahe_Boku_no_Hero_Academia_-_013_BD_1080p_Nep_Blanc.mp4",
-      }},
     ], hasSub: true, hasDub: true,
   },
   // My Hero Academia S2
@@ -1704,32 +980,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-2-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-2" },
-      { startEp: 1, endEp: 25, collection: "myheroacademiaseasontwo", audio: "dub", episodeFiles: {
-        1: "1ThatsTheIdeaOchaco2.mp4", 2: "2RoaringSportsFestival2.mp4", 3: "3InTheirOwnQuirkyWays2.mp4",
-        4: "4StrategyStrategyStrategy2.mp4", 5: "5CavalryBattleFinale2.mp4", 6: "6TheBoyBornWithEverything2.mp4",
-        7: "7VictoryorDefeat2.mp4", 8: "8BattleOnChallengers!.mp4", 9: "9BakugoVSUraraka2.mp4",
-        10: "10ShotoTodorokiOrigin2.mp4", 11: "11FightOnIida.mp4", 12: "12TodorokiVSBakugo2.mp4",
-        13: "13TimetoPickSomeNames2.mp4", 14: "14Bizarre!GranTorinoAppears2.mp4", 15: "15MidoriyaandShigaraki2.mp4",
-        16: "16HeroKillerStainVSUAStudents2.mp4", 17: "17Climax2.mp4", 18: "18TheAftermathofHeroKillerStain2.mp4",
-        19: "19EveryonesInternships2.mp4", 20: "20ListenUp!!ATalefromthePast2.mp4", 21: "21GearUpforFinalExams2.mp4",
-        22: "22YaoyorozuRising2.mp4", 23: "23StrippingtheVarnish2.mp4", 24: "24KatsukiBakugoOrigin2.mp4",
-        25: "25Encounter2.mp4",
-      }},
-      { startEp: 1, endEp: 25, collection: "mha-s2-full", audio: "sub", episodeFiles: {
-        1: "AnimePahe_Boku_no_Hero_Academia_-_014_BD_1080p_ITH.mp4", 2: "AnimePahe_Boku_no_Hero_Academia_-_015_BD_1080p_ITH.mp4",
-        3: "AnimePahe_Boku_no_Hero_Academia_-_016_BD_1080p_ITH.mp4", 4: "AnimePahe_Boku_no_Hero_Academia_-_017_BD_1080p_ITH.mp4",
-        5: "AnimePahe_Boku_no_Hero_Academia_-_018_BD_1080p_ITH.mp4", 6: "AnimePahe_Boku_no_Hero_Academia_-_019_BD_1080p_ITH (1).mp4",
-        7: "AnimePahe_Boku_no_Hero_Academia_-_020_BD_1080p_ITH.mp4", 8: "AnimePahe_Boku_no_Hero_Academia_-_021_BD_1080p_ITH.mp4",
-        9: "AnimePahe_Boku_no_Hero_Academia_-_022_BD_1080p_ITH.mp4", 10: "AnimePahe_Boku_no_Hero_Academia_-_023_BD_1080p_ITH.mp4",
-        11: "AnimePahe_Boku_no_Hero_Academia_-_024_BD_1080p_ITH.mp4", 12: "AnimePahe_Boku_no_Hero_Academia_-_025_BD_1080p_ITH.mp4",
-        13: "AnimePahe_Boku_no_Hero_Academia_-_026_BD_1080p_ITH.mp4", 14: "AnimePahe_Boku_no_Hero_Academia_-_027_BD_1080p_ITH.mp4",
-        15: "AnimePahe_Boku_no_Hero_Academia_-_028_BD_1080p_ITH.mp4", 16: "AnimePahe_Boku_no_Hero_Academia_-_029_BD_1080p_ITH.mp4",
-        17: "AnimePahe_Boku_no_Hero_Academia_-_030_BD_1080p_ITH.mp4", 18: "AnimePahe_Boku_no_Hero_Academia_-_031_BD_1080p_ITH.mp4",
-        19: "AnimePahe_Boku_no_Hero_Academia_-_032_BD_1080p_ITH.mp4", 20: "AnimePahe_Boku_no_Hero_Academia_-_033_BD_1080p_ITH.mp4",
-        21: "AnimePahe_Boku_no_Hero_Academia_-_034_BD_1080p_ITH.mp4", 22: "AnimePahe_Boku_no_Hero_Academia_-_035_BD_1080p_ITH.mp4",
-        23: "AnimePahe_Boku_no_Hero_Academia_-_036_BD_1080p_ITH.mp4", 24: "AnimePahe_Boku_no_Hero_Academia_-_037_BD_1080p_ITH.mp4",
-        25: "AnimePahe_Boku_no_Hero_Academia_-_038_BD_1080p_ITH.mp4",
-      }},
     ], hasSub: true, hasDub: true,
   },
   // My Hero Academia S3 (sub only — no dub MP4 collection found)
@@ -1744,21 +994,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-3-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-3" },
-      { startEp: 1, endEp: 25, collection: "mha-s3-full", audio: "sub", episodeFiles: {
-        1: "AnimePahe_Boku_no_Hero_Academia_-_039_BD_1080p_Yūrei.mp4", 2: "AnimePahe_Boku_no_Hero_Academia_-_040_BD_1080p_Yūrei.mp4",
-        3: "AnimePahe_Boku_no_Hero_Academia_-_041_BD_1080p_Yūrei.mp4", 4: "AnimePahe_Boku_no_Hero_Academia_-_042_BD_1080p_Yūrei.mp4",
-        5: "AnimePahe_Boku_no_Hero_Academia_-_043_BD_1080p_Yūrei.mp4", 6: "AnimePahe_Boku_no_Hero_Academia_-_044_BD_1080p_Yūrei.mp4",
-        7: "AnimePahe_Boku_no_Hero_Academia_-_045_BD_1080p_Yūrei.mp4", 8: "AnimePahe_Boku_no_Hero_Academia_-_046_BD_1080p_Yūrei.mp4",
-        9: "AnimePahe_Boku_no_Hero_Academia_-_047_BD_1080p_Yūrei.mp4", 10: "AnimePahe_Boku_no_Hero_Academia_-_048_BD_1080p_Yūrei.mp4",
-        11: "AnimePahe_Boku_no_Hero_Academia_-_049_BD_1080p_Yūrei.mp4", 12: "AnimePahe_Boku_no_Hero_Academia_-_050_BD_1080p_Yūrei.mp4",
-        13: "AnimePahe_Boku_no_Hero_Academia_-_051_BD_1080p_Yūrei.mp4", 14: "AnimePahe_Boku_no_Hero_Academia_-_052_BD_1080p_Yūrei.mp4",
-        15: "AnimePahe_Boku_no_Hero_Academia_-_053_BD_1080p_Yūrei.mp4", 16: "AnimePahe_Boku_no_Hero_Academia_-_054_BD_1080p_Yūrei.mp4",
-        17: "AnimePahe_Boku_no_Hero_Academia_-_055_BD_1080p_Yūrei.mp4", 18: "AnimePahe_Boku_no_Hero_Academia_-_056_BD_1080p_Yūrei.mp4",
-        19: "AnimePahe_Boku_no_Hero_Academia_-_057_BD_1080p_Yūrei.mp4", 20: "AnimePahe_Boku_no_Hero_Academia_-_058_BD_1080p_Yūrei.mp4",
-        21: "AnimePahe_Boku_no_Hero_Academia_-_059_BD_1080p_Yūrei.mp4", 22: "AnimePahe_Boku_no_Hero_Academia_-_060_BD_1080p_Yūrei.mp4",
-        23: "AnimePahe_Boku_no_Hero_Academia_-_061_BD_1080p_Yūrei.mp4", 24: "AnimePahe_Boku_no_Hero_Academia_-_062_BD_1080p_Yūrei.mp4",
-        25: "AnimePahe_Boku_no_Hero_Academia_-_063_BD_1080p_Yūrei.mp4",
-      }},
     ], hasSub: true, hasDub: true,
   },
   // My Hero Academia S4 (sub only — no dub MP4 collection found)
@@ -1773,21 +1008,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-4-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-4" },
-      { startEp: 1, endEp: 25, collection: "mha-s4-full", audio: "sub", episodeFiles: {
-        1: "AnimePahe_Boku_no_Hero_Academia_-_064_BD_1080p_EMBER.mp4", 2: "AnimePahe_Boku_no_Hero_Academia_-_065_BD_1080p_EMBER.mp4",
-        3: "AnimePahe_Boku_no_Hero_Academia_-_066_BD_1080p_EMBER.mp4", 4: "AnimePahe_Boku_no_Hero_Academia_-_067_BD_1080p_EMBER.mp4",
-        5: "AnimePahe_Boku_no_Hero_Academia_-_068_BD_1080p_EMBER.mp4", 6: "AnimePahe_Boku_no_Hero_Academia_-_069_BD_1080p_EMBER.mp4",
-        7: "AnimePahe_Boku_no_Hero_Academia_-_070_BD_1080p_EMBER.mp4", 8: "AnimePahe_Boku_no_Hero_Academia_-_071_BD_1080p_EMBER.mp4",
-        9: "AnimePahe_Boku_no_Hero_Academia_-_072_BD_1080p_EMBER.mp4", 10: "AnimePahe_Boku_no_Hero_Academia_-_073_BD_1080p_EMBER.mp4",
-        11: "AnimePahe_Boku_no_Hero_Academia_-_074_BD_1080p_EMBER.mp4", 12: "AnimePahe_Boku_no_Hero_Academia_-_075_BD_1080p_EMBER.mp4",
-        13: "AnimePahe_Boku_no_Hero_Academia_-_076_BD_1080p_EMBER.mp4", 14: "AnimePahe_Boku_no_Hero_Academia_-_077_BD_1080p_EMBER.mp4",
-        15: "AnimePahe_Boku_no_Hero_Academia_-_078_BD_1080p_EMBER.mp4", 16: "AnimePahe_Boku_no_Hero_Academia_-_079_BD_1080p_EMBER.mp4",
-        17: "AnimePahe_Boku_no_Hero_Academia_-_080_BD_1080p_EMBER.mp4", 18: "AnimePahe_Boku_no_Hero_Academia_-_081_BD_1080p_EMBER.mp4",
-        19: "AnimePahe_Boku_no_Hero_Academia_-_082_BD_1080p_EMBER.mp4", 20: "AnimePahe_Boku_no_Hero_Academia_-_083_BD_1080p_EMBER.mp4",
-        21: "AnimePahe_Boku_no_Hero_Academia_-_084_BD_1080p_EMBER.mp4", 22: "AnimePahe_Boku_no_Hero_Academia_-_085_BD_1080p_EMBER.mp4",
-        23: "AnimePahe_Boku_no_Hero_Academia_-_086_BD_1080p_EMBER.mp4", 24: "AnimePahe_Boku_no_Hero_Academia_-_087_BD_1080p_EMBER.mp4",
-        25: "AnimePahe_Boku_no_Hero_Academia_-_088_BD_1080p_EMBER.mp4",
-      }},
     ], hasSub: true, hasDub: true,
   },
   // My Hero Academia S5 (sub only — no dub MP4 collection found)
@@ -1802,21 +1022,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-5-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-5" },
-      { startEp: 1, endEp: 25, collection: "mha-s5-full", audio: "sub", episodeFiles: {
-        1: "AnimePahe_Boku_no_Hero_Academia_-_089_BD_1080p_EMBER.mp4", 2: "AnimePahe_Boku_no_Hero_Academia_-_090_BD_1080p_EMBER.mp4",
-        3: "AnimePahe_Boku_no_Hero_Academia_-_091_BD_1080p_EMBER.mp4", 4: "AnimePahe_Boku_no_Hero_Academia_-_092_BD_1080p_EMBER.mp4",
-        5: "AnimePahe_Boku_no_Hero_Academia_-_093_BD_1080p_EMBER.mp4", 6: "AnimePahe_Boku_no_Hero_Academia_-_094_BD_1080p_EMBER.mp4",
-        7: "AnimePahe_Boku_no_Hero_Academia_-_095_BD_1080p_EMBER.mp4", 8: "AnimePahe_Boku_no_Hero_Academia_-_096_BD_1080p_EMBER.mp4",
-        9: "AnimePahe_Boku_no_Hero_Academia_-_097_BD_1080p_EMBER.mp4", 10: "AnimePahe_Boku_no_Hero_Academia_-_098_BD_1080p_EMBER.mp4",
-        11: "AnimePahe_Boku_no_Hero_Academia_-_099_BD_1080p_EMBER.mp4", 12: "AnimePahe_Boku_no_Hero_Academia_-_100_BD_1080p_EMBER.mp4",
-        13: "AnimePahe_Boku_no_Hero_Academia_-_101_BD_1080p_EMBER.mp4", 14: "AnimePahe_Boku_no_Hero_Academia_-_102_BD_1080p_EMBER.mp4",
-        15: "AnimePahe_Boku_no_Hero_Academia_-_103_BD_1080p_EMBER.mp4", 16: "AnimePahe_Boku_no_Hero_Academia_-_104_BD_1080p_EMBER.mp4",
-        17: "AnimePahe_Boku_no_Hero_Academia_-_105_BD_1080p_EMBER.mp4", 18: "AnimePahe_Boku_no_Hero_Academia_-_106_BD_1080p_EMBER.mp4",
-        19: "AnimePahe_Boku_no_Hero_Academia_-_107_BD_1080p_EMBER.mp4", 20: "AnimePahe_Boku_no_Hero_Academia_-_108_BD_1080p_EMBER.mp4",
-        21: "AnimePahe_Boku_no_Hero_Academia_-_109_BD_1080p_EMBER.mp4", 22: "AnimePahe_Boku_no_Hero_Academia_-_110_BD_1080p_EMBER.mp4",
-        23: "AnimePahe_Boku_no_Hero_Academia_-_111_BD_1080p_EMBER.mp4", 24: "AnimePahe_Boku_no_Hero_Academia_-_112_BD_1080p_EMBER.mp4",
-        25: "AnimePahe_Boku_no_Hero_Academia_-_113_BD_1080p_EMBER.mp4",
-      }},
     ], hasSub: true, hasDub: true,
   },
   // My Hero Academia S6 (sub + dub; dub missing ep 10)
@@ -1831,34 +1036,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-6-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-6" },
-      { startEp: 1, endEp: 25, collection: "s-6.-e-8-league-of-villains-vs.-u.-a.-students", audio: "dub", episodeFiles: {
-        1: "S6.E1 ∙ A Quiet Beginning.mp4", 2: "S6.E2 ∙ Mirko, the No. 5 Hero.mp4", 3: "S6.E3 ∙ One's Justice.mp4",
-        4: "S6.E4 ∙ Inheritance.mp4", 5: "S6.E5 ∙ The Thrill of Destruction.mp4", 6: "S6.E6 ∙ Encounter, Part 2.mp4",
-        7: "S6.E7 ∙ Disaster Walker.mp4", 8: "S6.E8 ∙ League of Villains vs. U.A. Students.mp4",
-        9: "S6.E9 ∙ Katsuki Bakugo Rising.mp4",
-        // ep 10 missing from the dub collection — will fall through to sub
-        11: "S6.E11 ∙ Dabi's Dance.mp4", 12: "S6.E12 ∙ Threads of Hope.mp4", 13: "S6.E13 ∙ Final Performance.mp4",
-        14: "S6.E14 ∙ Hellish Hell.mp4", 15: "S6.E15 ∙ Tartarus.mp4", 16: "S6.E16 ∙ The Hellish Todoroki Family, Part 2.mp4",
-        17: "S6.E17 ∙ The Wrong Way to Put Out a Fire.mp4", 18: "S6.E18 ∙ Izuku Midoriya and Tomura Shigaraki.mp4",
-        19: "S6.E19 ∙ Full Power!!.mp4", 20: "S6.E20 ∙ Hired Gun.mp4", 21: "S6.E21 ∙ The Lovely Lady Nagant.mp4",
-        22: "S6.E22 ∙ Friend.mp4", 23: "S6.E23 ∙ Deku vs. Class A.mp4", 24: "S6.E24 ∙ A Young Woman's Declaration.mp4",
-        25: "S6.E25 ∙ No Man Is an Island.mp4",
-      }},
-      { startEp: 1, endEp: 25, collection: "mha-s6-full", audio: "sub", episodeFiles: {
-        1: "AnimePahe_Boku_no_Hero_Academia_-_114_1080p_SubsPlease.mp4", 2: "AnimePahe_Boku_no_Hero_Academia_-_115_1080p_SubsPlease.mp4",
-        3: "AnimePahe_Boku_no_Hero_Academia_-_116_1080p_SubsPlease.mp4", 4: "AnimePahe_Boku_no_Hero_Academia_-_117_1080p_SubsPlease (1).mp4",
-        5: "AnimePahe_Boku_no_Hero_Academia_-_118_1080p_SubsPlease.mp4", 6: "AnimePahe_Boku_no_Hero_Academia_-_119_1080p_SubsPlease.mp4",
-        7: "AnimePahe_Boku_no_Hero_Academia_-_120_1080p_SubsPlease.mp4", 8: "AnimePahe_Boku_no_Hero_Academia_-_121_1080p_SubsPlease.mp4",
-        9: "AnimePahe_Boku_no_Hero_Academia_-_122_1080p_SubsPlease.mp4", 10: "AnimePahe_Boku_no_Hero_Academia_-_123_1080p_SubsPlease.mp4",
-        11: "AnimePahe_Boku_no_Hero_Academia_-_124_1080p_SubsPlease.mp4", 12: "AnimePahe_Boku_no_Hero_Academia_-_125_1080p_SubsPlease.mp4",
-        13: "AnimePahe_Boku_no_Hero_Academia_-_126_1080p_SubsPlease.mp4", 14: "AnimePahe_Boku_no_Hero_Academia_-_127_1080p_SubsPlease.mp4",
-        15: "AnimePahe_Boku_no_Hero_Academia_-_128_1080p_SubsPlease.mp4", 16: "AnimePahe_Boku_no_Hero_Academia_-_129_1080p_SubsPlease.mp4",
-        17: "AnimePahe_Boku_no_Hero_Academia_-_130_1080p_SubsPlease.mp4", 18: "AnimePahe_Boku_no_Hero_Academia_-_131_1080p_SubsPlease.mp4",
-        19: "AnimePahe_Boku_no_Hero_Academia_-_132_1080p_SubsPlease.mp4", 20: "AnimePahe_Boku_no_Hero_Academia_-_133_1080p_SubsPlease.mp4",
-        21: "AnimePahe_Boku_no_Hero_Academia_-_134_1080p_SubsPlease.mp4", 22: "AnimePahe_Boku_no_Hero_Academia_-_135_1080p_SubsPlease.mp4",
-        23: "AnimePahe_Boku_no_Hero_Academia_-_136_1080p_SubsPlease.mp4", 24: "AnimePahe_Boku_no_Hero_Academia_-_137_1080p_SubsPlease.mp4",
-        25: "AnimePahe_Boku_no_Hero_Academia_-_138_1080p_SubsPlease.mp4",
-      }},
     ], hasSub: true, hasDub: true,
   },
   // My Hero Academia S7 (sub only — no dub MP4 collection found)
@@ -1873,19 +1050,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-7-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-season-7" },
-      { startEp: 1, endEp: 21, collection: "mha-s7-full", audio: "sub", episodeFiles: {
-        1: "AnimePahe_Boku_no_Hero_Academia_-_139_1080p_SubsPlease.mp4", 2: "AnimePahe_Boku_no_Hero_Academia_-_140_1080p_SubsPlease.mp4",
-        3: "AnimePahe_Boku_no_Hero_Academia_-_141_1080p_SubsPlease.mp4", 4: "AnimePahe_Boku_no_Hero_Academia_-_142_1080p_SubsPlease.mp4",
-        5: "AnimePahe_Boku_no_Hero_Academia_-_143_1080p_SubsPlease.mp4", 6: "AnimePahe_Boku_no_Hero_Academia_-_144_1080p_SubsPlease.mp4",
-        7: "AnimePahe_Boku_no_Hero_Academia_-_145_1080p_SubsPlease.mp4", 8: "AnimePahe_Boku_no_Hero_Academia_-_146_1080p_SubsPlease (1).mp4",
-        9: "AnimePahe_Boku_no_Hero_Academia_-_147_1080p_SubsPlease.mp4", 10: "AnimePahe_Boku_no_Hero_Academia_-_148_1080p_SubsPlease.mp4",
-        11: "AnimePahe_Boku_no_Hero_Academia_-_149_1080p_SubsPlease.mp4", 12: "AnimePahe_Boku_no_Hero_Academia_-_150_1080p_SubsPlease.mp4",
-        13: "AnimePahe_Boku_no_Hero_Academia_-_151_1080p_SubsPlease.mp4", 14: "AnimePahe_Boku_no_Hero_Academia_-_152_1080p_SubsPlease.mp4",
-        15: "AnimePahe_Boku_no_Hero_Academia_-_153_1080p_SubsPlease.mp4", 16: "AnimePahe_Boku_no_Hero_Academia_-_154_1080p_SubsPlease.mp4",
-        17: "AnimePahe_Boku_no_Hero_Academia_-_155_1080p_SubsPlease.mp4", 18: "AnimePahe_Boku_no_Hero_Academia_-_156_1080p_SubsPlease.mp4",
-        19: "AnimePahe_Boku_no_Hero_Academia_-_157_1080p_SubsPlease.mp4", 20: "AnimePahe_Boku_no_Hero_Academia_-_158_1080p_SubsPlease.mp4",
-        21: "AnimePahe_Boku_no_Hero_Academia_-_159_1080p_SubsPlease.mp4",
-      }},
     ], hasSub: true, hasDub: true,
   },
   // My Hero Academia S8 (Final Season) — sub + dub. Currently airing.
@@ -1905,30 +1069,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-final-season-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "my-hero-academia-final-season" },
-      { startEp: 1, endEp: 11, collection: "anime-pahe-boku-no-hero-academia-eng-dub-160-720p-yameii", audio: "dub", episodeFiles: {
-        1: "AnimePahe_Boku_no_Hero_Academia_Eng_Dub_-_160_720p_Yameii.mp4",
-        2: "AnimePahe_Boku_no_Hero_Academia_Eng_Dub_-_161_720p_Yameii.mp4",
-        3: "AnimePahe_Boku_no_Hero_Academia_Eng_Dub_-_162_720p_Yameii.mp4",
-        4: "AnimePahe_Boku_no_Hero_Academia_Eng_Dub_-_163_360p_Yameii.mp4",
-        5: "AnimePahe_Boku_no_Hero_Academia_Eng_Dub_-_164_1080p_Yameii.mp4",
-        6: "AnimePahe_Boku_no_Hero_Academia_Eng_Dub_-_165_1080p_Yameii.mp4",
-        7: "AnimePahe_Boku_no_Hero_Academia_Eng_Dub_-_166_1080p_Yameii.mp4",
-        8: "AnimePahe_Boku_no_Hero_Academia_Eng_Dub_-_167_1080p_Yameii.mp4",
-        // eps 9-11 (168-170) not yet dubbed — fall through to sub
-      }},
-      { startEp: 1, endEp: 11, collection: "mha-final-season", audio: "sub", episodeFiles: {
-        1: "AnimePahe_Boku_no_Hero_Academia_-_160_1080p_SubsPlease.mp4",
-        2: "AnimePahe_Boku_no_Hero_Academia_-_161_1080p_SubsPlease.mp4",
-        3: "AnimePahe_Boku_no_Hero_Academia_-_162_1080p_SubsPlease.mp4",
-        4: "AnimePahe_Boku_no_Hero_Academia_-_163_1080p_SubsPlease.mp4",
-        5: "AnimePahe_Boku_no_Hero_Academia_-_164v2_1080p_SubsPlease.mp4",
-        6: "AnimePahe_Boku_no_Hero_Academia_-_165_1080p_SubsPlease.mp4",
-        7: "AnimePahe_Boku_no_Hero_Academia_-_166_1080p_SubsPlease.mp4",
-        8: "AnimePahe_Boku_no_Hero_Academia_-_167_1080p_SubsPlease.mp4",
-        9: "AnimePahe_Boku_no_Hero_Academia_-_168_1080p_SubsPlease.mp4",
-        10: "AnimePahe_Boku_no_Hero_Academia_-_169_1080p_SubsPlease.mp4",
-        11: "AnimePahe_Boku_no_Hero_Academia_-_170_1080p_SubsPlease.mp4",
-      }},
     ], hasSub: true, hasDub: true,
   },
   // ===== Uma Musume: Pretty Derby (S1, S2, S3, Specials, Movie) =====
@@ -1949,22 +1089,7 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "umamusume-pretty-derby-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "umamusume-pretty-derby" },
-      { startEp: 1, endEp: 13, collection: "uma-musume-s1-engsub", audio: "sub", episodeFiles: {
-        1: "[Okay-Subs] Uma Musume Pretty Derby - 01v2 (BD 1080p) [3C967D27].mp4",
-        2: "[Okay-Subs] Uma Musume Pretty Derby - 02v2 (BD 1080p) [1A81FD14].mp4",
-        3: "[Okay-Subs] Uma Musume Pretty Derby - 03v2 (BD 1080p) [C0D18371].mp4",
-        4: "[Okay-Subs] Uma Musume Pretty Derby - 04v2 (BD 1080p) [1E8710CA].mp4",
-        5: "[Okay-Subs] Uma Musume Pretty Derby - 05v2 (BD 1080p) [63B1AB7F].mp4",
-        6: "[Okay-Subs] Uma Musume Pretty Derby - 06v2 (BD 1080p) [28F1A8FD].mp4",
-        7: "[Okay-Subs] Uma Musume Pretty Derby - 07v2 (BD 1080p) [6D4CAF3A].mp4",
-        8: "[Okay-Subs] Uma Musume Pretty Derby - 08v2 (BD 1080p) [DABDB3AE].mp4",
-        9: "[Okay-Subs] Uma Musume Pretty Derby - 09v2 (BD 1080p) [153A9BC9].mp4",
-        10: "[Okay-Subs] Uma Musume Pretty Derby - 10v2 (BD 1080p) [54770AF4].mp4",
-        11: "[Okay-Subs] Uma Musume Pretty Derby - 11v2 (BD 1080p) [79B7244E].mp4",
-        12: "[Okay-Subs] Uma Musume Pretty Derby - 12v2 (BD 1080p) [E97733B4].mp4",
-        13: "[Okay-Subs] Uma Musume Pretty Derby - 13v2 (BD 1080p) [7F3DFF65].mp4",
-      }},
-    ], hasSub: true, localSubtitlePattern: "/subtitles/35349_e{ep}.vtt",
+    ], hasSub: true, hasDub: true,
   },
   // Uma Musume S2
   { malId: 42334, title: "Umamusume: Pretty Derby Season 2", titleEnglish: "Umamusume: Pretty Derby Season 2", titleJapanese: "ウマ娘 プリティーダービー Season 2",
@@ -1978,22 +1103,7 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "umamusume-pretty-derby-season-2-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "umamusume-pretty-derby-season-2" },
-      { startEp: 1, endEp: 13, collection: "uma-musume-pretty-derby-english-subbed", audio: "sub", episodeFiles: {
-        1: "Uma Musume Pretty Derby Season 2 Episode 1 English Subbed.mp4",
-        2: "Uma Musume Pretty Derby Season 2 Episode 2 English Subbed.mp4",
-        3: "Uma Musume Pretty Derby Season 2 Episode 3 English Subbed.mp4",
-        4: "Uma Musume Pretty Derby Season 2 Episode 4 English Subbed.mp4",
-        5: "Uma Musume Pretty Derby Season 2 Episode 5 English Subbed.mp4",
-        6: "Uma Musume Pretty Derby Season 2 Episode 6 English Subbed.mp4",
-        7: "Uma Musume Pretty Derby Season 2 Episode 7 English Subbed.mp4",
-        8: "Uma Musume Pretty Derby Season 2 Episode 8 English Subbed.mp4",
-        9: "Uma Musume Pretty Derby Season 2 Episode 9 English Subbed.mp4",
-        10: "Uma Musume Pretty Derby Season 2 Episode 10 English Subbed.mp4",
-        11: "Uma Musume Pretty Derby Season 2 Episode 11 English Subbed.mp4",
-        12: "Uma Musume Pretty Derby Season 2 Episode 12 English Subbed.mp4",
-        13: "Uma Musume Pretty Derby Season 2 Episode 13 English Subbed.mp4",
-      }},
-    ], hasSub: true, 
+    ], hasSub: true, hasDub: true,
   },
   // Uma Musume S3
   { malId: 48654, title: "Umamusume: Pretty Derby Season 3", titleEnglish: "Umamusume: Pretty Derby Season 3", titleJapanese: "ウマ娘 プリティーダービー Season 3",
@@ -2007,22 +1117,7 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "umamusume-pretty-derby-season-3-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "umamusume-pretty-derby-season-3" },
-      { startEp: 1, endEp: 13, collection: "uma-musume-pretty-derby-english-subbed", audio: "sub", episodeFiles: {
-        1: "Uma Musume Pretty Derby Season 3 Episode 1 English Subbed.mp4",
-        2: "Uma Musume Pretty Derby Season 3 Episode 2 English Subbed.mp4",
-        3: "Uma Musume Pretty Derby Season 3 Episode 3 English Subbed.mp4",
-        4: "Uma Musume Pretty Derby Season 3 Episode 4 English Subbed.mp4",
-        5: "Uma Musume Pretty Derby Season 3 Episode 5 English Subbed.mp4",
-        6: "Uma Musume Pretty Derby Season 3 Episode 6 English Subbed.mp4",
-        7: "Uma Musume Pretty Derby Season 3 Episode 7 English Subbed.mp4",
-        8: "Uma Musume Pretty Derby Season 3 Episode 8 English Subbed.mp4",
-        9: "Uma Musume Pretty Derby Season 3 Episode 9 English Subbed.mp4",
-        10: "Uma Musume Pretty Derby Season 3 Episode 10 English Subbed.mp4",
-        11: "Uma Musume Pretty Derby Season 3 Episode 11 English Subbed.mp4",
-        12: "Uma Musume Pretty Derby Season 3 Episode 12 English Subbed.mp4",
-        13: "Uma Musume Pretty Derby Season 3 Episode 13 English Subbed.mp4",
-      }},
-    ], hasSub: true, 
+    ], hasSub: true, hasDub: true,
   },
   // Uma Musume Specials (3 episodes)
   { malId: -3, title: "Umamusume: Pretty Derby Specials", titleEnglish: "Umamusume: Pretty Derby Specials", titleJapanese: "ウマ娘 プリティーダービー スペシャル",
@@ -2036,12 +1131,7 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "umamusume-pretty-derby-specials-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "umamusume-pretty-derby-specials" },
-      { startEp: 1, endEp: 3, collection: "uma-musume-pretty-derby-english-subbed", audio: "sub", episodeFiles: {
-        1: "Uma Musume Pretty Derby Special Episode 1 English Subbed.mp4",
-        2: "Uma Musume Pretty Derby Special Episode 2 English Subbed.mp4",
-        3: "Uma Musume Pretty Derby Special Episode 3 English Subbed.mp4",
-      }},
-    ], hasSub: true, noSubtitles: true,
+    ], hasSub: true, hasDub: true,
   },
   // Uma Musume Movie: Beginning of a New Era
   { malId: 55311, title: "Umamusume: Pretty Derby - Beginning of a New Era", titleEnglish: "Umamusume: Pretty Derby - Beginning of a New Era", titleJapanese: "ウマ娘 プリティーダービー 新時代の扉",
@@ -2055,7 +1145,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "umamusume-pretty-derby--beginning-of-a-new-era-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "umamusume-pretty-derby--beginning-of-a-new-era" },
-      { startEp: 1, endEp: 1, collection: "uma-musume-beginning-of-a-new-era", fileName: "Uma Musume - Beginning of a New Era.mp4", audio: "sub" },
     ], hasSub: true, noSubtitles: true,
   },
   // Ghost Stories (Gakkou no Kaidan) — English dub, 1080p
@@ -2071,34 +1160,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "ghost-stories-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "ghost-stories" },
-      // English dub — ADV collection (1080p, works for eps 1-8, 10-20)
-      // ghost-stories- collection returns 500 for most episodes now.
-      // ep9 falls through to ghost-stories- as fallback.
-      {
-        startEp: 1, endEp: 20, collection: "ghost-stories-ADV", audio: "dub", episodeFiles: {
-          1: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 01 (35060C64).mp4",
-          2: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 02 (587DEF92).mp4",
-          3: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 03 (0327D1BD).mp4",
-          4: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 04 (5CC7BCB1).mp4",
-          5: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 05 (F590D623).mp4",
-          6: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 06 (6DA15E06).mp4",
-          7: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 07 (2F37D6D6).mp4",
-          8: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 08 (9AF097B2).mp4",
-          10: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 10 (9FA7DCC0).mp4",
-          11: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 11 (3B38E277).mp4",
-          12: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 12 (ABE40789).mp4",
-          13: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 13 (3961BF86).mp4",
-          14: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 14 (C90ECDEE).mp4",
-          15: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 15 (5CDEE988).mp4",
-          16: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 16 (F641519C).mp4",
-          17: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 17 (F23D49EB).mp4",
-          18: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 18 (0C9A9C8E).mp4",
-          19: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 19 (00940539).mp4",
-          20: "Ghost Stories (ADV ENGdub)/Ghost Stories Episode 20 (F6CEA932).mp4",
-        },
-      },
-      // Fallback for ep9 (ADV returns 500 for this one)
-      { startEp: 9, endEp: 9, collection: "ghost-stories-", fileName: "Ghost Stories - S01E09.mp4", audio: "dub" },
       // Japanese audio (sub) — Dropbox 480p DVD (Exiled-Destiny, user-provided)
       // Eps 1-19 available; ep 20 falls through to dub.
       {
@@ -2139,7 +1200,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "tomb-raider-king-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "tomb-raider-king" },
-      { startEp: 1, endEp: 1, collection: "tomb-raider-king-watch-anime-online-in-hd-animesuge-1-019942", fileName: "Tomb Raider King – Watch Anime Online in HD _ AnimeSuge (1).mp4", audio: "sub" },
     ], hasSub: true,
   },
   // Slug pattern: {slug}-episode-{ep}-english-{dubbed|subbed}
@@ -2198,8 +1258,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "attack-on-titan-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "attack-on-titan" },
-      // ARCHIVE.ORG DUB (1080p, works WITHOUT resolver!)
-      { startEp: 1, endEp: 25, collection: "shingeki-no-kyojin_aot", audio: "dub", fileTemplate: "season-1_DUB-1080p/Attack_on_Titan-E{ep}-1080p.mp4" },
     ], hasSub: true, hasDub: true,
   },
   // Attack on Titan Season 2
@@ -2214,8 +1272,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "attack-on-titan-season-2-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "attack-on-titan-season-2" },
-      // ARCHIVE.ORG DUB (1080p, works WITHOUT resolver!)
-      { startEp: 1, endEp: 12, collection: "shingeki-no-kyojin_aot", audio: "dub", fileTemplate: "season-2_DUB-1080p/Attack_on_Titan_Season_2-E{ep}-1080p.mp4" },
     ], hasSub: true, hasDub: true,
   },
   // Attack on Titan Season 3
@@ -2230,8 +1286,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "attack-on-titan-season-3-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "attack-on-titan-season-3" },
-      // ARCHIVE.ORG DUB (1080p, works WITHOUT resolver!)
-      { startEp: 1, endEp: 22, collection: "shingeki-no-kyojin_aot", audio: "dub", fileTemplate: "season-3_DUB-1080p/Attack_on_Titan_Season_3-E{ep}-1080p.mp4" },
     ], hasSub: true, hasDub: true,
   },
   // Attack on Titan Final Season
@@ -2246,25 +1300,7 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "attack-on-titan-final-season-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "attack-on-titan-final-season" },
-      // ARCHIVE.ORG DUB Part 1 (1080p, E1-16, works WITHOUT resolver!)
-      { startEp: 1, endEp: 16, collection: "shingeki-no-kyojin_aot", audio: "dub", fileTemplate: "season-finale-pt-1_DUB-1080p/Attack_on_Titan_Final_Season,_Part_1-E{ep}-1080p.mp4" },
       // ARCHIVE.ORG DUB Part 2 (1080p UNCUT, E17-26, from CHRONOLOGY collection)
-      // CHRONOLOGY E66-75 mapped to S4 E17-26
-      { startEp: 17, endEp: 26, collection: "attack-on-titan-chronology-final-season-pt2-uncut", audio: "dub", episodeFiles: {
-        17: "Attack on Titan CHRONOLOGY Episode 66 UNCUT.mp4",
-        18: "Attack on Titan CHRONOLOGY Episode 67 UNCUT.mp4",
-        19: "Attack on Titan CHRONOLOGY Episode 68 UNCUT.mp4",
-        20: "Attack on Titan CHRONOLOGY Episode 69 UNCUT.mp4",
-        21: "Attack on Titan CHRONOLOGY Episode 70 UNCUT.mp4",
-        22: "Attack on Titan CHRONOLOGY Episode 71 UNCUT.mp4",
-        23: "Attack on Titan CHRONOLOGY Episode 72 UNCUT.mp4",
-        24: "Attack on Titan CHRONOLOGY Episode 73 UNCUT.mp4",
-        25: "Attack on Titan CHRONOLOGY Episode 74 UNCUT.mp4",
-        26: "Attack on Titan CHRONOLOGY Episode 75 UNCUT.mp4",
-      } },
-      // ARCHIVE.ORG DUB Part 3 / Final Chapters (1080p TVRip, E28-29)
-      { startEp: 28, endEp: 28, collection: "attack-on-titan-the-final-chapters-ep.-1.-tvrip.-1080p", audio: "dub", fileName: "EP.1.TVRip.1080p.mp4" },
-      { startEp: 29, endEp: 29, collection: "attack-on-titan-the-final-chapters-ep.-2.-tvrip.-1080p", audio: "dub", fileName: "EP.2.TVRip.1080p.mp4" },
     ], hasSub: true, hasDub: true,
   },
   // Chainsaw Man
@@ -2279,8 +1315,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "chainsaw-man-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "chainsaw-man" },
-      // ARCHIVE.ORG SUB (720p/1080p, works WITHOUT resolver!)
-      { startEp: 1, endEp: 12, collection: "chainsaw-man-sub", audio: "sub", fileTemplate: "Chainsaw Man {ep:02}.mp4" },
     ], hasSub: true, hasDub: true,
   },
   // Death Note
@@ -2379,8 +1413,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "vinland-saga-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "vinland-saga" },
-      // ARCHIVE.ORG SUB (480p, works WITHOUT resolver!)
-      { startEp: 1, endEp: 24, collection: "anime-time-steins-gate", audio: "sub", fileTemplate: "[Anime Time] Steins;Gate - {ep:02}.mp4" },
     ], hasSub: true, hasDub: true,
   },
   // Violet Evergarden
@@ -7980,14 +7012,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "high-school-dxd-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "high-school-dxd" },
-      // ARCHIVE.ORG S1 (480p SUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 12, collection: "dxd-01-locura-anime", audio: "sub", fileTemplate: "DXD{ep:02}(Locura Anime).mp4" },
-      // ARCHIVE.ORG S2 (720p SUB, works WITHOUT resolver!)
-      { startEp: 13, endEp: 24, collection: "high-school-dxd-new-s2", audio: "sub", fileTemplate: "High School DxD S2 {ep:02}.mp4" },
-      // ARCHIVE.ORG S3 (720p SUB, works WITHOUT resolver!)
-      { startEp: 25, endEp: 37, collection: "high-school-dxd-born-s3", audio: "sub", fileTemplate: "High School DxD S3 {ep:02}.mp4" },
-      // ARCHIVE.ORG S4 (720p SUB, works WITHOUT resolver!)
-      { startEp: 38, endEp: 50, collection: "high-school-dxd-hero-s4", audio: "sub", fileTemplate: "High School DxD S4 {ep:02}.mp4" },
     ], hasDub: true, hasSub: true,
   },
   // High School DxD BorN
@@ -9570,10 +8594,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "konosuba-gods-blessing-on-this-wonderful-world-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "konosuba-gods-blessing-on-this-wonderful-world" },
-      // ARCHIVE.ORG S1 (480p SUB, works WITHOUT resolver!)
-      { startEp: 1, endEp: 10, collection: "konosuba-1", audio: "sub", fileTemplate: "K-{ep:02}.mp4" },
-      // ARCHIVE.ORG S2 (1080p DUB, works WITHOUT resolver!)
-      { startEp: 11, endEp: 20, collection: "konosuba-s2-eng-dub", audio: "dub", fileTemplate: "KonoSuba Gods Blessing on This Wonderful World 2 Eng Dub Ep - {ep:02}.mp4" },
     ], hasDub: true, hasSub: true,
   },
   // Konohana Kitan
@@ -12300,8 +11320,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "overlord-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "overlord" },
-      // ARCHIVE.ORG S2 (720p SUB, works WITHOUT resolver!)
-      { startEp: 14, endEp: 26, collection: "OverlordSeason2", audio: "sub", fileTemplate: "{ep:02}.mp4" },
     ], hasDub: true, hasSub: true,
   },
   // Pandora in the Crimson Shell
@@ -14626,115 +13644,7 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "soul-eater-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "soul-eater" },
-      // ARCHIVE.ORG DUB (720p, works WITHOUT resolver!)
-      { startEp: 1, endEp: 51, collection: "soul-eater-full-series", audio: "dub", episodeFiles: {
-        1: "1.00B Soul Eater - Episode 01 (DUB) 1280x720 - Resonance of the Soul Will Soul Eater Become a Death Scythe.mp4",
-        2: "1.10B Soul Eater - Episode 02 (DUB) 1280x720 - I Am the Star! The Big Man Is Showing Up Here.mp4",
-        3: "1.20B Soul Eater - Episode 03 (DUB) 1280x720 - The Perfect Boy Death the Kid`s Magnificent Mission.mp4",
-        4: "1.30B Soul Eater - Episode 04 (DUB) 1280x720 - Engage the Witch Hunter! A Remedial Lesson in the Graveyard.mp4",
-        5: "1.40B Soul Eater - Episode 05 (DUB) 1280x720 - Shape of the Soul Enter the Ultimate Meister Stein.mp4",
-        6: "1.50B Soul Eater - Episode 06 (DUB) 1280x720 - The New Student Kid`s First Day at the Academy - Will It Be an Entrance to Remember.mp4",
-        7: "1.60B Soul Eater - Episode 07 (DUB) 1280x720 - Black-Blooded Terror There`s a Weapon Inside Crona.mp4",
-        8: "1.70B Soul Eater - Episode 08 (DUB) 1280x720 - Medusa the Witch The One Who Possesses a Great Evil Soul.mp4",
-        9: "1.80B Soul Eater - Episode 09 (DUB) 1280x720 - Legend of the Holy Sword Kid and BlackStar`s Great Adventure.mp4",
-        10: "1.90B Soul Eater - Episode 10 (DUB) 1280x720 - The Enchanted Sword Masamune Break the Soul Possession - A Heart Sings in the Rain.mp4",
-        11: "2.00B Soul Eater - Episode 11 (DUB) 1280x720 - Tsubaki the Camellia Blossom What Lies Beyond the Grief.mp4",
-        12: "2.10B Soul Eater - Episode 12 (DUB) 1280x720 - Courage That Beats Out Fear Maka Albarn`s Great Resolution.mp4",
-        13: "2.20B Soul Eater - Episode 13 (DUB) 1280x720 - The Man with the Magic Eye Soul and Maka`s Diverging Soul Wavelength.mp4",
-        14: "2.30B Soul Eater - Episode 14 (DUB) 1280x720 - The Super Written Exam Heart-Pounding, Reeling, and Restless. You`re Kidding!.mp4",
-        15: "2.40B Soul Eater - Episode 15 (DUB) 1280x720 - The Soul Eating Black Dragon Scaredy-Cat Liz and Her Merry Friends.mp4",
-        16: "2.50B Soul Eater - Episode 16 (DUB) 1280x720 - Fierce Battle Aboard the Ghost Ship! The Hell Inside My Head.mp4",
-        17: "2.60B Soul Eater - Episode 17 (DUB) 1280x720 - Legend of the Holy Sword 2 Wanna Go Drinking, Gambling, and Playing.mp4",
-        18: "2.70B Soul Eater - Episode 18 (DUB) 1280x720 - The Eve Party Nightmare And So the Curtain Rises.mp4",
-        19: "2.80B Soul Eater - Episode 19 (DUB) 1280x720 - The Underground Battle Commences Break Through Medusa`s Vector Arrow.mp4",
-        20: "2.90B Soul Eater - Episode 20 (DUB) 1280x720 - The Black Blood Resonance Battle! A Small Soul`s Grand Struggle Against Fear.mp4",
-        21: "3.00B Soul Eater - Episode 21 (DUB) 1280x720 - May My Soul Reach You A Dry Heart Inside Unbearable Isolation.mp4",
-        22: "3.10B Soul Eater - Episode 22 (DUB) 1280x720 - The Seal Shrine The Immortal Man`s Tricks.mp4",
-        23: "3.20B Soul Eater - Episode 23 (DUB) 1280x720 - Dead or Alive In the Rift Between Revival and Dazzlement.mp4",
-        24: "3.30B Soul Eater - Episode 24 (DUB) 1280x720 - The Battle of the Gods Death City on the Verge of Collapse.mp4",
-        25: "3.40B Soul Eater - Episode 25 (DUB) 1280x720 - The Death Scythes Convene Stop Dad`s Staff Reassignment!.mp4",
-        26: "3.50B Soul Eater - Episode 26 (DUB) 1280x720 - The Exciting and Embarrassing Trial Enrollment! The DWMA New Lifestyle Support Fair Is Open.mp4",
-        27: "3.60B Soul Eater - Episode 27 (DUB) 1280x720 - 800 Years of Bloodlust Advent of the Heretic Witch.mp4",
-        28: "3.70B Soul Eater - Episode 28 (DUB) 1280x720 - The Sword God Rises Does It Have a Sweet or Salty Taste.mp4",
-        29: "3.80B Soul Eater - Episode 29 (DUB) 1280x720 - Medusa`s Revival! A Spider and Snake`s Fateful Reunion.mp4",
-        30: "3.90B Soul Eater - Episode 30 (DUB) 1280x720 - The Red Hot Runaway Express A Magic Tool Left Behind by the Great Wizard.mp4",
-        31: "4.00B Soul Eater - Episode 31 (DUB) 1280x720 - Drying Happiness! Whose Tears Sparkle in the Moonlight.mp4",
-        32: "4.10B Soul Eater - Episode 32 (DUB) 1280x720 - Legend of the Holy Sword 3 The Academy Gang Leader`s Tale.mp4",
-        33: "4.20B Soul Eater - Episode 33 (DUB) 1280x720 - Resonance Link Play the Melody of the Souls.mp4",
-        34: "4.30B Soul Eater - Episode 34 (DUB) 1280x720 - The Battle for Brew Clash - The DWMA vs. Arachnophobia.mp4",
-        35: "4.40B Soul Eater - Episode 35 (DUB) 1280x720 - Mosquito`s Storm! Ten Minutes to Fight in the World of the Past.mp4",
-        36: "4.50B Soul Eater - Episode 36 (DUB) 1280x720 - Unleash the Seven`s Resonance Link! A Recital of Destruction and Creation.mp4",
-        37: "4.60B Soul Eater - Episode 37 (DUB) 1280x720 - The Detective`s First Case Kid Exposes the DWMA`s Secret.mp4",
-        38: "4.70B Soul Eater - Episode 38 (DUB) 1280x720 - Asura`s Temptation The Big Man`s Uncontrollable Irritation.mp4",
-        39: "4.80B Soul Eater - Episode 39 (DUB) 1280x720 - Crona`s Escape Show Me Your Smile, Please.mp4",
-        40: "4.90B Soul Eater - Episode 40 (DUB) 1280x720 - The Cards Are Cut Medusa Surrenders to the DWMA.mp4",
-        41: "5.00B Soul Eater - Episode 41 (DUB) 1280x720 - Twirl `Round and `Round A New World in Which the Doc Dances.mp4",
-        42: "5.10B Soul Eater - Episode 42 (DUB) 1280x720 - Charge Baba Yaga`s Castle! Things Are Kind of Gloomy.mp4",
-        43: "5.20B Soul Eater - Episode 43 (DUB) 1280x720 - The Last Magic Tool Mission Impossible for Unarmed Kid.mp4",
-        44: "5.30B Soul Eater - Episode 44 (DUB) 1280x720 - Weakling Crona`s Determination For You, for Always Being by My Side.mp4",
-        45: "5.40B Soul Eater - Episode 45 (DUB) 1280x720 - Anti-Magic Wavelength Fierce Attack, the Anger-Filled Genie Hunter.mp4",
-        46: "5.50B Soul Eater - Episode 46 (DUB) 1280x720 - Warrior or Slaughterer Showdown Mifune vs. BlackStar.mp4",
-        47: "5.60B Soul Eater - Episode 47 (DUB) 1280x720 - The Miraculous Coffee Table Flip Fly, Our Death City Robot.mp4",
-        48: "5.70B Soul Eater - Episode 48 (DUB) 1280x720 - Lord Death Wields a Death Scythe Just One Step from Utter Darkness.mp4",
-        49: "5.80B Soul Eater - Episode 49 (DUB) 1280x720 - Asura Wakes To the End of the World.mp4",
-        50: "5.90B Soul Eater - Episode 50 (DUB) 1280x720 - Sink or Swim! The Men Who Transcend the Gods.mp4",
-        51: "6.00B Soul Eater (FINALE) - Episode 51 (DUB) 1280x720 - The Word Is Bravery!.mp4",
-      } },
-      // ARCHIVE.ORG SUB (720p, works WITHOUT resolver!)
-      { startEp: 1, endEp: 51, collection: "soul-eater-full-series", audio: "sub", episodeFiles: {
-        1: "1.00A Soul Eater - Episode 01 (SUB) 1280x720 - Resonance of the Soul Will Soul Eater Become a Death Scythe.mp4",
-        2: "1.10A Soul Eater - Episode 02 (SUB) 1280x720 - I Am the Star! The Big Man Is Showing Up Here.mp4",
-        3: "1.20A Soul Eater - Episode 03 (SUB) 1280x720 - The Perfect Boy Death the Kid`s Magnificent Mission.mp4",
-        4: "1.30A Soul Eater - Episode 04 (SUB) 1280x720 - Engage the Witch Hunter! A Remedial Lesson in the Graveyard.mp4",
-        5: "1.40A Soul Eater - Episode 05 (SUB) 1280x720 - Shape of the Soul Enter the Ultimate Meister Stein.mp4",
-        6: "1.50A Soul Eater - Episode 06 (SUB) 1280x720 - The New Student Kid`s First Day at the Academy - Will It Be an Entrance to Remember.mp4",
-        7: "1.60A Soul Eater - Episode 07 (SUB) 1280x720 - Black-Blooded Terror There`s a Weapon Inside Crona.mp4",
-        8: "1.70A Soul Eater - Episode 08 (SUB) 1280x720 - Medusa the Witch The One Who Possesses a Great Evil Soul.mp4",
-        9: "1.80A Soul Eater - Episode 09 (SUB) 1280x720 - Legend of the Holy Sword Kid and BlackStar`s Great Adventure.mp4",
-        10: "1.90A Soul Eater - Episode 10 (SUB) 1280x720 - The Enchanted Sword Masamune Break the Soul Possession - A Heart Sings in the Rain.mp4",
-        11: "2.00A Soul Eater - Episode 11 (SUB) 1280x720 - Tsubaki the Camellia Blossom What Lies Beyond the Grief.mp4",
-        12: "2.10A Soul Eater - Episode 12 (SUB) 1280x720 - Courage That Beats Out Fear Maka Albarn`s Great Resolution.mp4",
-        13: "2.20A Soul Eater - Episode 13 (SUB) 1280x720 - The Man with the Magic Eye Soul and Maka`s Diverging Soul Wavelength.mp4",
-        14: "2.30A Soul Eater - Episode 14 (SUB) 1280x720 - The Super Written Exam Heart-Pounding, Reeling, and Restless. You`re Kidding!.mp4",
-        15: "2.40A Soul Eater - Episode 15 (SUB) 1280x720 - The Soul Eating Black Dragon Scaredy-Cat Liz and Her Merry Friends.mp4",
-        16: "2.50A Soul Eater - Episode 16 (SUB) 1280x720 - Fierce Battle Aboard the Ghost Ship! The Hell Inside My Head.mp4",
-        17: "2.60A Soul Eater - Episode 17 (SUB) 1280x720 - Legend of the Holy Sword 2 Wanna Go Drinking, Gambling, and Playing.mp4",
-        18: "2.70A Soul Eater - Episode 18 (SUB) 1280x720 - The Eve Party Nightmare And So the Curtain Rises.mp4",
-        19: "2.80A Soul Eater - Episode 19 (SUB) 1280x720 - The Underground Battle Commences Break Through Medusa`s Vector Arrow.mp4",
-        20: "2.9A Soul Eater - Episode 20 (SUB) 1280x720 - The Black Blood Resonance Battle! A Small Soul`s Grand Struggle Against Fear.mp4",
-        21: "3.00A Soul Eater - Episode 21 (SUB) 1280x720 - May My Soul Reach You A Dry Heart Inside Unbearable Isolation.mp4",
-        22: "3.10A Soul Eater - Episode 22 (SUB) 1280x720 - The Seal Shrine The Immortal Man`s Tricks.mp4",
-        23: "3.20A Soul Eater - Episode 23 (SUB) 1280x720 - Dead or Alive In the Rift Between Revival and Dazzlement.mp4",
-        24: "3.30A Soul Eater - Episode 24 (SUB) 1280x720 - The Battle of the Gods Death City on the Verge of Collapse.mp4",
-        25: "3.40A Soul Eater - Episode 25 (SUB) 1280x720 - The Death Scythes Convene Stop Dad`s Staff Reassignment!.mp4",
-        26: "3.50A Soul Eater - Episode 26 (SUB) 1280x720 - The Exciting and Embarrassing Trial Enrollment! The DWMA New Lifestyle Support Fair Is Open.mp4",
-        27: "3.60A Soul Eater - Episode 27 (SUB) 1280x720 - 800 Years of Bloodlust Advent of the Heretic Witch.mp4",
-        28: "3.70A Soul Eater - Episode 28 (SUB) 1280x720 - The Sword God Rises Does It Have a Sweet or Salty Taste.mp4",
-        29: "3.80A Soul Eater - Episode 29 (SUB) 1280x720 - Medusa`s Revival! A Spider and Snake`s Fateful Reunion.mp4",
-        30: "3.90A Soul Eater - Episode 30 (SUB) 1280x720 - The Red Hot Runaway Express A Magic Tool Left Behind by the Great Wizard.mp4",
-        31: "4.00A Soul Eater - Episode 31 (SUB) 1280x720 - Drying Happiness! Whose Tears Sparkle in the Moonlight.mp4",
-        32: "4.10A Soul Eater - Episode 32 (SUB) 1280x720 - Legend of the Holy Sword 3 The Academy Gang Leader`s Tale.mp4",
-        33: "4.20A Soul Eater - Episode 33 (SUB) 1280x720 - Resonance Link Play the Melody of the Souls.mp4",
-        34: "4.30A Soul Eater - Episode 34 (SUB) 1280x720 - The Battle for Brew Clash - The DWMA vs. Arachnophobia.mp4",
-        35: "4.40A Soul Eater - Episode 35 (SUB) 1280x720 - Mosquito`s Storm! Ten Minutes to Fight in the World of the Past.mp4",
-        36: "4.50A Soul Eater - Episode 36 (SUB) 1280x720 - Unleash the Seven`s Resonance Link! A Recital of Destruction and Creation.mp4",
-        37: "4.60A Soul Eater - Episode 37 (SUB) 1280x720 - The Detective`s First Case Kid Exposes the DWMA`s Secret.mp4",
-        38: "4.70A Soul Eater - Episode 38 (SUB) 1280x720 - Asura`s Temptation The Big Man`s Uncontrollable Irritation.mp4",
-        39: "4.80A Soul Eater - Episode 39 (SUB) 1280x720 - Crona`s Escape Show Me Your Smile, Please.mp4",
-        40: "4.90A Soul Eater - Episode 40 (SUB) 1280x720 - The Cards Are Cut Medusa Surrenders to the DWMA.mp4",
-        41: "5.00A Soul Eater - Episode 41 (SUB) 1280x720 - Twirl `Round and `Round A New World in Which the Doc Dances.mp4",
-        42: "5.10A Soul Eater - Episode 42 (SUB) 1280x720 - Charge Baba Yaga`s Castle! Things Are Kind of Gloomy.mp4",
-        43: "5.20A Soul Eater - Episode 43 (SUB) 1280x720 - The Last Magic Tool Mission Impossible for Unarmed Kid.mp4",
-        44: "5.30A Soul Eater - Episode 44 (SUB) 1280x720 - Weakling Crona`s Determination For You, for Always Being by My Side.mp4",
-        45: "5.40A Soul Eater - Episode 45 (SUB) 1280x720 - Anti-Magic Wavelength Fierce Attack, the Anger-Filled Genie Hunter.mp4",
-        46: "5.50A Soul Eater - Episode 46 (SUB) 1280x720 - Warrior or Slaughterer Showdown Mifune vs. BlackStar.mp4",
-        47: "5.60A Soul Eater - Episode 47 (SUB) 1280x720 - The Miraculous Coffee Table Flip Fly, Our Death City Robot.mp4",
-        48: "5.70A Soul Eater - Episode 48 (SUB) 1280x720 - Lord Death Wields a Death Scythe Just One Step from Utter Darkness.mp4",
-        49: "5.80A Soul Eater - Episode 49 (SUB) 1280x720 - Asura Wakes To the End of the World.mp4",
-        50: "5.90A Soul Eater - Episode 50 (SUB) 1280x720 - Sink or Swim! The Men Who Transcend the Gods.mp4",
-        51: "6.00A Soul Eater (FINALE) - Episode 51 (SUB) 1280x720 - The Word Is Bravery!.mp4",
-      } },
-    ], hasDub: true, hasSub: true,
+    ], hasSub: true, hasDub: true,
   },
   // Sound! Euphonium
   { malId: -972, title: "Sound! Euphonium", titleEnglish: "Sound! Euphonium", titleJapanese: "",
