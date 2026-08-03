@@ -50,6 +50,8 @@ model Episode {
   aired     String?
   filler    Boolean  @default(false)
   recap     Boolean  @default(false)
+  hasSub    Boolean  @default(true)
+  hasDub    Boolean  @default(false)
   createdAt DateTime @default(now())
   @@unique([animeId, number])
 }

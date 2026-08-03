@@ -80,11 +80,6 @@ export async function GET(request: Request) {
     "archive.org",
     "www.dropbox.com",
     "dl.dropboxusercontent.com",
-    "www.wcoflix.tv",
-    "embed.wcostream.com",
-    // WCO CDN servers (e01-e20)
-    ...Array.from({ length: 20 }, (_, i) => `e${String(i + 1).padStart(2, "0")}.wcostream.com`),
-    "neptun.wcostream.com",
   ];
   if (!allowed.includes(parsed.hostname)) {
     return NextResponse.json(

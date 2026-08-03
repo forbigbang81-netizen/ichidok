@@ -268,7 +268,6 @@ export function VideoPlayer({
   // ----- Fetch video import -----
 
   const [resolvedVideoUrl, setResolvedVideoUrl] = useState<string | null>(null);
-  // WCO fallback removed
   useEffect(() => {
     let cancelled = false;
     setLoading(true);

@@ -80,18 +80,18 @@ export default function Page() {
 
   return (
     <div className="mobile-shell fade-in flex min-h-screen flex-col">
-      {/* Header — home only. Solid black, no glass. */}
+      {/* Header — home only. Solid black with subtle blur backdrop. */}
       {showHomeChrome && (
-        <header className="sticky top-0 z-30 bg-black pt-safe">
+        <header className="sticky top-0 z-30 border-b border-white/5 bg-black/80 backdrop-blur-lg pt-safe">
           <div className="flex items-center gap-3 px-4 py-3">
-            <span className="text-lg font-bold tracking-tight text-white">
+            <span className="bg-gradient-to-r from-white to-white/70 bg-clip-text text-lg font-black tracking-tight text-transparent">
               ichidoki
             </span>
             <div className="ml-auto flex items-center gap-1">
               <button
                 type="button"
                 onClick={() => navigate("search")}
-                className="grid h-9 w-9 place-items-center rounded-full text-white/80 transition-colors active:bg-white/10"
+                className="grid h-9 w-9 place-items-center rounded-full text-white/80 transition-colors hover:bg-white/10 active:bg-white/10"
                 aria-label="Search"
               >
                 <Search className="h-5 w-5" />
@@ -99,16 +99,18 @@ export default function Page() {
               <button
                 type="button"
                 onClick={async () => {
-                  const ns = await fetchNotifications().catch(() => []);
-                  if (ns.length > 0) {
-                    toast.message(ns[0].title, { description: ns[0].body });
-                  } else {
-                    toast.message("You're all caught up", {
-                      description: "No new notifications right now.",
+                  // Navigate to Library → notifications tab so the user
+                  // sees the full list, not just one toast.
+                  navigate("library");
+                  // Small delay to let the view mount before switching tabs.
+                  setTimeout(() => {
+                    const evt = new CustomEvent("ichidoki:library-tab", {
+                      detail: "notifications",
                     });
-                  }
+                    window.dispatchEvent(evt);
+                  }, 80);
                 }}
-                className="relative grid h-9 w-9 place-items-center rounded-full text-white/80 transition-colors active:bg-white/10"
+                className="relative grid h-9 w-9 place-items-center rounded-full text-white/80 transition-colors hover:bg-white/10 active:bg-white/10"
                 aria-label="Notifications"
               >
                 <Bell className="h-5 w-5" />

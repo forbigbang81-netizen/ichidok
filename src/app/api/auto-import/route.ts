@@ -125,14 +125,11 @@ export async function GET(request: Request) {
     }
 
     const isYoutube = resolved.source === "youtube";
-    const isWcoflix = resolved.source === "wcoflix";
     const isGdriveEmbed = resolved.source === "gdriveplayer_embed";
     const sourceLabel =
       resolved.source === "youtube"
         ? "youtube"
-        : isWcoflix
-          ? "wcoflix"
-          : isGdriveEmbed
+        : isGdriveEmbed
             ? "gdriveplayer_embed"
             : resolved.needsProxy
               ? "archive-mkv"
@@ -143,12 +140,10 @@ export async function GET(request: Request) {
     // Archive.org CDN (dn*.us.archive.org) does NOT send CORS headers,
     // so browsers block cross-origin video loading. Route ALL archive.org
     // URLs through /api/stream proxy which adds CORS headers.
-    // YouTube embeds go straight. Wcoflix/external URLs go straight.
+    // YouTube embeds go straight. External URLs go straight.
     const playerUrl = isYoutube
       ? resolved.url
-      : isWcoflix
-        ? resolved.url
-        : isGdriveEmbed
+      : isGdriveEmbed
             ? resolved.url
             : resolved.url.includes("archive.org")
             ? buildStreamProxy(resolved.url, request)

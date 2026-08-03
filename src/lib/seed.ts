@@ -784,10 +784,6 @@ export const SEED_ANIME: SeedAnime[] = [
       1084,                                   // Wano finale filler
     ],
     // Video sources:
-    //      English dub. Resolved at playback time by an external VPS running
-    //      Playwright + stealth to bypass Cloudflare Turnstile. Requires
-    //      NEXT_PUBLIC_WCO_RESOLVER_URL env var to be set. If the resolver
-    //      is down or not configured, falls back to archive.org sources below.
     // DUB (1080p HIGH HD from archive.org "Dub, Edited" collections):
     //      E1, E137-145,147, E506-513, E539-566, E995-1004.
     // DUB (SUB fallback): E1001-1085 — archive.org Anime Time 1080p MP4, JP audio
@@ -800,14 +796,6 @@ export const SEED_ANIME: SeedAnime[] = [
       { startEp: 1, endEp: 1048, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "one-piece-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 1171, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "one-piece" },
-      // 1155 episodes (E1-1155) available on wcoanimedub.tv in 1080p.
-      // The resolver (deployed separately on Railway/Render) runs Playwright
-      // to bypass Cloudflare Turnstile and returns a short-lived direct
-      // video URL (~60s TTL). VideoPlayer calls the resolver client-side.
-      // Uses /resolve-by-ep endpoint so the resolver looks up the correct
-      // slug from its internal map (E1-421 have non-standard slugs like
-      // "one-piece-episode-1-english-dubbed-2-2", E1029-1030 use
-      // "one-piece-specials-episode-N-english-dubbed" prefix).
       // ===== DUB (English, 1080p HIGH HD) — archive.org "Dub, Edited" =====
       // E1 — 193MB, 1920x1080, Funimation English dub
       { startEp: 1, endEp: 1, collection: "0001-dub-edited", audio: "dub", fileTemplate: "0001 Dub, Edited.mp4" },
@@ -876,9 +864,7 @@ export const SEED_ANIME: SeedAnime[] = [
         1003: "1003 Dub, Edited.mp4",
         1004: "1004 Dub, Edited.mp4",
       } },
-      // 1168 episodes (E1-1171) available on wcoanimesub.tv in 1080p.
-      // Used as SUB source for episodes not covered by archive.org, AND
-      // as the primary source for Elbaf arc (E1156-1171) which has no dub yet.
+      // SUB source for episodes not covered by archive.org.
       // ===== SUB (Japanese audio, 1080p) — archive.org Anime Time =====
       // Wano arc E1001-1085 — also playable in DUB mode via SUB fallback
       // (hasDub=true → resolveEpisodeUrl falls through to SUB when no DUB
@@ -979,15 +965,13 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.14, scoredBy: 380000, rank: 400, popularity: 50, members: 1100000,
     year: 2017, season: "fall", genres: ["Action", "Comedy", "Fantasy"], studios: ["Studio Pierrot"],
     episodeCount: 170, duration: "23 min per ep", rating: "PG-13 - Teens 13 or older", source: "Manga", isFeatured: true,
-    // DUB: E1-170 from wcoflix.tv (English dub, HD quality)
+    // DUB: GDrivePlayer embed (full series).
     // SUB: E126-170 from kusagiri collections (JP audio, 720p)
     episodeSources: [
       // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "black-clover-dub" },
       // GDRIVEPLAYER embed (SUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "sub", sourceType: "gdriveplayer_embed", fileTemplate: "black-clover" },
-      // DUB E1-170 from wcoflix (all episodes, English dubbed)
-      { startEp: 1, endEp: 170, collection: "wcoflix", audio: "dub", fileTemplate: "https://www.wcoflix.tv/black-clover-episode-{ep}-english-dubbed" },
       // SUB E126-150 (JP audio, 720p)
       { startEp: 126, endEp: 170, collection: "kusagiri.web.id-blck-clver-129-720p", audio: "sub", episodeFiles: {
         126: "Kusagiri.web.id_BlckClver--126_720p.mp4", 127: "Kusagiri.web.id_BlckClver--127_720p.mp4",
@@ -1057,10 +1041,8 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.71, scoredBy: 580000, rank: 0, popularity: 30, members: 1800000,
     year: 2006, season: "fall", genres: ["Action", "Drama", "Sci-Fi", "Mecha"], studios: ["Sunrise"],
     episodeCount: 25, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Original", isFeatured: true,
-    // DUB: 25 episodes from wcoanimedub.tv in HD (1080p). Slugs have -2 suffix.
-    // SUB: Not available on WCO sites (Code Geass only has dubbed on WCO).
-    // Uses /resolve?slug=... endpoint (direct slug lookup) since slugs follow
-    // a consistent pattern: code-geass-episode-{ep}-english-dubbed-2
+    // DUB: GDrivePlayer embed (full series).
+    // SUB: GDrivePlayer embed (full series).
     episodeSources: [
       // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "code-geass-lelouch-of-the-rebellion-dub" },
@@ -1075,10 +1057,8 @@ export const SEED_ANIME: SeedAnime[] = [
     type: "TV", status: "Finished Airing", score: 8.68, scoredBy: 490000, rank: 0, popularity: 40, members: 1500000,
     year: 2008, season: "spring", genres: ["Action", "Drama", "Sci-Fi", "Mecha"], studios: ["Sunrise"],
     episodeCount: 25, duration: "24 min per ep", rating: "R - 17+ (violence & profanity)", source: "Original", isFeatured: true,
-    // DUB: 25 episodes from wcoanimedub.tv in HD (1080p). Slugs use -r2 prefix.
-    // SUB: Not available on WCO sites.
-    // Uses /resolve?slug=... endpoint (direct slug lookup) since slugs follow
-    // a consistent pattern: code-geass-r2-episode-{ep}-english-dubbed
+    // DUB: GDrivePlayer embed (full series).
+    // SUB: GDrivePlayer embed (full series).
     episodeSources: [
       // GDRIVEPLAYER embed (DUB, works WITHOUT resolver!)
       { startEp: 1, endEp: 999, collection: "gdriveplayer", audio: "dub", sourceType: "gdriveplayer_embed", fileTemplate: "code-geass-lelouch-of-the-rebellion-r2-dub" },
@@ -18166,7 +18146,6 @@ export function resolveEpisodeUrl(seed: SeedAnime, episode: number, audioMode: "
     }
     if (collectionName === "youtube") { return { url: `https://www.youtube.com/embed/${file}`, source: "youtube", needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" as const }; }
     if (collectionName === "dropbox" || collectionName === "external") { return { url: file, source: "external", needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" as const }; }
-    if (collectionName === "wcoflix") { return { url: file, source: "wcoflix", needsProxy: false, dualAudio: false, audio: src.audio ?? "sub" as const }; }
     const encodedFile = encodeURIComponent(file).replace(/%2F/g, "/");
     return { url: `https://archive.org/download/${collectionName}/${encodedFile}`, source: src.needsProxy ? "archive-mkv" : "archive", needsProxy: src.needsProxy ?? false, dualAudio: src.dualAudio ?? false, audio: src.audio ?? "sub" as const };
   }

@@ -37,12 +37,15 @@ function SectionHeader({
 }) {
   return (
     <div className="mb-3 flex items-center justify-between px-4">
-      <h3 className="text-sm font-semibold text-white">{title}</h3>
+      <h3 className="flex items-center gap-2 text-sm font-bold tracking-tight text-white">
+        <span className="h-3.5 w-1 rounded-full bg-[#f5c518]" />
+        {title}
+      </h3>
       {onMore && (
         <button
           type="button"
           onClick={onMore}
-          className="flex items-center gap-0.5 text-[11px] font-medium text-white/40 transition-colors hover:text-white"
+          className="flex items-center gap-0.5 rounded-full bg-white/5 px-2 py-0.5 text-[11px] font-medium text-white/60 transition-colors hover:bg-white/10 hover:text-white"
         >
           See All
           <ChevronRight className="h-3 w-3" />
@@ -390,43 +393,47 @@ export function HomeView({ activeType }: { activeType: string }) {
         ) : null}
       </section>
 
-      {/* ===== Top 10 on Ichidok — horizontal scroll with rank numbers ===== */}
-      <section className="mb-7">
-        <SectionHeader title="Top 10 on Ichidok" />
-        <div className="no-scrollbar flex gap-3 overflow-x-auto px-4 pb-2">
+      {/* ===== Top 10 on Ichidoki — horizontal scroll with rank numbers ===== */}
+      <section className="mb-8">
+        <SectionHeader title="Top 10 on Ichidoki" />
+        <div className="no-scrollbar flex gap-4 overflow-x-auto px-4 pb-3">
           {TOP_10_DECADE.map((item) => (
             <button
               key={item.malId}
               onClick={() => openAnime(item.malId)}
-              className="relative flex w-28 shrink-0 flex-col text-left"
+              className="group relative flex w-36 shrink-0 flex-col text-left transition-transform duration-150 active:scale-[0.97]"
             >
               {/* Rank number — large, behind/beside the poster */}
               <div className="relative flex items-end">
                 <span
-                  className="text-5xl font-black leading-none text-black"
+                  className="select-none text-7xl font-black leading-none tracking-tighter text-black transition-colors duration-200 group-hover:text-[#1a1a1a]"
                   style={{
-                    WebkitTextStroke: "1.5px rgba(255,255,255,0.5)",
+                    WebkitTextStroke: "2px rgba(245,197,24,0.85)",
                   }}
                 >
                   {item.rank}
                 </span>
-                <div className="relative -ml-2 aspect-[2/3] w-20 overflow-hidden rounded-md bg-[#111111]">
+                <div className="relative -ml-3 aspect-[2/3] w-24 overflow-hidden rounded-lg bg-[#111111] ring-1 ring-white/5 transition-shadow duration-200 group-hover:ring-[#f5c518]/40">
                   <img
                     src={item.poster}
                     alt={item.title}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                     loading="lazy"
                   />
+                  {/* Gradient sheen on hover */}
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
                 </div>
               </div>
-              <p className="mt-1.5 line-clamp-1 text-[10px] font-medium text-white">
+              <p className="mt-2 line-clamp-1 text-[11px] font-semibold text-white">
                 {item.title}
               </p>
-              <div className="flex items-center gap-1">
-                <span className="text-[9px] font-bold text-[#f5c518]">
-                  ★ {item.score}
+              <div className="mt-0.5 flex items-center gap-1.5">
+                <span className="flex items-center gap-0.5 text-[10px] font-bold text-[#f5c518]">
+                  <Star className="h-2.5 w-2.5 fill-[#f5c518]" />
+                  {item.score.toFixed(2)}
                 </span>
-                <span className="text-[9px] text-white/40">{item.year}</span>
+                <span className="text-[10px] text-white/40">·</span>
+                <span className="text-[10px] text-white/40">{item.year}</span>
               </div>
             </button>
           ))}

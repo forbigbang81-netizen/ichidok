@@ -44,9 +44,19 @@ function makeWhere(where?: Record<string, unknown>): { sql: string; args: unknow
   return { sql: parts.join(' AND '), args }
 }
 
-function makeOrderBy(orderBy?: string | Record<string, string>): string {
+function makeOrderBy(orderBy?: string | Record<string, string> | Record<string, string>[]): string {
   if (!orderBy) return ''
   if (typeof orderBy === 'string') return ` ORDER BY "${orderBy}" DESC`
+  // Array of { col: 'asc'|'desc' } — e.g. [{ createdAt: 'desc' }, { title: 'asc' }]
+  if (Array.isArray(orderBy)) {
+    const parts: string[] = []
+    for (const item of orderBy) {
+      for (const [k, v] of Object.entries(item)) {
+        parts.push(`"${k}" ${v === 'asc' ? 'ASC' : 'DESC'}`)
+      }
+    }
+    return parts.length ? ` ORDER BY ${parts.join(', ')}` : ''
+  }
   const parts = Object.entries(orderBy).map(([k, v]) => `"${k}" ${v === 'asc' ? 'ASC' : 'DESC'}`)
   return ` ORDER BY ${parts.join(', ')}`
 }
@@ -66,9 +76,11 @@ const animeTable = {
     const r = await getClient().execute({ sql, args: w.args as never[] })
     return Number((r.rows[0] as Record<string, unknown>)?.count ?? 0)
   },
-  async findMany(opts?: { where?: Record<string, unknown>; orderBy?: string | Record<string, string>; skip?: number; take?: number }): Promise<any[]> {
+  async findMany(opts?: { where?: Record<string, unknown>; orderBy?: string | Record<string, string> | Record<string, string>[]; skip?: number; take?: number; select?: Record<string, boolean> }): Promise<any[]> {
     const w = makeWhere(opts?.where)
-    let sql = `SELECT * FROM "Anime"`
+    // Support select: { col: true } projection
+    const selectCols = opts?.select ? Object.keys(opts.select).map((c) => `"${c}"`).join(', ') : '*'
+    let sql = `SELECT ${selectCols} FROM "Anime"`
     const args = [...w.args] as never[]
     if (w.sql) sql += ` WHERE ${w.sql}`
     if (opts?.orderBy) sql += makeOrderBy(opts.orderBy)
@@ -236,9 +248,45 @@ const historyTable = {
 }
 
 const notificationTable = {
-  async findMany(): Promise<any[]> {
-    const r = await getClient().execute(`SELECT * FROM "Notification" ORDER BY "createdAt" DESC`)
-    return r.rows as any[]
+  async findMany(opts?: { where?: Record<string, unknown>; orderBy?: string | Record<string, string> | Record<string, string>[]; take?: number; select?: Record<string, boolean> }): Promise<any[]> {
+    const w = makeWhere(opts?.where)
+    let sql = `SELECT * FROM "Notification"`
+    const args = [...w.args] as never[]
+    if (w.sql) sql += ` WHERE ${w.sql}`
+    if (opts?.orderBy) sql += makeOrderBy(opts.orderBy)
+    if (opts?.take) { sql += ` LIMIT ?`; args.push(opts.take as never) }
+    const r = await getClient().execute({ sql, args })
+    let rows = r.rows as any[]
+    // Support select: { col: true } projection
+    if (opts?.select) {
+      const keys = Object.keys(opts.select)
+      rows = rows.map((row) => {
+        const out: Record<string, unknown> = {}
+        for (const k of keys) out[k] = row[k]
+        return out
+      })
+    }
+    return rows
+  },
+  async count(opts?: { where?: Record<string, unknown> }): Promise<number> {
+    const w = makeWhere(opts?.where)
+    const sql = `SELECT COUNT(*) as count FROM "Notification"${w.sql ? ` WHERE ${w.sql}` : ''}`
+    const r = await getClient().execute({ sql, args: w.args as never[] })
+    return Number((r.rows[0] as Record<string, unknown>)?.count ?? 0)
+  },
+  async createMany(opts: { data: Record<string, unknown>[] }): Promise<{ count: number }> {
+    // Emulate Prisma's createMany — insert each row in sequence.
+    let inserted = 0
+    for (const item of opts.data) {
+      const data = { ...item }
+      if (!data.id) data.id = generateId()
+      if (!data.createdAt) data.createdAt = new Date().toISOString()
+      const cols = Object.entries(data)
+      const sql = `INSERT INTO "Notification" (${cols.map(([k]) => `"${k}"`).join(', ')}) VALUES (${cols.map(() => '?').join(', ')})`
+      await getClient().execute({ sql, args: cols.map(([, v]) => v) as never[] })
+      inserted++
+    }
+    return { count: inserted }
   },
   async updateMany(opts: { where: Record<string, unknown>; data: Record<string, unknown> }): Promise<{ count: number }> {
     const w = makeWhere(opts.where)
@@ -247,9 +295,16 @@ const notificationTable = {
     await getClient().execute({ sql: `UPDATE "Notification" SET ${setParts.join(', ')} WHERE ${w.sql}`, args: [...setArgs, ...w.args] as never[] })
     return { count: 0 }
   },
+  async update(opts: { where: { id: string }; data: Record<string, unknown> }): Promise<any> {
+    const setParts = Object.entries(opts.data).map(([k]) => `"${k}" = ?`)
+    const setArgs = Object.values(opts.data)
+    await getClient().execute({ sql: `UPDATE "Notification" SET ${setParts.join(', ')} WHERE "id" = ?`, args: [...setArgs, opts.where.id] as never[] })
+    return {}
+  },
   async create(opts: { data: Record<string, unknown> }): Promise<any> {
     const data = { ...opts.data }
     if (!data.id) data.id = generateId()
+    if (!data.createdAt) data.createdAt = new Date().toISOString()
     const cols = Object.entries(data)
     const sql = `INSERT INTO "Notification" (${cols.map(([k]) => `"${k}"`).join(', ')}) VALUES (${cols.map(() => '?').join(', ')})`
     await getClient().execute({ sql, args: cols.map(([, v]) => v) as never[] })

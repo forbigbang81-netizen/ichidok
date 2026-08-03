@@ -58,11 +58,24 @@ export async function ensureSeeded(opts?: { force?: boolean }): Promise<void> {
 
       // Parallel upserts in chunks of 8 to avoid overwhelming the DB.
       const CHUNK = 8;
+      // Snapshot existing malIds BEFORE upserting so we can detect which
+      // entries in this seed run are genuinely new (vs. updates to existing
+      // rows). Each new title gets a notification row created.
+      let existingMalIds: Set<number>;
+      try {
+        const rows = await db.anime.findMany({ select: { malId: true } });
+        existingMalIds = new Set(rows.map((r) => r.malId));
+      } catch {
+        existingMalIds = new Set();
+      }
+      const newAnimeTitles: { malId: number; title: string; type: string; episodeCount: number }[] = [];
+
       for (let i = 0; i < SEED_ANIME.length; i += CHUNK) {
         const chunk = SEED_ANIME.slice(i, i + CHUNK);
         await Promise.all(
           chunk.map((s) => {
             const { genres, studios } = serializeGenres(s);
+            const isNewTitle = !existingMalIds.has(s.malId);
             return db.anime.upsert({
               where: { malId: s.malId },
               create: {
@@ -117,6 +130,9 @@ export async function ensureSeeded(opts?: { force?: boolean }): Promise<void> {
                 isFeatured: s.isFeatured ?? false,
               },
             }).then(async (anime) => {
+              if (isNewTitle) {
+                newAnimeTitles.push({ malId: s.malId, title: s.title, type: s.type, episodeCount: s.episodeCount });
+              }
               // If the seed defines arcs or filler episodes, create Episode
               // records with arc names as titles and filler flags.
               if (s.arcs || s.fillerEpisodes) {
@@ -179,6 +195,37 @@ export async function ensureSeeded(opts?: { force?: boolean }): Promise<void> {
           }),
         );
       }
+
+      // Create notifications for any newly-added anime (debounced by malId
+      // so re-running the seed doesn't spam duplicates).
+      if (newAnimeTitles.length > 0) {
+        try {
+          // Check existing notifications to avoid duplicates.
+          const recentTitles = await db.notification.findMany({
+            where: { type: "new_anime" },
+            select: { title: true },
+            take: 500,
+          });
+          const existingNotifTitles = new Set(recentTitles.map((n) => n.title));
+          const toCreate = newAnimeTitles.filter((a) => {
+            const notifTitle = `New: ${a.title}`;
+            return !existingNotifTitles.has(notifTitle);
+          });
+          if (toCreate.length > 0) {
+            await db.notification.createMany({
+              data: toCreate.map((a) => ({
+                title: `New: ${a.title}`,
+                body: `${a.type} anime added to Ichidoki — ${a.episodeCount || ""} episode(s) available to stream.`,
+                type: "new_anime",
+              })),
+            });
+            console.log(`[ensureSeeded] Created ${toCreate.length} new-anime notifications.`);
+          }
+        } catch (e) {
+          console.error("[ensureSeeded] notification creation failed:", e);
+        }
+      }
+
       seedVerified = true;
     } finally {
       seedPromise = null;

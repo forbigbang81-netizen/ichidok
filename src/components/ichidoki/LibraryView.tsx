@@ -96,6 +96,18 @@ export function LibraryView() {
       .catch(() => {});
   }, [bookmarks]);
 
+  // Listen for the home page bell-icon click → switch to notifications tab.
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent<string>).detail;
+      if (detail === "notifications") {
+        setActiveTab("notifications");
+      }
+    };
+    window.addEventListener("ichidoki:library-tab", handler);
+    return () => window.removeEventListener("ichidoki:library-tab", handler);
+  }, []);
+
   // Update underline indicator when tab changes.
   useEffect(() => {
     const idx = ["history", "bookmarks", "notifications"].indexOf(activeTab);
