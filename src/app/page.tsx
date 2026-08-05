@@ -260,9 +260,7 @@ function SimpleVideoPlayer({ title, episode, audio, videoUrl, onBack }: { title:
   };
 
   const proxiedUrl = videoUrl
-    ? (videoUrl.includes("drive.google.com") || videoUrl.includes("archive.org") || videoUrl.includes("dropbox.com"))
-      ? `/api/stream?url=${encodeURIComponent(videoUrl)}`
-      : videoUrl
+    ? `/api/stream?url=${encodeURIComponent(videoUrl)}`
     : undefined;
 
   return (

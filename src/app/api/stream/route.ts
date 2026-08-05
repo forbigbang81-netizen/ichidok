@@ -83,6 +83,8 @@ export async function GET(request: Request) {
     "drive.google.com",
     "docs.google.com",
     "drive.usercontent.google.com",
+    "drive.animetoki.com",
+    "cloud.animetoki.com",
   ];
   if (!allowed.includes(parsed.hostname)) {
     return NextResponse.json(
@@ -93,9 +95,14 @@ export async function GET(request: Request) {
 
   const reqHeaders: Record<string, string> = {
     "User-Agent":
-      "Mozilla/5.0 (compatible; IchidokiProxy/1.0; +https://ichidoki.app)",
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     Accept: "*/*",
+    Referer: "https://animetoki.com/",
   };
+  // For AnimeToki URLs, we need session cookies
+  if (parsed.hostname.includes("animetoki.com")) {
+    reqHeaders["Cookie"] = "at_spa_session=1; at_site_auth=1";
+  }
   const range = request.headers.get("range");
   if (range) reqHeaders["Range"] = range;
 
