@@ -120,7 +120,7 @@ function SectionHeader({ title }: { title: string }) {
 // ============================================================================
 // Hero Section
 // ============================================================================
-function HeroSection({ anime, onClick }: { anime: Anime; onClick: () => void }) {
+function HeroSection({ anime, onClick, onToggleList, isInList }: { anime: Anime; onClick: () => void; onToggleList: () => void; isInList: boolean }) {
   if (!anime) return null;
   const seasonStr = anime.season ? `${anime.season.charAt(0).toUpperCase() + anime.season.slice(1)} ${anime.year}` : anime.year?.toString() || "";
   return (
@@ -149,9 +149,18 @@ function HeroSection({ anime, onClick }: { anime: Anime; onClick: () => void }) 
             <Info className="w-5 h-5" />
             <span className="text-base tracking-wide">Details</span>
           </button>
-          <button className="flex flex-col items-center gap-1 opacity-90 active:opacity-70">
-            <Heart className="w-7 h-7" strokeWidth={1.5} />
-            <span className="text-[10px] font-semibold">My List</span>
+          <button
+            onClick={onToggleList}
+            className="flex flex-col items-center gap-1 active:scale-90 transition-transform"
+            title={isInList ? "Remove from My List" : "Add to My List"}
+          >
+            <Heart
+              className={cn("w-7 h-7 transition-all", isInList ? "fill-red-500 text-red-500" : "text-white")}
+              strokeWidth={1.5}
+            />
+            <span className={cn("text-[10px] font-semibold transition-colors", isInList ? "text-red-500" : "text-white")}>
+              {isInList ? "Added" : "My List"}
+            </span>
           </button>
         </div>
       </div>
@@ -346,6 +355,9 @@ function HlsPlayer({
   const [currentQuality, setCurrentQuality] = useState(-1); // -1 = auto
   const [usingFallback, setUsingFallback] = useState(false);
   const [longPressHint, setLongPressHint] = useState(false);
+  // Subtitles on by default for SUB audio; off for DUB.
+  const [subtitlesOn, setSubtitlesOn] = useState(audio === "sub");
+  const [hasSubtitles, setHasSubtitles] = useState(false);
 
   // Load the stream source and skip times
   useEffect(() => {
@@ -356,6 +368,9 @@ function HlsPlayer({
     setSkipTimes([]);
     setShowSkipIntro(false);
     setShowSkipOutro(false);
+    // Reset subtitle state based on audio mode
+    setSubtitlesOn(audio === "sub");
+    setHasSubtitles(false);
 
     (async () => {
       if (!anime.malId) {
@@ -372,6 +387,7 @@ function HlsPlayer({
         return;
       }
       setStreamInfo({ src: src.src, poster: src.poster, subtitles: src.subtitles });
+      setHasSubtitles(!!src.subtitles && src.subtitles.length > 0);
 
       // Also fetch skip times for this episode (in background)
       fetchSkipTimes(anime.malId!, episode, 24).then((skips) => {
@@ -495,18 +511,92 @@ function HlsPlayer({
   }, [episode, audio, totalEpisodes, onEpisode]);
 
   // Skip Intro / Skip Outro visibility based on currentTime
+  // The Skip Intro button shows only WHILE the user is inside the intro
+  // segment — so they actually see the opening animation/song start, and
+  // can skip to the end of the opening when they want.
   useEffect(() => {
     if (skipTimes.length === 0) {
-      // Use default behavior: show Skip Intro 5-95s
-      setShowSkipIntro(currentTime >= 3 && currentTime < 95);
+      // Default behavior: assume intro runs 0-90s. Show Skip Intro button
+      // only after 10s so the user has seen the opening start.
+      setShowSkipIntro(currentTime >= 10 && currentTime < 90);
       setShowSkipOutro(duration > 0 && currentTime >= duration * 0.95);
       return;
     }
     const op = skipTimes.find((s) => s.type === "op" || s.type === "mixed-op");
     const ed = skipTimes.find((s) => s.type === "ed" || s.type === "mixed-ed");
-    setShowSkipIntro(!!op && currentTime >= op.start && currentTime < op.end - 1);
+    // Show Skip Intro from 10s into the intro, until 1s before its end.
+    if (op) {
+      const startShow = Math.max(op.start + 10, op.start);
+      setShowSkipIntro(currentTime >= startShow && currentTime < op.end - 1);
+    } else {
+      setShowSkipIntro(false);
+    }
+    // Show Skip Outro (next episode) during the outro segment.
     setShowSkipOutro(!!ed ? (currentTime >= ed.start && currentTime < ed.end - 1) : (duration > 0 && currentTime >= duration * 0.95));
   }, [currentTime, skipTimes, duration]);
+
+  // Auto-enable the first subtitle track when:
+  // 1. Subtitles exist
+  // 2. subtitlesOn is true (default for SUB audio)
+  // 3. Video element has loaded its text tracks
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v || !hasSubtitles) return;
+
+    const applySubtitleMode = () => {
+      const tracks = v.textTracks;
+      if (tracks.length === 0) return;
+      // Find the English / default track. Only ONE track can be "showing"
+      // at a time — setting all of them to "showing" causes browsers to
+      // display nothing.
+      let englishIdx = -1;
+      let defaultIdx = -1;
+      for (let i = 0; i < tracks.length; i++) {
+        const t = tracks[i];
+        if (t.kind !== "subtitles") continue;
+        if (englishIdx === -1 && (t.language === "en" || t.label === "English" || (t as any).srclang === "en")) {
+          englishIdx = i;
+        }
+        // First subtitles track is the default fallback
+        if (defaultIdx === -1) defaultIdx = i;
+      }
+      const targetIdx = englishIdx !== -1 ? englishIdx : defaultIdx;
+      for (let i = 0; i < tracks.length; i++) {
+        if (tracks[i].kind !== "subtitles") continue;
+        // Only the target track follows subtitlesOn; all others are disabled.
+        if (i === targetIdx) {
+          tracks[i].mode = subtitlesOn ? "showing" : "disabled";
+        } else {
+          tracks[i].mode = "disabled";
+        }
+      }
+    };
+
+    // Apply immediately
+    applySubtitleMode();
+
+    // Also apply on 'loadstart' / 'loadedmetadata' / 'addtrack' in case
+    // tracks aren't ready yet (hls.js may add tracks after manifest parse)
+    const onLoad = () => applySubtitleMode();
+    v.addEventListener("loadstart", onLoad);
+    v.addEventListener("loadedmetadata", onLoad);
+    v.addEventListener("addtrack", onLoad);
+    // Slight delay also catches hls.js's late track addition
+    const t1 = window.setTimeout(applySubtitleMode, 500);
+    const t2 = window.setTimeout(applySubtitleMode, 1500);
+
+    return () => {
+      v.removeEventListener("loadstart", onLoad);
+      v.removeEventListener("loadedmetadata", onLoad);
+      v.removeEventListener("addtrack", onLoad);
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+    };
+  }, [hasSubtitles, subtitlesOn, streamInfo?.src]);
+
+  const toggleSubtitles = () => {
+    setSubtitlesOn((prev) => !prev);
+  };
 
   // Save progress to continue-watching every 5s
   useEffect(() => {
@@ -814,6 +904,20 @@ function HlsPlayer({
                 )}
               </div>
               <div className="flex items-center gap-3">
+                {hasSubtitles && (
+                  <button
+                    onClick={toggleSubtitles}
+                    className={cn("text-white p-1 transition-opacity", subtitlesOn ? "opacity-100" : "opacity-50")}
+                    title={subtitlesOn ? "Subtitles: On" : "Subtitles: Off"}
+                  >
+                    {/* CC icon */}
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="5" width="20" height="14" rx="2" />
+                      <path d="M7 12.5a1.5 1.5 0 0 1 3 0" fill="none" />
+                      <path d="M14 12.5a1.5 1.5 0 0 1 3 0" fill="none" />
+                    </svg>
+                  </button>
+                )}
                 <button onClick={() => setShowSettings((p) => !p)} className="text-white p-1" title="Quality">
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <circle cx="12" cy="12" r="3" />
@@ -1227,7 +1331,33 @@ export default function Page() {
             <div className="h-screen flex items-center justify-center"><div className="w-10 h-10 border-2 border-white/10 border-t-white rounded-full animate-spin" /></div>
           ) : (
             <>
-              {heroAnime && <HeroSection anime={heroAnime} onClick={() => openDetail(heroAnime)} />}
+              {heroAnime && (
+                <HeroSection
+                  anime={heroAnime}
+                  onClick={() => openDetail(heroAnime)}
+                  isInList={myListIds.includes(heroAnime.id)}
+                  onToggleList={() => {
+                    // If already in list, remove directly.
+                    // Otherwise, fetch detail first so we save a complete record.
+                    if (myListIds.includes(heroAnime.id)) {
+                      const existing = myList.find((a) => a.id === heroAnime.id);
+                      if (existing) toggleMyList(existing);
+                    } else {
+                      fetchDetail(heroAnime.id).then((d) => {
+                        if (d) toggleMyList(d);
+                        else {
+                          // Fall back to constructing a minimal AnimeDetail
+                          toggleMyList({
+                            ...heroAnime,
+                            seasons: [],
+                            recommendations: [],
+                          } as AnimeDetail);
+                        }
+                      });
+                    }
+                  }}
+                />
+              )}
               <div className="pt-6">
                 {/* Continue Watching at the very top */}
                 <ContinueWatchingSection
@@ -1303,10 +1433,12 @@ export default function Page() {
             animeId={selectedId}
             onBack={() => setView("home")}
             onWatch={(d, ep, audio) => {
+              // Per user request: Watch button goes to EPISODE PICKER first,
+              // then user picks an episode to enter the player.
               setDetailData(d);
               setPlayerEp(ep ?? 1);
               setPlayerAudio(audio ?? "sub");
-              setView("player");
+              setView("episodes");
             }}
             onSelectAnime={(id) => setSelectedId(id)}
             myList={myListIds}
