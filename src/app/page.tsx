@@ -2,7 +2,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import { Home, LayoutGrid, Clock, Search, Heart, Share2, Info, Play, ChevronLeft, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { getVideoUrl, getEpisodeCount } from "@/lib/video-sources";
+import { getVideoUrl, getEpisodeCount, getEmbedUrl } from "@/lib/video-sources";
 
 interface Anime {
   id: number; malId: number | null; title: string; titleEnglish: string | null;
@@ -154,12 +154,19 @@ function EpisodeGridView({ anime, onBack, onEpisode }: { anime: AnimeDetail; onB
   const filteredEpisodes = search ? sortedEpisodes.filter((e) => e.toString().includes(search)) : sortedEpisodes;
 
   const handleDubClick = () => {
+    // Check our own sources first
     const src = getVideoUrl(anime.id, selectedEp || 1, "dub");
-    if (!src) {
-      setShowNoDub(true);
-    } else {
+    if (src) {
       onEpisode(selectedEp!, "dub");
+      return;
     }
+    // Check if zokoanime has DUB (any anime with a MAL ID)
+    if (anime.malId) {
+      onEpisode(selectedEp!, "dub");
+      return;
+    }
+    // No DUB available anywhere
+    setShowNoDub(true);
   };
 
   return (
@@ -299,12 +306,42 @@ function SimpleVideoPlayer({ title, episode, audio, videoUrl, onBack }: { title:
     return () => document.removeEventListener("fullscreenchange", onFsChange);
   }, []);
 
-  const proxiedUrl = videoUrl ? `/api/stream?url=${encodeURIComponent(videoUrl)}` : undefined;
+  const proxiedUrl = videoUrl
+    ? videoUrl.includes("zokoanime.video")
+      ? videoUrl // zokoanime embed — use directly in iframe
+      : `/api/stream?url=${encodeURIComponent(videoUrl)}` // everything else through proxy
+    : undefined;
+
+  const isEmbed = videoUrl?.includes("zokoanime.video");
 
   return (
     <div className="fixed inset-0 bg-black z-50 flex flex-col items-center justify-center">
-      <div ref={containerRef} className={`relative w-full ${isFullscreen ? "h-full" : "aspect-video"} max-h-screen flex items-center justify-center bg-black`} onClick={() => setShowControls((p) => !p)}>
-        {proxiedUrl && !error ? (
+      <div ref={containerRef} className={`relative w-full ${isFullscreen ? "h-full" : "aspect-video"} max-h-screen flex items-center justify-center bg-black`}>
+        {isEmbed ? (
+          <>
+            <iframe src={proxiedUrl} className="w-full h-full" allowFullScreen allow="autoplay; fullscreen; encrypted-media" frameBorder="0" scrolling="no" />
+            {showControls && (
+              <div className="absolute top-0 left-0 right-0 z-30 p-3 bg-gradient-to-b from-black/80 to-transparent">
+                <button onClick={(e) => { e.stopPropagation(); onBack(); }} className="text-white flex items-center gap-2">
+                  <ChevronLeft className="w-6 h-6" />
+                  <span className="font-bold text-sm truncate max-w-[200px]">{title} - Ep {episode} {audio.toUpperCase()}</span>
+                </button>
+              </div>
+            )}
+            <div className="absolute inset-0" onClick={() => setShowControls((p) => !p)} style={{ pointerEvents: "none" }} />
+            <div className="absolute top-0 left-0 right-0 z-30" style={{ pointerEvents: "none" }}>
+              <div className="flex items-center justify-between p-3">
+                <button onClick={(e) => { e.stopPropagation(); onBack(); }} className="text-white flex items-center gap-2" style={{ pointerEvents: "auto" }}>
+                  <ChevronLeft className="w-6 h-6" />
+                  <span className="font-bold text-sm truncate max-w-[200px]">{title} - Ep {episode} {audio.toUpperCase()}</span>
+                </button>
+                <button onClick={(e) => { e.stopPropagation(); toggleFullscreen(); }} className="text-white p-1" style={{ pointerEvents: "auto" }}>
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" /></svg>
+                </button>
+              </div>
+            </div>
+          </>
+        ) : proxiedUrl && !error ? (
           <video ref={videoRef} src={proxiedUrl} className="w-full h-full object-contain bg-black" playsInline autoPlay />
         ) : (
           <div className="flex flex-col items-center gap-3 text-white/60">
@@ -614,8 +651,15 @@ export default function Page() {
             onEpisode={(ep, audio) => {
               setPlayerEp(ep);
               setPlayerAudio(audio);
+              // Try our own video sources first, then fall back to zokoanime embed
               const src = getVideoUrl(detailData.id, ep, audio);
-              setPlayerVideoUrl(src?.url);
+              if (src?.url) {
+                setPlayerVideoUrl(src.url);
+              } else {
+                // Use zokoanime embed for any anime with a MAL ID
+                const embedUrl = getEmbedUrl(detailData.malId, ep, audio);
+                setPlayerVideoUrl(embedUrl || undefined);
+              }
               setView("player");
             }}
           />

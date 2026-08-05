@@ -1992,3 +1992,10 @@ export function getEpisodeCount(animeId: number, defaultCount: number): number {
 export function hasVideoSource(animeId: number): boolean {
   return !!ANIME_VIDEO_SOURCES[animeId];
 }
+
+// Get the zokoanime embed URL for any anime
+// This works for ANY anime that anigo.re has — not just the ones in our database
+export function getEmbedUrl(malId: number | null, episode: number, audio: "sub" | "dub"): string | null {
+  if (!malId) return null;
+  return `https://zokoanime.video/stream/mal/${malId}/${episode}/${audio}`;
+}
