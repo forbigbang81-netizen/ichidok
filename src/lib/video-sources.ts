@@ -15,11 +15,35 @@ export const ANIME_EPISODE_COUNTS: Record<number, number> = {
   11061: 148,      // Hunter x Hunter (2011)
 };
 
+// DUB episode limits — some anime only have DUB up to a certain episode
+// For episodes beyond this, fall back to SUB
+export const DUB_EPISODE_LIMITS: Record<number, number> = {
+  21: 1133,  // One Piece DUB goes up to episode 1133
+};
+
 // Get the zokoanime embed URL for any anime
 // Format: https://zokoanime.video/stream/mal/{malId}/{episode}/{sub|dub}
 export function getEmbedUrl(malId: number | null, episode: number, audio: "sub" | "dub"): string | null {
   if (!malId) return null;
+  
+  // Check if DUB is available for this episode
+  if (audio === "dub") {
+    const dubLimit = DUB_EPISODE_LIMITS[malId];
+    if (dubLimit && episode > dubLimit) {
+      // DUB not available — fall back to SUB
+      return `https://zokoanime.video/stream/mal/${malId}/${episode}/sub`;
+    }
+  }
+  
   return `https://zokoanime.video/stream/mal/${malId}/${episode}/${audio}`;
+}
+
+// Check if DUB is available for a specific episode
+export function hasDub(malId: number | null, episode: number): boolean {
+  if (!malId) return false;
+  const dubLimit = DUB_EPISODE_LIMITS[malId];
+  if (dubLimit && episode > dubLimit) return false;
+  return true;
 }
 
 // Get overridden episode count for an anime

@@ -2,7 +2,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import { Home, LayoutGrid, Clock, Search, Heart, Share2, Info, Play, ChevronLeft, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { getVideoUrl, getEpisodeCount, getEmbedUrl } from "@/lib/video-sources";
+import { getVideoUrl, getEpisodeCount, getEmbedUrl, hasDub } from "@/lib/video-sources";
 
 interface Anime {
   id: number; malId: number | null; title: string; titleEnglish: string | null;
@@ -154,8 +154,8 @@ function EpisodeGridView({ anime, onBack, onEpisode }: { anime: AnimeDetail; onB
   const filteredEpisodes = search ? sortedEpisodes.filter((e) => e.toString().includes(search)) : sortedEpisodes;
 
   const handleDubClick = () => {
-    // zokoanime has DUB for most anime — only show popup if no MAL ID
-    if (anime.malId) {
+    // Check if DUB is available for this specific episode
+    if (hasDub(anime.malId, selectedEp)) {
       onEpisode(selectedEp!, "dub");
     } else {
       setShowNoDub(true);
