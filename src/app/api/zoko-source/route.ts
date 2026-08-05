@@ -5,7 +5,7 @@
 //   blob = base64( xor( JSON.stringify(config), 'otaku-embed-v1' ) )
 //
 // We undo that here so the client can use hls.js directly and gain
-// full control (skip intro, seek, picture-in-picture, etc.).
+// full control (skip intro, seek, picture-in-picture, subtitles, etc.).
 
 import { NextResponse } from "next/server";
 
@@ -14,7 +14,6 @@ export const revalidate = 0;
 
 const OBF_KEY = "otaku-embed-v1";
 
-// XOR a string against the key (latin-1 safe)
 function xorStr(input: string): string {
   let out = "";
   for (let i = 0; i < input.length; i++) {
@@ -23,13 +22,9 @@ function xorStr(input: string): string {
   return out;
 }
 
-// Decode the __P blob back into a config object
 function deobfuscate(blob: string): any {
-  // Step 1: base64 decode -> latin-1 string
   const decoded = Buffer.from(blob, "base64").toString("latin1");
-  // Step 2: XOR with key
   const xored = xorStr(decoded);
-  // Step 3: JSON parse
   return JSON.parse(xored);
 }
 
@@ -77,7 +72,6 @@ export async function GET(request: Request) {
 
     const html = await res.text();
 
-    // Extract window.__P="..." from the HTML
     const match = html.match(/window\.__P\s*=\s*"([^"]+)"/);
     if (!match) {
       return NextResponse.json(

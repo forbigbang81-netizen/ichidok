@@ -1,7 +1,5 @@
 // Proxy route for the AniSkip skip-times API.
-// The upstream API requires types as an array and an episodeLength, and it
-// is sometimes empty - so we fall back to a small built-in DB of known
-// intro times for popular anime.
+// Falls back to a small built-in DB of known intro times for popular anime.
 
 import { NextResponse } from "next/server";
 import { INTRO_TIMES } from "@/lib/video-sources";
@@ -29,7 +27,6 @@ export async function GET(request: Request) {
     if (r.ok) {
       const data = await r.json();
       if (data?.found && Array.isArray(data.results) && data.results.length > 0) {
-        // Map to a simpler shape
         const skipTimes = data.results.map((s: any) => ({
           type: s.skipType,
           start: s.interval.startTime,

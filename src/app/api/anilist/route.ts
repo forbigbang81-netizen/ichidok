@@ -1,10 +1,13 @@
 import { NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
-export const revalidate = 3600;
+export const revalidate = 3600; // Re-fetch every hour — picks up new episodes automatically
 
 const ANILIST_GRAPHQL = "https://graphql.anilist.co";
 
-// Query now also filters out anime without idMal (since zokoanime needs MAL ID)
+// Query now also fetches nextAiringEpisode — this is how we "auto-import"
+// new episodes. When a new episode airs, AniList updates nextAiringEpisode,
+// and our getEpisodeCount() function uses (nextAiringEpisode - 1) as the
+// current episode count. No code changes needed when new episodes drop.
 const QUERY = `query ($page: Int, $perPage: Int, $sort: [MediaSort], $genre: String, $season: MediaSeason, $year: Int) {
   Page(page: $page, perPage: $perPage) {
     media(type: ANIME, sort: $sort, genre: $genre, season: $season, seasonYear: $year, isAdult: false) {
@@ -18,6 +21,7 @@ const QUERY = `query ($page: Int, $perPage: Int, $sort: [MediaSort], $genre: Str
       genres duration
       studios(isMain: true) { nodes { name } }
       source
+      nextAiringEpisode { episode airingAt }
     }
   }
 }`;
@@ -70,13 +74,10 @@ export async function GET(request: Request) {
     let effectiveSort = sort;
 
     if (section === "upcoming") {
-      // Anime that haven't aired yet
       effectiveSort = ["START_DATE_DESC"];
     } else if (section === "new-releases") {
-      // Recently aired - last 2 years
       year = new Date().getFullYear() - 1;
     } else if (section === "classic") {
-      // Pre-2010 classics
       year = 2009;
     }
 
@@ -111,6 +112,10 @@ export async function GET(request: Request) {
       genres: a.genres || [],
       studios: a.studios?.nodes?.map((s: any) => s.name) || [],
       duration: a.duration ? `${a.duration}m` : null,
+      // Airing schedule — used by the client to auto-detect new episodes
+      nextAiringEpisode: a.nextAiringEpisode
+        ? { episode: a.nextAiringEpisode.episode, airingAt: a.nextAiringEpisode.airingAt }
+        : null,
     }));
 
     return NextResponse.json({ results: formatted });

@@ -2,13 +2,14 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import {
   Home, LayoutGrid, Clock, Search, Heart, Share2, Info, Play,
-  ChevronLeft, Star, SkipForward, History, X, FastForward,
+  ChevronLeft, Star, SkipForward, History, FastForward, Calendar,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
-  getVideoUrl, getEpisodeCount, getEmbedUrl, hasDub,
+  getEpisodeCount, getEmbedUrl, hasDub,
   getIntroTimes, setIntroEndOverride,
   getWatchHistory, saveWatchProgress, removeWatchHistory,
+  setAiringCache,
   type WatchHistoryEntry,
 } from "@/lib/video-sources";
 
@@ -21,6 +22,7 @@ interface Anime {
   popularity: number; episodeCount: number; type: string; status: string;
   year: number | null; season: string | null; genres: string[];
   studios: string[]; duration: string | null;
+  nextAiringEpisode?: { episode: number; airingAt: number } | null;
 }
 interface AnimeDetail extends Anime {
   seasons: { id: number; title: string; poster: string; relation: string; type: string }[];
@@ -32,7 +34,7 @@ interface SkipTime {
   end: number;
   episodeLength?: number;
 }
-type View = "home" | "detail" | "episodes" | "player" | "genres" | "latest" | "search" | "mylist";
+type View = "home" | "detail" | "episodes" | "player" | "genres" | "latest" | "search" | "mylist" | "schedule";
 
 // ============================================================================
 // Fetchers
@@ -52,8 +54,7 @@ async function fetchZokoSource(malId: number, episode: number, audio: "sub" | "d
   const r = await fetch(`/api/zoko-source?malId=${malId}&episode=${episode}&audio=${audio}`);
   if (!r.ok) return null;
   const data = await r.json();
-  // Rewrite the upstream HLS URL to go through our CORS proxy so
-  // hls.js can load it from any origin (localhost / Vercel).
+  // Rewrite URLs to go through our CORS proxy
   if (data?.src) {
     data.src = `/api/hls-proxy?url=${encodeURIComponent(data.src)}`;
   }
@@ -75,23 +76,44 @@ async function fetchSkipTimes(malId: number, episode: number, episodeLength: num
     return [];
   }
 }
+async function fetchAiringSchedule(): Promise<Anime[]> {
+  const r = await fetch(`/api/airing-schedule?perPage=30`);
+  if (!r.ok) return [];
+  const d = await r.json();
+  return d.results || [];
+}
 
 // ============================================================================
-// Poster / Grid Cards
+// Helper: format next airing time
+// ============================================================================
+function formatAiringTime(airingAt: number): string {
+  const now = Date.now() / 1000;
+  const diff = airingAt - now;
+  if (diff < 0) return "Aired";
+  const hours = Math.floor(diff / 3600);
+  const days = Math.floor(hours / 24);
+  if (days > 0) return `Ep in ${days}d ${hours % 24}h`;
+  if (hours > 0) return `Ep in ${hours}h ${Math.floor((diff % 3600) / 60)}m`;
+  const mins = Math.floor(diff / 60);
+  return `Ep in ${mins}m`;
+}
+
+// ============================================================================
+// Cards
 // ============================================================================
 function PosterCard({ anime, onClick, progress }: { anime: Anime; onClick: () => void; progress?: number }) {
   return (
-    <button onClick={onClick} className="shrink-0 cursor-pointer group active:scale-95 flex flex-col gap-1.5 w-[140px]">
+    <button onClick={onClick} className="shrink-0 cursor-pointer group active:scale-95 flex flex-col gap-1.5 w-[140px] md:w-[160px] lg:w-[180px]">
       <div className="aspect-[2/3] rounded-xl overflow-hidden relative shadow-md border border-white/5">
         <img src={anime.poster} alt={anime.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
-        {anime.score && <div className="absolute bottom-1 right-1 bg-black/80 px-1.5 py-0.5 rounded text-[9px] font-bold text-yellow-400">star {anime.score}</div>}
+        {anime.score && <div className="absolute bottom-1 right-1 bg-black/80 px-1.5 py-0.5 rounded text-[9px] md:text-[10px] font-bold text-yellow-400">star {anime.score}</div>}
         {progress !== undefined && (
           <div className="absolute bottom-0 left-0 right-0 h-1 bg-black/60">
             <div className="h-full bg-red-500" style={{ width: `${Math.min(progress * 100, 100)}%` }} />
           </div>
         )}
       </div>
-      <p className="text-xs font-medium text-white line-clamp-2 leading-tight">{anime.title}</p>
+      <p className="text-xs md:text-sm font-medium text-white line-clamp-2 leading-tight">{anime.title}</p>
     </button>
   );
 }
@@ -101,51 +123,63 @@ function GridCard({ anime, onClick, progress }: { anime: Anime; onClick: () => v
     <button onClick={onClick} className="cursor-pointer group active:scale-95 flex flex-col gap-1.5">
       <div className="aspect-[2/3] rounded-lg overflow-hidden shadow-md border border-white/5 relative">
         <img src={anime.poster} alt={anime.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
-        {anime.score && <div className="absolute bottom-1 right-1 bg-black/80 px-1 py-0.5 rounded text-[9px] font-bold text-yellow-400">star {anime.score}</div>}
+        {anime.score && <div className="absolute bottom-1 right-1 bg-black/80 px-1 py-0.5 rounded text-[9px] md:text-[10px] font-bold text-yellow-400">star {anime.score}</div>}
         {progress !== undefined && (
           <div className="absolute bottom-0 left-0 right-0 h-1 bg-black/60">
             <div className="h-full bg-red-500" style={{ width: `${Math.min(progress * 100, 100)}%` }} />
           </div>
         )}
       </div>
-      <p className="text-[11px] font-medium text-white line-clamp-2 leading-tight">{anime.title}</p>
+      <p className="text-[11px] md:text-xs font-medium text-white line-clamp-2 leading-tight">{anime.title}</p>
     </button>
   );
 }
 
-function SectionHeader({ title }: { title: string }) {
-  return <h2 className="text-xl font-bold text-white mb-3 px-4">{title}</h2>;
+function SectionHeader({ title, subtitle }: { title: string; subtitle?: string }) {
+  return (
+    <div className="flex items-baseline justify-between mb-3 px-4 md:px-6 lg:px-8">
+      <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white">{title}</h2>
+      {subtitle && <span className="text-xs md:text-sm text-gray-500">{subtitle}</span>}
+    </div>
+  );
 }
 
 // ============================================================================
-// Hero Section
+// Hero Section — responsive: bigger on desktop, mobile aspect on phones
 // ============================================================================
-function HeroSection({ anime, onClick, onToggleList, isInList }: { anime: Anime; onClick: () => void; onToggleList: () => void; isInList: boolean }) {
+function HeroSection({ anime, onClick, onToggleList, isInList }: {
+  anime: Anime; onClick: () => void; onToggleList: () => void; isInList: boolean;
+}) {
   if (!anime) return null;
   const seasonStr = anime.season ? `${anime.season.charAt(0).toUpperCase() + anime.season.slice(1)} ${anime.year}` : anime.year?.toString() || "";
   return (
-    <section className="relative w-full aspect-[9/14] max-h-[80vh] flex flex-col justify-end overflow-hidden">
+    <section className="relative w-full h-[60vh] md:h-[70vh] lg:h-[80vh] max-h-[800px] flex flex-col justify-end overflow-hidden">
       <img src={anime.banner || anime.poster} alt={anime.title} className="absolute inset-0 w-full h-full object-cover z-0" />
       <div className="absolute inset-0 z-[1]" style={{ background: "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.05) 100%)" }} />
-      <div className="relative z-10 px-5 pb-6 text-center">
-        <h1 className="text-4xl font-extrabold mb-3 tracking-tight drop-shadow-lg text-white">{anime.title}</h1>
-        <div className="flex justify-center items-center gap-2 mb-4">
-          <span className="bg-gray-200/90 text-black text-xs font-bold px-2 py-0.5 rounded">{anime.type}</span>
-          {anime.score && <span className="bg-gray-400/90 text-black text-xs font-bold px-2 py-0.5 rounded">{anime.score}</span>}
+      <div className="relative z-10 px-5 md:px-12 lg:px-20 pb-8 md:pb-12 text-center md:text-left">
+        <h1 className="text-3xl md:text-5xl lg:text-7xl font-extrabold mb-3 md:mb-5 tracking-tight drop-shadow-lg text-white">{anime.title}</h1>
+        <div className="flex md:justify-start justify-center items-center gap-2 mb-4 flex-wrap">
+          <span className="bg-gray-200/90 text-black text-xs md:text-sm font-bold px-2 py-0.5 rounded">{anime.type}</span>
+          {anime.score && <span className="bg-gray-400/90 text-black text-xs md:text-sm font-bold px-2 py-0.5 rounded">{anime.score}</span>}
+          {anime.nextAiringEpisode && (
+            <span className="bg-red-600/90 text-white text-xs md:text-sm font-bold px-2 py-0.5 rounded">
+              {formatAiringTime(anime.nextAiringEpisode.airingAt)}
+            </span>
+          )}
         </div>
-        <div className="flex justify-center items-center gap-3 text-xs text-gray-300 font-medium mb-1 flex-wrap">
+        <div className="flex md:justify-start justify-center items-center gap-3 text-xs md:text-sm text-gray-300 font-medium mb-1 flex-wrap">
           {seasonStr && <span>{seasonStr}</span>}
           {anime.status && <span>{anime.status}</span>}
           {anime.duration && <span>{anime.duration}</span>}
           {anime.score && <span className="flex items-center gap-1"><Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />{anime.score}</span>}
         </div>
-        <p className="text-sm text-gray-300 mb-6 font-medium">{anime.genres.slice(0, 3).join(", ")}</p>
-        <div className="flex justify-between items-center gap-3 px-2">
+        <p className="text-sm md:text-base text-gray-300 mb-6 md:mb-8 font-medium md:max-w-2xl">{anime.genres.slice(0, 3).join(", ")}</p>
+        <div className="flex justify-between md:justify-start items-center gap-3 md:gap-4 px-2 md:px-0">
           <button className="flex flex-col items-center gap-1 opacity-90 active:opacity-70">
             <Share2 className="w-7 h-7" strokeWidth={1.5} />
             <span className="text-[10px] font-semibold">Share</span>
           </button>
-          <button onClick={onClick} className="flex-1 bg-white text-black font-bold py-3.5 rounded-full flex items-center justify-center gap-2 shadow-lg shadow-black/20 active:scale-95 transition-transform">
+          <button onClick={onClick} className="flex-1 md:flex-none md:px-12 bg-white text-black font-bold py-3.5 md:py-4 rounded-full flex items-center justify-center gap-2 shadow-lg shadow-black/20 active:scale-95 transition-transform">
             <Info className="w-5 h-5" />
             <span className="text-base tracking-wide">Details</span>
           </button>
@@ -169,7 +203,7 @@ function HeroSection({ anime, onClick, onToggleList, isInList }: { anime: Anime;
 }
 
 // ============================================================================
-// Sections
+// Sections — responsive columns
 // ============================================================================
 function HorizontalSection({ title, anime, onSelect, getProgress }: {
   title: string; anime: Anime[]; onSelect: (a: Anime) => void;
@@ -177,9 +211,9 @@ function HorizontalSection({ title, anime, onSelect, getProgress }: {
 }) {
   if (anime.length === 0) return null;
   return (
-    <section className="mb-8">
+    <section className="mb-8 md:mb-12">
       <SectionHeader title={title} />
-      <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-2">
+      <div className="flex gap-3 md:gap-4 overflow-x-auto no-scrollbar px-4 md:px-6 lg:px-8 pb-2">
         {anime.map((a) => (
           <PosterCard key={a.id} anime={a} onClick={() => onSelect(a)} progress={getProgress?.(a)} />
         ))}
@@ -194,10 +228,11 @@ function GridSection({ title, anime, onSelect, getProgress }: {
 }) {
   if (anime.length === 0) return null;
   return (
-    <section className="mb-8 px-4">
+    <section className="mb-8 md:mb-12 px-4 md:px-6 lg:px-8">
       <SectionHeader title={title} />
-      <div className="grid grid-cols-4 gap-x-3 gap-y-5">
-        {anime.slice(0, 12).map((a) => (
+      {/* Mobile: 4 cols, Tablet: 5 cols, Desktop: 6 cols, Large: 8 cols */}
+      <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-8 gap-x-3 md:gap-x-4 gap-y-5 md:gap-y-6">
+        {anime.slice(0, 24).map((a) => (
           <GridCard key={a.id} anime={a} onClick={() => onSelect(a)} progress={getProgress?.(a)} />
         ))}
       </div>
@@ -206,32 +241,67 @@ function GridSection({ title, anime, onSelect, getProgress }: {
 }
 
 // ============================================================================
-// Bottom Nav
+// Bottom Nav (mobile) / Top Nav (desktop)
 // ============================================================================
-function BottomNav({ active, onChange }: { active: View; onChange: (v: View) => void }) {
+function Nav({ active, onChange }: { active: View; onChange: (v: View) => void }) {
   const items: { key: View; icon: typeof Home; label: string }[] = [
     { key: "home", icon: Home, label: "Home" },
+    { key: "schedule", icon: Calendar, label: "Schedule" },
     { key: "genres", icon: LayoutGrid, label: "Genres" },
     { key: "latest", icon: Clock, label: "Latest" },
     { key: "search", icon: Search, label: "Search" },
     { key: "mylist", icon: Heart, label: "My List" },
   ];
+
   return (
-    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] bg-black border-t border-gray-800 z-40 pb-safe">
-      <div className="flex justify-between items-center h-16 px-6">
-        {items.map(({ key, icon: Icon, label }) => (
-          <button key={key} onClick={() => onChange(key)} className={cn("flex flex-col items-center justify-center gap-1 w-16 transition-colors", active === key ? "text-white" : "text-gray-500")}>
-            <Icon className="w-6 h-6" fill={active === key ? "currentColor" : "none"} />
-            <span className="text-[10px] font-medium">{label}</span>
-          </button>
-        ))}
-      </div>
-    </nav>
+    <>
+      {/* Desktop: top horizontal nav bar */}
+      <nav className="hidden md:flex fixed top-0 left-0 right-0 z-40 bg-black/95 backdrop-blur-md border-b border-gray-800 h-14 items-center px-6 lg:px-10">
+        <div className="flex items-center gap-2 mr-8 lg:mr-12">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-red-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm">A</div>
+          <span className="text-white font-bold text-lg tracking-tight">AniLab</span>
+        </div>
+        <div className="flex items-center gap-1 lg:gap-2">
+          {items.map(({ key, icon: Icon, label }) => (
+            <button
+              key={key}
+              onClick={() => onChange(key)}
+              className={cn(
+                "flex items-center gap-2 px-3 lg:px-4 py-2 rounded-lg text-sm font-medium transition-colors",
+                active === key ? "bg-white/10 text-white" : "text-gray-400 hover:text-white hover:bg-white/5"
+              )}
+            >
+              <Icon className="w-4 h-4" />
+              <span className="hidden lg:inline">{label}</span>
+            </button>
+          ))}
+        </div>
+      </nav>
+
+      {/* Mobile: bottom nav */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-black border-t border-gray-800 z-40 pb-safe">
+        <div className="flex justify-between items-center h-16 px-4">
+          {items.map(({ key, icon: Icon, label }) => (
+            <button
+              key={key}
+              onClick={() => onChange(key)}
+              className={cn(
+                "flex flex-col items-center justify-center gap-1 flex-1 transition-colors",
+                active === key ? "text-white" : "text-gray-500"
+              )}
+            >
+              <Icon className="w-5 h-5" fill={active === key ? "currentColor" : "none"} />
+              <span className="text-[9px] font-medium">{label}</span>
+            </button>
+          ))}
+        </div>
+      </nav>
+    </>
   );
 }
 
 // ============================================================================
-// Episode Grid View
+// Episode Grid View — responsive columns
 // ============================================================================
 function EpisodeGridView({ anime, onBack, onEpisode, currentEp }: {
   anime: AnimeDetail; onBack: () => void;
@@ -257,13 +327,13 @@ function EpisodeGridView({ anime, onBack, onEpisode, currentEp }: {
   };
 
   return (
-    <div className="fixed inset-0 bg-black z-50 flex flex-col">
-      <div className="flex items-center justify-between p-4 border-b border-gray-800 pt-8">
+    <div className="fixed inset-0 bg-black z-50 flex flex-col md:pt-14">
+      <div className="flex items-center justify-between p-4 border-b border-gray-800">
         <div className="flex items-center gap-3">
           <button onClick={onBack} className="text-white"><ChevronLeft className="w-6 h-6" /></button>
           <div>
-            <h1 className="text-lg font-bold leading-none text-white">{anime.title}</h1>
-            <span className="text-xs text-gray-400">Episodes</span>
+            <h1 className="text-lg md:text-xl font-bold leading-none text-white">{anime.title}</h1>
+            <span className="text-xs md:text-sm text-gray-400">{epCount} Episodes</span>
           </div>
         </div>
         <div className="flex items-center gap-4">
@@ -279,13 +349,14 @@ function EpisodeGridView({ anime, onBack, onEpisode, currentEp }: {
         </div>
       )}
       <div className="flex-1 overflow-y-auto p-4">
-        <div className="grid grid-cols-5 gap-2">
+        {/* Mobile: 5 cols, Tablet: 8, Desktop: 10, Large: 12 */}
+        <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-2">
           {filteredEpisodes.map((ep) => (
             <button
               key={ep}
               onClick={() => setSelectedEp(ep)}
               className={cn(
-                "aspect-square rounded-lg text-white font-medium text-base hover:bg-gray-800 active:scale-95 transition-all flex items-center justify-center",
+                "aspect-square rounded-lg text-white font-medium text-sm md:text-base hover:bg-gray-800 active:scale-95 transition-all flex items-center justify-center",
                 currentEp === ep ? "bg-red-600" : "bg-gray-900"
               )}
             >{ep}</button>
@@ -294,14 +365,14 @@ function EpisodeGridView({ anime, onBack, onEpisode, currentEp }: {
         {filteredEpisodes.length === 0 && <p className="text-white/40 text-center mt-8">No episodes found</p>}
       </div>
       {selectedEp !== null && (
-        <div className="fixed inset-0 z-[60] flex items-end justify-center">
+        <div className="fixed inset-0 z-[60] flex items-end md:items-center justify-center">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setSelectedEp(null)} />
-          <div className="relative w-full max-w-[480px] bg-[#1c1c1e] rounded-t-3xl p-6 pb-10 shadow-2xl">
+          <div className="relative w-full max-w-[480px] bg-[#1c1c1e] rounded-t-3xl md:rounded-3xl p-6 pb-10 shadow-2xl">
             <button onClick={() => setSelectedEp(null)} className="absolute top-4 right-4 text-gray-400 hover:text-white">
               <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
             </button>
             <h2 className="text-2xl font-bold text-white mb-1">Episode {selectedEp}</h2>
-            <p className="text-sm text-gray-400 mb-6">Choose a server, if a server does not work, please choose another.</p>
+            <p className="text-sm text-gray-400 mb-6">Choose a server. If one doesn&apos;t work, try the other.</p>
             <div className="grid grid-cols-2 gap-3">
               <button onClick={() => onEpisode(selectedEp, "sub")} className="bg-white text-black font-bold py-3.5 rounded-full flex items-center justify-center gap-2 hover:bg-gray-200 active:scale-95 transition">SUB Server</button>
               <button onClick={handleDubClick} className="bg-white text-black font-bold py-3.5 rounded-full flex items-center justify-center gap-2 hover:bg-gray-200 active:scale-95 transition">DUB Server</button>
@@ -322,7 +393,7 @@ function EpisodeGridView({ anime, onBack, onEpisode, currentEp }: {
 }
 
 // ============================================================================
-// Custom HLS Player (replaces iframe - gives us full control)
+// Custom HLS Player — responsive size, full controls
 // ============================================================================
 function HlsPlayer({
   anime, episode, audio, onBack, onEpisode, totalEpisodes,
@@ -352,10 +423,9 @@ function HlsPlayer({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [qualities, setQualities] = useState<{ height: number; level: number }[]>([]);
-  const [currentQuality, setCurrentQuality] = useState(-1); // -1 = auto
+  const [currentQuality, setCurrentQuality] = useState(-1);
   const [usingFallback, setUsingFallback] = useState(false);
   const [longPressHint, setLongPressHint] = useState(false);
-  // Subtitles on by default for SUB audio; off for DUB.
   const [subtitlesOn, setSubtitlesOn] = useState(audio === "sub");
   const [hasSubtitles, setHasSubtitles] = useState(false);
 
@@ -368,7 +438,6 @@ function HlsPlayer({
     setSkipTimes([]);
     setShowSkipIntro(false);
     setShowSkipOutro(false);
-    // Reset subtitle state based on audio mode
     setSubtitlesOn(audio === "sub");
     setHasSubtitles(false);
 
@@ -378,7 +447,6 @@ function HlsPlayer({
         setLoading(false);
         return;
       }
-      // Fetch the actual m3u8 stream URL from zokoanime
       const src = await fetchZokoSource(anime.malId!, episode, audio);
       if (cancelled) return;
       if (!src || !src.src) {
@@ -389,7 +457,6 @@ function HlsPlayer({
       setStreamInfo({ src: src.src, poster: src.poster, subtitles: src.subtitles });
       setHasSubtitles(!!src.subtitles && src.subtitles.length > 0);
 
-      // Also fetch skip times for this episode (in background)
       fetchSkipTimes(anime.malId!, episode, 24).then((skips) => {
         if (cancelled) return;
         skipTimesRef.current = skips;
@@ -400,7 +467,7 @@ function HlsPlayer({
     return () => { cancelled = true; };
   }, [anime.malId, episode, audio]);
 
-  // Initialize hls.js once we have a stream URL
+  // Initialize hls.js
   useEffect(() => {
     if (!streamInfo?.src) return;
     const video = videoRef.current;
@@ -409,7 +476,6 @@ function HlsPlayer({
     setLoading(true);
     setError(null);
 
-    // Dynamic import to keep initial bundle small
     import("hls.js").then(({ default: Hls }) => {
       if (Hls.isSupported()) {
         const hls = new Hls({
@@ -424,12 +490,10 @@ function HlsPlayer({
 
         hls.on(Hls.Events.MANIFEST_PARSED, () => {
           setLoading(false);
-          // Build quality list
           const levels = hls.levels.map((l: any, i: number) => ({ height: l.height, level: i }));
           setQualities(levels);
           setCurrentQuality(-1);
-          // Auto-play
-          video.play().catch(() => {}); // ignore autoplay rejection
+          video.play().catch(() => {});
         });
 
         hls.on(Hls.Events.LEVEL_SWITCHED, (_: any, data: any) => {
@@ -453,7 +517,6 @@ function HlsPlayer({
           }
         });
       } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-        // Safari native HLS
         video.src = streamInfo.src;
         setLoading(false);
         video.play().catch(() => {});
@@ -483,7 +546,6 @@ function HlsPlayer({
     const onPlaying = () => setBuffering(false);
     const onCanPlay = () => setBuffering(false);
     const onEnded = () => {
-      // Auto-advance to next episode
       if (episode < totalEpisodes) {
         if (confirm("Watch next episode?")) {
           onEpisode(episode + 1, audio);
@@ -510,35 +572,25 @@ function HlsPlayer({
     };
   }, [episode, audio, totalEpisodes, onEpisode]);
 
-  // Skip Intro / Skip Outro visibility based on currentTime
-  // The Skip Intro button shows only WHILE the user is inside the intro
-  // segment — so they actually see the opening animation/song start, and
-  // can skip to the end of the opening when they want.
+  // Skip Intro / Skip Outro visibility
   useEffect(() => {
     if (skipTimes.length === 0) {
-      // Default behavior: assume intro runs 0-90s. Show Skip Intro button
-      // only after 10s so the user has seen the opening start.
       setShowSkipIntro(currentTime >= 10 && currentTime < 90);
       setShowSkipOutro(duration > 0 && currentTime >= duration * 0.95);
       return;
     }
     const op = skipTimes.find((s) => s.type === "op" || s.type === "mixed-op");
     const ed = skipTimes.find((s) => s.type === "ed" || s.type === "mixed-ed");
-    // Show Skip Intro from 10s into the intro, until 1s before its end.
     if (op) {
       const startShow = Math.max(op.start + 10, op.start);
       setShowSkipIntro(currentTime >= startShow && currentTime < op.end - 1);
     } else {
       setShowSkipIntro(false);
     }
-    // Show Skip Outro (next episode) during the outro segment.
     setShowSkipOutro(!!ed ? (currentTime >= ed.start && currentTime < ed.end - 1) : (duration > 0 && currentTime >= duration * 0.95));
   }, [currentTime, skipTimes, duration]);
 
-  // Auto-enable the first subtitle track when:
-  // 1. Subtitles exist
-  // 2. subtitlesOn is true (default for SUB audio)
-  // 3. Video element has loaded its text tracks
+  // Auto-enable English subtitle track only
   useEffect(() => {
     const v = videoRef.current;
     if (!v || !hasSubtitles) return;
@@ -546,9 +598,6 @@ function HlsPlayer({
     const applySubtitleMode = () => {
       const tracks = v.textTracks;
       if (tracks.length === 0) return;
-      // Find the English / default track. Only ONE track can be "showing"
-      // at a time — setting all of them to "showing" causes browsers to
-      // display nothing.
       let englishIdx = -1;
       let defaultIdx = -1;
       for (let i = 0; i < tracks.length; i++) {
@@ -557,13 +606,11 @@ function HlsPlayer({
         if (englishIdx === -1 && (t.language === "en" || t.label === "English" || (t as any).srclang === "en")) {
           englishIdx = i;
         }
-        // First subtitles track is the default fallback
         if (defaultIdx === -1) defaultIdx = i;
       }
       const targetIdx = englishIdx !== -1 ? englishIdx : defaultIdx;
       for (let i = 0; i < tracks.length; i++) {
         if (tracks[i].kind !== "subtitles") continue;
-        // Only the target track follows subtitlesOn; all others are disabled.
         if (i === targetIdx) {
           tracks[i].mode = subtitlesOn ? "showing" : "disabled";
         } else {
@@ -572,16 +619,12 @@ function HlsPlayer({
       }
     };
 
-    // Apply immediately
     applySubtitleMode();
 
-    // Also apply on 'loadstart' / 'loadedmetadata' / 'addtrack' in case
-    // tracks aren't ready yet (hls.js may add tracks after manifest parse)
     const onLoad = () => applySubtitleMode();
     v.addEventListener("loadstart", onLoad);
     v.addEventListener("loadedmetadata", onLoad);
     v.addEventListener("addtrack", onLoad);
-    // Slight delay also catches hls.js's late track addition
     const t1 = window.setTimeout(applySubtitleMode, 500);
     const t2 = window.setTimeout(applySubtitleMode, 1500);
 
@@ -594,14 +637,9 @@ function HlsPlayer({
     };
   }, [hasSubtitles, subtitlesOn, streamInfo?.src]);
 
-  const toggleSubtitles = () => {
-    setSubtitlesOn((prev) => !prev);
-  };
-
   // Save progress to continue-watching every 5s
   useEffect(() => {
     if (!duration || currentTime < 1) return;
-    // Throttle saves to every 5 seconds
     const sec = Math.floor(currentTime);
     if (sec % 5 !== 0) return;
     saveWatchProgress({
@@ -618,7 +656,7 @@ function HlsPlayer({
     });
   }, [currentTime, duration, anime, episode, audio, totalEpisodes]);
 
-  // Auto-hide controls after 3s of inactivity
+  // Auto-hide controls after 3.5s of inactivity
   const pokeControls = useCallback(() => {
     setShowControls(true);
     if (hideControlsTimer.current) window.clearTimeout(hideControlsTimer.current);
@@ -634,14 +672,12 @@ function HlsPlayer({
     };
   }, [pokeControls, currentTime]);
 
-  // Fullscreen tracking
   useEffect(() => {
     const onFs = () => setIsFullscreen(!!document.fullscreenElement);
     document.addEventListener("fullscreenchange", onFs);
     return () => document.removeEventListener("fullscreenchange", onFs);
   }, []);
 
-  // Cleanup HLS on unmount
   useEffect(() => {
     return () => {
       if (hlsRef.current) {
@@ -684,11 +720,9 @@ function HlsPlayer({
     }
   };
 
-  // Long-press on Skip Intro button to set custom intro end time
   const skipIntroLongPress = useRef<number | null>(null);
   const onSkipIntroDown = () => {
     skipIntroLongPress.current = window.setTimeout(() => {
-      // Long-press: set current time as the intro end
       if (anime.malId && videoRef.current) {
         setIntroEndOverride(anime.malId, Math.floor(videoRef.current.currentTime));
         setLongPressHint(true);
@@ -711,6 +745,8 @@ function HlsPlayer({
     setShowSettings(false);
   };
 
+  const toggleSubtitles = () => setSubtitlesOn((prev) => !prev);
+
   const toggleFullscreen = () => {
     const el = containerRef.current;
     if (!el) return;
@@ -732,7 +768,6 @@ function HlsPlayer({
     return `${m}:${sec.toString().padStart(2, "0")}`;
   };
 
-  // If HLS fails, fall back to iframe (zokoanime's own player)
   if (error && !usingFallback && anime.malId) {
     const fallbackUrl = getEmbedUrl(anime.malId, episode, audio);
     if (fallbackUrl) {
@@ -741,7 +776,7 @@ function HlsPlayer({
   }
 
   return (
-    <div className="fixed inset-0 bg-black z-50 flex flex-col">
+    <div className="fixed inset-0 bg-black z-50 flex flex-col md:pt-14">
       {/* Top bar */}
       <div className={cn(
         "flex items-center gap-3 p-3 bg-black z-30 transition-opacity",
@@ -749,218 +784,211 @@ function HlsPlayer({
       )}>
         <button onClick={onBack} className="text-white flex items-center gap-2">
           <ChevronLeft className="w-6 h-6" />
-          <span className="font-bold text-sm truncate max-w-[250px]">{anime.title} - Ep {episode} {audio.toUpperCase()}</span>
+          <span className="font-bold text-sm truncate max-w-[250px] md:max-w-[400px]">{anime.title} - Ep {episode} {audio.toUpperCase()}</span>
         </button>
         <button onClick={toggleFullscreen} className="ml-auto text-white p-1">
           <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" /></svg>
         </button>
       </div>
 
-      {/* Scrollable content: player + episode list */}
+      {/* Scrollable content */}
       <div className="flex-1 overflow-y-auto no-scrollbar">
-        {/* Player area — does NOT fill the screen, leaves room for episodes */}
-        <div
-          ref={containerRef}
-          className="relative w-full bg-black aspect-video"
-          onClick={pokeControls}
-          onTouchStart={pokeControls}
-        >
-          <video
-            ref={videoRef}
-            className="w-full h-full"
-            playsInline
-            poster={streamInfo?.poster}
-            crossOrigin="anonymous"
-            onClick={(e) => { e.stopPropagation(); togglePlay(); pokeControls(); }}
-          >
-            {(streamInfo?.subtitles || []).map((s: any, i: number) => (
-              <track
-                key={i}
-                kind="subtitles"
-                src={s.src}
-                label={s.label || "English"}
-                srcLang={s.lang || "en"}
-                default={s.default}
-              />
-            ))}
-          </video>
-
-          {/* Loading spinner */}
-          {(loading || buffering) && (
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-12 h-12 border-3 border-white/20 border-t-white rounded-full animate-spin" />
-            </div>
-          )}
-
-          {/* Error overlay */}
-          {error && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-white gap-3 bg-black/80">
-              <p className="text-sm">{error}</p>
-              <button
-                onClick={() => {
-                  if (anime.malId) {
-                    const url = getEmbedUrl(anime.malId, episode, audio);
-                    if (url) {
-                      setUsingFallback(true);
-                      setStreamInfo({ src: url }); // force re-mount via fallback below
-                    }
-                  }
-                }}
-                className="bg-white text-black font-bold py-2 px-6 rounded-full text-sm active:scale-95"
-              >Use Fallback Player</button>
-            </div>
-          )}
-
-          {/* Skip Intro button — appears during intro */}
-          {showSkipIntro && !loading && !error && (
-            <button
-              onClick={skipIntro}
-              onMouseDown={onSkipIntroDown}
-              onMouseUp={onSkipIntroUp}
-              onMouseLeave={onSkipIntroUp}
-              onTouchStart={onSkipIntroDown}
-              onTouchEnd={onSkipIntroUp}
-              className="absolute bottom-20 right-4 z-20 bg-white/95 text-black font-bold text-xs px-4 py-2 rounded-full shadow-lg active:scale-95 transition"
-            >Skip Intro</button>
-          )}
-          {longPressHint && (
-            <div className="absolute bottom-20 right-4 z-30 bg-black/90 text-white text-xs px-3 py-2 rounded-lg">
-              Intro end saved for this anime
-            </div>
-          )}
-
-          {/* Skip Outro / Next Episode button */}
-          {showSkipOutro && !loading && !error && episode < totalEpisodes && (
-            <button
-              onClick={skipOutro}
-              className="absolute bottom-20 right-4 z-20 bg-red-600 text-white font-bold text-xs px-4 py-2 rounded-full shadow-lg active:scale-95 transition flex items-center gap-1"
-            >
-              <SkipForward className="w-3 h-3" /> Next Ep
-            </button>
-          )}
-
-          {/* Center play/pause button when paused */}
-          {!playing && !loading && !error && (
-            <button
-              onClick={togglePlay}
-              className="absolute inset-0 flex items-center justify-center z-10"
-            >
-              <div className="w-16 h-16 rounded-full bg-black/60 flex items-center justify-center">
-                <Play className="w-8 h-8 text-white fill-white ml-1" />
-              </div>
-            </button>
-          )}
-
-          {/* Custom controls bar */}
+        {/* Player area — responsive max-width on desktop, full-width on mobile */}
+        <div className="w-full bg-black flex justify-center">
           <div
-            className={cn(
-              "absolute bottom-0 left-0 right-0 px-3 pb-2 pt-8 bg-gradient-to-t from-black/90 to-transparent z-20 transition-opacity",
-              !showControls && "opacity-0 pointer-events-none"
-            )}
-            onClick={(e) => e.stopPropagation()}
+            ref={containerRef}
+            className="relative w-full md:max-w-[900px] lg:max-w-[1100px] xl:max-w-[1300px] bg-black aspect-video"
+            onClick={pokeControls}
+            onTouchStart={pokeControls}
           >
-            {/* Seek bar */}
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-[10px] text-white font-mono w-9 text-right">{formatTime(currentTime)}</span>
-              <input
-                type="range"
-                min={0}
-                max={duration || 0}
-                value={currentTime}
-                step={0.5}
-                onChange={(e) => seek(parseFloat(e.target.value))}
-                className="flex-1 h-1 accent-red-500 cursor-pointer"
-              />
-              <span className="text-[10px] text-white font-mono w-9">{formatTime(duration)}</span>
-            </div>
+            <video
+              ref={videoRef}
+              className="w-full h-full"
+              playsInline
+              poster={streamInfo?.poster}
+              crossOrigin="anonymous"
+              onClick={(e) => { e.stopPropagation(); togglePlay(); pokeControls(); }}
+            >
+              {(streamInfo?.subtitles || []).map((s: any, i: number) => (
+                <track
+                  key={i}
+                  kind="subtitles"
+                  src={s.src}
+                  label={s.label || "English"}
+                  srcLang={s.lang || "en"}
+                  default={s.default}
+                />
+              ))}
+            </video>
 
-            {/* Bottom row: buttons */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <button onClick={togglePlay} className="text-white p-1">
-                  {playing ? (
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg>
-                  ) : (
-                    <Play className="w-5 h-5 fill-white" />
-                  )}
-                </button>
-                <button onClick={() => skipBy(-10)} className="text-white p-1">
-                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 8V4l-8 8 8 8v-4" /><text x="14" y="16" fontSize="9" fill="currentColor" stroke="none">10</text>
-                  </svg>
-                </button>
-                <button onClick={() => skipBy(10)} className="text-white p-1">
-                  <FastForward className="w-5 h-5" />
-                </button>
-                {episode > 1 && (
-                  <button onClick={() => onEpisode(episode - 1, audio)} className="text-white p-1" title="Previous episode">
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 20L9 12l10-8v16z" /><line x1="5" y1="19" x2="5" y2="5" /></svg>
-                  </button>
-                )}
-                {episode < totalEpisodes && (
-                  <button onClick={() => onEpisode(episode + 1, audio)} className="text-white p-1" title="Next episode">
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 4l10 8-10 8V4z" /><line x1="19" y1="5" x2="19" y2="19" /></svg>
-                  </button>
-                )}
+            {(loading || buffering) && (
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="w-12 h-12 border-3 border-white/20 border-t-white rounded-full animate-spin" />
               </div>
-              <div className="flex items-center gap-3">
-                {hasSubtitles && (
-                  <button
-                    onClick={toggleSubtitles}
-                    className={cn("text-white p-1 transition-opacity", subtitlesOn ? "opacity-100" : "opacity-50")}
-                    title={subtitlesOn ? "Subtitles: On" : "Subtitles: Off"}
-                  >
-                    {/* CC icon */}
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="2" y="5" width="20" height="14" rx="2" />
-                      <path d="M7 12.5a1.5 1.5 0 0 1 3 0" fill="none" />
-                      <path d="M14 12.5a1.5 1.5 0 0 1 3 0" fill="none" />
+            )}
+
+            {error && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-white gap-3 bg-black/80">
+                <p className="text-sm">{error}</p>
+                <button
+                  onClick={() => {
+                    if (anime.malId) {
+                      const url = getEmbedUrl(anime.malId, episode, audio);
+                      if (url) {
+                        setUsingFallback(true);
+                        setStreamInfo({ src: url });
+                      }
+                    }
+                  }}
+                  className="bg-white text-black font-bold py-2 px-6 rounded-full text-sm active:scale-95"
+                >Use Fallback Player</button>
+              </div>
+            )}
+
+            {showSkipIntro && !loading && !error && (
+              <button
+                onClick={skipIntro}
+                onMouseDown={onSkipIntroDown}
+                onMouseUp={onSkipIntroUp}
+                onMouseLeave={onSkipIntroUp}
+                onTouchStart={onSkipIntroDown}
+                onTouchEnd={onSkipIntroUp}
+                className="absolute bottom-20 md:bottom-24 right-4 z-20 bg-white/95 text-black font-bold text-xs md:text-sm px-4 py-2 rounded-full shadow-lg active:scale-95 transition"
+              >Skip Intro</button>
+            )}
+            {longPressHint && (
+              <div className="absolute bottom-20 md:bottom-24 right-4 z-30 bg-black/90 text-white text-xs px-3 py-2 rounded-lg">
+                Intro end saved for this anime
+              </div>
+            )}
+
+            {showSkipOutro && !loading && !error && episode < totalEpisodes && (
+              <button
+                onClick={skipOutro}
+                className="absolute bottom-20 md:bottom-24 right-4 z-20 bg-red-600 text-white font-bold text-xs md:text-sm px-4 py-2 rounded-full shadow-lg active:scale-95 transition flex items-center gap-1"
+              >
+                <SkipForward className="w-3 h-3 md:w-4 md:h-4" /> Next Ep
+              </button>
+            )}
+
+            {!playing && !loading && !error && (
+              <button
+                onClick={togglePlay}
+                className="absolute inset-0 flex items-center justify-center z-10"
+              >
+                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-black/60 flex items-center justify-center">
+                  <Play className="w-8 h-8 md:w-10 md:h-10 text-white fill-white ml-1" />
+                </div>
+              </button>
+            )}
+
+            {/* Custom controls bar */}
+            <div
+              className={cn(
+                "absolute bottom-0 left-0 right-0 px-3 md:px-4 pb-2 pt-8 bg-gradient-to-t from-black/90 to-transparent z-20 transition-opacity",
+                !showControls && "opacity-0 pointer-events-none"
+              )}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-[10px] md:text-xs text-white font-mono w-9 text-right">{formatTime(currentTime)}</span>
+                <input
+                  type="range"
+                  min={0}
+                  max={duration || 0}
+                  value={currentTime}
+                  step={0.5}
+                  onChange={(e) => seek(parseFloat(e.target.value))}
+                  className="flex-1 h-1 accent-red-500 cursor-pointer"
+                />
+                <span className="text-[10px] md:text-xs text-white font-mono w-9">{formatTime(duration)}</span>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 md:gap-3">
+                  <button onClick={togglePlay} className="text-white p-1">
+                    {playing ? (
+                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg>
+                    ) : (
+                      <Play className="w-5 h-5 fill-white" />
+                    )}
+                  </button>
+                  <button onClick={() => skipBy(-10)} className="text-white p-1">
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M12 8V4l-8 8 8 8v-4" /><text x="14" y="16" fontSize="9" fill="currentColor" stroke="none">10</text>
                     </svg>
                   </button>
-                )}
-                <button onClick={() => setShowSettings((p) => !p)} className="text-white p-1" title="Quality">
-                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="3" />
-                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
-                  </svg>
-                </button>
-                <button onClick={toggleFullscreen} className="text-white p-1">
-                  {isFullscreen ? (
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3" /></svg>
-                  ) : (
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" /></svg>
+                  <button onClick={() => skipBy(10)} className="text-white p-1">
+                    <FastForward className="w-5 h-5" />
+                  </button>
+                  {episode > 1 && (
+                    <button onClick={() => onEpisode(episode - 1, audio)} className="text-white p-1" title="Previous episode">
+                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 20L9 12l10-8v16z" /><line x1="5" y1="19" x2="5" y2="5" /></svg>
+                    </button>
                   )}
-                </button>
+                  {episode < totalEpisodes && (
+                    <button onClick={() => onEpisode(episode + 1, audio)} className="text-white p-1" title="Next episode">
+                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 4l10 8-10 8V4z" /><line x1="19" y1="5" x2="19" y2="19" /></svg>
+                    </button>
+                  )}
+                </div>
+                <div className="flex items-center gap-2 md:gap-3">
+                  {hasSubtitles && (
+                    <button
+                      onClick={toggleSubtitles}
+                      className={cn("text-white p-1 transition-opacity", subtitlesOn ? "opacity-100" : "opacity-50")}
+                      title={subtitlesOn ? "Subtitles: On" : "Subtitles: Off"}
+                    >
+                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="2" y="5" width="20" height="14" rx="2" />
+                        <path d="M7 12.5a1.5 1.5 0 0 1 3 0" fill="none" />
+                        <path d="M14 12.5a1.5 1.5 0 0 1 3 0" fill="none" />
+                      </svg>
+                    </button>
+                  )}
+                  <button onClick={() => setShowSettings((p) => !p)} className="text-white p-1" title="Quality">
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="3" />
+                      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                    </svg>
+                  </button>
+                  <button onClick={toggleFullscreen} className="text-white p-1">
+                    {isFullscreen ? (
+                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3" /></svg>
+                    ) : (
+                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" /></svg>
+                    )}
+                  </button>
+                </div>
               </div>
-            </div>
 
-            {/* Settings panel */}
-            {showSettings && (
-              <div className="absolute bottom-12 right-3 bg-black/95 border border-white/10 rounded-lg p-2 min-w-[140px] shadow-xl">
-                <p className="text-[10px] text-white/60 px-2 py-1 uppercase tracking-wider">Quality</p>
-                <button
-                  onClick={() => changeQuality(-1)}
-                  className={cn("w-full text-left px-3 py-1.5 text-xs rounded text-white hover:bg-white/10", currentQuality === -1 && "bg-white/10")}
-                >Auto</button>
-                {qualities.map((q) => (
+              {showSettings && (
+                <div className="absolute bottom-12 right-3 bg-black/95 border border-white/10 rounded-lg p-2 min-w-[140px] shadow-xl">
+                  <p className="text-[10px] text-white/60 px-2 py-1 uppercase tracking-wider">Quality</p>
                   <button
-                    key={q.level}
-                    onClick={() => changeQuality(q.level)}
-                    className={cn("w-full text-left px-3 py-1.5 text-xs rounded text-white hover:bg-white/10", currentQuality === q.level && "bg-white/10")}
-                  >{q.height}p</button>
-                ))}
-              </div>
-            )}
+                    onClick={() => changeQuality(-1)}
+                    className={cn("w-full text-left px-3 py-1.5 text-xs rounded text-white hover:bg-white/10", currentQuality === -1 && "bg-white/10")}
+                  >Auto</button>
+                  {qualities.map((q) => (
+                    <button
+                      key={q.level}
+                      onClick={() => changeQuality(q.level)}
+                      className={cn("w-full text-left px-3 py-1.5 text-xs rounded text-white hover:bg-white/10", currentQuality === q.level && "bg-white/10")}
+                    >{q.height}p</button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* Episode list — BELOW the player, scrollable */}
-        <div className="bg-black px-4 py-4 pb-24">
+        {/* Episode list BELOW the player */}
+        <div className="bg-black px-4 md:px-6 lg:px-8 py-4 pb-24 md:pb-12">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-lg font-bold text-white">Episodes</h2>
-            <span className="text-xs text-gray-400">{totalEpisodes} total</span>
+            <h2 className="text-lg md:text-xl font-bold text-white">Episodes</h2>
+            <span className="text-xs md:text-sm text-gray-400">{totalEpisodes} total</span>
           </div>
-          <div className="grid grid-cols-5 gap-2">
+          <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-2">
             {Array.from({ length: Math.min(totalEpisodes, 100) }, (_, i) => i + 1).map((ep) => (
               <button
                 key={ep}
@@ -976,7 +1004,6 @@ function HlsPlayer({
             <p className="text-gray-500 text-xs text-center mt-3">Showing first 100 episodes. Use search in Episodes view for more.</p>
           )}
 
-          {/* Audio switcher */}
           <div className="flex gap-2 mt-6">
             <button
               onClick={() => onEpisode(episode, "sub")}
@@ -993,27 +1020,28 @@ function HlsPlayer({
   );
 }
 
-// Fallback iframe player (used when hls.js fails — e.g. CORS or stream issues)
 function FallbackIframePlayer({ url, anime, episode, audio, onBack }: {
   url: string; anime: AnimeDetail; episode: number; audio: "sub" | "dub"; onBack: () => void;
 }) {
   return (
-    <div className="fixed inset-0 bg-black z-50 flex flex-col">
+    <div className="fixed inset-0 bg-black z-50 flex flex-col md:pt-14">
       <div className="flex items-center gap-3 p-3 bg-black z-30">
         <button onClick={onBack} className="text-white flex items-center gap-2">
           <ChevronLeft className="w-6 h-6" />
-          <span className="font-bold text-sm truncate max-w-[250px]">{anime.title} - Ep {episode} {audio.toUpperCase()}</span>
+          <span className="font-bold text-sm truncate max-w-[250px] md:max-w-[400px]">{anime.title} - Ep {episode} {audio.toUpperCase()}</span>
         </button>
       </div>
-      <div className="relative w-full aspect-video bg-black">
-        <iframe
-          src={url}
-          className="w-full h-full"
-          allowFullScreen
-          allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-          frameBorder="0"
-          scrolling="no"
-        />
+      <div className="w-full bg-black flex justify-center">
+        <div className="relative w-full md:max-w-[900px] lg:max-w-[1100px] xl:max-w-[1300px] aspect-video bg-black">
+          <iframe
+            src={url}
+            className="w-full h-full"
+            allowFullScreen
+            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+            frameBorder="0"
+            scrolling="no"
+          />
+        </div>
       </div>
       <div className="flex-1 overflow-y-auto p-4">
         <p className="text-white/60 text-xs">Using fallback player (zokoanime embedded)</p>
@@ -1023,7 +1051,7 @@ function FallbackIframePlayer({ url, anime, episode, audio, onBack }: {
 }
 
 // ============================================================================
-// Detail View
+// Detail View — responsive
 // ============================================================================
 function DetailView({ animeId, onBack, onWatch, onSelectAnime, myList, onToggleList, continueFromEp }: {
   animeId: number; onBack: () => void; onWatch: (d: AnimeDetail, ep?: number, audio?: "sub" | "dub") => void;
@@ -1038,40 +1066,44 @@ function DetailView({ animeId, onBack, onWatch, onSelectAnime, myList, onToggleL
     fetchDetail(animeId).then((d) => setDetail(d)).catch(() => setDetail(null)).finally(() => setLoading(false));
   }, [animeId]);
 
-  if (loading) return <div className="fixed inset-0 bg-black z-50 flex items-center justify-center"><div className="w-10 h-10 border-2 border-white/10 border-t-white rounded-full animate-spin" /></div>;
-  if (!detail) return <div className="fixed inset-0 bg-black z-50 flex items-center justify-center"><p className="text-white/60">Failed to load.</p></div>;
+  if (loading) return <div className="fixed inset-0 bg-black z-50 flex items-center justify-center md:pt-14"><div className="w-10 h-10 border-2 border-white/10 border-t-white rounded-full animate-spin" /></div>;
+  if (!detail) return <div className="fixed inset-0 bg-black z-50 flex items-center justify-center md:pt-14"><p className="text-white/60">Failed to load.</p></div>;
 
   const seasonStr = detail.season ? `${detail.season.charAt(0).toUpperCase() + detail.season.slice(1)} ${detail.year}` : detail.year?.toString() || "";
   return (
-    <div className="fixed inset-0 bg-black z-50 overflow-y-auto no-scrollbar">
-      <header className="relative h-[500px] w-full">
+    <div className="fixed inset-0 bg-black z-50 overflow-y-auto no-scrollbar md:pt-14">
+      <header className="relative h-[400px] md:h-[500px] lg:h-[600px] w-full">
         <img src={detail.banner || detail.poster} alt={detail.title} className="absolute inset-0 w-full h-full object-cover z-0" style={{ filter: "brightness(0.6)" }} />
         <div className="absolute inset-0 z-10" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 60%, rgba(0,0,0,1) 100%)" }} />
-        <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-30 pt-8">
+        <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-30 md:pt-16">
           <button onClick={onBack} className="w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center text-white"><ChevronLeft className="w-5 h-5" /></button>
-          <button className="w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center text-white"><Search className="w-5 h-5" /></button>
         </div>
-        <div className="absolute bottom-16 left-0 right-0 px-6 z-20 flex flex-col items-center text-center">
-          <h1 className="text-4xl font-black mb-3 tracking-wide drop-shadow-lg text-white">{detail.title}</h1>
-          <div className="flex gap-2 mb-4">
-            <span className="bg-gray-200 text-black text-xs font-bold px-2 py-0.5 rounded">{detail.type}</span>
-            {detail.episodeCount > 0 && <span className="bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded">{detail.episodeCount} eps</span>}
+        <div className="absolute bottom-16 md:bottom-20 left-0 right-0 px-5 md:px-12 lg:px-20 z-20 flex flex-col items-center md:items-start text-center md:text-left">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-black mb-3 tracking-wide drop-shadow-lg text-white">{detail.title}</h1>
+          <div className="flex gap-2 mb-4 flex-wrap justify-center md:justify-start">
+            <span className="bg-gray-200 text-black text-xs md:text-sm font-bold px-2 py-0.5 rounded">{detail.type}</span>
+            {detail.episodeCount > 0 && <span className="bg-red-600 text-white text-xs md:text-sm font-bold px-2 py-0.5 rounded">{detail.episodeCount} eps</span>}
+            {detail.nextAiringEpisode && (
+              <span className="bg-purple-600 text-white text-xs md:text-sm font-bold px-2 py-0.5 rounded">
+                Ep {detail.nextAiringEpisode.episode} in {formatAiringTime(detail.nextAiringEpisode.airingAt)}
+              </span>
+            )}
           </div>
-          <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 text-xs text-gray-300 mb-1 font-medium">
+          <div className="flex flex-wrap justify-center md:justify-start gap-x-3 gap-y-1 text-xs md:text-sm text-gray-300 mb-1 font-medium">
             {seasonStr && <span>{seasonStr}</span>}
             {detail.status && <span>{detail.status}</span>}
             {detail.duration && <span>{detail.duration}</span>}
             {detail.score && <span className="flex items-center gap-1"><Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />{detail.score}</span>}
           </div>
-          <p className="text-sm text-gray-400 mb-6">{detail.genres.slice(0, 4).join(", ")}</p>
-          <div className="w-full flex items-center justify-between px-2">
+          <p className="text-sm md:text-base text-gray-400 mb-6">{detail.genres.slice(0, 4).join(", ")}</p>
+          <div className="w-full md:w-auto flex items-center justify-between md:justify-start gap-4 md:gap-6 px-2 md:px-0">
             <button className="flex flex-col items-center gap-1">
               <div className="w-10 h-10 rounded-full border border-gray-500 flex items-center justify-center"><Share2 className="w-5 h-5 text-white" /></div>
               <span className="text-[10px] text-gray-300">Share</span>
             </button>
             <button
               onClick={() => onWatch(detail, continueFromEp?.episode ?? 1, continueFromEp?.audio ?? "sub")}
-              className="bg-white text-black font-bold py-3 px-12 rounded-full flex items-center gap-2 active:scale-95 transition-transform shadow-lg"
+              className="bg-white text-black font-bold py-3 md:py-4 px-8 md:px-12 rounded-full flex items-center gap-2 active:scale-95 transition-transform shadow-lg"
             >
               <Play className="w-4 h-4 fill-black" />
               <span>{continueFromEp ? `Continue E${continueFromEp.episode}` : "Watch"}</span>
@@ -1085,17 +1117,19 @@ function DetailView({ animeId, onBack, onWatch, onSelectAnime, myList, onToggleL
           </div>
         </div>
       </header>
-      <section className="px-5 pt-6 pb-10 bg-black">
-        <article className="mb-8"><p className="text-sm text-gray-300 leading-relaxed">{detail.synopsis || "No synopsis available."}</p></article>
+      <section className="px-5 md:px-12 lg:px-20 pt-6 md:pt-10 pb-10 md:pb-16 bg-black">
+        <article className="mb-8 md:mb-12 max-w-4xl">
+          <p className="text-sm md:text-base text-gray-300 leading-relaxed">{detail.synopsis || "No synopsis available."}</p>
+        </article>
         {detail.seasons.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-xl font-bold text-white mb-4">Other Seasons</h2>
-            <div className="grid grid-cols-3 gap-3">
+          <div className="mb-8 md:mb-12">
+            <h2 className="text-xl md:text-2xl font-bold text-white mb-4">Other Seasons</h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {detail.seasons.map((s) => (
                 <button key={s.id} onClick={() => onSelectAnime(s.id)} className="relative aspect-video rounded-lg overflow-hidden cursor-pointer group text-left">
                   <img src={s.poster} alt={s.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-2">
-                    <span className="text-xs font-bold text-white drop-shadow-md truncate">{s.title}</span>
+                    <span className="text-xs md:text-sm font-bold text-white drop-shadow-md truncate">{s.title}</span>
                   </div>
                 </button>
               ))}
@@ -1104,15 +1138,15 @@ function DetailView({ animeId, onBack, onWatch, onSelectAnime, myList, onToggleL
         )}
         {detail.recommendations.length > 0 && (
           <div className="mb-12">
-            <h2 className="text-xl font-bold text-white mb-4">You May Also Like</h2>
+            <h2 className="text-xl md:text-2xl font-bold text-white mb-4">You May Also Like</h2>
             <div className="flex gap-3 overflow-x-auto no-scrollbar pb-2">
               {detail.recommendations.map((r) => (
-                <button key={r.id} onClick={() => onSelectAnime(r.id)} className="min-w-[120px] w-[120px] cursor-pointer group text-left">
+                <button key={r.id} onClick={() => onSelectAnime(r.id)} className="min-w-[120px] md:min-w-[150px] w-[120px] md:w-[150px] cursor-pointer group text-left shrink-0">
                   <div className="aspect-[2/3] rounded-lg overflow-hidden mb-2 relative">
                     <img src={r.poster} alt={r.title} className="w-full h-full object-cover group-hover:scale-105 transition" />
                     {r.score && <div className="absolute bottom-1 right-1 bg-black/80 px-1 py-0.5 rounded text-[9px] font-bold text-yellow-400">star {r.score}</div>}
                   </div>
-                  <h3 className="text-xs font-semibold text-gray-200 line-clamp-2 leading-tight">{r.title}</h3>
+                  <h3 className="text-xs md:text-sm font-semibold text-gray-200 line-clamp-2 leading-tight">{r.title}</h3>
                 </button>
               ))}
             </div>
@@ -1124,7 +1158,7 @@ function DetailView({ animeId, onBack, onWatch, onSelectAnime, myList, onToggleL
 }
 
 // ============================================================================
-// Search View
+// Search View — responsive
 // ============================================================================
 function SearchView({ onSelect }: { onSelect: (a: Anime) => void }) {
   const [query, setQuery] = useState("");
@@ -1143,28 +1177,32 @@ function SearchView({ onSelect }: { onSelect: (a: Anime) => void }) {
     return () => clearTimeout(timer);
   }, [query]);
   return (
-    <div className="pt-12 px-4">
-      <h1 className="text-2xl font-bold text-white mb-4">Search</h1>
+    <div className="pt-12 md:pt-20 px-4 md:px-6 lg:px-8">
+      <h1 className="text-2xl md:text-3xl font-bold text-white mb-4">Search</h1>
       <div className="relative mb-6">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
-        <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search..." className="w-full bg-[#1c1c1e] text-white pl-10 pr-4 py-3 rounded-xl text-sm outline-none" autoFocus />
+        <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search anime..." className="w-full bg-[#1c1c1e] text-white pl-10 pr-4 py-3 rounded-xl text-sm md:text-base outline-none" autoFocus />
       </div>
       {loading && <div className="flex justify-center py-8"><div className="w-8 h-8 border-2 border-white/10 border-t-white rounded-full animate-spin" /></div>}
-      {!loading && results.length > 0 && <div className="grid grid-cols-3 gap-x-3 gap-y-5 pb-8">{results.map((a) => <GridCard key={a.id} anime={a} onClick={() => onSelect(a)} />)}</div>}
+      {!loading && results.length > 0 && (
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-x-3 md:gap-x-4 gap-y-5 md:gap-y-6 pb-8">
+          {results.map((a) => <GridCard key={a.id} anime={a} onClick={() => onSelect(a)} />)}
+        </div>
+      )}
       {!loading && query.trim() && results.length === 0 && <p className="text-white/40 text-center mt-8">No results found</p>}
     </div>
   );
 }
 
 // ============================================================================
-// My List View
+// My List View — responsive
 // ============================================================================
 function MyListView({ onSelect, myList, onRemove }: { onSelect: (a: Anime) => void; myList: AnimeDetail[]; onRemove: (id: number) => void }) {
   return (
-    <div className="pt-12 px-4">
-      <h1 className="text-2xl font-bold text-white mb-4">My List</h1>
+    <div className="pt-12 md:pt-20 px-4 md:px-6 lg:px-8">
+      <h1 className="text-2xl md:text-3xl font-bold text-white mb-4">My List</h1>
       {myList.length > 0 ? (
-        <div className="grid grid-cols-3 gap-x-3 gap-y-5 pb-8">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-x-3 md:gap-x-4 gap-y-5 md:gap-y-6 pb-8">
           {myList.map((a) => (
             <div key={a.id} className="relative group">
               <GridCard anime={a} onClick={() => onSelect(a)} />
@@ -1184,7 +1222,7 @@ function MyListView({ onSelect, myList, onRemove }: { onSelect: (a: Anime) => vo
 }
 
 // ============================================================================
-// Continue Watching View
+// Continue Watching — responsive horizontal scroll
 // ============================================================================
 function ContinueWatchingSection({ history, onSelect, onClear }: {
   history: WatchHistoryEntry[];
@@ -1193,40 +1231,93 @@ function ContinueWatchingSection({ history, onSelect, onClear }: {
 }) {
   if (history.length === 0) return null;
   return (
-    <section className="mb-8">
-      <div className="flex items-center justify-between px-4 mb-3">
-        <h2 className="text-xl font-bold text-white flex items-center gap-2"><History className="w-5 h-5" /> Continue Watching</h2>
-        <button onClick={onClear} className="text-xs text-gray-400 hover:text-white">Clear All</button>
+    <section className="mb-8 md:mb-12">
+      <div className="flex items-center justify-between px-4 md:px-6 lg:px-8 mb-3">
+        <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white flex items-center gap-2"><History className="w-5 h-5 md:w-6 md:h-6" /> Continue Watching</h2>
+        <button onClick={onClear} className="text-xs md:text-sm text-gray-400 hover:text-white">Clear All</button>
       </div>
-      <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-2">
+      <div className="flex gap-3 md:gap-4 overflow-x-auto no-scrollbar px-4 md:px-6 lg:px-8 pb-2">
         {history.map((e) => {
           const progress = e.duration > 0 ? e.position / e.duration : 0;
           return (
-            <div key={`${e.animeId}-${e.episode}`} className="shrink-0 w-[200px] group cursor-pointer" onClick={() => onSelect(e)}>
+            <div key={`${e.animeId}-${e.episode}`} className="shrink-0 w-[200px] md:w-[240px] lg:w-[280px] group cursor-pointer" onClick={() => onSelect(e)}>
               <div className="aspect-video rounded-lg overflow-hidden relative bg-gray-900 border border-white/5">
                 <img src={e.poster} alt={e.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                {/* Play button overlay */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                   <div className="w-10 h-10 rounded-full bg-white/95 flex items-center justify-center">
                     <Play className="w-5 h-5 text-black fill-black ml-0.5" />
                   </div>
                 </div>
-                {/* Episode badge */}
-                <div className="absolute top-1 left-1 bg-black/80 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">EP {e.episode}</div>
-                <div className="absolute top-1 right-1 bg-black/80 text-white text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">{e.audio}</div>
-                {/* Progress bar */}
+                <div className="absolute top-1 left-1 bg-black/80 text-white text-[10px] md:text-xs font-bold px-1.5 py-0.5 rounded">EP {e.episode}</div>
+                <div className="absolute top-1 right-1 bg-black/80 text-white text-[9px] md:text-[10px] font-bold px-1.5 py-0.5 rounded uppercase">{e.audio}</div>
                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-black/60">
                   <div className="h-full bg-red-500" style={{ width: `${Math.min(progress * 100, 100)}%` }} />
                 </div>
               </div>
-              <p className="text-xs font-medium text-white line-clamp-1 mt-1.5">{e.title}</p>
-              <p className="text-[10px] text-gray-400">{Math.floor(progress * 100)}% watched</p>
+              <p className="text-xs md:text-sm font-medium text-white line-clamp-1 mt-1.5">{e.title}</p>
+              <p className="text-[10px] md:text-xs text-gray-400">{Math.floor(progress * 100)}% watched</p>
             </div>
           );
         })}
       </div>
     </section>
+  );
+}
+
+// ============================================================================
+// Schedule View — shows currently airing anime with next episode countdown
+// ============================================================================
+function ScheduleView({ onSelect }: { onSelect: (a: Anime) => void }) {
+  const [schedule, setSchedule] = useState<Anime[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [now, setNow] = useState(Date.now());
+
+  useEffect(() => {
+    fetchAiringSchedule()
+      .then(setSchedule)
+      .catch(() => setSchedule([]))
+      .finally(() => setLoading(false));
+  }, []);
+
+  // Update countdown every minute
+  useEffect(() => {
+    const t = setInterval(() => setNow(Date.now()), 60000);
+    return () => clearInterval(t);
+  }, []);
+
+  return (
+    <div className="pt-12 md:pt-20 px-4 md:px-6 lg:px-8">
+      <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">Airing Schedule</h1>
+      <p className="text-sm text-gray-400 mb-6">Currently airing anime — new episodes auto-import when they release</p>
+      {loading && <div className="flex justify-center py-8"><div className="w-8 h-8 border-2 border-white/10 border-t-white rounded-full animate-spin" /></div>}
+      {!loading && schedule.length > 0 && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pb-8">
+          {schedule.map((a) => {
+            const airingAt = a.nextAiringEpisode?.airingAt || 0;
+            const diff = airingAt - now / 1000;
+            const isAiring = diff < 3600 && diff > 0;
+            return (
+              <button
+                key={a.id}
+                onClick={() => onSelect(a)}
+                className="flex gap-3 bg-[#1c1c1e] rounded-xl p-3 hover:bg-[#2c2c2c] active:scale-95 transition-all text-left"
+              >
+                <img src={a.poster} alt={a.title} className="w-16 h-24 rounded-lg object-cover shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-bold text-white line-clamp-2 leading-tight">{a.title}</p>
+                  <p className="text-xs text-gray-400 mt-1">{a.type} • {a.year}</p>
+                  <div className={`mt-2 inline-block text-xs font-bold px-2 py-1 rounded ${isAiring ? "bg-red-600 text-white animate-pulse" : "bg-purple-600/30 text-purple-300"}`}>
+                    {a.nextAiringEpisode ? `Ep ${a.nextAiringEpisode.episode} • ${formatAiringTime(airingAt)}` : "Airing"}
+                  </div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      )}
+      {!loading && schedule.length === 0 && <p className="text-white/40 text-center mt-8">No airing anime found</p>}
+    </div>
   );
 }
 
@@ -1257,7 +1348,6 @@ export default function Page() {
   const [history, setHistory] = useState<WatchHistoryEntry[]>([]);
   const myListIds = myList.map((a) => a.id);
 
-  // Load watch history from localStorage
   const refreshHistory = useCallback(() => {
     setHistory(getWatchHistory());
   }, []);
@@ -1276,7 +1366,8 @@ export default function Page() {
     });
   }, []);
 
-  // Fetch all sections — now with more anime (50 per section, more sections)
+  // Fetch all sections — also builds the airing cache so getEpisodeCount()
+  // can return accurate counts for ongoing anime (auto-import new episodes)
   useEffect(() => {
     setLoading(true);
     Promise.all([
@@ -1293,9 +1384,6 @@ export default function Page() {
       fetchSection("new-releases", 40),
       fetchSection("classic", 30),
     ]).then(([sl, tr, po, wa, ai, fa, tt, tw, tm, tr2, nr, cl]) => {
-      // Note: we intentionally do NOT dedupe across sections — popular anime
-      // like One Piece naturally appear in multiple categories (popular,
-      // watched, favorite, etc.) and users expect to see them in each.
       setSpotlight(sl);
       setTrending(tr);
       setPopular(po);
@@ -1308,24 +1396,40 @@ export default function Page() {
       setTopRated(tr2);
       setNewReleases(nr);
       setClassic(cl);
+
+      // Build airing cache from all fetched anime — this is what powers
+      // the "auto-import new episodes" feature. When AniList reports a
+      // new nextAiringEpisode, getEpisodeCount() returns a higher number.
+      const allAnime = [...sl, ...tr, ...po, ...wa, ...ai, ...fa, ...tt, ...tw, ...tm, ...tr2, ...nr, ...cl];
+      const cache: Record<number, { nextEpisode: number | null; airingAt: number | null } | undefined> = {};
+      for (const a of allAnime) {
+        if (a.nextAiringEpisode) {
+          cache[a.id] = {
+            nextEpisode: a.nextAiringEpisode.episode,
+            airingAt: a.nextAiringEpisode.airingAt,
+          };
+        }
+      }
+      setAiringCache(cache);
+
       if (tr.length > 0) setHeroAnime(tr[0]);
       else if (sl.length > 0) setHeroAnime(sl[0]);
       else if (po.length > 0) setHeroAnime(po[0]);
     }).catch(() => {}).finally(() => setLoading(false));
   }, []);
 
-  // Refresh history when player closes
   useEffect(() => {
     if (view !== "player") refreshHistory();
   }, [view, refreshHistory]);
 
   const openDetail = useCallback((a: Anime) => { setSelectedId(a.id); setView("detail"); }, []);
-
   const continueWatching = history.find((h) => h.animeId === selectedId) || null;
 
   return (
-    <div className="bg-black min-h-screen w-full overflow-x-hidden pb-20">
-      <div className="max-w-[480px] mx-auto">
+    <div className="bg-black min-h-screen w-full overflow-x-hidden pb-20 md:pb-0">
+      <Nav active={view === "detail" ? "home" : view} onChange={(v) => { setView(v); setSelectedId(null); }} />
+
+      <div className="md:pt-14">
         {view === "home" && (
           loading ? (
             <div className="h-screen flex items-center justify-center"><div className="w-10 h-10 border-2 border-white/10 border-t-white rounded-full animate-spin" /></div>
@@ -1337,8 +1441,6 @@ export default function Page() {
                   onClick={() => openDetail(heroAnime)}
                   isInList={myListIds.includes(heroAnime.id)}
                   onToggleList={() => {
-                    // If already in list, remove directly.
-                    // Otherwise, fetch detail first so we save a complete record.
                     if (myListIds.includes(heroAnime.id)) {
                       const existing = myList.find((a) => a.id === heroAnime.id);
                       if (existing) toggleMyList(existing);
@@ -1346,7 +1448,6 @@ export default function Page() {
                       fetchDetail(heroAnime.id).then((d) => {
                         if (d) toggleMyList(d);
                         else {
-                          // Fall back to constructing a minimal AnimeDetail
                           toggleMyList({
                             ...heroAnime,
                             seasons: [],
@@ -1358,12 +1459,10 @@ export default function Page() {
                   }}
                 />
               )}
-              <div className="pt-6">
-                {/* Continue Watching at the very top */}
+              <div className="pt-6 md:pt-10">
                 <ContinueWatchingSection
                   history={history}
                   onSelect={(e) => {
-                    // Find anime in our lists by id, fall back to constructing a minimal Anime
                     const all = [...trending, ...popular, ...spotlight, ...watched, ...airing, ...favorite, ...topRated, ...newReleases, ...classic, ...topToday, ...topWeek, ...topMonth];
                     const found = all.find((a) => a.id === e.animeId);
                     const anime: Anime = found || {
@@ -1385,7 +1484,6 @@ export default function Page() {
                       studios: [],
                       duration: null,
                     };
-                    // Fetch detail and jump straight to player
                     fetchDetail(e.animeId).then((d) => {
                       if (d) {
                         setDetailData(d);
@@ -1393,14 +1491,12 @@ export default function Page() {
                         setPlayerAudio(e.audio);
                         setView("player");
                       } else {
-                        // Fall back to detail view if detail fetch fails
                         openDetail(anime);
                       }
                     });
                   }}
                   onClear={() => {
                     if (confirm("Clear all watch history?")) {
-                      // Clear all entries
                       history.forEach((h) => removeWatchHistory(h.animeId));
                       refreshHistory();
                     }
@@ -1433,8 +1529,6 @@ export default function Page() {
             animeId={selectedId}
             onBack={() => setView("home")}
             onWatch={(d, ep, audio) => {
-              // Per user request: Watch button goes to EPISODE PICKER first,
-              // then user picks an episode to enter the player.
               setDetailData(d);
               setPlayerEp(ep ?? 1);
               setPlayerAudio(audio ?? "sub");
@@ -1476,6 +1570,8 @@ export default function Page() {
 
         {view === "search" && <SearchView onSelect={openDetail} />}
 
+        {view === "schedule" && <ScheduleView onSelect={openDetail} />}
+
         {view === "mylist" && (
           <MyListView
             onSelect={openDetail}
@@ -1485,29 +1581,25 @@ export default function Page() {
         )}
 
         {view === "genres" && (
-          <div className="pt-12 px-4">
-            <h1 className="text-2xl font-bold text-white mb-4">Genres</h1>
-            <div className="grid grid-cols-2 gap-3">
+          <div className="pt-12 md:pt-20 px-4 md:px-6 lg:px-8">
+            <h1 className="text-2xl md:text-3xl font-bold text-white mb-4">Genres</h1>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
               {["Action", "Adventure", "Comedy", "Drama", "Fantasy", "Romance", "Sci-Fi", "Supernatural", "Suspense", "Slice of Life", "Mystery", "Horror"].map((g) => (
-                <button key={g} onClick={() => setView("search")} className="bg-[#1c1c1e] text-white font-medium py-4 rounded-xl text-sm hover:bg-[#2c2c2c] active:scale-95 transition">{g}</button>
+                <button key={g} onClick={() => setView("search")} className="bg-[#1c1c1e] text-white font-medium py-4 md:py-6 rounded-xl text-sm md:text-base hover:bg-[#2c2c2c] active:scale-95 transition">{g}</button>
               ))}
             </div>
           </div>
         )}
 
         {view === "latest" && (
-          <div className="pt-12 px-4">
-            <h1 className="text-2xl font-bold text-white mb-4">Latest</h1>
-            <div className="grid grid-cols-3 gap-x-3 gap-y-5 pb-8">
+          <div className="pt-12 md:pt-20 px-4 md:px-6 lg:px-8">
+            <h1 className="text-2xl md:text-3xl font-bold text-white mb-4">Latest</h1>
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-x-3 md:gap-x-4 gap-y-5 md:gap-y-6 pb-8">
               {[...newReleases, ...trending, ...popular].slice(0, 30).map((a) => <GridCard key={a.id + "-latest"} anime={a} onClick={() => openDetail(a)} />)}
             </div>
           </div>
         )}
       </div>
-
-      {view !== "player" && view !== "episodes" && (
-        <BottomNav active={view === "detail" ? "home" : view} onChange={(v) => { setView(v); setSelectedId(null); }} />
-      )}
     </div>
   );
 }

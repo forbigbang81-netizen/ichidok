@@ -1,16 +1,6 @@
 // HLS proxy route — fetches m3u8/ts files from upstream HLS CDNs and
 // re-serves them with permissive CORS headers so our client-side
 // hls.js player can load them from any origin (localhost / vercel).
-//
-// Usage:
-//   /api/hls-proxy?url=<encoded HLS URL>
-//
-// The route:
-//   1. Fetches the upstream file with browser-like headers
-//   2. For .m3u8 files: rewrites all relative/absolute URLs in the
-//      playlist to also go through this proxy (recursive)
-//   3. Serves the bytes back with Access-Control-Allow-Origin: *
-//   4. Preserves content-type
 
 import { NextResponse } from "next/server";
 
@@ -20,12 +10,9 @@ export const runtime = "nodejs";
 const UPSTREAM_TIMEOUT_MS = 12000;
 
 function rewriteM3u8Urls(content: string, baseUrl: string): string {
-  // Resolve relative URLs against baseUrl, then route them through /api/hls-proxy
   const proxy = (u: string) =>
     `/api/hls-proxy?url=${encodeURIComponent(new URL(u, baseUrl).toString())}`;
 
-  // Rewrite lines that are NOT comments (don't start with #)
-  // OR #EXT-X-KEY / #EXT-X-MAP URI attributes
   return content
     .split("\n")
     .map((line) => {
@@ -51,7 +38,6 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "url parameter required" }, { status: 400 });
   }
 
-  // Validate URL — must be http/https
   let targetUrl: URL;
   try {
     targetUrl = new URL(target);
@@ -90,9 +76,6 @@ export async function GET(request: Request) {
       targetUrl.pathname.endsWith(".m3u8") ||
       targetUrl.pathname.endsWith(".m3u");
 
-    // Always pass through bytes; for m3u8 also rewrite URLs
-    const body = await upstream.text();
-
     const headers = new Headers({
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, OPTIONS",
@@ -100,24 +83,15 @@ export async function GET(request: Request) {
       "Cache-Control": "public, max-age=300",
       "Cross-Origin-Resource-Policy": "cross-origin",
     });
+
     if (isM3u8) {
       headers.set("Content-Type", "application/vnd.apple.mpegurl");
+      const body = await upstream.text();
       const rewritten = rewriteM3u8Urls(body, targetUrl.toString());
       return new NextResponse(rewritten, { status: 200, headers });
     } else {
-      // For .ts segments, return binary
       if (contentType) headers.set("Content-Type", contentType);
-      // Re-fetch as binary (we already consumed as text — but for segments
-      // we need bytes, so re-fetch)
-      const binRes = await fetch(targetUrl.toString(), {
-        headers: {
-          "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
-          Origin: "https://zokoanime.video",
-          Referer: "https://zokoanime.video/",
-        },
-      });
-      const buf = await binRes.arrayBuffer();
+      const buf = await upstream.arrayBuffer();
       return new NextResponse(buf, { status: 200, headers });
     }
   } catch (err: any) {

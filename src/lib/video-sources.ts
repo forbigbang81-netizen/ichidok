@@ -2,14 +2,16 @@
 // We use zokoanime.video for ALL streaming because it provides HLS 1080p
 // that works in ALL browsers. We decode the actual m3u8 URL server-side
 // (see /api/zoko-source) so we can use hls.js directly in our own player,
-// giving us full control: skip intro, seek, picture-in-picture, etc.
+// giving us full control: skip intro, seek, picture-in-picture, subtitles, etc.
 
 export interface VideoSource {
   url: string;
   quality: string;
 }
 
-// Episode count overrides for anime where AniList returns 0
+// Episode count overrides for anime where AniList returns 0 or wrong data.
+// For ONGOING anime, we now also check the airing schedule (nextAiringEpisode)
+// at runtime — so this map is only used as a fallback / hard floor.
 export const ANIME_EPISODE_COUNTS: Record<number, number> = {
   21: 1172,        // One Piece
   1735: 500,       // Naruto: Shippuden
@@ -116,9 +118,35 @@ export function hasDub(malId: number | null, episode: number): boolean {
   return true;
 }
 
-// Get overridden episode count for an anime
+// ============================================================================
+// Dynamic episode count - uses airing schedule data when available.
+// This is what enables "auto-import new episodes" - when AniList reports
+// a new episode has aired (nextAiringEpisode advances), our episode count
+// automatically increases without any code changes.
+// ============================================================================
+
+// Cache of airing data fetched from AniList (refreshed hourly by the API route)
+// Keyed by AniList anime ID.
+let airingCache: Record<number, { nextEpisode: number | null; airingAt: number | null } | undefined> = {};
+
+export function setAiringCache(data: Record<number, { nextEpisode: number | null; airingAt: number | null } | undefined>) {
+  airingCache = { ...airingCache, ...data };
+}
+
+// Get the effective episode count for an anime.
+// Priority:
+//   1. Airing schedule (nextAiringEpisode - 1, since that episode has aired)
+//   2. Hardcoded ANIME_EPISODE_COUNTS override
+//   3. AniList's `episodes` field (passed in as defaultCount)
 export function getEpisodeCount(animeId: number, defaultCount: number): number {
-  return ANIME_EPISODE_COUNTS[animeId] || defaultCount;
+  const airing = airingCache[animeId];
+  if (airing && airing.nextEpisode && airing.nextEpisode > 1) {
+    // nextEpisode is the NEXT episode to air, so aired count = nextEpisode - 1
+    const airedCount = airing.nextEpisode - 1;
+    // Use max of airing data, hardcoded override, and AniList's count
+    return Math.max(airedCount, ANIME_EPISODE_COUNTS[animeId] || 0, defaultCount || 0);
+  }
+  return ANIME_EPISODE_COUNTS[animeId] || defaultCount || 0;
 }
 
 // Check if an anime has video sources (always true if it has a MAL ID)
