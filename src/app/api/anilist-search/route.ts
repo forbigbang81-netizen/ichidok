@@ -13,7 +13,23 @@ export async function GET(request: Request) {
     if (!res.ok) throw new Error(`AniList API error: ${res.status}`);
     const data = await res.json();
     const anime = data.data?.Page?.media ?? [];
-    const formatted = anime.map((a: any) => ({ id: a.id, malId: a.idMal, title: a.title.romaji || a.title.english || a.title.native || "Unknown", titleEnglish: a.title.english, poster: a.coverImage.extraLarge || a.coverImage.large, banner: a.bannerImage || a.coverImage.extraLarge || a.coverImage.large, synopsis: (a.description || "").replace(/<[^>]*>/g, "").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'").trim(), score: a.averageScore ? (a.averageScore / 10).toFixed(2) : null, popularity: a.popularity, episodeCount: a.episodes || 0, type: a.format === "TV" ? "TV" : a.format === "MOVIE" ? "Movie" : a.format || "TV", status: a.status === "FINISHED" ? "Finished" : a.status === "RELEASING" ? "Currently Airing" : "Not yet aired", year: a.seasonYear, genres: a.genres || [] }));
+    const formatted = anime.map((a: any) => ({
+      id: a.id,
+      malId: a.idMal,
+      // Prefer English title
+      title: a.title.english || a.title.romaji || a.title.native || "Unknown",
+      titleEnglish: a.title.english,
+      poster: a.coverImage.extraLarge || a.coverImage.large,
+      banner: a.bannerImage || a.coverImage.extraLarge || a.coverImage.large,
+      synopsis: (a.description || "").replace(/<[^>]*>/g, "").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'").trim(),
+      score: a.averageScore ? (a.averageScore / 10).toFixed(2) : null,
+      popularity: a.popularity,
+      episodeCount: a.episodes || 0,
+      type: a.format === "TV" ? "TV" : a.format === "MOVIE" ? "Movie" : a.format || "TV",
+      status: a.status === "FINISHED" ? "Finished" : a.status === "RELEASING" ? "Currently Airing" : "Not yet aired",
+      year: a.seasonYear,
+      genres: a.genres || [],
+    }));
     return NextResponse.json({ results: formatted });
   } catch (err) {
     console.error("[/api/anilist-search] error:", err);

@@ -13,7 +13,30 @@ export async function GET(request: Request) {
     const data = await res.json();
     const a = data.data?.Media;
     if (!a) return NextResponse.json({ error: "Anime not found" }, { status: 404 });
-    return NextResponse.json({ id: a.id, malId: a.idMal, title: a.title.romaji || a.title.english || a.title.native || "Unknown", titleEnglish: a.title.english, titleJapanese: a.title.native, poster: a.coverImage.extraLarge || a.coverImage.large, banner: a.bannerImage || a.coverImage.extraLarge || a.coverImage.large, synopsis: (a.description || "").replace(/<[^>]*>/g, "").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'").trim(), score: a.averageScore ? (a.averageScore / 10).toFixed(2) : null, popularity: a.popularity, episodeCount: a.episodes || 0, type: a.format === "TV" ? "TV" : a.format === "MOVIE" ? "Movie" : a.format || "TV", status: a.status === "FINISHED" ? "Finished" : a.status === "RELEASING" ? "Currently Airing" : "Not yet aired", year: a.seasonYear, season: a.season ? a.season.toLowerCase() : null, genres: a.genres || [], studios: a.studios?.nodes?.map((s: any) => s.name) || [], duration: a.duration ? `${a.duration}m` : null, seasons: (a.relations?.edges || []).filter((e: any) => e.node.type === "ANIME" && ["PREQUEL", "SEQUEL", "SIDE_STORY", "SUMMARY", "ALTERNATIVE", "PARENT"].includes(e.relationType)).map((e: any) => ({ id: e.node.id, title: e.node.title.romaji || e.node.title.english || "Unknown", poster: e.node.coverImage.extraLarge || e.node.coverImage.large, relation: e.relationType.replace("_", " ").toLowerCase(), type: e.node.format || "TV" })), recommendations: (a.recommendations?.nodes || []).filter((n: any) => n.mediaRecommendation).map((n: any) => ({ id: n.mediaRecommendation.id, title: n.mediaRecommendation.title.romaji || n.mediaRecommendation.title.english || "Unknown", poster: n.mediaRecommendation.coverImage.extraLarge || n.mediaRecommendation.coverImage.large, score: n.mediaRecommendation.averageScore ? (n.mediaRecommendation.averageScore / 10).toFixed(2) : null, episodes: n.mediaRecommendation.episodes || 0, type: n.mediaRecommendation.format || "TV" })) });
+    return NextResponse.json({
+      id: a.id,
+      malId: a.idMal,
+      // Prefer English title
+      title: a.title.english || a.title.romaji || a.title.native || "Unknown",
+      titleEnglish: a.title.english,
+      titleJapanese: a.title.native,
+      poster: a.coverImage.extraLarge || a.coverImage.large,
+      banner: a.bannerImage || a.coverImage.extraLarge || a.coverImage.large,
+      synopsis: (a.description || "").replace(/<[^>]*>/g, "").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'").trim(),
+      score: a.averageScore ? (a.averageScore / 10).toFixed(2) : null,
+      popularity: a.popularity,
+      episodeCount: a.episodes || 0,
+      type: a.format === "TV" ? "TV" : a.format === "MOVIE" ? "Movie" : a.format || "TV",
+      status: a.status === "FINISHED" ? "Finished" : a.status === "RELEASING" ? "Currently Airing" : "Not yet aired",
+      year: a.seasonYear,
+      season: a.season ? a.season.toLowerCase() : null,
+      genres: a.genres || [],
+      studios: a.studios?.nodes?.map((s: any) => s.name) || [],
+      duration: a.duration ? `${a.duration}m` : null,
+      // Use English titles for seasons and recommendations too
+      seasons: (a.relations?.edges || []).filter((e: any) => e.node.type === "ANIME" && ["PREQUEL", "SEQUEL", "SIDE_STORY", "SUMMARY", "ALTERNATIVE", "PARENT"].includes(e.relationType)).map((e: any) => ({ id: e.node.id, title: e.node.title.english || e.node.title.romaji || "Unknown", poster: e.node.coverImage.extraLarge || e.node.coverImage.large, relation: e.relationType.replace("_", " ").toLowerCase(), type: e.node.format || "TV" })),
+      recommendations: (a.recommendations?.nodes || []).filter((n: any) => n.mediaRecommendation).map((n: any) => ({ id: n.mediaRecommendation.id, title: n.mediaRecommendation.title.english || n.mediaRecommendation.title.romaji || "Unknown", poster: n.mediaRecommendation.coverImage.extraLarge || n.mediaRecommendation.coverImage.large, score: n.mediaRecommendation.averageScore ? (n.mediaRecommendation.averageScore / 10).toFixed(2) : null, episodes: n.mediaRecommendation.episodes || 0, type: n.mediaRecommendation.format || "TV" }))
+    });
   } catch (err) {
     console.error("[/api/anilist-detail] error:", err);
     return NextResponse.json({ error: "Failed to fetch anime detail" }, { status: 500 });
