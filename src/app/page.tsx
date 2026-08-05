@@ -657,20 +657,58 @@ function HlsPlayer({
   }, [currentTime, duration, anime, episode, audio, totalEpisodes]);
 
   // Auto-hide controls after 3.5s of inactivity
+  // Toggle controls visibility on tap.
+  // - If controls are currently hidden → show them (and start auto-hide timer when playing)
+  // - If controls are currently visible → hide them immediately
+  // The controls bar itself calls e.stopPropagation() so taps on buttons
+  // (play/pause, seek, etc.) won't trigger this toggle.
   const pokeControls = useCallback(() => {
-    setShowControls(true);
-    if (hideControlsTimer.current) window.clearTimeout(hideControlsTimer.current);
-    hideControlsTimer.current = window.setTimeout(() => {
-      if (playing && !showSettings) setShowControls(false);
-    }, 3500);
+    setShowControls((prev) => {
+      if (prev) {
+        // Currently visible → hide now, cancel any pending auto-hide
+        if (hideControlsTimer.current) window.clearTimeout(hideControlsTimer.current);
+        return false;
+      }
+      // Currently hidden → show, and auto-hide after 3.5s if playing
+      if (hideControlsTimer.current) window.clearTimeout(hideControlsTimer.current);
+      hideControlsTimer.current = window.setTimeout(() => {
+        if (playing && !showSettings) setShowControls(false);
+      }, 3500);
+      return true;
+    });
   }, [playing, showSettings]);
 
+  // Note: we intentionally do NOT call pokeControls on every currentTime
+  // change. The auto-hide timer inside pokeControls already handles hiding
+  // after 3.5s of inactivity. Calling it on every timeupdate would cause
+  // the controls to flicker on/off during playback.
+
   useEffect(() => {
-    pokeControls();
     return () => {
       if (hideControlsTimer.current) window.clearTimeout(hideControlsTimer.current);
     };
-  }, [pokeControls, currentTime]);
+  }, []);
+
+  // When playback starts, auto-hide the controls after 3.5s.
+  // When paused, keep controls visible.
+  useEffect(() => {
+    if (playing) {
+      // Clear any existing timer, then set a new one
+      if (hideControlsTimer.current) window.clearTimeout(hideControlsTimer.current);
+      // Show controls first (so the user sees them when play starts)
+      setShowControls(true);
+      hideControlsTimer.current = window.setTimeout(() => {
+        if (!showSettings) setShowControls(false);
+      }, 3500);
+    } else {
+      // Paused — keep controls visible
+      if (hideControlsTimer.current) window.clearTimeout(hideControlsTimer.current);
+      setShowControls(true);
+    }
+    return () => {
+      if (hideControlsTimer.current) window.clearTimeout(hideControlsTimer.current);
+    };
+  }, [playing, showSettings]);
 
   useEffect(() => {
     const onFs = () => setIsFullscreen(!!document.fullscreenElement);
@@ -689,8 +727,14 @@ function HlsPlayer({
   const togglePlay = () => {
     const v = videoRef.current;
     if (!v) return;
-    if (v.paused) v.play().catch(() => {});
-    else v.pause();
+    if (v.paused) {
+      v.play().catch(() => {});
+    } else {
+      v.pause();
+      // When pausing, make sure controls stay visible (don't auto-hide)
+      if (hideControlsTimer.current) window.clearTimeout(hideControlsTimer.current);
+      setShowControls(true);
+    }
   };
 
   const seek = (val: number) => {
@@ -807,7 +851,7 @@ function HlsPlayer({
               playsInline
               poster={streamInfo?.poster}
               crossOrigin="anonymous"
-              onClick={(e) => { e.stopPropagation(); togglePlay(); pokeControls(); }}
+              onClick={(e) => { e.stopPropagation(); pokeControls(); }}
             >
               {(streamInfo?.subtitles || []).map((s: any, i: number) => (
                 <track
@@ -871,12 +915,14 @@ function HlsPlayer({
               </button>
             )}
 
+            {/* Center play button when paused — small, centered, only resumes on direct click */}
             {!playing && !loading && !error && (
               <button
-                onClick={togglePlay}
-                className="absolute inset-0 flex items-center justify-center z-10"
+                onClick={(e) => { e.stopPropagation(); togglePlay(); }}
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
+                title="Play"
               >
-                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-black/60 flex items-center justify-center">
+                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-black/60 flex items-center justify-center hover:bg-black/70 active:scale-95 transition">
                   <Play className="w-8 h-8 md:w-10 md:h-10 text-white fill-white ml-1" />
                 </div>
               </button>
@@ -884,6 +930,7 @@ function HlsPlayer({
 
             {/* Custom controls bar */}
             <div
+              
               className={cn(
                 "absolute bottom-0 left-0 right-0 px-3 md:px-4 pb-2 pt-8 bg-gradient-to-t from-black/90 to-transparent z-20 transition-opacity",
                 !showControls && "opacity-0 pointer-events-none"
