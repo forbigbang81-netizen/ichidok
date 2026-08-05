@@ -18,7 +18,7 @@ interface AnimeDetail extends Anime {
 type View = "home" | "detail" | "episodes" | "player" | "genres" | "latest" | "search" | "mylist";
 
 async function fetchSection(section: string): Promise<Anime[]> {
-  const r = await fetch(`/api/anilist?section=${section}&perPage=20`);
+  const r = await fetch(`/api/anilist?section=${section}&perPage=30`);
   if (!r.ok) return [];
   const d = await r.json();
   return d.results || [];
@@ -515,8 +515,18 @@ export default function Page() {
       fetchSection("watched"), fetchSection("airing"), fetchSection("favorite"),
       fetchSection("top-today"), fetchSection("top-week"), fetchSection("top-month"),
     ]).then(([sl, tr, po, wa, ai, fa, tt, tw, tm]) => {
-      setSpotlight(sl); setTrending(tr); setPopular(po); setWatched(wa);
-      setAiring(ai); setFavorite(fa); setTopToday(tt); setTopWeek(tw); setTopMonth(tm);
+      // Deduplicate — remove anime that appear in multiple sections from later sections
+      const seen = new Set<number>();
+      const dedupe = (arr: Anime[]) => arr.filter(a => !seen.has(a.id) && (seen.add(a.id), true));
+      setSpotlight(sl);
+      setTrending(tr);
+      setPopular(dedupe(po));
+      setWatched(dedupe(wa));
+      setAiring(dedupe(ai));
+      setFavorite(dedupe(fa));
+      setTopToday(dedupe(tt));
+      setTopWeek(dedupe(tw));
+      setTopMonth(dedupe(tm));
       if (tr.length > 0) setHeroAnime(tr[0]);
       else if (sl.length > 0) setHeroAnime(sl[0]);
       else if (po.length > 0) setHeroAnime(po[0]);
