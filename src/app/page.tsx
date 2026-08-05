@@ -147,10 +147,20 @@ function EpisodeGridView({ anime, onBack, onEpisode }: { anime: AnimeDetail; onB
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [selectedEp, setSelectedEp] = useState<number | null>(null);
+  const [showNoDub, setShowNoDub] = useState(false);
   const epCount = getEpisodeCount(anime.id, anime.episodeCount || 0);
   const episodes = Array.from({ length: epCount }, (_, i) => i + 1);
   const sortedEpisodes = sortDesc ? [...episodes].reverse() : episodes;
   const filteredEpisodes = search ? sortedEpisodes.filter((e) => e.toString().includes(search)) : sortedEpisodes;
+
+  const handleDubClick = () => {
+    const src = getVideoUrl(anime.id, selectedEp || 1, "dub");
+    if (!src) {
+      setShowNoDub(true);
+    } else {
+      onEpisode(selectedEp!, "dub");
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-black z-50 flex flex-col">
@@ -193,8 +203,16 @@ function EpisodeGridView({ anime, onBack, onEpisode }: { anime: AnimeDetail; onB
             <p className="text-sm text-gray-400 mb-6">Choose a server, if a server does not work, please choose another.</p>
             <div className="grid grid-cols-2 gap-3">
               <button onClick={() => onEpisode(selectedEp, "sub")} className="bg-white text-black font-bold py-3.5 rounded-full flex items-center justify-center gap-2 hover:bg-gray-200 active:scale-95 transition">SUB Server</button>
-              <button onClick={() => onEpisode(selectedEp, "dub")} className="bg-white text-black font-bold py-3.5 rounded-full flex items-center justify-center gap-2 hover:bg-gray-200 active:scale-95 transition">DUB Server</button>
+              <button onClick={handleDubClick} className="bg-white text-black font-bold py-3.5 rounded-full flex items-center justify-center gap-2 hover:bg-gray-200 active:scale-95 transition">DUB Server</button>
             </div>
+          </div>
+        </div>
+      )}
+      {showNoDub && (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/80">
+          <div className="bg-[#1c1c1e] rounded-2xl p-6 max-w-[300px] text-center shadow-2xl">
+            <p className="text-white text-sm font-medium mb-4">Sorry, there&apos;s no DUB available at the moment.</p>
+            <button onClick={() => setShowNoDub(false)} className="bg-white text-black font-bold py-2 px-8 rounded-full active:scale-95 transition">OK</button>
           </div>
         </div>
       )}
@@ -204,6 +222,7 @@ function EpisodeGridView({ anime, onBack, onEpisode }: { anime: AnimeDetail; onB
 
 function SimpleVideoPlayer({ title, episode, audio, videoUrl, onBack }: { title: string; episode: number; audio: "sub" | "dub"; videoUrl?: string; onBack: () => void }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -211,6 +230,7 @@ function SimpleVideoPlayer({ title, episode, audio, videoUrl, onBack }: { title:
   const [speed, setSpeed] = useState(1);
   const [showSpeed, setShowSpeed] = useState(false);
   const [error, setError] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
     const v = videoRef.current;
@@ -259,15 +279,33 @@ function SimpleVideoPlayer({ title, episode, audio, videoUrl, onBack }: { title:
     return `${m}:${sec.toString().padStart(2, "0")}`;
   };
 
-  const proxiedUrl = videoUrl
-    ? `/api/stream?url=${encodeURIComponent(videoUrl)}`
-    : undefined;
+  const toggleFullscreen = () => {
+    const el = containerRef.current;
+    if (!el) return;
+    if (!document.fullscreenElement) {
+      el.requestFullscreen?.().then(() => {
+        if (screen.orientation && screen.orientation.lock) {
+          screen.orientation.lock('landscape').catch(() => {});
+        }
+      }).catch(() => {});
+    } else {
+      document.exitFullscreen?.().catch(() => {});
+    }
+  };
+
+  useEffect(() => {
+    const onFsChange = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener("fullscreenchange", onFsChange);
+    return () => document.removeEventListener("fullscreenchange", onFsChange);
+  }, []);
+
+  const proxiedUrl = videoUrl ? `/api/stream?url=${encodeURIComponent(videoUrl)}` : undefined;
 
   return (
     <div className="fixed inset-0 bg-black z-50 flex flex-col items-center justify-center">
-      <div className="relative w-full aspect-video max-h-screen flex items-center justify-center" onClick={() => setShowControls((p) => !p)}>
+      <div ref={containerRef} className={`relative w-full ${isFullscreen ? "h-full" : "aspect-video"} max-h-screen flex items-center justify-center bg-black`} onClick={() => setShowControls((p) => !p)}>
         {proxiedUrl && !error ? (
-          <video ref={videoRef} src={proxiedUrl} className="w-full h-full object-contain" playsInline autoPlay onClick={(e) => { e.stopPropagation(); togglePlay(); }} />
+          <video ref={videoRef} src={proxiedUrl} className="w-full h-full object-contain bg-black" playsInline autoPlay />
         ) : (
           <div className="flex flex-col items-center gap-3 text-white/60">
             <p className="text-sm">{error ? "Video failed to load" : "No video source available"}</p>
@@ -281,7 +319,12 @@ function SimpleVideoPlayer({ title, episode, audio, videoUrl, onBack }: { title:
                 <ChevronLeft className="w-6 h-6" />
                 <span className="font-bold text-sm truncate max-w-[200px]">{title} - Ep {episode} {audio.toUpperCase()}</span>
               </button>
-              <button onClick={(e) => { e.stopPropagation(); setShowSpeed((p) => !p); }} className="text-white text-xs font-bold bg-white/10 px-2.5 py-1 rounded-full">{speed}x</button>
+              <div className="flex items-center gap-2">
+                <button onClick={(e) => { e.stopPropagation(); setShowSpeed((p) => !p); }} className="text-white text-xs font-bold bg-white/10 px-2.5 py-1 rounded-full">{speed}x</button>
+                <button onClick={(e) => { e.stopPropagation(); toggleFullscreen(); }} className="text-white p-1">
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" /></svg>
+                </button>
+              </div>
             </div>
           </div>
         )}
