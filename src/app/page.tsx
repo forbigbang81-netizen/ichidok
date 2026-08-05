@@ -154,19 +154,12 @@ function EpisodeGridView({ anime, onBack, onEpisode }: { anime: AnimeDetail; onB
   const filteredEpisodes = search ? sortedEpisodes.filter((e) => e.toString().includes(search)) : sortedEpisodes;
 
   const handleDubClick = () => {
-    // Check our own sources first
-    const src = getVideoUrl(anime.id, selectedEp || 1, "dub");
-    if (src) {
-      onEpisode(selectedEp!, "dub");
-      return;
-    }
-    // Check if zokoanime has DUB (any anime with a MAL ID)
+    // zokoanime has DUB for most anime — only show popup if no MAL ID
     if (anime.malId) {
       onEpisode(selectedEp!, "dub");
-      return;
+    } else {
+      setShowNoDub(true);
     }
-    // No DUB available anywhere
-    setShowNoDub(true);
   };
 
   return (
@@ -306,105 +299,28 @@ function SimpleVideoPlayer({ title, episode, audio, videoUrl, onBack }: { title:
     return () => document.removeEventListener("fullscreenchange", onFsChange);
   }, []);
 
-  const proxiedUrl = videoUrl
-    ? videoUrl.includes("zokoanime.video")
-      ? videoUrl // zokoanime embed — use directly in iframe
-      : `/api/stream?url=${encodeURIComponent(videoUrl)}` // everything else through proxy
-    : undefined;
-
   const isEmbed = videoUrl?.includes("zokoanime.video");
 
   return (
-    <div className="fixed inset-0 bg-black z-50 flex flex-col items-center justify-center">
-      <div ref={containerRef} className={`relative w-full ${isFullscreen ? "h-full" : "aspect-video"} max-h-screen flex items-center justify-center bg-black`}>
-        {isEmbed ? (
-          <>
-            <iframe src={proxiedUrl} className="w-full h-full" allowFullScreen allow="autoplay; fullscreen; encrypted-media" frameBorder="0" scrolling="no" />
-            {showControls && (
-              <div className="absolute top-0 left-0 right-0 z-30 p-3 bg-gradient-to-b from-black/80 to-transparent">
-                <button onClick={(e) => { e.stopPropagation(); onBack(); }} className="text-white flex items-center gap-2">
-                  <ChevronLeft className="w-6 h-6" />
-                  <span className="font-bold text-sm truncate max-w-[200px]">{title} - Ep {episode} {audio.toUpperCase()}</span>
-                </button>
-              </div>
-            )}
-            <div className="absolute inset-0" onClick={() => setShowControls((p) => !p)} style={{ pointerEvents: "none" }} />
-            <div className="absolute top-0 left-0 right-0 z-30" style={{ pointerEvents: "none" }}>
-              <div className="flex items-center justify-between p-3">
-                <button onClick={(e) => { e.stopPropagation(); onBack(); }} className="text-white flex items-center gap-2" style={{ pointerEvents: "auto" }}>
-                  <ChevronLeft className="w-6 h-6" />
-                  <span className="font-bold text-sm truncate max-w-[200px]">{title} - Ep {episode} {audio.toUpperCase()}</span>
-                </button>
-                <button onClick={(e) => { e.stopPropagation(); toggleFullscreen(); }} className="text-white p-1" style={{ pointerEvents: "auto" }}>
-                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" /></svg>
-                </button>
-              </div>
-            </div>
-          </>
-        ) : proxiedUrl && !error ? (
-          <video ref={videoRef} src={proxiedUrl} className="w-full h-full object-contain bg-black" playsInline autoPlay />
+    <div className="fixed inset-0 bg-black z-50 flex flex-col">
+      {/* Top bar with back button — always visible */}
+      <div className="flex items-center gap-3 p-3 bg-black z-30">
+        <button onClick={onBack} className="text-white flex items-center gap-2">
+          <ChevronLeft className="w-6 h-6" />
+          <span className="font-bold text-sm truncate max-w-[250px]">{title} - Ep {episode} {audio.toUpperCase()}</span>
+        </button>
+        <button onClick={toggleFullscreen} className="ml-auto text-white p-1">
+          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" /></svg>
+        </button>
+      </div>
+      {/* Video area — zokoanime's own player in iframe */}
+      <div ref={containerRef} className="relative w-full flex-1 flex items-center justify-center bg-black">
+        {videoUrl ? (
+          <iframe src={videoUrl} className="w-full h-full" allowFullScreen allow="autoplay; fullscreen; encrypted-media; picture-in-picture" frameBorder="0" scrolling="no" />
         ) : (
           <div className="flex flex-col items-center gap-3 text-white/60">
             <p className="text-sm">{error ? "Video failed to load" : "No video source available"}</p>
             <p className="text-xs text-white/40">{audio === "dub" ? "DUB" : "SUB"} - Episode {episode}</p>
-          </div>
-        )}
-        {showControls && (
-          <div className="absolute top-0 left-0 right-0 z-30 p-3 bg-gradient-to-b from-black/80 to-transparent">
-            <div className="flex items-center justify-between">
-              <button onClick={(e) => { e.stopPropagation(); onBack(); }} className="text-white flex items-center gap-2">
-                <ChevronLeft className="w-6 h-6" />
-                <span className="font-bold text-sm truncate max-w-[200px]">{title} - Ep {episode} {audio.toUpperCase()}</span>
-              </button>
-              <div className="flex items-center gap-2">
-                <button onClick={(e) => { e.stopPropagation(); setShowSpeed((p) => !p); }} className="text-white text-xs font-bold bg-white/10 px-2.5 py-1 rounded-full">{speed}x</button>
-                <button onClick={(e) => { e.stopPropagation(); toggleFullscreen(); }} className="text-white p-1">
-                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" /></svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-        {showControls && proxiedUrl && !error && (
-          <button onClick={(e) => { e.stopPropagation(); togglePlay(); }} className="absolute z-20 w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
-            {playing ? (
-              <svg className="w-6 h-6 text-black" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg>
-            ) : (
-              <svg className="w-6 h-6 text-black ml-0.5" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21" /></svg>
-            )}
-          </button>
-        )}
-        {showSpeed && (
-          <div className="absolute top-12 right-3 z-40 bg-[#1c1c1e] rounded-xl shadow-2xl p-1.5 min-w-[90px]">
-            {[0.5, 0.75, 1, 1.25, 1.5, 2].map((s) => (
-              <button key={s} onClick={(e) => { e.stopPropagation(); changeSpeed(s); }} className={`w-full text-left px-3 py-1.5 rounded-lg text-sm font-medium ${speed === s ? "bg-white text-black" : "text-white hover:bg-white/10"}`}>{s}x</button>
-            ))}
-          </div>
-        )}
-        {showControls && proxiedUrl && !error && (
-          <div className="absolute bottom-0 left-0 right-0 z-30 p-3 pb-5 bg-gradient-to-t from-black/80 to-transparent">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-white text-[11px] font-medium tabular-nums w-10 text-right">{formatTime(currentTime)}</span>
-              <input type="range" min={0} max={duration || 0} value={currentTime} onChange={(e) => seek(Number(e.target.value))} className="flex-1 h-1.5 bg-white/20 rounded-full appearance-none cursor-pointer accent-red-500" />
-              <span className="text-white text-[11px] font-medium tabular-nums w-10">{formatTime(duration)}</span>
-            </div>
-            <div className="flex items-center justify-center gap-6">
-              <button onClick={(e) => { e.stopPropagation(); seek(Math.max(0, currentTime - 10)); }} className="flex items-center gap-1 text-white px-2 py-1 rounded-lg hover:bg-white/10">
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 12a9 9 0 1 0 3-6.7L3 8" /><polyline points="3,4 3,8 7,8" /></svg>
-                <span className="text-[10px] font-medium">10</span>
-              </button>
-              <button onClick={(e) => { e.stopPropagation(); togglePlay(); }} className="text-white p-1">
-                {playing ? (
-                  <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1" /><rect x="14" y="4" width="4" height="16" rx="1" /></svg>
-                ) : (
-                  <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,3 21,12 6,21" /></svg>
-                )}
-              </button>
-              <button onClick={(e) => { e.stopPropagation(); seek(Math.min(duration, currentTime + 10)); }} className="flex items-center gap-1 text-white px-2 py-1 rounded-lg hover:bg-white/10">
-                <span className="text-[10px] font-medium">10</span>
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12a9 9 0 1 1-3-6.7L21 8" /><polyline points="21,4 21,8 17,8" /></svg>
-              </button>
-            </div>
           </div>
         )}
       </div>
@@ -651,15 +567,9 @@ export default function Page() {
             onEpisode={(ep, audio) => {
               setPlayerEp(ep);
               setPlayerAudio(audio);
-              // Try our own video sources first, then fall back to zokoanime embed
-              const src = getVideoUrl(detailData.id, ep, audio);
-              if (src?.url) {
-                setPlayerVideoUrl(src.url);
-              } else {
-                // Use zokoanime embed for any anime with a MAL ID
-                const embedUrl = getEmbedUrl(detailData.malId, ep, audio);
-                setPlayerVideoUrl(embedUrl || undefined);
-              }
+              // Always use zokoanime embed (HLS 1080p, works in all browsers)
+              const embedUrl = getEmbedUrl(detailData.malId, ep, audio);
+              setPlayerVideoUrl(embedUrl || undefined);
               setView("player");
             }}
           />
