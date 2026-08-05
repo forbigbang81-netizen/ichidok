@@ -74,12 +74,15 @@ export async function GET(request: Request) {
     );
   }
 
-  // Only allow archive.org and dropbox.com (covers both streaming and
+  // Only allow trusted hosts (covers both streaming and
   // download proxying for all our video sources).
   const allowed = [
     "archive.org",
     "www.dropbox.com",
     "dl.dropboxusercontent.com",
+    "drive.google.com",
+    "docs.google.com",
+    "drive.usercontent.google.com",
   ];
   if (!allowed.includes(parsed.hostname)) {
     return NextResponse.json(
