@@ -92,10 +92,10 @@ function formatAiringTime(airingAt: number): string {
   if (diff < 0) return "Aired";
   const hours = Math.floor(diff / 3600);
   const days = Math.floor(hours / 24);
-  if (days > 0) return `Ep in ${days}d ${hours % 24}h`;
-  if (hours > 0) return `Ep in ${hours}h ${Math.floor((diff % 3600) / 60)}m`;
+  if (days > 0) return `in ${days}d ${hours % 24}h`;
+  if (hours > 0) return `in ${hours}h ${Math.floor((diff % 3600) / 60)}m`;
   const mins = Math.floor(diff / 60);
-  return `Ep in ${mins}m`;
+  return `in ${mins}m`;
 }
 
 // ============================================================================
@@ -258,7 +258,7 @@ function Nav({ active, onChange }: { active: View; onChange: (v: View) => void }
       {/* Desktop: top horizontal nav bar */}
       <nav className="hidden md:flex fixed top-0 left-0 right-0 z-40 bg-black/95 backdrop-blur-md border-b border-gray-800 h-14 items-center px-6 lg:px-10">
         <div className="flex items-center gap-2 mr-8 lg:mr-12">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-red-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm">A</div>
+          <div className="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center text-white font-bold text-sm">A</div>
           <span className="text-white font-bold text-lg tracking-tight">AniLab</span>
         </div>
         <div className="flex items-center gap-1 lg:gap-2">
@@ -573,13 +573,22 @@ function HlsPlayer({
   }, [episode, audio, totalEpisodes, onEpisode]);
 
   // Skip Intro / Skip Outro visibility
+  // Skip Intro is ONLY shown for One Piece (MAL ID 21) — we have per-episode
+  // intro/recap skip times for it. For all other anime, no skip button.
   useEffect(() => {
-    if (skipTimes.length === 0) {
-      setShowSkipIntro(currentTime >= 10 && currentTime < 90);
+    const isOnePiece = anime.malId === 21;
+    if (!isOnePiece) {
+      setShowSkipIntro(false);
       setShowSkipOutro(duration > 0 && currentTime >= duration * 0.95);
       return;
     }
-    const op = skipTimes.find((s) => s.type === "op" || s.type === "mixed-op");
+    // One Piece: use skip times if available, otherwise default 0-145s
+    if (skipTimes.length === 0) {
+      setShowSkipIntro(currentTime >= 10 && currentTime < 145);
+      setShowSkipOutro(duration > 0 && currentTime >= duration * 0.95);
+      return;
+    }
+    const op = skipTimes.find((s) => s.type === "op" || s.type === "mixed-op" || s.type === "recap");
     const ed = skipTimes.find((s) => s.type === "ed" || s.type === "mixed-ed");
     if (op) {
       const startShow = Math.max(op.start + 10, op.start);
@@ -588,7 +597,7 @@ function HlsPlayer({
       setShowSkipIntro(false);
     }
     setShowSkipOutro(!!ed ? (currentTime >= ed.start && currentTime < ed.end - 1) : (duration > 0 && currentTime >= duration * 0.95));
-  }, [currentTime, skipTimes, duration]);
+  }, [currentTime, skipTimes, duration, anime.malId]);
 
   // Auto-enable English subtitle track only
   useEffect(() => {
@@ -753,8 +762,12 @@ function HlsPlayer({
   };
 
   const skipIntro = () => {
+    // For One Piece: skip past both recap AND opening.
+    // The skipTimes array may contain a "recap" entry (0 → recapEnd)
+    // and an "op" entry (recapEnd → opEnd). We want to jump to opEnd.
     const op = skipTimes.find((s) => s.type === "op" || s.type === "mixed-op");
-    const endSec = op?.end ?? 90;
+    // Default end for One Piece (when no skipTimes from API)
+    const endSec = op?.end ?? (anime.malId === 21 ? 145 : 90);
     seek(endSec);
   };
 
@@ -830,9 +843,6 @@ function HlsPlayer({
           <ChevronLeft className="w-6 h-6" />
           <span className="font-bold text-sm truncate max-w-[250px] md:max-w-[400px]">{anime.title} - Ep {episode} {audio.toUpperCase()}</span>
         </button>
-        <button onClick={toggleFullscreen} className="ml-auto text-white p-1">
-          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" /></svg>
-        </button>
       </div>
 
       {/* Scrollable content */}
@@ -898,7 +908,7 @@ function HlsPlayer({
                 onTouchStart={onSkipIntroDown}
                 onTouchEnd={onSkipIntroUp}
                 className="absolute bottom-20 md:bottom-24 right-4 z-20 bg-white/95 text-black font-bold text-xs md:text-sm px-4 py-2 rounded-full shadow-lg active:scale-95 transition"
-              >Skip Intro</button>
+              >{skipTimes.some((s) => s.type === "recap") ? "Skip Recap + Intro" : "Skip Intro"}</button>
             )}
             {longPressHint && (
               <div className="absolute bottom-20 md:bottom-24 right-4 z-30 bg-black/90 text-white text-xs px-3 py-2 rounded-lg">
@@ -1131,8 +1141,8 @@ function DetailView({ animeId, onBack, onWatch, onSelectAnime, myList, onToggleL
             <span className="bg-gray-200 text-black text-xs md:text-sm font-bold px-2 py-0.5 rounded">{detail.type}</span>
             {detail.episodeCount > 0 && <span className="bg-red-600 text-white text-xs md:text-sm font-bold px-2 py-0.5 rounded">{detail.episodeCount} eps</span>}
             {detail.nextAiringEpisode && (
-              <span className="bg-purple-600 text-white text-xs md:text-sm font-bold px-2 py-0.5 rounded">
-                Ep {detail.nextAiringEpisode.episode} in {formatAiringTime(detail.nextAiringEpisode.airingAt)}
+              <span className="bg-red-600 text-white text-xs md:text-sm font-bold px-2 py-0.5 rounded">
+                Ep {detail.nextAiringEpisode.episode} {formatAiringTime(detail.nextAiringEpisode.airingAt)}
               </span>
             )}
           </div>
@@ -1354,8 +1364,8 @@ function ScheduleView({ onSelect }: { onSelect: (a: Anime) => void }) {
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold text-white line-clamp-2 leading-tight">{a.title}</p>
                   <p className="text-xs text-gray-400 mt-1">{a.type} • {a.year}</p>
-                  <div className={`mt-2 inline-block text-xs font-bold px-2 py-1 rounded ${isAiring ? "bg-red-600 text-white animate-pulse" : "bg-purple-600/30 text-purple-300"}`}>
-                    {a.nextAiringEpisode ? `Ep ${a.nextAiringEpisode.episode} • ${formatAiringTime(airingAt)}` : "Airing"}
+                  <div className={`mt-2 inline-block text-xs font-bold px-2 py-1 rounded ${isAiring ? "bg-red-600 text-white animate-pulse" : "bg-red-600/30 text-red-300"}`}>
+                    {a.nextAiringEpisode ? `Ep ${a.nextAiringEpisode.episode} ${formatAiringTime(airingAt)}` : "Airing"}
                   </div>
                 </div>
               </button>
