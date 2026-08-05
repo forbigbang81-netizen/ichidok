@@ -1,0 +1,3370 @@
+{
+  "total_anime": 230,
+  "with_intro_skip": 23,
+  "sections": [
+    "spotlight",
+    "trending",
+    "popular",
+    "watched",
+    "airing",
+    "favorite",
+    "top-today",
+    "top-week",
+    "top-month",
+    "top-rated",
+    "new-releases",
+    "classic"
+  ],
+  "anime": [
+    {
+      "anilist_id": 154587,
+      "mal_id": 52991,
+      "title": "Frieren: Beyond Journey\u2019s End",
+      "type": "TV",
+      "score": "9.10",
+      "year": 2023,
+      "episodes": 28,
+      "status": "Finished",
+      "sections": [
+        "watched",
+        "airing",
+        "favorite",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 114129,
+      "mal_id": 39486,
+      "title": "Gintama: THE VERY FINAL",
+      "type": "Movie",
+      "score": "9.10",
+      "year": 2021,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 5114,
+      "mal_id": 5114,
+      "title": "Fullmetal Alchemist: Brotherhood",
+      "type": "TV",
+      "score": "9.00",
+      "year": 2009,
+      "episodes": 64,
+      "status": "Finished",
+      "sections": [
+        "spotlight",
+        "trending",
+        "popular",
+        "watched",
+        "airing",
+        "favorite",
+        "top-today",
+        "top-week",
+        "top-month",
+        "top-rated",
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 104578,
+      "mal_id": 38524,
+      "title": "Attack on Titan Season 3 Part 2",
+      "type": "TV",
+      "score": "9.00",
+      "year": 2019,
+      "episodes": 10,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "airing",
+        "favorite",
+        "top-week",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 20996,
+      "mal_id": 28977,
+      "title": "Gintama Season 3",
+      "type": "TV",
+      "score": "9.00",
+      "year": 2015,
+      "episodes": 51,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 171627,
+      "mal_id": 57555,
+      "title": "Chainsaw Man \u2013 The Movie: Reze Arc",
+      "type": "Movie",
+      "score": "9.00",
+      "year": 2025,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 189046,
+      "mal_id": 61316,
+      "title": "Re:ZERO -Starting Life in Another World- Season 4",
+      "type": "TV",
+      "score": "9.00",
+      "year": 2026,
+      "episodes": 19,
+      "status": "Currently Airing",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 182469,
+      "mal_id": 60022,
+      "title": "ONE PIECE FAN LETTER",
+      "type": "SPECIAL",
+      "score": "9.00",
+      "year": 2024,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 11061,
+      "mal_id": 11061,
+      "title": "Hunter x Hunter (2011)",
+      "type": "TV",
+      "score": "8.90",
+      "year": 2011,
+      "episodes": 148,
+      "status": "Finished",
+      "sections": [
+        "spotlight",
+        "trending",
+        "popular",
+        "watched",
+        "airing",
+        "favorite",
+        "top-today",
+        "top-week",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 9253,
+      "mal_id": 9253,
+      "title": "Steins;Gate",
+      "type": "TV",
+      "score": "8.90",
+      "year": 2011,
+      "episodes": 24,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "airing",
+        "favorite",
+        "top-week",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 124194,
+      "mal_id": 42938,
+      "title": "Fruits Basket The Final Season",
+      "type": "TV",
+      "score": "8.90",
+      "year": 2021,
+      "episodes": 13,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 21745,
+      "mal_id": 35247,
+      "title": "Owarimonogatari Second Season",
+      "type": "TV",
+      "score": "8.90",
+      "year": 2017,
+      "episodes": 7,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 15417,
+      "mal_id": 15417,
+      "title": "Gintama Season 2 Part 2",
+      "type": "TV",
+      "score": "8.90",
+      "year": 2012,
+      "episodes": 13,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 98478,
+      "mal_id": 35180,
+      "title": "March comes in like a lion Season 2",
+      "type": "TV",
+      "score": "8.90",
+      "year": 2017,
+      "episodes": 22,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 9969,
+      "mal_id": 9969,
+      "title": "Gintama Season 2",
+      "type": "TV",
+      "score": "8.90",
+      "year": 2011,
+      "episodes": 51,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 125367,
+      "mal_id": 43608,
+      "title": "Kaguya-sama: Love is War -Ultra Romantic-",
+      "type": "TV",
+      "score": "8.90",
+      "year": 2022,
+      "episodes": 13,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 185874,
+      "mal_id": 60636,
+      "title": "BLEACH: Thousand-Year Blood War - The Calamity",
+      "type": "TV",
+      "score": "8.80",
+      "year": 2026,
+      "episodes": 10,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "airing",
+        "top-today",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 19,
+      "mal_id": 19,
+      "title": "Monster",
+      "type": "TV",
+      "score": "8.80",
+      "year": 2004,
+      "episodes": 74,
+      "status": "Finished",
+      "sections": [
+        "spotlight",
+        "trending",
+        "watched",
+        "airing",
+        "favorite",
+        "top-today",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 20954,
+      "mal_id": 28851,
+      "title": "A Silent Voice",
+      "type": "Movie",
+      "score": "8.80",
+      "year": 2016,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "airing",
+        "favorite",
+        "top-week",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 161645,
+      "mal_id": 54492,
+      "title": "The Apothecary Diaries",
+      "type": "TV",
+      "score": "8.80",
+      "year": 2023,
+      "episodes": 24,
+      "status": "Finished",
+      "sections": [
+        "watched",
+        "airing",
+        "favorite",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 97889,
+      "mal_id": 34096,
+      "title": "Gintama Season 4",
+      "type": "TV",
+      "score": "8.80",
+      "year": 2017,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 2921,
+      "mal_id": 2921,
+      "title": "Tomorrow's Joe 2",
+      "type": "TV",
+      "score": "8.80",
+      "year": 1980,
+      "episodes": 47,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 116674,
+      "mal_id": 41467,
+      "title": "BLEACH: Thousand-Year Blood War",
+      "type": "TV",
+      "score": "8.80",
+      "year": 2022,
+      "episodes": 13,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 176301,
+      "mal_id": 58514,
+      "title": "The Apothecary Diaries Season 2",
+      "type": "TV",
+      "score": "8.80",
+      "year": 2025,
+      "episodes": 24,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 820,
+      "mal_id": 820,
+      "title": "Legend of the Galactic Heroes",
+      "type": "OVA",
+      "score": "8.80",
+      "year": 1988,
+      "episodes": 110,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 190327,
+      "mal_id": 61469,
+      "title": "STEEL BALL RUN JoJo's Bizarre Adventure 1st STAGE",
+      "type": "ONA",
+      "score": "8.80",
+      "year": 2026,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 136430,
+      "mal_id": 49387,
+      "title": "Vinland Saga Season 2",
+      "type": "TV",
+      "score": "8.80",
+      "year": 2023,
+      "episodes": 24,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 17074,
+      "mal_id": 17074,
+      "title": "Monogatari Series Second Season",
+      "type": "TV",
+      "score": "8.80",
+      "year": 2013,
+      "episodes": 26,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 182255,
+      "mal_id": 59978,
+      "title": "Frieren: Beyond Journey\u2019s End Season 2",
+      "type": "TV",
+      "score": "8.80",
+      "year": 2026,
+      "episodes": 10,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 4181,
+      "mal_id": 4181,
+      "title": "Clannad: After Story",
+      "type": "TV",
+      "score": "8.80",
+      "year": 2008,
+      "episodes": 24,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 21,
+      "mal_id": 21,
+      "title": "ONE PIECE",
+      "type": "TV",
+      "score": "8.70",
+      "year": 1999,
+      "episodes": 0,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "popular",
+        "watched",
+        "airing",
+        "favorite",
+        "top-today",
+        "top-week",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 110277,
+      "mal_id": 40028,
+      "title": "Attack on Titan Final Season",
+      "type": "TV",
+      "score": "8.70",
+      "year": 2021,
+      "episodes": 16,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "airing",
+        "favorite",
+        "top-week",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 101348,
+      "mal_id": 37521,
+      "title": "Vinland Saga",
+      "type": "TV",
+      "score": "8.70",
+      "year": 2019,
+      "episodes": 24,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "airing",
+        "favorite",
+        "top-week",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 130003,
+      "mal_id": 47917,
+      "title": "BOCCHI THE ROCK!",
+      "type": "TV",
+      "score": "8.70",
+      "year": 2022,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "watched",
+        "favorite"
+      ]
+    },
+    {
+      "anilist_id": 101338,
+      "mal_id": 37510,
+      "title": "Mob Psycho 100 II",
+      "type": "TV",
+      "score": "8.70",
+      "year": 2019,
+      "episodes": 13,
+      "status": "Finished",
+      "sections": [
+        "watched",
+        "airing",
+        "favorite",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 101925,
+      "mal_id": 37491,
+      "title": "Gintama.: Silver Soul Arc - Second Half War",
+      "type": "TV",
+      "score": "8.70",
+      "year": 2018,
+      "episodes": 14,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 109731,
+      "mal_id": 39894,
+      "title": "Sound! Euphonium 3",
+      "type": "TV",
+      "score": "8.70",
+      "year": 2024,
+      "episodes": 13,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 15335,
+      "mal_id": 15335,
+      "title": "Gintama: The Final Chapter - Be Forever Yorozuya",
+      "type": "Movie",
+      "score": "8.70",
+      "year": 2013,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 182896,
+      "mal_id": 60098,
+      "title": "My Hero Academia FINAL SEASON",
+      "type": "TV",
+      "score": "8.70",
+      "year": 2025,
+      "episodes": 11,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 21698,
+      "mal_id": 32935,
+      "title": "HAIKYU!! 3rd Season",
+      "type": "TV",
+      "score": "8.70",
+      "year": 2016,
+      "episodes": 10,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 21400,
+      "mal_id": 31758,
+      "title": "Kizumonogatari Part 3: Reiketsu",
+      "type": "Movie",
+      "score": "8.70",
+      "year": 2017,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 177385,
+      "mal_id": 58788,
+      "title": "Journal with Witch",
+      "type": "TV",
+      "score": "8.70",
+      "year": 2026,
+      "episodes": 13,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 146984,
+      "mal_id": 51535,
+      "title": "Attack on Titan Final Season THE FINAL CHAPTERS Special 1",
+      "type": "SPECIAL",
+      "score": "8.70",
+      "year": 2023,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 140439,
+      "mal_id": 50172,
+      "title": "Mob Psycho 100 III",
+      "type": "TV",
+      "score": "8.70",
+      "year": 2022,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 2904,
+      "mal_id": 2904,
+      "title": "Code Geass: Lelouch of the Rebellion R2",
+      "type": "TV",
+      "score": "8.70",
+      "year": 2008,
+      "episodes": 25,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 103047,
+      "mal_id": 37987,
+      "title": "Violet Evergarden: the Movie",
+      "type": "Movie",
+      "score": "8.70",
+      "year": 2020,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 151384,
+      "mal_id": 52198,
+      "title": "Kaguya-sama: Love is War -The First Kiss That Never Ends-",
+      "type": "TV",
+      "score": "8.70",
+      "year": 2023,
+      "episodes": 4,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 113024,
+      "mal_id": 40664,
+      "title": "Revue Starlight: The Movie",
+      "type": "Movie",
+      "score": "8.70",
+      "year": 2021,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 172420,
+      "mal_id": 57647,
+      "title": "Umamusume: Pretty Derby - Beginning of a New Era",
+      "type": "Movie",
+      "score": "8.70",
+      "year": 2024,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 131586,
+      "mal_id": 48569,
+      "title": "86 EIGHTY-SIX Part 2",
+      "type": "TV",
+      "score": "8.70",
+      "year": 2021,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "airing",
+        "top-month",
+        "top-rated"
+      ]
+    },
+    {
+      "anilist_id": 172463,
+      "mal_id": 57658,
+      "title": "JUJUTSU KAISEN Season 3: The Culling Game Part 1",
+      "type": "TV",
+      "score": "8.60",
+      "year": 2026,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 21519,
+      "mal_id": 32281,
+      "title": "Your Name.",
+      "type": "Movie",
+      "score": "8.60",
+      "year": 2016,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "favorite",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 99147,
+      "mal_id": 35760,
+      "title": "Attack on Titan Season 3",
+      "type": "TV",
+      "score": "8.60",
+      "year": 2018,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 1,
+      "mal_id": 1,
+      "title": "Cowboy Bebop",
+      "type": "TV",
+      "score": "8.60",
+      "year": 1998,
+      "episodes": 26,
+      "status": "Finished",
+      "sections": [
+        "watched",
+        "favorite"
+      ]
+    },
+    {
+      "anilist_id": 199,
+      "mal_id": 199,
+      "title": "Spirited Away",
+      "type": "Movie",
+      "score": "8.60",
+      "year": 2001,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "watched",
+        "favorite"
+      ]
+    },
+    {
+      "anilist_id": 178789,
+      "mal_id": 59193,
+      "title": "Mushoku Tensei: Jobless Reincarnation Season 3",
+      "type": "TV",
+      "score": "8.50",
+      "year": 2026,
+      "episodes": 14,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 147105,
+      "mal_id": 51553,
+      "title": "Witch Hat Atelier",
+      "type": "ONA",
+      "score": "8.50",
+      "year": 2026,
+      "episodes": 13,
+      "status": "Finished",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 16498,
+      "mal_id": 16498,
+      "title": "Attack on Titan",
+      "type": "TV",
+      "score": "8.50",
+      "year": 2013,
+      "episodes": 25,
+      "status": "Finished",
+      "sections": [
+        "spotlight",
+        "trending",
+        "popular",
+        "watched",
+        "favorite",
+        "top-today",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 1575,
+      "mal_id": 1575,
+      "title": "Code Geass: Lelouch of the Rebellion",
+      "type": "TV",
+      "score": "8.50",
+      "year": 2006,
+      "episodes": 25,
+      "status": "Finished",
+      "sections": [
+        "spotlight",
+        "trending",
+        "popular",
+        "watched",
+        "favorite",
+        "top-today",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 20958,
+      "mal_id": 25777,
+      "title": "Attack on Titan Season 2",
+      "type": "TV",
+      "score": "8.50",
+      "year": 2017,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 21827,
+      "mal_id": 33352,
+      "title": "Violet Evergarden",
+      "type": "TV",
+      "score": "8.50",
+      "year": 2018,
+      "episodes": 13,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "favorite",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 120377,
+      "mal_id": 42310,
+      "title": "Cyberpunk: Edgerunners",
+      "type": "ONA",
+      "score": "8.50",
+      "year": 2022,
+      "episodes": 10,
+      "status": "Finished",
+      "sections": [
+        "watched",
+        "favorite"
+      ]
+    },
+    {
+      "anilist_id": 2001,
+      "mal_id": 2001,
+      "title": "Gurren Lagann",
+      "type": "TV",
+      "score": "8.50",
+      "year": 2007,
+      "episodes": 27,
+      "status": "Finished",
+      "sections": [
+        "watched",
+        "favorite"
+      ]
+    },
+    {
+      "anilist_id": 431,
+      "mal_id": 431,
+      "title": "Howl\u2018s Moving Castle",
+      "type": "Movie",
+      "score": "8.50",
+      "year": 2004,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "watched",
+        "favorite"
+      ]
+    },
+    {
+      "anilist_id": 5258,
+      "mal_id": 5258,
+      "title": "Hajime no Ippo: The Fighting! New Challenger",
+      "type": "TV",
+      "score": "8.50",
+      "year": 2009,
+      "episodes": 26,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 4565,
+      "mal_id": 4565,
+      "title": "Gurren Lagann The Movie: The Lights in the Sky are Stars",
+      "type": "Movie",
+      "score": "8.50",
+      "year": 2009,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 1535,
+      "mal_id": 1535,
+      "title": "Death Note",
+      "type": "TV",
+      "score": "8.40",
+      "year": 2006,
+      "episodes": 37,
+      "status": "Finished",
+      "sections": [
+        "spotlight",
+        "trending",
+        "popular",
+        "watched",
+        "favorite",
+        "top-today",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 113415,
+      "mal_id": 40748,
+      "title": "JUJUTSU KAISEN",
+      "type": "TV",
+      "score": "8.40",
+      "year": 2020,
+      "episodes": 24,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "favorite",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 21507,
+      "mal_id": 32182,
+      "title": "Mob Psycho 100",
+      "type": "TV",
+      "score": "8.40",
+      "year": 2016,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "favorite",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 20665,
+      "mal_id": 23273,
+      "title": "Your lie in April",
+      "type": "TV",
+      "score": "8.40",
+      "year": 2014,
+      "episodes": 22,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "favorite",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 20464,
+      "mal_id": 20583,
+      "title": "HAIKYU!!",
+      "type": "TV",
+      "score": "8.40",
+      "year": 2014,
+      "episodes": 25,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "favorite",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 112151,
+      "mal_id": 40456,
+      "title": "Demon Slayer -Kimetsu no Yaiba- The Movie: Mugen Train",
+      "type": "Movie",
+      "score": "8.40",
+      "year": 2020,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 21450,
+      "mal_id": 31933,
+      "title": "JoJo's Bizarre Adventure: Diamond is Unbreakable",
+      "type": "TV",
+      "score": "8.40",
+      "year": 2016,
+      "episodes": 39,
+      "status": "Finished",
+      "sections": [
+        "watched",
+        "favorite"
+      ]
+    },
+    {
+      "anilist_id": 194884,
+      "mal_id": 61903,
+      "title": "Kaguya-sama: Love Is War -Stairway to Adulthood-",
+      "type": "SPECIAL",
+      "score": "8.40",
+      "year": 2025,
+      "episodes": 2,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 101922,
+      "mal_id": 38000,
+      "title": "Demon Slayer: Kimetsu no Yaiba",
+      "type": "TV",
+      "score": "8.30",
+      "year": 2019,
+      "episodes": 26,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "favorite",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 21087,
+      "mal_id": 30276,
+      "title": "One-Punch Man",
+      "type": "TV",
+      "score": "8.30",
+      "year": 2015,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "favorite",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 101759,
+      "mal_id": 37779,
+      "title": "The Promised Neverland",
+      "type": "TV",
+      "score": "8.30",
+      "year": 2019,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "favorite",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 127230,
+      "mal_id": 44511,
+      "title": "Chainsaw Man",
+      "type": "TV",
+      "score": "8.30",
+      "year": 2022,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "favorite",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 140960,
+      "mal_id": 50265,
+      "title": "SPY x FAMILY",
+      "type": "TV",
+      "score": "8.30",
+      "year": 2022,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "favorite",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 101921,
+      "mal_id": 37999,
+      "title": "Kaguya-sama: Love is War",
+      "type": "TV",
+      "score": "8.30",
+      "year": 2019,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "favorite",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 30,
+      "mal_id": 30,
+      "title": "Neon Genesis Evangelion",
+      "type": "TV",
+      "score": "8.30",
+      "year": 1995,
+      "episodes": 26,
+      "status": "Finished",
+      "sections": [
+        "watched",
+        "favorite"
+      ]
+    },
+    {
+      "anilist_id": 9756,
+      "mal_id": 9756,
+      "title": "Puella Magi Madoka Magica",
+      "type": "TV",
+      "score": "8.30",
+      "year": 2011,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "watched",
+        "favorite"
+      ]
+    },
+    {
+      "anilist_id": 5300,
+      "mal_id": 5300,
+      "title": "Natsume's Book of Friends Season 2",
+      "type": "TV",
+      "score": "8.30",
+      "year": 2009,
+      "episodes": 13,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 196187,
+      "mal_id": 62076,
+      "title": "Smoking Behind the Supermarket with You",
+      "type": "TV",
+      "score": "8.20",
+      "year": 2026,
+      "episodes": 12,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 1735,
+      "mal_id": 1735,
+      "title": "Naruto: Shippuden",
+      "type": "TV",
+      "score": "8.20",
+      "year": 2007,
+      "episodes": 500,
+      "status": "Finished",
+      "sections": [
+        "spotlight",
+        "trending",
+        "popular",
+        "watched",
+        "favorite",
+        "top-today",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 182205,
+      "mal_id": 59970,
+      "title": "That Time I Got Reincarnated as a Slime Season 4",
+      "type": "TV",
+      "score": "8.20",
+      "year": 2026,
+      "episodes": 0,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 190569,
+      "mal_id": 61483,
+      "title": "Jaadugar: A Witch in Mongolia",
+      "type": "TV",
+      "score": "8.20",
+      "year": 2026,
+      "episodes": 0,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 182300,
+      "mal_id": 59983,
+      "title": "Wistoria: Wand and Sword Season 2",
+      "type": "TV",
+      "score": "8.20",
+      "year": 2026,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 108465,
+      "mal_id": 39535,
+      "title": "Mushoku Tensei: Jobless Reincarnation",
+      "type": "TV",
+      "score": "8.20",
+      "year": 2021,
+      "episodes": 11,
+      "status": "Finished",
+      "sections": [
+        "watched",
+        "favorite"
+      ]
+    },
+    {
+      "anilist_id": 140337,
+      "mal_id": 50159,
+      "title": "Zombie Land Saga: Yumeginga Paradise",
+      "type": "Movie",
+      "score": "8.20",
+      "year": 2025,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 5081,
+      "mal_id": 5081,
+      "title": "Bakemonogatari",
+      "type": "TV",
+      "score": "8.20",
+      "year": 2009,
+      "episodes": 15,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 135865,
+      "mal_id": 49233,
+      "title": "Saga of Tanya the Evil Season 2",
+      "type": "TV",
+      "score": "8.10",
+      "year": 2026,
+      "episodes": 12,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 210031,
+      "mal_id": 63832,
+      "title": "You and I Are Polar Opposites Season 2",
+      "type": "TV",
+      "score": "8.10",
+      "year": 2026,
+      "episodes": 13,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 199111,
+      "mal_id": 62542,
+      "title": "Grand Blue Dreaming Season 3",
+      "type": "TV",
+      "score": "8.10",
+      "year": 2026,
+      "episodes": 12,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 21355,
+      "mal_id": 31240,
+      "title": "Re:ZERO -Starting Life in Another World-",
+      "type": "TV",
+      "score": "8.10",
+      "year": 2016,
+      "episodes": 25,
+      "status": "Finished",
+      "sections": [
+        "spotlight",
+        "trending",
+        "popular",
+        "watched",
+        "favorite",
+        "top-today",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 21234,
+      "mal_id": 31043,
+      "title": "ERASED",
+      "type": "TV",
+      "score": "8.10",
+      "year": 2016,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "favorite",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 101291,
+      "mal_id": 37450,
+      "title": "Rascal Does Not Dream of Bunny Girl Senpai",
+      "type": "TV",
+      "score": "8.10",
+      "year": 2018,
+      "episodes": 13,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "favorite",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 105333,
+      "mal_id": 38691,
+      "title": "Dr. STONE",
+      "type": "TV",
+      "score": "8.10",
+      "year": 2019,
+      "episodes": 24,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "favorite",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 124080,
+      "mal_id": 42897,
+      "title": "Horimiya",
+      "type": "TV",
+      "score": "8.10",
+      "year": 2021,
+      "episodes": 13,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "favorite",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 20623,
+      "mal_id": 22535,
+      "title": "Parasyte -the maxim-",
+      "type": "TV",
+      "score": "8.10",
+      "year": 2014,
+      "episodes": 24,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 3784,
+      "mal_id": 3784,
+      "title": "Evangelion: 2.0 You Can (Not) Advance",
+      "type": "Movie",
+      "score": "8.10",
+      "year": 2009,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 6675,
+      "mal_id": 6675,
+      "title": "Redline",
+      "type": "Movie",
+      "score": "8.10",
+      "year": 2009,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 5341,
+      "mal_id": 5341,
+      "title": "Spice and Wolf II",
+      "type": "TV",
+      "score": "8.10",
+      "year": 2009,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 5205,
+      "mal_id": 5205,
+      "title": "the Garden of sinners Chapter 7: \u2026\u2026not nothing heart. (Murder Speculation Part B)",
+      "type": "Movie",
+      "score": "8.10",
+      "year": 2009,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 6811,
+      "mal_id": 6811,
+      "title": "InuYasha: The Final Act",
+      "type": "TV",
+      "score": "8.10",
+      "year": 2009,
+      "episodes": 26,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 20,
+      "mal_id": 20,
+      "title": "Naruto",
+      "type": "TV",
+      "score": "8.00",
+      "year": 2002,
+      "episodes": 220,
+      "status": "Finished",
+      "sections": [
+        "spotlight",
+        "trending",
+        "popular",
+        "watched",
+        "favorite",
+        "top-today",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 200637,
+      "mal_id": 62811,
+      "title": "The 100 Girlfriends Who Really, Really, Really, Really, REALLY Love You Season 3",
+      "type": "TV",
+      "score": "8.00",
+      "year": 2026,
+      "episodes": 0,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 269,
+      "mal_id": 269,
+      "title": "Bleach",
+      "type": "TV",
+      "score": "7.90",
+      "year": 2004,
+      "episodes": 366,
+      "status": "Finished",
+      "sections": [
+        "spotlight",
+        "trending",
+        "popular",
+        "watched",
+        "favorite",
+        "top-today",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 97940,
+      "mal_id": 34572,
+      "title": "Black Clover",
+      "type": "TV",
+      "score": "7.90",
+      "year": 2017,
+      "episodes": 170,
+      "status": "Finished",
+      "sections": [
+        "spotlight",
+        "trending",
+        "popular",
+        "watched",
+        "favorite",
+        "top-today",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 21856,
+      "mal_id": 33486,
+      "title": "My Hero Academia Season 2",
+      "type": "TV",
+      "score": "7.90",
+      "year": 2017,
+      "episodes": 25,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 20755,
+      "mal_id": 24833,
+      "title": "Assassination Classroom",
+      "type": "TV",
+      "score": "7.90",
+      "year": 2015,
+      "episodes": 22,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 100166,
+      "mal_id": 36456,
+      "title": "My Hero Academia Season 3",
+      "type": "TV",
+      "score": "7.90",
+      "year": 2018,
+      "episodes": 25,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 104276,
+      "mal_id": 38408,
+      "title": "My Hero Academia Season 4",
+      "type": "TV",
+      "score": "7.90",
+      "year": 2019,
+      "episodes": 25,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 21202,
+      "mal_id": 30831,
+      "title": "KONOSUBA -God's blessing on this wonderful world!",
+      "type": "TV",
+      "score": "7.90",
+      "year": 2016,
+      "episodes": 10,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "favorite",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 198188,
+      "mal_id": 62405,
+      "title": "Tatsuki Fujimoto 17-26",
+      "type": "Movie",
+      "score": "7.90",
+      "year": 2025,
+      "episodes": 8,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 6045,
+      "mal_id": 6045,
+      "title": "Kimi ni Todoke: From Me to You",
+      "type": "TV",
+      "score": "7.90",
+      "year": 2009,
+      "episodes": 25,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 195600,
+      "mal_id": 62001,
+      "title": "Daemons of the Shadow Realm",
+      "type": "TV",
+      "score": "7.80",
+      "year": 2026,
+      "episodes": 24,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 202269,
+      "mal_id": 62936,
+      "title": "Love Unseen Beneath the Clear Night Sky",
+      "type": "TV",
+      "score": "7.80",
+      "year": 2026,
+      "episodes": 0,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 4224,
+      "mal_id": 4224,
+      "title": "Toradora!",
+      "type": "TV",
+      "score": "7.80",
+      "year": 2008,
+      "episodes": 25,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 20447,
+      "mal_id": 20507,
+      "title": "Noragami",
+      "type": "TV",
+      "score": "7.80",
+      "year": 2014,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 5680,
+      "mal_id": 5680,
+      "title": "K-ON!",
+      "type": "TV",
+      "score": "7.80",
+      "year": 2009,
+      "episodes": 13,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 4155,
+      "mal_id": 4155,
+      "title": "One Piece Film: Strong World",
+      "type": "Movie",
+      "score": "7.80",
+      "year": 2009,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 21459,
+      "mal_id": 31964,
+      "title": "My Hero Academia",
+      "type": "TV",
+      "score": "7.70",
+      "year": 2016,
+      "episodes": 13,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "favorite",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 19815,
+      "mal_id": 19815,
+      "title": "No Game, No Life",
+      "type": "TV",
+      "score": "7.70",
+      "year": 2014,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 187921,
+      "mal_id": 61200,
+      "title": "Record of Ragnarok III",
+      "type": "ONA",
+      "score": "7.70",
+      "year": 2025,
+      "episodes": 15,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 183384,
+      "mal_id": 60159,
+      "title": "Love Live! Nijigasaki Gakuen School Idol Doukoukai: Kanketsu-hen 2",
+      "type": "Movie",
+      "score": "7.70",
+      "year": 2025,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 185116,
+      "mal_id": 60427,
+      "title": "GNOSIA",
+      "type": "TV",
+      "score": "7.70",
+      "year": 2025,
+      "episodes": 21,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 5681,
+      "mal_id": 5681,
+      "title": "Summer Wars",
+      "type": "Movie",
+      "score": "7.70",
+      "year": 2009,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 6033,
+      "mal_id": 6033,
+      "title": "Dragon Ball Z Kai",
+      "type": "TV",
+      "score": "7.70",
+      "year": 2009,
+      "episodes": 97,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 6211,
+      "mal_id": 6211,
+      "title": "Tokyo Magnitude 8.0",
+      "type": "TV",
+      "score": "7.70",
+      "year": 2009,
+      "episodes": 11,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 177699,
+      "mal_id": 58929,
+      "title": "THE GHOST IN THE SHELL",
+      "type": "TV",
+      "score": "7.60",
+      "year": 2026,
+      "episodes": 0,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 103303,
+      "mal_id": 62856,
+      "title": "Sparks of Tomorrow",
+      "type": "TV",
+      "score": "7.60",
+      "year": 2026,
+      "episodes": 13,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 177637,
+      "mal_id": 58878,
+      "title": "Goodbye, Lara",
+      "type": "TV",
+      "score": "7.60",
+      "year": 2026,
+      "episodes": 12,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 20605,
+      "mal_id": 22319,
+      "title": "Tokyo Ghoul",
+      "type": "TV",
+      "score": "7.60",
+      "year": 2014,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "favorite",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 179930,
+      "mal_id": 59435,
+      "title": "Undead Unluck: Winter Arc",
+      "type": "SPECIAL",
+      "score": "7.60",
+      "year": 2025,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 204066,
+      "mal_id": 62392,
+      "title": "JUJUTSU KAISEN: Execution -Shibuya Incident x The Culling Game Begins-",
+      "type": "Movie",
+      "score": "7.60",
+      "year": 2025,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 170577,
+      "mal_id": 57025,
+      "title": "Campfire Cooking in Another World with my Absurd Skill Season 2",
+      "type": "TV",
+      "score": "7.60",
+      "year": 2025,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 6007,
+      "mal_id": 6007,
+      "title": "Spice and Wolf II: Wolf and the Amber Melancholy",
+      "type": "OVA",
+      "score": "7.60",
+      "year": 2009,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 5678,
+      "mal_id": 5678,
+      "title": "Kobato",
+      "type": "TV",
+      "score": "7.60",
+      "year": 2009,
+      "episodes": 24,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 198946,
+      "mal_id": 62513,
+      "title": "Clevatess Season 2",
+      "type": "TV",
+      "score": "7.50",
+      "year": 2026,
+      "episodes": 13,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 187260,
+      "mal_id": 61126,
+      "title": "I Want to Love You Till Your Dying Day",
+      "type": "TV",
+      "score": "7.50",
+      "year": 2026,
+      "episodes": 13,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 188139,
+      "mal_id": 61240,
+      "title": "Though I Am an Inept Villainess",
+      "type": "TV",
+      "score": "7.50",
+      "year": 2026,
+      "episodes": 11,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 162890,
+      "mal_id": 54757,
+      "title": "GINTAMA - Mr. Ginpachi's Zany Class",
+      "type": "TV",
+      "score": "7.50",
+      "year": 2025,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 6213,
+      "mal_id": 6213,
+      "title": "A Certain Scientific Railgun",
+      "type": "TV",
+      "score": "7.50",
+      "year": 2009,
+      "episodes": 24,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 5682,
+      "mal_id": 5682,
+      "title": "Phantom: Requiem for the Phantom",
+      "type": "TV",
+      "score": "7.50",
+      "year": 2009,
+      "episodes": 26,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 6351,
+      "mal_id": 6351,
+      "title": "Clannad: Another World, Kyou Chapter",
+      "type": "OVA",
+      "score": "7.50",
+      "year": 2009,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 128757,
+      "mal_id": 46488,
+      "title": "Young Ladies Don't Play Fighting Games",
+      "type": "TV",
+      "score": "7.40",
+      "year": 2026,
+      "episodes": 12,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 194447,
+      "mal_id": 61851,
+      "title": "Isekai Quartet 3",
+      "type": "TV_SHORT",
+      "score": "7.40",
+      "year": 2025,
+      "episodes": 11,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 191403,
+      "mal_id": 61558,
+      "title": "Aikatsu! x PriPara THE MOVIE -Deai no Kiseki-",
+      "type": "Movie",
+      "score": "7.40",
+      "year": 2025,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 5630,
+      "mal_id": 5630,
+      "title": "Eden of the East",
+      "type": "TV",
+      "score": "7.40",
+      "year": 2009,
+      "episodes": 11,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 20613,
+      "mal_id": 22199,
+      "title": "Akame ga Kill!",
+      "type": "TV",
+      "score": "7.30",
+      "year": 2014,
+      "episodes": 24,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 20789,
+      "mal_id": 23755,
+      "title": "The Seven Deadly Sins",
+      "type": "TV",
+      "score": "7.30",
+      "year": 2014,
+      "episodes": 24,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 180082,
+      "mal_id": 59517,
+      "title": "Chitose Is in the Ramune Bottle",
+      "type": "TV",
+      "score": "7.30",
+      "year": 2025,
+      "episodes": 13,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 7193,
+      "mal_id": 7193,
+      "title": "Blue Literature Series",
+      "type": "TV",
+      "score": "7.30",
+      "year": 2009,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 5781,
+      "mal_id": 5781,
+      "title": "Tenchi Muyo! War on Geminar",
+      "type": "OVA",
+      "score": "7.30",
+      "year": 2009,
+      "episodes": 13,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 6702,
+      "mal_id": 6702,
+      "title": "Fairy Tail",
+      "type": "TV",
+      "score": "7.20",
+      "year": 2009,
+      "episodes": 175,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 5530,
+      "mal_id": 5530,
+      "title": "PandoraHearts",
+      "type": "TV",
+      "score": "7.20",
+      "year": 2009,
+      "episodes": 25,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 6372,
+      "mal_id": 6372,
+      "title": "Eden of the East the Movie I: The King of Eden",
+      "type": "Movie",
+      "score": "7.20",
+      "year": 2009,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 194829,
+      "mal_id": 61897,
+      "title": "From Old Country Bumpkin to Master Swordsman II",
+      "type": "TV",
+      "score": "7.10",
+      "year": 2026,
+      "episodes": 0,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 187538,
+      "mal_id": 61169,
+      "title": "BLACK TORCH",
+      "type": "TV",
+      "score": "7.10",
+      "year": 2026,
+      "episodes": 0,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 169583,
+      "mal_id": 56735,
+      "title": "Oh Boy, Was I Wrong About Her",
+      "type": "TV",
+      "score": "7.10",
+      "year": 2026,
+      "episodes": 12,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 209983,
+      "mal_id": 63817,
+      "title": "HELL MODE: The Hardcore Gamer Dominates in Another World with Garbage Balancing Season 2",
+      "type": "TV",
+      "score": "7.10",
+      "year": 2026,
+      "episodes": 13,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 4382,
+      "mal_id": 4382,
+      "title": "The Melancholy of Haruhi Suzumiya (2009)",
+      "type": "TV",
+      "score": "7.10",
+      "year": 2009,
+      "episodes": 28,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 6573,
+      "mal_id": 6573,
+      "title": "Darker than Black: Gemini of the Meteor",
+      "type": "TV",
+      "score": "7.10",
+      "year": 2009,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 5356,
+      "mal_id": 5356,
+      "title": "Canaan",
+      "type": "TV",
+      "score": "7.10",
+      "year": 2009,
+      "episodes": 13,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 6325,
+      "mal_id": 6325,
+      "title": "Naruto Shippuden the Movie: The Will of Fire",
+      "type": "Movie",
+      "score": "7.10",
+      "year": 2009,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 3652,
+      "mal_id": 3652,
+      "title": "When They Cry Rei",
+      "type": "OVA",
+      "score": "7.10",
+      "year": 2009,
+      "episodes": 5,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 192800,
+      "mal_id": 61686,
+      "title": "Heroine? Saint? No, I\u2019m an All-Works Maid (And Proud of It)!",
+      "type": "ONA",
+      "score": "7.00",
+      "year": 2026,
+      "episodes": 12,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 11757,
+      "mal_id": 11757,
+      "title": "Sword Art Online",
+      "type": "TV",
+      "score": "7.00",
+      "year": 2012,
+      "episodes": 25,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "watched",
+        "favorite",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 99423,
+      "mal_id": 35849,
+      "title": "DARLING in the FRANXX",
+      "type": "TV",
+      "score": "7.00",
+      "year": 2018,
+      "episodes": 24,
+      "status": "Finished",
+      "sections": [
+        "popular",
+        "top-week"
+      ]
+    },
+    {
+      "anilist_id": 5204,
+      "mal_id": 5204,
+      "title": "the Garden of sinners Chapter 6: Fairy Tale. (Oblivion Recording)",
+      "type": "Movie",
+      "score": "7.00",
+      "year": 2009,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 5909,
+      "mal_id": 5909,
+      "title": "Student Council's Discretion",
+      "type": "TV",
+      "score": "7.00",
+      "year": 2009,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 5177,
+      "mal_id": 5177,
+      "title": "Electromagnetic Girlfriend",
+      "type": "OVA",
+      "score": "7.00",
+      "year": 2009,
+      "episodes": 2,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 184642,
+      "mal_id": 60336,
+      "title": "Star Wars: Visions Volume 3",
+      "type": "ONA",
+      "score": "6.90",
+      "year": 2025,
+      "episodes": 9,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 186161,
+      "mal_id": 60765,
+      "title": "With You, Our Love Will Make It Through",
+      "type": "TV",
+      "score": "6.90",
+      "year": 2025,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 177686,
+      "mal_id": 58915,
+      "title": "The Last Blossom",
+      "type": "Movie",
+      "score": "6.90",
+      "year": 2025,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 209669,
+      "mal_id": 63780,
+      "title": "Hana-Kimi Season 2",
+      "type": "ONA",
+      "score": "6.80",
+      "year": 2026,
+      "episodes": 13,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 199408,
+      "mal_id": 62289,
+      "title": "A Livid Lady\u2019s Guide to Getting Even: How I Crushed My Homeland with My Mighty Grimoires",
+      "type": "TV",
+      "score": "6.80",
+      "year": 2026,
+      "episodes": 12,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 140291,
+      "mal_id": 50139,
+      "title": "Disney Twisted-Wonderland: The Animation",
+      "type": "ONA",
+      "score": "6.80",
+      "year": 2025,
+      "episodes": 8,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 186524,
+      "mal_id": 60933,
+      "title": "Li'l Miss Vampire Can't Suck Right",
+      "type": "TV",
+      "score": "6.80",
+      "year": 2025,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 5667,
+      "mal_id": 5667,
+      "title": "To LOVE-Ru OVA",
+      "type": "OVA",
+      "score": "6.80",
+      "year": 2009,
+      "episodes": 6,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 4186,
+      "mal_id": 4186,
+      "title": "Chrome Shelled Regios",
+      "type": "TV",
+      "score": "6.80",
+      "year": 2009,
+      "episodes": 24,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 3087,
+      "mal_id": 3087,
+      "title": "Cencoroll",
+      "type": "Movie",
+      "score": "6.80",
+      "year": 2009,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 184356,
+      "mal_id": 63316,
+      "title": "Tomb Raider King",
+      "type": "TV",
+      "score": "6.70",
+      "year": null,
+      "episodes": 12,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 159309,
+      "mal_id": 54000,
+      "title": "Trapped in a Dating Sim: The World of Otome Games is Tough for Mobs Season 2",
+      "type": "TV",
+      "score": "6.70",
+      "year": 2026,
+      "episodes": 12,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 207141,
+      "mal_id": 63403,
+      "title": "Chainsmoker Cat",
+      "type": "TV",
+      "score": "6.70",
+      "year": 2026,
+      "episodes": 0,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 185542,
+      "mal_id": 60522,
+      "title": "Skeleton Knight in Another World Season 2",
+      "type": "TV",
+      "score": "6.70",
+      "year": 2026,
+      "episodes": 12,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 180136,
+      "mal_id": 59741,
+      "title": "The Exiled Heavy Knight Knows How to Game the System",
+      "type": "TV",
+      "score": "6.70",
+      "year": 2026,
+      "episodes": 26,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 5958,
+      "mal_id": 5958,
+      "title": "Heaven's Lost Property",
+      "type": "TV",
+      "score": "6.70",
+      "year": 2009,
+      "episodes": 13,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 6512,
+      "mal_id": 6512,
+      "title": "Nyan Koi!",
+      "type": "TV",
+      "score": "6.70",
+      "year": 2009,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 5030,
+      "mal_id": 5030,
+      "title": "Maria\u2020Holic",
+      "type": "TV",
+      "score": "6.70",
+      "year": 2009,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 174914,
+      "mal_id": 58146,
+      "title": "The Dark History of the Reincarnated Villainess",
+      "type": "TV",
+      "score": "6.60",
+      "year": 2025,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 180436,
+      "mal_id": 59623,
+      "title": "Wandance",
+      "type": "TV",
+      "score": "6.60",
+      "year": 2025,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 186794,
+      "mal_id": 61026,
+      "title": "My Status as an Assassin Obviously Exceeds the Hero\u2019s",
+      "type": "TV",
+      "score": "6.60",
+      "year": 2025,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 194872,
+      "mal_id": 61834,
+      "title": "Golden Kamuy: Inazuma Goutou to Mamushi no Ogin/Shimaenaga",
+      "type": "OVA",
+      "score": "6.50",
+      "year": 2025,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 5060,
+      "mal_id": 5060,
+      "title": "Hetalia Axis Powers",
+      "type": "ONA",
+      "score": "6.50",
+      "year": 2009,
+      "episodes": 52,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 196356,
+      "mal_id": 62102,
+      "title": "My Stepmother and Stepsisters Aren\u2019t Wicked",
+      "type": "TV",
+      "score": "6.40",
+      "year": 2026,
+      "episodes": 0,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 196219,
+      "mal_id": 62080,
+      "title": "The Oblivious Saint Can't Contain Her Power",
+      "type": "TV",
+      "score": "6.40",
+      "year": 2026,
+      "episodes": 0,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 208055,
+      "mal_id": 62942,
+      "title": "LOCA!",
+      "type": "Movie",
+      "score": "6.30",
+      "year": 2025,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 4896,
+      "mal_id": 4896,
+      "title": "Umineko: When They Cry",
+      "type": "TV",
+      "score": "6.30",
+      "year": 2009,
+      "episodes": 26,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 5940,
+      "mal_id": 5940,
+      "title": "The Sacred Blacksmith",
+      "type": "TV",
+      "score": "6.30",
+      "year": 2009,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 180292,
+      "mal_id": 59561,
+      "title": "The Daily Life of a Middle-Aged Online Shopper in Another World",
+      "type": "TV",
+      "score": "6.20",
+      "year": 2025,
+      "episodes": 13,
+      "status": "Finished",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 5042,
+      "mal_id": 5042,
+      "title": "Kiss x Sis",
+      "type": "OVA",
+      "score": "6.20",
+      "year": 2009,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 6201,
+      "mal_id": 6201,
+      "title": "Princess Lover!",
+      "type": "TV",
+      "score": "6.20",
+      "year": 2009,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 4999,
+      "mal_id": 4999,
+      "title": "Samurai Harem",
+      "type": "TV",
+      "score": "6.20",
+      "year": 2009,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 197715,
+      "mal_id": 62322,
+      "title": "The Villager of Level 999",
+      "type": "ONA",
+      "score": "6.10",
+      "year": 2026,
+      "episodes": 12,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 185773,
+      "mal_id": 60610,
+      "title": "Scarlet",
+      "type": "Movie",
+      "score": "6.10",
+      "year": 2025,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 186914,
+      "mal_id": 61067,
+      "title": "Ninja Vs. Gokudo",
+      "type": "TV",
+      "score": "6.10",
+      "year": 2025,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 4720,
+      "mal_id": 4720,
+      "title": "White Album",
+      "type": "TV",
+      "score": "6.10",
+      "year": 2009,
+      "episodes": 13,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 169582,
+      "mal_id": 56736,
+      "title": "The Insipid Prince's Furtive Grab for the Throne",
+      "type": "TV",
+      "score": "6.00",
+      "year": 2026,
+      "episodes": 12,
+      "status": "Currently Airing",
+      "sections": [
+        "spotlight",
+        "trending",
+        "top-today"
+      ]
+    },
+    {
+      "anilist_id": 6205,
+      "mal_id": 6205,
+      "title": "K\u00e4mpfer",
+      "type": "TV",
+      "score": "5.80",
+      "year": 2009,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 207848,
+      "mal_id": 62807,
+      "title": "Digimon Story Time Stranger Prelude",
+      "type": "SPECIAL",
+      "score": "5.70",
+      "year": 2025,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 199635,
+      "mal_id": 62676,
+      "title": "PetitCure: Precure Fairies Season 2",
+      "type": "ONA",
+      "score": "5.40",
+      "year": 2025,
+      "episodes": 23,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 6682,
+      "mal_id": 6682,
+      "title": "11eyes",
+      "type": "TV",
+      "score": "5.40",
+      "year": 2009,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "classic"
+      ]
+    },
+    {
+      "anilist_id": 188529,
+      "mal_id": 61254,
+      "title": "Cat Tales",
+      "type": "ONA",
+      "score": "5.30",
+      "year": 2025,
+      "episodes": 50,
+      "status": "Currently Airing",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 196230,
+      "mal_id": 62066,
+      "title": "Strike World: Deadverse Reloaded the Anime",
+      "type": "TV",
+      "score": "5.10",
+      "year": 2025,
+      "episodes": 10,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 198312,
+      "mal_id": 62428,
+      "title": "Heika Watashi wo Wasurete Kudasai",
+      "type": "TV_SHORT",
+      "score": "5.10",
+      "year": 2025,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 153800,
+      "mal_id": 52807,
+      "title": "One-Punch Man Season 3",
+      "type": "TV",
+      "score": "5.00",
+      "year": 2025,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 199009,
+      "mal_id": 62496,
+      "title": "2200-nen Neko no Kuni Nippon",
+      "type": "TV_SHORT",
+      "score": "5.00",
+      "year": 2025,
+      "episodes": 12,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 193923,
+      "mal_id": 61770,
+      "title": "Kono Hon wo Nusumu Mono wa",
+      "type": "Movie",
+      "score": null,
+      "year": 2025,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 132776,
+      "mal_id": 48701,
+      "title": "Peleliu: Rakuen no Guernica",
+      "type": "Movie",
+      "score": null,
+      "year": 2025,
+      "episodes": 0,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 213095,
+      "mal_id": 63511,
+      "title": "Jo Niijima's Story",
+      "type": "ONA",
+      "score": null,
+      "year": 2025,
+      "episodes": 3,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 203146,
+      "mal_id": 63013,
+      "title": "Atashin'chi NEXT 2",
+      "type": "ONA",
+      "score": null,
+      "year": 2025,
+      "episodes": 5,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 193294,
+      "mal_id": 61736,
+      "title": "Toritsukare Otoko",
+      "type": "Movie",
+      "score": null,
+      "year": 2025,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 213460,
+      "mal_id": 62915,
+      "title": "Sorotani no Keibacchi Season 3",
+      "type": "TV_SHORT",
+      "score": null,
+      "year": 2025,
+      "episodes": 4,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 204628,
+      "mal_id": 62548,
+      "title": "Oshi ga Buka ni Narimashita",
+      "type": "ONA",
+      "score": null,
+      "year": 2025,
+      "episodes": 30,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 188522,
+      "mal_id": 61278,
+      "title": "Sumikko Gurashi: Sora no Ookoku to Futari no Ko",
+      "type": "Movie",
+      "score": null,
+      "year": 2025,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 211271,
+      "mal_id": 62831,
+      "title": "Odekake Kozame Kurashiki-shi Collab Movie",
+      "type": "ONA",
+      "score": null,
+      "year": 2025,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 200642,
+      "mal_id": 62579,
+      "title": "Wadachi wo Koete Yuke",
+      "type": "Movie",
+      "score": null,
+      "year": 2025,
+      "episodes": 1,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    },
+    {
+      "anilist_id": 199931,
+      "mal_id": 62662,
+      "title": "Dokodemo Makibao: World Tour",
+      "type": "ONA",
+      "score": null,
+      "year": 2025,
+      "episodes": 24,
+      "status": "Finished",
+      "sections": [
+        "new-releases"
+      ]
+    }
+  ]
+}
