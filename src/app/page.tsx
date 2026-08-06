@@ -666,16 +666,22 @@ function HlsPlayer({
   }, [currentTime, duration, anime, episode, audio, totalEpisodes]);
 
   // Toggle controls visibility on tap.
-  // - If controls are currently hidden → show them (stay visible until tapped again)
-  // - If controls are currently visible → hide them immediately
-  // NO auto-hide — the user explicitly controls visibility via tap.
+  // - If controls are currently hidden → show them + start 3s auto-hide timer
+  // - If controls are currently visible → hide immediately, stay hidden until tapped
   // The controls bar calls e.stopPropagation() so taps on buttons
   // (play/pause, seek, etc.) won't trigger this toggle.
   const pokeControls = useCallback(() => {
     setShowControls((prev) => {
-      // Cancel any pending timer (there shouldn't be one, but just in case)
       if (hideControlsTimer.current) window.clearTimeout(hideControlsTimer.current);
-      return !prev; // toggle
+      if (!prev) {
+        // Currently hidden → show + start 3s auto-hide timer
+        hideControlsTimer.current = window.setTimeout(() => {
+          setShowControls(false);
+        }, 3000);
+        return true;
+      }
+      // Currently visible → hide immediately (stay hidden until tapped)
+      return false;
     });
   }, []);
 
@@ -685,24 +691,21 @@ function HlsPlayer({
     };
   }, []);
 
-  // When playback starts for the first time, auto-hide controls after 3.5s
-  // (only once — not on every state change). After that, the user controls
-  // visibility via tap.
+  // When playback starts, show controls briefly then auto-hide after 3s.
+  // When paused, keep controls visible.
   useEffect(() => {
     if (playing) {
-      // Show controls briefly when play starts, then auto-hide once
       setShowControls(true);
       if (hideControlsTimer.current) window.clearTimeout(hideControlsTimer.current);
       hideControlsTimer.current = window.setTimeout(() => {
-        if (!showSettings) setShowControls(false);
-      }, 3500);
+        setShowControls(false);
+      }, 3000);
     } else {
-      // Paused — keep controls visible
       if (hideControlsTimer.current) window.clearTimeout(hideControlsTimer.current);
       setShowControls(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playing]); // Only re-run when playing changes, NOT when showSettings changes
+  }, [playing]);
 
   useEffect(() => {
     const onFs = () => setIsFullscreen(!!document.fullscreenElement);
@@ -1322,43 +1325,91 @@ function ScheduleView({ onSelect }: { onSelect: (a: Anime) => void }) {
       .finally(() => setLoading(false));
   }, []);
 
-  // Update countdown every minute
   useEffect(() => {
     const t = setInterval(() => setNow(Date.now()), 60000);
     return () => clearInterval(t);
   }, []);
 
+  // Group anime by the day their next episode airs
+  const dayLabels = ["Today", "Tomorrow", "In 2 days", "In 3 days", "In 4+ days", "Aired"];
+  const grouped: { label: string; items: Anime[] }[] = dayLabels.map((l) => ({ label: l, items: [] }));
+
+  for (const a of schedule) {
+    const airingAt = a.nextAiringEpisode?.airingAt || 0;
+    const diff = airingAt - now / 1000;
+    let idx: number;
+    if (diff < 0) idx = 5; // Aired
+    else if (diff < 86400) idx = 0; // Today (< 24h)
+    else if (diff < 172800) idx = 1; // Tomorrow
+    else if (diff < 259200) idx = 2; // In 2 days
+    else if (diff < 345600) idx = 3; // In 3 days
+    else idx = 4; // 4+ days
+    grouped[idx].items.push(a);
+  }
+
   return (
-    <div className="pt-12 md:pt-20 px-4 md:px-6 lg:px-8">
-      <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">Airing Schedule</h1>
-      <p className="text-sm text-gray-400 mb-6">Currently airing anime — new episodes auto-import when they release</p>
-      {loading && <div className="flex justify-center py-8"><div className="w-8 h-8 border-2 border-white/10 border-t-white rounded-full animate-spin" /></div>}
-      {!loading && schedule.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pb-8">
-          {schedule.map((a) => {
-            const airingAt = a.nextAiringEpisode?.airingAt || 0;
-            const diff = airingAt - now / 1000;
-            const isAiring = diff < 3600 && diff > 0;
-            return (
-              <button
-                key={a.id}
-                onClick={() => onSelect(a)}
-                className="flex gap-3 bg-[#1c1c1e] rounded-xl p-3 hover:bg-[#2c2c2c] active:scale-95 transition-all text-left"
-              >
-                <img src={a.poster} alt={a.title} className="w-16 h-24 rounded-lg object-cover shrink-0" />
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold text-white line-clamp-2 leading-tight">{a.title}</p>
-                  <p className="text-xs text-gray-400 mt-1">{a.type} • {a.year}</p>
-                  <div className={`mt-2 inline-block text-xs font-bold px-2 py-1 rounded ${isAiring ? "bg-red-600 text-white animate-pulse" : "bg-red-600/30 text-red-300"}`}>
-                    {a.nextAiringEpisode ? `Ep ${a.nextAiringEpisode.episode} ${formatAiringTime(airingAt)}` : "Airing"}
-                  </div>
-                </div>
-              </button>
-            );
-          })}
+    <div className="pt-12 md:pt-20 px-4 md:px-6 lg:px-8 max-w-4xl mx-auto">
+      <div className="mb-6">
+        <h1 className="text-2xl md:text-3xl font-bold text-white">Schedule</h1>
+        <p className="text-sm text-gray-500 mt-1">{schedule.length} airing now</p>
+      </div>
+      {loading && (
+        <div className="flex justify-center py-16">
+          <div className="w-8 h-8 border-2 border-white/10 border-t-white rounded-full animate-spin" />
         </div>
       )}
-      {!loading && schedule.length === 0 && <p className="text-white/40 text-center mt-8">No airing anime found</p>}
+      {!loading && schedule.length === 0 && (
+        <p className="text-gray-500 text-center py-16">Nothing airing right now.</p>
+      )}
+      {!loading && grouped.map((group) => {
+        if (group.items.length === 0) return null;
+        return (
+          <div key={group.label} className="mb-8">
+            <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 border-b border-gray-900 pb-2">
+              {group.label} <span className="text-gray-700">· {group.items.length}</span>
+            </h2>
+            <div className="space-y-1">
+              {group.items.map((a) => {
+                const airingAt = a.nextAiringEpisode?.airingAt || 0;
+                const diff = airingAt - now / 1000;
+                const isLive = diff < 3600 && diff > 0;
+                return (
+                  <button
+                    key={a.id}
+                    onClick={() => onSelect(a)}
+                    className="w-full flex items-center gap-3 py-2 px-2 rounded-lg hover:bg-white/5 active:scale-[0.99] transition-colors text-left group"
+                  >
+                    <img
+                      src={a.poster}
+                      alt={a.title}
+                      className="w-10 h-14 rounded object-cover shrink-0"
+                      loading="lazy"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm text-white truncate group-hover:text-red-400 transition-colors">{a.title}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">
+                        {a.type} · Ep {a.nextAiringEpisode?.episode || "?"}
+                      </p>
+                    </div>
+                    <div className="shrink-0 text-right">
+                      {isLive ? (
+                        <span className="text-xs font-bold text-red-500 flex items-center gap-1 justify-end">
+                          <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                          LIVE
+                        </span>
+                      ) : (
+                        <span className="text-xs text-gray-400">
+                          {formatAiringTime(airingAt).replace("in ", "")}
+                        </span>
+                      )}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
