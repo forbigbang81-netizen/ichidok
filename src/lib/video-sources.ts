@@ -69,6 +69,7 @@ export const INTRO_TIMES: Record<number, { start: number; end: number }> = {
   20583: { start: 0,   end: 90  }, // Haikyu!! S3
   62076: { start: 0,   end: 90  }, // Mashle S2
   41467: { start: 0,   end: 90  }, // Bleach: Thousand-Year Blood War
+  22199: { start: 0,   end: 90  }, // Akame ga Kill!
 };
 
 // Get intro times for an anime (with optional user override from localStorage)

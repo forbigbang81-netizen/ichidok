@@ -1406,6 +1406,7 @@ export default function Page() {
   const [playerAudio, setPlayerAudio] = useState<"sub" | "dub">("sub");
   const [heroAnime, setHeroAnime] = useState<Anime | null>(null);
   const [spotlight, setSpotlight] = useState<Anime[]>([]);
+  const [featured, setFeatured] = useState<Anime[]>([]);
   const [trending, setTrending] = useState<Anime[]>([]);
   const [popular, setPopular] = useState<Anime[]>([]);
   const [watched, setWatched] = useState<Anime[]>([]);
@@ -1449,6 +1450,7 @@ export default function Page() {
   useEffect(() => {
     setLoading(true);
     Promise.all([
+      fetchSection("featured", 20),
       fetchSection("spotlight", 30),
       fetchSection("trending", 40),
       fetchSection("popular", 50),
@@ -1465,7 +1467,8 @@ export default function Page() {
       fetchSection("specials", 30),
       fetchSection("onas", 30),
       fetchSection("ovas", 30),
-    ]).then(([sl, tr, po, wa, ai, fa, tt, tw, tm, tr2, nr, cl, mv, sp, on, ov]) => {
+    ]).then(([fe, sl, tr, po, wa, ai, fa, tt, tw, tm, tr2, nr, cl, mv, sp, on, ov]) => {
+      setFeatured(fe);
       setSpotlight(sl);
       setTrending(tr);
       setPopular(po);
@@ -1486,7 +1489,7 @@ export default function Page() {
       // Build airing cache from all fetched anime — this is what powers
       // the "auto-import new episodes" feature. When AniList reports a
       // new nextAiringEpisode, getEpisodeCount() returns a higher number.
-      const allAnime = [...sl, ...tr, ...po, ...wa, ...ai, ...fa, ...tt, ...tw, ...tm, ...tr2, ...nr, ...cl, ...mv, ...sp, ...on, ...ov];
+      const allAnime = [...fe, ...sl, ...tr, ...po, ...wa, ...ai, ...fa, ...tt, ...tw, ...tm, ...tr2, ...nr, ...cl, ...mv, ...sp, ...on, ...ov];
       const cache: Record<number, { nextEpisode: number | null; airingAt: number | null } | undefined> = {};
       for (const a of allAnime) {
         if (a.nextAiringEpisode) {
@@ -1588,6 +1591,7 @@ export default function Page() {
                     }
                   }}
                 />
+                <HorizontalSection title="Featured" anime={featured} onSelect={openDetail} />
                 <HorizontalSection title="Spotlight" anime={spotlight} onSelect={openDetail} />
                 <HorizontalSection title="Trending Now" anime={trending} onSelect={openDetail}
                   getProgress={(a) => {

@@ -24,6 +24,46 @@ const QUERY = `query ($page: Int, $perPage: Int, $sort: [MediaSort], $genre: Str
   }
 }`;
 
+// Query for fetching specific anime by AniList ID (for the "featured" section)
+const QUERY_BY_IDS = `query ($ids: [Int]) {
+  Page(page: 1, perPage: 50) {
+    media(type: ANIME, id_in: $ids, isAdult: false) {
+      id idMal
+      title { romaji english native }
+      coverImage { large extraLarge color }
+      bannerImage
+      description(asHtml: false)
+      averageScore popularity favourites
+      episodes format status season seasonYear
+      genres duration
+      studios(isMain: true) { nodes { name } }
+      source
+      nextAiringEpisode { episode airingAt }
+    }
+  }
+}`;
+
+// Curated list of featured anime AniList IDs.
+// These are anime we've verified have SUB+DUB on zokoanime.
+// They always appear on the homepage in the "Featured" section.
+const FEATURED_ANIME_IDS = [
+  20613,  // Akame ga Kill!
+  21,     // One Piece (AniList ID)
+  16498,  // Attack on Titan
+  38000,  // Demon Slayer
+  40748,  // Jujutsu Kaisen
+  34599,  // My Hero Academia S2
+  44511,  // Chainsaw Man
+  5114,   // Fullmetal Alchemist: Brotherhood
+  9253,   // Steins;Gate
+  11061,  // Hunter x Hunter (2011)
+  31964,  // One Punch Man
+  2001,   // Death Note
+  52991,  // Frieren
+  53998,  // Spy x Family
+  21459,  // Re:Zero
+];
+
 async function fetchAniList(page: number, perPage: number, sort: string[], genre?: string, season?: string, year?: number, format?: string) {
   const variables: any = { page, perPage, sort };
   if (genre) variables.genre = genre;
@@ -65,7 +105,27 @@ export async function GET(request: Request) {
       "specials":    ["POPULARITY_DESC"],
       "onas":        ["POPULARITY_DESC"],
       "ovas":        ["POPULARITY_DESC"],
+      "featured":    ["POPULARITY_DESC"], // not used for featured, handled separately
     };
+
+    // Featured section: fetch specific anime by ID (curated list)
+    if (section === "featured") {
+      const res = await fetch(ANILIST_GRAPHQL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json", "User-Agent": "Mozilla/5.0" },
+        body: JSON.stringify({ query: QUERY_BY_IDS, variables: { ids: FEATURED_ANIME_IDS } }),
+      });
+      if (!res.ok) throw new Error(`AniList API error: ${res.status}`);
+      const data = await res.json();
+      const anime = (data.data?.Page?.media ?? []).filter((a: any) => a.idMal);
+      // Preserve the order of FEATURED_ANIME_IDS
+      const ordered = FEATURED_ANIME_IDS
+        .map((id) => anime.find((a: any) => a.id === id))
+        .filter(Boolean);
+      const formatted = ordered.map((a: any) => formatAnime(a));
+      return NextResponse.json({ results: formatted });
+    }
+
     const sort = sortMap[section] || ["POPULARITY_DESC"];
 
     let genre: string | undefined;
@@ -95,39 +155,44 @@ export async function GET(request: Request) {
     // Filter out anime without idMal (needed for zokoanime streaming)
     const filtered = anime.filter((a: any) => a.idMal);
 
-    const formatted = filtered.map((a: any) => ({
-      id: a.id,
-      malId: a.idMal,
-      title: a.title.english || a.title.romaji || a.title.native || "Unknown",
-      titleEnglish: a.title.english,
-      titleRomaji: a.title.romaji,
-      titleJapanese: a.title.native,
-      poster: a.coverImage.extraLarge || a.coverImage.large,
-      banner: a.bannerImage || a.coverImage.extraLarge || a.coverImage.large,
-      synopsis: (a.description || "")
-        .replace(/<[^>]*>/g, "")
-        .replace(/&amp;/g, "&")
-        .replace(/&quot;/g, '"')
-        .replace(/&#39;/g, "'")
-        .trim(),
-      score: a.averageScore ? (a.averageScore / 10).toFixed(2) : null,
-      popularity: a.popularity,
-      episodeCount: a.episodes || 0,
-      type: a.format === "TV" ? "TV" : a.format === "MOVIE" ? "Movie" : a.format === "SPECIAL" ? "Special" : a.format === "OVA" ? "OVA" : a.format === "ONA" ? "ONA" : a.format || "TV",
-      status: a.status === "FINISHED" ? "Finished" : a.status === "RELEASING" ? "Currently Airing" : "Not yet aired",
-      year: a.seasonYear,
-      season: a.season ? a.season.toLowerCase() : null,
-      genres: a.genres || [],
-      studios: a.studios?.nodes?.map((s: any) => s.name) || [],
-      duration: a.duration ? `${a.duration}m` : null,
-      nextAiringEpisode: a.nextAiringEpisode
-        ? { episode: a.nextAiringEpisode.episode, airingAt: a.nextAiringEpisode.airingAt }
-        : null,
-    }));
+    const formatted = filtered.map((a: any) => formatAnime(a));
 
     return NextResponse.json({ results: formatted });
   } catch (err) {
     console.error("[/api/anilist] error:", err);
     return NextResponse.json({ error: "Failed to fetch anime" }, { status: 500 });
   }
+}
+
+// Shared formatter — used by both the section fetcher and the featured fetcher
+function formatAnime(a: any) {
+  return {
+    id: a.id,
+    malId: a.idMal,
+    title: a.title.english || a.title.romaji || a.title.native || "Unknown",
+    titleEnglish: a.title.english,
+    titleRomaji: a.title.romaji,
+    titleJapanese: a.title.native,
+    poster: a.coverImage.extraLarge || a.coverImage.large,
+    banner: a.bannerImage || a.coverImage.extraLarge || a.coverImage.large,
+    synopsis: (a.description || "")
+      .replace(/<[^>]*>/g, "")
+      .replace(/&amp;/g, "&")
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .trim(),
+    score: a.averageScore ? (a.averageScore / 10).toFixed(2) : null,
+    popularity: a.popularity,
+    episodeCount: a.episodes || 0,
+    type: a.format === "TV" ? "TV" : a.format === "MOVIE" ? "Movie" : a.format === "SPECIAL" ? "Special" : a.format === "OVA" ? "OVA" : a.format === "ONA" ? "ONA" : a.format || "TV",
+    status: a.status === "FINISHED" ? "Finished" : a.status === "RELEASING" ? "Currently Airing" : "Not yet aired",
+    year: a.seasonYear,
+    season: a.season ? a.season.toLowerCase() : null,
+    genres: a.genres || [],
+    studios: a.studios?.nodes?.map((s: any) => s.name) || [],
+    duration: a.duration ? `${a.duration}m` : null,
+    nextAiringEpisode: a.nextAiringEpisode
+      ? { episode: a.nextAiringEpisode.episode, airingAt: a.nextAiringEpisode.airingAt }
+      : null,
+  };
 }
