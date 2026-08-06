@@ -665,32 +665,19 @@ function HlsPlayer({
     });
   }, [currentTime, duration, anime, episode, audio, totalEpisodes]);
 
-  // Auto-hide controls after 3.5s of inactivity
   // Toggle controls visibility on tap.
-  // - If controls are currently hidden → show them (and start auto-hide timer when playing)
+  // - If controls are currently hidden → show them (stay visible until tapped again)
   // - If controls are currently visible → hide them immediately
-  // The controls bar itself calls e.stopPropagation() so taps on buttons
+  // NO auto-hide — the user explicitly controls visibility via tap.
+  // The controls bar calls e.stopPropagation() so taps on buttons
   // (play/pause, seek, etc.) won't trigger this toggle.
   const pokeControls = useCallback(() => {
     setShowControls((prev) => {
-      if (prev) {
-        // Currently visible → hide now, cancel any pending auto-hide
-        if (hideControlsTimer.current) window.clearTimeout(hideControlsTimer.current);
-        return false;
-      }
-      // Currently hidden → show, and auto-hide after 3.5s if playing
+      // Cancel any pending timer (there shouldn't be one, but just in case)
       if (hideControlsTimer.current) window.clearTimeout(hideControlsTimer.current);
-      hideControlsTimer.current = window.setTimeout(() => {
-        if (playing && !showSettings) setShowControls(false);
-      }, 3500);
-      return true;
+      return !prev; // toggle
     });
-  }, [playing, showSettings]);
-
-  // Note: we intentionally do NOT call pokeControls on every currentTime
-  // change. The auto-hide timer inside pokeControls already handles hiding
-  // after 3.5s of inactivity. Calling it on every timeupdate would cause
-  // the controls to flicker on/off during playback.
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -698,14 +685,14 @@ function HlsPlayer({
     };
   }, []);
 
-  // When playback starts, auto-hide the controls after 3.5s.
-  // When paused, keep controls visible.
+  // When playback starts for the first time, auto-hide controls after 3.5s
+  // (only once — not on every state change). After that, the user controls
+  // visibility via tap.
   useEffect(() => {
     if (playing) {
-      // Clear any existing timer, then set a new one
-      if (hideControlsTimer.current) window.clearTimeout(hideControlsTimer.current);
-      // Show controls first (so the user sees them when play starts)
+      // Show controls briefly when play starts, then auto-hide once
       setShowControls(true);
+      if (hideControlsTimer.current) window.clearTimeout(hideControlsTimer.current);
       hideControlsTimer.current = window.setTimeout(() => {
         if (!showSettings) setShowControls(false);
       }, 3500);
@@ -714,10 +701,8 @@ function HlsPlayer({
       if (hideControlsTimer.current) window.clearTimeout(hideControlsTimer.current);
       setShowControls(true);
     }
-    return () => {
-      if (hideControlsTimer.current) window.clearTimeout(hideControlsTimer.current);
-    };
-  }, [playing, showSettings]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playing]); // Only re-run when playing changes, NOT when showSettings changes
 
   useEffect(() => {
     const onFs = () => setIsFullscreen(!!document.fullscreenElement);
