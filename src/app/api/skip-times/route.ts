@@ -921,7 +921,9 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const malId = searchParams.get("malId");
   const episode = Number(searchParams.get("episode") || 1);
-  const episodeLength = Number(searchParams.get("episodeLength") || 24);
+  // episodeLength comes in as minutes (e.g. 24) — AniSkip needs SECONDS (e.g. 1440)
+  const episodeLengthMinutes = Number(searchParams.get("episodeLength") || 24);
+  const episodeLengthSeconds = episodeLengthMinutes * 60;
 
   if (!malId) {
     return NextResponse.json({ error: "malId required" }, { status: 400 });
@@ -937,38 +939,51 @@ export async function GET(request: Request) {
     });
   }
 
-  // Other anime: try AniSkip upstream first
-  try {
-    const url = `https://api.aniskip.com/v2/skip-times/${malId}/${episode}?episodeLength=${episodeLength}&types=op&types=ed&types=mixed-op&types=mixed-ed&types=recap`;
-    const r = await fetch(url, {
-      headers: { Accept: "application/json", "User-Agent": "ichidoki/1.0" },
-      signal: AbortSignal.timeout(4000),
-    });
-    if (r.ok) {
-      const data = await r.json();
-      if (data?.found && Array.isArray(data.results) && data.results.length > 0) {
-        const skipTimes = data.results.map((s: any) => ({
-          type: s.skipType,
-          start: s.interval.startTime,
-          end: s.interval.endTime,
-          episodeLength: s.episodeLength,
-        }));
-        return NextResponse.json({ found: true, source: "aniskip", skipTimes });
+  // Other anime: try AniSkip API.
+  // AniSkip requires the episode length in SECONDS and uses types as an array.
+  // We try a few common lengths in case the exact one doesn't have data.
+  const lengthsToTry = [
+    episodeLengthSeconds,       // Exact length (e.g. 1440 for 24min)
+    1440,                       // 24 min (most common)
+    1380,                       // 23 min
+    1500,                       // 25 min
+    1477,                       // One Piece length
+  ];
+  const uniqueLengths = [...new Set(lengthsToTry)];
+
+  for (const len of uniqueLengths) {
+    try {
+      // V2 API: types must be passed as repeated params (types=op&types=ed)
+      const url = `https://api.aniskip.com/v2/skip-times/${malId}/${episode}?episodeLength=${len}&types=op&types=ed&types=mixed-op&types=mixed-ed&types=recap`;
+      const r = await fetch(url, {
+        headers: { Accept: "application/json", "User-Agent": "Mozilla/5.0" },
+        signal: AbortSignal.timeout(4000),
+      });
+      if (r.ok) {
+        const data = await r.json();
+        if (data?.found && Array.isArray(data.results) && data.results.length > 0) {
+          const skipTimes = data.results.map((s: any) => ({
+            type: s.skipType,
+            start: s.interval.startTime,
+            end: s.interval.endTime,
+            episodeLength: s.episodeLength,
+          }));
+          return NextResponse.json({ found: true, source: "aniskip", skipTimes });
+        }
       }
+    } catch {
+      // try next length
     }
-  } catch {
-    // fall through to local DB
   }
 
-  // Fall back to local DB (but DON'T return a default for non-One Piece anime,
-  // since the Skip Intro button is now One Piece-only)
+  // Fall back to local DB
   const local = INTRO_TIMES[Number(malId)];
   if (local) {
     return NextResponse.json({
       found: true,
       source: "local-db",
       skipTimes: [
-        { type: "op", start: local.start, end: local.end, episodeLength },
+        { type: "op", start: local.start, end: local.end, episodeLength: episodeLengthSeconds },
       ],
     });
   }

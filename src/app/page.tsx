@@ -706,31 +706,27 @@ function HlsPlayer({
   }, [episode, audio, totalEpisodes, onEpisode]);
 
   // Skip Intro / Skip Outro visibility
-  // Skip Intro is ONLY shown for One Piece (MAL ID 21) — we have per-episode
-  // intro/recap skip times for it. For all other anime, no skip button.
+  // Shows Skip Intro when the current time is within the opening segment.
+  // Uses AniSkip data (real intro timestamps) for all anime, plus our
+  // per-episode One Piece data. Falls back to nothing if no data available.
   useEffect(() => {
-    const isOnePiece = anime.malId === 21;
-    if (!isOnePiece) {
-      setShowSkipIntro(false);
-      setShowSkipOutro(duration > 0 && currentTime >= duration * 0.95);
-      return;
-    }
-    // One Piece: use skip times if available, otherwise default 0-145s
+    // No skip times available — don't show button
     if (skipTimes.length === 0) {
-      setShowSkipIntro(currentTime >= 10 && currentTime < 145);
+      setShowSkipIntro(false);
       setShowSkipOutro(duration > 0 && currentTime >= duration * 0.95);
       return;
     }
     const op = skipTimes.find((s) => s.type === "op" || s.type === "mixed-op" || s.type === "recap");
     const ed = skipTimes.find((s) => s.type === "ed" || s.type === "mixed-ed");
     if (op) {
+      // Show button 10s into the intro, until 1s before it ends
       const startShow = Math.max(op.start + 10, op.start);
       setShowSkipIntro(currentTime >= startShow && currentTime < op.end - 1);
     } else {
       setShowSkipIntro(false);
     }
     setShowSkipOutro(!!ed ? (currentTime >= ed.start && currentTime < ed.end - 1) : (duration > 0 && currentTime >= duration * 0.95));
-  }, [currentTime, skipTimes, duration, anime.malId]);
+  }, [currentTime, skipTimes, duration]);
 
   // Auto-enable English subtitle track only
   useEffect(() => {
@@ -866,13 +862,12 @@ function HlsPlayer({
   };
 
   const skipIntro = () => {
-    // For One Piece: skip past both recap AND opening.
-    // The skipTimes array may contain a "recap" entry (0 → recapEnd)
-    // and an "op" entry (recapEnd → opEnd). We want to jump to opEnd.
-    const op = skipTimes.find((s) => s.type === "op" || s.type === "mixed-op");
-    // Default end for One Piece (when no skipTimes from API)
-    const endSec = op?.end ?? (anime.malId === 21 ? 145 : 90);
-    seek(endSec);
+    // Skip past the opening (and recap if present).
+    // The skipTimes array comes from AniSkip API or our One Piece per-episode DB.
+    const op = skipTimes.find((s) => s.type === "op" || s.type === "mixed-op" || s.type === "recap");
+    if (op) {
+      seek(op.end);
+    }
   };
 
   const skipOutro = () => {
