@@ -910,15 +910,14 @@ function HlsPlayer({
 
             {/* Custom controls bar */}
             <div
-              
               className={cn(
-                "absolute bottom-0 left-0 right-0 px-3 md:px-4 pb-2 pt-8 bg-gradient-to-t from-black/90 to-transparent z-20 transition-opacity",
+                "absolute bottom-0 left-0 right-0 px-3 md:px-5 lg:px-8 pb-1.5 md:pb-2 pt-10 md:pt-12 bg-gradient-to-t from-black/90 to-transparent z-20 transition-opacity",
                 !showControls && "opacity-0 pointer-events-none"
               )}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-[10px] md:text-xs text-white font-mono w-9 text-right">{formatTime(currentTime)}</span>
+              <div className="flex items-center gap-2 mb-1.5">
+                <span className="text-[10px] md:text-[11px] text-white font-mono w-9 text-right">{formatTime(currentTime)}</span>
                 <input
                   type="range"
                   min={0}
@@ -928,69 +927,69 @@ function HlsPlayer({
                   onChange={(e) => seek(parseFloat(e.target.value))}
                   className="flex-1 h-1 accent-red-500 cursor-pointer"
                 />
-                <span className="text-[10px] md:text-xs text-white font-mono w-9">{formatTime(duration)}</span>
+                <span className="text-[10px] md:text-[11px] text-white font-mono w-9">{formatTime(duration)}</span>
               </div>
 
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 md:gap-3">
-                  <button onClick={togglePlay} className="text-white p-1">
+                <div className="flex items-center gap-1 md:gap-2">
+                  <button onClick={togglePlay} className="text-white p-0.5 md:p-1">
                     {playing ? (
-                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg>
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg>
                     ) : (
-                      <Play className="w-5 h-5 fill-white" />
+                      <Play className="w-4 h-4 fill-white" />
                     )}
                   </button>
-                  <button onClick={() => skipBy(-10)} className="text-white p-1">
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <button onClick={() => skipBy(-10)} className="text-white p-0.5 md:p-1">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M12 8V4l-8 8 8 8v-4" /><text x="14" y="16" fontSize="9" fill="currentColor" stroke="none">10</text>
                     </svg>
                   </button>
-                  <button onClick={() => skipBy(10)} className="text-white p-1">
-                    <FastForward className="w-5 h-5" />
+                  <button onClick={() => skipBy(10)} className="text-white p-0.5 md:p-1">
+                    <FastForward className="w-4 h-4" />
                   </button>
                   {episode > 1 && (
-                    <button onClick={() => onEpisode(episode - 1, audio)} className="text-white p-1" title="Previous episode">
-                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 20L9 12l10-8v16z" /><line x1="5" y1="19" x2="5" y2="5" /></svg>
+                    <button onClick={() => onEpisode(episode - 1, audio)} className="text-white p-0.5 md:p-1" title="Previous episode">
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 20L9 12l10-8v16z" /><line x1="5" y1="19" x2="5" y2="5" /></svg>
                     </button>
                   )}
                   {episode < totalEpisodes && (
-                    <button onClick={() => onEpisode(episode + 1, audio)} className="text-white p-1" title="Next episode">
-                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 4l10 8-10 8V4z" /><line x1="19" y1="5" x2="19" y2="19" /></svg>
+                    <button onClick={() => onEpisode(episode + 1, audio)} className="text-white p-0.5 md:p-1" title="Next episode">
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 4l10 8-10 8V4z" /><line x1="19" y1="5" x2="19" y2="19" /></svg>
                     </button>
                   )}
                 </div>
-                <div className="flex items-center gap-2 md:gap-3">
+                <div className="flex items-center gap-1 md:gap-2">
                   {hasSubtitles && (
                     <button
                       onClick={toggleSubtitles}
-                      className={cn("text-white p-1 transition-opacity", subtitlesOn ? "opacity-100" : "opacity-50")}
+                      className={cn("text-white p-0.5 md:p-1 transition-opacity", subtitlesOn ? "opacity-100" : "opacity-50")}
                       title={subtitlesOn ? "Subtitles: On" : "Subtitles: Off"}
                     >
-                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <rect x="2" y="5" width="20" height="14" rx="2" />
                         <path d="M7 12.5a1.5 1.5 0 0 1 3 0" fill="none" />
                         <path d="M14 12.5a1.5 1.5 0 0 1 3 0" fill="none" />
                       </svg>
                     </button>
                   )}
-                  <button onClick={() => setShowSettings((p) => !p)} className="text-white p-1" title="Quality">
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <button onClick={() => setShowSettings((p) => !p)} className="text-white p-0.5 md:p-1" title="Quality">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <circle cx="12" cy="12" r="3" />
                       <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
                     </svg>
                   </button>
-                  <button onClick={toggleFullscreen} className="text-white p-1">
+                  <button onClick={toggleFullscreen} className="text-white p-0.5 md:p-1">
                     {isFullscreen ? (
-                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3" /></svg>
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3" /></svg>
                     ) : (
-                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" /></svg>
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" /></svg>
                     )}
                   </button>
                 </div>
               </div>
 
               {showSettings && (
-                <div className="absolute bottom-12 right-3 bg-black/95 border border-white/10 rounded-lg p-2 min-w-[140px] shadow-xl">
+                <div className="absolute bottom-10 right-3 bg-black/95 border border-white/10 rounded-lg p-2 min-w-[140px] shadow-xl">
                   <p className="text-[10px] text-white/60 px-2 py-1 uppercase tracking-wider">Quality</p>
                   <button
                     onClick={() => changeQuality(-1)}
