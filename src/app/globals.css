@@ -218,3 +218,13 @@ google-cast-button {
 google-cast-button:hover {
   --cast-button-color: #e5e5e5;
 }
+
+/* ============================================================
+   Episode drop notification — fade in/out animation
+   ============================================================ */
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translate(-50%, -10px); }
+  10% { opacity: 1; transform: translate(-50%, 0); }
+  85% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -10px); }
+}

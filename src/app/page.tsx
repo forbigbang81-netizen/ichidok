@@ -109,19 +109,28 @@ function initCastContext() {
 }
 
 // Load a media URL into the active cast session (plays on TV)
+// Uses the FULL proxied URL (https://domain/api/hls-proxy?url=...) so the
+// Cast receiver can fetch it (the proxy adds CORS headers).
 function castLoadMedia(url: string, title: string, poster: string) {
   const w = window as any;
   if (!castSession || !w.chrome?.cast) return;
   try {
-    const mediaInfo = new w.chrome.cast.media.MediaInfo(url, "application/vnd.apple.mpegurl");
+    // Build the full proxied URL — the Cast receiver needs an absolute URL
+    const origin = window.location.origin;
+    const proxiedUrl = `${origin}/api/hls-proxy?url=${encodeURIComponent(url)}`;
+    const mediaInfo = new w.chrome.cast.media.MediaInfo(proxiedUrl, "application/vnd.apple.mpegurl");
     mediaInfo.metadata = new w.chrome.cast.media.GenericMediaMetadata();
     mediaInfo.metadata.title = title;
     if (poster) {
       mediaInfo.metadata.images = [new w.chrome.cast.Image(poster)];
     }
     const request = new w.chrome.cast.media.LoadRequest(mediaInfo);
-    castSession.loadMedia(request).catch(() => {});
-  } catch {}
+    castSession.loadMedia(request).catch((err: any) => {
+      console.warn("[cast] loadMedia failed:", err);
+    });
+  } catch (e) {
+    console.warn("[cast] loadMedia error:", e);
+  }
 }
 
 function isCastConnected() {
@@ -1577,6 +1586,7 @@ export default function Page() {
   const [myList, setMyList] = useState<AnimeDetail[]>([]);
   const [history, setHistory] = useState<WatchHistoryEntry[]>([]);
   const [genreSearch, setGenreSearch] = useState<string | null>(null);
+  const [airingNotif, setAiringNotif] = useState<{ anime: Anime; minutesLeft: number; status: "soon" | "now" | "imported" } | null>(null);
   const myListIds = myList.map((a) => a.id);
 
   const refreshHistory = useCallback(() => {
@@ -1663,6 +1673,50 @@ export default function Page() {
     if (view !== "player") refreshHistory();
   }, [view, refreshHistory]);
 
+  // Episode drop notification system
+  // Checks airing anime every 30 seconds. Shows a notification when:
+  // - An episode is 10 minutes from airing (status: "soon")
+  // - An episode is 5 minutes from airing (status: "soon")
+  // - An episode just aired / was imported (status: "imported")
+  // Notification only shows on the homepage, fades in/out smoothly.
+  const notifiedRef = useRef<Set<string>>(new Set()); // track what we've already notified
+  useEffect(() => {
+    const checkAiring = () => {
+      const allAnime = [...featured, ...trending, ...popular, ...spotlight, ...watched, ...airing, ...favorite, ...topRated, ...newReleases, ...classic, ...topToday, ...topWeek, ...topMonth, ...movies, ...specials, ...onas, ...ovas];
+      const now = Date.now() / 1000;
+      for (const a of allAnime) {
+        if (!a.nextAiringEpisode) continue;
+        const airingAt = a.nextAiringEpisode.airingAt;
+        const diff = airingAt - now; // seconds until airing
+        const minutesLeft = Math.floor(diff / 60);
+        const notifKey = `${a.id}-${a.nextAiringEpisode.episode}`;
+
+        // 10-minute mark
+        if (diff <= 600 && diff > 300 && !notifiedRef.current.has(`${notifKey}-10`)) {
+          notifiedRef.current.add(`${notifKey}-10`);
+          setAiringNotif({ anime: a, minutesLeft, status: "soon" });
+          setTimeout(() => setAiringNotif(null), 8000);
+        }
+        // 5-minute mark
+        else if (diff <= 300 && diff > 0 && !notifiedRef.current.has(`${notifKey}-5`)) {
+          notifiedRef.current.add(`${notifKey}-5`);
+          setAiringNotif({ anime: a, minutesLeft, status: "soon" });
+          setTimeout(() => setAiringNotif(null), 8000);
+        }
+        // Just aired / imported
+        else if (diff <= 0 && diff > -60 && !notifiedRef.current.has(`${notifKey}-aired`)) {
+          notifiedRef.current.add(`${notifKey}-aired`);
+          setAiringNotif({ anime: a, minutesLeft: 0, status: "imported" });
+          setTimeout(() => setAiringNotif(null), 8000);
+        }
+      }
+    };
+
+    checkAiring();
+    const interval = setInterval(checkAiring, 30000);
+    return () => clearInterval(interval);
+  }, [featured, trending, popular, spotlight, watched, airing, favorite, topRated, newReleases, classic, topToday, topWeek, topMonth, movies, specials, onas, ovas]);
+
   const openDetail = useCallback((a: Anime) => { setSelectedId(a.id); setView("detail"); }, []);
   const continueWatching = history.find((h) => h.animeId === selectedId) || null;
 
@@ -1670,6 +1724,47 @@ export default function Page() {
     <div className="bg-black min-h-screen w-full overflow-x-hidden pb-20 md:pb-0">
       <CastInitializer />
       <Nav active={view === "detail" ? "home" : view} onChange={(v) => { setView(v); setSelectedId(null); }} />
+
+      {/* Episode drop notification — only on homepage, top center, fade in/out */}
+      {view === "home" && airingNotif && (
+        <div
+          key={`${airingNotif.anime.id}-${airingNotif.status}-${airingNotif.minutesLeft}`}
+          className={cn(
+            "fixed top-16 md:top-20 left-1/2 -translate-x-1/2 z-50 px-4 py-3 rounded-xl shadow-2xl max-w-[90%] md:max-w-md",
+            "animate-[fadeInOut_8s_ease-in-out]",
+            airingNotif.status === "imported"
+              ? "bg-red-600 text-white"
+              : "bg-gray-900/95 text-white border border-white/10"
+          )}
+          onClick={() => { openDetail(airingNotif.anime); setAiringNotif(null); }}
+          role="button"
+        >
+          <div className="flex items-center gap-3">
+            <img
+              src={airingNotif.anime.poster}
+              alt={airingNotif.anime.title}
+              className="w-10 h-14 rounded object-cover shrink-0"
+            />
+            <div className="min-w-0">
+              {airingNotif.status === "imported" ? (
+                <>
+                  <p className="text-sm font-bold truncate">New episode available!</p>
+                  <p className="text-xs text-white/80 truncate">
+                    {airingNotif.anime.title} — Ep {airingNotif.anime.nextAiringEpisode?.episode || "?"}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="text-sm font-bold truncate">
+                    Episode dropping in {airingNotif.minutesLeft}m
+                  </p>
+                  <p className="text-xs text-gray-400 truncate">{airingNotif.anime.title}</p>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="md:pt-14">
         {view === "home" && (
