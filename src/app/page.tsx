@@ -98,7 +98,6 @@ function CastInitializer() {
         });
       }
     };
-    // Cast API may already be loaded
     if ((window as any).cast?.framework) {
       init();
     } else {
@@ -107,6 +106,50 @@ function CastInitializer() {
     }
   }, []);
   return null;
+}
+
+// Cast button — uses Google Cast SDK to launch the cast dialog
+function CastButton() {
+  const [available, setAvailable] = useState(false);
+
+  useEffect(() => {
+    const check = () => {
+      if ((window as any).cast?.framework) {
+        setAvailable(true);
+      }
+    };
+    check();
+    if (!(window as any).cast?.framework) {
+      window.addEventListener("cast-api-ready", check);
+      return () => window.removeEventListener("cast-api-ready", check);
+    }
+  }, []);
+
+  const launchCast = () => {
+    try {
+      const w = window as any;
+      if (w.cast?.framework) {
+        const context = w.cast.framework.CastContext.getInstance();
+        context.requestSession().catch(() => {});
+      }
+    } catch {}
+  };
+
+  if (!available) return null;
+
+  return (
+    <button
+      onClick={launchCast}
+      className="w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/50 active:scale-95 transition"
+      title="Cast to TV"
+    >
+      {/* Cast icon */}
+      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6" />
+        <line x1="2" y1="20" x2="2.01" y2="20" />
+      </svg>
+    </button>
+  );
 }
 
 // ============================================================================
@@ -1131,9 +1174,7 @@ function DetailView({ animeId, onBack, onWatch, onSelectAnime, myList, onToggleL
         <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-30 md:pt-16">
           <button onClick={onBack} className="w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center text-white"><ChevronLeft className="w-5 h-5" /></button>
           {/* Chromecast button — uses Google Cast SDK */}
-          <div className="w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center">
-            <google-cast-button />
-          </div>
+          <CastButton />
         </div>
         <div className="absolute bottom-16 md:bottom-20 left-0 right-0 px-5 md:px-12 lg:px-20 z-20 flex flex-col items-center md:items-start text-center md:text-left">
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-black mb-3 tracking-wide drop-shadow-lg text-white">{detail.title}</h1>
