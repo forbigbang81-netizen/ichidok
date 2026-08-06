@@ -6,12 +6,12 @@ import { Toaster } from "@/components/ui/sonner";
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AniLab — Watch Anime Online",
+  title: "Ichidok — Watch Anime Online",
   description: "Stream your favorite anime in HD with SUB/DUB options. Auto-imports new episodes as they air.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
-    title: "AniLab",
+    title: "Ichidok",
     statusBarStyle: "black-translucent",
   },
   icons: {

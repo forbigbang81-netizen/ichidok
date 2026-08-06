@@ -258,8 +258,8 @@ function Nav({ active, onChange }: { active: View; onChange: (v: View) => void }
       {/* Desktop: top horizontal nav bar */}
       <nav className="hidden md:flex fixed top-0 left-0 right-0 z-40 bg-black/95 backdrop-blur-md border-b border-gray-800 h-14 items-center px-6 lg:px-10">
         <div className="flex items-center gap-2 mr-8 lg:mr-12">
-          <div className="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center text-white font-bold text-sm">A</div>
-          <span className="text-white font-bold text-lg tracking-tight">AniLab</span>
+          <div className="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center text-white font-bold text-sm">I</div>
+          <span className="font-bold text-lg tracking-tight bg-gradient-to-r from-white to-gray-500 bg-clip-text text-transparent">Ichidok</span>
         </div>
         <div className="flex items-center gap-1 lg:gap-2">
           {items.map(({ key, icon: Icon, label }) => (
