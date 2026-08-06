@@ -108,14 +108,29 @@ function CastInitializer() {
   return null;
 }
 
-// Cast button — uses Google Cast SDK to launch the cast dialog
-function CastButton() {
+// Cast button — uses Google Cast SDK to launch the cast dialog.
+// After a cast session is established, calls onSessionEstablished so the
+// parent can route to the episode picker.
+function CastButton({ onSessionEstablished }: { onSessionEstablished?: () => void }) {
   const [available, setAvailable] = useState(false);
+  const [connected, setConnected] = useState(false);
 
   useEffect(() => {
     const check = () => {
-      if ((window as any).cast?.framework) {
+      const w = window as any;
+      if (w.cast?.framework) {
         setAvailable(true);
+        // Listen for session state changes
+        const context = w.cast.framework.CastContext.getInstance();
+        context.addEventListener(w.cast.framework.CastContextEventType.SESSION_STATE_CHANGED, (event: any) => {
+          const sessionState = event.sessionState;
+          if (sessionState === w.cast.framework.SessionState.SESSION_STARTED) {
+            setConnected(true);
+            onSessionEstablished?.();
+          } else if (sessionState === w.cast.framework.SessionState.SESSION_ENDED) {
+            setConnected(false);
+          }
+        });
       }
     };
     check();
@@ -123,7 +138,7 @@ function CastButton() {
       window.addEventListener("cast-api-ready", check);
       return () => window.removeEventListener("cast-api-ready", check);
     }
-  }, []);
+  }, [onSessionEstablished]);
 
   const launchCast = () => {
     try {
@@ -140,10 +155,12 @@ function CastButton() {
   return (
     <button
       onClick={launchCast}
-      className="w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/50 active:scale-95 transition"
-      title="Cast to TV"
+      className={cn(
+        "w-10 h-10 rounded-full backdrop-blur-sm flex items-center justify-center transition active:scale-95",
+        connected ? "bg-red-600 text-white" : "bg-black/30 text-white hover:bg-black/50"
+      )}
+      title={connected ? "Casting — tap to disconnect" : "Cast to TV"}
     >
-      {/* Cast icon */}
       <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6" />
         <line x1="2" y1="20" x2="2.01" y2="20" />
@@ -244,7 +261,16 @@ function HeroSection({ anime, onClick, onToggleList, isInList }: {
         </div>
         <p className="text-sm md:text-base text-gray-300 mb-6 md:mb-8 font-medium md:max-w-2xl">{anime.genres.slice(0, 3).join(", ")}</p>
         <div className="flex justify-between md:justify-start items-center gap-3 md:gap-4 px-2 md:px-0">
-          <button className="flex flex-col items-center gap-1 opacity-90 active:opacity-70">
+          <button
+            onClick={() => {
+              if (navigator.share) {
+                navigator.share({ title: anime.title, text: `Watch ${anime.title} on Ichidok`, url: window.location.href }).catch(() => {});
+              } else {
+                navigator.clipboard?.writeText(window.location.href).catch(() => {});
+              }
+            }}
+            className="flex flex-col items-center gap-1 opacity-90 active:opacity-70"
+          >
             <Share2 className="w-7 h-7" strokeWidth={1.5} />
             <span className="text-[10px] font-semibold">Share</span>
           </button>
@@ -1149,11 +1175,12 @@ function FallbackIframePlayer({ url, anime, episode, audio, onBack }: {
 // ============================================================================
 // Detail View — responsive
 // ============================================================================
-function DetailView({ animeId, onBack, onWatch, onSelectAnime, myList, onToggleList, continueFromEp }: {
+function DetailView({ animeId, onBack, onWatch, onSelectAnime, myList, onToggleList, continueFromEp, onCastSession }: {
   animeId: number; onBack: () => void; onWatch: (d: AnimeDetail, ep?: number, audio?: "sub" | "dub") => void;
   onSelectAnime: (id: number) => void; myList: number[];
   onToggleList: (d: AnimeDetail) => void;
   continueFromEp?: { episode: number; audio: "sub" | "dub" } | null;
+  onCastSession?: (d: AnimeDetail) => void;
 }) {
   const [detail, setDetail] = useState<AnimeDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -1173,8 +1200,8 @@ function DetailView({ animeId, onBack, onWatch, onSelectAnime, myList, onToggleL
         <div className="absolute inset-0 z-10" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 60%, rgba(0,0,0,1) 100%)" }} />
         <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-30 md:pt-16">
           <button onClick={onBack} className="w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center text-white"><ChevronLeft className="w-5 h-5" /></button>
-          {/* Chromecast button — uses Google Cast SDK */}
-          <CastButton />
+          {/* Chromecast button — after connecting, routes to episode picker */}
+          <CastButton onSessionEstablished={() => onCastSession?.(detail)} />
         </div>
         <div className="absolute bottom-16 md:bottom-20 left-0 right-0 px-5 md:px-12 lg:px-20 z-20 flex flex-col items-center md:items-start text-center md:text-left">
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-black mb-3 tracking-wide drop-shadow-lg text-white">{detail.title}</h1>
@@ -1195,7 +1222,16 @@ function DetailView({ animeId, onBack, onWatch, onSelectAnime, myList, onToggleL
           </div>
           <p className="text-sm md:text-base text-gray-400 mb-6">{detail.genres.slice(0, 4).join(", ")}</p>
           <div className="w-full md:w-auto flex items-center justify-between md:justify-start gap-4 md:gap-6 px-2 md:px-0">
-            <button className="flex flex-col items-center gap-1">
+            <button
+              onClick={() => {
+                if (navigator.share) {
+                  navigator.share({ title: detail.title, text: `Watch ${detail.title} on Ichidok`, url: window.location.href }).catch(() => {});
+                } else {
+                  navigator.clipboard?.writeText(window.location.href).catch(() => {});
+                }
+              }}
+              className="flex flex-col items-center gap-1"
+            >
               <div className="w-10 h-10 rounded-full border border-gray-500 flex items-center justify-center"><Share2 className="w-5 h-5 text-white" /></div>
               <span className="text-[10px] text-gray-300">Share</span>
             </button>
@@ -1258,8 +1294,8 @@ function DetailView({ animeId, onBack, onWatch, onSelectAnime, myList, onToggleL
 // ============================================================================
 // Search View — responsive
 // ============================================================================
-function SearchView({ onSelect }: { onSelect: (a: Anime) => void }) {
-  const [query, setQuery] = useState("");
+function SearchView({ onSelect, initialGenre }: { onSelect: (a: Anime) => void; initialGenre?: string | null }) {
+  const [query, setQuery] = useState(initialGenre || "");
   const [results, setResults] = useState<Anime[]>([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -1497,6 +1533,7 @@ export default function Page() {
   const [loading, setLoading] = useState(true);
   const [myList, setMyList] = useState<AnimeDetail[]>([]);
   const [history, setHistory] = useState<WatchHistoryEntry[]>([]);
+  const [genreSearch, setGenreSearch] = useState<string | null>(null);
   const myListIds = myList.map((a) => a.id);
 
   const refreshHistory = useCallback(() => {
@@ -1625,7 +1662,7 @@ export default function Page() {
                 <ContinueWatchingSection
                   history={history}
                   onSelect={(e) => {
-                    const all = [...trending, ...popular, ...spotlight, ...watched, ...airing, ...favorite, ...topRated, ...newReleases, ...classic, ...topToday, ...topWeek, ...topMonth];
+                    const all = [...featured, ...trending, ...popular, ...spotlight, ...watched, ...airing, ...favorite, ...topRated, ...newReleases, ...classic, ...topToday, ...topWeek, ...topMonth, ...movies, ...specials, ...onas, ...ovas];
                     const found = all.find((a) => a.id === e.animeId);
                     const anime: Anime = found || {
                       id: e.animeId,
@@ -1646,12 +1683,14 @@ export default function Page() {
                       studios: [],
                       duration: null,
                     };
+                    // Fetch detail, then go to EPISODES view (not straight to player)
+                    // so the user can pick which episode to resume from.
                     fetchDetail(e.animeId).then((d) => {
                       if (d) {
                         setDetailData(d);
                         setPlayerEp(e.episode);
                         setPlayerAudio(e.audio);
-                        setView("player");
+                        setView("episodes");
                       } else {
                         openDetail(anime);
                       }
@@ -1705,6 +1744,14 @@ export default function Page() {
             myList={myListIds}
             onToggleList={toggleMyList}
             continueFromEp={continueWatching ? { episode: continueWatching.episode, audio: continueWatching.audio } : null}
+            onCastSession={(d) => {
+              // After Chromecast connects, go to episode picker so the user
+              // can pick an episode to cast to the TV.
+              setDetailData(d);
+              setPlayerEp(continueWatching?.episode ?? 1);
+              setPlayerAudio(continueWatching?.audio ?? "sub");
+              setView("episodes");
+            }}
           />
         )}
 
@@ -1726,7 +1773,7 @@ export default function Page() {
             anime={detailData}
             episode={playerEp}
             audio={playerAudio}
-            onBack={() => setView("episodes")}
+            onBack={() => setView("detail")}
             onEpisode={(ep, audio) => {
               setPlayerEp(ep);
               setPlayerAudio(audio);
@@ -1735,7 +1782,7 @@ export default function Page() {
           />
         )}
 
-        {view === "search" && <SearchView onSelect={openDetail} />}
+        {view === "search" && <SearchView onSelect={openDetail} initialGenre={genreSearch} />}
 
         {view === "schedule" && <ScheduleView onSelect={openDetail} />}
 
@@ -1752,7 +1799,14 @@ export default function Page() {
             <h1 className="text-2xl md:text-3xl font-bold text-white mb-4">Genres</h1>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
               {["Action", "Adventure", "Comedy", "Drama", "Fantasy", "Romance", "Sci-Fi", "Supernatural", "Suspense", "Slice of Life", "Mystery", "Horror"].map((g) => (
-                <button key={g} onClick={() => setView("search")} className="bg-[#1c1c1e] text-white font-medium py-4 md:py-6 rounded-xl text-sm md:text-base hover:bg-[#2c2c2c] active:scale-95 transition">{g}</button>
+                <button
+                  key={g}
+                  onClick={() => {
+                    setGenreSearch(g);
+                    setView("search");
+                  }}
+                  className="bg-[#1c1c1e] text-white font-medium py-4 md:py-6 rounded-xl text-sm md:text-base hover:bg-[#2c2c2c] active:scale-95 transition"
+                >{g}</button>
               ))}
             </div>
           </div>
