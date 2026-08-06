@@ -908,7 +908,7 @@ function HlsPlayer({
                 onTouchStart={onSkipIntroDown}
                 onTouchEnd={onSkipIntroUp}
                 className="absolute bottom-20 md:bottom-24 right-4 z-20 bg-white/95 text-black font-bold text-xs md:text-sm px-4 py-2 rounded-full shadow-lg active:scale-95 transition"
-              >{skipTimes.some((s) => s.type === "recap") ? "Skip Recap + Intro" : "Skip Intro"}</button>
+              >Skip Intro</button>
             )}
             {longPressHint && (
               <div className="absolute bottom-20 md:bottom-24 right-4 z-30 bg-black/90 text-white text-xs px-3 py-2 rounded-lg">
