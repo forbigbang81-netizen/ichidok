@@ -54,8 +54,10 @@ async function fetchZokoSource(malId: number, episode: number, audio: "sub" | "d
   const r = await fetch(`/api/zoko-source?malId=${malId}&episode=${episode}&audio=${audio}`);
   if (!r.ok) return null;
   const data = await r.json();
-  // Rewrite URLs to go through our CORS proxy
+  // Keep the original URL for Cast (cast receiver can fetch directly),
+  // and also store the proxied URL for the local hls.js player.
   if (data?.src) {
+    data.originalSrc = data.src;
     data.src = `/api/hls-proxy?url=${encodeURIComponent(data.src)}`;
   }
   if (data?.subtitles?.length) {
@@ -84,33 +86,63 @@ async function fetchAiringSchedule(): Promise<Anime[]> {
 }
 
 // ============================================================================
-// Google Cast SDK initializer — sets up the cast context on mount
+// Google Cast SDK — session manager
 // ============================================================================
+// Global cast state — shared between CastButton and HlsPlayer
+let castSession: any = null;
+
+function initCastContext() {
+  const w = window as any;
+  if (!w.cast?.framework) return;
+  const context = w.cast.framework.CastContext.getInstance();
+  context.setOptions({
+    receiverApplicationId: w.chrome?.cast?.media?.DEFAULT_MEDIA_RECEIVER_APP_ID || "CC1AD845",
+    autoJoinPolicy: w.chrome?.cast?.AutoJoinPolicy?.ORIGIN_SCOPED,
+  });
+  context.addEventListener(w.cast.framework.CastContextEventType.SESSION_STATE_CHANGED, (event: any) => {
+    if (event.sessionState === w.cast.framework.SessionState.SESSION_STARTED) {
+      castSession = event.session;
+    } else if (event.sessionState === w.cast.framework.SessionState.SESSION_ENDED) {
+      castSession = null;
+    }
+  });
+}
+
+// Load a media URL into the active cast session (plays on TV)
+function castLoadMedia(url: string, title: string, poster: string) {
+  const w = window as any;
+  if (!castSession || !w.chrome?.cast) return;
+  try {
+    const mediaInfo = new w.chrome.cast.media.MediaInfo(url, "application/vnd.apple.mpegurl");
+    mediaInfo.metadata = new w.chrome.cast.media.GenericMediaMetadata();
+    mediaInfo.metadata.title = title;
+    if (poster) {
+      mediaInfo.metadata.images = [new w.chrome.cast.Image(poster)];
+    }
+    const request = new w.chrome.cast.media.LoadRequest(mediaInfo);
+    castSession.loadMedia(request).catch(() => {});
+  } catch {}
+}
+
+function isCastConnected() {
+  return !!castSession;
+}
+
+// Cast initializer — runs once on app mount
 function CastInitializer() {
   useEffect(() => {
-    const init = () => {
-      const w = window as any;
-      if (w.cast?.framework) {
-        const context = w.cast.framework.CastContext.getInstance();
-        context.setOptions({
-          receiverApplicationId: w.chrome?.cast?.media?.DEFAULT_MEDIA_RECEIVER_APP_ID || "CC1AD845",
-          autoJoinPolicy: w.chrome?.cast?.AutoJoinPolicy?.ORIGIN_SCOPED,
-        });
-      }
-    };
     if ((window as any).cast?.framework) {
-      init();
+      initCastContext();
     } else {
-      window.addEventListener("cast-api-ready", init);
-      return () => window.removeEventListener("cast-api-ready", init);
+      window.addEventListener("cast-api-ready", initCastContext);
+      return () => window.removeEventListener("cast-api-ready", initCastContext);
     }
   }, []);
   return null;
 }
 
-// Cast button — uses Google Cast SDK to launch the cast dialog.
-// After a cast session is established, calls onSessionEstablished so the
-// parent can route to the episode picker.
+// Cast button — launches the cast dialog. After connecting, calls
+// onSessionEstablished so the parent can route to the episode picker.
 function CastButton({ onSessionEstablished }: { onSessionEstablished?: () => void }) {
   const [available, setAvailable] = useState(false);
   const [connected, setConnected] = useState(false);
@@ -120,14 +152,12 @@ function CastButton({ onSessionEstablished }: { onSessionEstablished?: () => voi
       const w = window as any;
       if (w.cast?.framework) {
         setAvailable(true);
-        // Listen for session state changes
         const context = w.cast.framework.CastContext.getInstance();
         context.addEventListener(w.cast.framework.CastContextEventType.SESSION_STATE_CHANGED, (event: any) => {
-          const sessionState = event.sessionState;
-          if (sessionState === w.cast.framework.SessionState.SESSION_STARTED) {
+          if (event.sessionState === w.cast.framework.SessionState.SESSION_STARTED) {
             setConnected(true);
             onSessionEstablished?.();
-          } else if (sessionState === w.cast.framework.SessionState.SESSION_ENDED) {
+          } else if (event.sessionState === w.cast.framework.SessionState.SESSION_ENDED) {
             setConnected(false);
           }
         });
@@ -503,7 +533,7 @@ function HlsPlayer({
   const skipTimesRef = useRef<SkipTime[]>([]);
   const hideControlsTimer = useRef<number | null>(null);
 
-  const [streamInfo, setStreamInfo] = useState<{ src: string; poster?: string; subtitles?: any[] } | null>(null);
+  const [streamInfo, setStreamInfo] = useState<{ src: string; originalSrc?: string; poster?: string; subtitles?: any[] } | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [playing, setPlaying] = useState(false);
@@ -522,6 +552,7 @@ function HlsPlayer({
   const [longPressHint, setLongPressHint] = useState(false);
   const [subtitlesOn, setSubtitlesOn] = useState(audio === "sub");
   const [hasSubtitles, setHasSubtitles] = useState(false);
+  const [castActive, setCastActive] = useState(isCastConnected());
 
   // Load the stream source and skip times
   useEffect(() => {
@@ -548,7 +579,7 @@ function HlsPlayer({
         setLoading(false);
         return;
       }
-      setStreamInfo({ src: src.src, poster: src.poster, subtitles: src.subtitles });
+      setStreamInfo({ src: src.src, originalSrc: src.originalSrc, poster: src.poster, subtitles: src.subtitles });
       setHasSubtitles(!!src.subtitles && src.subtitles.length > 0);
 
       fetchSkipTimes(anime.malId!, episode, 24).then((skips) => {
@@ -560,6 +591,14 @@ function HlsPlayer({
 
     return () => { cancelled = true; };
   }, [anime.malId, episode, audio]);
+
+  // When stream loads and cast is active, load media into the cast session
+  // (plays on TV instead of local device)
+  useEffect(() => {
+    if (castActive && streamInfo?.originalSrc) {
+      castLoadMedia(streamInfo.originalSrc, `${anime.title} - Ep ${episode}`, anime.poster);
+    }
+  }, [castActive, streamInfo?.originalSrc, anime.title, anime.poster, episode]);
 
   // Initialize hls.js
   useEffect(() => {
@@ -908,6 +947,15 @@ function HlsPlayer({
           <ChevronLeft className="w-6 h-6" />
           <span className="font-bold text-sm truncate max-w-[250px] md:max-w-[400px]">{anime.title} - Ep {episode} {audio.toUpperCase()}</span>
         </button>
+        {castActive && (
+          <div className="ml-auto flex items-center gap-1.5 text-red-500 text-xs font-bold">
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6" />
+              <line x1="2" y1="20" x2="2.01" y2="20" />
+            </svg>
+            <span className="hidden sm:inline">Casting</span>
+          </div>
+        )}
       </div>
 
       {/* Scrollable content */}
@@ -1687,6 +1735,7 @@ export default function Page() {
                     // so the user can pick which episode to resume from.
                     fetchDetail(e.animeId).then((d) => {
                       if (d) {
+                        setSelectedId(e.animeId);
                         setDetailData(d);
                         setPlayerEp(e.episode);
                         setPlayerAudio(e.audio);
