@@ -666,22 +666,13 @@ function HlsPlayer({
   }, [currentTime, duration, anime, episode, audio, totalEpisodes]);
 
   // Toggle controls visibility on tap.
-  // - If controls are currently hidden → show them + start 3s auto-hide timer
+  // - If controls are currently hidden → show them (stay visible until tapped again)
   // - If controls are currently visible → hide immediately, stay hidden until tapped
-  // The controls bar calls e.stopPropagation() so taps on buttons
-  // (play/pause, seek, etc.) won't trigger this toggle.
+  // NO auto-hide — the user explicitly controls visibility via tap.
   const pokeControls = useCallback(() => {
     setShowControls((prev) => {
       if (hideControlsTimer.current) window.clearTimeout(hideControlsTimer.current);
-      if (!prev) {
-        // Currently hidden → show + start 3s auto-hide timer
-        hideControlsTimer.current = window.setTimeout(() => {
-          setShowControls(false);
-        }, 3000);
-        return true;
-      }
-      // Currently visible → hide immediately (stay hidden until tapped)
-      return false;
+      return !prev;
     });
   }, []);
 
@@ -691,20 +682,12 @@ function HlsPlayer({
     };
   }, []);
 
-  // When playback starts, show controls briefly then auto-hide after 3s.
+  // When playback starts, keep controls visible.
   // When paused, keep controls visible.
+  // NO auto-hide — the user controls visibility via tap only.
   useEffect(() => {
-    if (playing) {
-      setShowControls(true);
-      if (hideControlsTimer.current) window.clearTimeout(hideControlsTimer.current);
-      hideControlsTimer.current = window.setTimeout(() => {
-        setShowControls(false);
-      }, 3000);
-    } else {
-      if (hideControlsTimer.current) window.clearTimeout(hideControlsTimer.current);
-      setShowControls(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (hideControlsTimer.current) window.clearTimeout(hideControlsTimer.current);
+    setShowControls(true);
   }, [playing]);
 
   useEffect(() => {
