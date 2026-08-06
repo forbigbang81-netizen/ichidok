@@ -47,6 +47,22 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             `,
           }}
         />
+        {/* Google Cast SDK — loads the cast framework and custom elements */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window['__onGCastApiAvailable'] = function(isAvailable) {
+                if (isAvailable) {
+                  window.dispatchEvent(new CustomEvent('cast-api-ready'));
+                }
+              };
+            `,
+          }}
+        />
+        <script
+          defer
+          src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"
+        />
       </head>
       <body className={`${inter.variable} antialiased bg-black text-white`}>
         {children}

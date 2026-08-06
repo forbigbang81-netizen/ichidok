@@ -204,3 +204,17 @@ body {
 .mb-safe {
   margin-bottom: max(env(safe-area-inset-bottom), 0px);
 }
+
+/* ============================================================
+   Google Cast SDK — cast button styling
+   ============================================================ */
+google-cast-button {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  --cast-button-color: #ffffff;
+  cursor: pointer;
+}
+google-cast-button:hover {
+  --cast-button-color: #e5e5e5;
+}

@@ -84,6 +84,32 @@ async function fetchAiringSchedule(): Promise<Anime[]> {
 }
 
 // ============================================================================
+// Google Cast SDK initializer — sets up the cast context on mount
+// ============================================================================
+function CastInitializer() {
+  useEffect(() => {
+    const init = () => {
+      const w = window as any;
+      if (w.cast?.framework) {
+        const context = w.cast.framework.CastContext.getInstance();
+        context.setOptions({
+          receiverApplicationId: w.chrome?.cast?.media?.DEFAULT_MEDIA_RECEIVER_APP_ID || "CC1AD845",
+          autoJoinPolicy: w.chrome?.cast?.AutoJoinPolicy?.ORIGIN_SCOPED,
+        });
+      }
+    };
+    // Cast API may already be loaded
+    if ((window as any).cast?.framework) {
+      init();
+    } else {
+      window.addEventListener("cast-api-ready", init);
+      return () => window.removeEventListener("cast-api-ready", init);
+    }
+  }, []);
+  return null;
+}
+
+// ============================================================================
 // Helper: format next airing time
 // ============================================================================
 function formatAiringTime(airingAt: number): string {
@@ -823,7 +849,6 @@ function HlsPlayer({
             ref={containerRef}
             className="relative w-full md:max-w-[900px] lg:max-w-[1100px] xl:max-w-[1300px] bg-black aspect-video"
             onClick={pokeControls}
-            onTouchStart={pokeControls}
           >
             <video
               ref={videoRef}
@@ -871,12 +896,12 @@ function HlsPlayer({
 
             {showSkipIntro && !loading && !error && (
               <button
-                onClick={skipIntro}
+                onClick={(e) => { e.stopPropagation(); skipIntro(); }}
                 onMouseDown={onSkipIntroDown}
                 onMouseUp={onSkipIntroUp}
                 onMouseLeave={onSkipIntroUp}
-                onTouchStart={onSkipIntroDown}
-                onTouchEnd={onSkipIntroUp}
+                onTouchStart={(e) => { e.stopPropagation(); onSkipIntroDown(); }}
+                onTouchEnd={(e) => { e.stopPropagation(); onSkipIntroUp(); }}
                 className="absolute bottom-20 md:bottom-24 right-4 z-20 bg-white/95 text-black font-bold text-xs md:text-sm px-4 py-2 rounded-full shadow-lg active:scale-95 transition"
               >Skip Intro</button>
             )}
@@ -888,7 +913,8 @@ function HlsPlayer({
 
             {showSkipOutro && !loading && !error && episode < totalEpisodes && (
               <button
-                onClick={skipOutro}
+                onClick={(e) => { e.stopPropagation(); skipOutro(); }}
+                onTouchStart={(e) => e.stopPropagation()}
                 className="absolute bottom-20 md:bottom-24 right-4 z-20 bg-red-600 text-white font-bold text-xs md:text-sm px-4 py-2 rounded-full shadow-lg active:scale-95 transition flex items-center gap-1"
               >
                 <SkipForward className="w-3 h-3 md:w-4 md:h-4" /> Next Ep
@@ -915,6 +941,7 @@ function HlsPlayer({
                 !showControls && "opacity-0 pointer-events-none"
               )}
               onClick={(e) => e.stopPropagation()}
+              onTouchStart={(e) => e.stopPropagation()}
             >
               <div className="flex items-center gap-2 mb-1.5">
                 <span className="text-[10px] md:text-[11px] text-white font-mono w-9 text-right">{formatTime(currentTime)}</span>
@@ -1103,6 +1130,10 @@ function DetailView({ animeId, onBack, onWatch, onSelectAnime, myList, onToggleL
         <div className="absolute inset-0 z-10" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 60%, rgba(0,0,0,1) 100%)" }} />
         <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-30 md:pt-16">
           <button onClick={onBack} className="w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center text-white"><ChevronLeft className="w-5 h-5" /></button>
+          {/* Chromecast button — uses Google Cast SDK */}
+          <div className="w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center">
+            <google-cast-button />
+          </div>
         </div>
         <div className="absolute bottom-16 md:bottom-20 left-0 right-0 px-5 md:px-12 lg:px-20 z-20 flex flex-col items-center md:items-start text-center md:text-left">
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-black mb-3 tracking-wide drop-shadow-lg text-white">{detail.title}</h1>
@@ -1516,6 +1547,7 @@ export default function Page() {
 
   return (
     <div className="bg-black min-h-screen w-full overflow-x-hidden pb-20 md:pb-0">
+      <CastInitializer />
       <Nav active={view === "detail" ? "home" : view} onChange={(v) => { setView(v); setSelectedId(null); }} />
 
       <div className="md:pt-14">
