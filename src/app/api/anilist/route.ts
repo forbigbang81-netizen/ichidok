@@ -1,16 +1,14 @@
 import { NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
-export const revalidate = 3600; // Re-fetch every hour — picks up new episodes automatically
+export const revalidate = 3600;
 
 const ANILIST_GRAPHQL = "https://graphql.anilist.co";
 
-// Query now also fetches nextAiringEpisode — this is how we "auto-import"
-// new episodes. When a new episode airs, AniList updates nextAiringEpisode,
-// and our getEpisodeCount() function uses (nextAiringEpisode - 1) as the
-// current episode count. No code changes needed when new episodes drop.
-const QUERY = `query ($page: Int, $perPage: Int, $sort: [MediaSort], $genre: String, $season: MediaSeason, $year: Int) {
+// Query fetches nextAiringEpisode for auto-import of new episodes.
+// Also accepts a $format param to filter by TV/MOVIE/SPECIAL/OVA/ONA.
+const QUERY = `query ($page: Int, $perPage: Int, $sort: [MediaSort], $genre: String, $season: MediaSeason, $year: Int, $format: MediaFormat) {
   Page(page: $page, perPage: $perPage) {
-    media(type: ANIME, sort: $sort, genre: $genre, season: $season, seasonYear: $year, isAdult: false) {
+    media(type: ANIME, sort: $sort, genre: $genre, season: $season, seasonYear: $year, format: $format, isAdult: false) {
       id idMal
       title { romaji english native }
       coverImage { large extraLarge color }
@@ -26,11 +24,12 @@ const QUERY = `query ($page: Int, $perPage: Int, $sort: [MediaSort], $genre: Str
   }
 }`;
 
-async function fetchAniList(page: number, perPage: number, sort: string[], genre?: string, season?: string, year?: number) {
+async function fetchAniList(page: number, perPage: number, sort: string[], genre?: string, season?: string, year?: number, format?: string) {
   const variables: any = { page, perPage, sort };
   if (genre) variables.genre = genre;
   if (season) variables.season = season;
   if (year) variables.year = year;
+  if (format) variables.format = format;
   const res = await fetch(ANILIST_GRAPHQL, {
     method: "POST",
     headers: { "Content-Type": "application/json", "Accept": "application/json", "User-Agent": "Mozilla/5.0" },
@@ -48,7 +47,6 @@ export async function GET(request: Request) {
   const perPage = Number(searchParams.get("perPage") || 30);
 
   try {
-    // Expanded section list - more sections for more anime
     const sortMap: Record<string, string[]> = {
       spotlight:     ["TRENDING_DESC"],
       trending:      ["TRENDING_DESC"],
@@ -64,13 +62,16 @@ export async function GET(request: Request) {
       "upcoming":    ["START_DATE_DESC"],
       "classic":     ["POPULARITY_DESC"],
       "movies":      ["POPULARITY_DESC"],
+      "specials":    ["POPULARITY_DESC"],
+      "onas":        ["POPULARITY_DESC"],
+      "ovas":        ["POPULARITY_DESC"],
     };
     const sort = sortMap[section] || ["POPULARITY_DESC"];
 
-    // Some sections need extra filters
     let genre: string | undefined;
     let season: string | undefined;
     let year: number | undefined;
+    let format: string | undefined;
     let effectiveSort = sort;
 
     if (section === "upcoming") {
@@ -79,9 +80,17 @@ export async function GET(request: Request) {
       year = new Date().getFullYear() - 1;
     } else if (section === "classic") {
       year = 2009;
+    } else if (section === "movies") {
+      format = "MOVIE";
+    } else if (section === "specials") {
+      format = "SPECIAL";
+    } else if (section === "onas") {
+      format = "ONA";
+    } else if (section === "ovas") {
+      format = "OVA";
     }
 
-    const anime = await fetchAniList(page, perPage, effectiveSort, genre, season, year);
+    const anime = await fetchAniList(page, perPage, effectiveSort, genre, season, year, format);
 
     // Filter out anime without idMal (needed for zokoanime streaming)
     const filtered = anime.filter((a: any) => a.idMal);
@@ -89,7 +98,6 @@ export async function GET(request: Request) {
     const formatted = filtered.map((a: any) => ({
       id: a.id,
       malId: a.idMal,
-      // Prefer English title, then romaji, then native
       title: a.title.english || a.title.romaji || a.title.native || "Unknown",
       titleEnglish: a.title.english,
       titleRomaji: a.title.romaji,
@@ -105,14 +113,13 @@ export async function GET(request: Request) {
       score: a.averageScore ? (a.averageScore / 10).toFixed(2) : null,
       popularity: a.popularity,
       episodeCount: a.episodes || 0,
-      type: a.format === "TV" ? "TV" : a.format === "MOVIE" ? "Movie" : a.format || "TV",
+      type: a.format === "TV" ? "TV" : a.format === "MOVIE" ? "Movie" : a.format === "SPECIAL" ? "Special" : a.format === "OVA" ? "OVA" : a.format === "ONA" ? "ONA" : a.format || "TV",
       status: a.status === "FINISHED" ? "Finished" : a.status === "RELEASING" ? "Currently Airing" : "Not yet aired",
       year: a.seasonYear,
       season: a.season ? a.season.toLowerCase() : null,
       genres: a.genres || [],
       studios: a.studios?.nodes?.map((s: any) => s.name) || [],
       duration: a.duration ? `${a.duration}m` : null,
-      // Airing schedule — used by the client to auto-detect new episodes
       nextAiringEpisode: a.nextAiringEpisode
         ? { episode: a.nextAiringEpisode.episode, airingAt: a.nextAiringEpisode.airingAt }
         : null,

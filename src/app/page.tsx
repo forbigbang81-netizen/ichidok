@@ -257,8 +257,7 @@ function Nav({ active, onChange }: { active: View; onChange: (v: View) => void }
     <>
       {/* Desktop: top horizontal nav bar */}
       <nav className="hidden md:flex fixed top-0 left-0 right-0 z-40 bg-black/95 backdrop-blur-md border-b border-gray-800 h-14 items-center px-6 lg:px-10">
-        <div className="flex items-center gap-2 mr-8 lg:mr-12">
-          <div className="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center text-white font-bold text-sm">I</div>
+        <div className="flex items-center mr-8 lg:mr-12">
           <span className="font-bold text-lg tracking-tight bg-gradient-to-r from-white to-gray-500 bg-clip-text text-transparent">Ichidok</span>
         </div>
         <div className="flex items-center gap-1 lg:gap-2">
@@ -1419,6 +1418,10 @@ export default function Page() {
   const [topRated, setTopRated] = useState<Anime[]>([]);
   const [newReleases, setNewReleases] = useState<Anime[]>([]);
   const [classic, setClassic] = useState<Anime[]>([]);
+  const [movies, setMovies] = useState<Anime[]>([]);
+  const [specials, setSpecials] = useState<Anime[]>([]);
+  const [onas, setOnas] = useState<Anime[]>([]);
+  const [ovas, setOvas] = useState<Anime[]>([]);
   const [loading, setLoading] = useState(true);
   const [myList, setMyList] = useState<AnimeDetail[]>([]);
   const [history, setHistory] = useState<WatchHistoryEntry[]>([]);
@@ -1459,7 +1462,11 @@ export default function Page() {
       fetchSection("top-rated", 50),
       fetchSection("new-releases", 40),
       fetchSection("classic", 30),
-    ]).then(([sl, tr, po, wa, ai, fa, tt, tw, tm, tr2, nr, cl]) => {
+      fetchSection("movies", 40),
+      fetchSection("specials", 30),
+      fetchSection("onas", 30),
+      fetchSection("ovas", 30),
+    ]).then(([sl, tr, po, wa, ai, fa, tt, tw, tm, tr2, nr, cl, mv, sp, on, ov]) => {
       setSpotlight(sl);
       setTrending(tr);
       setPopular(po);
@@ -1472,11 +1479,15 @@ export default function Page() {
       setTopRated(tr2);
       setNewReleases(nr);
       setClassic(cl);
+      setMovies(mv);
+      setSpecials(sp);
+      setOnas(on);
+      setOvas(ov);
 
       // Build airing cache from all fetched anime — this is what powers
       // the "auto-import new episodes" feature. When AniList reports a
       // new nextAiringEpisode, getEpisodeCount() returns a higher number.
-      const allAnime = [...sl, ...tr, ...po, ...wa, ...ai, ...fa, ...tt, ...tw, ...tm, ...tr2, ...nr, ...cl];
+      const allAnime = [...sl, ...tr, ...po, ...wa, ...ai, ...fa, ...tt, ...tw, ...tm, ...tr2, ...nr, ...cl, ...mv, ...sp, ...on, ...ov];
       const cache: Record<number, { nextEpisode: number | null; airingAt: number | null } | undefined> = {};
       for (const a of allAnime) {
         if (a.nextAiringEpisode) {
@@ -1595,6 +1606,10 @@ export default function Page() {
                 <GridSection title="Top Rated of All Time" anime={topRated} onSelect={openDetail} />
                 <GridSection title="New Releases" anime={newReleases} onSelect={openDetail} />
                 <GridSection title="Classics" anime={classic} onSelect={openDetail} />
+                <HorizontalSection title="Movies" anime={movies} onSelect={openDetail} />
+                <HorizontalSection title="Specials" anime={specials} onSelect={openDetail} />
+                <HorizontalSection title="ONAs" anime={onas} onSelect={openDetail} />
+                <HorizontalSection title="OVAs" anime={ovas} onSelect={openDetail} />
               </div>
             </>
           )
@@ -1671,7 +1686,7 @@ export default function Page() {
           <div className="pt-12 md:pt-20 px-4 md:px-6 lg:px-8">
             <h1 className="text-2xl md:text-3xl font-bold text-white mb-4">Latest</h1>
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-x-3 md:gap-x-4 gap-y-5 md:gap-y-6 pb-8">
-              {[...newReleases, ...trending, ...popular].slice(0, 30).map((a) => <GridCard key={a.id + "-latest"} anime={a} onClick={() => openDetail(a)} />)}
+              {[...newReleases, ...trending, ...popular, ...movies, ...specials, ...onas, ...ovas].slice(0, 40).map((a) => <GridCard key={a.id + "-latest"} anime={a} onClick={() => openDetail(a)} />)}
             </div>
           </div>
         )}
